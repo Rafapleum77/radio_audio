@@ -416,49 +416,49 @@
                                 chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
                                 document.head.appendChild(chartScript);
 
-                                // Gráfico do Bitcoin (5 minutos)
-                                chartScript.onload = function() {
+                                // Gráfico Bitcoin com scroll contínuo
+                                let btcChartScroll = null;
+                                let btcScrollData = [];
+                                let btcScrollLabels = [];
+                                function startBTCScrollChart() {
                                     const ctx = document.getElementById('btcChart').getContext('2d');
-                                    let btcChart;
-                                    async function fetchBTC() {
-                                        // Binance API para candles de 5 minutos
-                                        const res = await fetch('https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=5m&limit=30');
-                                        const data = await res.json();
-                                        const labels = data.map(d => {
-                                            const date = new Date(d[0]);
-                                            return date.getHours().toString().padStart(2,'0')+':'+date.getMinutes().toString().padStart(2,'0');
-                                        });
-                                        const prices = data.map(d => parseFloat(d[4]));
-                                        if (!btcChart) {
-                                            btcChart = new Chart(ctx, {
-                                                type: 'line',
-                                                data: {
-                                                    labels: labels,
-                                                    datasets: [{
-                                                        label: 'BTC/USDT',
-                                                        data: prices,
-                                                        borderColor: '#00ff41',
-                                                        backgroundColor: 'rgba(0,255,65,0.1)',
-                                                        tension: 0.2,
-                                                        pointRadius: 0
-                                                    }]
-                                                },
-                                                options: {
-                                                    plugins: { legend: { labels: { color: '#00ff41' } } },
-                                                    scales: {
-                                                        x: { ticks: { color: '#00ff41' }, grid: { color: '#222' } },
-                                                        y: { ticks: { color: '#00ff41' }, grid: { color: '#222' } }
-                                                    }
-                                                }
-                                            });
-                                        } else {
-                                            btcChart.data.labels = labels;
-                                            btcChart.data.datasets[0].data = prices;
-                                            btcChart.update();
+                                    btcChartScroll = new Chart(ctx, {
+                                        type: 'line',
+                                        data: {
+                                            labels: btcScrollLabels,
+                                            datasets: [{
+                                                label: 'BTC/USDT',
+                                                data: btcScrollData,
+                                                borderColor: '#00ff41',
+                                                backgroundColor: 'rgba(0,255,65,0.1)',
+                                                tension: 0.2,
+                                                pointRadius: 0
+                                            }]
+                                        },
+                                        options: {
+                                            animation: false,
+                                            plugins: { legend: { labels: { color: '#00ff41' } } },
+                                            scales: {
+                                                x: { ticks: { color: '#00ff41' }, grid: { color: '#222' } },
+                                                y: { ticks: { color: '#00ff41' }, grid: { color: '#222' } }
+                                            }
                                         }
-                                    }
-                                    fetchBTC();
-                                    setInterval(fetchBTC, 60000);
+                                    });
+                                }
+                                async function updateBTCScrollChart() {
+                                    const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+                                    const data = await res.json();
+                                    const now = new Date();
+                                    const label = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0')+':'+now.getSeconds().toString().padStart(2,'0');
+                                    btcScrollLabels.push(label);
+                                    btcScrollData.push(parseFloat(data.price));
+                                    if (btcScrollLabels.length > 30) { btcScrollLabels.shift(); btcScrollData.shift(); }
+                                    if (btcChartScroll) btcChartScroll.update();
+                                }
+                                chartScript.onload = function() {
+                                    startBTCScrollChart();
+                                    setInterval(updateBTCScrollChart, 5000);
+                                    updateBTCScrollChart();
                                 }
 
                                 // Música de fundo automática
