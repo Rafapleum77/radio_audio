@@ -20,6 +20,51 @@
         .label { font-size: 10px; color: #555; display: block; margin-bottom: 5px; letter-spacing: 1px; }
         .price { color: #fff; font-weight: bold; float: right; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
 
+        /* Rádio de Tweets */
+        .tweet-radio-panel {
+            background: rgba(5, 5, 5, 0.92);
+            border: 1px solid #00ff41;
+            border-radius: 2px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(0,255,65,0.08);
+        }
+        .tweet-radio-panel h4 {
+            color: #00ff41;
+            margin-top: 0;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .tweet-radio-panel textarea {
+            width: 100%;
+            min-height: 70px;
+            background: #111;
+            color: #00ff41;
+            border: 1px solid #00ff41;
+            border-radius: 2px;
+            font-size: 1rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 10px;
+            padding: 8px;
+            resize: vertical;
+        }
+        .tweet-radio-panel button {
+            background: #00ff41;
+            color: #000;
+            border: none;
+            border-radius: 2px;
+            padding: 10px 18px;
+            font-size: 1rem;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: background 0.2s;
+        }
+        .tweet-radio-panel button:hover {
+            background: #fff;
+            color: #00ff41;
+        }
+
         .tetris-wrap { display: flex; flex-direction: column; align-items: center; }
         #tetris { border: 2px solid var(--neon-green); background: #000; box-shadow: 0 0 30px rgba(0,255,65,0.1); }
         .score-board { font-size: 28px; margin-bottom: 15px; letter-spacing: 3px; }
@@ -42,7 +87,13 @@
     </div>
 
     <div class="main-grid">
-        <div class="glass-panel">
+        <div>
+            <div class="tweet-radio-panel">
+                <h4>RÁDIO DE TWEETS</h4>
+                <textarea id="tweets" placeholder="Cole aqui os tweets ou textos para ouvir..."></textarea>
+                <button onclick="lerTweets()">🔊 Ouvir Tweets</button>
+            </div>
+            <div class="glass-panel">
             <h4 style="margin:0 0 15px 0;">[ ASSET MONITOR ]</h4>
             <div class="data-box">
                 <span class="label">BITCOIN / USD</span>
@@ -83,6 +134,17 @@
     </div>
 
     <script>
+                // Rádio de Tweets - Síntese de Voz
+                function lerTweets() {
+                    const texto = document.getElementById('tweets').value;
+                    if ('speechSynthesis' in window) {
+                        const utter = new SpeechSynthesisUtterance(texto);
+                        utter.lang = 'pt-BR';
+                        window.speechSynthesis.speak(utter);
+                    } else {
+                        alert('Seu navegador não suporta síntese de voz.');
+                    }
+                }
         // PREÇOS REAL-TIME
         async function updatePrices() {
             try {
