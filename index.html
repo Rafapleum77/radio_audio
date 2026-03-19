@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -174,6 +175,30 @@
     </div>
 
     <div class="main-grid">
+        <!-- Rádio Gadget Panel -->
+        <div style="display:flex;align-items:center;gap:24px;background:rgba(5,5,5,0.92);border:2px solid #00ff41;border-radius:12px;padding:24px;box-shadow:0 0 24px #00ff41a0;max-width:600px;margin:32px auto;">
+            <img src="dj_gadget.png" alt="DJ Gadget" style="height:120px;border-radius:12px;box-shadow:0 0 18px #00ff41a0;">
+            <div style="flex:1;">
+                <button id="playRadioBtn" style="background:#00ff41;color:#000;border:none;border-radius:8px;padding:16px 32px;font-size:1.3rem;font-family:'Orbitron',monospace;cursor:pointer;box-shadow:0 0 12px #00ff41a0;">🔊 Ouvir Rádio Rock</button>
+                <div id="radioStatusGadget" style="margin-top:12px;color:#00ff41;font-size:1.1rem;"></div>
+                <audio id="rockRadio" src="https://stream.rockradio.com/rock" controls autoplay loop style="width:100%;margin-top:18px;display:none;"></audio>
+            </div>
+        </div>
+        <script>
+        // Rádio Rock Gadget
+        const playBtn = document.getElementById('playRadioBtn');
+        const radioAudio = document.getElementById('rockRadio');
+        const statusDiv = document.getElementById('radioStatusGadget');
+        playBtn.onclick = function() {
+            radioAudio.style.display = 'block';
+            radioAudio.volume = 0.7;
+            radioAudio.play().then(()=>{
+                statusDiv.textContent = 'Rádio Rock tocando ao vivo!';
+            }).catch(()=>{
+                statusDiv.textContent = 'Não foi possível tocar a rádio.';
+            });
+        };
+        </script>
             <div class="clock-gadget" id="clockGadget">00:00:00</div>
             <!-- Painel Rádio IA -->
             <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00ff41 100%);box-shadow:0 0 24px #00ff41a0;margin-bottom:25px;min-width:320px;">
@@ -210,128 +235,57 @@
                 </div>
                 <div style="margin-top:12px; color:#fff; font-size:0.95rem; text-align:center;">Plataforma integrada, institucional e disruptiva.</div>
             </div>
-        <div>
-            <div class="polymarket-panel" id="polymarket-panel">
-                <h4>POLYMARKET - MAIOR VOLUME</h4>
-                <div id="polymarket-markets">
-                    Carregando mercados...
+        <div style="display:flex; gap:32px; justify-content:center; align-items:flex-start;">
+            <div style="flex:1; min-width:340px;">
+                <div class="btc-chart-panel">
+                    <h4>GRÁFICO BITCOIN (5 MIN)</h4>
+                    <canvas id="btcChart" width="340" height="220"></canvas>
+                </div>
+                <div class="polymarket-panel" id="polymarket-panel">
+                    <h4>POLYMARKET - MAIOR VOLUME</h4>
+                    <div id="polymarket-markets">Carregando mercados...</div>
+                </div>
+                <div class="glass-panel">
+                    <h4 style="margin:0 0 15px 0;">[ ASSET MONITOR ]</h4>
+                    <div class="data-box">
+                        <span class="label">BITCOIN / USD</span>
+                        <span class="price" id="btc-val">LOAD...</span>
+                    </div>
+                    <div class="data-box">
+                        <span class="label">GOLD / OZ</span>
+                        <span class="price" id="gold-val">---</span>
+                    </div>
+                    <div class="data-box">
+                        <span class="label">SILVER / OZ</span>
+                        <span class="price" id="silver-val">---</span>
+                    </div>
+                    <div class="data-box">
+                        <span class="label">PETRÓLEO / BBL</span>
+                        <span class="price" id="oil-val">---</span>
+                    </div>
+                    <h4 style="color:#00d4ff; margin-top:25px;">[ POLYMARKET ]</h4>
+                    <div class="data-box" style="border-left: 2px solid #00d4ff;">
+                        <span class="label">BTC > $100K MARÇO?</span>
+                        <span style="color:#00d4ff;">CHANCE: 24%</span>
+                    </div>
                 </div>
             </div>
-            <div class="btc-chart-panel">
-                <h4>GRÁFICO BITCOIN (5 MIN)</h4>
-                <canvas id="btcChart" width="300" height="180"></canvas>
-            </div>
-            <div class="tweet-radio-panel">
-                <h4>RÁDIO DE TWEETS</h4>
-                <button id="startRadioBtn">🎙️ Iniciar Rádio</button>
-                <div id="radioStatus" style="margin-top:10px;color:#00ff41;font-size:1.1rem;"></div>
-            </div>
-            <div class="glass-panel">
-            <h4 style="margin:0 0 15px 0;">[ ASSET MONITOR ]</h4>
-            <div class="data-box">
-                <span class="label">BITCOIN / USD</span>
-                <span class="price" id="btc-val">LOAD...</span>
-            </div>
-            <div class="data-box">
-                <span class="label">GOLD / OZ</span>
-                <span class="price" id="gold-val">---</span>
-            </div>
-            <div class="data-box">
-                <span class="label">SILVER / OZ</span>
-                <span class="price" id="silver-val">---</span>
-            </div>
-            <div class="data-box">
-                <span class="label">PETRÓLEO / BBL</span>
-                <span class="price" id="oil-val">---</span>
-            </div>
-            <h4 style="color:#00d4ff; margin-top:25px;">[ POLYMARKET ]</h4>
-            <div class="data-box" style="border-left: 2px solid #00d4ff;">
-                <span class="label">BTC > $100K MARÇO?</span>
-                <span style="color:#00d4ff;">CHANCE: 24%</span>
+            <div style="flex:1; min-width:340px;">
+                <div class="tetris-wrap">
+                    <div class="next-piece-box">
+                        <canvas id="next-piece" width="80" height="80"></canvas>
+                    </div>
+                    <canvas id="tetris" width="240" height="400"></canvas>
+                    <div class="score-board" style="font-size:32px;color:#f0a000;text-shadow:0 0 12px #f0a000a0;margin-top:18px;letter-spacing:3px;background:#111;border-radius:8px;padding:8px 24px;display:inline-block;">SCORE: <span id="score">0</span></div>
+                </div>
             </div>
         </div>
-
-        <div class="tetris-wrap">
-            <div class="next-piece-box">
-                <canvas id="next-piece" width="80" height="80"></canvas>
-            </div>
-            <canvas id="tetris" width="240" height="400"></canvas>
-            <div class="score-board" style="font-size:32px;color:#f0a000;text-shadow:0 0 12px #f0a000a0;margin-top:18px;letter-spacing:3px;background:#111;border-radius:8px;padding:8px 24px;display:inline-block;">SCORE: <span id="score">0</span></div>
-            <audio controls loop>
-                <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
-            </audio>
-            <audio id="bgmusic" src="Bitcoin e Salvação.mp3" loop autoplay style="display:none"></audio>
-            <script>
-                        // Rádio IA - Voz sintética
-                        document.getElementById('playIA').onclick = function() {
-                            const texto = 'Bem-vindo à Rádio Bitcoin. Aqui você ouve notícias, análises e insights em tempo real, com linguagem de inteligência artificial. Fique ligado nas tendências, dicas dos agentes IA e tudo sobre Bitcoin.';
-                            document.getElementById('iaStatus').textContent = 'Rádio IA falando...';
-                            if ('speechSynthesis' in window) {
-                                const utter = new SpeechSynthesisUtterance(texto);
-                                utter.lang = 'pt-BR';
-                                utter.rate = 1.05;
-                                utter.voice = speechSynthesis.getVoices().find(v=>v.name.includes('Google')||v.name.includes('Microsoft')||v.lang==='pt-BR') || null;
-                                utter.onend = ()=>{document.getElementById('iaStatus').textContent = 'Rádio IA finalizada.';};
-                                window.speechSynthesis.speak(utter);
-                            } else {
-                                document.getElementById('iaStatus').textContent = 'Seu navegador não suporta voz IA.';
-                            }
-                        };
-                        // Agentes IA - Simulação
-                        document.getElementById('askAgent').onclick = function() {
-                            document.getElementById('agentStatus').textContent = 'Agente IA: Dica do dia - Compartilhe sua rádio, interaja com a comunidade e fique atento às tendências do Bitcoin!';
-                            setTimeout(()=>{
-                                document.getElementById('agentStatus').textContent = '';
-                            }, 12000);
-                        };
-                // Perfis selecionados
-                const perfis = [
-                    'R38TAO', '0x_Descobrir', '0xCVYH', 'polymarketeiro', 'CortesTrezoitao', 'VoxLiberdade', 'LordWottonBR', 'jpmayall',
-                    'MisesDev', 'bitdov', 'ojedabtc', 'elonmusk', 'realDonaldTrump'
-                ];
-                // Mock de publicações recentes (substitua por API real)
-                const tweetsMock = {
-                    'R38TAO': 'Bitcoin é liberdade. O futuro é descentralizado.',
-                    '0x_Descobrir': 'A revolução digital está só começando.',
-                    '0xCVYH': 'O poder do código muda o mundo.',
-                    'polymarketeiro': 'Polymarket: onde a verdade é negociada.',
-                    'CortesTrezoitao': 'Trezoitão: notícias rápidas e diretas.',
-                    'VoxLiberdade': 'Liberdade é o maior valor.',
-                    'LordWottonBR': 'A arte de pensar livremente.',
-                    'jpmayall': 'Economia, política e Bitcoin.',
-                    'MisesDev': 'Desenvolvimento e liberdade econômica.',
-                    'bitdov': 'Bitcoin para todos!',
-                    'ojedabtc': 'Sats são o novo ouro.',
-                    'elonmusk': 'Vamos para Marte!',
-                    'realDonaldTrump': 'Make America Great Again!'
-                };
-                // Função para ler tweets em sequência
-                async function iniciarRadio() {
-                    document.getElementById('radioStatus').textContent = 'Rádio iniciada: lendo publicações...';
-                    const bg = document.getElementById('bgmusic');
-                    if (bg) { bg.volume = 0.5; bg.play().catch(()=>{}); }
-                    for (const perfil of perfis) {
-                        const texto = tweetsMock[perfil] || 'Sem publicação encontrada.';
-                        await lerTexto(texto);
-                    }
-                    document.getElementById('radioStatus').textContent = 'Rádio finalizada.';
-                }
-                // Função para ler texto em voz alta
-                function lerTexto(texto) {
-                    return new Promise(resolve => {
-                        if ('speechSynthesis' in window) {
-                            const utter = new SpeechSynthesisUtterance(texto);
-                            utter.lang = 'pt-BR';
-                            utter.rate = 1.05;
-                            utter.onend = resolve;
-                            window.speechSynthesis.speak(utter);
-                        } else {
-                            resolve();
-                        }
-                    });
-                }
-                document.getElementById('startRadioBtn').onclick = iniciarRadio;
-            </script>
+        <div class="tweet-radio-panel" style="margin-top:32px;">
+            <h4>RÁDIO DE TWEETS</h4>
+            <button id="startRadioBtn">🎙️ Iniciar Rádio</button>
+            <div id="radioStatus" style="margin-top:10px;color:#00ff41;font-size:1.1rem;"></div>
+        </div>
+        <!-- ...existing code... -->
         </div>
 
         <!-- Painel Evolução IA -->
