@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BITADICT // TERMINAL V3.0</title>
+    <title>BITADICT // TERMINAL V3.5</title>
     <style>
         :root { 
             --neon-green: #00ff41; 
@@ -17,35 +17,34 @@
             color: var(--neon-green); 
             font-family: 'Courier New', monospace; 
             margin: 0; 
-            padding-top: 90px; 
+            padding-top: 100px; 
             display: flex; 
             flex-direction: column; 
             align-items: center;
-            overflow-x: hidden;
         }
 
         #bg-grid { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
-            background: linear-gradient(0deg, rgba(0,255,65,0.03) 1px, transparent 1px), 
-                        linear-gradient(90deg, rgba(0,255,65,0.03) 1px, transparent 1px); 
-            background-size: 50px 50px; 
+            background: linear-gradient(0deg, rgba(0,255,65,0.03) 2px, transparent 2px), 
+                        linear-gradient(90deg, rgba(0,255,65,0.03) 2px, transparent 2px); 
+            background-size: 60px 60px; 
         }
 
         .header { 
             position: fixed; top: 0; width: 100%; 
             border-bottom: 3px solid var(--neon-green); 
             background: rgba(0,0,0,0.95); 
-            padding: 20px; text-align: center; 
-            letter-spacing: 6px; z-index: 1000; 
-            font-size: 22px;
+            padding: 25px; text-align: center; 
+            letter-spacing: 8px; z-index: 1000; 
+            font-size: 26px; /* Letra maior no topo */
             font-weight: bold;
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 35px rgba(0, 255, 65, 0.4);
         }
 
         .main-grid { 
             display: grid; 
-            grid-template-columns: 350px 1fr 350px; 
-            gap: 30px; 
+            grid-template-columns: 380px 1fr 380px; 
+            gap: 35px; 
             width: 98%; 
             max-width: 1800px; 
             padding: 20px;
@@ -54,69 +53,96 @@
         .glass-panel { 
             background: var(--panel-bg); 
             border: 2px solid var(--neon-green); 
-            border-radius: 8px; 
-            padding: 25px; 
-            box-shadow: 0 0 20px rgba(0,255,65,0.1);
+            border-radius: 10px; 
+            padding: 30px; 
+            box-shadow: 0 0 25px rgba(0,255,65,0.15);
         }
 
         .panel-title {
-            font-size: 18px;
+            font-size: 22px; /* Título maior */
             text-transform: uppercase;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--neon-green);
-            padding-bottom: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--neon-green);
+            padding-left: 15px;
             color: #fff;
             display: block;
         }
 
-        /* FONTES MAIORES NOS ATIVOS */
-        .section-label { color: var(--neon-blue); font-size: 14px; margin: 20px 0 10px 0; font-weight: bold;}
+        /* FONTES DOS ATIVOS */
+        .section-label { color: var(--neon-blue); font-size: 16px; margin: 25px 0 12px 0; font-weight: bold; text-transform: uppercase;}
         .data-row { 
             display: flex; justify-content: space-between; 
-            margin-bottom: 15px; padding: 12px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 5px;
-            font-size: 18px; /* Fonte aumentada */
+            margin-bottom: 18px; padding: 15px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 6px;
+            font-size: 22px; /* Letra dos preços bem maior */
+            border: 1px solid rgba(0,255,65,0.1);
         }
-        .price { color: #fff; font-weight: bold; }
+        .price { color: #fff; font-weight: bold; text-shadow: 0 0 10px rgba(0,255,65,0.5); }
 
         /* TETRIS CENTER */
         .tetris-container { display: flex; flex-direction: column; align-items: center; }
         #tetris { 
-            border: 4px solid var(--neon-green); 
+            border: 5px solid var(--neon-green); 
             background: #000; 
-            box-shadow: 0 0 50px rgba(0,255,65,0.15);
+            box-shadow: 0 0 60px rgba(0,255,65,0.2);
+            image-rendering: pixelated;
         }
-        .score-board { font-size: 32px; margin-bottom: 15px; color: #fff; }
-
-        /* POLYMARKET */
-        .poly-card { 
-            border-left: 4px solid var(--neon-blue); 
-            background: rgba(0, 210, 255, 0.1); 
-            padding: 15px; margin-bottom: 15px;
-            font-size: 16px;
-        }
+        .score-board { font-size: 40px; margin-bottom: 20px; color: #fff; text-shadow: 0 0 15px var(--neon-green); }
 
         .btn-donate { 
             display: block; background: var(--neon-green); color: #000; 
-            padding: 20px; text-align: center; text-decoration: none; 
-            font-weight: bold; font-size: 18px; margin-top: 25px; 
-            transition: all 0.2s ease;
+            padding: 25px; text-align: center; text-decoration: none; 
+            font-weight: bold; font-size: 22px; margin-top: 30px; 
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0,255,65,0.3);
         }
-        .btn-donate:hover { background: #fff; transform: scale(1.02); }
+        .btn-donate:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 0 40px var(--neon-green); }
 
-        audio { width: 100%; filter: invert(1) hue-rotate(85deg) contrast(1.2); margin-top: 15px; }
+        audio { width: 100%; filter: invert(1) hue-rotate(90deg); margin-top: 20px; opacity: 0.8; }
     </style>
 </head>
 <body>
     <div id="bg-grid"></div>
-    <div class="header">RADIO BITADICT // TERMINAL V3.0 // SOBERANIA DIGITAL</div>
+    <div class="header">RADIO BITADICT // TERMINAL V3.5 // SOBERANIA DIGITAL</div>
+
+    <audio id="bg-music" loop>
+        <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="main-grid">
         <div class="glass-panel">
             <span class="panel-title">Asset Scanner</span>
             
             <div class="section-label">CRYPTOCURRENCY</div>
-            <div class="data-row"><span>BTC/USD</span> <span class="price" id="btc-val">00,000</span></div>
+            <div class="data-row"><span>BTC/USD</span> <span class="price" id="btc-val">LOAD...</span></div>
             
-            <div class="section-label
+            <div class="section-label">COMMODITIES</div>
+            <div class="data-row"><span>GOLD/OZ</span> <span class="price" id="gold-val">---</span></div>
+            <div class="data-row"><span>SILVER/OZ</span> <span class="price" id="silver-val">---</span></div>
+            <div class="data-row"><span>WTI OIL</span> <span class="price" id="oil-val">---</span></div>
+            
+            <div class="section-label" style="margin-top:40px;">POLYMKT PREDICTIONS</div>
+            <div style="font-size:18px; color:#fff; border-left:4px solid var(--neon-blue); padding:15px; background:rgba(0,210,255,0.1);">
+                BTC > $100K MARÇO? <br><strong style="color:var(--neon-blue)">CHANCE: 24%</strong>
+            </div>
+        </div>
+
+        <div class="tetris-container">
+            <div class="score-board">SCORE: <span id="score">0</span></div>
+            <canvas id="tetris" width="240" height="400"></canvas>
+            
+            <div class="glass-panel" style="width:100%; margin-top:35px; border-color: var(--neon-blue);">
+                <audio controls autoplay loop><source src="noticias.mp3"></audio>
+                <p style="font-size:14px; text-align:center; color:var(--neon-blue); margin-top:12px; font-weight:bold;">
+                    RADIO FEED // LOCUTOR AI 24H
+                </p>
+            </div>
+        </div>
+
+        <div class="glass-panel" style="text-align: center;">
+            <span class="panel-title" style="text-align:left;">Sovereignty</span>
+            <span style="font-size: 32px; color: #fff; font-weight: bold; letter-spacing: 3px;">@BITADICT</span>
+            
+            <div style="margin: 35px 0; background: #fff; padding: 20px;
