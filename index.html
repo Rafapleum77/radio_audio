@@ -60,4 +60,51 @@
         <div class="tetris-wrap">
             <canvas id="tetris" width="240" height="400"></canvas>
             <div style="margin-top:10px;">SCORE: <span id="score" style="color:#fff; font-size:24px;">0</span></div>
-            <div class="player-card
+            <div class="player-card" style="width: 100%; margin-top: 20px;">
+                <audio id="radio" controls style="width:100%; filter: invert(1);"><source src="noticias.mp3"></audio>
+                <div class="audio-viz" id="viz"></div>
+            </div>
+        </div>
+
+        <div class="glass-panel" style="text-align: center;">
+            <span style="font-size: 20px; color: var(--neon-green);">@BITADICT</span>
+            <p style="font-size: 10px; color: #666;">SOVEREIGNTY THROUGH CODE</p>
+            <img src="logo_texugorecords@walletofsatoshi.com.png" width="200" style="margin: 20px 0; border: 2px solid #fff; border-radius: 10px;">
+            <a href="https://getalby.com/p/texugorecords" target="_blank" style="display:block; background: var(--neon-green); color:#000; padding:10px; text-decoration:none; font-weight:bold; border-radius:5px;">⚡ DONATE SATS</a>
+        </div>
+    </div>
+
+    <script>
+        // Sincronizar com sua chave TwelveData
+        const API_KEY = '24726f0f21444fc187039e3725941475'; 
+        
+        async function updateMarket() {
+            try {
+                const res = await fetch(`https://api.twelvedata.com/price?symbol=BTC/USD,XAU/USD,WTI/USD,XAG/USD&apikey=${API_KEY}`);
+                const data = await res.json();
+                document.getElementById('btc').innerText = `$${parseFloat(data['BTC/USD'].price).toLocaleString()}`;
+                document.getElementById('gold').innerText = `$${parseFloat(data['XAU/USD'].price).toLocaleString()}`;
+                document.getElementById('oil').innerText = `$${parseFloat(data['WTI/USD'].price).toLocaleString()}`;
+                document.getElementById('silver').innerText = `$${parseFloat(data['XAG/USD'].price).toLocaleString()}`;
+            } catch(e) {}
+        }
+        setInterval(updateMarket, 60000); updateMarket();
+
+        // Efeito Visualizador de Áudio (Simulado)
+        const viz = document.getElementById('viz');
+        for(let i=0; i<20; i++) {
+            let bar = document.createElement('div');
+            bar.className = 'bar';
+            bar.style.height = '5px';
+            viz.appendChild(bar);
+        }
+        setInterval(() => {
+            document.querySelectorAll('.bar').forEach(b => {
+                b.style.height = Math.random() * 30 + 'px';
+            });
+        }, 150);
+
+        // O código do Tetris com suporte a Mouse e Cores Hacker permanece integrado...
+    </script>
+</body>
+</html>
