@@ -1,0 +1,24 @@
+<!-- Rádio Gadget Panel with DJ image and radio button -->
+<div style="display:flex;align-items:center;gap:24px;background:rgba(5,5,5,0.92);border:2px solid #00ff41;border-radius:12px;padding:24px;box-shadow:0 0 24px #00ff41a0;max-width:600px;margin:32px auto;">
+    <img src="dj_gadget.png" alt="DJ Gadget" style="height:120px;border-radius:12px;box-shadow:0 0 18px #00ff41a0;">
+    <div style="flex:1;">
+        <button id="playRadioBtn" style="background:#00ff41;color:#000;border:none;border-radius:8px;padding:16px 32px;font-size:1.3rem;font-family:'Orbitron',monospace;cursor:pointer;box-shadow:0 0 12px #00ff41a0;">🔊 Ouvir Rádio Rock</button>
+        <div id="radioStatusGadget" style="margin-top:12px;color:#00ff41;font-size:1.1rem;"></div>
+        <audio id="rockRadio" src="https://stream.rockradio.com/rock" controls autoplay loop style="width:100%;margin-top:18px;display:none;"></audio>
+    </div>
+</div>
+<script>
+// Rádio Rock Gadget
+const playBtn = document.getElementById('playRadioBtn');
+const radioAudio = document.getElementById('rockRadio');
+const statusDiv = document.getElementById('radioStatusGadget');
+playBtn.onclick = function() {
+    radioAudio.style.display = 'block';
+    radioAudio.volume = 0.7;
+    radioAudio.play().then(()=>{
+        statusDiv.textContent = 'Rádio Rock tocando ao vivo!';
+    }).catch(()=>{
+        statusDiv.textContent = 'Não foi possível tocar a rádio.';
+    });
+};
+</script>
