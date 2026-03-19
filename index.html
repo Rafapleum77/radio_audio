@@ -2,47 +2,119 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Radio Bitadict - LIVE</title>
     <style>
-        body { background-color: #000; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding-top: 100px; margin: 0; }
-        .ticker-wrap { position: fixed; top: 0; width: 100%; overflow: hidden; background: #121212; border-bottom: 2px solid #1DB954; padding: 15px 0; z-index: 1000; }
-        .ticker { display: inline-block; white-space: nowrap; animation: ticker 25s linear infinite; font-weight: bold; font-size: 22px; color: #1DB954; }
+        body { 
+            background-color: #080808; 
+            color: white; 
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding-top: 100px; 
+            margin: 0; 
+        }
+        /* ESTEIRA DE COTAÇÕES */
+        .ticker-wrap { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            overflow: hidden; 
+            background: rgba(18, 18, 18, 0.95); 
+            border-bottom: 2px solid #1DB954; 
+            padding: 15px 0; 
+            z-index: 1000; 
+        }
+        .ticker { 
+            display: inline-block; 
+            white-space: nowrap; 
+            animation: ticker 25s linear infinite; 
+            font-weight: bold; 
+            font-size: 22px; 
+            color: #1DB954; 
+        }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
         .ticker span { margin-right: 60px; }
-        .partners { display: flex; gap: 40px; margin-bottom: 20px; align-items: center; }
-        .partner-logo { height: 60px; border-radius: 10px; }
-        .player-card { background: #181818; padding: 40px; border-radius: 25px; text-align: center; width: 450px; border: 1px solid #333; }
-        .handle { display: block; font-size: 36px; font-weight: bold; color: #1DB954; margin: 20px 0; }
-        .btn-donate { background: #F7931A; color: black; padding: 15px 30px; border-radius: 12px; text-decoration: none; font-weight: bold; display: inline-block; margin: 20px 0; }
-        .qr-area { background: white; padding: 15px; border-radius: 15px; display: inline-block; margin-top: 10px; }
-        audio { width: 100%; filter: invert(100%); margin-bottom: 20px; }
+
+        /* PARCEIROS */
+        .partners { 
+            display: flex; 
+            gap: 30px; 
+            margin-bottom: 30px; 
+            background: #121212; 
+            padding: 15px 30px; 
+            border-radius: 50px; 
+            border: 1px solid #333; 
+        }
+        .partner-logo { height: 50px; border-radius: 5px; transition: 0.3s; }
+
+        /* PLAYER CARD */
+        .player-card { 
+            background: #121212; 
+            padding: 40px; 
+            border-radius: 30px; 
+            text-align: center; 
+            width: 450px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8); 
+            border: 1px solid #222; 
+        }
+        .handle { 
+            display: block; 
+            font-size: 38px; 
+            font-weight: 900; 
+            color: #1DB954; 
+            margin-bottom: 25px; 
+        }
+        
+        .btn-donate { 
+            background: #F7931A; 
+            color: black; 
+            padding: 18px 35px; 
+            border-radius: 15px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            display: inline-block; 
+            margin: 25px 0; 
+        }
+
+        .qr-area { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 20px; 
+            display: inline-block; 
+        }
+
+        audio { width: 100%; filter: invert(90%) hue-rotate(90deg); margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
     <div class="ticker-wrap">
         <div class="ticker">
-            <span id="btc">BTC: Carregando...</span>
-            <span>LIVECOINS & STACKBIT: PARCEIROS DA SOBERANIA</span>
-            <span>@BITADICT: RÁDIO BITCOIN MAXIMALISTA 24H</span>
+            <span id="btc">BITCOIN: CARREGANDO...</span>
+            <span>LIVECOINS & STACKBIT: PARCEIROS DA SOBERANIA DIGITAL</span>
+            <span>@BITADICT: A VOZ DA REVOLUÇÃO BITCOIN</span>
         </div>
     </div>
 
     <div class="partners">
-        <img src="image_40415f.png" class="partner-logo">
-        <img src="Captura de ecrã 2026-03-18 234933.jpg" class="partner-logo">
+        <img src="image_40415f.png" class="partner-logo" alt="Livecoins">
+        <img src="Captura de ecrã 2026-03-18 234933.jpg" class="partner-logo" alt="Stackbit">
     </div>
 
     <div class="player-card">
         <span class="handle">@bitadict</span>
         
-        <audio controls autoplay loop><source src="noticias.mp3" type="audio/mpeg"></audio>
+        <audio controls autoplay>
+            <source src="noticias.mp3" type="audio/mpeg">
+        </audio>
 
         <a href="https://getalby.com/p/texugorecords" target="_blank" class="btn-donate">⚡ APOIE A RÁDIO (ALBY)</a>
 
         <div class="qr-area">
-            <p style="color: black; font-weight: bold; font-size: 12px; margin: 0 0 10px 0;">DONATE WALLET OF SATOSHI</p>
-            <img src="logo_texugorecords@walletofsatoshi.com.png" width="180">
+            <p style="color: black; font-weight: bold; margin-bottom: 10px;">DONATE WALLET OF SATOSHI</p>
+            <img src="logo_texugorecords@walletofsatoshi.com.png" width="200" alt="QR Code">
         </div>
     </div>
 
@@ -52,7 +124,7 @@
                 const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
                 const data = await res.json();
                 document.getElementById('btc').innerText = "BITCOIN: $" + parseFloat(data.price).toLocaleString();
-            } catch(e) {}
+            } catch(e) { }
         }
         getBTC(); setInterval(getBTC, 30000);
     </script>
