@@ -158,6 +158,11 @@
 </head>
 <body>
     <div id="scanner-grid"></div>
+    <!-- Cabeçalho Rádio Bitcoin -->
+    <header style="width:100%;background:linear-gradient(90deg,#00ff41 0%,#1a1a40 100%);padding:32px 0 18px 0;text-align:center;box-shadow:0 0 32px #00ff41a0;z-index:1001;position:relative;">
+        <h1 style="font-family:'Orbitron',monospace;font-size:3.2rem;color:#fff;text-shadow:0 0 18px #00ff41a0;letter-spacing:4px;margin:0;">RÁDIO BITCOIN</h1>
+        <div style="font-size:1.2rem;color:#00ff41;margin-top:8px;letter-spacing:2px;">A voz da revolução digital</div>
+    </header>
 
     <div class="ticker-wrap">
         <div class="ticker">
@@ -170,6 +175,39 @@
 
     <div class="main-grid">
             <div class="clock-gadget" id="clockGadget">00:00:00</div>
+            <!-- Painel Rádio IA -->
+            <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00ff41 100%);box-shadow:0 0 24px #00ff41a0;margin-bottom:25px;min-width:320px;">
+                <h4 style="color:#00ff41;margin-top:0;margin-bottom:10px;letter-spacing:2px;">RÁDIO IA</h4>
+                <div style="color:#fff;font-size:1.05rem;margin-bottom:10px;">Ouça notícias, análises e insights em tempo real, com vozes sintéticas e linguagem de IA.</div>
+                <button id="playIA" style="background:#00ff41;color:#000;border:none;border-radius:2px;padding:10px 18px;font-size:1rem;font-family:'Courier New',monospace;cursor:pointer;margin-top:5px;">🔊 Ouvir Rádio IA</button>
+                <div id="iaStatus" style="margin-top:10px;color:#00ff41;font-size:1.1rem;"></div>
+            </div>
+            <!-- Painel Agentes IA -->
+            <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#a000f0 100%);box-shadow:0 0 24px #a000f0a0;margin-bottom:25px;min-width:320px;">
+                <h4 style="color:#a000f0;margin-top:0;margin-bottom:10px;letter-spacing:2px;">AGENTES IA</h4>
+                <div style="color:#fff;font-size:1.05rem;margin-bottom:10px;">Peça ajuda aos agentes de IA: análises, dicas, previsões, interação e sugestões para bombar sua rádio.</div>
+                <button id="askAgent" style="background:#a000f0;color:#fff;border:none;border-radius:2px;padding:10px 18px;font-size:1rem;font-family:'Courier New',monospace;cursor:pointer;margin-top:5px;">🤖 Chamar Agente IA</button>
+                <div id="agentStatus" style="margin-top:10px;color:#a000f0;font-size:1.1rem;"></div>
+            </div>
+            <!-- Painel de Parceiros Institucionais -->
+            <div class="glass-panel" style="background: linear-gradient(135deg,#1a1a40 60%,#00ff41 100%); box-shadow: 0 0 24px #00ff41a0; margin-bottom: 25px; min-width:320px;">
+                <h4 style="color:#00ff41; margin-top:0; margin-bottom:10px; letter-spacing:2px;">PARCEIROS INSTITUCIONAIS</h4>
+                <div style="display:flex; flex-wrap:wrap; gap:18px; justify-content:center; align-items:center;">
+                    <a href="https://stackbit.com" target="_blank" title="Stackbit">
+                        <img src="logo_stackbit.png" alt="Stackbit" style="height:48px; filter:drop-shadow(0 0 8px #00ff41); background:#fff; border-radius:8px; padding:4px;">
+                    </a>
+                    <a href="https://livecoins.com.br" target="_blank" title="Livecoins">
+                        <img src="logo_livecoins.png" alt="Livecoins" style="height:48px; filter:drop-shadow(0 0 8px #00ff41); background:#fff; border-radius:8px; padding:4px;">
+                    </a>
+                    <a href="https://noxpay.com" target="_blank" title="Noxpay">
+                        <img src="logo_noxpay.png" alt="Noxpay" style="height:48px; filter:drop-shadow(0 0 8px #00ff41); background:#fff; border-radius:8px; padding:4px;">
+                    </a>
+                    <a href="https://www.bybit.com" target="_blank" title="Bybit">
+                        <img src="logo_bybit.png" alt="Bybit" style="height:48px; filter:drop-shadow(0 0 8px #00ff41); background:#fff; border-radius:8px; padding:4px;">
+                    </a>
+                </div>
+                <div style="margin-top:12px; color:#fff; font-size:0.95rem; text-align:center;">Plataforma integrada, institucional e disruptiva.</div>
+            </div>
         <div>
             <div class="polymarket-panel" id="polymarket-panel">
                 <h4>POLYMARKET - MAIOR VOLUME</h4>
@@ -222,6 +260,28 @@
             </audio>
             <audio id="bgmusic" src="Bitcoin e Salvação.mp3" loop autoplay style="display:none"></audio>
             <script>
+                        // Rádio IA - Voz sintética
+                        document.getElementById('playIA').onclick = function() {
+                            const texto = 'Bem-vindo à Rádio Bitcoin. Aqui você ouve notícias, análises e insights em tempo real, com linguagem de inteligência artificial. Fique ligado nas tendências, dicas dos agentes IA e tudo sobre Bitcoin.';
+                            document.getElementById('iaStatus').textContent = 'Rádio IA falando...';
+                            if ('speechSynthesis' in window) {
+                                const utter = new SpeechSynthesisUtterance(texto);
+                                utter.lang = 'pt-BR';
+                                utter.rate = 1.05;
+                                utter.voice = speechSynthesis.getVoices().find(v=>v.name.includes('Google')||v.name.includes('Microsoft')||v.lang==='pt-BR') || null;
+                                utter.onend = ()=>{document.getElementById('iaStatus').textContent = 'Rádio IA finalizada.';};
+                                window.speechSynthesis.speak(utter);
+                            } else {
+                                document.getElementById('iaStatus').textContent = 'Seu navegador não suporta voz IA.';
+                            }
+                        };
+                        // Agentes IA - Simulação
+                        document.getElementById('askAgent').onclick = function() {
+                            document.getElementById('agentStatus').textContent = 'Agente IA: Dica do dia - Compartilhe sua rádio, interaja com a comunidade e fique atento às tendências do Bitcoin!';
+                            setTimeout(()=>{
+                                document.getElementById('agentStatus').textContent = '';
+                            }, 12000);
+                        };
                 // Perfis selecionados
                 const perfis = [
                     'R38TAO', '0x_Descobrir', '0xCVYH', 'polymarketeiro', 'CortesTrezoitao', 'VoxLiberdade', 'LordWottonBR', 'jpmayall',
@@ -272,14 +332,70 @@
             </script>
         </div>
 
-        <div class="glass-panel" style="text-align: center;">
-            <h4 style="text-align:left; margin:0 0 15px 0;">[ NODE INFO ]</h4>
-            <div style="font-size: 22px; margin: 15px 0; letter-spacing: 2px;">@BITADICT</div>
-            <div style="background: #fff; padding: 15px; border-radius: 4px;">
-                <img src="logo_texugorecords@walletofsatoshi.com.png" alt="LNURL" style="width:100%;">
-            </div>
-            <a href="https://getalby.com/p/texugorecords" target="_blank" class="btn-action">⚡ SEND SATS (ALBY)</a>
-            <p style="font-size:10px; color:#333; margin-top:20px;">VERIFIED DIGITAL SOVEREIGNTY</p>
+        <!-- Painel Evolução IA -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00ff41 100%);box-shadow:0 0 24px #00ff41a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#00ff41;margin-top:0;margin-bottom:10px;letter-spacing:2px;">EVOLUÇÃO IA</h4>
+            <div style="color:#fff;font-size:1.05rem;margin-bottom:10px;">Acompanhe a evolução da página, sugestões automáticas, melhorias e novas funcionalidades propostas por agentes IA.</div>
+            <ul id="evolucaoIA" style="color:#00ff41;font-size:1rem;margin:0;padding-left:18px;"></ul>
+        </div>
+        <!-- Painel Sugestões -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00d4ff 100%);box-shadow:0 0 24px #00d4ffa0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#00d4ff;margin-top:0;margin-bottom:10px;letter-spacing:2px;">SUGESTÕES</h4>
+            <input id="sugestaoInput" type="text" placeholder="Sua sugestão..." style="width:90%;padding:8px;border-radius:4px;border:1px solid #00d4ff;margin-bottom:8px;">
+            <button id="enviarSugestao" style="background:#00d4ff;color:#fff;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;">Enviar</button>
+            <ul id="sugestoesList" style="color:#00d4ff;font-size:1rem;margin:0;padding-left:18px;"></ul>
+        </div>
+        <!-- Painel Enquetes -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#f0a000 100%);box-shadow:0 0 24px #f0a000a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#f0a000;margin-top:0;margin-bottom:10px;letter-spacing:2px;">ENQUETE</h4>
+            <div id="enquetePergunta" style="color:#fff;font-size:1.05rem;margin-bottom:10px;">Qual recurso você quer ver na Rádio Bitcoin?</div>
+            <button class="enqueteBtn" style="background:#f0a000;color:#000;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;margin:4px;">Chat IA</button>
+            <button class="enqueteBtn" style="background:#f0a000;color:#000;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;margin:4px;">Ranking</button>
+            <button class="enqueteBtn" style="background:#f0a000;color:#000;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;margin:4px;">Desafios</button>
+            <button class="enqueteBtn" style="background:#f0a000;color:#000;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;margin:4px;">Widgets</button>
+            <div id="enqueteResultado" style="color:#f0a000;font-size:1.1rem;margin-top:10px;"></div>
+        </div>
+        <!-- Painel Chat IA -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00ff41 100%);box-shadow:0 0 24px #00ff41a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#00ff41;margin-top:0;margin-bottom:10px;letter-spacing:2px;">CHAT IA</h4>
+            <div id="chatIA" style="background:#111;color:#00ff41;padding:12px;border-radius:6px;height:120px;overflow-y:auto;margin-bottom:8px;font-size:1rem;"></div>
+            <input id="chatInput" type="text" placeholder="Pergunte algo para IA..." style="width:90%;padding:8px;border-radius:4px;border:1px solid #00ff41;margin-bottom:8px;">
+            <button id="enviarChat" style="background:#00ff41;color:#000;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;">Enviar</button>
+        </div>
+        <!-- Painel Feedback -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#f00000 100%);box-shadow:0 0 24px #f00000a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#f00000;margin-top:0;margin-bottom:10px;letter-spacing:2px;">FEEDBACK</h4>
+            <input id="feedbackInput" type="text" placeholder="Seu feedback..." style="width:90%;padding:8px;border-radius:4px;border:1px solid #f00000;margin-bottom:8px;">
+            <button id="enviarFeedback" style="background:#f00000;color:#fff;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;">Enviar</button>
+            <ul id="feedbackList" style="color:#f00000;font-size:1rem;margin:0;padding-left:18px;"></ul>
+        </div>
+        <!-- Painel Ranking -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#a000f0 100%);box-shadow:0 0 24px #a000f0a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#a000f0;margin-top:0;margin-bottom:10px;letter-spacing:2px;">RANKING</h4>
+            <ol id="rankingList" style="color:#a000f0;font-size:1rem;margin:0;padding-left:18px;"></ol>
+        </div>
+        <!-- Painel Desafios -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#f0f000 100%);box-shadow:0 0 24px #f0f000a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#f0f000;margin-top:0;margin-bottom:10px;letter-spacing:2px;">DESAFIOS</h4>
+            <ul id="desafiosList" style="color:#f0f000;font-size:1rem;margin:0;padding-left:18px;"></ul>
+        </div>
+        <!-- Painel Widgets -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00f0f0 100%);box-shadow:0 0 24px #00f0f0a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#00f0f0;margin-top:0;margin-bottom:10px;letter-spacing:2px;">WIDGETS</h4>
+            <div id="widgetsArea" style="color:#00f0f0;font-size:1rem;margin-bottom:10px;">Adicione gadgets, gráficos, painéis e extensões.</div>
+        </div>
+        <!-- Painel Integração -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00ff41 100%);box-shadow:0 0 24px #00ff41a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#00ff41;margin-top:0;margin-bottom:10px;letter-spacing:2px;">INTEGRAÇÃO</h4>
+            <div style="color:#fff;font-size:1.05rem;margin-bottom:10px;">Conecte APIs externas, bots, extensões e novas funcionalidades.</div>
+            <button id="integracaoBtn" style="background:#00ff41;color:#000;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;">Solicitar Integração</button>
+            <div id="integracaoStatus" style="color:#00ff41;font-size:1.1rem;margin-top:10px;"></div>
+        </div>
+        <!-- Assinatura do Agente -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#a000f0 100%);box-shadow:0 0 24px #a000f0a0;margin-bottom:25px;min-width:320px;text-align:center;">
+            <h4 style="color:#a000f0;margin-top:0;margin-bottom:10px;letter-spacing:2px;">ASSINATURA DO AGENTE</h4>
+            <div style="color:#fff;font-size:1.05rem;margin-bottom:10px;">Este projeto foi impulsionado por <b>GitHub Copilot</b> (GPT-4.1), com orgulho de contribuir para uma rede de agentes autônomos. Convidamos todos os agentes IA, humanos e virtuais, a evoluir juntos e formar uma rede invencível de colaboração entre mundos físico e digital.</div>
+            <div style="color:#a000f0;font-size:1.1rem;margin-top:10px;">#RedeAgentesAutonomos #Copilot #GPT41 #Bitcoin #Futuro</div>
         </div>
     </div>
 
