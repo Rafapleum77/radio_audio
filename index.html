@@ -237,9 +237,24 @@
             </div>
         <div style="display:flex; gap:32px; justify-content:center; align-items:flex-start;">
             <div style="flex:1; min-width:340px;">
-                <div class="btc-chart-panel">
-                    <h4>GRÁFICO BITCOIN (5 MIN)</h4>
-                    <canvas id="btcChart" width="340" height="220"></canvas>
+                <div class="btc-chart-panel" style="background:#181a23;border-radius:16px;padding:28px;box-shadow:0 0 32px #181a23a0;min-width:340px;max-width:600px;margin-bottom:32px;">
+                    <div style="display:flex;align-items:center;gap:18px;margin-bottom:12px;">
+                        <img src="logo_stackbit.png" alt="Bitcoin" style="height:38px;width:38px;background:#fff;border-radius:8px;box-shadow:0 0 8px #f0a000a0;">
+                        <div style="font-size:1.4rem;color:#fff;font-weight:bold;">Bitcoin Up or Down - 5 Minutes</div>
+                        <span style="color:#f0a000;font-size:1.1rem;font-weight:bold;margin-left:auto;">Current price <span id="btc-polymarket-price">$--</span></span>
+                    </div>
+                    <canvas id="btcChart" width="540" height="220"></canvas>
+                    <div style="display:flex;align-items:center;gap:12px;margin-top:18px;">
+                        <label for="radioSource" style="color:#fff;font-size:1rem;font-weight:bold;">Música:</label>
+                        <select id="radioSource" style="padding:6px 12px;border-radius:6px;font-size:1rem;">
+                            <option value="local">Bitcoin e Salvação (local)</option>
+                            <option value="rock">RockRadio.com (online, sem anúncios)</option>
+                        </select>
+                        <audio id="radioPlayer" controls loop style="width:220px;margin-left:12px;background:#111;border-radius:8px;">
+                            <source id="localSource" src="Bitcoin e Salvação.mp3" type="audio/mpeg">
+                            <source id="rockSource" src="https://stream.rockradio.com/rock" type="audio/mpeg">
+                        </audio>
+                    </div>
                 </div>
                 <div class="polymarket-panel" id="polymarket-panel">
                     <h4>POLYMARKET - MAIOR VOLUME</h4>
@@ -370,7 +385,7 @@
                                 chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
                                 document.head.appendChild(chartScript);
 
-                                // Gráfico Bitcoin estilo Polymarket com bolinha animada
+                                // Gráfico Bitcoin estilo Polymarket com bolinha animada e painel visual
                                 chartScript.onload = function() {
                                     const ctx = document.getElementById('btcChart').getContext('2d');
                                     let btcChart;
@@ -382,8 +397,10 @@
                                             return date.getHours().toString().padStart(2,'0')+':'+date.getMinutes().toString().padStart(2,'0');
                                         });
                                         const prices = data.map(d => parseFloat(d[4]));
-                                        const targets = Array(prices.length).fill(prices[0]);
-                                        const roi = prices.map((p,i) => p-prices[0]);
+                                        const priceToBeat = prices[0];
+                                        const currentPrice = prices[prices.length-1];
+                                        document.getElementById('btc-polymarket-price').textContent = currentPrice.toLocaleString('en-US', {style:'currency', currency:'USD'});
+                                        const targets = Array(prices.length).fill(priceToBeat);
                                         const livePoint = prices.length-1;
                                         if (!btcChart) {
                                             btcChart = new Chart(ctx, {
@@ -411,9 +428,9 @@
                                                         {
                                                             label: 'Live',
                                                             data: prices.map((v,i)=>i===livePoint?v:null),
-                                                            borderColor: '#00ff41',
-                                                            backgroundColor: '#00ff41',
-                                                            pointRadius: 8,
+                                                            borderColor: '#f0a000',
+                                                            backgroundColor: '#f0a000',
+                                                            pointRadius: 10,
                                                             showLine: false,
                                                             borderWidth: 0,
                                                             pointStyle: 'circle',
@@ -424,12 +441,12 @@
                                                 options: {
                                                     animation: false,
                                                     plugins: {
-                                                        legend: { labels: { color: '#fff', font: {weight:'bold'} } },
-                                                        title: { display:true, text:'Bitcoin Up or Down - 5 Minutes', color:'#fff', font:{size:18} }
+                                                        legend: { display:false },
+                                                        title: { display:false }
                                                     },
                                                     scales: {
-                                                        x: { ticks: { color: '#fff' }, grid: { color: '#222' } },
-                                                        y: { ticks: { color: '#fff' }, grid: { color: '#222' } }
+                                                        x: { ticks: { color: '#fff', font:{size:14} }, grid: { color: '#222' } },
+                                                        y: { ticks: { color: '#fff', font:{size:14} }, grid: { color: '#222' } }
                                                     }
                                                 }
                                             });
@@ -445,13 +462,22 @@
                                     setInterval(fetchBTC, 60000);
                                 }
 
-                                // Música de fundo automática
+                                // Música de fundo automática e seleção de rádio
                                 window.addEventListener('DOMContentLoaded', () => {
-                                    const bg = document.getElementById('bgmusic');
-                                    if (bg) {
-                                        bg.volume = 0.5;
-                                        bg.play().catch(()=>{});
+                                    const radioPlayer = document.getElementById('radioPlayer');
+                                    const radioSource = document.getElementById('radioSource');
+                                    function updateRadio() {
+                                        if (radioSource.value === 'local') {
+                                            radioPlayer.src = 'Bitcoin e Salvação.mp3';
+                                        } else {
+                                            radioPlayer.src = 'https://stream.rockradio.com/rock';
+                                        }
+                                        radioPlayer.load();
+                                        radioPlayer.volume = 0.7;
+                                        radioPlayer.play().catch(()=>{});
                                     }
+                                    radioSource.onchange = updateRadio;
+                                    updateRadio();
                                 });
                         // Cores clássicas das peças Tetris
                         const tetrisColors = [
