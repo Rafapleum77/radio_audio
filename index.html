@@ -3,98 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radio Bitadict - No Ar</title>
+    <title>Radio Bitadict - LIVE</title>
     <style>
-        body {
-            background-color: #121212;
-            color: white;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        .player-card {
-            background: linear-gradient(180deg, #282828 0%, #121212 100%);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            width: 380px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-        }
-        /* Container do Carrossel */
-        .carousel {
-            width: 100%;
-            height: 380px;
-            position: relative;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-        }
-        .carousel img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        .carousel img.active {
-            opacity: 1;
-        }
-        h1 { font-size: 24px; margin: 10px 0 5px; color: #1DB954; }
-        p { color: #b3b3b3; font-size: 14px; margin-bottom: 25px; }
-        audio {
-            width: 100%;
-            filter: invert(100%) hue-rotate(180deg) brightness(1.5);
-        }
-        .status {
-            display: inline-block;
-            background: #1db954;
-            color: black;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
+        body { background-color: #000; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding-top: 100px; }
+        .ticker-wrap { position: fixed; top: 0; width: 100%; overflow: hidden; background-color: #121212; border-bottom: 2px solid #1DB954; padding: 15px 0; z-index: 1000; }
+        .ticker { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; font-weight: bold; font-size: 24px; color: #1DB954; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .ticker span { margin-right: 80px; }
+        .partners-bar { display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 30px; }
+        .partner-logo { height: 60px; border-radius: 10px; transition: 0.3s; }
+        .player-card { background: #181818; padding: 40px; border-radius: 25px; text-align: center; width: 450px; border: 1px solid #333; }
+        .profile-pic { width: 140px; height: 140px; border-radius: 50%; border: 4px solid #1DB954; object-fit: cover; }
+        .handle { display: block; font-size: 32px; font-weight: bold; color: #1DB954; margin: 15px 0; }
+        .btn-donate { background-color: #F7931A; color: #000; text-decoration: none; padding: 15px 30px; border-radius: 10px; font-weight: bold; display: inline-block; margin: 20px 0; }
+        .qr-area { background: white; padding: 15px; border-radius: 15px; display: inline-block; margin-top: 20px; }
+        audio { width: 100%; filter: invert(100%); margin-top: 20px; }
     </style>
 </head>
 <body>
 
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span>BITCOIN: SEMPRE ON-CHAIN</span>
+            <span>LIVE COINS & STACK BIT: PARCEIROS DA SOBERANIA</span>
+            <span>@BITADICT: RÁDIO BITCOIN MAXIMALISTA 24H</span>
+        </div>
+    </div>
+
+    <div class="partners-bar">
+        <img src="image_40415f.png" alt="Live Coins" class="partner-logo">
+        <img src="Captura de ecrã 2026-03-18 234933.jpg" alt="Stack Bit" class="partner-logo">
+    </div>
+
     <div class="player-card">
-        <div class="carousel" id="carousel">
-            <img src="banner_bitadict_brutal.png" class="active">
-            <img src="radio_bitadict.jpg">
+        <div class="profile-area">
+            <img src="banner_bitadict_brutal.png" alt="@bitadict" class="profile-pic">
+            <span class="handle">@bitadict</span>
         </div>
         
-        <h1>Radio Bitadict</h1>
-        <p>Inteligência Artificial minerando sua mente</p>
-
-        <audio controls autoplay>
+        <audio controls autoplay loop>
             <source src="noticias.mp3" type="audio/mpeg">
         </audio>
 
-        <div class="status">● AO VIVO</div>
+        <a href="https://getalby.com/p/texugorecords" target="_blank" class="btn-donate">⚡ DOAR VIA ALBY</a>
+
+        <div class="qr-area">
+            <p style="color: #000; font-weight: bold; margin: 0 0 10px 0; font-size: 12px;">SCAN PARA DOAR (WOS)</p>
+            <img src="logo_texugorecords@walletofsatoshi.com.png" alt="QR Code" style="width: 180px;">
+        </div>
     </div>
 
-    <script>
-        const images = document.querySelectorAll('#carousel img');
-        let currentIndex = 0;
-
-        function showNextImage() {
-            images[currentIndex].classList.remove('active');
-            currentIndex = (currentIndex + 1) % images.length;
-            images[currentIndex].classList.add('active');
-        }
-
-        // Troca a imagem a cada 5 segundos
-        setInterval(showNextImage, 5000);
-    </script>
 </body>
 </html>
