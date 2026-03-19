@@ -15,6 +15,57 @@
         .ticker span { margin-right: 60px; text-transform: uppercase; }
 
         .main-grid { display: grid; grid-template-columns: 320px 1fr 320px; gap: 25px; width: 95%; max-width: 1400px; z-index: 1; margin-top: 20px; }
+        .polymarket-panel {
+            background: linear-gradient(135deg, #1a1a40 60%, #00ffe7 100%);
+            border: 2px solid #00ffe7;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 24px #00ffe7a0;
+            min-width: 320px;
+            color: #fff;
+        }
+        .polymarket-panel h4 {
+            color: #00ffe7;
+            margin-top: 0;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .polymarket-market {
+            background: rgba(0,0,0,0.7);
+            border-left: 4px solid #00ffe7;
+            margin-bottom: 12px;
+            padding: 10px 12px;
+            border-radius: 6px;
+        }
+        .polymarket-market strong { color: #00ffe7; }
+        .clock-gadget {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            color: #fff;
+            background: linear-gradient(90deg, #00ffe7 0%, #a000f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 auto 18px auto;
+            text-align: center;
+            letter-spacing: 2px;
+            text-shadow: 0 0 12px #00ffe7a0;
+        }
+        .btc-chart-panel {
+            background: rgba(5, 5, 5, 0.92);
+            border: 1px solid #00ff41;
+            border-radius: 2px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(0,255,65,0.08);
+            min-width: 320px;
+        }
+        .btc-chart-panel h4 {
+            color: #00ff41;
+            margin-top: 0;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
         .main-grid {
             display: flex;
             flex-wrap: wrap;
@@ -118,7 +169,18 @@
     </div>
 
     <div class="main-grid">
+            <div class="clock-gadget" id="clockGadget">00:00:00</div>
         <div>
+            <div class="polymarket-panel" id="polymarket-panel">
+                <h4>POLYMARKET - MAIOR VOLUME</h4>
+                <div id="polymarket-markets">
+                    Carregando mercados...
+                </div>
+            </div>
+            <div class="btc-chart-panel">
+                <h4>GRÁFICO BITCOIN (5 MIN)</h4>
+                <canvas id="btcChart" width="300" height="180"></canvas>
+            </div>
             <div class="tweet-radio-panel">
                 <h4>RÁDIO DE TWEETS</h4>
                 <textarea id="tweets" placeholder="Cole aqui os tweets ou textos para ouvir..."></textarea>
@@ -138,6 +200,10 @@
                 <span class="label">SILVER / OZ</span>
                 <span class="price" id="silver-val">---</span>
             </div>
+            <div class="data-box">
+                <span class="label">PETRÓLEO / BBL</span>
+                <span class="price" id="oil-val">---</span>
+            </div>
             <h4 style="color:#00d4ff; margin-top:25px;">[ POLYMARKET ]</h4>
             <div class="data-box" style="border-left: 2px solid #00d4ff;">
                 <span class="label">BTC > $100K MARÇO?</span>
@@ -154,6 +220,7 @@
             <audio controls loop>
                 <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
             </audio>
+            <audio id="bgmusic" src="Bitcoin e Salvação.mp3" loop autoplay style="display:none"></audio>
         </div>
 
         <div class="glass-panel" style="text-align: center;">
@@ -168,6 +235,73 @@
     </div>
 
     <script>
+                                        // Relógio digital animado
+                                        function updateClock() {
+                                            const now = new Date();
+                                            const h = now.getHours().toString().padStart(2,'0');
+                                            const m = now.getMinutes().toString().padStart(2,'0');
+                                            const s = now.getSeconds().toString().padStart(2,'0');
+                                            document.getElementById('clockGadget').textContent = `${h}:${m}:${s}`;
+                                        }
+                                        setInterval(updateClock, 1000); updateClock();
+                                // Chart.js CDN
+                                const chartScript = document.createElement('script');
+                                chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+                                document.head.appendChild(chartScript);
+
+                                // Gráfico do Bitcoin (5 minutos)
+                                chartScript.onload = function() {
+                                    const ctx = document.getElementById('btcChart').getContext('2d');
+                                    let btcChart;
+                                    async function fetchBTC() {
+                                        // Binance API para candles de 5 minutos
+                                        const res = await fetch('https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=5m&limit=30');
+                                        const data = await res.json();
+                                        const labels = data.map(d => {
+                                            const date = new Date(d[0]);
+                                            return date.getHours().toString().padStart(2,'0')+':'+date.getMinutes().toString().padStart(2,'0');
+                                        });
+                                        const prices = data.map(d => parseFloat(d[4]));
+                                        if (!btcChart) {
+                                            btcChart = new Chart(ctx, {
+                                                type: 'line',
+                                                data: {
+                                                    labels: labels,
+                                                    datasets: [{
+                                                        label: 'BTC/USDT',
+                                                        data: prices,
+                                                        borderColor: '#00ff41',
+                                                        backgroundColor: 'rgba(0,255,65,0.1)',
+                                                        tension: 0.2,
+                                                        pointRadius: 0
+                                                    }]
+                                                },
+                                                options: {
+                                                    plugins: { legend: { labels: { color: '#00ff41' } } },
+                                                    scales: {
+                                                        x: { ticks: { color: '#00ff41' }, grid: { color: '#222' } },
+                                                        y: { ticks: { color: '#00ff41' }, grid: { color: '#222' } }
+                                                    }
+                                                }
+                                            });
+                                        } else {
+                                            btcChart.data.labels = labels;
+                                            btcChart.data.datasets[0].data = prices;
+                                            btcChart.update();
+                                        }
+                                    }
+                                    fetchBTC();
+                                    setInterval(fetchBTC, 60000);
+                                }
+
+                                // Música de fundo automática
+                                window.addEventListener('DOMContentLoaded', () => {
+                                    const bg = document.getElementById('bgmusic');
+                                    if (bg) {
+                                        bg.volume = 0.5;
+                                        bg.play().catch(()=>{});
+                                    }
+                                });
                         // Cores clássicas das peças Tetris
                         const tetrisColors = [
                             null,
@@ -200,13 +334,32 @@
                 document.getElementById('btc-val').innerText = price;
                 document.getElementById('btc-ticker').innerText = "BITCOIN: " + price;
 
-                const commRes = await fetch(`https://api.twelvedata.com/quote?symbol=XAU/USD,XAG/USD&apikey=24726f0f21444fc187039e3725941475`);
-                const commData = await commRes.json();
-                if(commData['XAU/USD']) document.getElementById('gold-val').innerText = "$" + commData['XAU/USD'].close;
-                if(commData['XAG/USD']) document.getElementById('silver-val').innerText = "$" + commData['XAG/USD'].close;
+                // Ouro e prata (metals-api)
+                const metalsRes = await fetch('https://metals-api.com/api/latest?access_key=demo&base=USD&symbols=XAU,XAG,WTI');
+                const metals = await metalsRes.json();
+                if(metals.rates) {
+                    if(metals.rates.XAU) document.getElementById('gold-val').innerText = "$" + (1/metals.rates.XAU).toFixed(2);
+                    if(metals.rates.XAG) document.getElementById('silver-val').innerText = "$" + (1/metals.rates.XAG).toFixed(2);
+                    if(metals.rates.WTI) document.getElementById('oil-val').innerText = "$" + (1/metals.rates.WTI).toFixed(2);
+                }
             } catch (e) { console.log("Price update failed"); }
         }
         setInterval(updatePrices, 30000); updatePrices();
+
+        // Polymarket - maiores volumes (mock)
+        async function updatePolymarket() {
+            // Exemplo mock, troque por API real se disponível
+            const markets = [
+                { question: 'Trump será presidente em 2025?', volume: 1200000, price: 'R$ 0,62' },
+                { question: 'Bitcoin fecha 2026 acima de $100k?', volume: 950000, price: 'R$ 0,48' },
+                { question: 'ETF Ethereum aprovado até junho?', volume: 800000, price: 'R$ 0,55' }
+            ];
+            const sorted = markets.sort((a,b)=>b.volume-a.volume).slice(0,3);
+            document.getElementById('polymarket-markets').innerHTML = sorted.map(m =>
+                `<div class="polymarket-market"><strong>${m.question}</strong><br>Volume: <span style="color:#00ffe7">${m.volume.toLocaleString('pt-BR')}</span><br>Preço: <span style="color:#00ffe7">${m.price}</span></div>`
+            ).join('');
+        }
+        updatePolymarket();
 
         // TETRIS ENGINE
 
@@ -352,11 +505,12 @@
         const player = { pos: {x: 0, y: 0}, matrix: null, score: 0 };
 
         document.addEventListener('keydown', e => {
+            if (['ArrowLeft','ArrowRight','ArrowDown','ArrowUp'].includes(e.key)) e.preventDefault();
             if (e.keyCode === 37) { player.pos.x--; if(collide(arena, player)) player.pos.x++; }
             if (e.keyCode === 39) { player.pos.x++; if(collide(arena, player)) player.pos.x--; }
             if (e.keyCode === 40) playerDrop();
             if (e.keyCode === 38) playerRotate(1); // SETA PRA CIMA GIRA!
-        });
+        }, { passive: false });
 
         playerReset();
         update();
