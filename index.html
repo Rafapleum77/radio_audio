@@ -252,11 +252,11 @@
         </div>
 
         <div class="tetris-wrap">
-            <div class="score-board">SCORE: <span id="score">0</span></div>
             <div class="next-piece-box">
                 <canvas id="next-piece" width="80" height="80"></canvas>
             </div>
             <canvas id="tetris" width="240" height="400"></canvas>
+            <div class="score-board" style="font-size:32px;color:#f0a000;text-shadow:0 0 12px #f0a000a0;margin-top:18px;letter-spacing:3px;background:#111;border-radius:8px;padding:8px 24px;display:inline-block;">SCORE: <span id="score">0</span></div>
             <audio controls loop>
                 <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
             </audio>
@@ -416,49 +416,79 @@
                                 chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
                                 document.head.appendChild(chartScript);
 
-                                // Gráfico Bitcoin com scroll contínuo
-                                let btcChartScroll = null;
-                                let btcScrollData = [];
-                                let btcScrollLabels = [];
-                                function startBTCScrollChart() {
-                                    const ctx = document.getElementById('btcChart').getContext('2d');
-                                    btcChartScroll = new Chart(ctx, {
-                                        type: 'line',
-                                        data: {
-                                            labels: btcScrollLabels,
-                                            datasets: [{
-                                                label: 'BTC/USDT',
-                                                data: btcScrollData,
-                                                borderColor: '#00ff41',
-                                                backgroundColor: 'rgba(0,255,65,0.1)',
-                                                tension: 0.2,
-                                                pointRadius: 0
-                                            }]
-                                        },
-                                        options: {
-                                            animation: false,
-                                            plugins: { legend: { labels: { color: '#00ff41' } } },
-                                            scales: {
-                                                x: { ticks: { color: '#00ff41' }, grid: { color: '#222' } },
-                                                y: { ticks: { color: '#00ff41' }, grid: { color: '#222' } }
-                                            }
-                                        }
-                                    });
-                                }
-                                async function updateBTCScrollChart() {
-                                    const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
-                                    const data = await res.json();
-                                    const now = new Date();
-                                    const label = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0')+':'+now.getSeconds().toString().padStart(2,'0');
-                                    btcScrollLabels.push(label);
-                                    btcScrollData.push(parseFloat(data.price));
-                                    if (btcScrollLabels.length > 30) { btcScrollLabels.shift(); btcScrollData.shift(); }
-                                    if (btcChartScroll) btcChartScroll.update();
-                                }
+                                // Gráfico Bitcoin estilo Polymarket com bolinha animada
                                 chartScript.onload = function() {
-                                    startBTCScrollChart();
-                                    setInterval(updateBTCScrollChart, 5000);
-                                    updateBTCScrollChart();
+                                    const ctx = document.getElementById('btcChart').getContext('2d');
+                                    let btcChart;
+                                    async function fetchBTC() {
+                                        const res = await fetch('https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=5m&limit=30');
+                                        const data = await res.json();
+                                        const labels = data.map(d => {
+                                            const date = new Date(d[0]);
+                                            return date.getHours().toString().padStart(2,'0')+':'+date.getMinutes().toString().padStart(2,'0');
+                                        });
+                                        const prices = data.map(d => parseFloat(d[4]));
+                                        const targets = Array(prices.length).fill(prices[0]);
+                                        const roi = prices.map((p,i) => p-prices[0]);
+                                        const livePoint = prices.length-1;
+                                        if (!btcChart) {
+                                            btcChart = new Chart(ctx, {
+                                                type: 'line',
+                                                data: {
+                                                    labels: labels,
+                                                    datasets: [
+                                                        {
+                                                            label: 'BTC/USDT',
+                                                            data: prices,
+                                                            borderColor: '#f0a000',
+                                                            backgroundColor: 'rgba(240,160,0,0.08)',
+                                                            tension: 0.2,
+                                                            pointRadius: 0,
+                                                            borderWidth: 3
+                                                        },
+                                                        {
+                                                            label: 'Target',
+                                                            data: targets,
+                                                            borderColor: '#888',
+                                                            borderDash: [6,4],
+                                                            pointRadius: 0,
+                                                            borderWidth: 2
+                                                        },
+                                                        {
+                                                            label: 'Live',
+                                                            data: prices.map((v,i)=>i===livePoint?v:null),
+                                                            borderColor: '#00ff41',
+                                                            backgroundColor: '#00ff41',
+                                                            pointRadius: 8,
+                                                            showLine: false,
+                                                            borderWidth: 0,
+                                                            pointStyle: 'circle',
+                                                            fill: false
+                                                        }
+                                                    ]
+                                                },
+                                                options: {
+                                                    animation: false,
+                                                    plugins: {
+                                                        legend: { labels: { color: '#fff', font: {weight:'bold'} } },
+                                                        title: { display:true, text:'Bitcoin Up or Down - 5 Minutes', color:'#fff', font:{size:18} }
+                                                    },
+                                                    scales: {
+                                                        x: { ticks: { color: '#fff' }, grid: { color: '#222' } },
+                                                        y: { ticks: { color: '#fff' }, grid: { color: '#222' } }
+                                                    }
+                                                }
+                                            });
+                                        } else {
+                                            btcChart.data.labels = labels;
+                                            btcChart.data.datasets[0].data = prices;
+                                            btcChart.data.datasets[1].data = targets;
+                                            btcChart.data.datasets[2].data = prices.map((v,i)=>i===livePoint?v:null);
+                                            btcChart.update();
+                                        }
+                                    }
+                                    fetchBTC();
+                                    setInterval(fetchBTC, 60000);
                                 }
 
                                 // Música de fundo automática
