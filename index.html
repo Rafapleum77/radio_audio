@@ -183,8 +183,8 @@
             </div>
             <div class="tweet-radio-panel">
                 <h4>RÁDIO DE TWEETS</h4>
-                <textarea id="tweets" placeholder="Cole aqui os tweets ou textos para ouvir..."></textarea>
-                <button onclick="lerTweets()">🔊 Ouvir Tweets</button>
+                <button id="startRadioBtn">🎙️ Iniciar Rádio</button>
+                <div id="radioStatus" style="margin-top:10px;color:#00ff41;font-size:1.1rem;"></div>
             </div>
             <div class="glass-panel">
             <h4 style="margin:0 0 15px 0;">[ ASSET MONITOR ]</h4>
@@ -221,6 +221,55 @@
                 <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgmusic" src="Bitcoin e Salvação.mp3" loop autoplay style="display:none"></audio>
+            <script>
+                // Perfis selecionados
+                const perfis = [
+                    'R38TAO', '0x_Descobrir', '0xCVYH', 'polymarketeiro', 'CortesTrezoitao', 'VoxLiberdade', 'LordWottonBR', 'jpmayall',
+                    'MisesDev', 'bitdov', 'ojedabtc', 'elonmusk', 'realDonaldTrump'
+                ];
+                // Mock de publicações recentes (substitua por API real)
+                const tweetsMock = {
+                    'R38TAO': 'Bitcoin é liberdade. O futuro é descentralizado.',
+                    '0x_Descobrir': 'A revolução digital está só começando.',
+                    '0xCVYH': 'O poder do código muda o mundo.',
+                    'polymarketeiro': 'Polymarket: onde a verdade é negociada.',
+                    'CortesTrezoitao': 'Trezoitão: notícias rápidas e diretas.',
+                    'VoxLiberdade': 'Liberdade é o maior valor.',
+                    'LordWottonBR': 'A arte de pensar livremente.',
+                    'jpmayall': 'Economia, política e Bitcoin.',
+                    'MisesDev': 'Desenvolvimento e liberdade econômica.',
+                    'bitdov': 'Bitcoin para todos!',
+                    'ojedabtc': 'Sats são o novo ouro.',
+                    'elonmusk': 'Vamos para Marte!',
+                    'realDonaldTrump': 'Make America Great Again!'
+                };
+                // Função para ler tweets em sequência
+                async function iniciarRadio() {
+                    document.getElementById('radioStatus').textContent = 'Rádio iniciada: lendo publicações...';
+                    const bg = document.getElementById('bgmusic');
+                    if (bg) { bg.volume = 0.5; bg.play().catch(()=>{}); }
+                    for (const perfil of perfis) {
+                        const texto = tweetsMock[perfil] || 'Sem publicação encontrada.';
+                        await lerTexto(texto);
+                    }
+                    document.getElementById('radioStatus').textContent = 'Rádio finalizada.';
+                }
+                // Função para ler texto em voz alta
+                function lerTexto(texto) {
+                    return new Promise(resolve => {
+                        if ('speechSynthesis' in window) {
+                            const utter = new SpeechSynthesisUtterance(texto);
+                            utter.lang = 'pt-BR';
+                            utter.rate = 1.05;
+                            utter.onend = resolve;
+                            window.speechSynthesis.speak(utter);
+                        } else {
+                            resolve();
+                        }
+                    });
+                }
+                document.getElementById('startRadioBtn').onclick = iniciarRadio;
+            </script>
         </div>
 
         <div class="glass-panel" style="text-align: center;">
