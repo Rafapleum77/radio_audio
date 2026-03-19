@@ -15,7 +15,17 @@
         .ticker span { margin-right: 60px; text-transform: uppercase; }
 
         .main-grid { display: grid; grid-template-columns: 320px 1fr 320px; gap: 25px; width: 95%; max-width: 1400px; z-index: 1; margin-top: 20px; }
-        .glass-panel { background: rgba(5, 5, 5, 0.9); border: 1px solid var(--neon-green); border-radius: 2px; padding: 20px; box-shadow: 0 0 15px rgba(0,255,65,0.05); }
+        .main-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            max-width: 1800px;
+            z-index: 1;
+            margin-top: 20px;
+        }
+        .glass-panel { background: rgba(5, 5, 5, 0.9); border: 1px solid var(--neon-green); border-radius: 2px; padding: 20px; box-shadow: 0 0 15px rgba(0,255,65,0.05); min-width: 320px; }
         .data-box { border: 1px solid #1a1a1a; padding: 12px; margin-bottom: 12px; background: rgba(0,0,0,0.8); }
         .label { font-size: 10px; color: #555; display: block; margin-bottom: 5px; letter-spacing: 1px; }
         .price { color: #fff; font-weight: bold; float: right; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
@@ -66,8 +76,29 @@
         }
 
         .tetris-wrap { display: flex; flex-direction: column; align-items: center; }
-        #tetris { border: 2px solid var(--neon-green); background: #000; box-shadow: 0 0 30px rgba(0,255,65,0.1); }
+        .tetris-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 320px;
+        }
+        #tetris {
+            border: 2px solid var(--neon-green);
+            background: #000;
+            box-shadow: 0 0 30px rgba(0,255,65,0.1);
+            margin-bottom: 10px;
+        }
         .score-board { font-size: 28px; margin-bottom: 15px; letter-spacing: 3px; }
+        .next-piece-box {
+            border: 2px solid #00ff41;
+            background: #111;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         audio { width: 100%; filter: invert(1) hue-rotate(90deg) brightness(1.5); height: 35px; margin-top: 15px; }
         .btn-action { display: block; background: var(--neon-green); color: #000; padding: 12px; text-align: center; text-decoration: none; font-weight: bold; margin-top: 20px; transition: 0.2s; border: none; cursor: pointer; }
@@ -116,6 +147,9 @@
 
         <div class="tetris-wrap">
             <div class="score-board">SCORE: <span id="score">0</span></div>
+            <div class="next-piece-box">
+                <canvas id="next-piece" width="80" height="80"></canvas>
+            </div>
             <canvas id="tetris" width="240" height="400"></canvas>
             <audio controls loop>
                 <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
@@ -134,6 +168,18 @@
     </div>
 
     <script>
+                        // Cores clássicas das peças Tetris
+                        const tetrisColors = [
+                            null,
+                            '#00f0f0', // I
+                            '#f0a000', // L
+                            '#0000f0', // J
+                            '#f0f000', // O
+                            '#f00000', // Z
+                            '#00f000', // S
+                            '#a000f0'  // T
+                        ];
+
                 // Rádio de Tweets - Síntese de Voz
                 function lerTweets() {
                     const texto = document.getElementById('tweets').value;
@@ -163,10 +209,16 @@
         setInterval(updatePrices, 30000); updatePrices();
 
         // TETRIS ENGINE
+
         const canvas = document.getElementById('tetris');
         const context = canvas.getContext('2d');
         const scoreElement = document.getElementById('score');
         context.scale(20, 20);
+
+        // Próxima peça
+        const nextCanvas = document.getElementById('next-piece');
+        const nextCtx = nextCanvas.getContext('2d');
+        nextCtx.scale(20, 20);
 
         function createPiece(type) {
             if (type === 'I') return [[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0]];
@@ -178,12 +230,13 @@
             if (type === 'T') return [[0, 7, 0], [7, 7, 7], [0, 0, 0]];
         }
 
-        function drawMatrix(matrix, offset) {
+
+        function drawMatrix(matrix, offset, ctx = context) {
             matrix.forEach((row, y) => {
                 row.forEach((value, x) => {
                     if (value !== 0) {
-                        context.fillStyle = '#00ff41';
-                        context.fillRect(x + offset.x, y + offset.y, 1, 1);
+                        ctx.fillStyle = tetrisColors[value];
+                        ctx.fillRect(x + offset.x, y + offset.y, 1, 1);
                     }
                 });
             });
@@ -257,11 +310,23 @@
             dropCounter = 0;
         }
 
+        // Próxima peça
+        let nextType = null;
         function playerReset() {
             const pieces = 'ILJOTSZ';
-            player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
+            if (nextType === null) {
+                nextType = pieces[pieces.length * Math.random() | 0];
+            }
+            player.matrix = createPiece(nextType);
+            nextType = pieces[pieces.length * Math.random() | 0];
             player.pos.y = 0;
             player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
+            // Desenhar próxima peça
+            nextCtx.clearRect(0, 0, nextCanvas.width, nextCanvas.height);
+            const nextMatrix = createPiece(nextType);
+            // Centralizar próxima peça
+            const offset = {x: Math.floor((4 - nextMatrix[0].length) / 2), y: Math.floor((4 - nextMatrix.length) / 2)};
+            drawMatrix(nextMatrix, offset, nextCtx);
             if (collide(arena, player)) {
                 arena.forEach(row => row.fill(0));
                 player.score = 0;
