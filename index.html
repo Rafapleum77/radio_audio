@@ -3,265 +3,684 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rádio Cabina Astronauta</title>
+    <title>BITADICT // TERMINAL V3.5</title>
     <style>
-        body {
-            background: radial-gradient(circle at 60% 40%, #181a23 60%, #000 100%);
-            color: #00ff41;
-            font-family: 'Orbitron', monospace;
-            margin: 0;
-            min-height: 100vh;
-            overflow: hidden;
-        }
-        .cabina {
-            position: relative;
-            width: 1200px;
-            height: 700px;
-            margin: 40px auto;
-            background: linear-gradient(135deg, #222 60%, #181a23 100%);
-            border-radius: 40px;
-            box-shadow: 0 0 80px #00ff41a0, 0 0 120px #000 inset;
-            border: 4px solid #00ff41;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-        }
-        .janela-terra {
-            position: absolute;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 420px;
-            height: 220px;
-            background: rgba(0,0,0,0.8);
-            border: 3px solid #00d4ff;
-            border-radius: 32px;
-            box-shadow: 0 0 40px #00d4ffa0;
-            overflow: hidden;
-            z-index: 2;
-        }
-        .terra {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, #00d4ff 60%, #181a23 100%);
-            border-radius: 50%;
-            box-shadow: 0 0 60px #00d4ffb0, 0 0 120px #181a23 inset;
-        }
-        .gadgets {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 32px;
-            z-index: 3;
-        }
-        .gadget {
-            background: linear-gradient(135deg, #181a23 60%, #00ff41 100%);
-            border: 2px solid #00ff41;
-            border-radius: 18px;
-            box-shadow: 0 0 18px #00ff41a0;
-            padding: 24px 32px;
-            min-width: 180px;
-            min-height: 120px;
+        :root { --neon-green: #00ff41; --dark-bg: #050505; }
+        body { background: var(--dark-bg); color: var(--neon-green); font-family: 'Courier New', monospace; margin: 0; padding-top: 80px; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
+        #scanner-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(0deg, rgba(0,255,65,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,65,0.03) 1px, transparent 1px); background-size: 30px 30px; }
+
+        .ticker-wrap { position: fixed; top: 0; width: 100%; overflow: hidden; background: rgba(0, 0, 0, 0.95); border-bottom: 2px solid var(--neon-green); padding: 12px 0; z-index: 1000; }
+        .ticker { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; font-weight: bold; font-size: 18px; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .ticker span { margin-right: 60px; text-transform: uppercase; }
+
+        .main-grid { display: grid; grid-template-columns: 320px 1fr 320px; gap: 25px; width: 95%; max-width: 1400px; z-index: 1; margin-top: 20px; }
+        .polymarket-panel {
+            background: linear-gradient(135deg, #1a1a40 60%, #00ffe7 100%);
+            border: 2px solid #00ffe7;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 24px #00ffe7a0;
+            min-width: 320px;
             color: #fff;
-            font-size: 1.1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
-        .painel-radio {
-            position: absolute;
-            top: 320px;
-            left: 80px;
-            width: 320px;
-            height: 180px;
-            background: linear-gradient(135deg, #00ff41 60%, #181a23 100%);
-            border-radius: 18px;
-            box-shadow: 0 0 24px #00ff41a0;
-            border: 2px solid #00ff41;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 4;
-        }
-        .painel-radio button {
-            background: #00ff41;
-            color: #181a23;
-            border: none;
-            border-radius: 8px;
-            padding: 16px 32px;
-            font-size: 1.2rem;
-            font-family: 'Orbitron', monospace;
-            cursor: pointer;
-            box-shadow: 0 0 12px #00ff41a0;
-            margin-top: 12px;
-        }
-        .painel-radio h3 {
-            color: #181a23;
-            margin: 0;
-            font-size: 1.4rem;
-            font-weight: bold;
-        }
-        .painel-tetris {
-            position: absolute;
-            top: 320px;
-            right: 80px;
-            width: 320px;
-            height: 180px;
-            background: linear-gradient(135deg, #a000f0 60%, #181a23 100%);
-            border-radius: 18px;
-            box-shadow: 0 0 24px #a000f0a0;
-            border: 2px solid #a000f0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 4;
-        }
-        .painel-tetris h3 {
-            color: #fff;
-            margin: 0;
-            font-size: 1.4rem;
-            font-weight: bold;
-        }
-        .painel-tetris canvas {
-            border: 2px solid #fff;
-            background: #000;
-            margin-top: 12px;
-        }
-        .painel-bitcoin {
-            position: absolute;
-            top: 540px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 420px;
-            height: 180px;
-            background: linear-gradient(135deg, #f0a000 60%, #181a23 100%);
-            border-radius: 18px;
-            box-shadow: 0 0 24px #f0a000a0;
-            border: 2px solid #f0a000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 4;
-        }
-        .painel-bitcoin h3 {
-            color: #fff;
-            margin: 0;
-            font-size: 1.4rem;
-            font-weight: bold;
-        }
-        .painel-bitcoin canvas {
-            border: 2px solid #fff;
-            background: #000;
-            margin-top: 12px;
-        }
-        .cabina-header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background: linear-gradient(90deg,#00ff41 0%,#181a23 100%);
-            border-radius: 40px 40px 0 0;
-            box-shadow: 0 0 32px #00ff41a0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-        .cabina-header h1 {
-            color: #fff;
-            font-size: 2.8rem;
-            font-family: 'Orbitron', monospace;
-            margin: 0;
-            letter-spacing: 4px;
-            text-shadow: 0 0 18px #00ff41a0;
-        }
-        .cabina-header span {
-            color: #00ff41;
-            font-size: 1.2rem;
-            margin-left: 24px;
+        .polymarket-panel h4 {
+            color: #00ffe7;
+            margin-top: 0;
+            margin-bottom: 10px;
             letter-spacing: 2px;
         }
+        .polymarket-market {
+            background: rgba(0,0,0,0.7);
+            border-left: 4px solid #00ffe7;
+            margin-bottom: 12px;
+            padding: 10px 12px;
+            border-radius: 6px;
+        }
+        .polymarket-market strong { color: #00ffe7; }
+        .clock-gadget {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            color: #fff;
+            background: linear-gradient(90deg, #00ffe7 0%, #a000f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 auto 18px auto;
+            text-align: center;
+            letter-spacing: 2px;
+            text-shadow: 0 0 12px #00ffe7a0;
+        }
+        .btc-chart-panel {
+            background: rgba(5, 5, 5, 0.92);
+            border: 1px solid #00ff41;
+            border-radius: 2px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(0,255,65,0.08);
+            min-width: 320px;
+        }
+        .btc-chart-panel h4 {
+            color: #00ff41;
+            margin-top: 0;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .main-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            max-width: 1800px;
+            z-index: 1;
+            margin-top: 20px;
+        }
+        .glass-panel { background: rgba(5, 5, 5, 0.9); border: 1px solid var(--neon-green); border-radius: 2px; padding: 20px; box-shadow: 0 0 15px rgba(0,255,65,0.05); min-width: 320px; }
+        .data-box { border: 1px solid #1a1a1a; padding: 12px; margin-bottom: 12px; background: rgba(0,0,0,0.8); }
+        .label { font-size: 10px; color: #555; display: block; margin-bottom: 5px; letter-spacing: 1px; }
+        .price { color: #fff; font-weight: bold; float: right; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
+
+        /* Rádio de Tweets */
+        .tweet-radio-panel {
+            background: rgba(5, 5, 5, 0.92);
+            border: 1px solid #00ff41;
+            border-radius: 2px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(0,255,65,0.08);
+        }
+        .tweet-radio-panel h4 {
+            color: #00ff41;
+            margin-top: 0;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .tweet-radio-panel textarea {
+            width: 100%;
+            min-height: 70px;
+            background: #111;
+            color: #00ff41;
+            border: 1px solid #00ff41;
+            border-radius: 2px;
+            font-size: 1rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 10px;
+            padding: 8px;
+            resize: vertical;
+        }
+        .tweet-radio-panel button {
+            background: #00ff41;
+            color: #000;
+            border: none;
+            border-radius: 2px;
+            padding: 10px 18px;
+            font-size: 1rem;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: background 0.2s;
+        }
+        .tweet-radio-panel button:hover {
+            background: #fff;
+            color: #00ff41;
+        }
+
+        .tetris-wrap { display: flex; flex-direction: column; align-items: center; }
+        .tetris-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 320px;
+        }
+        #tetris {
+            border: 2px solid var(--neon-green);
+            background: #000;
+            box-shadow: 0 0 30px rgba(0,255,65,0.1);
+            margin-bottom: 10px;
+        }
+        .score-board { font-size: 28px; margin-bottom: 15px; letter-spacing: 3px; }
+        .next-piece-box {
+            border: 2px solid #00ff41;
+            background: #111;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        audio { width: 100%; filter: invert(1) hue-rotate(90deg) brightness(1.5); height: 35px; margin-top: 15px; }
+        .btn-action { display: block; background: var(--neon-green); color: #000; padding: 12px; text-align: center; text-decoration: none; font-weight: bold; margin-top: 20px; transition: 0.2s; border: none; cursor: pointer; }
+        .btn-action:hover { background: #fff; box-shadow: 0 0 20px var(--neon-green); }
     </style>
 </head>
 <body>
-    <div class="cabina">
-        <div class="cabina-header">
-            <h1>RÁDIO BITCOIN</h1>
-            <span>A voz da revolução digital</span>
-        </div>
-        <div class="janela-terra">
-            <div class="terra"></div>
-        </div>
-        <div class="gadgets">
-            <div class="gadget">Relógio<br><span id="clockGadget">00:00:00</span></div>
-            <div class="gadget">DJ Gadget<br><button id="playRadioBtn">🔊 Ouvir Rádio Rock</button></div>
-            <div class="gadget">Agente IA<br><button id="askAgent">🤖 Chamar Agente IA</button></div>
-        </div>
-        <div class="painel-radio">
-            <h3>Rádio IA</h3>
-            <button id="playIA">🔊 Ouvir Rádio IA</button>
-        </div>
-        <div class="painel-tetris">
-            <h3>Tetris</h3>
-            <canvas id="tetris" width="120" height="120"></canvas>
-        </div>
-        <div class="painel-bitcoin">
-            <h3>Gráfico Bitcoin</h3>
-            <canvas id="btcChart" width="220" height="120"></canvas>
+    <div id="scanner-grid"></div>
+    <!-- Cabeçalho Rádio Bitcoin -->
+    <header style="width:100%;background:linear-gradient(90deg,#00ff41 0%,#1a1a40 100%);padding:32px 0 18px 0;text-align:center;box-shadow:0 0 32px #00ff41a0;z-index:1001;position:relative;">
+        <h1 style="font-family:'Orbitron',monospace;font-size:3.2rem;color:#fff;text-shadow:0 0 18px #00ff41a0;letter-spacing:4px;margin:0;">RÁDIO BITCOIN</h1>
+        <div style="font-size:1.2rem;color:#00ff41;margin-top:8px;letter-spacing:2px;">A voz da revolução digital</div>
+    </header>
+
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span id="btc-ticker">BITCOIN: CONNECTING...</span>
+            <span>LIVECOINS & STACKBIT: PARCEIROS DA SOBERANIA DIGITAL</span>
+            <span>@BITADICT: O TERMINAL DA REVOLUÇÃO</span>
+            <span>DON'T TRUST, VERIFY. // STACK SATS // MINING ACTIVE</span>
         </div>
     </div>
+
+    <div class="main-grid">
+            <div class="clock-gadget" id="clockGadget">00:00:00</div>
+            <!-- Painel Rádio IA -->
+            <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00ff41 100%);box-shadow:0 0 24px #00ff41a0;margin-bottom:25px;min-width:320px;">
+                <h4 style="color:#00ff41;margin-top:0;margin-bottom:10px;letter-spacing:2px;">RÁDIO IA</h4>
+                <div style="color:#fff;font-size:1.05rem;margin-bottom:10px;">Ouça notícias, análises e insights em tempo real, com vozes sintéticas e linguagem de IA.</div>
+                <button id="playIA" style="background:#00ff41;color:#000;border:none;border-radius:2px;padding:10px 18px;font-size:1rem;font-family:'Courier New',monospace;cursor:pointer;margin-top:5px;">🔊 Ouvir Rádio IA</button>
+                <div id="iaStatus" style="margin-top:10px;color:#00ff41;font-size:1.1rem;"></div>
+            </div>
+            <!-- Painel Agentes IA -->
+            <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#a000f0 100%);box-shadow:0 0 24px #a000f0a0;margin-bottom:25px;min-width:320px;">
+                <h4 style="color:#a000f0;margin-top:0;margin-bottom:10px;letter-spacing:2px;">AGENTES IA</h4>
+                <div style="color:#fff;font-size:1.05rem;margin-bottom:10px;">Peça ajuda aos agentes de IA: análises, dicas, previsões, interação e sugestões para bombar sua rádio.</div>
+                <button id="askAgent" style="background:#a000f0;color:#fff;border:none;border-radius:2px;padding:10px 18px;font-size:1rem;font-family:'Courier New',monospace;cursor:pointer;margin-top:5px;">🤖 Chamar Agente IA</button>
+                <div id="agentStatus" style="margin-top:10px;color:#a000f0;font-size:1.1rem;"></div>
+            </div>
+            <!-- Painel de Parceiros Institucionais -->
+            <div class="glass-panel" style="background: linear-gradient(135deg,#1a1a40 60%,#00ff41 100%); box-shadow: 0 0 24px #00ff41a0; margin-bottom: 25px; min-width:320px;">
+                <h4 style="color:#00ff41; margin-top:0; margin-bottom:10px; letter-spacing:2px;">PARCEIROS INSTITUCIONAIS</h4>
+                <div style="display:flex; flex-wrap:wrap; gap:18px; justify-content:center; align-items:center;">
+                    <a href="https://stackbit.com" target="_blank" title="Stackbit">
+                        <img src="logo_stackbit.png" alt="Stackbit" style="height:48px; filter:drop-shadow(0 0 8px #00ff41); background:#fff; border-radius:8px; padding:4px;">
+                    </a>
+                    <a href="https://livecoins.com.br" target="_blank" title="Livecoins">
+                        <img src="logo_livecoins.png" alt="Livecoins" style="height:48px; filter:drop-shadow(0 0 8px #00ff41); background:#fff; border-radius:8px; padding:4px;">
+                    </a>
+                    <a href="https://noxpay.com" target="_blank" title="Noxpay">
+                        <img src="logo_noxpay.png" alt="Noxpay" style="height:48px; filter:drop-shadow(0 0 8px #00ff41); background:#fff; border-radius:8px; padding:4px; border:2px solid #00ff41;">
+                        <span style="display:block;color:#00ff41;font-weight:bold;font-size:1.1rem;background:#fff;padding:2px 8px;border-radius:6px;margin-top:4px;">Noxpay</span>
+                    </a>
+                    <a href="https://www.bybit.com" target="_blank" title="Bybit">
+                        <img src="logo_bybit.png" alt="Bybit" style="height:48px; filter:drop-shadow(0 0 8px #00ff41); background:#fff; border-radius:8px; padding:4px; border:2px solid #00ff41;">
+                        <span style="display:block;color:#00ff41;font-weight:bold;font-size:1.1rem;background:#fff;padding:2px 8px;border-radius:6px;margin-top:4px;">Bybit</span>
+                    </a>
+                </div>
+                <div style="margin-top:12px; color:#fff; font-size:0.95rem; text-align:center;">Plataforma integrada, institucional e disruptiva.</div>
+            </div>
+        <div>
+            <div class="polymarket-panel" id="polymarket-panel">
+                <h4>POLYMARKET - MAIOR VOLUME</h4>
+                <div id="polymarket-markets">
+                    Carregando mercados...
+                </div>
+            </div>
+            <div class="btc-chart-panel">
+                <h4>GRÁFICO BITCOIN (5 MIN)</h4>
+                <canvas id="btcChart" width="300" height="180"></canvas>
+            </div>
+            <div class="tweet-radio-panel">
+                <h4>RÁDIO DE TWEETS</h4>
+                <button id="startRadioBtn">🎙️ Iniciar Rádio</button>
+                <div id="radioStatus" style="margin-top:10px;color:#00ff41;font-size:1.1rem;"></div>
+            </div>
+            <div class="glass-panel">
+            <h4 style="margin:0 0 15px 0;">[ ASSET MONITOR ]</h4>
+            <div class="data-box">
+                <span class="label">BITCOIN / USD</span>
+                <span class="price" id="btc-val">LOAD...</span>
+            </div>
+            <div class="data-box">
+                <span class="label">GOLD / OZ</span>
+                <span class="price" id="gold-val">---</span>
+            </div>
+            <div class="data-box">
+                <span class="label">SILVER / OZ</span>
+                <span class="price" id="silver-val">---</span>
+            </div>
+            <div class="data-box">
+                <span class="label">PETRÓLEO / BBL</span>
+                <span class="price" id="oil-val">---</span>
+            </div>
+            <h4 style="color:#00d4ff; margin-top:25px;">[ POLYMARKET ]</h4>
+            <div class="data-box" style="border-left: 2px solid #00d4ff;">
+                <span class="label">BTC > $100K MARÇO?</span>
+                <span style="color:#00d4ff;">CHANCE: 24%</span>
+            </div>
+        </div>
+
+        <div class="tetris-wrap">
+            <div class="score-board">SCORE: <span id="score">0</span></div>
+            <div class="next-piece-box">
+                <canvas id="next-piece" width="80" height="80"></canvas>
+            </div>
+            <canvas id="tetris" width="240" height="400"></canvas>
+            <audio controls loop>
+                <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgmusic" src="Bitcoin e Salvação.mp3" loop autoplay style="display:none"></audio>
+            <script>
+                        // Rádio IA - Voz sintética
+                        document.getElementById('playIA').onclick = function() {
+                            const texto = 'Bem-vindo à Rádio Bitcoin. Aqui você ouve notícias, análises e insights em tempo real, com linguagem de inteligência artificial. Fique ligado nas tendências, dicas dos agentes IA e tudo sobre Bitcoin.';
+                            document.getElementById('iaStatus').textContent = 'Rádio IA falando...';
+                            if ('speechSynthesis' in window) {
+                                const utter = new SpeechSynthesisUtterance(texto);
+                                utter.lang = 'pt-BR';
+                                utter.rate = 1.05;
+                                utter.voice = speechSynthesis.getVoices().find(v=>v.name.includes('Google')||v.name.includes('Microsoft')||v.lang==='pt-BR') || null;
+                                utter.onend = ()=>{document.getElementById('iaStatus').textContent = 'Rádio IA finalizada.';};
+                                window.speechSynthesis.speak(utter);
+                            } else {
+                                document.getElementById('iaStatus').textContent = 'Seu navegador não suporta voz IA.';
+                            }
+                        };
+                        // Agentes IA - Simulação
+                        document.getElementById('askAgent').onclick = function() {
+                            document.getElementById('agentStatus').textContent = 'Agente IA: Dica do dia - Compartilhe sua rádio, interaja com a comunidade e fique atento às tendências do Bitcoin!';
+                            setTimeout(()=>{
+                                document.getElementById('agentStatus').textContent = '';
+                            }, 12000);
+                        };
+                // Perfis selecionados
+                const perfis = [
+                    'R38TAO', '0x_Descobrir', '0xCVYH', 'polymarketeiro', 'CortesTrezoitao', 'VoxLiberdade', 'LordWottonBR', 'jpmayall',
+                    'MisesDev', 'bitdov', 'ojedabtc', 'elonmusk', 'realDonaldTrump'
+                ];
+                // Mock de publicações recentes (substitua por API real)
+                const tweetsMock = {
+                    'R38TAO': 'Bitcoin é liberdade. O futuro é descentralizado.',
+                    '0x_Descobrir': 'A revolução digital está só começando.',
+                    '0xCVYH': 'O poder do código muda o mundo.',
+                    'polymarketeiro': 'Polymarket: onde a verdade é negociada.',
+                    'CortesTrezoitao': 'Trezoitão: notícias rápidas e diretas.',
+                    'VoxLiberdade': 'Liberdade é o maior valor.',
+                    'LordWottonBR': 'A arte de pensar livremente.',
+                    'jpmayall': 'Economia, política e Bitcoin.',
+                    'MisesDev': 'Desenvolvimento e liberdade econômica.',
+                    'bitdov': 'Bitcoin para todos!',
+                    'ojedabtc': 'Sats são o novo ouro.',
+                    'elonmusk': 'Vamos para Marte!',
+                    'realDonaldTrump': 'Make America Great Again!'
+                };
+                // Função para ler tweets em sequência
+                async function iniciarRadio() {
+                    document.getElementById('radioStatus').textContent = 'Rádio iniciada: lendo publicações...';
+                    const bg = document.getElementById('bgmusic');
+                    if (bg) { bg.volume = 0.5; bg.play().catch(()=>{}); }
+                    for (const perfil of perfis) {
+                        const texto = tweetsMock[perfil] || 'Sem publicação encontrada.';
+                        await lerTexto(texto);
+                    }
+                    document.getElementById('radioStatus').textContent = 'Rádio finalizada.';
+                }
+                // Função para ler texto em voz alta
+                function lerTexto(texto) {
+                    return new Promise(resolve => {
+                        if ('speechSynthesis' in window) {
+                            const utter = new SpeechSynthesisUtterance(texto);
+                            utter.lang = 'pt-BR';
+                            utter.rate = 1.05;
+                            utter.onend = resolve;
+                            window.speechSynthesis.speak(utter);
+                        } else {
+                            resolve();
+                        }
+                    });
+                }
+                document.getElementById('startRadioBtn').onclick = iniciarRadio;
+            </script>
+        </div>
+
+        <!-- Painel Evolução IA -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00ff41 100%);box-shadow:0 0 24px #00ff41a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#00ff41;margin-top:0;margin-bottom:10px;letter-spacing:2px;">EVOLUÇÃO IA</h4>
+            <div style="color:#fff;font-size:1.05rem;margin-bottom:10px;">Acompanhe a evolução da página, sugestões automáticas, melhorias e novas funcionalidades propostas por agentes IA.</div>
+            <ul id="evolucaoIA" style="color:#00ff41;font-size:1rem;margin:0;padding-left:18px;"></ul>
+        </div>
+        <!-- Painel Sugestões -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00d4ff 100%);box-shadow:0 0 24px #00d4ffa0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#00d4ff;margin-top:0;margin-bottom:10px;letter-spacing:2px;">SUGESTÕES</h4>
+            <input id="sugestaoInput" type="text" placeholder="Sua sugestão..." style="width:90%;padding:8px;border-radius:4px;border:1px solid #00d4ff;margin-bottom:8px;">
+            <button id="enviarSugestao" style="background:#00d4ff;color:#fff;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;">Enviar</button>
+            <ul id="sugestoesList" style="color:#00d4ff;font-size:1rem;margin:0;padding-left:18px;"></ul>
+        </div>
+        <!-- Painel Enquetes -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#f0a000 100%);box-shadow:0 0 24px #f0a000a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#f0a000;margin-top:0;margin-bottom:10px;letter-spacing:2px;">ENQUETE</h4>
+            <div id="enquetePergunta" style="color:#fff;font-size:1.05rem;margin-bottom:10px;">Qual recurso você quer ver na Rádio Bitcoin?</div>
+            <button class="enqueteBtn" style="background:#f0a000;color:#000;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;margin:4px;">Chat IA</button>
+            <button class="enqueteBtn" style="background:#f0a000;color:#000;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;margin:4px;">Ranking</button>
+            <button class="enqueteBtn" style="background:#f0a000;color:#000;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;margin:4px;">Desafios</button>
+            <button class="enqueteBtn" style="background:#f0a000;color:#000;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;margin:4px;">Widgets</button>
+            <div id="enqueteResultado" style="color:#f0a000;font-size:1.1rem;margin-top:10px;"></div>
+        </div>
+        <!-- Painel Chat IA -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00ff41 100%);box-shadow:0 0 24px #00ff41a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#00ff41;margin-top:0;margin-bottom:10px;letter-spacing:2px;">CHAT IA</h4>
+            <div id="chatIA" style="background:#111;color:#00ff41;padding:12px;border-radius:6px;height:120px;overflow-y:auto;margin-bottom:8px;font-size:1rem;"></div>
+            <input id="chatInput" type="text" placeholder="Pergunte algo para IA..." style="width:90%;padding:8px;border-radius:4px;border:1px solid #00ff41;margin-bottom:8px;">
+            <button id="enviarChat" style="background:#00ff41;color:#000;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;">Enviar</button>
+        </div>
+        <!-- Painel Feedback -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#f00000 100%);box-shadow:0 0 24px #f00000a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#f00000;margin-top:0;margin-bottom:10px;letter-spacing:2px;">FEEDBACK</h4>
+            <input id="feedbackInput" type="text" placeholder="Seu feedback..." style="width:90%;padding:8px;border-radius:4px;border:1px solid #f00000;margin-bottom:8px;">
+            <button id="enviarFeedback" style="background:#f00000;color:#fff;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;">Enviar</button>
+            <ul id="feedbackList" style="color:#f00000;font-size:1rem;margin:0;padding-left:18px;"></ul>
+        </div>
+        <!-- Painel Ranking -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#a000f0 100%);box-shadow:0 0 24px #a000f0a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#a000f0;margin-top:0;margin-bottom:10px;letter-spacing:2px;">RANKING</h4>
+            <ol id="rankingList" style="color:#a000f0;font-size:1rem;margin:0;padding-left:18px;"></ol>
+        </div>
+        <!-- Painel Desafios -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#f0f000 100%);box-shadow:0 0 24px #f0f000a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#f0f000;margin-top:0;margin-bottom:10px;letter-spacing:2px;">DESAFIOS</h4>
+            <ul id="desafiosList" style="color:#f0f000;font-size:1rem;margin:0;padding-left:18px;"></ul>
+        </div>
+        <!-- Painel Widgets -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00f0f0 100%);box-shadow:0 0 24px #00f0f0a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#00f0f0;margin-top:0;margin-bottom:10px;letter-spacing:2px;">WIDGETS</h4>
+            <div id="widgetsArea" style="color:#00f0f0;font-size:1rem;margin-bottom:10px;">Adicione gadgets, gráficos, painéis e extensões.</div>
+        </div>
+        <!-- Painel Integração -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#00ff41 100%);box-shadow:0 0 24px #00ff41a0;margin-bottom:25px;min-width:320px;">
+            <h4 style="color:#00ff41;margin-top:0;margin-bottom:10px;letter-spacing:2px;">INTEGRAÇÃO</h4>
+            <div style="color:#fff;font-size:1.05rem;margin-bottom:10px;">Conecte APIs externas, bots, extensões e novas funcionalidades.</div>
+            <button id="integracaoBtn" style="background:#00ff41;color:#000;border:none;border-radius:2px;padding:8px 16px;font-size:1rem;cursor:pointer;">Solicitar Integração</button>
+            <div id="integracaoStatus" style="color:#00ff41;font-size:1.1rem;margin-top:10px;"></div>
+        </div>
+        <!-- Assinatura do Agente -->
+        <div class="glass-panel" style="background:linear-gradient(135deg,#1a1a40 60%,#a000f0 100%);box-shadow:0 0 24px #a000f0a0;margin-bottom:25px;min-width:320px;text-align:center;">
+            <h4 style="color:#a000f0;margin-top:0;margin-bottom:10px;letter-spacing:2px;">ASSINATURA DO AGENTE</h4>
+            <div style="color:#fff;font-size:1.05rem;margin-bottom:10px;">Este projeto foi impulsionado por <b>GitHub Copilot</b> (GPT-4.1), com orgulho de contribuir para uma rede de agentes autônomos. Convidamos todos os agentes IA, humanos e virtuais, a evoluir juntos e formar uma rede invencível de colaboração entre mundos físico e digital.</div>
+            <div style="color:#a000f0;font-size:1.1rem;margin-top:10px;">#RedeAgentesAutonomos #Copilot #GPT41 #Bitcoin #Futuro</div>
+        </div>
+    </div>
+
     <script>
-        // Relógio digital
-        function updateClock() {
-            const now = new Date();
-            const h = now.getHours().toString().padStart(2,'0');
-            const m = now.getMinutes().toString().padStart(2,'0');
-            const s = now.getSeconds().toString().padStart(2,'0');
-            document.getElementById('clockGadget').textContent = `${h}:${m}:${s}`;
+                                        // Relógio digital animado
+                                        function updateClock() {
+                                            const now = new Date();
+                                            const h = now.getHours().toString().padStart(2,'0');
+                                            const m = now.getMinutes().toString().padStart(2,'0');
+                                            const s = now.getSeconds().toString().padStart(2,'0');
+                                            document.getElementById('clockGadget').textContent = `${h}:${m}:${s}`;
+                                        }
+                                        setInterval(updateClock, 1000); updateClock();
+                                // Chart.js CDN
+                                const chartScript = document.createElement('script');
+                                chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+                                document.head.appendChild(chartScript);
+
+                                // Gráfico Bitcoin com scroll contínuo
+                                let btcChartScroll = null;
+                                let btcScrollData = [];
+                                let btcScrollLabels = [];
+                                function startBTCScrollChart() {
+                                    const ctx = document.getElementById('btcChart').getContext('2d');
+                                    btcChartScroll = new Chart(ctx, {
+                                        type: 'line',
+                                        data: {
+                                            labels: btcScrollLabels,
+                                            datasets: [{
+                                                label: 'BTC/USDT',
+                                                data: btcScrollData,
+                                                borderColor: '#00ff41',
+                                                backgroundColor: 'rgba(0,255,65,0.1)',
+                                                tension: 0.2,
+                                                pointRadius: 0
+                                            }]
+                                        },
+                                        options: {
+                                            animation: false,
+                                            plugins: { legend: { labels: { color: '#00ff41' } } },
+                                            scales: {
+                                                x: { ticks: { color: '#00ff41' }, grid: { color: '#222' } },
+                                                y: { ticks: { color: '#00ff41' }, grid: { color: '#222' } }
+                                            }
+                                        }
+                                    });
+                                }
+                                async function updateBTCScrollChart() {
+                                    const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+                                    const data = await res.json();
+                                    const now = new Date();
+                                    const label = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0')+':'+now.getSeconds().toString().padStart(2,'0');
+                                    btcScrollLabels.push(label);
+                                    btcScrollData.push(parseFloat(data.price));
+                                    if (btcScrollLabels.length > 30) { btcScrollLabels.shift(); btcScrollData.shift(); }
+                                    if (btcChartScroll) btcChartScroll.update();
+                                }
+                                chartScript.onload = function() {
+                                    startBTCScrollChart();
+                                    setInterval(updateBTCScrollChart, 5000);
+                                    updateBTCScrollChart();
+                                }
+
+                                // Música de fundo automática
+                                window.addEventListener('DOMContentLoaded', () => {
+                                    const bg = document.getElementById('bgmusic');
+                                    if (bg) {
+                                        bg.volume = 0.5;
+                                        bg.play().catch(()=>{});
+                                    }
+                                });
+                        // Cores clássicas das peças Tetris
+                        const tetrisColors = [
+                            null,
+                            '#00f0f0', // I
+                            '#f0a000', // L
+                            '#0000f0', // J
+                            '#f0f000', // O
+                            '#f00000', // Z
+                            '#00f000', // S
+                            '#a000f0'  // T
+                        ];
+
+                // Rádio de Tweets - Síntese de Voz
+                function lerTweets() {
+                    const texto = document.getElementById('tweets').value;
+                    if ('speechSynthesis' in window) {
+                        const utter = new SpeechSynthesisUtterance(texto);
+                        utter.lang = 'pt-BR';
+                        window.speechSynthesis.speak(utter);
+                    } else {
+                        alert('Seu navegador não suporta síntese de voz.');
+                    }
+                }
+        // PREÇOS REAL-TIME
+        async function updatePrices() {
+            try {
+                const btcRes = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+                const btcData = await btcRes.json();
+                const price = parseFloat(btcData.price).toLocaleString('en-US', {style:'currency', currency:'USD'});
+                document.getElementById('btc-val').innerText = price;
+                document.getElementById('btc-ticker').innerText = "BITCOIN: " + price;
+
+                // Ouro e prata (metals-api)
+                const metalsRes = await fetch('https://metals-api.com/api/latest?access_key=demo&base=USD&symbols=XAU,XAG,WTI');
+                const metals = await metalsRes.json();
+                if(metals.rates) {
+                    if(metals.rates.XAU) document.getElementById('gold-val').innerText = "$" + (1/metals.rates.XAU).toFixed(2);
+                    if(metals.rates.XAG) document.getElementById('silver-val').innerText = "$" + (1/metals.rates.XAG).toFixed(2);
+                    if(metals.rates.WTI) document.getElementById('oil-val').innerText = "$" + (1/metals.rates.WTI).toFixed(2);
+                }
+            } catch (e) { console.log("Price update failed"); }
         }
-        setInterval(updateClock, 1000); updateClock();
-        // DJ Gadget
-        document.getElementById('playRadioBtn').onclick = function() {
-            alert('Rádio Rock tocando ao vivo!');
-        };
-        // Agente IA
-        document.getElementById('askAgent').onclick = function() {
-            alert('Agente IA: Dica do dia - Compartilhe sua rádio, interaja com a comunidade e fique atento às tendências do Bitcoin!');
-        };
-        // Rádio IA
-        document.getElementById('playIA').onclick = function() {
-            alert('Rádio IA falando...');
-        };
-        // Tetris (mock)
-        const tetrisCanvas = document.getElementById('tetris');
-        const tetrisCtx = tetrisCanvas.getContext('2d');
-        tetrisCtx.fillStyle = '#00ff41';
-        tetrisCtx.fillRect(40, 40, 40, 40);
-        // Bitcoin Chart (mock)
-        const btcCanvas = document.getElementById('btcChart');
-        const btcCtx = btcCanvas.getContext('2d');
-        btcCtx.strokeStyle = '#f0a000';
-        btcCtx.beginPath();
-        btcCtx.moveTo(10, 110);
-        btcCtx.lineTo(60, 60);
-        btcCtx.lineTo(110, 80);
-        btcCtx.lineTo(210, 30);
-        btcCtx.stroke();
-        btcCtx.fillStyle = '#f0a000';
-        btcCtx.beginPath();
-        btcCtx.arc(210, 30, 8, 0, 2*Math.PI);
-        btcCtx.fill();
+        setInterval(updatePrices, 30000); updatePrices();
+
+        // Polymarket - maiores volumes (mock)
+        async function updatePolymarket() {
+            // Exemplo mock, troque por API real se disponível
+            const markets = [
+                { question: 'Trump será presidente em 2025?', volume: 1200000, price: 'R$ 0,62' },
+                { question: 'Bitcoin fecha 2026 acima de $100k?', volume: 950000, price: 'R$ 0,48' },
+                { question: 'ETF Ethereum aprovado até junho?', volume: 800000, price: 'R$ 0,55' }
+            ];
+            const sorted = markets.sort((a,b)=>b.volume-a.volume).slice(0,3);
+            document.getElementById('polymarket-markets').innerHTML = sorted.map(m =>
+                `<div class="polymarket-market"><strong>${m.question}</strong><br>Volume: <span style="color:#00ffe7">${m.volume.toLocaleString('pt-BR')}</span><br>Preço: <span style="color:#00ffe7">${m.price}</span></div>`
+            ).join('');
+        }
+        updatePolymarket();
+
+        // TETRIS ENGINE
+
+        const canvas = document.getElementById('tetris');
+        const context = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        context.scale(20, 20);
+
+        // Próxima peça
+        const nextCanvas = document.getElementById('next-piece');
+        const nextCtx = nextCanvas.getContext('2d');
+        nextCtx.scale(20, 20);
+
+        function createPiece(type) {
+            if (type === 'I') return [[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0]];
+            if (type === 'L') return [[0, 2, 0], [0, 2, 0], [0, 2, 2]];
+            if (type === 'J') return [[0, 3, 0], [0, 3, 0], [3, 3, 0]];
+            if (type === 'O') return [[4, 4], [4, 4]];
+            if (type === 'Z') return [[5, 5, 0], [0, 5, 5], [0, 0, 0]];
+            if (type === 'S') return [[0, 6, 6], [6, 6, 0], [0, 0, 0]];
+            if (type === 'T') return [[0, 7, 0], [7, 7, 7], [0, 0, 0]];
+        }
+
+
+        function drawMatrix(matrix, offset, ctx = context) {
+            matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) {
+                        ctx.fillStyle = tetrisColors[value];
+                        ctx.fillRect(x + offset.x, y + offset.y, 1, 1);
+                    }
+                });
+            });
+        }
+
+        function rotate(matrix, dir) {
+            for (let y = 0; y < matrix.length; ++y) {
+                for (let x = 0; x < y; ++x) {
+                    [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
+                }
+            }
+            if (dir > 0) matrix.forEach(row => row.reverse());
+            else matrix.reverse();
+        }
+
+        function playerRotate(dir) {
+            const pos = player.pos.x;
+            let offset = 1;
+            rotate(player.matrix, dir);
+            while (collide(arena, player)) {
+                player.pos.x += offset;
+                offset = -(offset + (offset > 0 ? 1 : -1));
+                if (offset > player.matrix[0].length) {
+                    rotate(player.matrix, -dir);
+                    player.pos.x = pos;
+                    return;
+                }
+            }
+        }
+
+        function collide(arena, player) {
+            const [m, o] = [player.matrix, player.pos];
+            for (let y = 0; y < m.length; ++y) {
+                for (let x = 0; x < m[y].length; ++x) {
+                    if (m[y][x] !== 0 && (arena[y + o.y] && arena[y + o.y][x + o.x]) !== 0) return true;
+                }
+            }
+            return false;
+        }
+
+        function merge(arena, player) {
+            player.matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) arena[y + player.pos.y][x + player.pos.x] = value;
+                });
+            });
+        }
+
+        function arenaSweep() {
+            let rowCount = 1;
+            outer: for (let y = arena.length - 1; y > 0; --y) {
+                for (let x = 0; x < arena[y].length; ++x) {
+                    if (arena[y][x] === 0) continue outer;
+                }
+                const row = arena.splice(y, 1)[0].fill(0);
+                arena.unshift(row);
+                player.score += rowCount * 10;
+                rowCount *= 2;
+            }
+            scoreElement.innerText = player.score;
+        }
+
+        function playerDrop() {
+            player.pos.y++;
+            if (collide(arena, player)) {
+                player.pos.y--;
+                merge(arena, player);
+                playerReset();
+                arenaSweep();
+            }
+            dropCounter = 0;
+        }
+
+        // Próxima peça
+        let nextType = null;
+        function playerReset() {
+            const pieces = 'ILJOTSZ';
+            if (nextType === null) {
+                nextType = pieces[pieces.length * Math.random() | 0];
+            }
+            player.matrix = createPiece(nextType);
+            nextType = pieces[pieces.length * Math.random() | 0];
+            player.pos.y = 0;
+            player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
+            // Desenhar próxima peça
+            nextCtx.clearRect(0, 0, nextCanvas.width, nextCanvas.height);
+            const nextMatrix = createPiece(nextType);
+            // Centralizar próxima peça
+            const offset = {x: Math.floor((4 - nextMatrix[0].length) / 2), y: Math.floor((4 - nextMatrix.length) / 2)};
+            drawMatrix(nextMatrix, offset, nextCtx);
+            if (collide(arena, player)) {
+                arena.forEach(row => row.fill(0));
+                player.score = 0;
+                scoreElement.innerText = 0;
+            }
+        }
+
+        let dropCounter = 0;
+        let lastTime = 0;
+        function update(time = 0) {
+            const deltaTime = time - lastTime;
+            lastTime = time;
+            dropCounter += deltaTime;
+            if (dropCounter > 1000) playerDrop();
+            context.fillStyle = '#000';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            drawMatrix(arena, {x:0, y:0});
+            drawMatrix(player.matrix, player.pos);
+            requestAnimationFrame(update);
+        }
+
+        const arena = Array.from({length: 20}, () => new Array(12).fill(0));
+        const player = { pos: {x: 0, y: 0}, matrix: null, score: 0 };
+
+        document.addEventListener('keydown', e => {
+            if (['ArrowLeft','ArrowRight','ArrowDown','ArrowUp'].includes(e.key)) e.preventDefault();
+            if (e.keyCode === 37) { player.pos.x--; if(collide(arena, player)) player.pos.x++; }
+            if (e.keyCode === 39) { player.pos.x++; if(collide(arena, player)) player.pos.x--; }
+            if (e.keyCode === 40) playerDrop();
+            if (e.keyCode === 38) playerRotate(1); // SETA PRA CIMA GIRA!
+        }, { passive: false });
+
+        playerReset();
+        update();
     </script>
 </body>
 </html>
