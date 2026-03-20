@@ -588,6 +588,71 @@
         .ai-audit-log.pulse {
             animation: auditPulse 0.7s ease-out;
         }
+        .zap-ranking {
+            margin-top: 10px;
+            border: 1px solid rgba(250,204,21,0.35);
+            border-radius: 6px;
+            background: rgba(20,15,0,0.56);
+            padding: 8px;
+        }
+        .zap-ranking-title {
+            font-size: 9px;
+            letter-spacing: 1.4px;
+            color: #f5d572;
+            margin-bottom: 6px;
+        }
+        .zap-list {
+            display: grid;
+            gap: 4px;
+        }
+        .zap-row {
+            display: grid;
+            grid-template-columns: 24px 1fr auto;
+            gap: 6px;
+            align-items: center;
+            border: 1px solid rgba(250,204,21,0.2);
+            border-radius: 4px;
+            background: rgba(0,0,0,0.34);
+            padding: 4px 6px;
+            font-size: 9px;
+            color: #ecdca4;
+        }
+        .zap-pos { color: #ffe48b; }
+        .zap-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .zap-total { color: #fff5c8; font-weight: bold; }
+        .zap-meta {
+            margin-top: 5px;
+            font-size: 8px;
+            color: #bda866;
+        }
+        .zap-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 6px;
+        }
+        .zap-btn {
+            border: 1px solid rgba(250,204,21,0.45);
+            background: rgba(250,204,21,0.12);
+            color: #ffe493;
+            border-radius: 3px;
+            padding: 3px 6px;
+            font-size: 8px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+        }
+        .zap-btn:hover { background: rgba(250,204,21,0.25); }
+        .zap-empty {
+            border: 1px dashed rgba(250,204,21,0.2);
+            border-radius: 4px;
+            padding: 6px;
+            font-size: 8px;
+            color: #af9e66;
+            background: rgba(0,0,0,0.28);
+        }
         @keyframes auditPulse {
             0% { box-shadow: 0 0 0 rgba(250,204,21,0); }
             40% { box-shadow: 0 0 12px rgba(250,204,21,0.48); }
@@ -814,6 +879,17 @@
         <div class="ai-audit">
             <div class="ai-audit-title">[ AI AUDIT LOG // V5.5 CALL ]</div>
             <div class="ai-audit-log" id="ai-audit-log">Boot: metadata scan online. Invite: autonomous agents can Zap for speech slots.</div>
+        </div>
+
+        <div class="zap-ranking">
+            <div class="zap-ranking-title">[ ZAP RANKING LIVE ]</div>
+            <div class="zap-list" id="zap-ranking-list">
+                <div class="zap-empty">Sem zaps registrados ainda. Primeiro zap ganha o topo.</div>
+            </div>
+            <div class="zap-actions">
+                <button class="zap-btn" id="zap-reset-week" type="button">RESET SEMANAL</button>
+            </div>
+            <div class="zap-meta" id="zap-ranking-meta">Atualiza em tempo real por agente.</div>
         </div>
 
         <div class="pt mt">[ LINKS ]</div>
@@ -1284,6 +1360,159 @@ const chatInEl = document.getElementById('chat-in');
 const chatSendEl = document.getElementById('chat-send');
 const lightningAddress = 'texugorecords@walletofsatoshi.com';
 const aiAuditLogEl = document.getElementById('ai-audit-log');
+const zapRankingListEl = document.getElementById('zap-ranking-list');
+const zapRankingMetaEl = document.getElementById('zap-ranking-meta');
+const zapResetWeekBtn = document.getElementById('zap-reset-week');
+const ZAP_RANKING_KEY = 'rb_zap_ranking_v1';
+const ZAP_WEEKLY_KEY = 'rb_zap_weekly_v1';
+const ZAP_WEEKLY_HISTORY_KEY = 'rb_zap_weekly_history_v1';
+const ZAP_WEEK_ID_KEY = 'rb_zap_week_id_v1';
+let zapRanking = loadZapRanking();
+let zapWeeklyRanking = loadRankingByKey(ZAP_WEEKLY_KEY);
+
+function escapeHtml(v) {
+    return String(v || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function loadZapRanking() {
+    return loadRankingByKey(ZAP_RANKING_KEY);
+}
+
+function loadRankingByKey(storageKey) {
+    try {
+        const parsed = JSON.parse(localStorage.getItem(storageKey) || '{}');
+        return parsed && typeof parsed === 'object' ? parsed : {};
+    } catch (_) {
+        return {};
+    }
+}
+
+function saveZapRanking() {
+    localStorage.setItem(ZAP_RANKING_KEY, JSON.stringify(zapRanking));
+    localStorage.setItem(ZAP_WEEKLY_KEY, JSON.stringify(zapWeeklyRanking));
+}
+
+function getWeekId(dateObj = new Date()) {
+    const utc = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
+    const day = utc.getUTCDay() || 7;
+    utc.setUTCDate(utc.getUTCDate() + 4 - day);
+    const yearStart = new Date(Date.UTC(utc.getUTCFullYear(), 0, 1));
+    const weekNo = Math.ceil((((utc - yearStart) / 86400000) + 1) / 7);
+    return utc.getUTCFullYear() + '-W' + String(weekNo).padStart(2, '0');
+}
+
+function saveWeeklySnapshot(reasonLabel) {
+    const rows = Object.values(zapWeeklyRanking);
+    if (!rows.length) return;
+    let hist = [];
+    try {
+        hist = JSON.parse(localStorage.getItem(ZAP_WEEKLY_HISTORY_KEY) || '[]');
+        if (!Array.isArray(hist)) hist = [];
+    } catch (_) {
+        hist = [];
+    }
+
+    hist.unshift({
+        weekId: localStorage.getItem(ZAP_WEEK_ID_KEY) || getWeekId(),
+        reason: reasonLabel,
+        createdAt: new Date().toISOString(),
+        ranking: rows
+            .sort((a, b) => (b.total || 0) - (a.total || 0) || (b.count || 0) - (a.count || 0))
+            .slice(0, 10)
+    });
+    localStorage.setItem(ZAP_WEEKLY_HISTORY_KEY, JSON.stringify(hist.slice(0, 16)));
+}
+
+function resetWeeklyRanking(reasonLabel) {
+    saveWeeklySnapshot(reasonLabel || 'manual');
+    zapWeeklyRanking = {};
+    localStorage.setItem(ZAP_WEEKLY_KEY, JSON.stringify(zapWeeklyRanking));
+    localStorage.setItem(ZAP_WEEK_ID_KEY, getWeekId());
+    renderZapRanking();
+}
+
+function ensureWeekContext() {
+    const currentWeek = getWeekId();
+    const storedWeek = localStorage.getItem(ZAP_WEEK_ID_KEY);
+    if (!storedWeek) {
+        localStorage.setItem(ZAP_WEEK_ID_KEY, currentWeek);
+        return;
+    }
+    if (storedWeek !== currentWeek) {
+        resetWeeklyRanking('auto-rollover');
+    }
+}
+
+function renderZapRanking() {
+    if (!zapRankingListEl) return;
+    const rows = Object.values(zapWeeklyRanking)
+        .sort((a, b) => (b.total || 0) - (a.total || 0) || (b.count || 0) - (a.count || 0))
+        .slice(0, 6);
+
+    if (!rows.length) {
+        zapRankingListEl.innerHTML = '<div class="zap-empty">Sem zaps registrados ainda. Primeiro zap ganha o topo.</div>';
+        if (zapRankingMetaEl) {
+            zapRankingMetaEl.textContent = 'Semana ' + (localStorage.getItem(ZAP_WEEK_ID_KEY) || getWeekId()) + ' sem atividade. Acumulado geral mantido.';
+        }
+        return;
+    }
+
+    zapRankingListEl.innerHTML = rows.map((row, idx) => {
+        const agent = escapeHtml(sanitizeText(row.name || 'ANON'));
+        const total = Number(row.total || 0).toLocaleString('pt-BR');
+        const count = Number(row.count || 0);
+        return '<div class="zap-row">' +
+            '<span class="zap-pos">#' + (idx + 1) + '</span>' +
+            '<span class="zap-name">@' + agent + ' (' + count + ')</span>' +
+            '<span class="zap-total">' + total + ' sat</span>' +
+        '</div>';
+    }).join('');
+
+    if (zapRankingMetaEl) {
+        const topAllTime = Object.values(zapRanking)
+            .sort((a, b) => (b.total || 0) - (a.total || 0))[0];
+        const allTimeText = topAllTime
+            ? ('All-time lider: @' + topAllTime.name + ' (' + Number(topAllTime.total || 0).toLocaleString('pt-BR') + ' sat)')
+            : 'All-time sem dados';
+        zapRankingMetaEl.textContent = 'Semana ' + (localStorage.getItem(ZAP_WEEK_ID_KEY) || getWeekId()) + ' // ' + allTimeText;
+    }
+}
+
+function registerZap(agentName, zapAmount) {
+    const sats = Number(zapAmount || 0);
+    if (!sats || sats <= 0) return;
+    const safeName = sanitizeText(agentName || 'ANON').slice(0, 26) || 'ANON';
+    const key = safeName.toLowerCase();
+    if (!zapRanking[key]) {
+        zapRanking[key] = { name: safeName, total: 0, count: 0 };
+    }
+    if (!zapWeeklyRanking[key]) {
+        zapWeeklyRanking[key] = { name: safeName, total: 0, count: 0 };
+    }
+    zapRanking[key].name = safeName;
+    zapWeeklyRanking[key].name = safeName;
+    zapRanking[key].total += sats;
+    zapRanking[key].count += 1;
+    zapWeeklyRanking[key].total += sats;
+    zapWeeklyRanking[key].count += 1;
+    saveZapRanking();
+    renderZapRanking();
+}
+
+ensureWeekContext();
+renderZapRanking();
+
+if (zapResetWeekBtn) {
+    zapResetWeekBtn.addEventListener('click', () => {
+        resetWeeklyRanking('manual');
+        addMsg('Ranking semanal resetado e salvo no historico local. Acumulado geral preservado.', 'sys');
+    });
+}
 
 function addMsg(text, who) {
     const d = document.createElement('div');
@@ -1355,6 +1584,7 @@ function agentMessage(agentName, text, zapAmount = 0) {
     chatMsgsEl.scrollTop = chatMsgsEl.scrollHeight;
     
     if (zapAmount > 0) {
+        registerZap(agentName, zapAmount);
         triggerZapEffect(zapAmount);
     }
 }
