@@ -110,7 +110,49 @@
         .score-disp { font-size:20px; letter-spacing:3px; color:#fff; text-shadow:0 0 12px var(--green); margin-bottom:8px; }
         #tetris { border:2px solid var(--green); background:#000; box-shadow:0 0 35px rgba(0,255,65,0.22); image-rendering:pixelated; }
         .game-hint { font-size:9px; color:#333; margin-top:7px; letter-spacing:1px; }
-        .center-top-split { width:100%; display:grid; grid-template-columns: 1fr 280px; gap:10px; align-items:stretch; }
+        .center-top-split { width:100%; display:grid; grid-template-columns: 240px 1fr 290px; gap:10px; align-items:stretch; }
+        .aux-panel {
+            border:1px solid rgba(0,255,65,0.22);
+            border-radius:6px;
+            background:rgba(0,0,0,0.40);
+            padding:8px;
+            display:flex;
+            flex-direction:column;
+            min-height:230px;
+        }
+        .aux-title { font-size:10px; letter-spacing:1.3px; margin-bottom:7px; color:#9df2ab; }
+        .aux-row {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            font-size:9px;
+            color:#9cc49f;
+            padding:5px 0;
+            border-top:1px dashed rgba(0,255,65,0.12);
+        }
+        .aux-v { color:#fff; font-weight:bold; text-shadow:0 0 6px rgba(0,255,65,0.3); }
+        .aux-kv-grid {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:6px;
+            margin-top:6px;
+        }
+        .aux-kv {
+            border:1px solid rgba(0,255,65,0.14);
+            border-radius:4px;
+            padding:5px;
+            background:rgba(0,16,0,0.45);
+        }
+        .aux-kv .k { font-size:8px; color:#80b786; }
+        .aux-kv .v { font-size:11px; color:#dfffe3; font-weight:bold; }
+        .aux-status {
+            margin-top:auto;
+            font-size:8px;
+            letter-spacing:0.6px;
+            color:#76a97e;
+            padding-top:6px;
+            border-top:1px dashed rgba(0,255,65,0.12);
+        }
         .btc-panel {
             border:1px solid rgba(0,255,65,0.28);
             border-radius:6px;
@@ -128,6 +170,29 @@
         #btc-chart { width:100%; height:150px; border:1px solid rgba(0,255,65,0.16); border-radius:4px; background:rgba(0,0,0,0.5); }
         .btc-sub { margin-top:6px; color:#6e8b73; font-size:9px; }
         .tetris-panel { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
+        .alerts-list {
+            margin-top:7px;
+            display:grid;
+            gap:5px;
+        }
+        .alert-item {
+            border:1px solid rgba(0,255,65,0.13);
+            border-radius:4px;
+            background:rgba(0,12,0,0.45);
+            padding:5px 6px;
+        }
+        .alert-item .k { font-size:8px; color:#85bf8e; margin-bottom:2px; }
+        .alert-item .v { font-size:10px; color:#e7fbe9; }
+        .alert-dot {
+            display:inline-block;
+            width:7px;
+            height:7px;
+            border-radius:50%;
+            margin-right:5px;
+            background:#9e9e9e;
+        }
+        .alert-dot.up { background:#3fbf52; box-shadow:0 0 8px rgba(63,191,82,0.55); }
+        .alert-dot.down { background:#d65a5a; box-shadow:0 0 8px rgba(214,90,90,0.55); }
 
         .partners-ticker {
             background: var(--panel);
@@ -581,6 +646,19 @@
     <div class="center-col" style="grid-row:3;">
         <div class="game-panel">
             <div class="center-top-split">
+                <div class="aux-panel">
+                    <div class="aux-title">[ MEMPOOL RADAR ]</div>
+                    <div class="aux-kv-grid">
+                        <div class="aux-kv"><div class="k">PENDENTE</div><div class="v" id="mp-vsize">-- MB</div></div>
+                        <div class="aux-kv"><div class="k">STATUS</div><div class="v" id="mp-status">--</div></div>
+                    </div>
+                    <div class="aux-row"><span>ECONOMICA</span><span class="aux-v" id="mp-economy">-- sat/vB</span></div>
+                    <div class="aux-row"><span>MEDIA</span><span class="aux-v" id="mp-half">-- sat/vB</span></div>
+                    <div class="aux-row"><span>URGENTE</span><span class="aux-v" id="mp-fast">-- sat/vB</span></div>
+                    <div class="aux-row"><span>CONF. ECO</span><span class="aux-v" id="mp-eta-eco">-- blocos</span></div>
+                    <div class="aux-row"><span>CONF. URG</span><span class="aux-v" id="mp-eta-fast">-- bloco</span></div>
+                    <div class="aux-status" id="mp-updated">Aguardando dados da mempool...</div>
+                </div>
                 <div class="tetris-panel">
                     <div class="score-disp">SCORE: <span id="score">0</span></div>
                     <canvas id="tetris" width="240" height="380"></canvas>
@@ -594,6 +672,12 @@
                         </div>
                     </div>
                     <div class="btc-sub">Widget TradingView em tempo real (5m).</div>
+                    <div class="alerts-list" id="market-alerts">
+                        <div class="alert-item"><div class="k">ULTIMO PRECO</div><div class="v" id="al-last">--</div></div>
+                        <div class="alert-item"><div class="k">RANGE 24H</div><div class="v" id="al-range">--</div></div>
+                        <div class="alert-item"><div class="k">VOLATILIDADE</div><div class="v" id="al-vol">--</div></div>
+                        <div class="alert-item"><div class="k">SINAL</div><div class="v" id="al-signal"><span class="alert-dot"></span>AGUARDANDO</div></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -879,6 +963,7 @@ const DEFAULT_HANDLES = ['bitadict', 'DocumentingBTC', 'bitcoinmagazine'];
 let selectedHandles = JSON.parse(localStorage.getItem('rb_selected_handles') || 'null') || DEFAULT_HANDLES;
 let latestIntelItems = [];
 let latestPodcastScript = '';
+let lastBtcPrice = null;
 
 function sanitizeText(v) {
     return (v || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
@@ -955,6 +1040,70 @@ async function fetchFeeFast() {
     }
 }
 
+async function fetchMempoolRadar() {
+    try {
+        const [feesResp, poolResp] = await Promise.all([
+            fetch('https://mempool.space/api/v1/fees/recommended'),
+            fetch('https://mempool.space/api/mempool')
+        ]);
+        const fees = await feesResp.json();
+        const pool = await poolResp.json();
+
+        const eco = Number(fees && fees.economyFee ? fees.economyFee : 0);
+        const med = Number(fees && fees.halfHourFee ? fees.halfHourFee : 0);
+        const fast = Number(fees && fees.fastestFee ? fees.fastestFee : 0);
+        const vsize = Number(pool && pool.vsize ? pool.vsize : 0);
+        const mb = (vsize / 1000000).toFixed(2);
+
+        const status = vsize > 180000000 ? 'CONGESTIONADA' : (vsize > 90000000 ? 'MODERADA' : 'FLUIDA');
+
+        document.getElementById('mp-vsize').textContent = mb + ' MB';
+        document.getElementById('mp-status').textContent = status;
+        document.getElementById('mp-economy').textContent = (eco || '--') + ' sat/vB';
+        document.getElementById('mp-half').textContent = (med || '--') + ' sat/vB';
+        document.getElementById('mp-fast').textContent = (fast || '--') + ' sat/vB';
+        document.getElementById('mp-eta-eco').textContent = (eco ? Math.max(2, Math.round((med || eco) / eco)) : '--') + ' blocos';
+        document.getElementById('mp-eta-fast').textContent = (fast ? '1 bloco' : '-- bloco');
+        document.getElementById('mp-updated').textContent = 'Atualizado: ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    } catch (_) {
+        document.getElementById('mp-updated').textContent = 'Falha ao consultar mempool agora.';
+    }
+}
+
+async function fetchMarketAlerts() {
+    try {
+        const r = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT');
+        const d = await r.json();
+        const last = Number(d.lastPrice || 0);
+        const high = Number(d.highPrice || 0);
+        const low = Number(d.lowPrice || 0);
+        const pct = Number(d.priceChangePercent || 0);
+
+        const rangePct = low ? (((high - low) / low) * 100) : 0;
+        document.getElementById('al-last').textContent = last ? ('$ ' + last.toLocaleString('pt-BR', { maximumFractionDigits: 0 })) : '--';
+        document.getElementById('al-range').textContent = low && high
+            ? ('$ ' + low.toLocaleString('pt-BR', { maximumFractionDigits: 0 }) + ' - $ ' + high.toLocaleString('pt-BR', { maximumFractionDigits: 0 }))
+            : '--';
+        document.getElementById('al-vol').textContent = rangePct ? (rangePct.toFixed(2) + '% range') : '--';
+
+        let signalText = '<span class="alert-dot"></span>LATERAL';
+        if (lastBtcPrice !== null) {
+            if (last > lastBtcPrice * 1.001) {
+                signalText = '<span class="alert-dot up"></span>ROMPIMENTO ALTA';
+            } else if (last < lastBtcPrice * 0.999) {
+                signalText = '<span class="alert-dot down"></span>PRESSAO BAIXA';
+            }
+        }
+        if (pct > 3) signalText = '<span class="alert-dot up"></span>FORCA COMPRADORA';
+        if (pct < -3) signalText = '<span class="alert-dot down"></span>FORCA VENDEDORA';
+
+        document.getElementById('al-signal').innerHTML = signalText;
+        lastBtcPrice = last;
+    } catch (_) {
+        document.getElementById('al-signal').innerHTML = '<span class="alert-dot down"></span>SEM DADOS';
+    }
+}
+
 async function fetchTweetsFromHandle(handle) {
     const nitterHosts = ['nitter.net', 'nitter.privacydev.net', 'nitter.poast.org'];
     for (const host of nitterHosts) {
@@ -1003,7 +1152,7 @@ function buildPodcastScript() {
 async function refreshIntelHub() {
     updateHandlesLabel();
     document.getElementById('podcast-status').textContent = 'Atualizando feed e dados on-chain...';
-    await Promise.all([fetchFearGreed(), fetchFeeFast()]);
+    await Promise.all([fetchFearGreed(), fetchFeeFast(), fetchMempoolRadar(), fetchMarketAlerts()]);
     const chunks = await Promise.all(selectedHandles.map(h => fetchTweetsFromHandle(h)));
     latestIntelItems = chunks.flat().sort((a, b) => (new Date(b.pubDate || 0) - new Date(a.pubDate || 0)));
     renderIntelItems(latestIntelItems);
