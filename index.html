@@ -616,23 +616,33 @@ updateBtc5mChart();
 const TKEY = '24726f0f21444fc187039e3725941475';
 
 async function fetchTwelveDataQuote(symbol) {
-    const response = await fetch(`https://api.twelvedata.com/quote?symbol=${encodeURIComponent(symbol)}&apikey=${TKEY}`);
-    const data = await response.json();
-    if (!data || data.code || (!data.close && !data.price)) return null;
-    return data;
+    try {
+        const response = await fetch(`https://api.twelvedata.com/quote?symbol=${encodeURIComponent(symbol)}&apikey=${TKEY}`);
+        if (!response.ok) {
+            throw new Error('HTTP ' + response.status);
+        }
+        const data = await response.json();
+        if (!data || data.code || data.status === 'error') {
+            console.warn('[TwelveData] resposta invalida para', symbol, data);
+            return null;
+        }
+        const price = parseFloat(data.close || data.price);
+        if (Number.isNaN(price)) {
+            console.warn('[TwelveData] sem preco numerico para', symbol, data);
+            return null;
+        }
+        return { symbol, price };
+    } catch (e) {
+        console.error('[TwelveData] falha ao buscar', symbol, e);
+        return null;
+    }
 }
 
 async function fetchOilReference() {
-    const symbols = ['USOIL', 'WTI', 'XTI/USD', 'BRENT'];
+    const symbols = ['WTI', 'USOIL', 'XTI/USD', 'BRENT', 'USO'];
     for (const symbol of symbols) {
-        try {
-            const data = await fetchTwelveDataQuote(symbol);
-            if (!data) continue;
-            const price = parseFloat(data.close || data.price);
-            if (!Number.isNaN(price)) {
-                return { symbol, price };
-            }
-        } catch(e) {}
+        const data = await fetchTwelveDataQuote(symbol);
+        if (data) return data;
     }
     return null;
 }
@@ -642,21 +652,29 @@ async function updatePrices() {
         const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
         const d = await r.json();
         document.getElementById('btc-val').textContent = '$' + parseFloat(d.price).toLocaleString('en-US', { maximumFractionDigits: 0 });
-    } catch(e) {}
+    } catch(e) {
+        console.error('[Binance] falha ao buscar BTCUSDT', e);
+    }
+
+    const [gold, silver, uso, xle, oil] = await Promise.all([
+        fetchTwelveDataQuote('XAU/USD'),
+        fetchTwelveDataQuote('XAG/USD'),
+        fetchTwelveDataQuote('USO'),
+        fetchTwelveDataQuote('XLE'),
+        fetchOilReference()
+    ]);
+
+    document.getElementById('gold-val').textContent = gold ? ('$' + gold.price.toFixed(2)) : 'NO DATA';
+    document.getElementById('silver-val').textContent = silver ? ('$' + silver.price.toFixed(2)) : 'NO DATA';
+    document.getElementById('uso-val').textContent = uso ? ('$' + uso.price.toFixed(2)) : 'NO DATA';
+    document.getElementById('xle-val').textContent = xle ? ('$' + xle.price.toFixed(2)) : 'NO DATA';
+
     try {
-        const r = await fetch(`https://api.twelvedata.com/quote?symbol=XAU/USD,XAG/USD,USO,XLE&apikey=${TKEY}`);
-        const d = await r.json();
-        if (d['XAU/USD']?.close) document.getElementById('gold-val').textContent = '$' + parseFloat(d['XAU/USD'].close).toFixed(2);
-        if (d['XAG/USD']?.close) document.getElementById('silver-val').textContent = '$' + parseFloat(d['XAG/USD'].close).toFixed(2);
-        if (d.USO?.close) document.getElementById('uso-val').textContent = '$' + parseFloat(d.USO.close).toFixed(2);
-        if (d.XLE?.close) document.getElementById('xle-val').textContent = '$' + parseFloat(d.XLE.close).toFixed(2);
-    } catch(e) {}
-    try {
-        const oil = await fetchOilReference();
         document.getElementById('wti-val').textContent = oil
             ? '$' + oil.price.toFixed(2)
             : 'USO REF';
     } catch(e) {
+        console.error('[Oil] falha ao atualizar referencia de petroleo', e);
         document.getElementById('wti-val').textContent = 'USO REF';
     }
 }
