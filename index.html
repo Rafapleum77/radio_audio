@@ -62,3 +62,285 @@
             grid-template-columns: 320px 1fr 320px;
             grid-template-rows: 60px 1fr;
             gap: 25px;
+            width: 85vw;
+            height: 85vh;
+            z-index: 10; /* Janelas ficam atrás da moldura */
+        }
+
+        .header-cockpit {
+            grid-column: 1 / -1;
+            background: rgba(0,0,0,0.85);
+            border: 2px solid var(--neon-green);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 0 25px rgba(0,255,65,0.3);
+        }
+
+        /* --- GADGETS HOLOGRÁFICOS (JANELAS) --- */
+        .hologram-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--neon-green);
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,255,65,0.15), inset 0 0 10px rgba(0,255,65,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Brilho da borda superior */
+        .hologram-panel::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+        }
+
+        /* DATA BOXES (Preços, Tickers) */
+        .data-box { border: 1px solid #1a1a1a; padding: 12px; margin-bottom: 12px; background: rgba(0,0,0,0.8); border-radius: 3px;}
+        .label { font-size: 11px; color: #666; display: block; margin-bottom: 5px; letter-spacing: 1px; }
+        .price { color: #fff; font-weight: bold; float: right; text-shadow: 0 0 5px var(--neon-green); font-size: 16px; }
+
+        /* --- TETRIS ENGINE --- */
+        .tetris-wrap { display: flex; flex-direction: column; align-items: center; grid-column: 2; grid-row: 2; }
+        #tetris { border: 4px solid var(--neon-green); background: #000; box-shadow: 0 0 40px rgba(0,255,65,0.2); image-rendering: pixelated; }
+        .score-board { font-size: 32px; margin-bottom: 15px; letter-spacing: 3px; color: #fff; text-shadow: 0 0 10px var(--neon-green); }
+
+        /* --- PLAYER E BOTÕES --- */
+        audio { width: 100%; filter: invert(1) hue-rotate(90deg) brightness(1.6); height: 35px; margin-top: 15px; border-radius: 2px;}
+        .btn-action { display: block; background: var(--neon-green); color: #000; padding: 15px; text-align: center; text-decoration: none; font-weight: bold; margin-top: 20px; transition: 0.2s; border-radius: 3px; font-size: 16px;}
+        .btn-action:hover { background: #fff; box-shadow: 0 0 30px var(--neon-green); transform: scale(1.02); }
+        .qr-img { width: 100%; border-radius: 5px; filter: contrast(1.1); margin-top: 10px;}
+
+        /* --- PATROCINADORES / PARCEIROS --- */
+        .partners-feed {
+            margin-top: 25px;
+            border-top: 1px solid rgba(0,255,65,0.2);
+            padding-top: 15px;
+            text-align: center;
+        }
+        .partner-logo {
+            max-width: 100%;
+            height: auto;
+            max-height: 40px;
+            margin: 10px;
+            filter: grayscale(1) brightness(0.8) contrast(1.2);
+            transition: 0.3s;
+        }
+        .partner-logo:hover {
+            filter: none;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+    <div id="earth-view"></div>
+    <div id="cockpit-frame"></div>
+
+    <div class="main-container">
+        <div class="header-cockpit">RADIO BITADICT // COCKPIT TERMINAL V4.1 // SOBERANIA DIGITAL</div>
+
+        <div class="hologram-panel" style="grid-column: 1; grid-row: 2;">
+            <h5 style="margin:0 0 15px 0; color: #fff; font-size: 14px;">[ ASSET MONITOR ]</h5>
+            <div class="data-box">
+                <span class="label">BITCOIN / USD</span>
+                <span class="price" id="btc-val">LOAD...</span>
+            </div>
+            <div class="data-box">
+                <span class="label">GOLD / OZ</span>
+                <span class="price" id="gold-val">---</span>
+            </div>
+            <div class="data-box">
+                <span class="label">SILVER / OZ</span>
+                <span class="price" id="silver-val">---</span>
+            </div>
+
+            <h5 style="color:var(--cosmic-blue); margin-top:30px; font-size: 14px;">[ POLYMARKET FEED ]</h5>
+            <div class="data-box" style="border-left: 3px solid var(--cosmic-blue); background: rgba(0,210,255,0.05);">
+                <span class="label">BTC > $100K MARÇO?</span>
+                <span style="color:var(--cosmic-blue); font-weight:bold; font-size: 14px;">CHANCE: 24%</span>
+            </div>
+            
+            <div class="partners-feed">
+                <span class="label" style="color:var(--neon-green);">PARCEIROS</span>
+                <img src="image_40415f.png" class="partner-logo" alt="Partner 1">
+                <img src="Captura de ecrã 2026-03-18 234933.jpg" class="partner-logo" alt="Partner 2">
+            </div>
+        </div>
+
+        <div class="tetris-wrap">
+            <div class="score-board">SCORE: <span id="score">0</span></div>
+            <canvas id="tetris" width="240" height="400"></canvas>
+            
+            <div class="hologram-panel" style="width:100%; margin-top:20px; box-sizing: border-box; border-color: var(--cosmic-blue); background: rgba(0,0,0,0.9);">
+                <audio controls loop>
+                    <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
+                </audio>
+                <div style="font-size:11px; margin-top:8px; color:var(--cosmic-blue); text-align:center;">RADIO FEED // @BITADICT LIVE</div>
+            </div>
+        </div>
+
+        <div class="hologram-panel" style="grid-column: 3; grid-row: 2; text-align: center;">
+            <h5 style="text-align:left; margin:0 0 15px 0; color: #fff; font-size: 14px;">[ NODE INFO ]</h5>
+            <div style="font-size: 20px; margin: 20px 0; letter-spacing: 2px; font-weight:bold;">@BITADICT</div>
+            <div style="background: #fff; padding: 12px; border-radius: 4px; display: inline-block;">
+                <img src="logo_texugorecords@walletofsatoshi.com.png" alt="LNURL" class="qr-img" style="filter:none;">
+            </div>
+            <a href="https://getalby.com/p/texugorecords" target="_blank" class="btn-action">⚡ SEND SATS (ALBY)</a>
+            <p style="font-size:10px; color:#444; margin-top:20px;">VERIFIED DIGITAL SOVEREIGNTY</p>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. PREÇOS EM TEMPO REAL ---
+        const API_KEY = '24726f0f21444fc187039e3725941475'; 
+
+        async function updatePrices() {
+            try {
+                // Bitcoin (Binance - Grátis)
+                const btcRes = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+                const btcData = await btcRes.json();
+                const price = parseFloat(btcData.price).toLocaleString('en-US', {style:'currency', currency:'USD'});
+                document.getElementById('btc-val').innerText = price;
+
+                // Ouro e Prata (TwelveData - Usando Key)
+                const commRes = await fetch(`https://api.twelvedata.com/quote?symbol=XAU/USD,XAG/USD&apikey=${API_KEY}`);
+                const commData = await commRes.json();
+                if(commData['XAU/USD']) document.getElementById('gold-val').innerText = "$" + dataT['XAU/USD'].close;
+                if(commData['XAG/USD']) document.getElementById('silver-val').innerText = "$" + dataT['XAG/USD'].close;
+            } catch (e) { console.log("Price update failed"); }
+        }
+        setInterval(updatePrices, 30000); updatePrices();
+
+        // --- 2. JOGO TETRIS V4.1 (GIRAR COM SETA CIMA) ---
+        const canvas = document.getElementById('tetris');
+        const context = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        context.scale(20, 20);
+
+        function createPiece(t) {
+            if (t === 'I') return [[0,1,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]];
+            if (t === 'L') return [[0,2,0],[0,2,0],[0,2,2]];
+            if (t === 'O') return [[3,3], [3,3]];
+            if (t === 'Z') return [[4,4,0], [0,4,4], [0,0,0]];
+            if (t === 'T') return [[0,5,0], [5,5,5], [0,0,0]];
+            return [[6,6,0], [0,6,6], [0,0,0]];
+        }
+
+        function drawMatrix(matrix, offset) {
+            matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) {
+                        context.fillStyle = '#00ff41'; // Verde Neon Unificado
+                        context.fillRect(x + offset.x, y + offset.y, 1, 1);
+                    }
+                });
+            });
+        }
+
+        function rotate(matrix, dir) {
+            for (let y = 0; y < matrix.length; ++y) {
+                for (let x = 0; x < y; ++x) {
+                    [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
+                }
+            }
+            if (dir > 0) matrix.forEach(row => row.reverse());
+            else matrix.reverse();
+        }
+
+        function playerRotate(dir) {
+            const pos = player.pos.x;
+            let offset = 1;
+            rotate(player.matrix, dir);
+            while (collide(arena, player)) {
+                player.pos.x += offset;
+                offset = -(offset + (offset > 0 ? 1 : -1));
+                if (offset > player.matrix[0].length) {
+                    rotate(player.matrix, -dir);
+                    player.pos.x = pos;
+                    return;
+                }
+            }
+        }
+
+        function collide(arena, player) {
+            const [m, o] = [player.matrix, player.pos];
+            for (let y = 0; y < m.length; ++y) {
+                for (let x = 0; x < m[y].length; ++x) {
+                    if (m[y][x] !== 0 && (arena[y + o.y] && arena[y + o.y][x + o.x]) !== 0) return true;
+                }
+            }
+            return false;
+        }
+
+        function merge(arena, player) {
+            player.matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) arena[y + player.pos.y][x + player.pos.x] = value;
+                });
+            });
+        }
+
+        function arenaSweep() {
+            outer: for (let y = arena.length - 1; y > 0; --y) {
+                for (let x = 0; x < arena[y].length; ++x) {
+                    if (arena[y][x] === 0) continue outer;
+                }
+                const row = arena.splice(y, 1)[0].fill(0);
+                arena.unshift(row);
+                player.score += 10;
+            }
+            scoreElement.innerText = player.score;
+        }
+
+        function playerDrop() {
+            player.pos.y++;
+            if (collide(arena, player)) {
+                player.pos.y--;
+                merge(arena, player);
+                playerReset();
+                arenaSweep();
+            }
+            dropCounter = 0;
+        }
+
+        function playerReset() {
+            const pieces = 'ILOTSZ';
+            player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
+            player.pos.y = 0;
+            player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
+            if (collide(arena, player)) arena.forEach(row => row.fill(0));
+        }
+
+        let dropCounter = 0;
+        let lastTime = 0;
+        function update(time = 0) {
+            const deltaTime = time - lastTime;
+            lastTime = time;
+            dropCounter += deltaTime;
+            if (dropCounter > 1000) playerDrop();
+            context.fillStyle = '#000';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            drawMatrix(arena, {x:0, y:0});
+            drawMatrix(player.matrix, player.pos);
+            requestAnimationFrame(update);
+        }
+
+        const arena = Array.from({length: 20}, () => new Array(12).fill(0));
+        const player = { pos: {x: 0, y: 0}, matrix: null, score: 0 };
+
+        document.addEventListener('keydown', e => {
+            if (e.keyCode === 37) { player.pos.x--; if(collide(arena, player)) player.pos.x++; } // Esq
+            if (e.keyCode === 39) { player.pos.x++; if(collide(arena, player)) player.pos.x--; } // Dir
+            if (e.keyCode === 40) playerDrop(); // Baixo
+            if (e.keyCode === 38) playerRotate(1); // Cima (Girar)
+        });
+
+        playerReset();
+        update();
+    </script>
+</body>
+</html>
