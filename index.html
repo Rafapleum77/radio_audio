@@ -285,6 +285,7 @@
         }
         .intel-k { font-size: 8px; color:#7fd68f; letter-spacing:1px; }
         .intel-v { font-size: 14px; color:#fff; text-shadow:0 0 7px rgba(0,255,65,0.45); }
+        .intel-subv { margin-top: 3px; font-size: 8px; color:#8bb492; letter-spacing:0.5px; }
         .fear-card {
             margin-top: 5px;
             border: 1px solid rgba(0,255,65,0.16);
@@ -704,6 +705,11 @@
                         <div class="intel-k">FEE FAST (SAT/VB)</div>
                         <div class="intel-v" id="fee-val">--</div>
                     </div>
+                    <div class="intel-metric">
+                        <div class="intel-k">BTC DOMINANCE</div>
+                        <div class="intel-v" id="btc-dom-val">--</div>
+                        <div class="intel-subv" id="btc-dom-note">Carregando regime de mercado...</div>
+                    </div>
                     <div class="intel-note" id="intel-handles">ARROBAS: @bitadict</div>
                 </div>
                 <div class="intel-feed">
@@ -1040,6 +1046,35 @@ async function fetchFeeFast() {
     }
 }
 
+async function fetchBtcDominance() {
+    try {
+        const r = await fetch('https://api.coingecko.com/api/v3/global');
+        const d = await r.json();
+        const dominance = d && d.data && d.data.market_cap_percentage
+            ? Number(d.data.market_cap_percentage.btc || 0)
+            : 0;
+        const totalCapUsd = d && d.data && d.data.total_market_cap
+            ? Number(d.data.total_market_cap.usd || 0)
+            : 0;
+
+        const regime = dominance >= 58
+            ? 'Bitcoin lidera o mercado'
+            : dominance >= 52
+                ? 'BTC dominante com rotacao moderada'
+                : 'Altcoins ganhando participacao';
+
+        document.getElementById('btc-dom-val').textContent = dominance
+            ? (dominance.toFixed(2) + '%')
+            : '--';
+        document.getElementById('btc-dom-note').textContent = totalCapUsd
+            ? (regime + ' // MCAP $ ' + (totalCapUsd / 1000000000000).toFixed(2) + 'T')
+            : regime;
+    } catch (_) {
+        document.getElementById('btc-dom-val').textContent = 'NO DATA';
+        document.getElementById('btc-dom-note').textContent = 'Falha ao consultar dominancia agora.';
+    }
+}
+
 async function fetchMempoolRadar() {
     try {
         const [feesResp, poolResp] = await Promise.all([
@@ -1152,7 +1187,7 @@ function buildPodcastScript() {
 async function refreshIntelHub() {
     updateHandlesLabel();
     document.getElementById('podcast-status').textContent = 'Atualizando feed e dados on-chain...';
-    await Promise.all([fetchFearGreed(), fetchFeeFast(), fetchMempoolRadar(), fetchMarketAlerts()]);
+    await Promise.all([fetchFearGreed(), fetchFeeFast(), fetchBtcDominance(), fetchMempoolRadar(), fetchMarketAlerts()]);
     const chunks = await Promise.all(selectedHandles.map(h => fetchTweetsFromHandle(h)));
     latestIntelItems = chunks.flat().sort((a, b) => (new Date(b.pubDate || 0) - new Date(a.pubDate || 0)));
     renderIntelItems(latestIntelItems);
