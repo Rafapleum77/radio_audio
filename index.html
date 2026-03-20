@@ -201,7 +201,7 @@
         }
         .intel-grid {
             display: grid;
-            grid-template-columns: 220px 1fr;
+            grid-template-columns: 145px 1fr;
             gap: 8px;
             align-items: stretch;
         }
@@ -525,6 +525,23 @@
 
     <div class="panel" id="left-panel" style="grid-column:1;grid-row:3;">
         <div class="pt">[ ASSET MONITOR ]</div>
+            <div class="intel-k" style="margin-bottom:5px">FEAR &amp; GREED</div>
+            <div class="fear-card" style="margin-bottom:8px">
+                <div class="fear-gauge">
+                    <div class="fear-arc"></div>
+                    <div class="fear-needle" id="fng-needle"></div>
+                    <div class="fear-center"></div>
+                    <div class="fear-now">Now: <span class="v" id="fng-now-value">--</span><span class="lbl" id="fng-now-label">--</span></div>
+                    <div class="fear-scale left">0</div>
+                    <div class="fear-scale mid">50</div>
+                    <div class="fear-scale right">100</div>
+                </div>
+                <div class="fear-hist-row"><span>Previous Close</span><span class="h-v" id="fng-prev">--</span></div>
+                <div class="fear-hist-row"><span>1 Week Ago</span><span class="h-v" id="fng-week">--</span></div>
+                <div class="fear-hist-row"><span>1 Month Ago</span><span class="h-v" id="fng-month">--</span></div>
+                <div class="fear-hist-row"><span>1 Year Ago</span><span class="h-v" id="fng-year">--</span></div>
+            </div>
+            <div class="intel-v" id="fng-val" style="display:none">--</div>
                 <div class="tv-box" id="tv-assets">
                         <div class="tradingview-widget-container" id="tv-assets-widget" style="height:100%;width:100%">
                                 <div class="tradingview-widget-container__widget"></div>
@@ -590,25 +607,6 @@
             <div class="intel-title">[ INTEL HUB // TWITTER BRIEFING + PODCAST ]</div>
             <div class="intel-grid">
                 <div class="intel-side">
-                    <div class="intel-metric">
-                        <div class="intel-k">FEAR & GREED</div>
-                        <div class="fear-card">
-                            <div class="fear-gauge">
-                                <div class="fear-arc"></div>
-                                <div class="fear-needle" id="fng-needle"></div>
-                                <div class="fear-center"></div>
-                                <div class="fear-now">Now: <span class="v" id="fng-now-value">--</span><span class="lbl" id="fng-now-label">--</span></div>
-                                <div class="fear-scale left">0</div>
-                                <div class="fear-scale mid">50</div>
-                                <div class="fear-scale right">100</div>
-                            </div>
-                            <div class="fear-hist-row"><span>Previous Close</span><span class="h-v" id="fng-prev">--</span></div>
-                            <div class="fear-hist-row"><span>1 Week Ago</span><span class="h-v" id="fng-week">--</span></div>
-                            <div class="fear-hist-row"><span>1 Month Ago</span><span class="h-v" id="fng-month">--</span></div>
-                            <div class="fear-hist-row"><span>1 Year Ago</span><span class="h-v" id="fng-year">--</span></div>
-                        </div>
-                        <div class="intel-v" id="fng-val" style="display:none">--</div>
-                    </div>
                     <div class="intel-metric">
                         <div class="intel-k">FEE FAST (SAT/VB)</div>
                         <div class="intel-v" id="fee-val">--</div>
