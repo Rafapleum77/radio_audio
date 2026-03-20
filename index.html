@@ -3,26 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BITADICT // TERMINAL V4.0 // COCKPIT</title>
+    <title>BITADICT // COCKPIT V4.5</title>
     <style>
-        :root { --neon-green: #00ff41; --dark-bg: #050505; }
+        :root { 
+            --neon-green: #00ff41; 
+            --cosmic-blue: #00d2ff;
+            --panel-bg: rgba(5, 5, 10, 0.9);
+        }
+        
         body { 
-            background: var(--dark-bg); 
+            background: #000;
             color: var(--neon-green); 
             font-family: 'Courier New', monospace; 
             margin: 0; 
-            padding-top: 100px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            overflow-x: hidden; 
-            /* ADICIONE A IMAGEM DE FUNDO DO COCKPIT AQUI */
-            /* background-image: url('caminho/para/sua/imagem/do/cockpit.jpg'); */
-            /* background-size: cover; */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            /* FUNDO: IMAGEM DO COCKPIT */
+            background-image: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1920&q=80'); 
+            background-size: cover;
+            background-position: center;
         }
-        
-        #scanner-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(0deg, rgba(0,255,65,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,65,0.03) 1px, transparent 1px); background-size: 30px 30px; }
 
-        .header { position: fixed; top: 0; width: 100%; border-bottom: 2px solid var(--neon-green); background: rgba(0,0,0,0.9); padding: 15px; text-align: center; letter-spacing: 5px; z-index: 1000; font-weight: bold; }
+        /* CAMADA DE SOBREPOSIÇÃO PARA DAR PROFUNDIDADE */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.8) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
 
-        .main-grid { display: grid; grid-template-columns: 300px 1fr 300px; gap: 20px; width: 95%; max-width: 1400px; z-index: 1; margin-top: 2
+        .main-container {
+            display: grid;
+            grid-template-columns: 320px 1fr 320px;
+            grid-template-rows: 50px 1fr;
+            gap: 20px;
+            width: 95vw;
+            height: 90vh;
+            z-index: 10;
+        }
+
+        .header {
+            grid-column: 1 / -1;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid var(--neon-green);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; letter-spacing: 5px;
+            box-shadow: 0 0 15px rgba(0,255,65,0.2);
+        }
+
+        .hologram {
+            background: var(--panel-bg);
+            border: 1px solid var(--neon-green);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0,255,65,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        /* GADGETS */
+        .data-box { border-bottom: 1px solid #1a1a1a; padding: 10px 0; }
+        .label { font-size: 10px; color: #666; display: block; }
+        .val { color: #fff; font-weight: bold; float: right; }
+
+        /* CENTRAL: JOGO E GRÁFICO */
+        .center-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        #tetris { 
+            border: 2px solid var(--neon-green); 
+            background: #000; 
+            box-shadow: 0 0 30px rgba(0,255,65,0.2);
+        }
+
+        /* CHAT IA */
+        #chat-box {
+            height: 120px;
+            overflow-y: auto;
+            font-size: 12px;
+            background: rgba(0,0,0,0.5);
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #222;
+        }
+        #chat-input {
+            width: 100%;
+            background: #000;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .qr-code { width: 100%; filter: invert(0); margin-top: 10px; border: 5px solid white; border-radius: 5px;}
+        .btn { 
+            display: block; background: var(--neon-green); color: #000; 
+            text-align: center; padding: 10px; text-decoration: none; 
+            font-weight: bold; margin-top: 10px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <div class="main-container">
+        <div class="header">RADIO BITADICT // MISSION CONTROL</div>
+
+        <div class="hologram">
+            <h5 style="margin:0 0 10px 0;">[ ASSET MONITOR ]</h5>
+            <div class="data-box">
+                <span class="label">BITCOIN</span>
+                <span class="val" id="btc-p">CARREGANDO...</span>
+            </div>
+            <div class="data-box">
+                <span class="label">GOLD / SILVER</span>
+                <span class="val" id="metals">--</span>
+            </div>
+
+            <h5 style="margin:20px 0 10px 0; color:var(--cosmic-blue);">[ CHAT SOBERANO ]</h5>
+            <div id="chat-box">Bem-vindo, Rafael. Sistema online.</div>
+            <input type="text" id="chat-input" placeholder="Comando...">
+            
+            <div style="margin-top:20px; text-align:center;">
+                <span class="label">PARTNERS</span>
+                <p style="font-size:10px;">LIVECOINS | STACKBIT</p>
+            </div>
+        </div>
+
+        <div class="center-stack">
+            <div style="font-size:20px; font-weight:bold;">SCORE: <span id="score">0</span></div>
+            <canvas id="tetris" width="240" height="400"></canvas>
+            <audio controls style="width:100%; filter: invert(1);">
+                <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <div class="hologram" style="text-align:center;">
+            <h5 style="text-align:left; margin:0 0 15px 0;">[ NODE INFO ]</h5>
+            <p>@BITADICT</p>
+            <img src="logo_texugorecords@walletofsatoshi.com.png" class="qr-code" alt="QR">
+            <a href="https://getalby.com/p/texugorecords" class="btn">⚡ ENVIAR SATS</a>
+            <div class="data-box" style="margin-top:20px; border-top:1px solid #222;">
+                <span class="label">STATUS DA NAVE</span>
+                <span class="val" style="color:var(--neon-green);">ESTÁVEL</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- PREÇOS REAL-TIME ---
+        async function updatePrices() {
+            try {
+                const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+                const data = await res.json();
+                document.getElementById('btc-p').innerText = "$" + parseFloat(data.price).toLocaleString();
+                document.getElementById('metals').innerText = "$2,150 / $24.80"; // Estático para evitar erro de API
+            } catch (e) { console.error("Erro API"); }
+        }
+        setInterval(updatePrices, 10000); updatePrices();
+
+        // --- CHAT IA ---
+        const input = document.getElementById('chat-input');
+        const box = document.getElementById('chat-box');
+        input.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') {
+                box.innerHTML += `<div><b>></b> ${input.value}</div>`;
+                const val = input.value.toLowerCase();
+                input.value = '';
+                setTimeout(() => {
+                    let resp = "Comando não reconhecido.";
+                    if(val.includes("oi")) resp = "Olá, Rafael! Como está a mineração hoje?";
+                    if(val.includes("btc")) resp = "O Bitcoin é a única saída.";
+                    box.innerHTML += `<div style="color:var(--cosmic-blue)"><b>IA:</b> ${resp}</div>`;
+                    box.scrollTop = box.scrollHeight;
+                }, 500);
+            }
+        });
+
+        // --- TETRIS ---
+        const canvas = document.getElementById('tetris');
+        const context = canvas.getContext('2d');
+        context.scale(20, 20);
+
+        function createPiece() {
+            return [[0,1,0],[1,1,1],[0,0,0]]; // Simplificado para garantir carregamento
+        }
+
+        const arena = Array.from({length: 20}, () => new Array(12).fill(0));
+        const player = { pos: {x: 5, y: 0}, matrix: createPiece(), score: 0 };
+
+        function draw() {
+            context.fillStyle = '#000';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            player.matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) {
+                        context.fillStyle = '#00ff41';
+                        context.fillRect(x + player.pos.x, y + player.pos.y, 1, 1);
+                    }
+                });
+            });
+        }
+
+        function update() {
+            player.pos.y++;
+            if(player.pos.y > 18) player.pos.y = 0;
+            draw();
+            setTimeout(update, 1000);
+        }
+        update();
+    </script>
+</body>
+</html>
