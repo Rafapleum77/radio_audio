@@ -3,336 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BITADICT // COCKPIT TERMINAL V4.1</title>
+    <title>BITADICT // MISSION CONTROL V5.5</title>
     <style>
         :root { 
             --neon-green: #00ff41; 
             --cosmic-blue: #00d2ff;
-            --cockpit-metal: #1a1a1c;
-            --panel-bg: rgba(5, 5, 10, 0.95);
+            --panel-bg: rgba(0, 8, 0, 0.92);
         }
         
-        body { 
-            background-color: black;
-            color: var(--neon-green); 
-            font-family: 'Courier New', monospace; 
-            margin: 0; 
-            padding: 0;
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh;
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background: #000; color: var(--neon-green);
+            font-family: 'Courier New', monospace;
             overflow: hidden;
-            /* FUNDO ESPACIAL SUTIL */
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZHRoPSIxMDAlIiBmaWxsPSJibGFjayIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iMTAiIHI9IjAuMSIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuNSIvPjxjaXJjbGUgY3g9IjcwIiBjeT0iMjAiIHI9IjAuMTUiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjciLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjgwIiByPSIwLjEiIGZpbGw9IndoaXRlIi9+PC9zdmc+');
         }
 
-        /* --- JANELA COM A TERRA AO FUNDO --- */
-        #earth-view {
-            position: fixed;
-            top: 10vh; left: 15vw; width: 70vw; height: 70vh;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTAwIiBoZWlnaHQ9IjEwMDAiIHZpZXdCb3g9IjAgMCAxMTAwIDEwMDAiPjxjaXJjbGUgY3g9IjU1MCIgY3k9IjUwMCIgcj0iNDAwIiBmaWxsPSIjMDAzMzhhIi8+PHBhdGggZD0iTTMwMCA0MDBjMC05MCAxODAtMTIwIDI0MC0zMHMyNDAgNjAgMjQwIDE1MHMtMjQwIDI0MC0zMDAgMjQwLTE4MC05MC0xODAtMTUweiIgZmlsbD0iIzIyOGIyMiIgb3BhY2l0eT0iMC42Ii8+PC9zdmc+');
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: -1;
-            filter: blur(1px) brightness(0.6);
-        }
-
-        /* --- MOLDURA DA CABINE (Z-INDEX ALTO) --- */
-        #cockpit-frame {
+        /* FUNDO ESPACIAL REALISTA */
+        #cockpit-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            border: 25px solid var(--cockpit-metal);
-            box-sizing: border-box;
-            box-shadow: inset 0 0 80px rgba(0,0,0,1), 0 0 100px rgba(0,255,65,0.15);
-            background: 
-                linear-gradient(135deg, #2a2a2e 25%, transparent 25%) -50px 0,
-                linear-gradient(225deg, #2a2a2e 25%, transparent 25%) -50px 0,
-                linear-gradient(315deg, #2a2a2e 25%, transparent 25%),
-                linear-gradient(45deg, #2a2a2e 25%, transparent 25%);
-            background-size: 100px 100px;
-            z-index: 50; /* Garante que fica na frente das janelas, mas permite cliques */
-            pointer-events: none;
+            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80'); 
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            filter: brightness(0.4) contrast(1.1);
         }
 
-        /* --- LAYOUT CENTRAL ORGANIZADO --- */
-        .main-container {
+        /* MOLDURA DE CABINE */
+        #frame-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: 30px solid #1a1a1c;
+            box-sizing: border-box;
+            pointer-events: none;
+            z-index: 100;
+            box-shadow: inset 0 0 100px rgba(0,0,0,1), 0 0 50px rgba(0,255,65,0.1);
+            background: linear-gradient(rgba(0,0,0,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.2) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* LAYOUT EM GRID - IGUAL À FOTO */
+        .ui-grid {
             display: grid;
             grid-template-columns: 320px 1fr 320px;
-            grid-template-rows: 60px 1fr;
-            gap: 25px;
-            width: 85vw;
-            height: 85vh;
-            z-index: 10; /* Janelas ficam atrás da moldura */
+            grid-template-rows: 60px 1fr 80px;
+            gap: 20px;
+            height: 100vh;
+            padding: 40px;
+            box-sizing: border-box;
+            z-index: 10;
+            position: relative;
         }
 
-        .header-cockpit {
+        .header-main {
             grid-column: 1 / -1;
-            background: rgba(0,0,0,0.85);
-            border: 2px solid var(--neon-green);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            letter-spacing: 5px;
-            font-size: 18px;
-            font-weight: bold;
-            box-shadow: 0 0 25px rgba(0,255,65,0.3);
+            background: rgba(0,0,0,0.8);
+            border: 1px solid var(--neon-green);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; font-weight: bold; letter-spacing: 6px;
+            box-shadow: 0 0 20px rgba(0,255,65,0.2);
+            text-transform: uppercase;
         }
 
-        /* --- GADGETS HOLOGRÁFICOS (JANELAS) --- */
-        .hologram-panel {
+        /* ESTILO DOS GADGETS HOLOGRÁFICOS */
+        .gadget-panel {
             background: var(--panel-bg);
             border: 1px solid var(--neon-green);
-            border-radius: 6px;
+            border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 0 20px rgba(0,255,65,0.15), inset 0 0 10px rgba(0,255,65,0.05);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Brilho da borda superior */
-        .hologram-panel::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            backdrop-filter: blur(8px);
+            box-shadow: inset 0 0 20px rgba(0,255,65,0.1);
+            display: flex; flex-direction: column;
+            border-top: 4px solid var(--neon-green);
         }
 
-        /* DATA BOXES (Preços, Tickers) */
-        .data-box { border: 1px solid #1a1a1a; padding: 12px; margin-bottom: 12px; background: rgba(0,0,0,0.8); border-radius: 3px;}
-        .label { font-size: 11px; color: #666; display: block; margin-bottom: 5px; letter-spacing: 1px; }
-        .price { color: #fff; font-weight: bold; float: right; text-shadow: 0 0 5px var(--neon-green); font-size: 16px; }
+        .gadget-title { font-size: 12px; margin-bottom: 15px; color: #fff; letter-spacing: 2px; border-bottom: 1px solid #222; padding-bottom: 5px;}
 
-        /* --- TETRIS ENGINE --- */
-        .tetris-wrap { display: flex; flex-direction: column; align-items: center; grid-column: 2; grid-row: 2; }
-        #tetris { border: 4px solid var(--neon-green); background: #000; box-shadow: 0 0 40px rgba(0,255,65,0.2); image-rendering: pixelated; }
-        .score-board { font-size: 32px; margin-bottom: 15px; letter-spacing: 3px; color: #fff; text-shadow: 0 0 10px var(--neon-green); }
+        /* MONITOR DE DADOS */
+        .stat-row { margin-bottom: 12px; font-size: 14px; display: flex; justify-content: space-between; }
+        .stat-val { color: #fff; font-weight: bold; text-shadow: 0 0 5px var(--neon-green); }
 
-        /* --- PLAYER E BOTÕES --- */
-        audio { width: 100%; filter: invert(1) hue-rotate(90deg) brightness(1.6); height: 35px; margin-top: 15px; border-radius: 2px;}
-        .btn-action { display: block; background: var(--neon-green); color: #000; padding: 15px; text-align: center; text-decoration: none; font-weight: bold; margin-top: 20px; transition: 0.2s; border-radius: 3px; font-size: 16px;}
-        .btn-action:hover { background: #fff; box-shadow: 0 0 30px var(--neon-green); transform: scale(1.02); }
-        .qr-img { width: 100%; border-radius: 5px; filter: contrast(1.1); margin-top: 10px;}
+        /* CHAT INTEGRADO (NOSTR READY) */
+        #chat-window {
+            flex-grow: 1;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #1a1a1a;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 12px;
+            overflow-y: auto;
+            color: var(--cosmic-blue);
+            line-height: 1.4;
+        }
+        #cmd-input {
+            background: #000; border: 1px solid var(--cosmic-blue);
+            color: var(--cosmic-blue); padding: 10px; outline: none; font-family: monospace;
+        }
 
-        /* --- PATROCINADORES / PARCEIROS --- */
-        .partners-feed {
-            margin-top: 25px;
-            border-top: 1px solid rgba(0,255,65,0.2);
-            padding-top: 15px;
-            text-align: center;
+        /* CONSOLE CENTRAL: JOGO E AUDIO */
+        .console-center {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 20px;
         }
-        .partner-logo {
-            max-width: 100%;
-            height: auto;
-            max-height: 40px;
-            margin: 10px;
-            filter: grayscale(1) brightness(0.8) contrast(1.2);
-            transition: 0.3s;
+        #tetris-canvas {
+            border: 3px solid var(--neon-green);
+            background: #000;
+            box-shadow: 0 0 50px rgba(0,255,65,0.2);
         }
-        .partner-logo:hover {
-            filter: none;
-            transform: scale(1.05);
+        .audio-stream { width: 100%; filter: invert(1) hue-rotate(180deg); opacity: 0.9; }
+
+        /* DIREITA: QR E SOBERANIA */
+        .sovereignty-zone { text-align: center; }
+        .qr-display { width: 100%; max-width: 200px; margin: 15px auto; border: 6px solid #fff; border-radius: 4px; }
+        .btn-zap {
+            background: var(--neon-green); color: #000; padding: 14px;
+            text-decoration: none; font-weight: bold; border-radius: 4px;
+            display: block; transition: 0.3s; font-size: 14px;
         }
+        .btn-zap:hover { background: #fff; box-shadow: 0 0 25px var(--neon-green); transform: translateY(-2px); }
 
     </style>
 </head>
 <body>
-    <div id="earth-view"></div>
-    <div id="cockpit-frame"></div>
 
-    <div class="main-container">
-        <div class="header-cockpit">RÁDIO BITCOIN</div>
+    <div id="cockpit-bg"></div>
+    <div id="frame-overlay"></div>
 
-        <div class="hologram-panel" style="grid-column: 1; grid-row: 2;">
-            <button class="btn-action">▶️ Ouvir Rádio Bitcoin</button>
-            <div style="margin-top:15px; color:#fff; font-size:14px;">20:36:48</div>
+    <div class="ui-grid">
+        <div class="header-main">RADIO BITADICT // ORBITAL TERMINAL V5.5</div>
+
+        <div class="gadget-panel">
+            <div class="gadget-title">[ INSTRUMENT PANEL ]</div>
+            <div class="stat-row">BITCOIN/USD: <span class="stat-val" id="btc-price">FETCHING...</span></div>
+            <div class="stat-row">OURO (XAU): <span class="stat-val">$2,162.40</span></div>
+            <div class="stat-row">PRATA (XAG): <span class="stat-val">$25.08</span></div>
+            
+            <div class="gadget-title" style="margin-top:25px; color:var(--cosmic-blue)">[ NOSTR AGENT FEED ]</div>
+            <div id="chat-window">
+                <div style="color:#555">>> Sistema iniciado.</div>
+                <div style="color:#555">>> A aguardar Zaps via Nostr...</div>
+            </div>
+            <input type="text" id="cmd-input" placeholder="Enviar comando para a rádio...">
         </div>
 
-        <div class="hologram-panel" style="grid-column: 2; grid-row: 2;">
-            <div style="margin-bottom:10px; color:#fff;">Painel de cotações, ativos, gráficos, gadgets. Exemplo: Bitcoin, ouro, prata, Polymarket, parceiros e gadgets.</div>
-            <div class="data-box">
-                <span class="label">BITCOIN / USD</span>
-                <span class="price" id="btc-val">LOAD...</span>
+        <div class="console-center">
+            <div style="font-size: 28px; font-weight: bold; text-shadow: 0 0 10px var(--neon-green);">
+                SCORE: <span id="tetris-score">0</span>
             </div>
-            <div class="data-box">
-                <span class="label">GOLD / OZ</span>
-                <span class="price" id="gold-val">---</span>
-            </div>
-            <div class="data-box">
-                <span class="label">SILVER / OZ</span>
-                <span class="price" id="silver-val">---</span>
-            </div>
-            <div class="partners-feed">
-                <span class="label" style="color:var(--neon-green);">PARCEIROS</span>
-                <img src="logo_livecoins.png" class="partner-logo" alt="Partner 1">
-                <img src="logo_radiobitcoin.png" class="partner-logo" alt="Partner 2">
-                <img src="logo_stackbit.png" class="partner-logo" alt="Partner 3">
+            <canvas id="tetris-canvas" width="240" height="400"></canvas>
+            
+            <div class="gadget-panel" style="width:100%; padding: 10px; border-top: 1px solid var(--cosmic-blue);">
+                <audio controls class="audio-stream">
+                    <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
+                </audio>
+                <div style="font-size:9px; text-align:center; color:var(--cosmic-blue); margin-top:5px; letter-spacing:1px;">
+                    LIVE STREAM: @BITADICT RADIO INTERSTELLAR
+                </div>
             </div>
         </div>
 
-        <div class="tetris-wrap">
-            <div class="score-board">SCORE: <span id="score">0</span></div>
-            <canvas id="tetris" width="240" height="400"></canvas>
-        </div>
-
-        <div class="hologram-panel" style="grid-column: 3; grid-row: 2; text-align: center;">
-            <h5 style="text-align:left; margin:0 0 15px 0; color: #fff; font-size: 14px;">[ NODE INFO ]</h5>
-            <div style="font-size: 20px; margin: 20px 0; letter-spacing: 2px; font-weight:bold;">@BITADICT</div>
-            <div style="background: #fff; padding: 12px; border-radius: 4px; display: inline-block;">
-                <img src="logo_texugorecords@walletofsatoshi.com.png" alt="LNURL" class="qr-img" style="filter:none;">
+        <div class="gadget-panel sovereignty-zone">
+            <div class="gadget-title">[ SOBERANIA DIGITAL ]</div>
+            <p style="font-size:11px; margin:0;">NODE ID: @BITADICT</p>
+            <img src="logo_texugorecords@walletofsatoshi.com.png" class="qr-display" alt="Lightning Address QR">
+            <a href="https://getalby.com/p/texugorecords" class="btn-zap" target="_blank">⚡ ENVIAR GORJETA (SATS)</a>
+            
+            <div class="gadget-title" style="margin-top:35px;">[ PATROCINADORES ]</div>
+            <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; opacity:0.7;">
+                <span style="font-size:10px;">LIVECOINS</span>
+                <span style="font-size:10px;">STACKBIT</span>
+                <span style="font-size:10px;">MISSION BTC</span>
             </div>
-            <a href="https://getalby.com/p/texugorecords" target="_blank" class="btn-action">⚡ SEND SATS (ALBY)</a>
-            <p style="font-size:10px; color:#444; margin-top:20px;">VERIFIED DIGITAL SOVEREIGNTY</p>
+            <p style="font-size:9px; color:#444; margin-top:30px;">"NOT YOUR KEYS, NOT YOUR COINS"</p>
         </div>
     </div>
 
     <script>
-        // --- 1. PREÇOS EM TEMPO REAL ---
-        const API_KEY = '24726f0f21444fc187039e3725941475'; 
-
-        async function updatePrices() {
+        // --- ATUALIZAÇÃO DE PREÇOS (BINANCE API) ---
+        async function updateMarket() {
             try {
-                // Bitcoin (Binance - Grátis)
-                const btcRes = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
-                const btcData = await btcRes.json();
-                const price = parseFloat(btcData.price).toLocaleString('en-US', {style:'currency', currency:'USD'});
-                document.getElementById('btc-val').innerText = price;
-
-                // Ouro e Prata (TwelveData - Usando Key)
-                const commRes = await fetch(`https://api.twelvedata.com/quote?symbol=XAU/USD,XAG/USD&apikey=${API_KEY}`);
-                const commData = await commRes.json();
-                if(commData['XAU/USD']) document.getElementById('gold-val').innerText = "$" + dataT['XAU/USD'].close;
-                if(commData['XAG/USD']) document.getElementById('silver-val').innerText = "$" + dataT['XAG/USD'].close;
-            } catch (e) { console.log("Price update failed"); }
+                const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+                const d = await r.json();
+                document.getElementById('btc-price').innerText = "$" + parseFloat(d.price).toLocaleString('en-US');
+            } catch(e) { console.log("Erro ao carregar preços."); }
         }
-        setInterval(updatePrices, 30000); updatePrices();
+        setInterval(updateMarket, 15000); updateMarket();
 
-        // --- 2. JOGO TETRIS V4.1 (GIRAR COM SETA CIMA) ---
-        const canvas = document.getElementById('tetris');
-        const context = canvas.getContext('2d');
-        const scoreElement = document.getElementById('score');
-        context.scale(20, 20);
+        // --- INTERAÇÃO DO CHAT (SIMULADOR DE AGENTE) ---
+        const input = document.getElementById('cmd-input');
+        const windowChat = document.getElementById('chat-window');
 
-        function createPiece(t) {
-            if (t === 'I') return [[0,1,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]];
-            if (t === 'L') return [[0,2,0],[0,2,0],[0,2,2]];
-            if (t === 'O') return [[3,3], [3,3]];
-            if (t === 'Z') return [[4,4,0], [0,4,4], [0,0,0]];
-            if (t === 'T') return [[0,5,0], [5,5,5], [0,0,0]];
-            return [[6,6,0], [0,6,6], [0,0,0]];
-        }
-
-        function drawMatrix(matrix, offset) {
-            matrix.forEach((row, y) => {
-                row.forEach((value, x) => {
-                    if (value !== 0) {
-                        context.fillStyle = '#00ff41'; // Verde Neon Unificado
-                        context.fillRect(x + offset.x, y + offset.y, 1, 1);
-                    }
-                });
-            });
-        }
-
-        function rotate(matrix, dir) {
-            for (let y = 0; y < matrix.length; ++y) {
-                for (let x = 0; x < y; ++x) {
-                    [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
-                }
-            }
-            if (dir > 0) matrix.forEach(row => row.reverse());
-            else matrix.reverse();
-        }
-
-        function playerRotate(dir) {
-            const pos = player.pos.x;
-            let offset = 1;
-            rotate(player.matrix, dir);
-            while (collide(arena, player)) {
-                player.pos.x += offset;
-                offset = -(offset + (offset > 0 ? 1 : -1));
-                if (offset > player.matrix[0].length) {
-                    rotate(player.matrix, -dir);
-                    player.pos.x = pos;
-                    return;
-                }
+        function addMessage(user, msg, isZap = false) {
+            const color = isZap ? "#eab308" : "var(--cosmic-blue)";
+            const zapLabel = isZap ? " [ZAP ⚡]" : "";
+            windowChat.innerHTML += `<div><b style="color:${color}">${user}${zapLabel}:</b> ${msg}</div>`;
+            windowChat.scrollTop = windowChat.scrollHeight;
+            
+            if(isZap) {
+                document.body.style.boxShadow = "inset 0 0 100px rgba(234, 179, 8, 0.4)";
+                setTimeout(() => document.body.style.boxShadow = "none", 1500);
             }
         }
 
-        function collide(arena, player) {
-            const [m, o] = [player.matrix, player.pos];
-            for (let y = 0; y < m.length; ++y) {
-                for (let x = 0; x < m[y].length; ++x) {
-                    if (m[y][x] !== 0 && (arena[y + o.y] && arena[y + o.y][x + o.x]) !== 0) return true;
-                }
+        input.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') {
+                const val = input.value;
+                addMessage("VOCÊ", val);
+                input.value = '';
+                
+                // Simulação de resposta da IA
+                setTimeout(() => {
+                    addMessage("AGENTE_AI", "Comando recebido. A processar dados de soberania...");
+                }, 800);
             }
-            return false;
-        }
-
-        function merge(arena, player) {
-            player.matrix.forEach((row, y) => {
-                row.forEach((value, x) => {
-                    if (value !== 0) arena[y + player.pos.y][x + player.pos.x] = value;
-                });
-            });
-        }
-
-        function arenaSweep() {
-            outer: for (let y = arena.length - 1; y > 0; --y) {
-                for (let x = 0; x < arena[y].length; ++x) {
-                    if (arena[y][x] === 0) continue outer;
-                }
-                const row = arena.splice(y, 1)[0].fill(0);
-                arena.unshift(row);
-                player.score += 10;
-            }
-            scoreElement.innerText = player.score;
-        }
-
-        function playerDrop() {
-            player.pos.y++;
-            if (collide(arena, player)) {
-                player.pos.y--;
-                merge(arena, player);
-                playerReset();
-                arenaSweep();
-            }
-            dropCounter = 0;
-        }
-
-        function playerReset() {
-            const pieces = 'ILOTSZ';
-            player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
-            player.pos.y = 0;
-            player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
-            if (collide(arena, player)) arena.forEach(row => row.fill(0));
-        }
-
-        let dropCounter = 0;
-        let lastTime = 0;
-        function update(time = 0) {
-            const deltaTime = time - lastTime;
-            lastTime = time;
-            dropCounter += deltaTime;
-            if (dropCounter > 1000) playerDrop();
-            context.fillStyle = '#000';
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            drawMatrix(arena, {x:0, y:0});
-            drawMatrix(player.matrix, player.pos);
-            requestAnimationFrame(update);
-        }
-
-        const arena = Array.from({length: 20}, () => new Array(12).fill(0));
-        const player = { pos: {x: 0, y: 0}, matrix: null, score: 0 };
-
-        document.addEventListener('keydown', e => {
-            if (e.keyCode === 37) { player.pos.x--; if(collide(arena, player)) player.pos.x++; } // Esq
-            if (e.keyCode === 39) { player.pos.x++; if(collide(arena, player)) player.pos.x--; } // Dir
-            if (e.keyCode === 40) playerDrop(); // Baixo
-            if (e.keyCode === 38) playerRotate(1); // Cima (Girar)
         });
 
-        playerReset();
-        update();
+        // Simulação de um robô entrando via Nostr com Gorjeta
+        setTimeout(() => {
+            addMessage("NerdMiner_Bot", "Gorjeta enviada! Toca uma de Bitcoin aí!", true);
+        }, 6000);
+
+        // --- MOTOR DO TETRIS (CENTRALIZADO) ---
+        const canvas = document.getElementById('tetris-canvas');
+        const context = canvas.getContext('2d');
+        const scoreDisplay = document.getElementById('tetris-score');
+        context.scale(20, 20);
+
+        function createPiece() { return [[0,1,0],[1,1,1],[0,0,0]]; }
+        const arena = Array.from({length: 20}, () => new Array(12).fill(0));
+        const player = { pos: {x: 4, y: 0}, matrix: createPiece(), score: 0 };
+
+        function draw() {
+            context.fillStyle = '#000';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            // Desenha Arena
+            arena.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) { context.fillStyle = '#00ff41'; context.fillRect(x, y, 1, 1); }
+                });
+            });
+            // Desenha Peça
+            player.matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) { context.fillStyle = '#fff'; context.fillRect(x + player.pos.x, y + player.pos.y, 1, 1); }
+                });
+            });
+        }
+
+        function updateGame() {
+            player.pos.y++;
+            if(player.pos.y > 18) { player.pos.y = 0; player.score += 10; scoreDisplay.innerText = player.score; }
+            draw();
+            setTimeout(updateGame, 800);
+        }
+        updateGame();
+
+        // Controles Simples (Setas)
+        document.addEventListener('keydown', e => {
+            if (e.keyCode === 37) player.pos.x--;
+            if (e.keyCode === 39) player.pos.x++;
+            if (e.keyCode === 40) player.pos.y++;
+        });
     </script>
 </body>
 </html>
