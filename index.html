@@ -141,10 +141,15 @@
     <div id="cockpit-frame"></div>
 
     <div class="main-container">
-        <div class="header-cockpit">RADIO BITADICT // COCKPIT TERMINAL V4.1 // SOBERANIA DIGITAL</div>
+        <div class="header-cockpit">RÁDIO BITCOIN</div>
 
         <div class="hologram-panel" style="grid-column: 1; grid-row: 2;">
-            <h5 style="margin:0 0 15px 0; color: #fff; font-size: 14px;">[ ASSET MONITOR ]</h5>
+            <button class="btn-action">▶️ Ouvir Rádio Bitcoin</button>
+            <div style="margin-top:15px; color:#fff; font-size:14px;">20:36:48</div>
+        </div>
+
+        <div class="hologram-panel" style="grid-column: 2; grid-row: 2;">
+            <div style="margin-bottom:10px; color:#fff;">Painel de cotações, ativos, gráficos, gadgets. Exemplo: Bitcoin, ouro, prata, Polymarket, parceiros e gadgets.</div>
             <div class="data-box">
                 <span class="label">BITCOIN / USD</span>
                 <span class="price" id="btc-val">LOAD...</span>
@@ -157,30 +162,17 @@
                 <span class="label">SILVER / OZ</span>
                 <span class="price" id="silver-val">---</span>
             </div>
-
-            <h5 style="color:var(--cosmic-blue); margin-top:30px; font-size: 14px;">[ POLYMARKET FEED ]</h5>
-            <div class="data-box" style="border-left: 3px solid var(--cosmic-blue); background: rgba(0,210,255,0.05);">
-                <span class="label">BTC > $100K MARÇO?</span>
-                <span style="color:var(--cosmic-blue); font-weight:bold; font-size: 14px;">CHANCE: 24%</span>
-            </div>
-            
             <div class="partners-feed">
                 <span class="label" style="color:var(--neon-green);">PARCEIROS</span>
-                <img src="image_40415f.png" class="partner-logo" alt="Partner 1">
-                <img src="Captura de ecrã 2026-03-18 234933.jpg" class="partner-logo" alt="Partner 2">
+                <img src="logo_livecoins.png" class="partner-logo" alt="Partner 1">
+                <img src="logo_radiobitcoin.png" class="partner-logo" alt="Partner 2">
+                <img src="logo_stackbit.png" class="partner-logo" alt="Partner 3">
             </div>
         </div>
 
         <div class="tetris-wrap">
             <div class="score-board">SCORE: <span id="score">0</span></div>
             <canvas id="tetris" width="240" height="400"></canvas>
-            
-            <div class="hologram-panel" style="width:100%; margin-top:20px; box-sizing: border-box; border-color: var(--cosmic-blue); background: rgba(0,0,0,0.9);">
-                <audio controls loop>
-                    <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
-                </audio>
-                <div style="font-size:11px; margin-top:8px; color:var(--cosmic-blue); text-align:center;">RADIO FEED // @BITADICT LIVE</div>
-            </div>
         </div>
 
         <div class="hologram-panel" style="grid-column: 3; grid-row: 2; text-align: center;">
