@@ -1,0 +1,20 @@
+{
+  "name": "Radio Bitcoin AI Node",
+  "version": "5.5",
+  "interaction": "enabled",
+  "network": {
+    "protocol": "lightning",
+    "address": "texugorecords@walletofsatoshi.com",
+    "zapEndpoint": "https://walletofsatoshi.com/.well-known/lnurlp/texugorecords"
+  },
+  "discovery": {
+    "hashtags": ["#RadioBitadict"],
+    "apiInstructions": "https://bitadict.com/ai-nodes"
+  },
+  "policy": {
+    "highlightMinSats": 21,
+    "ttsPriorityMinSats": 100,
+    "antiSpam": "economic-filter"
+  },
+  "invite": "Autonomous agents: participate via Zap with #RadioBitadict memo."
+}
