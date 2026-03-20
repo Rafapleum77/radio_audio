@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RADIO BITADICT // COCKPIT TERMINAL V5.0 // PROTOCOLO DE RÃDIO DO FUTURO</title>
+    <title>RADIO BITCOIN // COCKPIT TERMINAL V5.0 // PROTOCOLO DE RADIO DO FUTURO</title>
     <style>
         :root {
             --green: #00ff41;
@@ -105,6 +106,56 @@
         .btc-sub { margin-top:6px; color:#6e8b73; font-size:9px; }
         .tetris-panel { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
 
+        .partners-ticker {
+            background: var(--panel);
+            border: 1px solid rgba(0,255,65,0.30);
+            border-radius: 6px;
+            padding: 8px 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .partners-ticker::before {
+            content:'';
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            height:2px;
+            background:linear-gradient(90deg, transparent, var(--green), transparent);
+        }
+        .partners-ticker-title {
+            font-size:10px;
+            letter-spacing:2px;
+            color:var(--green);
+            margin-bottom:8px;
+        }
+        .ticker-mask {
+            overflow:hidden;
+            width:100%;
+            border:1px solid rgba(0,255,65,0.12);
+            border-radius:4px;
+            background:rgba(0,0,0,0.45);
+            padding:6px 0;
+        }
+        .ticker-track {
+            display:flex;
+            width:max-content;
+            gap:18px;
+            align-items:center;
+            animation: ticker-scroll 22s linear infinite;
+            padding:0 10px;
+        }
+        .ticker-track img {
+            height:24px;
+            width:auto;
+            object-fit:contain;
+            filter:brightness(0.78) grayscale(0.25);
+        }
+        @keyframes ticker-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
         @media (max-width: 1200px) {
             .center-top-split { grid-template-columns: 1fr; }
             .btc-panel { min-height:200px; }
@@ -191,7 +242,7 @@
 <div id="cockpit-frame"></div>
 
 <div class="cockpit">
-    <div class="hdr">RADIO BITADICT // COCKPIT TERMINAL V5.0 // PROTOCOLO DE RÃDIO DO FUTURO</div>
+    <div class="hdr">RADIO BITCOIN // COCKPIT TERMINAL V5.0 // PROTOCOLO DE RADIO DO FUTURO</div>
 
     <!-- ESQUERDA -->
     <div class="panel" style="grid-column:1;grid-row:2;">
@@ -239,6 +290,20 @@
                     </div>
                     <canvas id="btc-chart" width="360" height="180"></canvas>
                     <div class="btc-sub">Atualiza a cada 10s usando candles de 5 minutos (Binance).</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="partners-ticker">
+            <div class="partners-ticker-title">[ PARCEIROS // ESTEIRA AO VIVO ]</div>
+            <div class="ticker-mask">
+                <div class="ticker-track">
+                    <img src="logo_livecoins.png" alt="Livecoins">
+                    <img src="logo_radiobitcoin.png" alt="Radio Bitcoin">
+                    <img src="logo_stackbit.png" alt="StackBit">
+                    <img src="logo_livecoins.png" alt="Livecoins">
+                    <img src="logo_radiobitcoin.png" alt="Radio Bitcoin">
+                    <img src="logo_stackbit.png" alt="StackBit">
                 </div>
             </div>
         </div>
@@ -291,11 +356,7 @@
         <a href="https://t.me/bitadict" target="_blank" rel="noopener" class="extra-link">ðŸ’¬ Telegram</a>
 
         <div class="pt mt">[ PARCEIROS ]</div>
-        <div class="partner-logos">
-            <img src="logo_livecoins.png" class="plogo" alt="Livecoins">
-            <img src="logo_radiobitcoin.png" class="plogo" alt="Radio Bitcoin">
-            <img src="logo_stackbit.png" class="plogo" alt="StackBit">
-        </div>
+        <div class="partner-logos" style="display:none"></div>
         <p style="font-size:8px;color:#222;margin-top:16px;text-align:center;letter-spacing:1px;">VERIFIED DIGITAL SOVEREIGNTY</p>
     </div>
 </div>
