@@ -86,6 +86,29 @@
         .score-disp { font-size:20px; letter-spacing:3px; color:#fff; text-shadow:0 0 12px var(--green); margin-bottom:8px; }
         #tetris { border:2px solid var(--green); background:#000; box-shadow:0 0 35px rgba(0,255,65,0.22); image-rendering:pixelated; }
         .game-hint { font-size:9px; color:#333; margin-top:7px; letter-spacing:1px; }
+        .center-top-split { width:100%; display:grid; grid-template-columns: 1fr 280px; gap:10px; align-items:stretch; }
+        .btc-panel {
+            border:1px solid rgba(0,255,65,0.28);
+            border-radius:6px;
+            background:rgba(0,0,0,0.45);
+            padding:8px;
+            display:flex;
+            flex-direction:column;
+            min-height:230px;
+        }
+        .btc-title { font-size:10px; letter-spacing:1.5px; margin-bottom:6px; }
+        .btc-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:10px; color:#a3fdb6; }
+        .btc-badge { padding:2px 6px; border-radius:10px; font-size:9px; border:1px solid; }
+        .btc-badge.up { color:#8bff99; border-color:rgba(139,255,153,0.6); }
+        .btc-badge.down { color:#ff8d8d; border-color:rgba(255,141,141,0.6); }
+        #btc-chart { width:100%; height:150px; border:1px solid rgba(0,255,65,0.16); border-radius:4px; background:rgba(0,0,0,0.5); }
+        .btc-sub { margin-top:6px; color:#6e8b73; font-size:9px; }
+        .tetris-panel { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
+
+        @media (max-width: 1200px) {
+            .center-top-split { grid-template-columns: 1fr; }
+            .btc-panel { min-height:200px; }
+        }
 
         .radio-panel { background:var(--panel); border:1px solid rgba(0,255,65,0.42); border-radius:6px; padding:12px; box-shadow:0 0 22px rgba(0,255,65,0.10); position:relative; }
         .radio-panel::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--green),transparent); }
@@ -202,22 +225,35 @@
     <!-- CENTRO -->
     <div class="center-col">
         <div class="game-panel">
-            <div class="score-disp">SCORE: <span id="score">0</span></div>
-            <canvas id="tetris" width="240" height="380"></canvas>
-            <div class="game-hint">â† â†’ MOVER &nbsp;|&nbsp; â†‘ GIRAR &nbsp;|&nbsp; â†“ CAIR</div>
+            <div class="center-top-split">
+                <div class="tetris-panel">
+                    <div class="score-disp">SCORE: <span id="score">0</span></div>
+                    <canvas id="tetris" width="240" height="380"></canvas>
+                    <div class="game-hint">LEFT RIGHT MOVE | UP ROTATE | DOWN DROP</div>
+                </div>
+                <div class="btc-panel">
+                    <div class="btc-title">[ BITCOIN 5M LIVE // UP OR DOWN ]</div>
+                    <div class="btc-meta">
+                        <span id="btc-last">$ --</span>
+                        <span id="btc-trend" class="btc-badge up">UP 0.00%</span>
+                    </div>
+                    <canvas id="btc-chart" width="360" height="180"></canvas>
+                    <div class="btc-sub">Atualiza a cada 10s usando candles de 5 minutos (Binance).</div>
+                </div>
+            </div>
         </div>
 
         <div class="radio-panel">
             <div class="radio-title">[ RADIO FEED // @BITADICT LIVE ]</div>
             <div class="waveform" id="waveform"></div>
-            <audio id="radio-audio" preload="none">
-                <source src="Bitcoin e SalvaÃ§Ã£o.mp3" type="audio/mpeg">
+            <audio id="radio-audio" preload="auto" crossorigin="anonymous">
+                <source src="Bitcoin%20e%20Salva%C3%A7%C3%A3o.mp3" type="audio/mpeg">
                 <source src="https://s1.sslstream.net/listen/radiobitcoin/stream" type="audio/mpeg">
             </audio>
             <div class="radio-controls">
-                <button class="rbtn" id="btn-mic">ðŸŽ¤</button>
-                <button class="rbtn" id="btn-play">â–¶</button>
-                <button class="rbtn" id="btn-mute">ðŸ”Š</button>
+                <button class="rbtn" id="btn-mic">MIC</button>
+                <button class="rbtn" id="btn-play">PLAY</button>
+                <button class="rbtn" id="btn-mute">SOM</button>
                 <input type="range" class="vol-sl" id="vol-slider" min="0" max="100" value="80">
             </div>
         </div>
@@ -292,24 +328,61 @@ const playBtn   = document.getElementById('btn-play');
 const muteBtn   = document.getElementById('btn-mute');
 const volSlider = document.getElementById('vol-slider');
 let isPlaying = false, isMuted = false;
+let audioFallbackUsed = false;
 audioEl.volume = 0.8;
 
-playBtn.addEventListener('click', () => {
+function syncPlayerButtons() {
+    playBtn.textContent = isPlaying ? 'PAUSE' : 'PLAY';
+    playBtn.classList.toggle('active', isPlaying);
+    waveBars.forEach(b => b.classList.toggle('paused', !isPlaying));
+    muteBtn.textContent = isMuted ? 'MUDO' : 'SOM';
+    muteBtn.classList.toggle('active', isMuted);
+}
+
+async function togglePlay() {
     if (isPlaying) {
-        audioEl.pause(); playBtn.textContent = 'â–¶'; playBtn.classList.remove('active');
-        waveBars.forEach(b => b.classList.add('paused'));
+        audioEl.pause();
+        isPlaying = false;
+        syncPlayerButtons();
     } else {
-        audioEl.play().catch(() => {});
-        playBtn.textContent = 'â¸'; playBtn.classList.add('active');
-        waveBars.forEach(b => b.classList.remove('paused'));
+        try {
+            await audioEl.play();
+            isPlaying = true;
+            syncPlayerButtons();
+        } catch(e) {
+            addMsg('Falha ao tocar audio. Tentando stream alternativo...', 'sys');
+            if (!audioFallbackUsed) {
+                audioEl.src = 'https://s1.sslstream.net/listen/radiobitcoin/stream';
+                audioEl.load();
+                audioFallbackUsed = true;
+                try {
+                    await audioEl.play();
+                    isPlaying = true;
+                    syncPlayerButtons();
+                } catch(e2) {
+                    addMsg('Audio bloqueado pelo navegador. Clique PLAY novamente.', 'sys');
+                }
+            }
+        }
     }
-    isPlaying = !isPlaying;
+}
+
+playBtn.addEventListener('click', togglePlay);
+
+audioEl.addEventListener('play', () => { isPlaying = true; syncPlayerButtons(); });
+audioEl.addEventListener('pause', () => { isPlaying = false; syncPlayerButtons(); });
+audioEl.addEventListener('ended', () => { isPlaying = false; syncPlayerButtons(); });
+audioEl.addEventListener('error', () => {
+    if (!audioFallbackUsed) {
+        audioEl.src = 'https://s1.sslstream.net/listen/radiobitcoin/stream';
+        audioEl.load();
+        audioFallbackUsed = true;
+    }
 });
 
 muteBtn.addEventListener('click', () => {
     isMuted = !isMuted; audioEl.muted = isMuted;
-    muteBtn.textContent = isMuted ? 'ðŸ”‡' : 'ðŸ”Š';
-    muteBtn.classList.toggle('active', isMuted);
+    syncPlayerButtons();
 });
 
 volSlider.addEventListener('input', () => { audioEl.volume = volSlider.value / 100; });
@@ -321,6 +394,69 @@ document.getElementById('btn-mic').addEventListener('click', () => {
             .catch(() => alert('PermissÃ£o de microfone negada.'));
     }
 });
+syncPlayerButtons();
+
+// === BITCOIN CHART 5M ===
+const btcChartCanvas = document.getElementById('btc-chart');
+const btcChartCtx = btcChartCanvas.getContext('2d');
+const btcLastEl = document.getElementById('btc-last');
+const btcTrendEl = document.getElementById('btc-trend');
+
+function drawBtcChart(closes) {
+    if (!closes || closes.length < 2) return;
+    const w = btcChartCanvas.width;
+    const h = btcChartCanvas.height;
+    btcChartCtx.clearRect(0, 0, w, h);
+
+    const min = Math.min(...closes);
+    const max = Math.max(...closes);
+    const pad = 10;
+    const range = Math.max(max - min, 1);
+
+    btcChartCtx.strokeStyle = 'rgba(0,255,65,0.1)';
+    btcChartCtx.lineWidth = 1;
+    for (let i = 0; i <= 4; i++) {
+        const y = pad + (i * (h - pad * 2) / 4);
+        btcChartCtx.beginPath();
+        btcChartCtx.moveTo(pad, y);
+        btcChartCtx.lineTo(w - pad, y);
+        btcChartCtx.stroke();
+    }
+
+    const first = closes[0];
+    const last = closes[closes.length - 1];
+    const isUp = last >= first;
+
+    btcChartCtx.strokeStyle = isUp ? '#00ff41' : '#ff5c5c';
+    btcChartCtx.lineWidth = 2;
+    btcChartCtx.beginPath();
+    closes.forEach((v, i) => {
+        const x = pad + (i * (w - pad * 2) / (closes.length - 1));
+        const y = h - pad - ((v - min) / range) * (h - pad * 2);
+        if (i === 0) btcChartCtx.moveTo(x, y);
+        else btcChartCtx.lineTo(x, y);
+    });
+    btcChartCtx.stroke();
+
+    btcLastEl.textContent = '$ ' + last.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    const pct = ((last - first) / first) * 100;
+    btcTrendEl.textContent = (pct >= 0 ? 'UP ' : 'DOWN ') + Math.abs(pct).toFixed(2) + '%';
+    btcTrendEl.className = 'btc-badge ' + (pct >= 0 ? 'up' : 'down');
+}
+
+async function updateBtc5mChart() {
+    try {
+        const r = await fetch('https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=5m&limit=60');
+        const data = await r.json();
+        if (!Array.isArray(data)) return;
+        const closes = data.map(k => parseFloat(k[4]));
+        drawBtcChart(closes);
+    } catch(e) {
+        // silently keep last chart state
+    }
+}
+setInterval(updateBtc5mChart, 10000);
+updateBtc5mChart();
 
 // â•â•â• PREÃ‡OS EM TEMPO REAL â•â•â•
 const TKEY = '24726f0f21444fc187039e3725941475';
