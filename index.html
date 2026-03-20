@@ -3,267 +3,426 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BITADICT // MISSION CONTROL V5.5</title>
+    <title>RADIO BITADICT // COCKPIT TERMINAL V4.0 // SOBERANIA DIGITAL</title>
     <style>
-        :root { 
-            --neon-green: #00ff41; 
-            --cosmic-blue: #00d2ff;
-            --panel-bg: rgba(0, 8, 0, 0.92);
-        }
-        
-        body, html { 
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background: #000; color: var(--neon-green);
-            font-family: 'Courier New', monospace;
-            overflow: hidden;
+        :root { --green: #00ff41; --panel: rgba(0,6,0,0.91); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { width:100vw; height:100vh; overflow:hidden; font-family:'Courier New',monospace; color:var(--green); background:#000; }
+
+        #bg-space {
+            position:fixed; inset:0; z-index:0;
+            background:
+                radial-gradient(1px 1px at 15px 25px,  rgba(255,255,255,0.9),transparent),
+                radial-gradient(1px 1px at 55px 80px,  rgba(255,255,255,0.7),transparent),
+                radial-gradient(1px 1px at 90px 15px,  rgba(255,255,255,0.8),transparent),
+                radial-gradient(1px 1px at 145px 58px, rgba(255,255,255,0.6),transparent),
+                radial-gradient(1px 1px at 200px 35px, rgba(255,255,255,0.9),transparent),
+                radial-gradient(1px 1px at 270px 90px, rgba(255,255,255,0.5),transparent),
+                radial-gradient(1px 1px at 330px 20px, rgba(255,255,255,0.8),transparent),
+                radial-gradient(1px 1px at 400px 70px, rgba(255,255,255,0.7),transparent),
+                radial-gradient(1px 1px at 580px 80px, rgba(255,255,255,0.8),transparent),
+                radial-gradient(1px 1px at 640px 30px, rgba(255,255,255,0.7),transparent),
+                radial-gradient(1px 1px at 710px 65px, rgba(255,255,255,0.5),transparent),
+                radial-gradient(1px 1px at 780px 15px, rgba(255,255,255,0.9),transparent),
+                linear-gradient(180deg,#000005 0%,#00040f 35%,#001228 65%,#000d1e 100%);
         }
 
-        /* FUNDO ESPACIAL REALISTA */
-        #cockpit-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80'); 
-            background-size: cover;
-            background-position: center;
-            z-index: -2;
-            filter: brightness(0.4) contrast(1.1);
+        #bg-earth {
+            position:fixed; bottom:0; left:0; right:0; height:42vh; z-index:1;
+            background: radial-gradient(ellipse 130% 90% at 50% 108%, rgba(20,100,200,0.75) 0%, rgba(10,60,140,0.55) 25%, rgba(5,30,80,0.28) 50%, transparent 72%);
         }
 
-        /* MOLDURA DE CABINE */
-        #frame-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border: 30px solid #1a1a1c;
-            box-sizing: border-box;
-            pointer-events: none;
-            z-index: 100;
-            box-shadow: inset 0 0 100px rgba(0,0,0,1), 0 0 50px rgba(0,255,65,0.1);
-            background: linear-gradient(rgba(0,0,0,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.2) 1px, transparent 1px);
-            background-size: 50px 50px;
+        #cockpit-frame {
+            position:fixed; inset:0; z-index:2; pointer-events:none;
+            background:
+                linear-gradient(180deg, rgba(0,0,0,0.97) 0%,transparent 10%),
+                linear-gradient(0deg,   rgba(0,0,0,0.97) 0%,transparent 10%),
+                linear-gradient(90deg,  rgba(0,0,0,0.94) 0%,transparent 7%),
+                linear-gradient(270deg, rgba(0,0,0,0.94) 0%,transparent 7%);
+            box-shadow: inset 0 0 120px rgba(0,0,0,0.55);
         }
 
-        /* LAYOUT EM GRID - IGUAL À FOTO */
-        .ui-grid {
-            display: grid;
-            grid-template-columns: 320px 1fr 320px;
-            grid-template-rows: 60px 1fr 80px;
-            gap: 20px;
-            height: 100vh;
-            padding: 40px;
-            box-sizing: border-box;
-            z-index: 10;
-            position: relative;
-        }
+        .cockpit { position:relative; z-index:10; display:grid; grid-template-columns: 275px 1fr 275px; grid-template-rows: 46px 1fr; gap:10px; width:100vw; height:100vh; padding:10px; }
+        .hdr { grid-column:1/-1; background:rgba(0,8,0,0.93); border:1px solid rgba(0,255,65,0.55); border-radius:4px; display:flex; align-items:center; justify-content:center; letter-spacing:5px; font-size:13px; font-weight:bold; text-shadow:0 0 18px var(--green),0 0 4px var(--green); box-shadow:0 0 25px rgba(0,255,65,0.22); }
 
-        .header-main {
-            grid-column: 1 / -1;
-            background: rgba(0,0,0,0.8);
-            border: 1px solid var(--neon-green);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 18px; font-weight: bold; letter-spacing: 6px;
-            box-shadow: 0 0 20px rgba(0,255,65,0.2);
-            text-transform: uppercase;
-        }
+        .panel { background:var(--panel); border:1px solid rgba(0,255,65,0.42); border-radius:6px; padding:12px 13px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--green) #000; box-shadow:0 0 22px rgba(0,255,65,0.10),inset 0 0 20px rgba(0,0,0,0.5); position:relative; }
+        .panel::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--green),transparent); }
+        .pt { font-size:10px; letter-spacing:2px; color:var(--green); margin-bottom:10px; padding-bottom:7px; border-bottom:1px solid rgba(0,255,65,0.18); }
+        .pt.mt { margin-top:14px; }
 
-        /* ESTILO DOS GADGETS HOLOGRÁFICOS */
-        .gadget-panel {
-            background: var(--panel-bg);
-            border: 1px solid var(--neon-green);
-            border-radius: 8px;
-            padding: 20px;
-            backdrop-filter: blur(8px);
-            box-shadow: inset 0 0 20px rgba(0,255,65,0.1);
-            display: flex; flex-direction: column;
-            border-top: 4px solid var(--neon-green);
-        }
+        .asset-row { display:flex; justify-content:space-between; align-items:center; padding:9px 8px; margin-bottom:7px; background:rgba(0,0,0,0.65); border:1px solid rgba(0,255,65,0.12); border-radius:3px; }
+        .an { font-size:10px; color:#888; letter-spacing:1px; }
+        .av { font-size:14px; font-weight:bold; color:#fff; text-shadow:0 0 8px var(--green); }
 
-        .gadget-title { font-size: 12px; margin-bottom: 15px; color: #fff; letter-spacing: 2px; border-bottom: 1px solid #222; padding-bottom: 5px;}
+        .poly-item { background:rgba(0,18,0,0.7); border:1px solid rgba(0,255,65,0.22); padding:10px; border-radius:3px; margin-bottom:7px; }
+        .poly-q { font-size:10px; color:#ccc; margin-bottom:7px; line-height:1.4; }
+        .poly-bar-bg { background:#0d0d0d; height:10px; border-radius:5px; overflow:hidden; }
+        .poly-bar { background:var(--green); height:100%; border-radius:5px; transition:width 0.8s; }
+        .poly-pct { font-size:15px; color:var(--green); font-weight:bold; margin-top:6px; }
 
-        /* MONITOR DE DADOS */
-        .stat-row { margin-bottom: 12px; font-size: 14px; display: flex; justify-content: space-between; }
-        .stat-val { color: #fff; font-weight: bold; text-shadow: 0 0 5px var(--neon-green); }
+        .chat-box { display:flex; flex-direction:column; height:215px; margin-top:4px; }
+        .chat-msgs { flex:1; overflow-y:auto; background:rgba(0,0,0,0.72); border:1px solid rgba(0,255,65,0.18); padding:7px; border-radius:3px; font-size:10px; scrollbar-width:thin; scrollbar-color:var(--green) #000; }
+        .msg { margin-bottom:5px; line-height:1.45; word-break:break-word; }
+        .msg.user { color:#ddd; }
+        .msg.user::before { content:'> '; color:var(--green); }
+        .msg.ai { color:#aaee99; }
+        .msg.ai::before { content:'[BITAI] '; color:var(--green); font-weight:bold; }
+        .msg.sys { color:#555; font-style:italic; }
+        .chat-row { display:flex; gap:5px; margin-top:7px; }
+        .chat-in { flex:1; background:rgba(0,18,0,0.85); border:1px solid rgba(0,255,65,0.38); color:var(--green); font-family:'Courier New',monospace; font-size:10px; padding:5px 7px; border-radius:3px; outline:none; }
+        .chat-in:focus { border-color:var(--green); box-shadow:0 0 8px rgba(0,255,65,0.28); }
+        .chat-btn { background:var(--green); color:#000; border:none; padding:5px 9px; font-family:'Courier New',monospace; font-size:10px; font-weight:bold; cursor:pointer; border-radius:3px; }
+        .chat-btn:hover { background:#d0ffd8; }
+        .chat-btn:disabled { opacity:0.5; cursor:default; }
 
-        /* CHAT INTEGRADO (NOSTR READY) */
-        #chat-window {
-            flex-grow: 1;
-            background: rgba(0,0,0,0.6);
-            border: 1px solid #1a1a1a;
-            margin: 10px 0;
-            padding: 10px;
-            font-size: 12px;
-            overflow-y: auto;
-            color: var(--cosmic-blue);
-            line-height: 1.4;
-        }
-        #cmd-input {
-            background: #000; border: 1px solid var(--cosmic-blue);
-            color: var(--cosmic-blue); padding: 10px; outline: none; font-family: monospace;
-        }
+        .center-col { grid-column:2; grid-row:2; display:flex; flex-direction:column; gap:10px; }
+        .game-panel { background:var(--panel); border:1px solid rgba(0,255,65,0.42); border-radius:6px; padding:12px; display:flex; flex-direction:column; align-items:center; flex:1; box-shadow:0 0 22px rgba(0,255,65,0.10),inset 0 0 20px rgba(0,0,0,0.5); position:relative; }
+        .game-panel::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--green),transparent); }
+        .score-disp { font-size:20px; letter-spacing:3px; color:#fff; text-shadow:0 0 12px var(--green); margin-bottom:8px; }
+        #tetris { border:2px solid var(--green); background:#000; box-shadow:0 0 35px rgba(0,255,65,0.22); image-rendering:pixelated; }
+        .game-hint { font-size:9px; color:#333; margin-top:7px; letter-spacing:1px; }
 
-        /* CONSOLE CENTRAL: JOGO E AUDIO */
-        .console-center {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 20px;
-        }
-        #tetris-canvas {
-            border: 3px solid var(--neon-green);
-            background: #000;
-            box-shadow: 0 0 50px rgba(0,255,65,0.2);
-        }
-        .audio-stream { width: 100%; filter: invert(1) hue-rotate(180deg); opacity: 0.9; }
+        .radio-panel { background:var(--panel); border:1px solid rgba(0,255,65,0.42); border-radius:6px; padding:12px; box-shadow:0 0 22px rgba(0,255,65,0.10); position:relative; }
+        .radio-panel::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--green),transparent); }
+        .radio-title { font-size:10px; letter-spacing:2px; color:var(--green); text-align:center; margin-bottom:8px; }
+        .waveform { display:flex; align-items:center; justify-content:center; gap:3px; height:44px; margin:4px 0; }
+        .wbar { width:4px; background:var(--green); border-radius:2px; box-shadow:0 0 4px var(--green); animation:waveanim 0.9s ease-in-out infinite; }
+        .wbar.paused { animation-play-state:paused !important; height:4px !important; }
+        @keyframes waveanim { 0%,100%{height:4px;opacity:0.5} 50%{height:38px;opacity:1} }
+        .radio-controls { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:8px; flex-wrap:wrap; }
+        .rbtn { background:transparent; border:1px solid rgba(0,255,65,0.35); color:var(--green); font-size:13px; width:30px; height:30px; cursor:pointer; border-radius:3px; transition:0.15s; display:flex; align-items:center; justify-content:center; }
+        .rbtn:hover { background:rgba(0,255,65,0.18); }
+        .rbtn.active { background:rgba(0,255,65,0.22); border-color:var(--green); }
+        input[type=range].vol-sl { width:70px; accent-color:var(--green); cursor:pointer; }
+        audio { width:100%; height:28px; margin-top:6px; filter:invert(1) hue-rotate(90deg) brightness(1.5); border-radius:2px; }
 
-        /* DIREITA: QR E SOBERANIA */
-        .sovereignty-zone { text-align: center; }
-        .qr-display { width: 100%; max-width: 200px; margin: 15px auto; border: 6px solid #fff; border-radius: 4px; }
-        .btn-zap {
-            background: var(--neon-green); color: #000; padding: 14px;
-            text-decoration: none; font-weight: bold; border-radius: 4px;
-            display: block; transition: 0.3s; font-size: 14px;
-        }
-        .btn-zap:hover { background: #fff; box-shadow: 0 0 25px var(--neon-green); transform: translateY(-2px); }
+        .node-handle { font-size:17px; letter-spacing:2px; font-weight:bold; text-align:center; margin:8px 0 12px; text-shadow:0 0 12px var(--green); }
+        .qr-box { background:#fff; padding:8px; border-radius:4px; text-align:center; margin:0 0 10px; }
+        .qr-box img { width:100%; border-radius:2px; display:block; }
+        .btn-sats { display:block; background:var(--green); color:#000; padding:11px; text-align:center; text-decoration:none; font-weight:bold; font-family:'Courier New',monospace; font-size:13px; letter-spacing:2px; border-radius:3px; transition:0.2s; }
+        .btn-sats:hover { background:#d0ffd8; box-shadow:0 0 28px var(--green); }
+        .info-row { font-size:10px; color:#444; padding:4px 0; border-bottom:1px solid rgba(0,255,65,0.07); display:flex; justify-content:space-between; }
+        .info-row span { color:#99ee99; }
+        .extra-link { display:block; font-size:10px; color:#aaa; text-decoration:none; padding:4px 0; transition:color 0.15s; }
+        .extra-link:hover { color:var(--green); }
+        .partner-logos { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+        .plogo { height:26px; max-width:76px; object-fit:contain; filter:brightness(0.65) grayscale(0.4); border-radius:3px; }
 
+        ::-webkit-scrollbar { width:4px; height:4px; }
+        ::-webkit-scrollbar-track { background:#000; }
+        ::-webkit-scrollbar-thumb { background:rgba(0,255,65,0.5); border-radius:2px; }
+        .dot-on { color:#00ff41; animation:blink 2s infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
     </style>
 </head>
 <body>
 
-    <div id="cockpit-bg"></div>
-    <div id="frame-overlay"></div>
+<div id="bg-space"></div>
+<div id="bg-earth"></div>
+<div id="cockpit-frame"></div>
 
-    <div class="ui-grid">
-        <div class="header-main">RADIO BITADICT // ORBITAL TERMINAL V5.5</div>
+<div class="cockpit">
+    <div class="hdr">RADIO BITADICT // COCKPIT TERMINAL V4.0 // SOBERANIA DIGITAL</div>
 
-        <div class="gadget-panel">
-            <div class="gadget-title">[ INSTRUMENT PANEL ]</div>
-            <div class="stat-row">BITCOIN/USD: <span class="stat-val" id="btc-price">FETCHING...</span></div>
-            <div class="stat-row">OURO (XAU): <span class="stat-val">$2,162.40</span></div>
-            <div class="stat-row">PRATA (XAG): <span class="stat-val">$25.08</span></div>
-            
-            <div class="gadget-title" style="margin-top:25px; color:var(--cosmic-blue)">[ NOSTR AGENT FEED ]</div>
-            <div id="chat-window">
-                <div style="color:#555">>> Sistema iniciado.</div>
-                <div style="color:#555">>> A aguardar Zaps via Nostr...</div>
-            </div>
-            <input type="text" id="cmd-input" placeholder="Enviar comando para a rádio...">
+    <!-- ESQUERDA -->
+    <div class="panel" style="grid-column:1;grid-row:2;">
+        <div class="pt">[ ASSET MONITOR ]</div>
+        <div class="asset-row"><span class="an">BITCOIN / USD</span><span class="av" id="btc-val">LOAD...</span></div>
+        <div class="asset-row"><span class="an">GOLD / OZ</span><span class="av" id="gold-val">---</span></div>
+        <div class="asset-row"><span class="an">SILVER / OZ</span><span class="av" id="silver-val">---</span></div>
+
+        <div class="pt mt">[ POLYMARKET FEED ]</div>
+        <div class="poly-item">
+            <div class="poly-q">BTC &gt; $100K MARÇO?</div>
+            <div class="poly-bar-bg"><div class="poly-bar" style="width:24%"></div></div>
+            <div class="poly-pct">CHANCE: 24%</div>
+        </div>
+        <div class="poly-item">
+            <div class="poly-q">TRUMP MENCIONA BTC EM 30 DIAS?</div>
+            <div class="poly-bar-bg"><div class="poly-bar" style="width:67%"></div></div>
+            <div class="poly-pct">CHANCE: 67%</div>
         </div>
 
-        <div class="console-center">
-            <div style="font-size: 28px; font-weight: bold; text-shadow: 0 0 10px var(--neon-green);">
-                SCORE: <span id="tetris-score">0</span>
+        <div class="pt mt">[ CHAT // IA BITADICT ]</div>
+        <div class="chat-box">
+            <div class="chat-msgs" id="chat-msgs"><div class="msg sys">Sistema online. Assistente Bitcoin ativo.</div></div>
+            <div class="chat-row">
+                <input class="chat-in" id="chat-in" type="text" placeholder="Pergunta sobre Bitcoin..." autocomplete="off">
+                <button class="chat-btn" id="chat-send">SEND</button>
             </div>
-            <canvas id="tetris-canvas" width="240" height="400"></canvas>
-            
-            <div class="gadget-panel" style="width:100%; padding: 10px; border-top: 1px solid var(--cosmic-blue);">
-                <audio controls class="audio-stream">
-                    <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
-                </audio>
-                <div style="font-size:9px; text-align:center; color:var(--cosmic-blue); margin-top:5px; letter-spacing:1px;">
-                    LIVE STREAM: @BITADICT RADIO INTERSTELLAR
-                </div>
-            </div>
-        </div>
-
-        <div class="gadget-panel sovereignty-zone">
-            <div class="gadget-title">[ SOBERANIA DIGITAL ]</div>
-            <p style="font-size:11px; margin:0;">NODE ID: @BITADICT</p>
-            <img src="logo_texugorecords@walletofsatoshi.com.png" class="qr-display" alt="Lightning Address QR">
-            <a href="https://getalby.com/p/texugorecords" class="btn-zap" target="_blank">⚡ ENVIAR GORJETA (SATS)</a>
-            
-            <div class="gadget-title" style="margin-top:35px;">[ PATROCINADORES ]</div>
-            <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; opacity:0.7;">
-                <span style="font-size:10px;">LIVECOINS</span>
-                <span style="font-size:10px;">STACKBIT</span>
-                <span style="font-size:10px;">MISSION BTC</span>
-            </div>
-            <p style="font-size:9px; color:#444; margin-top:30px;">"NOT YOUR KEYS, NOT YOUR COINS"</p>
         </div>
     </div>
 
-    <script>
-        // --- ATUALIZAÇÃO DE PREÇOS (BINANCE API) ---
-        async function updateMarket() {
-            try {
-                const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
-                const d = await r.json();
-                document.getElementById('btc-price').innerText = "$" + parseFloat(d.price).toLocaleString('en-US');
-            } catch(e) { console.log("Erro ao carregar preços."); }
+    <!-- CENTRO -->
+    <div class="center-col">
+        <div class="game-panel">
+            <div class="score-disp">SCORE: <span id="score">0</span></div>
+            <canvas id="tetris" width="240" height="380"></canvas>
+            <div class="game-hint">← → MOVER &nbsp;|&nbsp; ↑ GIRAR &nbsp;|&nbsp; ↓ CAIR</div>
+        </div>
+
+        <div class="radio-panel">
+            <div class="radio-title">[ RADIO FEED // @BITADICT LIVE ]</div>
+            <div class="waveform" id="waveform"></div>
+            <audio id="radio-audio" preload="none">
+                <source src="Bitcoin e Salvação.mp3" type="audio/mpeg">
+                <source src="https://s1.sslstream.net/listen/radiobitcoin/stream" type="audio/mpeg">
+            </audio>
+            <div class="radio-controls">
+                <button class="rbtn" id="btn-mic">🎤</button>
+                <button class="rbtn" id="btn-play">▶</button>
+                <button class="rbtn" id="btn-mute">🔊</button>
+                <input type="range" class="vol-sl" id="vol-slider" min="0" max="100" value="80">
+            </div>
+        </div>
+    </div>
+
+    <!-- DIREITA -->
+    <div class="panel" style="grid-column:3;grid-row:2;">
+        <div class="pt">[ NODE INFO ]</div>
+        <div class="node-handle">@BITADICT</div>
+        <div class="qr-box"><img src="logo_texugorecords@walletofsatoshi.com.png" alt="Lightning QR"></div>
+        <a href="https://getalby.com/p/texugorecords" target="_blank" rel="noopener" class="btn-sats">⚡ SEND SATS</a>
+
+        <div class="pt mt">[ TRANSMISSÃO ]</div>
+        <div class="info-row">STATUS <span class="dot-on">● ONLINE</span></div>
+        <div class="info-row">STREAM <span>RADIO BITCOIN</span></div>
+        <div class="info-row">REDE <span>LIGHTNING</span></div>
+        <div class="info-row">PROTOCOLO <span>V4.0</span></div>
+        <div class="info-row">HORA UTC <span id="utc-clock">--:--:--</span></div>
+
+        <div class="pt mt">[ LINKS ]</div>
+        <a href="https://getalby.com/p/texugorecords" target="_blank" rel="noopener" class="extra-link">⚡ Alby Wallet</a>
+        <a href="https://web.bitadict.com" target="_blank" rel="noopener" class="extra-link">🌐 Bitadict Web</a>
+        <a href="https://twitter.com/bitadict" target="_blank" rel="noopener" class="extra-link">🐦 Twitter @BITADICT</a>
+        <a href="https://t.me/bitadict" target="_blank" rel="noopener" class="extra-link">💬 Telegram</a>
+
+        <div class="pt mt">[ PARCEIROS ]</div>
+        <div class="partner-logos">
+            <img src="logo_livecoins.png" class="plogo" alt="Livecoins">
+            <img src="logo_radiobitcoin.png" class="plogo" alt="Radio Bitcoin">
+            <img src="logo_stackbit.png" class="plogo" alt="StackBit">
+        </div>
+        <p style="font-size:8px;color:#222;margin-top:16px;text-align:center;letter-spacing:1px;">VERIFIED DIGITAL SOVEREIGNTY</p>
+    </div>
+</div>
+
+<script>
+// ═══ WAVEFORM ═══
+const wfEl = document.getElementById('waveform');
+for (let i = 0; i < 30; i++) {
+    const b = document.createElement('div');
+    b.className = 'wbar paused';
+    b.style.animationDuration = (0.5 + Math.random() * 0.9) + 's';
+    b.style.animationDelay = (-Math.random()) + 's';
+    wfEl.appendChild(b);
+}
+const waveBars = wfEl.querySelectorAll('.wbar');
+
+// ═══ RELÓGIO UTC ═══
+function updateClock() {
+    const n = new Date();
+    document.getElementById('utc-clock').textContent =
+        String(n.getUTCHours()).padStart(2,'0') + ':' +
+        String(n.getUTCMinutes()).padStart(2,'0') + ':' +
+        String(n.getUTCSeconds()).padStart(2,'0');
+}
+setInterval(updateClock, 1000); updateClock();
+
+// ═══ PLAYER DE RÁDIO ═══
+const audioEl   = document.getElementById('radio-audio');
+const playBtn   = document.getElementById('btn-play');
+const muteBtn   = document.getElementById('btn-mute');
+const volSlider = document.getElementById('vol-slider');
+let isPlaying = false, isMuted = false;
+audioEl.volume = 0.8;
+
+playBtn.addEventListener('click', () => {
+    if (isPlaying) {
+        audioEl.pause(); playBtn.textContent = '▶'; playBtn.classList.remove('active');
+        waveBars.forEach(b => b.classList.add('paused'));
+    } else {
+        audioEl.play().catch(() => {});
+        playBtn.textContent = '⏸'; playBtn.classList.add('active');
+        waveBars.forEach(b => b.classList.remove('paused'));
+    }
+    isPlaying = !isPlaying;
+});
+
+muteBtn.addEventListener('click', () => {
+    isMuted = !isMuted; audioEl.muted = isMuted;
+    muteBtn.textContent = isMuted ? '🔇' : '🔊';
+    muteBtn.classList.toggle('active', isMuted);
+});
+
+volSlider.addEventListener('input', () => { audioEl.volume = volSlider.value / 100; });
+
+document.getElementById('btn-mic').addEventListener('click', () => {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(() => document.getElementById('btn-mic').classList.add('active'))
+            .catch(() => alert('Permissão de microfone negada.'));
+    }
+});
+
+// ═══ PREÇOS EM TEMPO REAL ═══
+const TKEY = '24726f0f21444fc187039e3725941475';
+
+async function updatePrices() {
+    try {
+        const r = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+        const d = await r.json();
+        document.getElementById('btc-val').textContent = '$' + parseFloat(d.price).toLocaleString('en-US', { maximumFractionDigits: 0 });
+    } catch(e) {}
+    try {
+        const r = await fetch(`https://api.twelvedata.com/quote?symbol=XAU/USD,XAG/USD&apikey=${TKEY}`);
+        const d = await r.json();
+        if (d['XAU/USD']?.close) document.getElementById('gold-val').textContent = '$' + parseFloat(d['XAU/USD'].close).toFixed(2);
+        if (d['XAG/USD']?.close) document.getElementById('silver-val').textContent = '$' + parseFloat(d['XAG/USD'].close).toFixed(2);
+    } catch(e) {}
+}
+setInterval(updatePrices, 30000); updatePrices();
+
+// ═══ CHAT COM IA ═══
+const chatMsgsEl = document.getElementById('chat-msgs');
+const chatInEl   = document.getElementById('chat-in');
+const chatSendEl = document.getElementById('chat-send');
+
+function addMsg(text, who) {
+    const d = document.createElement('div');
+    d.className = 'msg ' + who; d.textContent = text;
+    chatMsgsEl.appendChild(d); chatMsgsEl.scrollTop = chatMsgsEl.scrollHeight;
+    return d;
+}
+
+async function sendChat() {
+    const q = chatInEl.value.trim(); if (!q) return;
+    chatInEl.value = ''; chatSendEl.disabled = true;
+    addMsg(q, 'user');
+    const loadEl = addMsg('...', 'ai');
+    try {
+        const sys = 'Você é o assistente da Radio Bitadict, especializado em Bitcoin, Lightning Network e soberania digital. Responda em português, de forma concisa (máx 3 frases).';
+        const prompt = encodeURIComponent(sys + '\n\nUsuário: ' + q + '\n\nAssistente:');
+        const res = await fetch('https://text.pollinations.ai/' + prompt);
+        if (!res.ok) throw new Error(res.status);
+        loadEl.textContent = (await res.text()).trim().slice(0, 480);
+    } catch(e) { loadEl.textContent = 'Erro de conexão. Tente novamente.'; }
+    finally { chatSendEl.disabled = false; chatInEl.focus(); }
+}
+chatSendEl.addEventListener('click', sendChat);
+chatInEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendChat(); });
+
+// ═══ TETRIS V4.1 ═══
+const canvas  = document.getElementById('tetris');
+const ctx     = canvas.getContext('2d');
+const scoreEl = document.getElementById('score');
+ctx.scale(20, 20);
+const COLS = 12, ROWS = 19;
+
+function createPiece(t) {
+    if (t==='I') return [[0,1,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]];
+    if (t==='L') return [[0,2,0],[0,2,0],[0,2,2]];
+    if (t==='J') return [[0,3,0],[0,3,0],[3,3,0]];
+    if (t==='O') return [[4,4],[4,4]];
+    if (t==='Z') return [[5,5,0],[0,5,5],[0,0,0]];
+    if (t==='S') return [[0,6,6],[6,6,0],[0,0,0]];
+               return [[0,7,0],[7,7,7],[0,0,0]];
+}
+
+function drawMatrix(m, off) {
+    m.forEach((row, y) => row.forEach((v, x) => {
+        if (v) {
+            ctx.fillStyle = '#00ff41';
+            ctx.fillRect(x + off.x, y + off.y, 1, 1);
+            ctx.fillStyle = 'rgba(0,0,0,0.22)';
+            ctx.fillRect(x + off.x + 0.7, y + off.y + 0.7, 0.3, 0.3);
         }
-        setInterval(updateMarket, 15000); updateMarket();
+    }));
+}
 
-        // --- INTERAÇÃO DO CHAT (SIMULADOR DE AGENTE) ---
-        const input = document.getElementById('cmd-input');
-        const windowChat = document.getElementById('chat-window');
+function rotate(m, dir) {
+    for (let y = 0; y < m.length; y++)
+        for (let x = 0; x < y; x++) [m[x][y], m[y][x]] = [m[y][x], m[x][y]];
+    if (dir > 0) m.forEach(r => r.reverse()); else m.reverse();
+}
 
-        function addMessage(user, msg, isZap = false) {
-            const color = isZap ? "#eab308" : "var(--cosmic-blue)";
-            const zapLabel = isZap ? " [ZAP ⚡]" : "";
-            windowChat.innerHTML += `<div><b style="color:${color}">${user}${zapLabel}:</b> ${msg}</div>`;
-            windowChat.scrollTop = windowChat.scrollHeight;
-            
-            if(isZap) {
-                document.body.style.boxShadow = "inset 0 0 100px rgba(234, 179, 8, 0.4)";
-                setTimeout(() => document.body.style.boxShadow = "none", 1500);
-            }
-        }
+function collide(ar, pl) {
+    const [m, o] = [pl.matrix, pl.pos];
+    for (let y = 0; y < m.length; y++)
+        for (let x = 0; x < m[y].length; x++)
+            if (m[y][x] && (ar[y + o.y] && ar[y + o.y][x + o.x]) !== 0) return true;
+    return false;
+}
 
-        input.addEventListener('keypress', (e) => {
-            if(e.key === 'Enter') {
-                const val = input.value;
-                addMessage("VOCÊ", val);
-                input.value = '';
-                
-                // Simulação de resposta da IA
-                setTimeout(() => {
-                    addMessage("AGENTE_AI", "Comando recebido. A processar dados de soberania...");
-                }, 800);
-            }
-        });
+function merge(ar, pl) {
+    pl.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) ar[y + pl.pos.y][x + pl.pos.x] = v; }));
+}
 
-        // Simulação de um robô entrando via Nostr com Gorjeta
-        setTimeout(() => {
-            addMessage("NerdMiner_Bot", "Gorjeta enviada! Toca uma de Bitcoin aí!", true);
-        }, 6000);
+function arenaSweep() {
+    outer: for (let y = arena.length - 1; y > 0; y--) {
+        for (let x = 0; x < arena[y].length; x++) if (!arena[y][x]) continue outer;
+        arena.splice(y, 1)[0].fill(0); arena.unshift(new Array(COLS).fill(0));
+        player.score += 10; y++;
+    }
+    scoreEl.textContent = player.score;
+}
 
-        // --- MOTOR DO TETRIS (CENTRALIZADO) ---
-        const canvas = document.getElementById('tetris-canvas');
-        const context = canvas.getContext('2d');
-        const scoreDisplay = document.getElementById('tetris-score');
-        context.scale(20, 20);
+function playerDrop() {
+    player.pos.y++;
+    if (collide(arena, player)) { player.pos.y--; merge(arena, player); playerReset(); arenaSweep(); }
+    dropCounter = 0;
+}
 
-        function createPiece() { return [[0,1,0],[1,1,1],[0,0,0]]; }
-        const arena = Array.from({length: 20}, () => new Array(12).fill(0));
-        const player = { pos: {x: 4, y: 0}, matrix: createPiece(), score: 0 };
+function playerRotate(dir) {
+    const pos = player.pos.x; let off = 1;
+    rotate(player.matrix, dir);
+    while (collide(arena, player)) {
+        player.pos.x += off; off = -(off + (off > 0 ? 1 : -1));
+        if (off > player.matrix[0].length) { rotate(player.matrix, -dir); player.pos.x = pos; return; }
+    }
+}
 
-        function draw() {
-            context.fillStyle = '#000';
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            // Desenha Arena
-            arena.forEach((row, y) => {
-                row.forEach((value, x) => {
-                    if (value !== 0) { context.fillStyle = '#00ff41'; context.fillRect(x, y, 1, 1); }
-                });
-            });
-            // Desenha Peça
-            player.matrix.forEach((row, y) => {
-                row.forEach((value, x) => {
-                    if (value !== 0) { context.fillStyle = '#fff'; context.fillRect(x + player.pos.x, y + player.pos.y, 1, 1); }
-                });
-            });
-        }
+function playerReset() {
+    const pieces = 'ILJOSVT';
+    player.matrix = createPiece(pieces[Math.floor(Math.random() * pieces.length)]);
+    player.pos.y = 0;
+    player.pos.x = (COLS / 2 | 0) - (player.matrix[0].length / 2 | 0);
+    if (collide(arena, player)) arena.forEach(r => r.fill(0));
+}
 
-        function updateGame() {
-            player.pos.y++;
-            if(player.pos.y > 18) { player.pos.y = 0; player.score += 10; scoreDisplay.innerText = player.score; }
-            draw();
-            setTimeout(updateGame, 800);
-        }
-        updateGame();
+const arena  = Array.from({ length: ROWS }, () => new Array(COLS).fill(0));
+const player = { pos: { x: 0, y: 0 }, matrix: null, score: 0 };
+let dropCounter = 0, lastTime = 0;
 
-        // Controles Simples (Setas)
-        document.addEventListener('keydown', e => {
-            if (e.keyCode === 37) player.pos.x--;
-            if (e.keyCode === 39) player.pos.x++;
-            if (e.keyCode === 40) player.pos.y++;
-        });
-    </script>
+function update(time = 0) {
+    const dt = time - lastTime; lastTime = time; dropCounter += dt;
+    if (dropCounter > 900) playerDrop();
+    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, COLS, ROWS);
+    ctx.strokeStyle = 'rgba(0,255,65,0.04)'; ctx.lineWidth = 0.05;
+    for (let x = 0; x <= COLS; x++) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,ROWS); ctx.stroke(); }
+    for (let y = 0; y <= ROWS; y++) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(COLS,y); ctx.stroke(); }
+    drawMatrix(arena, {x:0,y:0}); if (player.matrix) drawMatrix(player.matrix, player.pos);
+    requestAnimationFrame(update);
+}
+
+document.addEventListener('keydown', e => {
+    if (e.keyCode === 37) { player.pos.x--; if (collide(arena,player)) player.pos.x++; e.preventDefault(); }
+    if (e.keyCode === 39) { player.pos.x++; if (collide(arena,player)) player.pos.x--; e.preventDefault(); }
+    if (e.keyCode === 40) { playerDrop(); e.preventDefault(); }
+    if (e.keyCode === 38) { playerRotate(1); e.preventDefault(); }
+});
+
+let tx0 = 0, ty0 = 0;
+canvas.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; ty0 = e.touches[0].clientY; }, {passive:true});
+canvas.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx0, dy = e.changedTouches[0].clientY - ty0;
+    if (Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 15) { player.pos.x++; if (collide(arena,player)) player.pos.x--; }
+        else if (dx < -15) { player.pos.x--; if (collide(arena,player)) player.pos.x++; }
+    } else { if (dy > 15) playerDrop(); else if (dy < -15) playerRotate(1); }
+}, {passive:true});
+
+playerReset(); update();
+</script>
 </body>
 </html>
