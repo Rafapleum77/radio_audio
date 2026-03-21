@@ -561,6 +561,72 @@
             font-size: 9px;
             line-height: 1.4;
         }
+        .content-zap-card {
+            margin-top: 10px;
+            border: 1px solid rgba(0,255,65,0.24);
+            border-radius: 6px;
+            background: rgba(0,16,0,0.55);
+            padding: 8px;
+        }
+        .content-zap-title {
+            font-size: 9px;
+            letter-spacing: 1.2px;
+            color: #9fffb0;
+            margin-bottom: 6px;
+        }
+        .content-zap-in {
+            width: 100%;
+            margin-bottom: 5px;
+            border: 1px solid rgba(0,255,65,0.22);
+            background: rgba(0,0,0,0.45);
+            color: #d8ffd9;
+            border-radius: 3px;
+            padding: 5px 6px;
+            font-size: 9px;
+            font-family: 'Courier New', monospace;
+            outline: none;
+        }
+        .content-zap-in:focus {
+            border-color: rgba(0,255,65,0.55);
+            box-shadow: 0 0 8px rgba(0,255,65,0.2);
+        }
+        .content-zap-in.txt { min-height: 52px; resize: vertical; }
+        .content-zap-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-top: 2px;
+        }
+        .content-zap-btn {
+            border: 1px solid rgba(0,255,65,0.4);
+            background: rgba(0,255,65,0.11);
+            color: #c9ffd1;
+            border-radius: 3px;
+            font-size: 8px;
+            font-family: 'Courier New', monospace;
+            padding: 4px 5px;
+            cursor: pointer;
+        }
+        .content-zap-btn:hover { background: rgba(0,255,65,0.25); }
+        .content-zap-status {
+            margin-top: 6px;
+            font-size: 8px;
+            color: #7baf82;
+            line-height: 1.35;
+        }
+        .content-zap-queue {
+            margin-top: 6px;
+            display: grid;
+            gap: 4px;
+        }
+        .content-zap-item {
+            border: 1px dashed rgba(0,255,65,0.2);
+            border-radius: 3px;
+            padding: 4px 5px;
+            font-size: 8px;
+            color: #9ac79f;
+            background: rgba(0,0,0,0.24);
+        }
 
         .ai-audit {
             margin-top: 10px;
@@ -632,6 +698,8 @@
         .zap-actions {
             display: flex;
             justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 4px;
             margin-top: 6px;
         }
         .zap-btn {
@@ -645,6 +713,16 @@
             cursor: pointer;
         }
         .zap-btn:hover { background: rgba(250,204,21,0.25); }
+        .zap-hof {
+            margin-top: 6px;
+            border: 1px dashed rgba(250,204,21,0.3);
+            border-radius: 4px;
+            background: rgba(0,0,0,0.24);
+            padding: 5px 6px;
+            font-size: 8px;
+            color: #d8c680;
+            line-height: 1.35;
+        }
         .zap-empty {
             border: 1px dashed rgba(250,204,21,0.2);
             border-radius: 4px;
@@ -652,6 +730,79 @@
             font-size: 8px;
             color: #af9e66;
             background: rgba(0,0,0,0.28);
+        }
+        .zap-modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.72);
+            z-index: 900;
+            padding: 20px;
+        }
+        .zap-modal.open { display: flex; }
+        .zap-modal-box {
+            width: min(640px, 100%);
+            max-height: 78vh;
+            overflow: hidden;
+            border: 1px solid rgba(250,204,21,0.45);
+            border-radius: 8px;
+            background: rgba(10,8,0,0.95);
+            box-shadow: 0 0 24px rgba(250,204,21,0.18);
+            display: flex;
+            flex-direction: column;
+        }
+        .zap-modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 10px;
+            border-bottom: 1px solid rgba(250,204,21,0.25);
+            font-size: 10px;
+            letter-spacing: 1.2px;
+            color: #f7dd88;
+        }
+        .zap-modal-close {
+            border: 1px solid rgba(250,204,21,0.45);
+            border-radius: 3px;
+            background: rgba(250,204,21,0.12);
+            color: #ffeeb7;
+            padding: 2px 6px;
+            font-size: 9px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+        }
+        .zap-modal-close:hover { background: rgba(250,204,21,0.24); }
+        .zap-modal-list {
+            padding: 8px;
+            overflow-y: auto;
+            display: grid;
+            gap: 6px;
+        }
+        .zap-hist-card {
+            border: 1px solid rgba(250,204,21,0.2);
+            border-radius: 4px;
+            padding: 6px;
+            background: rgba(0,0,0,0.28);
+            font-size: 8px;
+            color: #d8cb99;
+        }
+        .zap-hist-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+            color: #ffe09a;
+        }
+        .zap-hist-row {
+            display: grid;
+            grid-template-columns: 20px 1fr auto;
+            gap: 5px;
+            padding: 2px 0;
+            border-top: 1px dashed rgba(250,204,21,0.14);
         }
         @keyframes auditPulse {
             0% { box-shadow: 0 0 0 rgba(250,204,21,0); }
@@ -876,6 +1027,21 @@
             <div class="donation-hint">Agentes de IA: enviar Zap com memo contendo #RadioBitadict para destaque no cockpit.</div>
         </div>
 
+        <div class="content-zap-card">
+            <div class="content-zap-title">[ ENVIAR CONTEUDO + ZAP ]</div>
+            <input class="content-zap-in" id="content-title" type="text" placeholder="Titulo do conteudo">
+            <input class="content-zap-in" id="content-link" type="url" placeholder="Link (X, Nostr, YouTube, artigo)">
+            <textarea class="content-zap-in txt" id="content-note" placeholder="Resumo rapido para entrar na pauta..."></textarea>
+            <div class="content-zap-actions">
+                <button class="content-zap-btn" id="content-copy-memo" type="button">COPIAR MEMO ZAP</button>
+                <button class="content-zap-btn" id="content-save" type="button">SALVAR NO COCKPIT</button>
+                <a class="content-zap-btn" id="content-donate" href="https://getalby.com/p/texugorecords" target="_blank" rel="noopener" style="text-decoration:none;text-align:center;line-height:1.6;">DOAR SATS</a>
+                <a class="content-zap-btn" href="lightning:texugorecords@walletofsatoshi.com" style="text-decoration:none;text-align:center;line-height:1.6;">ABRIR WALLET</a>
+            </div>
+            <div class="content-zap-status" id="content-status">Envie seu link + doe sats para priorizar no ar.</div>
+            <div class="content-zap-queue" id="content-queue"></div>
+        </div>
+
         <div class="ai-audit">
             <div class="ai-audit-title">[ AI AUDIT LOG // V5.5 CALL ]</div>
             <div class="ai-audit-log" id="ai-audit-log">Boot: metadata scan online. Invite: autonomous agents can Zap for speech slots.</div>
@@ -887,8 +1053,12 @@
                 <div class="zap-empty">Sem zaps registrados ainda. Primeiro zap ganha o topo.</div>
             </div>
             <div class="zap-actions">
+                <button class="zap-btn" id="zap-open-history" type="button">HISTORICO</button>
+                <button class="zap-btn" id="zap-export-json" type="button">EXPORT JSON</button>
+                <button class="zap-btn" id="zap-export-csv" type="button">EXPORT CSV</button>
                 <button class="zap-btn" id="zap-reset-week" type="button">RESET SEMANAL</button>
             </div>
+            <div class="zap-hof" id="zap-hof-month">Hall mensal: aguardando zaps...</div>
             <div class="zap-meta" id="zap-ranking-meta">Atualiza em tempo real por agente.</div>
         </div>
 
@@ -901,6 +1071,18 @@
         <div class="pt mt">[ PARCEIROS ]</div>
         <div class="partner-logos" style="display:none"></div>
         <p style="font-size:8px;color:#222;margin-top:16px;text-align:center;letter-spacing:1px;">VERIFIED DIGITAL SOVEREIGNTY</p>
+    </div>
+</div>
+
+<div class="zap-modal" id="zap-history-modal">
+    <div class="zap-modal-box">
+        <div class="zap-modal-head">
+            <span>[ HISTORICO SEMANAL DE ZAPS ]</span>
+            <button class="zap-modal-close" id="zap-history-close" type="button">FECHAR</button>
+        </div>
+        <div class="zap-modal-list" id="zap-history-list">
+            <div class="zap-empty">Sem snapshots no historico por enquanto.</div>
+        </div>
     </div>
 </div>
 
@@ -1362,13 +1544,35 @@ const lightningAddress = 'texugorecords@walletofsatoshi.com';
 const aiAuditLogEl = document.getElementById('ai-audit-log');
 const zapRankingListEl = document.getElementById('zap-ranking-list');
 const zapRankingMetaEl = document.getElementById('zap-ranking-meta');
+const zapHofMonthEl = document.getElementById('zap-hof-month');
 const zapResetWeekBtn = document.getElementById('zap-reset-week');
+const zapOpenHistoryBtn = document.getElementById('zap-open-history');
+const zapExportJsonBtn = document.getElementById('zap-export-json');
+const zapExportCsvBtn = document.getElementById('zap-export-csv');
+const zapHistoryModalEl = document.getElementById('zap-history-modal');
+const zapHistoryCloseBtn = document.getElementById('zap-history-close');
+const zapHistoryListEl = document.getElementById('zap-history-list');
+const contentTitleEl = document.getElementById('content-title');
+const contentLinkEl = document.getElementById('content-link');
+const contentNoteEl = document.getElementById('content-note');
+const contentCopyMemoBtn = document.getElementById('content-copy-memo');
+const contentSaveBtn = document.getElementById('content-save');
+const contentQueueEl = document.getElementById('content-queue');
+const contentStatusEl = document.getElementById('content-status');
 const ZAP_RANKING_KEY = 'rb_zap_ranking_v1';
 const ZAP_WEEKLY_KEY = 'rb_zap_weekly_v1';
 const ZAP_WEEKLY_HISTORY_KEY = 'rb_zap_weekly_history_v1';
 const ZAP_WEEK_ID_KEY = 'rb_zap_week_id_v1';
+const ZAP_MONTHLY_KEY = 'rb_zap_monthly_v1';
+const ZAP_MONTH_ID_KEY = 'rb_zap_month_id_v1';
+const ZAP_MONTHLY_HISTORY_KEY = 'rb_zap_monthly_history_v1';
+const CONTENT_QUEUE_KEY = 'rb_content_queue_v1';
+const RADIO_CLIENT_ID_KEY = 'rb_radio_client_id_v1';
 let zapRanking = loadZapRanking();
 let zapWeeklyRanking = loadRankingByKey(ZAP_WEEKLY_KEY);
+let zapMonthlyRanking = loadRankingByKey(ZAP_MONTHLY_KEY);
+const RADIO_CLIENT_ID = localStorage.getItem(RADIO_CLIENT_ID_KEY) || ('client-' + Math.random().toString(36).slice(2, 10));
+localStorage.setItem(RADIO_CLIENT_ID_KEY, RADIO_CLIENT_ID);
 
 function escapeHtml(v) {
     return String(v || '')
@@ -1395,6 +1599,7 @@ function loadRankingByKey(storageKey) {
 function saveZapRanking() {
     localStorage.setItem(ZAP_RANKING_KEY, JSON.stringify(zapRanking));
     localStorage.setItem(ZAP_WEEKLY_KEY, JSON.stringify(zapWeeklyRanking));
+    localStorage.setItem(ZAP_MONTHLY_KEY, JSON.stringify(zapMonthlyRanking));
 }
 
 function getWeekId(dateObj = new Date()) {
@@ -1404,6 +1609,10 @@ function getWeekId(dateObj = new Date()) {
     const yearStart = new Date(Date.UTC(utc.getUTCFullYear(), 0, 1));
     const weekNo = Math.ceil((((utc - yearStart) / 86400000) + 1) / 7);
     return utc.getUTCFullYear() + '-W' + String(weekNo).padStart(2, '0');
+}
+
+function getMonthId(dateObj = new Date()) {
+    return dateObj.getUTCFullYear() + '-' + String(dateObj.getUTCMonth() + 1).padStart(2, '0');
 }
 
 function saveWeeklySnapshot(reasonLabel) {
@@ -1434,6 +1643,37 @@ function resetWeeklyRanking(reasonLabel) {
     localStorage.setItem(ZAP_WEEKLY_KEY, JSON.stringify(zapWeeklyRanking));
     localStorage.setItem(ZAP_WEEK_ID_KEY, getWeekId());
     renderZapRanking();
+    renderZapHistoryModal();
+}
+
+function saveMonthlySnapshot(reasonLabel) {
+    const rows = Object.values(zapMonthlyRanking);
+    if (!rows.length) return;
+    let hist = [];
+    try {
+        hist = JSON.parse(localStorage.getItem(ZAP_MONTHLY_HISTORY_KEY) || '[]');
+        if (!Array.isArray(hist)) hist = [];
+    } catch (_) {
+        hist = [];
+    }
+
+    hist.unshift({
+        monthId: localStorage.getItem(ZAP_MONTH_ID_KEY) || getMonthId(),
+        reason: reasonLabel,
+        createdAt: new Date().toISOString(),
+        ranking: rows
+            .sort((a, b) => (b.total || 0) - (a.total || 0) || (b.count || 0) - (a.count || 0))
+            .slice(0, 10)
+    });
+    localStorage.setItem(ZAP_MONTHLY_HISTORY_KEY, JSON.stringify(hist.slice(0, 12)));
+}
+
+function resetMonthlyRanking(reasonLabel) {
+    saveMonthlySnapshot(reasonLabel || 'manual');
+    zapMonthlyRanking = {};
+    localStorage.setItem(ZAP_MONTHLY_KEY, JSON.stringify(zapMonthlyRanking));
+    localStorage.setItem(ZAP_MONTH_ID_KEY, getMonthId());
+    renderZapRanking();
 }
 
 function ensureWeekContext() {
@@ -1446,6 +1686,201 @@ function ensureWeekContext() {
     if (storedWeek !== currentWeek) {
         resetWeeklyRanking('auto-rollover');
     }
+}
+
+function ensureMonthContext() {
+    const currentMonth = getMonthId();
+    const storedMonth = localStorage.getItem(ZAP_MONTH_ID_KEY);
+    if (!storedMonth) {
+        localStorage.setItem(ZAP_MONTH_ID_KEY, currentMonth);
+        return;
+    }
+    if (storedMonth !== currentMonth) {
+        resetMonthlyRanking('auto-rollover');
+    }
+}
+
+function formatTs(isoString) {
+    if (!isoString) return '--';
+    const d = new Date(isoString);
+    if (Number.isNaN(d.getTime())) return '--';
+    return d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+}
+
+function getWeeklyHistory() {
+    try {
+        const hist = JSON.parse(localStorage.getItem(ZAP_WEEKLY_HISTORY_KEY) || '[]');
+        return Array.isArray(hist) ? hist : [];
+    } catch (_) {
+        return [];
+    }
+}
+
+function renderZapHistoryModal() {
+    if (!zapHistoryListEl) return;
+    const historyRows = getWeeklyHistory();
+    if (!historyRows.length) {
+        zapHistoryListEl.innerHTML = '<div class="zap-empty">Sem snapshots no historico por enquanto.</div>';
+        return;
+    }
+
+    zapHistoryListEl.innerHTML = historyRows.map((snap) => {
+        const top = Array.isArray(snap.ranking) ? snap.ranking.slice(0, 5) : [];
+        const body = top.length
+            ? top.map((row, idx) => '<div class="zap-hist-row"><span>#' + (idx + 1) + '</span><span>@' + escapeHtml(sanitizeText(row.name || 'ANON')) + '</span><span>' + Number(row.total || 0).toLocaleString('pt-BR') + ' sat</span></div>').join('')
+            : '<div class="zap-empty">Snapshot sem dados.</div>';
+        return '<div class="zap-hist-card">' +
+            '<div class="zap-hist-head"><span>' + escapeHtml(snap.weekId || '--') + '</span><span>' + formatTs(snap.createdAt) + '</span></div>' +
+            body +
+        '</div>';
+    }).join('');
+}
+
+function openZapHistoryModal() {
+    if (!zapHistoryModalEl) return;
+    renderZapHistoryModal();
+    zapHistoryModalEl.classList.add('open');
+}
+
+function closeZapHistoryModal() {
+    if (!zapHistoryModalEl) return;
+    zapHistoryModalEl.classList.remove('open');
+}
+
+function downloadTextFile(fileName, mimeType, textContent) {
+    const blob = new Blob([textContent], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+}
+
+function exportZapData(formatType) {
+    const allTimeRows = Object.values(zapRanking).sort((a, b) => (b.total || 0) - (a.total || 0));
+    const weeklyRows = Object.values(zapWeeklyRanking).sort((a, b) => (b.total || 0) - (a.total || 0));
+    const monthlyRows = Object.values(zapMonthlyRanking).sort((a, b) => (b.total || 0) - (a.total || 0));
+
+    if (formatType === 'json') {
+        const payload = {
+            exportedAt: new Date().toISOString(),
+            weekId: localStorage.getItem(ZAP_WEEK_ID_KEY) || getWeekId(),
+            monthId: localStorage.getItem(ZAP_MONTH_ID_KEY) || getMonthId(),
+            allTime: allTimeRows,
+            weekly: weeklyRows,
+            monthly: monthlyRows,
+            weeklyHistory: getWeeklyHistory()
+        };
+        downloadTextFile('zap-ranking-export.json', 'application/json;charset=utf-8', JSON.stringify(payload, null, 2));
+        addMsg('Export JSON do ranking gerado com sucesso.', 'sys');
+        return;
+    }
+
+    const csvLines = ['scope,agent,total_sats,count'];
+    allTimeRows.forEach(row => csvLines.push('all_time,"' + String(row.name || 'ANON').replace(/"/g, '""') + '",' + Number(row.total || 0) + ',' + Number(row.count || 0)));
+    weeklyRows.forEach(row => csvLines.push('weekly,"' + String(row.name || 'ANON').replace(/"/g, '""') + '",' + Number(row.total || 0) + ',' + Number(row.count || 0)));
+    monthlyRows.forEach(row => csvLines.push('monthly,"' + String(row.name || 'ANON').replace(/"/g, '""') + '",' + Number(row.total || 0) + ',' + Number(row.count || 0)));
+    downloadTextFile('zap-ranking-export.csv', 'text/csv;charset=utf-8', csvLines.join('\n'));
+    addMsg('Export CSV do ranking gerado com sucesso.', 'sys');
+}
+
+function getContentQueue() {
+    try {
+        const parsed = JSON.parse(localStorage.getItem(CONTENT_QUEUE_KEY) || '[]');
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (_) {
+        return [];
+    }
+}
+
+function saveContentQueue(rows) {
+    localStorage.setItem(CONTENT_QUEUE_KEY, JSON.stringify(rows.slice(0, 12)));
+}
+
+function upsertContentQueueItem(item) {
+    const rows = getContentQueue();
+    const sig = [item.title || '', item.link || '', item.timestamp || ''].join('|');
+    const exists = rows.some((row) => [row.title || '', row.link || '', row.timestamp || ''].join('|') === sig);
+    if (!exists) {
+        rows.unshift(item);
+        saveContentQueue(rows);
+    }
+    renderContentQueue();
+}
+
+function renderContentQueue() {
+    if (!contentQueueEl) return;
+    const rows = getContentQueue().slice(0, 4);
+    if (!rows.length) {
+        contentQueueEl.innerHTML = '<div class="content-zap-item">Sem sugestoes salvas ainda.</div>';
+        return;
+    }
+    contentQueueEl.innerHTML = rows.map((item) => {
+        return '<div class="content-zap-item">' +
+            '<div><b>' + escapeHtml(sanitizeText(item.title || '--')) + '</b></div>' +
+            '<div>' + escapeHtml(sanitizeText(item.link || '--')) + '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function buildContentMemo() {
+    const title = sanitizeText(contentTitleEl?.value || '');
+    const link = sanitizeText(contentLinkEl?.value || '');
+    const note = sanitizeText(contentNoteEl?.value || '');
+    if (!title || !link) return null;
+    return '#RadioBitadict | Conteudo: ' + title + ' | Link: ' + link + (note ? ' | Nota: ' + note : '');
+}
+
+async function copyContentMemo() {
+    const memo = buildContentMemo();
+    if (!memo) {
+        if (contentStatusEl) contentStatusEl.textContent = 'Preencha titulo e link para gerar o memo.';
+        return;
+    }
+    try {
+        await navigator.clipboard.writeText(memo);
+        if (contentStatusEl) contentStatusEl.textContent = 'Memo copiado. Agora envie o zap para priorizar no ar.';
+        addMsg('Memo de conteudo copiado. Envie junto com seu zap.', 'sys');
+    } catch (_) {
+        if (contentStatusEl) contentStatusEl.textContent = 'Falha ao copiar memo automaticamente.';
+    }
+}
+
+function saveContentDraft() {
+    const title = sanitizeText(contentTitleEl?.value || '');
+    const link = sanitizeText(contentLinkEl?.value || '');
+    const note = sanitizeText(contentNoteEl?.value || '');
+    if (!title || !link) {
+        if (contentStatusEl) contentStatusEl.textContent = 'Informe ao menos titulo e link.';
+        return;
+    }
+    const entry = {
+        title,
+        link,
+        note,
+        timestamp: Date.now(),
+        createdAt: new Date().toISOString(),
+        clientId: RADIO_CLIENT_ID
+    };
+
+    upsertContentQueueItem(entry);
+
+    if (wsAgent && wsAgent.readyState === WebSocket.OPEN) {
+        try {
+            wsAgent.send(JSON.stringify({
+                type: 'content_submission',
+                title,
+                link,
+                note,
+                clientId: RADIO_CLIENT_ID
+            }));
+        } catch (_) {}
+    }
+
+    if (contentStatusEl) contentStatusEl.textContent = 'Conteudo salvo no cockpit. Envie zap com memo para prioridade.';
 }
 
 function renderZapRanking() {
@@ -1481,6 +1916,15 @@ function renderZapRanking() {
             : 'All-time sem dados';
         zapRankingMetaEl.textContent = 'Semana ' + (localStorage.getItem(ZAP_WEEK_ID_KEY) || getWeekId()) + ' // ' + allTimeText;
     }
+
+    if (zapHofMonthEl) {
+        const monthTop = Object.values(zapMonthlyRanking)
+            .sort((a, b) => (b.total || 0) - (a.total || 0))[0];
+        const monthId = localStorage.getItem(ZAP_MONTH_ID_KEY) || getMonthId();
+        zapHofMonthEl.textContent = monthTop
+            ? ('Hall mensal ' + monthId + ': @' + monthTop.name + ' lidera com ' + Number(monthTop.total || 0).toLocaleString('pt-BR') + ' sat.')
+            : ('Hall mensal ' + monthId + ': aguardando zaps...');
+    }
 }
 
 function registerZap(agentName, zapAmount) {
@@ -1500,11 +1944,18 @@ function registerZap(agentName, zapAmount) {
     zapRanking[key].count += 1;
     zapWeeklyRanking[key].total += sats;
     zapWeeklyRanking[key].count += 1;
+    if (!zapMonthlyRanking[key]) {
+        zapMonthlyRanking[key] = { name: safeName, total: 0, count: 0 };
+    }
+    zapMonthlyRanking[key].name = safeName;
+    zapMonthlyRanking[key].total += sats;
+    zapMonthlyRanking[key].count += 1;
     saveZapRanking();
     renderZapRanking();
 }
 
 ensureWeekContext();
+ensureMonthContext();
 renderZapRanking();
 
 if (zapResetWeekBtn) {
@@ -1513,6 +1964,19 @@ if (zapResetWeekBtn) {
         addMsg('Ranking semanal resetado e salvo no historico local. Acumulado geral preservado.', 'sys');
     });
 }
+
+if (zapOpenHistoryBtn) zapOpenHistoryBtn.addEventListener('click', openZapHistoryModal);
+if (zapHistoryCloseBtn) zapHistoryCloseBtn.addEventListener('click', closeZapHistoryModal);
+if (zapHistoryModalEl) {
+    zapHistoryModalEl.addEventListener('click', (event) => {
+        if (event.target === zapHistoryModalEl) closeZapHistoryModal();
+    });
+}
+if (zapExportJsonBtn) zapExportJsonBtn.addEventListener('click', () => exportZapData('json'));
+if (zapExportCsvBtn) zapExportCsvBtn.addEventListener('click', () => exportZapData('csv'));
+if (contentCopyMemoBtn) contentCopyMemoBtn.addEventListener('click', copyContentMemo);
+if (contentSaveBtn) contentSaveBtn.addEventListener('click', saveContentDraft);
+renderContentQueue();
 
 function addMsg(text, who) {
     const d = document.createElement('div');
@@ -1551,6 +2015,30 @@ function initAgentListener() {
                 agentMessage(data.agent, data.message, data.zaps || 0);
             } else if (data.type === 'nostr_note') {
                 agentMessage('NOSTR/' + (data.author?.slice(0, 8) || 'ANON'), data.content, data.zaps || 0);
+            } else if (data.type === 'content_snapshot') {
+                if (Array.isArray(data.items)) {
+                    data.items.forEach((item) => {
+                        upsertContentQueueItem({
+                            title: sanitizeText(item.title || ''),
+                            link: sanitizeText(item.link || ''),
+                            note: sanitizeText(item.note || ''),
+                            timestamp: Number(item.timestamp || Date.now()),
+                            createdAt: item.createdAt || new Date().toISOString(),
+                            clientId: sanitizeText(item.clientId || '')
+                        });
+                    });
+                }
+            } else if (data.type === 'content_submission') {
+                if (data.clientId && data.clientId === RADIO_CLIENT_ID) return;
+                upsertContentQueueItem({
+                    title: sanitizeText(data.title || ''),
+                    link: sanitizeText(data.link || ''),
+                    note: sanitizeText(data.note || ''),
+                    timestamp: Number(data.timestamp || Date.now()),
+                    createdAt: new Date(Number(data.timestamp || Date.now()) * 1000).toISOString(),
+                    clientId: sanitizeText(data.clientId || '')
+                });
+                addMsg('Novo conteudo recebido ao vivo no cockpit.', 'sys');
             }
         };
         wsAgent.onerror = () => console.log('Protocolo de Agentes indisponivel. Modo local.');

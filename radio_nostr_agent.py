@@ -17,6 +17,7 @@ import asyncio
 import json
 import websockets
 import time
+import os
 from datetime import datetime
 from typing import Optional
 
@@ -168,21 +169,90 @@ class CockpitGateway:
         self.ws_url = ws_url
         self.server = None
         self.clients = set()
+        self.content_file = os.path.join(os.path.dirname(__file__), 'radio_dados', 'content_queue.json')
+        self.content_queue = []
+        self._load_content_queue()
+
+    def _load_content_queue(self):
+        try:
+            if os.path.exists(self.content_file):
+                with open(self.content_file, 'r', encoding='utf-8') as fp:
+                    loaded = json.load(fp)
+                    if isinstance(loaded, list):
+                        self.content_queue = loaded[:40]
+                        print(f"[WS] Conteudo persistido carregado: {len(self.content_queue)} itens")
+        except Exception as e:
+            print(f"[WS] Erro ao carregar fila persistida: {e}")
+
+    def _save_content_queue(self):
+        try:
+            os.makedirs(os.path.dirname(self.content_file), exist_ok=True)
+            with open(self.content_file, 'w', encoding='utf-8') as fp:
+                json.dump(self.content_queue[:40], fp, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"[WS] Erro ao salvar fila persistida: {e}")
+
+    def _sanitize_text(self, value: str, max_len: int = 240) -> str:
+        text = (value or '').strip().replace('\n', ' ').replace('\r', ' ')
+        return text[:max_len]
+
+    def _build_content_submission(self, payload: dict) -> Optional[dict]:
+        title = self._sanitize_text(payload.get('title', ''), 120)
+        link = self._sanitize_text(payload.get('link', ''), 320)
+        note = self._sanitize_text(payload.get('note', ''), 320)
+        client_id = self._sanitize_text(payload.get('clientId', ''), 72)
+        if not title or not link:
+            return None
+        return {
+            'type': 'content_submission',
+            'title': title,
+            'link': link,
+            'note': note,
+            'clientId': client_id,
+            'timestamp': int(time.time())
+        }
         
     async def start_server(self):
         """Inicia servidor WebSocket"""
         self.server = await websockets.serve(self._handle_client, "localhost", 8765)
         print(f"[WS] Servidor escutando em ws://localhost:8765")
     
-    async def _handle_client(self, websocket, path):
+    async def _handle_client(self, websocket, path=None):
         """Maneja ligações de clientes"""
         self.clients.add(websocket)
         print(f"[WS] Cliente conectado. Total: {len(self.clients)}")
+
+        try:
+            await websocket.send(json.dumps({
+                'type': 'content_snapshot',
+                'items': self.content_queue[:20],
+                'timestamp': int(time.time())
+            }))
+        except Exception as e:
+            print(f"[WS] Erro ao enviar snapshot inicial: {e}")
         
         try:
             async for message in websocket:
-                # Eco ou processamento de mensagens do cliente
-                print(f"[WS] Mensagem do cliente: {message}")
+                try:
+                    payload = json.loads(message)
+                except Exception:
+                    print(f"[WS] Mensagem invalida do cliente")
+                    continue
+
+                msg_type = payload.get('type')
+                if msg_type == 'content_submission':
+                    submission = self._build_content_submission(payload)
+                    if not submission:
+                        continue
+
+                    self.content_queue.insert(0, submission)
+                    self.content_queue = self.content_queue[:40]
+                    self._save_content_queue()
+                    print(f"[WS] Conteudo recebido: {submission['title']}")
+                    await self.broadcast(submission)
+                    continue
+
+                print(f"[WS] Mensagem do cliente: {payload}")
         except Exception as e:
             print(f"[WS] Erro: {e}")
         finally:
