@@ -110,7 +110,7 @@
         .score-disp { font-size:20px; letter-spacing:3px; color:#fff; text-shadow:0 0 12px var(--green); margin-bottom:8px; }
         #tetris { border:2px solid var(--green); background:#000; box-shadow:0 0 35px rgba(0,255,65,0.22); image-rendering:pixelated; }
         .game-hint { font-size:9px; color:#333; margin-top:7px; letter-spacing:1px; }
-        .center-top-split { width:100%; display:grid; grid-template-columns: minmax(140px,0.72fr) minmax(240px,1.1fr) minmax(150px,0.82fr) minmax(150px,0.82fr); gap:10px; align-items:stretch; }
+            .center-top-split { width:100%; display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:10px; align-items:stretch; }
         .aux-panel {
             border:1px solid rgba(0,255,65,0.22);
             border-radius:6px;
@@ -119,6 +119,7 @@
             display:flex;
             flex-direction:column;
             min-height:230px;
+                min-width:0;
         }
         .aux-title { font-size:10px; letter-spacing:1.3px; margin-bottom:7px; color:#9df2ab; }
         .aux-row {
@@ -161,6 +162,7 @@
             display:flex;
             flex-direction:column;
             min-height:230px;
+            min-width:0;
         }
         .btc-title { font-size:10px; letter-spacing:1.5px; margin-bottom:6px; }
         .btc-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:10px; color:#a3fdb6; }
@@ -169,7 +171,7 @@
         .btc-badge.down { color:#ff8d8d; border-color:rgba(255,141,141,0.6); }
         #btc-chart { width:100%; height:150px; border:1px solid rgba(0,255,65,0.16); border-radius:4px; background:rgba(0,0,0,0.5); }
         .btc-sub { margin-top:6px; color:#6e8b73; font-size:9px; }
-        .tetris-panel { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
+        .tetris-panel { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-width:0; }
         .bubbles-panel {
             border:1px solid rgba(0,255,65,0.22);
             border-radius:6px;
@@ -178,6 +180,7 @@
             display:flex;
             flex-direction:column;
             min-height:230px;
+            min-width:0;
         }
         .bubbles-title { font-size:10px; letter-spacing:1.3px; margin-bottom:6px; color:#95f0a5; }
         .bubbles-frame {
@@ -217,7 +220,7 @@
                 radial-gradient(circle at 50% 40%, rgba(0,255,65,0.06), transparent 55%),
                 linear-gradient(180deg, rgba(0,20,0,0.72), rgba(0,0,0,0.92));
             display:grid;
-            grid-template-columns:repeat(3, minmax(0, 1fr));
+            grid-template-columns:repeat(auto-fit, minmax(86px, 1fr));
             gap:8px;
             padding:10px;
             align-items:center;
@@ -361,10 +364,25 @@
             to { transform: translateX(-50%); }
         }
 
+        #tetris {
+            width:min(100%, 240px);
+            height:auto;
+        }
+
+        @media (min-width: 1700px) {
+            .center-top-split { grid-template-columns: minmax(0,0.92fr) minmax(0,1.1fr) minmax(0,0.92fr) minmax(0,0.92fr); }
+        }
         @media (max-width: 1500px) {
-            .center-top-split { grid-template-columns: minmax(130px,0.7fr) minmax(230px,1fr) minmax(145px,0.78fr) minmax(145px,0.78fr); }
+            .cockpit { grid-template-columns: 250px 1fr 250px; }
+        }
+        @media (max-width: 1320px) {
+            .cockpit { grid-template-columns: 220px 1fr 220px; }
+            .center-top-split { grid-template-columns: 1fr; }
         }
         @media (max-width: 1200px) {
+            .cockpit { grid-template-columns: 1fr; grid-template-rows: 46px 48px auto auto auto; height:auto; min-height:100vh; overflow-y:auto; }
+            body { width:100%; height:auto; overflow-x:hidden; overflow-y:auto; }
+            #left-panel, .center-col, .panel[style*='grid-column:3'] { grid-column:1 !important; grid-row:auto !important; }
             .center-top-split { grid-template-columns: 1fr; }
             .btc-panel { min-height:200px; }
         }
@@ -1489,6 +1507,86 @@ renderRadioPlaylist();
 const bubblesStageEl = document.getElementById('bubbles-stage');
 const bubblesStatusEl = document.getElementById('bubbles-status');
 const bubblesRefreshBtn = document.getElementById('bubbles-refresh');
+const BUBBLES_CACHE_KEY = 'rb_bubbles_cache_v2';
+const BUBBLES_FALLBACK_ASSETS = [
+    { pair: 'BTCUSDT', symbol: 'BTC', market_cap: 1700000000000 },
+    { pair: 'ETHUSDT', symbol: 'ETH', market_cap: 320000000000 },
+    { pair: 'BNBUSDT', symbol: 'BNB', market_cap: 96000000000 },
+    { pair: 'XRPUSDT', symbol: 'XRP', market_cap: 140000000000 },
+    { pair: 'SOLUSDT', symbol: 'SOL', market_cap: 76000000000 },
+    { pair: 'DOGEUSDT', symbol: 'DOGE', market_cap: 33000000000 },
+    { pair: 'ADAUSDT', symbol: 'ADA', market_cap: 28000000000 },
+    { pair: 'TRXUSDT', symbol: 'TRX', market_cap: 22000000000 },
+    { pair: 'LTCUSDT', symbol: 'LTC', market_cap: 7200000000 }
+];
+
+function getCachedBubbles() {
+    try {
+        const parsed = JSON.parse(localStorage.getItem(BUBBLES_CACHE_KEY) || 'null');
+        if (!parsed || !Array.isArray(parsed.items)) return null;
+        return parsed;
+    } catch (_) {
+        return null;
+    }
+}
+
+function saveCachedBubbles(items, source) {
+    try {
+        localStorage.setItem(BUBBLES_CACHE_KEY, JSON.stringify({
+            source,
+            updatedAt: Date.now(),
+            items: items.slice(0, 9)
+        }));
+    } catch (_) {}
+}
+
+function normalizeBubblesItems(items) {
+    return Array.isArray(items)
+        ? items
+            .filter((item) => item && item.symbol)
+            .map((item) => ({
+                symbol: String(item.symbol || '').toUpperCase(),
+                price_change_percentage_24h: Number(item.price_change_percentage_24h || 0),
+                market_cap: Number(item.market_cap || 0)
+            }))
+            .slice(0, 9)
+        : [];
+}
+
+async function fetchCoinGeckoBubbles() {
+    const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=12&page=1&sparkline=false&price_change_percentage=24h', {
+        cache: 'no-store'
+    });
+    if (!response.ok) throw new Error('CoinGecko HTTP ' + response.status);
+    const data = await response.json();
+    return normalizeBubblesItems(
+        Array.isArray(data)
+            ? data.filter((item) => !['usdt', 'usdc', 'dai'].includes(String(item.symbol || '').toLowerCase()))
+            : []
+    );
+}
+
+async function fetchBinanceBubbles() {
+    const response = await fetch('https://api.binance.com/api/v3/ticker/24hr', {
+        cache: 'no-store'
+    });
+    if (!response.ok) throw new Error('Binance HTTP ' + response.status);
+    const rows = await response.json();
+    if (!Array.isArray(rows)) throw new Error('Binance payload invalido');
+
+    const tickerMap = new Map(rows.map((row) => [String(row.symbol || '').toUpperCase(), row]));
+    return normalizeBubblesItems(
+        BUBBLES_FALLBACK_ASSETS.map((asset) => {
+            const row = tickerMap.get(asset.pair);
+            if (!row) return null;
+            return {
+                symbol: asset.symbol,
+                market_cap: asset.market_cap,
+                price_change_percentage_24h: Number(row.priceChangePercent || 0)
+            };
+        }).filter(Boolean)
+    );
+}
 
 function renderBubbles(items) {
     if (!bubblesStageEl) return;
@@ -1516,19 +1614,30 @@ function renderBubbles(items) {
 async function fetchCryptoBubblesPanel() {
     if (bubblesStatusEl) bubblesStatusEl.textContent = 'Atualizando top movers...';
     try {
-        const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=12&page=1&sparkline=false&price_change_percentage=24h');
-        const data = await response.json();
-        const items = Array.isArray(data)
-            ? data.filter((item) => !['usdt', 'usdc', 'dai'].includes(String(item.symbol || '').toLowerCase()))
-                .slice(0, 9)
-            : [];
-        renderBubbles(items);
-        if (bubblesStatusEl) {
-            bubblesStatusEl.textContent = items.length
-                ? ('Top ' + items.length + ' por market cap // variacao 24h')
-                : 'Sem dados no momento';
+        let items = [];
+        let source = '';
+
+        try {
+            items = await fetchCoinGeckoBubbles();
+            source = 'CoinGecko';
+        } catch (_) {
+            items = await fetchBinanceBubbles();
+            source = 'Binance fallback';
         }
+
+        if (!items.length) throw new Error('Sem itens de mercado');
+
+        renderBubbles(items);
+        saveCachedBubbles(items, source);
+        if (bubblesStatusEl) bubblesStatusEl.textContent = 'Top ' + items.length + ' // 24h // fonte: ' + source;
     } catch (_) {
+        const cached = getCachedBubbles();
+        if (cached && Array.isArray(cached.items) && cached.items.length) {
+            renderBubbles(cached.items);
+            const updatedAt = new Date(Number(cached.updatedAt || Date.now())).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            if (bubblesStatusEl) bubblesStatusEl.textContent = 'Modo cache // fonte: ' + (cached.source || 'local') + ' // ' + updatedAt;
+            return;
+        }
         renderBubbles([]);
         if (bubblesStatusEl) bubblesStatusEl.textContent = 'Falha ao consultar mercado agora';
     }
