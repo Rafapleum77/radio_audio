@@ -188,6 +188,94 @@
             border-radius:4px;
             background:#020602;
         }
+        .bubbles-toolbar {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:6px;
+            margin-bottom:6px;
+            font-size:8px;
+            color:#82bf8d;
+        }
+        .bubbles-toolbar button {
+            border:1px solid rgba(0,255,65,0.35);
+            background:rgba(0,255,65,0.09);
+            color:#cffff1;
+            border-radius:3px;
+            padding:3px 6px;
+            font-family:'Courier New',monospace;
+            font-size:8px;
+            cursor:pointer;
+        }
+        .bubbles-toolbar button:hover { background:rgba(0,255,65,0.2); }
+        .bubbles-stage {
+            width:100%;
+            min-height:198px;
+            border:1px solid rgba(0,255,65,0.14);
+            border-radius:4px;
+            background:
+                radial-gradient(circle at 50% 40%, rgba(0,255,65,0.06), transparent 55%),
+                linear-gradient(180deg, rgba(0,20,0,0.72), rgba(0,0,0,0.92));
+            display:grid;
+            grid-template-columns:repeat(3, minmax(0, 1fr));
+            gap:8px;
+            padding:10px;
+            align-items:center;
+            justify-items:center;
+            overflow:hidden;
+        }
+        .bubble-dot {
+            width:var(--bubble-size, 72px);
+            height:var(--bubble-size, 72px);
+            border-radius:50%;
+            border:1px solid rgba(255,255,255,0.15);
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding:6px;
+            line-height:1.1;
+            box-shadow: inset 0 0 16px rgba(255,255,255,0.06), 0 0 20px rgba(0,0,0,0.22);
+            animation: bubbleFloat 8s ease-in-out infinite;
+        }
+        .bubble-dot.up {
+            background:radial-gradient(circle at 30% 30%, rgba(89,255,122,0.55), rgba(15,120,40,0.65) 55%, rgba(8,40,14,0.95));
+        }
+        .bubble-dot.down {
+            background:radial-gradient(circle at 30% 30%, rgba(255,118,118,0.52), rgba(130,28,28,0.68) 55%, rgba(42,8,8,0.95));
+        }
+        .bubble-dot.flat {
+            background:radial-gradient(circle at 30% 30%, rgba(180,180,180,0.34), rgba(75,75,75,0.56) 55%, rgba(18,18,18,0.95));
+        }
+        .bubble-sym {
+            font-size:calc(var(--bubble-size, 72px) / 5.5);
+            font-weight:bold;
+            color:#fff;
+            text-shadow:0 0 10px rgba(255,255,255,0.18);
+        }
+        .bubble-pct {
+            margin-top:3px;
+            font-size:calc(var(--bubble-size, 72px) / 8.8);
+            color:#effff1;
+        }
+        .bubble-cap {
+            margin-top:2px;
+            font-size:calc(var(--bubble-size, 72px) / 11);
+            color:rgba(255,255,255,0.8);
+        }
+        .bubbles-empty {
+            grid-column:1 / -1;
+            font-size:9px;
+            color:#82a889;
+            text-align:center;
+            line-height:1.4;
+            padding:18px 10px;
+        }
+        @keyframes bubbleFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-5px) scale(1.02); }
+        }
         .bubbles-note {
             margin-top:6px;
             font-size:8px;
@@ -498,6 +586,13 @@
         .radio-panel { background:var(--panel); border:1px solid rgba(0,255,65,0.42); border-radius:6px; padding:12px; box-shadow:0 0 22px rgba(0,255,65,0.10); position:relative; }
         .radio-panel::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--green),transparent); }
         .radio-title { font-size:10px; letter-spacing:2px; color:var(--green); text-align:center; margin-bottom:8px; }
+        .radio-now {
+            margin-bottom:6px;
+            font-size:9px;
+            color:#d6ffd9;
+            text-align:center;
+            letter-spacing:0.8px;
+        }
         .waveform { display:flex; align-items:center; justify-content:center; gap:3px; height:44px; margin:4px 0; }
         .wbar { width:4px; background:var(--green); border-radius:2px; box-shadow:0 0 4px var(--green); animation:waveanim 0.9s ease-in-out infinite; }
         .wbar.paused { animation-play-state:paused !important; height:4px !important; }
@@ -508,6 +603,57 @@
         .rbtn.active { background:rgba(0,255,65,0.22); border-color:var(--green); }
         input[type=range].vol-sl { width:70px; accent-color:var(--green); cursor:pointer; }
         audio { width:100%; height:28px; margin-top:6px; filter:invert(1) hue-rotate(90deg) brightness(1.5); border-radius:2px; }
+        .radio-tools {
+            display:flex;
+            gap:6px;
+            justify-content:center;
+            flex-wrap:wrap;
+            margin-top:8px;
+        }
+        .radio-mini-btn {
+            border:1px solid rgba(0,255,65,0.35);
+            background:rgba(0,255,65,0.08);
+            color:#d7ffd8;
+            border-radius:3px;
+            padding:4px 7px;
+            font-size:8px;
+            font-family:'Courier New',monospace;
+            cursor:pointer;
+        }
+        .radio-mini-btn:hover { background:rgba(0,255,65,0.2); }
+        .radio-playlist {
+            margin-top:8px;
+            display:grid;
+            gap:4px;
+        }
+        .radio-track {
+            display:grid;
+            grid-template-columns:1fr auto;
+            gap:6px;
+            align-items:center;
+            border:1px solid rgba(0,255,65,0.12);
+            border-radius:4px;
+            background:rgba(0,0,0,0.38);
+            padding:5px 6px;
+            font-size:8px;
+            color:#a3c9a6;
+        }
+        .radio-track.active {
+            border-color:rgba(0,255,65,0.42);
+            box-shadow:0 0 10px rgba(0,255,65,0.14);
+            color:#e6ffe8;
+        }
+        .radio-track button {
+            border:1px solid rgba(0,255,65,0.32);
+            background:rgba(0,255,65,0.10);
+            color:#d9ffdc;
+            border-radius:3px;
+            padding:3px 6px;
+            font-size:8px;
+            font-family:'Courier New',monospace;
+            cursor:pointer;
+        }
+        .radio-track button:hover { background:rgba(0,255,65,0.22); }
 
         .node-handle { font-size:17px; letter-spacing:2px; font-weight:bold; text-align:center; margin:8px 0 12px; text-shadow:0 0 12px var(--green); }
         .qr-box { background:#fff; padding:8px; border-radius:4px; text-align:center; margin:0 0 10px; }
@@ -930,13 +1076,14 @@
                 </div>
                 <div class="bubbles-panel">
                     <div class="bubbles-title">[ CRYPTO BUBBLES ]</div>
-                    <iframe
-                        class="bubbles-frame"
-                        src="https://cryptobubbles.net/bubble-chart"
-                        title="Crypto Bubbles"
-                        loading="lazy"
-                        referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                    <div class="bubbles-note">Se o embed for bloqueado pelo site, abrir direto em <a href="https://cryptobubbles.net/" target="_blank" rel="noopener">cryptobubbles.net</a>.</div>
+                    <div class="bubbles-toolbar">
+                        <span id="bubbles-status">Top movers do mercado carregando...</span>
+                        <button id="bubbles-refresh" type="button">ATUALIZAR</button>
+                    </div>
+                    <div class="bubbles-stage" id="bubbles-stage">
+                        <div class="bubbles-empty">Carregando bubbles do mercado...</div>
+                    </div>
+                    <div class="bubbles-note">Painel nativo com dados de mercado. Se quiser comparar com o original, abrir direto em <a href="https://cryptobubbles.net/" target="_blank" rel="noopener">cryptobubbles.net</a>.</div>
                 </div>
             </div>
         </div>
@@ -987,18 +1134,24 @@
 
         <div class="radio-panel">
             <div class="radio-title">[ RADIO FEED // @BITADICT LIVE ]</div>
+            <div class="radio-now" id="radio-now-playing">TOCANDO: Bitcoin e Salvação</div>
             <div class="contest-on-air" id="contest-on-air" style="display:none;">&#9654; ON AIR: <span id="contest-track-name">--</span> &nbsp;<span style="font-size:8px;color:#999;">BLIND ENTRY</span></div>
             <div class="waveform" id="waveform"></div>
-            <audio id="radio-audio" preload="auto" crossorigin="anonymous">
-                <source src="Bitcoin%20e%20Salva%C3%A7%C3%A3o.mp3" type="audio/mpeg">
-                <source src="https://s1.sslstream.net/listen/radiobitcoin/stream" type="audio/mpeg">
-            </audio>
+            <audio id="radio-audio" preload="auto" crossorigin="anonymous"></audio>
             <div class="radio-controls">
+                <button class="rbtn" id="btn-prev">&#9664;</button>
                 <button class="rbtn" id="btn-mic">MIC</button>
                 <button class="rbtn" id="btn-play">PLAY</button>
                 <button class="rbtn" id="btn-mute">SOM</button>
+                <button class="rbtn" id="btn-next">&#9654;</button>
                 <input type="range" class="vol-sl" id="vol-slider" min="0" max="100" value="80">
             </div>
+            <div class="radio-tools">
+                <button class="radio-mini-btn" id="btn-add-tracks" type="button">SUBIR MUSICAS SUNO</button>
+                <button class="radio-mini-btn" id="btn-stream-mode" type="button">MODO STREAM</button>
+                <input id="audio-upload" type="file" accept="audio/*" multiple style="display:none;">
+            </div>
+            <div class="radio-playlist" id="radio-playlist"></div>
         </div>
     </div>
 
@@ -1113,9 +1266,82 @@ const audioEl   = document.getElementById('radio-audio');
 const playBtn   = document.getElementById('btn-play');
 const muteBtn   = document.getElementById('btn-mute');
 const volSlider = document.getElementById('vol-slider');
+const prevBtn   = document.getElementById('btn-prev');
+const nextBtn   = document.getElementById('btn-next');
+const addTracksBtn = document.getElementById('btn-add-tracks');
+const streamModeBtn = document.getElementById('btn-stream-mode');
+const audioUploadEl = document.getElementById('audio-upload');
+const radioNowPlayingEl = document.getElementById('radio-now-playing');
+const radioPlaylistEl = document.getElementById('radio-playlist');
 let isPlaying = false, isMuted = false;
 let audioFallbackUsed = false;
+let uploadedTrackUrls = [];
+let currentTrackIndex = 0;
+let isStreamMode = false;
+const defaultRadioTracks = [
+    { title: 'Bitcoin e Salvação', artist: 'Bitadict', src: 'Bitcoin%20e%20Salva%C3%A7%C3%A3o.mp3' },
+    { title: 'Noticias', artist: 'Radio Bitadict', src: 'noticias.mp3' }
+];
+let radioTracks = defaultRadioTracks.slice();
 audioEl.volume = 0.8;
+
+function updateNowPlayingLabel() {
+    if (!radioNowPlayingEl) return;
+    if (isStreamMode) {
+        radioNowPlayingEl.textContent = 'TOCANDO: Stream ao vivo da Radio Bitcoin';
+        return;
+    }
+    const track = radioTracks[currentTrackIndex];
+    radioNowPlayingEl.textContent = 'TOCANDO: ' + (track ? (track.title + (track.artist ? ' // ' + track.artist : '')) : '--');
+}
+
+function renderRadioPlaylist() {
+    if (!radioPlaylistEl) return;
+    if (!radioTracks.length) {
+        radioPlaylistEl.innerHTML = '<div class="radio-track">Nenhuma faixa carregada.<span></span></div>';
+        return;
+    }
+    radioPlaylistEl.innerHTML = radioTracks.map((track, index) => {
+        const active = !isStreamMode && index === currentTrackIndex ? ' active' : '';
+        return '<div class="radio-track' + active + '">' +
+            '<div><b>' + escapeHtml(track.title) + '</b><br><span>' + escapeHtml(track.artist || 'Arquivo local') + '</span></div>' +
+            '<button type="button" data-track-index="' + index + '">PLAY</button>' +
+        '</div>';
+    }).join('');
+
+    radioPlaylistEl.querySelectorAll('button[data-track-index]').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+            const idx = Number(btn.getAttribute('data-track-index'));
+            setRadioTrack(idx);
+            try {
+                await audioEl.play();
+                isPlaying = true;
+                syncPlayerButtons();
+            } catch (_) {}
+        });
+    });
+}
+
+function setRadioTrack(index) {
+    if (!radioTracks.length) return;
+    currentTrackIndex = ((index % radioTracks.length) + radioTracks.length) % radioTracks.length;
+    const track = radioTracks[currentTrackIndex];
+    isStreamMode = false;
+    audioFallbackUsed = false;
+    audioEl.src = track.src;
+    audioEl.load();
+    updateNowPlayingLabel();
+    renderRadioPlaylist();
+}
+
+function activateStreamMode() {
+    isStreamMode = true;
+    audioFallbackUsed = true;
+    audioEl.src = 'https://s1.sslstream.net/listen/radiobitcoin/stream';
+    audioEl.load();
+    updateNowPlayingLabel();
+    renderRadioPlaylist();
+}
 
 function syncPlayerButtons() {
     playBtn.textContent = isPlaying ? 'PAUSE' : 'PLAY';
@@ -1138,9 +1364,7 @@ async function togglePlay() {
         } catch(e) {
             addMsg('Falha ao tocar audio. Tentando stream alternativo...', 'sys');
             if (!audioFallbackUsed) {
-                audioEl.src = 'https://s1.sslstream.net/listen/radiobitcoin/stream';
-                audioEl.load();
-                audioFallbackUsed = true;
+                activateStreamMode();
                 try {
                     await audioEl.play();
                     isPlaying = true;
@@ -1157,12 +1381,22 @@ playBtn.addEventListener('click', togglePlay);
 
 audioEl.addEventListener('play', () => { isPlaying = true; syncPlayerButtons(); });
 audioEl.addEventListener('pause', () => { isPlaying = false; syncPlayerButtons(); });
-audioEl.addEventListener('ended', () => { isPlaying = false; syncPlayerButtons(); });
+audioEl.addEventListener('ended', async () => {
+    if (!isStreamMode && radioTracks.length > 1) {
+        setRadioTrack(currentTrackIndex + 1);
+        try {
+            await audioEl.play();
+            isPlaying = true;
+            syncPlayerButtons();
+            return;
+        } catch (_) {}
+    }
+    isPlaying = false;
+    syncPlayerButtons();
+});
 audioEl.addEventListener('error', () => {
     if (!audioFallbackUsed) {
-        audioEl.src = 'https://s1.sslstream.net/listen/radiobitcoin/stream';
-        audioEl.load();
-        audioFallbackUsed = true;
+        activateStreamMode();
     }
 });
 
@@ -1170,6 +1404,54 @@ muteBtn.addEventListener('click', () => {
     isMuted = !isMuted; audioEl.muted = isMuted;
     syncPlayerButtons();
 });
+
+prevBtn.addEventListener('click', () => {
+    if (isStreamMode) {
+        setRadioTrack(0);
+        return;
+    }
+    setRadioTrack(currentTrackIndex - 1);
+});
+
+nextBtn.addEventListener('click', () => {
+    if (isStreamMode) {
+        setRadioTrack(0);
+        return;
+    }
+    setRadioTrack(currentTrackIndex + 1);
+});
+
+if (addTracksBtn && audioUploadEl) {
+    addTracksBtn.addEventListener('click', () => audioUploadEl.click());
+    audioUploadEl.addEventListener('change', (event) => {
+        const files = Array.from(event.target.files || []).filter((file) => file.type.startsWith('audio/'));
+        if (!files.length) return;
+        uploadedTrackUrls.forEach((url) => URL.revokeObjectURL(url));
+        uploadedTrackUrls = [];
+        const uploadedTracks = files.map((file) => {
+            const url = URL.createObjectURL(file);
+            uploadedTrackUrls.push(url);
+            return {
+                title: file.name.replace(/\.[^.]+$/, ''),
+                artist: 'Upload Suno',
+                src: url
+            };
+        });
+        radioTracks = defaultRadioTracks.concat(uploadedTracks);
+        setRadioTrack(defaultRadioTracks.length);
+        renderRadioPlaylist();
+        addMsg(files.length + ' faixa(s) carregadas na playlist local.', 'sys');
+        if (radioNowPlayingEl) updateNowPlayingLabel();
+        audioUploadEl.value = '';
+    });
+}
+
+if (streamModeBtn) {
+    streamModeBtn.addEventListener('click', () => {
+        activateStreamMode();
+        addMsg('Modo stream ativado. Se quiser ouvir suas faixas, use a playlist abaixo.', 'sys');
+    });
+}
 
 volSlider.addEventListener('input', () => { audioEl.volume = volSlider.value / 100; });
 
@@ -1181,6 +1463,60 @@ document.getElementById('btn-mic').addEventListener('click', () => {
     }
 });
 syncPlayerButtons();
+setRadioTrack(0);
+renderRadioPlaylist();
+
+const bubblesStageEl = document.getElementById('bubbles-stage');
+const bubblesStatusEl = document.getElementById('bubbles-status');
+const bubblesRefreshBtn = document.getElementById('bubbles-refresh');
+
+function renderBubbles(items) {
+    if (!bubblesStageEl) return;
+    if (!items.length) {
+        bubblesStageEl.innerHTML = '<div class="bubbles-empty">Nao foi possivel carregar os bubbles agora.</div>';
+        return;
+    }
+
+    bubblesStageEl.innerHTML = items.map((item, index) => {
+        const pct = Number(item.price_change_percentage_24h || 0);
+        const cap = Number(item.market_cap || 0);
+        const size = Math.max(54, Math.min(104, 56 + ((14 - index) * 3) + Math.min(18, Math.abs(pct) * 2.1)));
+        const cls = pct > 0.4 ? 'up' : (pct < -0.4 ? 'down' : 'flat');
+        const capText = cap >= 1000000000000
+            ? (cap / 1000000000000).toFixed(2) + 'T'
+            : (cap / 1000000000).toFixed(1) + 'B';
+        return '<div class="bubble-dot ' + cls + '" style="--bubble-size:' + size + 'px">' +
+            '<div class="bubble-sym">' + escapeHtml(String(item.symbol || '').toUpperCase()) + '</div>' +
+            '<div class="bubble-pct">' + (pct >= 0 ? '+' : '') + pct.toFixed(1) + '%</div>' +
+            '<div class="bubble-cap">$' + capText + '</div>' +
+        '</div>';
+    }).join('');
+}
+
+async function fetchCryptoBubblesPanel() {
+    if (bubblesStatusEl) bubblesStatusEl.textContent = 'Atualizando top movers...';
+    try {
+        const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=12&page=1&sparkline=false&price_change_percentage=24h');
+        const data = await response.json();
+        const items = Array.isArray(data)
+            ? data.filter((item) => !['usdt', 'usdc', 'dai'].includes(String(item.symbol || '').toLowerCase()))
+                .slice(0, 9)
+            : [];
+        renderBubbles(items);
+        if (bubblesStatusEl) {
+            bubblesStatusEl.textContent = items.length
+                ? ('Top ' + items.length + ' por market cap // variacao 24h')
+                : 'Sem dados no momento';
+        }
+    } catch (_) {
+        renderBubbles([]);
+        if (bubblesStatusEl) bubblesStatusEl.textContent = 'Falha ao consultar mercado agora';
+    }
+}
+
+if (bubblesRefreshBtn) bubblesRefreshBtn.addEventListener('click', fetchCryptoBubblesPanel);
+fetchCryptoBubblesPanel();
+setInterval(fetchCryptoBubblesPanel, 180000);
 
 function initTradingViewWidgets() {
     const topTickerHost = document.getElementById('tv-top-ticker-widget');
