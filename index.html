@@ -776,7 +776,7 @@ const VID_CATS = {
   }
 };
 
-let currentVidCat = 'ufc';
+let currentVidCat = 'btc';
 
 function switchVidCat(cat, btn) {
   currentVidCat = cat;
@@ -791,8 +791,8 @@ function switchVidCat(cat, btn) {
 document.addEventListener('DOMContentLoaded', function() {
   const player = document.getElementById('vidPlayer');
   const desc = document.getElementById('vidDesc');
-  if(player) player.src = VID_CATS['ufc'].src;
-  if(desc) desc.textContent = VID_CATS['ufc'].desc;
+  if(player) player.src = VID_CATS['btc'].src;
+  if(desc) desc.textContent = VID_CATS['btc'].desc;
 });
 
 
