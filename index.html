@@ -948,18 +948,21 @@ const cls    = c => c >= 0 ? 'btc-up' : 'btc-down';
 
 async function fetchBTC() {
   try {
-    const r = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=["BTCUSDT","ETHUSDT","SOLUSDT","BNBUSDT"]');
-    if (!r.ok) throw new Error('Binance ' + r.status);
-    const arr = await r.json();
-    const bySymbol = {};
-    arr.forEach(t => { bySymbol[t.symbol] = t; });
+    const BASE = 'https://api.binance.com/api/v3/ticker/24hr?symbol=';
+    const [rBTC, rETH, rSOL, rBNB] = await Promise.all([
+      fetch(BASE + 'BTCUSDT'),
+      fetch(BASE + 'ETHUSDT'),
+      fetch(BASE + 'SOLUSDT'),
+      fetch(BASE + 'BNBUSDT'),
+    ]);
+    if (!rBTC.ok) throw new Error('Binance BTC ' + rBTC.status);
+    const btc = await rBTC.json();
 
-    const btc  = bySymbol['BTCUSDT'];
     const price = parseFloat(btc.lastPrice);
     const chg   = parseFloat(btc.priceChangePercent);
     const high  = parseFloat(btc.highPrice);
     const low   = parseFloat(btc.lowPrice);
-    const vol   = parseFloat(btc.quoteVolume); // volume em USDT
+    const vol   = parseFloat(btc.quoteVolume);
 
     // Header
     document.getElementById('hdrPrice').textContent = fmt(price);
@@ -976,10 +979,10 @@ async function fetchBTC() {
     document.getElementById('heroLow').textContent  = fmt(low);
     document.getElementById('heroVol').textContent  = vol > 1e9 ? (vol/1e9).toFixed(1)+'B' : (vol/1e6).toFixed(0)+'M';
 
-    // Ticker
-    document.getElementById('t-btc').textContent  = fmt(price);
-    document.getElementById('tc-btc').textContent = fmtChg(chg);
-    document.getElementById('tc-btc').className   = 'tick-chg ' + cls(chg);
+    // Ticker BTC
+    document.getElementById('t-btc').textContent   = fmt(price);
+    document.getElementById('tc-btc').textContent  = fmtChg(chg);
+    document.getElementById('tc-btc').className    = 'tick-chg ' + cls(chg);
     document.getElementById('t-btc2').textContent  = fmt(price);
     document.getElementById('tc-btc2').textContent = fmtChg(chg);
     document.getElementById('tc-btc2').className   = 'tick-chg ' + cls(chg);
@@ -990,8 +993,8 @@ async function fetchBTC() {
     document.getElementById('t-sats2').textContent = sats.toLocaleString();
 
     // ETH
-    if (bySymbol['ETHUSDT']) {
-      const e = bySymbol['ETHUSDT'];
+    if (rETH.ok) {
+      const e = await rETH.json();
       const ep = parseFloat(e.lastPrice), ec = parseFloat(e.priceChangePercent);
       document.getElementById('t-eth').textContent   = fmt(ep);
       document.getElementById('tc-eth').textContent  = fmtChg(ec);
@@ -1001,8 +1004,8 @@ async function fetchBTC() {
       document.getElementById('tc-eth2').className   = 'tick-chg ' + cls(ec);
     }
     // SOL
-    if (bySymbol['SOLUSDT']) {
-      const s = bySymbol['SOLUSDT'];
+    if (rSOL.ok) {
+      const s = await rSOL.json();
       const sp = parseFloat(s.lastPrice), sc = parseFloat(s.priceChangePercent);
       document.getElementById('t-sol').textContent   = fmt(sp);
       document.getElementById('tc-sol').textContent  = fmtChg(sc);
@@ -1012,8 +1015,8 @@ async function fetchBTC() {
       document.getElementById('tc-sol2').className   = 'tick-chg ' + cls(sc);
     }
     // BNB
-    if (bySymbol['BNBUSDT']) {
-      const b = bySymbol['BNBUSDT'];
+    if (rBNB.ok) {
+      const b = await rBNB.json();
       const bp = parseFloat(b.lastPrice), bc = parseFloat(b.priceChangePercent);
       document.getElementById('t-bnb').textContent   = fmt(bp);
       document.getElementById('tc-bnb').textContent  = fmtChg(bc);
