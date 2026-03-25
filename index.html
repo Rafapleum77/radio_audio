@@ -938,21 +938,28 @@ function updateClock() {
 setInterval(updateClock, 1000); updateClock();
 
 // ══════════════════════════════════════════════
-// BTC PRICE — CoinGecko API
+// BTC PRICE — Binance API (sem rate limit)
 // ══════════════════════════════════════════════
 let sparkData = [];
 
+const fmt   = n => '$' + Number(n).toLocaleString('en-US', {maximumFractionDigits:0});
+const fmtChg = c => (c >= 0 ? '+' : '') + Number(c).toFixed(2) + '%';
+const cls    = c => c >= 0 ? 'btc-up' : 'btc-down';
+
 async function fetchBTC() {
   try {
-    const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,binancecoin&vs_currencies=usd&include_24hr_change=true&include_24hr_vol=true&include_high_24h=true&include_low_24h=true');
-    const d = await r.json();
-    const btc = d.bitcoin;
-    const price = btc.usd;
-    const chg = btc.usd_24h_change;
+    const r = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=["BTCUSDT","ETHUSDT","SOLUSDT","BNBUSDT"]');
+    if (!r.ok) throw new Error('Binance ' + r.status);
+    const arr = await r.json();
+    const bySymbol = {};
+    arr.forEach(t => { bySymbol[t.symbol] = t; });
 
-    const fmt = n => '$' + Number(n).toLocaleString('en-US', {maximumFractionDigits:0});
-    const fmtChg = c => (c >= 0 ? '+' : '') + c.toFixed(2) + '%';
-    const cls = c => c >= 0 ? 'btc-up' : 'btc-down';
+    const btc  = bySymbol['BTCUSDT'];
+    const price = parseFloat(btc.lastPrice);
+    const chg   = parseFloat(btc.priceChangePercent);
+    const high  = parseFloat(btc.highPrice);
+    const low   = parseFloat(btc.lowPrice);
+    const vol   = parseFloat(btc.quoteVolume); // volume em USDT
 
     // Header
     document.getElementById('hdrPrice').textContent = fmt(price);
@@ -965,49 +972,53 @@ async function fetchBTC() {
     const h24 = document.getElementById('hero24h');
     h24.textContent = fmtChg(chg);
     h24.className = 'v ' + cls(chg);
-    document.getElementById('heroHigh').textContent = fmt(btc.usd_high_24h || price);
-    document.getElementById('heroLow').textContent = fmt(btc.usd_low_24h || price);
-    const vol = btc.usd_24h_vol;
-    document.getElementById('heroVol').textContent = vol > 1e9 ? (vol/1e9).toFixed(1)+'B' : (vol/1e6).toFixed(0)+'M';
+    document.getElementById('heroHigh').textContent = fmt(high);
+    document.getElementById('heroLow').textContent  = fmt(low);
+    document.getElementById('heroVol').textContent  = vol > 1e9 ? (vol/1e9).toFixed(1)+'B' : (vol/1e6).toFixed(0)+'M';
 
     // Ticker
-    document.getElementById('t-btc').textContent = fmt(price);
+    document.getElementById('t-btc').textContent  = fmt(price);
     document.getElementById('tc-btc').textContent = fmtChg(chg);
-    document.getElementById('tc-btc').className = 'tick-chg ' + cls(chg);
-    document.getElementById('t-btc2').textContent = fmt(price);
+    document.getElementById('tc-btc').className   = 'tick-chg ' + cls(chg);
+    document.getElementById('t-btc2').textContent  = fmt(price);
     document.getElementById('tc-btc2').textContent = fmtChg(chg);
-    document.getElementById('tc-btc2').className = 'tick-chg ' + cls(chg);
+    document.getElementById('tc-btc2').className   = 'tick-chg ' + cls(chg);
 
     // SATS
     const sats = Math.round(1e8 / price);
-    document.getElementById('t-sats').textContent = sats.toLocaleString();
+    document.getElementById('t-sats').textContent  = sats.toLocaleString();
     document.getElementById('t-sats2').textContent = sats.toLocaleString();
 
     // ETH
-    if (d.ethereum) {
-      const e = d.ethereum;
-      document.getElementById('t-eth').textContent = fmt(e.usd);
-      document.getElementById('tc-eth').textContent = fmtChg(e.usd_24h_change);
-      document.getElementById('tc-eth').className = 'tick-chg ' + cls(e.usd_24h_change);
-      document.getElementById('t-eth2').textContent = fmt(e.usd);
-      document.getElementById('tc-eth2').textContent = fmtChg(e.usd_24h_change);
-      document.getElementById('tc-eth2').className = 'tick-chg ' + cls(e.usd_24h_change);
+    if (bySymbol['ETHUSDT']) {
+      const e = bySymbol['ETHUSDT'];
+      const ep = parseFloat(e.lastPrice), ec = parseFloat(e.priceChangePercent);
+      document.getElementById('t-eth').textContent   = fmt(ep);
+      document.getElementById('tc-eth').textContent  = fmtChg(ec);
+      document.getElementById('tc-eth').className    = 'tick-chg ' + cls(ec);
+      document.getElementById('t-eth2').textContent  = fmt(ep);
+      document.getElementById('tc-eth2').textContent = fmtChg(ec);
+      document.getElementById('tc-eth2').className   = 'tick-chg ' + cls(ec);
     }
-    if (d.solana) {
-      const s = d.solana;
-      document.getElementById('t-sol').textContent = fmt(s.usd);
-      document.getElementById('tc-sol').textContent = fmtChg(s.usd_24h_change);
-      document.getElementById('tc-sol').className = 'tick-chg ' + cls(s.usd_24h_change);
-      document.getElementById('t-sol2').textContent = fmt(s.usd);
-      document.getElementById('tc-sol2').textContent = fmtChg(s.usd_24h_change);
-      document.getElementById('tc-sol2').className = 'tick-chg ' + cls(s.usd_24h_change);
+    // SOL
+    if (bySymbol['SOLUSDT']) {
+      const s = bySymbol['SOLUSDT'];
+      const sp = parseFloat(s.lastPrice), sc = parseFloat(s.priceChangePercent);
+      document.getElementById('t-sol').textContent   = fmt(sp);
+      document.getElementById('tc-sol').textContent  = fmtChg(sc);
+      document.getElementById('tc-sol').className    = 'tick-chg ' + cls(sc);
+      document.getElementById('t-sol2').textContent  = fmt(sp);
+      document.getElementById('tc-sol2').textContent = fmtChg(sc);
+      document.getElementById('tc-sol2').className   = 'tick-chg ' + cls(sc);
     }
-    if (d.binancecoin) {
-      const b = d.binancecoin;
-      document.getElementById('t-bnb').textContent = fmt(b.usd);
-      document.getElementById('tc-bnb').textContent = fmtChg(b.usd_24h_change);
-      document.getElementById('t-bnb2').textContent = fmt(b.usd);
-      document.getElementById('tc-bnb2').textContent = fmtChg(b.usd_24h_change);
+    // BNB
+    if (bySymbol['BNBUSDT']) {
+      const b = bySymbol['BNBUSDT'];
+      const bp = parseFloat(b.lastPrice), bc = parseFloat(b.priceChangePercent);
+      document.getElementById('t-bnb').textContent   = fmt(bp);
+      document.getElementById('tc-bnb').textContent  = fmtChg(bc);
+      document.getElementById('t-bnb2').textContent  = fmt(bp);
+      document.getElementById('tc-bnb2').textContent = fmtChg(bc);
     }
 
     // Sparkline
@@ -1020,15 +1031,17 @@ async function fetchBTC() {
 
 async function fetchGlobal() {
   try {
+    // CoinGecko apenas para dominância/mcap — intervalo longo para evitar rate limit
     const r = await fetch('https://api.coingecko.com/api/v3/global');
-    const d = r.ok ? await r.json() : null;
+    if (!r.ok) throw new Error('CoinGecko global ' + r.status);
+    const d = await r.json();
     if (d && d.data) {
       const dom = d.data.market_cap_percentage?.btc;
       if (dom) document.getElementById('sDom').textContent = dom.toFixed(1) + '%';
       const mc = d.data.total_market_cap?.usd;
       if (mc) document.getElementById('sMcap').textContent = (mc/1e12).toFixed(2) + 'T';
     }
-  } catch(e) {}
+  } catch(e) { console.warn('Global fetch:', e); }
 }
 
 async function fetchFear() {
@@ -1103,8 +1116,8 @@ function drawSpark() {
 }
 
 fetchBTC(); fetchGlobal(); fetchFear(); fetchBlock();
-setInterval(fetchBTC, 30000);
-setInterval(fetchGlobal, 120000);
+setInterval(fetchBTC, 15000);    // Binance — sem rate limit, pode ser mais frequente
+setInterval(fetchGlobal, 300000); // CoinGecko — só de 5 em 5 min para evitar rate limit
 setInterval(fetchFear, 300000);
 setInterval(fetchBlock, 60000);
 
