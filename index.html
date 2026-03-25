@@ -1423,4 +1423,16 @@ let nostrIdx = 0;
 function addNostrMsg() {
   const feed = document.getElementById('nostrFeed');
   const div = document.createElement('div');
-  d
+  div.className = 'nostr-msg';
+  div.textContent = nostrMsgs[nostrIdx % nostrMsgs.length];
+  nostrIdx++;
+  feed.appendChild(div);
+  if (feed.children.length > 6) feed.removeChild(feed.firstChild);
+  feed.scrollTop = feed.scrollHeight;
+}
+addNostrMsg();
+setInterval(addNostrMsg, 8000);
+
+</script>
+</body>
+</html>
