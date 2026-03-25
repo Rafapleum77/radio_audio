@@ -760,41 +760,48 @@ html,body{
 const VID_CATS = {
   ufc: {
     label: 'UFC',
+    type: 'playlist',
+    // Canal oficial UFC — uploads recentes
+    playlistId: 'UUvgfXK3ODE5znAQKMbB6xEg',
     videos: [
-      { id: 'jVMoYtPZfME', title: 'UFC 313 — Highlights Completo', dur: '8:24' },
-      { id: '3AQMfpRK_eI', title: 'Melhores KOs da História UFC', dur: '12:41' },
-      { id: 'dQw4w9WgXcQ', title: 'Jon Jones — O Maior de Todos', dur: '15:02' },
-      { id: 'kXYiU_JCYtU', title: 'Islam Makhachev — Campeão', dur: '9:33' },
-      { id: 'OPf0YbXqDm0', title: 'Top 10 Nocautes 2025', dur: '11:15' },
+      { id: 'videoseries', list: 'UUvgfXK3ODE5znAQKMbB6xEg', title: '🥊 UFC — Canal Oficial', dur: 'AO VIVO' },
+      { id: 'lZBs9ZGX0UM', title: 'UFC 313 — Pereira vs Ankalaev Highlights', dur: '8:12' },
+      { id: 'ZQS7JFB4jpA', title: 'Top 10 KOs — 2025', dur: '10:44' },
+      { id: 'tgF5USVkfAo', title: 'Islam Makhachev — Greatest Hits', dur: '9:30' },
+      { id: 'hY_BDflOS24', title: 'Alex Pereira — Highlight Reel', dur: '7:55' },
     ]
   },
   surf: {
     label: 'SURF',
+    type: 'playlist',
     videos: [
-      { id: 'LXb3EKWsInQ', title: 'Pipeline Masters 2025 — Final', dur: '18:30' },
-      { id: 'YykjpeuMNEk', title: 'Kelly Slater — Lendas do Surf', dur: '22:10' },
+      { id: 'videoseries', list: 'PLmoQ11MXEmahiHQMSoUAkEAVHBMVBPiOz', title: '🏄 WSL — World Surf League', dur: 'PLAYLIST' },
+      { id: 'LXb3EKWsInQ', title: 'Pipe Masters 2025 — Final', dur: '18:30' },
+      { id: 'YykjpeuMNEk', title: 'Gabriel Medina — O Brasileiro', dur: '12:10' },
       { id: 'M7lc1UVf-VE', title: 'Nazaré — Ondas Gigantes', dur: '14:55' },
-      { id: 'dQw4w9WgXcQ', title: 'Gabriel Medina — O Brasileiro', dur: '10:20' },
-      { id: 'V-_O7nl0Ii0', title: 'Jaws — Pe\'ahi Challenge', dur: '16:44' },
+      { id: 'V-_O7nl0Ii0', title: "Pe'ahi Jaws Challenge", dur: '16:44' },
     ]
   },
   btc: {
     label: 'BTC NEWS',
+    type: 'playlist',
     videos: [
-      { id: 'bBC-nXj3Ng4', title: 'O que é Bitcoin? Explicação Completa', dur: '26:13' },
-      { id: 'l9jOJk30eQs', title: 'Bitcoin 2025 — O que esperar', dur: '18:42' },
+      { id: 'videoseries', list: 'UU7cs8q-gJRlGwj4A8OACc1A', title: '₿ CoinBureau — Bitcoin News', dur: 'PLAYLIST' },
+      { id: 'bBC-nXj3Ng4', title: 'O que é Bitcoin? — Explicação', dur: '26:13' },
       { id: 'Gc2en3nHNCQ', title: 'Michael Saylor — Bitcoin é Dinheiro', dur: '45:10' },
       { id: 'oxfIfn66ViQ', title: 'Halving Bitcoin — Impacto no Preço', dur: '21:30' },
-      { id: '41JCpzvnn_I', title: 'Bitcoin vs Ouro — Comparação', dur: '13:22' },
+      { id: '41JCpzvnn_I', title: 'Bitcoin vs Ouro', dur: '13:22' },
     ]
   },
   poly: {
     label: 'POLYMARKET',
+    type: 'playlist',
     videos: [
-      { id: 'dQw4w9WgXcQ', title: 'Como funciona o Polymarket', dur: '12:00' },
-      { id: 'dQw4w9WgXcQ', title: 'Estratégias de Predição de Mercado', dur: '18:30' },
-      { id: 'dQw4w9WgXcQ', title: 'Mercados de Previsão — Guia', dur: '25:10' },
-      { id: 'dQw4w9WgXcQ', title: 'BTC UP/DOWN — Como Operar', dur: '9:45' },
+      { id: 'videoseries', list: 'UUHnyfMqiRRG1u-2MsSQLbXA', title: '🎯 Polymarket — Canal Oficial', dur: 'PLAYLIST' },
+      { id: 'e9SFKBNaOE0', title: 'Como funciona o Polymarket', dur: '12:00' },
+      { id: 'ZeC_7WxAMpI', title: 'Mercados de Previsão — Guia', dur: '18:30' },
+      { id: 'P7BHH5SNMHA', title: 'BTC UP/DOWN — Estratégia', dur: '9:45' },
+      { id: 'QgYLnS2SDGM', title: 'Prediction Markets 2025', dur: '25:10' },
     ]
   }
 };
@@ -806,7 +813,7 @@ function switchVidCat(cat, btn) {
   currentVidCat = cat;
   currentVidIdx = 0;
   document.querySelectorAll('.vid-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
+  if(btn) btn.classList.add('active');
   renderVidPlaylist();
   loadVid(0);
 }
@@ -814,6 +821,7 @@ function switchVidCat(cat, btn) {
 function renderVidPlaylist() {
   const vids = VID_CATS[currentVidCat].videos;
   const pl = document.getElementById('vidPlaylist');
+  if(!pl) return;
   pl.innerHTML = '';
   vids.forEach((v, i) => {
     const div = document.createElement('div');
@@ -826,11 +834,22 @@ function renderVidPlaylist() {
 
 function loadVid(idx) {
   const v = VID_CATS[currentVidCat].videos[idx];
-  document.getElementById('vidPlayer').src =
-    `https://www.youtube.com/embed/${v.id}?rel=0&modestbranding=1`;
+  const player = document.getElementById('vidPlayer');
+  if(!player) return;
+  // Se for playlist do canal usa embed de playlist, senão vídeo normal
+  if(v.id === 'videoseries' && v.list) {
+    player.src = `https://www.youtube.com/embed/videoseries?list=${v.list}&rel=0&modestbranding=1`;
+  } else {
+    player.src = `https://www.youtube.com/embed/${v.id}?rel=0&modestbranding=1`;
+  }
 }
 
-renderVidPlaylist();
+// Inicializa após DOM estar pronto
+document.addEventListener('DOMContentLoaded', function() {
+  renderVidPlaylist();
+  loadVid(0);
+});
+
 
 
 const TRACKS = [
