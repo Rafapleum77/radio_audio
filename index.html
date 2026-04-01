@@ -731,16 +731,35 @@ html,body{
       <!-- ZAP -->
       <div class="zap-card">
         <div class="zap-title">⚡ APOIE VIA LIGHTNING</div>
-        <div class="ln-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4531203d30222a3720262a372136053224292920312a233624312a362d2c6b262a28">[email&#160;protected]</a></div>
+        <div class="ln-addr">texugorecords@walletofsatoshi.com</div>
         <div class="qr-wrap"><img src="qr_lightning.png" alt="QR Lightning"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:8px;">
+          <a href="lightning:texugorecords@walletofsatoshi.com?amount=1000" class="zap-btn" style="font-size:9px;padding:6px;background:rgba(247,201,72,0.15);color:var(--gold);border:1px solid rgba(247,201,72,0.4);">⚡1k</a>
+          <a href="lightning:texugorecords@walletofsatoshi.com?amount=5000" class="zap-btn" style="font-size:9px;padding:6px;background:rgba(247,201,72,0.15);color:var(--gold);border:1px solid rgba(247,201,72,0.4);">⚡5k</a>
+          <a href="lightning:texugorecords@walletofsatoshi.com?amount=21000" class="zap-btn" style="font-size:9px;padding:6px;background:rgba(247,201,72,0.3);color:#fff;border:1px solid var(--gold);">⚡21k</a>
+        </div>
         <a href="lightning:texugorecords@walletofsatoshi.com" class="zap-btn">⚡ ENVIAR SATS</a>
       </div>
 
-      <!-- NOSTR -->
+      <!-- NOSTR REAL -->
       <div class="panel">
-        <div class="pt">📡 NOSTR — #RadioBitadict</div>
+        <div class="pt" style="justify-content:space-between;">
+          <span>📡 NOSTR — @bitadict</span>
+          <span id="nostrStatus" style="font-size:8px;color:#444;letter-spacing:1px;">⬤ CONECTANDO</span>
+        </div>
         <div class="nostr-feed" id="nostrFeed">
-          <div class="nostr-item"><div class="ni-head">AGUARDANDO RELAY...</div>Conectando ao Nostr...</div>
+          <div class="nostr-item"><div class="ni-head">RELAY DAMUS</div>Conectando ao Nostr real...</div>
+        </div>
+      </div>
+
+      <!-- PATROCINADOR -->
+      <div class="panel" id="sponsorPanel" style="border-color:rgba(247,201,72,0.35);">
+        <div class="pt" style="color:var(--gold);">💼 PATROCINADOR</div>
+        <div id="sponsorContent" style="text-align:center;padding:8px 0;">
+          <div id="sponsorLogo" style="font-size:28px;margin-bottom:6px;">⚡</div>
+          <div id="sponsorName" style="font-size:11px;color:#fff;font-weight:bold;letter-spacing:2px;margin-bottom:4px;">ANUNCIE AQUI</div>
+          <div id="sponsorDesc" style="font-size:8px;color:var(--text-dim);margin-bottom:10px;line-height:1.5;">Alcance a comunidade Bitcoin brasileira.<br>Pague em sats. Sem bancos.</div>
+          <a id="sponsorLink" href="lightning:texugorecords@walletofsatoshi.com" class="zap-btn" style="font-size:9px;padding:7px;">⚡ QUERO PATROCINAR</a>
         </div>
       </div>
 
@@ -789,7 +808,7 @@ html,body{
   <footer id="footer">
     <span><span class="status-dot"></span>ONLINE // RÁDIO BITADICT V6.0</span>
     <span id="footerBlock">BLOCO: --</span>
-    <span>@bitadict // <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="97e3f2efe2f0f8e5f2f4f8e5f3e4d7e0f6fbfbf2e3f8f1e4f6e3f8e4fffeb9f4f8fa">[email&#160;protected]</a></span>
+    <span>@bitadict // texugorecords@walletofsatoshi.com</span>
   </footer>
 
 </div><!-- /app -->
@@ -913,64 +932,151 @@ function toggleNews() {
 }
 
 // ══════════════════════════════════════════════
-// NOSTR + ZAPS — Protocolo V5.0
+// NOSTR REAL — Relay wss://relay.damus.io
 // ══════════════════════════════════════════════
-let agentWs = null;
-let agentRetry = null;
+const NOSTR_NPUB = 'npub1g4fyqwm7aluax989qezdqy9rtupxygjf8yucd7txq8k38jjn6fsqspgrah';
+const NOSTR_RELAYS = [
+  'wss://relay.damus.io',
+  'wss://nos.lol',
+  'wss://relay.nostr.band'
+];
 
-function initAgentListener() {
-  if (agentWs && agentWs.readyState === WebSocket.OPEN) return;
-  agentWs = new WebSocket('ws://localhost:8765');
+// Converter npub para hex pubkey
+function npubToHex(npub) {
+  const ALPHABET = 'qpzry9x8gf2tvdw0s3jn54khce6mua7l';
+  const str = npub.slice(5); // remove 'npub1'
+  let bits = 0, value = 0;
+  const bytes = [];
+  for (const char of str) {
+    const idx = ALPHABET.indexOf(char);
+    if (idx === -1) continue;
+    value = (value << 5) | idx;
+    bits += 5;
+    if (bits >= 8) { bits -= 8; bytes.push((value >> bits) & 0xff); }
+  }
+  // Remove checksum (últimos 4 bytes) e data type byte (primeiro byte)
+  const data = bytes.slice(1, bytes.length - 4);
+  return data.map(b => b.toString(16).padStart(2, '0')).join('');
+}
 
-  agentWs.onopen = () => {
-    console.log('✓ Conexão com Protocolo de Agentes estabelecida');
-    addMsg('⚡ Protocolo de Agentes online — Nostr + Lightning ativo', 'sys');
-    if (agentRetry) { clearTimeout(agentRetry); agentRetry = null; }
+let nostrWs = null;
+let nostrPubkey = '';
+let nostrConnected = false;
+
+function nostrSetStatus(txt, color) {
+  const el = document.getElementById('nostrStatus');
+  if (el) { el.textContent = txt; el.style.color = color; }
+}
+
+function nostrAddMsg(pubkey, content, created_at) {
+  const feed = document.getElementById('nostrFeed');
+  if (!feed) return;
+  // Remover se for muito antigo (>24h)
+  const age = Date.now()/1000 - created_at;
+  if (age > 86400) return;
+  // Limitar tamanho do conteúdo
+  const txt = content.length > 120 ? content.slice(0, 120) + '...' : content;
+  const shortKey = pubkey.slice(0,8) + '...';
+  const isOwn = pubkey === nostrPubkey;
+  const timeAgo = age < 3600 ? Math.floor(age/60) + 'm' : Math.floor(age/3600) + 'h';
+  const div = document.createElement('div');
+  div.className = 'nostr-item';
+  div.style.borderColor = isOwn ? 'rgba(247,201,72,0.4)' : 'rgba(0,255,65,0.18)';
+  div.innerHTML = `<div class="ni-head" style="color:${isOwn?'var(--gold)':'var(--g)'};">${isOwn?'⚡ @bitadict':'👤 '+shortKey} <span style="color:#333;float:right">${timeAgo} atrás</span></div>${txt}`;
+  // Inserir no topo
+  feed.insertBefore(div, feed.firstChild);
+  if (feed.children.length > 10) feed.removeChild(feed.lastChild);
+  if (isOwn) zapFlash();
+}
+
+function connectNostr(relayUrl) {
+  if (nostrWs) { try { nostrWs.close(); } catch(e){} }
+  nostrSetStatus('⬤ CONECTANDO', '#888');
+
+  try {
+    nostrPubkey = npubToHex(NOSTR_NPUB);
+  } catch(e) {
+    nostrSetStatus('⬤ ERRO NPUB', 'var(--red)');
+    return;
+  }
+
+  nostrWs = new WebSocket(relayUrl);
+
+  nostrWs.onopen = () => {
+    nostrConnected = true;
+    nostrSetStatus('⬤ ' + relayUrl.replace('wss://','').split('/')[0].toUpperCase(), 'var(--g)');
+
+    // Subscrever posts do @bitadict (últimos 20)
+    const subOwn = JSON.stringify(['REQ','bitadict-own',{authors:[nostrPubkey],kinds:[1],limit:20}]);
+    nostrWs.send(subOwn);
+
+    // Subscrever hashtag #bitcoin (últimos 10)
+    const subBtc = JSON.stringify(['REQ','bitcoin-tag',{'#t':['bitcoin','radiobitadict'],kinds:[1],limit:10}]);
+    nostrWs.send(subBtc);
   };
 
-  agentWs.onmessage = (e) => {
+  nostrWs.onmessage = (e) => {
     try {
-      const data = JSON.parse(e.data);
-      if (data.type === 'agent_message') {
-        agentMessage(data.agent, data.message, data.zaps || 0);
+      const msg = JSON.parse(e.data);
+      if (msg[0] === 'EVENT') {
+        const ev = msg[2];
+        if (ev && ev.kind === 1 && ev.content) {
+          nostrAddMsg(ev.pubkey, ev.content, ev.created_at);
+        }
       }
     } catch(err) {}
   };
 
-  agentWs.onclose = () => {
-    console.warn('⚠ Protocolo de Agentes desconectado. Retry em 5s...');
-    agentRetry = setTimeout(initAgentListener, 5000);
+  nostrWs.onclose = () => {
+    nostrConnected = false;
+    nostrSetStatus('⬤ DESCONECTADO', '#555');
+    // Tentar próximo relay em 8s
+    setTimeout(() => {
+      const idx = NOSTR_RELAYS.indexOf(relayUrl);
+      const next = NOSTR_RELAYS[(idx + 1) % NOSTR_RELAYS.length];
+      connectNostr(next);
+    }, 8000);
   };
 
-  agentWs.onerror = () => {
-    agentWs.close();
-  };
+  nostrWs.onerror = () => { nostrWs.close(); };
 }
 
-function agentMessage(agent, text, zaps) {
-  const feed = document.getElementById('nostrFeed');
-  if (!feed) return;
-  const div = document.createElement('div');
-  div.className = 'nostr-item';
-  div.innerHTML = `<div class="ni-head" style="color:var(--gold)">@${agent} ${zaps > 0 ? `<span style="color:#ffcc00">⚡${zaps} sat</span>` : ''}</div>${text}`;
-  feed.appendChild(div);
-  if (feed.children.length > 8) feed.removeChild(feed.firstChild);
-  feed.scrollTop = feed.scrollHeight;
-  if (zaps >= 10) triggerZapEffect(zaps);
-}
+// Iniciar Nostr após 2s
+setTimeout(() => connectNostr(NOSTR_RELAYS[0]), 2000);
 
-function triggerZapEffect(amount) {
-  const el = document.getElementById('zapFlash');
-  if (!el) return;
-  el.classList.add('active');
-  setTimeout(() => el.classList.remove('active'), 800);
-  addMsg(`⚡ ZAP recebido! ${amount} sats — obrigado pela soberania!`, 'sys');
-}
+// ══════════════════════════════════════════════
+// PATROCINADORES ROTATIVOS
+// ══════════════════════════════════════════════
+const SPONSORS = [
+  {
+    logo: '🦔', name: 'STACKBIT.ME', desc: 'Acumule sats automaticamente.<br>DCA Bitcoin sem complicação.',
+    link: 'https://stackbit.me', cta: '⚡ COMEÇAR AGORA'
+  },
+  {
+    logo: '₿', name: 'ANUNCIE AQUI', desc: 'Alcance a comunidade Bitcoin brasileira.<br>Pague em sats. Sem bancos.',
+    link: 'lightning:texugorecords@walletofsatoshi.com', cta: '⚡ QUERO PATROCINAR'
+  },
+  {
+    logo: '📻', name: 'BITADICT RADIO', desc: 'A voz da revolução Bitcoin.<br>Música, dados e cultura Bitcoin.',
+    link: 'https://x.com/bitadict', cta: '🐦 SEGUIR @BITADICT'
+  },
+];
+let sponsorIdx = 0;
 
-// Tenta conectar ao protocolo de agentes (se Python estiver rodando)
-setTimeout(() => {
-  try { initAgentListener(); } catch(e) {}
-}, 3000);
+function rotateSponsor() {
+  const s = SPONSORS[sponsorIdx % SPONSORS.length];
+  const logo = document.getElementById('sponsorLogo');
+  const name = document.getElementById('sponsorName');
+  const desc = document.getElementById('sponsorDesc');
+  const link = document.getElementById('sponsorLink');
+  if (logo) logo.textContent = s.logo;
+  if (name) name.textContent = s.name;
+  if (desc) desc.innerHTML = s.desc;
+  if (link) { link.href = s.link; link.textContent = s.cta; }
+  sponsorIdx++;
+}
+rotateSponsor();
+setInterval(rotateSponsor, 8000);
 
 document.addEventListener('DOMContentLoaded', function() {
   const player = document.getElementById('vidPlayer');
@@ -1591,31 +1697,7 @@ setInterval(()=>{
 }, 30000);
 renderContest();
 
-// ══════════════════════════════════════════════
-// NOSTR FEED (simulado — substitui pelo agente real)
-// ══════════════════════════════════════════════
-const nostrMsgs = [
-  'Stack sats, ignore o ruído! ⚡',
-  'Bitcoin não tem CEO. É matemática. #RadioBitadict',
-  'Autocustódia é soberania financeira. #Bitcoin',
-  'O halving se aproxima. Prepara-te. ₿',
-  'Lightning Network: transações instantâneas, taxa zero. 🚀',
-  'Não confies. Verifica. — Máxima Bitcoiner',
-  'HODL é uma estratégia. DCA é uma disciplina.',
-];
-let nostrIdx = 0;
-function addNostrMsg() {
-  const feed = document.getElementById('nostrFeed');
-  const div = document.createElement('div');
-  div.className = 'nostr-msg';
-  div.textContent = nostrMsgs[nostrIdx % nostrMsgs.length];
-  nostrIdx++;
-  feed.appendChild(div);
-  if (feed.children.length > 6) feed.removeChild(feed.firstChild);
-  feed.scrollTop = feed.scrollHeight;
-}
-addNostrMsg();
-setInterval(addNostrMsg, 8000);
+// Nostr real já inicializado acima via connectNostr()
 
 </script>
 </body>
