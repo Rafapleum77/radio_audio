@@ -590,6 +590,12 @@ html,body{
 
         <div class="pt" style="margin-top:10px;">📀 PLAYLIST</div>
         <div class="playlist" id="playlist"></div>
+
+        <div class="pt" style="margin-top:10px;">📬 PEDIDOS</div>
+        <div id="pedidos-list" style="padding:2px 0"></div>
+        <div style="font-size:8px;color:var(--text-dim);margin-top:4px">
+          Telegram: <span style="color:var(--g)">/pedir Nome da Música</span>
+        </div>
       </div>
 
     </div><!-- /left -->
@@ -1118,26 +1124,45 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-const TRACKS = [
-  { title: 'Bitcoin e Salvação', file: 'Bitcoin Salvação.mp3', dur: '2:26' },
-  { title: 'Missão Bitcoin', file: 'Missão Bitcoin.mp3', dur: '1:52' },
-  { title: 'Missão Bitcoin (2)', file: 'Missão Bitcoin (2).mp3', dur: '2:18' },
-  { title: 'Missão Bitcoin (1)', file: 'Missão Bitcoin (1).mp3', dur: '2:05' },
-  { title: 'Bitcoin Magnata', file: 'Bitcoin Magnata.mp3', dur: '5:37' },
-  { title: 'A Salvação é Individual', file: 'A salvação eh individual .mp3', dur: '3:37' },
-  { title: 'Autocustódia Inoxidável', file: 'Autocustódia Inoxidável.mp3', dur: '2:53' },
-  { title: 'Autocustódia', file: 'Autocustódia.mp3', dur: '3:42' },
-  { title: 'Correntes Pesadas', file: 'Correntes Pesadas.mp3', dur: '4:53' },
-  { title: 'Liberdade em Risco', file: 'Liberdade em Risco.mp3', dur: '4:45' },
-  { title: 'Dance the Night Away', file: 'Dance the Night Away.mp3', dur: '3:38' },
-  { title: 'Digital Soul in the Delta', file: 'Digital Soul in the Delta.mp3', dur: '3:33' },
-  { title: 'Bitcoin e Salvação (Charlie Brown)', file: 'Bitcoin e Salvaçãoversaocharliebrow (1).mp3', dur: '3:04' },
-  { title: '2026', file: '2026.mp3', dur: '2:52' },
-];
-
+let TRACKS = [];
 let currentIdx = 0, isPlaying = false, isShuffle = false, isRepeat = false;
 const audio = document.getElementById('audioEl');
 const btnPlay = document.getElementById('btnPlay');
+
+async function carregarTracks() {
+  try {
+    const r = await fetch('tracks.json?t=' + Date.now());
+    if (r.ok) {
+      TRACKS = await r.json();
+      renderPlaylist();
+    }
+  } catch(e) {}
+}
+
+async function carregarPedidos() {
+  try {
+    const r = await fetch('pedidos.json?t=' + Date.now());
+    if (!r.ok) return;
+    const pedidos = await r.json();
+    let el = document.getElementById('pedidos-list');
+    if (!el) return;
+    if (!pedidos.length) {
+      el.innerHTML = '<div style="font-size:9px;color:var(--text-dim);padding:4px">Nenhum pedido ainda. Use /pedir no Telegram.</div>';
+      return;
+    }
+    el.innerHTML = pedidos.slice().reverse().map(p =>
+      `<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(0,255,65,0.08);font-size:9px">
+        <span style="color:var(--g)">🎵 ${p.musica}</span>
+        <span style="color:var(--text-dim)">${p.usuario} · ${p.ts}</span>
+      </div>`
+    ).join('');
+  } catch(e) {}
+}
+
+carregarTracks();
+carregarPedidos();
+setInterval(carregarTracks, 600000);   // recarrega tracks a cada 10 min
+setInterval(carregarPedidos, 60000);   // recarrega pedidos a cada 1 min
 
 // Render playlist
 function renderPlaylist() {
