@@ -630,6 +630,38 @@ html,body{
         </div>
       </div>
 
+      <!-- BOT BITADICT -->
+      <div class="panel" id="bot-panel" style="border-color:rgba(0,212,255,0.35)">
+        <div class="pt" style="color:var(--blue)">🤖 BOT BITADICT — XRP/USDT 15m</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px">
+          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
+            <div class="k">STATUS</div>
+            <div class="v" id="bStatus" style="font-size:13px">--</div>
+          </div>
+          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
+            <div class="k">BANCA ATUAL</div>
+            <div class="v" id="bBanca" style="font-size:13px">--</div>
+          </div>
+          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
+            <div class="k">P&L DIA</div>
+            <div class="v" id="bPnl" style="font-size:13px">--</div>
+          </div>
+          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
+            <div class="k">TRADES</div>
+            <div class="v" id="bTrades" style="font-size:13px">--</div>
+          </div>
+          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
+            <div class="k">WIN RATE</div>
+            <div class="v" id="bWin" style="font-size:13px">--</div>
+          </div>
+          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
+            <div class="k">SENTIMENTO</div>
+            <div class="v" id="bFng" style="font-size:11px">--</div>
+          </div>
+        </div>
+        <div style="margin-top:6px;font-size:8px;color:var(--text-dim);text-align:right" id="bUpdated">última atualização: --</div>
+      </div>
+
       <!-- CHART -->
       <div class="panel" id="chart-panel">
         <div class="chart-header">
@@ -1698,6 +1730,46 @@ setInterval(()=>{
 renderContest();
 
 // Nostr real já inicializado acima via connectNostr()
+
+// ── BOT BITADICT STATS ──────────────────────────────────────────
+async function fetchBotStats() {
+  try {
+    const r = await fetch('stats_radio.json?t=' + Date.now());
+    if (!r.ok) return;
+    const d = await r.json();
+
+    const statusEl = document.getElementById('bStatus');
+    const statusMap = { 'ATIVO': ['#00ff41','▶ ATIVO'], 'PAUSADO': ['#f7c948','⏸ PAUSADO'], 'SLEEP': ['#ff4444','💤 SLEEP'] };
+    const [sc, sl] = statusMap[d.status] || ['#aaa', d.status];
+    statusEl.textContent = sl; statusEl.style.color = sc;
+
+    const bancaEl = document.getElementById('bBanca');
+    bancaEl.textContent = '$' + d.banca_atual.toFixed(2);
+    bancaEl.style.color = '#00d4ff';
+
+    const pnlEl = document.getElementById('bPnl');
+    const pnl = d.lucro_dia;
+    pnlEl.textContent = (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2);
+    pnlEl.style.color = pnl >= 0 ? '#00ff41' : '#ff4444';
+
+    document.getElementById('bTrades').textContent = d.total_trades;
+    document.getElementById('bTrades').style.color = '#00d4ff';
+
+    const winEl = document.getElementById('bWin');
+    winEl.textContent = d.taxa_acerto + '%';
+    winEl.style.color = d.taxa_acerto >= 55 ? '#00ff41' : d.taxa_acerto >= 45 ? '#f7c948' : '#ff4444';
+
+    const fv = d.sentimento_valor;
+    const fc = fv <= 25 ? '#ff4444' : fv >= 75 ? '#00ff41' : fv >= 60 ? '#f7c948' : '#00d4ff';
+    const fngEl = document.getElementById('bFng');
+    fngEl.textContent = fv + ' ' + d.sentimento_label;
+    fngEl.style.color = fc;
+
+    document.getElementById('bUpdated').textContent = 'última atualização: ' + d.ultima_atualizacao;
+  } catch(e) { /* sem stats disponíveis */ }
+}
+fetchBotStats();
+setInterval(fetchBotStats, 300000); // atualiza a cada 5 min
 
 </script>
 </body>
