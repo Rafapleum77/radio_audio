@@ -1131,7 +1131,7 @@ const TRACKS = [
   { title: 'Liberdade em Risco', file: 'Liberdade em Risco.mp3', dur: '4:45' },
   { title: 'Dance the Night Away', file: 'Dance the Night Away.mp3', dur: '3:38' },
   { title: 'Digital Soul in the Delta', file: 'Digital Soul in the Delta.mp3', dur: '3:33' },
-  { title: 'Bitcoin e Salvação (Charlie Brown)', file: 'Bitcoin e Salvação versacharliebrow (1)....mp3', dur: '3:04' },
+  { title: 'Bitcoin e Salvação (Charlie Brown)', file: 'Bitcoin e Salvaçãoversaocharliebrow (1).mp3', dur: '3:04' },
   { title: '2026', file: '2026.mp3', dur: '2:52' },
 ];
 
@@ -1732,6 +1732,43 @@ renderContest();
 // Nostr real já inicializado acima via connectNostr()
 
 // ── BOT BITADICT STATS ──────────────────────────────────────────
+let _botPrevPnl = null, _botPrevTrades = null, _botPrevStatus = null;
+
+function _beepWin() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [523, 659, 784].forEach((freq, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = freq; o.type = 'sine';
+      g.gain.setValueAtTime(0.18, ctx.currentTime + i * 0.12);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.25);
+      o.start(ctx.currentTime + i * 0.12);
+      o.stop(ctx.currentTime + i * 0.12 + 0.3);
+    });
+  } catch(e) {}
+}
+
+function _beepLoss() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.frequency.value = 220; o.type = 'sawtooth';
+    g.gain.setValueAtTime(0.12, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+    o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.5);
+  } catch(e) {}
+}
+
+function _flashPanel(color) {
+  const p = document.getElementById('bot-panel');
+  if (!p) return;
+  p.style.transition = 'box-shadow 0.2s';
+  p.style.boxShadow = `0 0 24px ${color}`;
+  setTimeout(() => { p.style.boxShadow = ''; }, 1200);
+}
+
 async function fetchBotStats() {
   try {
     const r = await fetch('stats_radio.json?t=' + Date.now());
@@ -1766,6 +1803,32 @@ async function fetchBotStats() {
     fngEl.style.color = fc;
 
     document.getElementById('bUpdated').textContent = 'última atualização: ' + d.ultima_atualizacao;
+
+    // ── Integração bot → rádio ──────────────────────────────────
+    if (_botPrevTrades !== null && d.total_trades > _botPrevTrades) {
+      const ganhou = d.lucro_dia > (_botPrevPnl ?? d.lucro_dia);
+      if (ganhou) {
+        _beepWin(); _flashPanel('#00ff41');
+        // Se não está tocando, inicia a playlist automaticamente
+        if (!isPlaying) { loadTrack(); playTrack(); }
+      } else {
+        _beepLoss(); _flashPanel('#ff4444');
+      }
+    }
+    // Bot entrou em sleep → pausa música e exibe aviso no título da faixa
+    if (_botPrevStatus && _botPrevStatus !== 'SLEEP' && d.status === 'SLEEP') {
+      pauseTrack();
+      document.getElementById('trackTitle').textContent = '💤 Bot em repouso — mercado instável';
+    }
+    // Bot voltou do sleep → retoma
+    if (_botPrevStatus === 'SLEEP' && d.status === 'ATIVO') {
+      document.getElementById('trackTitle').textContent = TRACKS[currentIdx]?.title || '';
+      loadTrack(); playTrack();
+    }
+
+    _botPrevPnl    = d.lucro_dia;
+    _botPrevTrades = d.total_trades;
+    _botPrevStatus = d.status;
   } catch(e) { /* sem stats disponíveis */ }
 }
 fetchBotStats();
