@@ -732,6 +732,23 @@ html,body{
         <div style="margin-top:6px;font-size:8px;color:var(--text-dim);text-align:right" id="bUpdated">última atualização: --</div>
       </div>
 
+      <!-- VALE SATS BANNER -->
+      <a href="#zap-section" onclick="document.getElementById('zap-section').scrollIntoView({behavior:'smooth'});return false;"
+         style="display:block;text-decoration:none;border:1px solid rgba(247,201,72,0.5);border-radius:8px;padding:12px 14px;background:linear-gradient(135deg,rgba(247,201,72,0.08) 0%,rgba(0,0,0,0) 100%);cursor:pointer;transition:all .22s;position:relative;overflow:hidden;"
+         onmouseover="this.style.borderColor='rgba(247,201,72,0.9)';this.style.boxShadow='0 0 14px rgba(247,201,72,0.25)'"
+         onmouseout="this.style.borderColor='rgba(247,201,72,0.5)';this.style.boxShadow='none'">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="font-size:32px;line-height:1;">₿</div>
+          <div style="flex:1;">
+            <div style="color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Vale Sats</div>
+            <div style="color:#fff;font-size:13px;font-weight:600;margin:2px 0;">Dê Bitcoin de Presente</div>
+            <div style="color:var(--text-dim);font-size:10px;">Cartão físico com sats reais · pague via Lightning ⚡</div>
+          </div>
+          <div style="color:var(--gold);font-size:18px;">→</div>
+        </div>
+        <div style="position:absolute;top:0;right:0;width:60px;height:100%;background:linear-gradient(90deg,transparent,rgba(247,201,72,0.05));pointer-events:none;"></div>
+      </a>
+
       <!-- CHART -->
       <div class="panel" id="chart-panel">
         <div class="chart-header">
@@ -996,7 +1013,7 @@ html,body{
     <div id="right">
 
       <!-- ZAP -->
-      <div class="zap-card">
+      <div class="zap-card" id="zap-section">
         <div class="zap-title">⚡ APOIE VIA LIGHTNING</div>
         <div class="ln-addr">texugorecords@walletofsatoshi.com</div>
         <div class="qr-wrap"><img src="qr_lightning.png" alt="QR Lightning"></div>
