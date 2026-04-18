@@ -399,11 +399,27 @@ html,body{
 .ct-votes{font-size:8px;color:var(--text-dim);margin-top:3px;}
 
 /* ── PARTNERS ── */
-.partners-scroll{overflow:hidden;position:relative;}
-.partners-track{display:flex;width:max-content;gap:8px;animation:partscroll 20s linear infinite;align-items:center;}
-.partners-track:hover{animation-play-state:paused;}
-.p-logo{height:32px;width:auto;object-fit:contain;filter:brightness(0.65) grayscale(0.3);border-radius:3px;opacity:0.8;}
-@keyframes partscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.partners-grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:6px;}
+.p-card{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  padding:10px 6px 7px;width:76px;
+  background:rgba(0,14,4,0.85);
+  border:1px solid rgba(0,255,65,0.14);
+  border-radius:7px;
+  text-decoration:none;
+  transition:all .22s;
+  cursor:pointer;
+}
+.p-card:hover{
+  background:rgba(0,255,65,0.07);
+  border-color:var(--g);
+  box-shadow:0 0 16px rgba(0,255,65,0.22),inset 0 0 8px rgba(0,255,65,0.04);
+  transform:translateY(-3px);
+}
+.p-logo{height:36px;width:58px;object-fit:contain;filter:brightness(0.55) grayscale(0.5);opacity:0.65;transition:all .22s;}
+.p-card:hover .p-logo{filter:brightness(1) grayscale(0);opacity:1;}
+.p-name{font-size:7px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;text-align:center;transition:color .22s;}
+.p-card:hover .p-name{color:var(--g);}
 
 /* ── FOOTER ── */
 #footer{
@@ -740,24 +756,59 @@ html,body{
       <!-- PARTNERS -->
       <div class="panel">
         <div class="pt">🤝 PARCEIROS & APOIADORES</div>
-        <div class="partners-scroll">
-          <div class="partners-track" id="partnersTrack">
+        <div class="partners-grid">
+          <a class="p-card" href="#" title="Bitcoin">
             <img class="p-logo" src="logo_btc.png" alt="Bitcoin">
+            <div class="p-name">Bitcoin</div>
+          </a>
+          <a class="p-card" href="#" title="Livecoins">
             <img class="p-logo" src="logo_livecoins.png" alt="Livecoins">
+            <div class="p-name">Livecoins</div>
+          </a>
+          <a class="p-card" href="#" title="NoxPay">
             <img class="p-logo" src="logo_noxpay.png" alt="NoxPay">
+            <div class="p-name">NoxPay</div>
+          </a>
+          <a class="p-card" href="#" title="Stack">
             <img class="p-logo" src="logo_stack.png" alt="Stack">
-            <img class="p-logo" src="logo_lex.png" alt="Lex">
+            <div class="p-name">Stack</div>
+          </a>
+          <a class="p-card" href="#" title="Lex">
+            <img class="p-logo" src="logo.lex.png" alt="Lex">
+            <div class="p-name">Lex</div>
+          </a>
+          <a class="p-card" href="#" title="Stackbit">
             <img class="p-logo" src="logo_stackbit.png" alt="Stackbit">
-            <img class="p-logo" src="logo_radiobitcoin.png" alt="Radio Bitcoin">
-            <!-- duplicado -->
-            <img class="p-logo" src="logo_btc.png" alt="Bitcoin">
-            <img class="p-logo" src="logo_livecoins.png" alt="Livecoins">
-            <img class="p-logo" src="logo_noxpay.png" alt="NoxPay">
-            <img class="p-logo" src="logo_stack.png" alt="Stack">
-            <img class="p-logo" src="logo_lex.png" alt="Lex">
-            <img class="p-logo" src="logo_stackbit.png" alt="Stackbit">
-            <img class="p-logo" src="logo_radiobitcoin.png" alt="Radio Bitcoin">
-          </div>
+            <div class="p-name">Stackbit</div>
+          </a>
+          <a class="p-card" href="#" title="Rádio Bitcoin">
+            <img class="p-logo" src="logo_radiobitcoin.png" alt="Rádio Bitcoin">
+            <div class="p-name">Rádio BTC</div>
+          </a>
+          <a class="p-card" href="#" title="Mito">
+            <img class="p-logo" src="logo_mito.png" alt="Mito">
+            <div class="p-name">Mito</div>
+          </a>
+          <a class="p-card" href="#" title="NN">
+            <img class="p-logo" src="logo_nn.png" alt="NN">
+            <div class="p-name">NN</div>
+          </a>
+          <a class="p-card" href="#" title="BJJ">
+            <img class="p-logo" src="logo-bjj.png" alt="BJJ">
+            <div class="p-name">BJJ</div>
+          </a>
+          <a class="p-card" href="#" title="GG">
+            <img class="p-logo" src="logo-gg.png" alt="GG">
+            <div class="p-name">GG</div>
+          </a>
+          <a class="p-card" href="#" title="Rádio">
+            <img class="p-logo" src="logo-radio.png" alt="Rádio">
+            <div class="p-name">Rádio</div>
+          </a>
+        </div>
+        <div style="text-align:center;margin-top:10px;font-size:8px;color:var(--text-dim)">
+          ⚡ Quer aparecer aqui?
+          <a href="lightning:texugorecords@walletofsatoshi.com" style="color:var(--gold);text-decoration:none;">Patrocine via Lightning</a>
         </div>
       </div>
 
