@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+  }
+
+  .banner {
+    width: 1200px;
+    height: 500px;
+    background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 50%, #0d0d0d 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #2a2a4a;
+    box-shadow: 0 0 60px rgba(30, 80, 200, 0.2), 0 0 120px rgba(30, 80, 200, 0.1);
+  }
+
+  /* Glow de fundo */
+  .banner::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(30, 80, 220, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Coluna esquerda - cartão */
+  .col-card {
+    flex: 0 0 420px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 30px;
+  }
+
+  .col-card img {
+    width: 380px;
+    height: auto;
+    border-radius: 12px;
+    filter: drop-shadow(0 0 20px rgba(50, 100, 255, 0.4));
+  }
+
+  /* Divisor */
+  .divider {
+    width: 1px;
+    height: 360px;
+    background: linear-gradient(to bottom, transparent, #3a5ad9, #3a5ad9, transparent);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  /* Coluna central - texto */
+  .col-text {
+    flex: 1;
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(58, 90, 217, 0.2);
+    border: 1px solid rgba(58, 90, 217, 0.4);
+    color: #7aa0ff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    width: fit-content;
+  }
+
+  .tag::before {
+    content: '⚡';
+    font-size: 12px;
+  }
+
+  .title {
+    font-size: 42px;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.1;
+    letter-spacing: -1px;
+  }
+
+  .title span {
+    color: #f7931a;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: #8888aa;
+    line-height: 1.6;
+    max-width: 320px;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ccccdd;
+    font-size: 13px;
+  }
+
+  .step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(58, 90, 217, 0.3);
+    border: 1px solid #3a5ad9;
+    color: #7aa0ff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Coluna direita - instruções */
+  .col-instructions {
+    flex: 0 0 340px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+  }
+
+  .col-instructions img {
+    width: 310px;
+    height: auto;
+    border-radius: 12px;
+    opacity: 0.95;
+    filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
+  }
+
+  /* Watermark */
+  .watermark {
+    position: absolute;
+    bottom: 14px;
+    right: 20px;
+    font-size: 10px;
+    color: #333355;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <!-- Cartões -->
+  <div class="col-card">
+    <img src="IMG_2687 3.jpg" alt="Lightning Network Voucher Cards">
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Texto central -->
+  <div class="col-text">
+    <div class="tag">Lightning Network</div>
+    <div class="title">50,000<br><span>sats</span></div>
+    <div class="subtitle">
+      Voucher físico Bitcoin Lightning pronto para resgatar.<br>
+      Escaneie o QR code com qualquer wallet compatível.
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        Baixe um app: Blue Wallet, Wallet of Satoshi
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        Abra o app → Receber
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        Escaneie o QR code do cartão
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Instruções -->
+  <div class="col-instructions">
+    <img src="IMG_2688 2.jpg" alt="Como Resgatar Seus Sats">
+  </div>
+
+  <div class="watermark">IMPRESSÃO DIY · BITADICT</div>
+</div>
+
+</body>
+</html>
