@@ -6,6 +6,7 @@
 <meta name="lightning" content="texugorecords@walletofsatoshi.com">
 <meta name="description" content="Rádio BitAdict — A voz da revolução Bitcoin. Música, dados ao vivo e cultura Bitcoin.">
 <title>RADIO BITCOIN // COCKPIT V6.0 // A VOZ DA REVOLUÇÃO BITCOIN</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23f7931a'/><text y='.9em' font-size='80' x='10'>₿</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
 <style>
@@ -541,6 +542,26 @@ html,body{
   transition:opacity 0.1s;
 }
 .zap-flash.active{opacity:1;}
+
+/* ── VISUALIZER ── */
+#visualizer{
+  width:100%;height:40px;display:block;
+  border-radius:4px;margin:6px 0;
+  background:rgba(0,0,0,0.4);
+}
+
+/* ── SHARE BTN ── */
+.share-btn{
+  background:transparent;
+  border:1px solid rgba(0,212,255,0.4);
+  color:var(--blue);
+  padding:5px 10px;
+  font-size:9px;font-family:'Share Tech Mono',monospace;
+  border-radius:4px;cursor:pointer;
+  transition:all 0.15s;letter-spacing:1px;
+  margin-top:6px;width:100%;
+}
+.share-btn:hover{background:rgba(0,212,255,0.15);border-color:var(--blue);box-shadow:0 0 10px rgba(0,212,255,0.3);}
 </style>
 </head>
 <body>
@@ -559,11 +580,11 @@ html,body{
     <div class="hdr-logo">
       <span class="main">⚡ RADIO BITCOIN</span>
       <span class="sub">A VOZ DA REVOLUÇÃO BITCOIN // COCKPIT V6.0</span>
-      <span class="sub" style="margin-top:4px;display:flex;gap:5px;align-items:center;" title="Brasil · Paraguai · Argentina · El Salvador">
-        <span style="font-size:18px;" title="Brasil">🇧🇷</span>
-        <span style="font-size:18px;" title="Paraguai">🇵🇾</span>
-        <span style="font-size:18px;" title="Argentina">🇦🇷</span>
-        <span style="font-size:18px;" title="El Salvador">🇸🇻</span>
+      <span class="sub" style="margin-top:4px;display:flex;gap:6px;align-items:center;" title="Brasil · Paraguai · Argentina · El Salvador">
+        <img src="https://flagcdn.com/w20/br.png" title="Brasil" style="height:14px;border-radius:2px;">
+        <img src="https://flagcdn.com/w20/py.png" title="Paraguai" style="height:14px;border-radius:2px;">
+        <img src="https://flagcdn.com/w20/ar.png" title="Argentina" style="height:14px;border-radius:2px;">
+        <img src="https://flagcdn.com/w20/sv.png" title="El Salvador" style="height:14px;border-radius:2px;">
       </span>
     </div>
     <div class="hdr-btc">
@@ -631,12 +652,7 @@ html,body{
           </div>
         </div>
 
-        <div class="waveform" id="waveform">
-          <div class="wbar paused"></div><div class="wbar paused"></div><div class="wbar paused"></div>
-          <div class="wbar paused"></div><div class="wbar paused"></div><div class="wbar paused"></div>
-          <div class="wbar paused"></div><div class="wbar paused"></div><div class="wbar paused"></div>
-          <div class="wbar paused"></div><div class="wbar paused"></div><div class="wbar paused"></div>
-        </div>
+        <canvas id="visualizer"></canvas>
 
         <div class="progress-bar" id="progressBar">
           <div class="progress-fill" id="progressFill" style="width:0%"></div>
@@ -657,7 +673,8 @@ html,body{
           <span id="volVal" style="font-size:9px;color:var(--text-dim);min-width:28px">80%</span>
         </div>
 
-        <audio id="audioEl" preload="none"></audio>
+        <audio id="audioEl" preload="none" crossorigin="anonymous"></audio>
+        <button class="share-btn" onclick="shareOnX()">𝕏 COMPARTILHAR FAIXA ATUAL</button>
 
         <div class="pt" style="margin-top:10px;">📀 PLAYLIST</div>
         <div class="playlist" id="playlist"></div>
@@ -760,12 +777,12 @@ html,body{
             <div style="color:var(--g);font-size:11px;margin:4px 0;">🪪 CARTÃO ELITE &nbsp;·&nbsp; <strong style="color:#fff;">50.000 sats</strong> &nbsp;→&nbsp; <strong style="color:var(--gold);">$100</strong></div>
             <div style="color:var(--g);font-size:11px;margin:4px 0;">🪪 CARTÃO STARTER &nbsp;·&nbsp; <strong style="color:#fff;">30.000 sats</strong> &nbsp;→&nbsp; <strong style="color:var(--gold);">$50</strong></div>
           </div>
-          <div style="display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:12px;" title="Brasil · Paraguai · Argentina · El Salvador">
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px;" title="Brasil · Paraguai · Argentina · El Salvador">
             🌐
-            <span style="font-size:18px;" title="Brasil">🇧🇷</span>
-            <span style="font-size:18px;" title="Paraguai">🇵🇾</span>
-            <span style="font-size:18px;" title="Argentina">🇦🇷</span>
-            <span style="font-size:18px;" title="El Salvador">🇸🇻</span>
+            <img src="https://flagcdn.com/w40/br.png" title="Brasil" style="height:20px;border-radius:3px;">
+            <img src="https://flagcdn.com/w40/py.png" title="Paraguai" style="height:20px;border-radius:3px;">
+            <img src="https://flagcdn.com/w40/ar.png" title="Argentina" style="height:20px;border-radius:3px;">
+            <img src="https://flagcdn.com/w40/sv.png" title="El Salvador" style="height:20px;border-radius:3px;">
             <span style="font-size:9px;color:#888;">e além!</span>
           </div>
           <a href="https://t.me/bitadict" target="_blank"
@@ -898,11 +915,11 @@ html,body{
             <div class="p-name">Rádio</div>
           </a>
           <a class="p-card" href="https://www.walletofsatoshi.com" target="_blank" title="Wallet of Satoshi" style="border-color:rgba(247,201,72,0.25)">
-            <div style="font-size:26px;height:36px;display:flex;align-items:center">⚡</div>
+            <img class="p-logo" src="https://walletofsatoshi.com/favicon.ico" alt="Wallet of Satoshi" style="height:36px;width:36px;object-fit:contain;">
             <div class="p-name" style="color:var(--gold)">W.Satoshi</div>
           </a>
           <a class="p-card" href="https://bluewallet.io" target="_blank" title="Blue Wallet" style="border-color:rgba(0,212,255,0.25)">
-            <div style="font-size:26px;height:36px;display:flex;align-items:center">🔵</div>
+            <img class="p-logo" src="IMG_2732.jpg" alt="Blue Wallet" style="height:36px;width:36px;object-fit:contain;border-radius:8px;">
             <div class="p-name" style="color:var(--blue)">BlueWallet</div>
           </a>
         </div>
@@ -968,7 +985,7 @@ html,body{
         <div class="paises-grid">
 
           <div class="pais-card">
-            <div class="pais-flag" style="font-size:36px;line-height:1;">🇸🇻</div>
+            <div class="pais-flag"><img src="https://flagcdn.com/w40/sv.png" alt="El Salvador"></div>
             <div class="pais-info">
               <div class="pais-nome">El Salvador</div>
               <div class="pais-fato">1º país a adotar BTC como moeda legal. Volcán Bond e carteira Chivo.</div>
@@ -976,7 +993,7 @@ html,body{
           </div>
 
           <div class="pais-card">
-            <div class="pais-flag" style="font-size:36px;line-height:1;">🇨🇭</div>
+            <div class="pais-flag"><img src="https://flagcdn.com/w40/ch.png" alt="Suíça"></div>
             <div class="pais-info">
               <div class="pais-nome">Suíça</div>
               <div class="pais-fato">"Crypto Valley" em Zug. Regulação clara. Impostos sobre cripto favoráveis.</div>
@@ -984,7 +1001,7 @@ html,body{
           </div>
 
           <div class="pais-card">
-            <div class="pais-flag" style="font-size:36px;line-height:1;">🇵🇾</div>
+            <div class="pais-flag"><img src="https://flagcdn.com/w40/py.png" alt="Paraguai"></div>
             <div class="pais-info">
               <div class="pais-nome">Paraguai</div>
               <div class="pais-fato">Energia hidrelétrica barata atraiu mineradores. Regulação favorável a cripto.</div>
@@ -992,7 +1009,7 @@ html,body{
           </div>
 
           <div class="pais-card">
-            <div class="pais-flag" style="font-size:36px;line-height:1;">🇵🇦</div>
+            <div class="pais-flag"><img src="https://flagcdn.com/w40/pa.png" alt="Panamá"></div>
             <div class="pais-info">
               <div class="pais-nome">Panamá</div>
               <div class="pais-fato">Lei de cripto aprovada em 2022. Aceita BTC para pagar impostos e serviços.</div>
@@ -1000,7 +1017,7 @@ html,body{
           </div>
 
           <div class="pais-card">
-            <div class="pais-flag" style="font-size:36px;line-height:1;">🇵🇹</div>
+            <div class="pais-flag"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal"></div>
             <div class="pais-info">
               <div class="pais-nome">Portugal</div>
               <div class="pais-fato">Zero imposto sobre ganhos de cripto para residentes (até 2023). Hub europeu.</div>
@@ -1008,7 +1025,7 @@ html,body{
           </div>
 
           <div class="pais-card">
-            <div class="pais-flag" style="font-size:36px;line-height:1;">🇧🇷</div>
+            <div class="pais-flag"><img src="https://flagcdn.com/w40/br.png" alt="Brasil"></div>
             <div class="pais-info">
               <div class="pais-nome">Brasil</div>
               <div class="pais-fato">BTC regulamentado como ativo financeiro desde 2022. Maior mercado da América Latina.</div>
@@ -1016,7 +1033,7 @@ html,body{
           </div>
 
           <div class="pais-card">
-            <div class="pais-flag" style="font-size:36px;line-height:1;">🇦🇷</div>
+            <div class="pais-flag"><img src="https://flagcdn.com/w40/ar.png" alt="Argentina"></div>
             <div class="pais-info">
               <div class="pais-nome">Argentina</div>
               <div class="pais-fato">Inflação crônica faz BTC virar reserva de valor popular. Adoção massiva.</div>
@@ -1024,7 +1041,7 @@ html,body{
           </div>
 
           <div class="pais-card">
-            <div class="pais-flag" style="font-size:36px;line-height:1;">🇺🇸</div>
+            <div class="pais-flag"><img src="https://flagcdn.com/w40/us.png" alt="EUA"></div>
             <div class="pais-info">
               <div class="pais-nome">EUA</div>
               <div class="pais-fato">ETFs Bitcoin aprovados em 2024. Trump pro-cripto. Maior mercado do mundo.</div>
@@ -1119,7 +1136,7 @@ html,body{
   <footer id="footer">
     <span><span class="status-dot"></span>ONLINE // RADIO BITCOIN V6.0</span>
     <span id="footerBlock">BLOCO: --</span>
-    <span>@bitadict // texugorecords@walletofsatoshi.com</span>
+    <span>@bitadict // texugorecords@walletofsatoshi.com &nbsp;·&nbsp; <a href="https://github.com/rafaelrioscrosara" target="_blank" style="color:var(--text-dim);text-decoration:none;letter-spacing:1px;" onmouseover="this.style.color='var(--g)'" onmouseout="this.style.color='var(--text-dim)'">⌥ GITHUB</a></span>
   </footer>
 
 </div><!-- /app -->
@@ -1479,12 +1496,58 @@ function loadTrack() {
   document.getElementById('albumArt').classList.remove('spinning');
 }
 
+// ── Visualizador de frequência (Web Audio API) ──────────────
+let _audioCtx = null, _analyser = null, _visRaf = null;
+
+function _setupVisualizer() {
+  if (_analyser) return;
+  try {
+    _audioCtx  = new (window.AudioContext || window.webkitAudioContext)();
+    const src  = _audioCtx.createMediaElementSource(audio);
+    _analyser  = _audioCtx.createAnalyser();
+    _analyser.fftSize = 128;
+    src.connect(_analyser);
+    _analyser.connect(_audioCtx.destination);
+    _drawVisualizer();
+  } catch(e) { console.warn('Visualizer:', e); }
+}
+
+function _drawVisualizer() {
+  _visRaf = requestAnimationFrame(_drawVisualizer);
+  const canvas = document.getElementById('visualizer');
+  if (!canvas || !_analyser) return;
+  const W = canvas.offsetWidth || 220, H = 40;
+  canvas.width = W; canvas.height = H;
+  const ctx2 = canvas.getContext('2d');
+  const data  = new Uint8Array(_analyser.frequencyBinCount);
+  _analyser.getByteFrequencyData(data);
+  ctx2.clearRect(0, 0, W, H);
+  const bw = W / data.length;
+  data.forEach((v, i) => {
+    const bh  = (v / 255) * H;
+    const hue = 115 + (v / 255) * 55;
+    ctx2.fillStyle = `hsla(${hue},100%,52%,0.85)`;
+    ctx2.fillRect(i * bw, H - bh, bw - 1, bh);
+  });
+}
+
 function playTrack() {
+  _setupVisualizer();
+  if (_audioCtx && _audioCtx.state === 'suspended') _audioCtx.resume();
+  const target = parseFloat(volSlider.value);
+  audio.volume = 0;
   audio.play().then(() => {
     isPlaying = true;
     btnPlay.textContent = '⏸';
-    document.querySelectorAll('.wbar').forEach(b => b.classList.remove('paused'));
     document.getElementById('albumArt').classList.add('spinning');
+    // Fade-in suave
+    let v = 0;
+    const step = target / 25;
+    const fade = setInterval(() => {
+      v = Math.min(v + step, target);
+      audio.volume = v;
+      if (v >= target) clearInterval(fade);
+    }, 40);
   }).catch(() => {});
 }
 
@@ -1551,12 +1614,26 @@ document.getElementById('progressBar').onclick = function(e) {
   audio.currentTime = pct * audio.duration;
 };
 
+// ── Compartilhar no X ────────────────────────────────────────
+function shareOnX() {
+  const track = TRACKS[currentIdx]?.title || 'Radio Bitcoin';
+  const text  = `🎵 Ouvindo "${track}" na @bitadict ⚡ Radio Bitcoin — a voz da revolução Bitcoin!\n\nhttps://radiobitcoin.bitadict.com`;
+  window.open('https://x.com/intent/tweet?text=' + encodeURIComponent(text), '_blank', 'noopener');
+}
+
 const volSlider = document.getElementById('volSlider');
+
+// Volume persistente via localStorage
+const _savedVol = parseFloat(localStorage.getItem('radioVol') ?? '0.8');
+audio.volume = _savedVol;
+volSlider.value = _savedVol;
+document.getElementById('volVal').textContent = Math.round(_savedVol * 100) + '%';
+
 volSlider.oninput = function() {
   audio.volume = this.value;
+  localStorage.setItem('radioVol', this.value);
   document.getElementById('volVal').textContent = Math.round(this.value * 100) + '%';
 };
-audio.volume = 0.8;
 
 renderPlaylist();
 
