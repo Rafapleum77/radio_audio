@@ -2290,26 +2290,10 @@ async function fetchBotStats() {
 
     document.getElementById('bUpdated').textContent = 'última atualização: ' + d.ultima_atualizacao;
 
-    // ── Integração bot → rádio ──────────────────────────────────
     if (_botPrevTrades !== null && d.total_trades > _botPrevTrades) {
       const ganhou = d.lucro_dia > (_botPrevPnl ?? d.lucro_dia);
-      if (ganhou) {
-        _beepWin(); _flashPanel('#00ff41');
-        // Se não está tocando, inicia a playlist automaticamente
-        if (!isPlaying) { loadTrack(); playTrack(); }
-      } else {
-        _beepLoss(); _flashPanel('#ff4444');
-      }
-    }
-    // Bot entrou em sleep → pausa música e exibe aviso no título da faixa
-    if (_botPrevStatus && _botPrevStatus !== 'SLEEP' && d.status === 'SLEEP') {
-      pauseTrack();
-      document.getElementById('trackTitle').textContent = '💤 Bot em repouso — mercado instável';
-    }
-    // Bot voltou do sleep → retoma
-    if (_botPrevStatus === 'SLEEP' && d.status === 'ATIVO') {
-      document.getElementById('trackTitle').textContent = TRACKS[currentIdx]?.title || '';
-      loadTrack(); playTrack();
+      if (ganhou) { _beepWin(); _flashPanel('#00ff41'); }
+      else { _beepLoss(); _flashPanel('#ff4444'); }
     }
 
     _botPrevPnl    = d.lucro_dia;
