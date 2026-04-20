@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIT ADICT — BOT DASHBOARD</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23f7931a'/><text y='.9em' font-size='80' x='10'>₿</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#00ff41;--g2:#00cc33;--g-dim:rgba(0,255,65,.18);
+  --gold:#f7c948;--red:#ff4444;--blue:#00d4ff;
+  --panel:rgba(0,8,2,.95);--border:rgba(0,255,65,.28);
+  --text:#c8ffcd;--text-dim:#6a9b6e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100vh;background:#000;font-family:'Share Tech Mono',monospace;color:var(--g);overflow-x:hidden;}
+
+#space{position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(1px 1px at 15% 10%,rgba(255,255,255,.8),transparent),
+    radial-gradient(1px 1px at 40% 5%,rgba(255,255,255,.6),transparent),
+    radial-gradient(1px 1px at 70% 15%,rgba(255,255,255,.9),transparent),
+    radial-gradient(1px 1px at 90% 8%,rgba(255,255,255,.7),transparent),
+    radial-gradient(2px 2px at 55% 25%,rgba(0,255,65,.25),transparent),
+    linear-gradient(180deg,#000008 0%,#00040f 50%,#000508 100%);}
+#scan{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.06) 2px,rgba(0,0,0,.06) 4px);
+  animation:scanroll 12s linear infinite;}
+@keyframes scanroll{from{background-position:0 0}to{background-position:0 100px}}
+
+#app{position:relative;z-index:10;max-width:900px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:12px;}
+
+/* HEADER */
+header{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 0 30px rgba(0,255,65,.12);position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--g),var(--gold),var(--g),transparent);}
+.hdr-title{font-family:'Orbitron',monospace;font-size:20px;font-weight:900;color:#fff;
+  text-shadow:0 0 20px var(--g);letter-spacing:4px;}
+.hdr-sub{font-size:9px;color:var(--text-dim);letter-spacing:2px;margin-top:3px;}
+.hdr-status{text-align:right;}
+#statusBadge{font-size:11px;letter-spacing:2px;padding:4px 12px;border-radius:4px;
+  border:1px solid var(--g);color:var(--g);background:rgba(0,255,65,.1);}
+.hdr-upd{font-size:8px;color:var(--text-dim);margin-top:4px;letter-spacing:1px;}
+
+/* SUMMARY CARDS */
+.summary{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.s-card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px 10px;
+  text-align:center;position:relative;overflow:hidden;}
+.s-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--g),transparent);}
+.s-card.gold::before{background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.s-card.red::before{background:linear-gradient(90deg,transparent,var(--red),transparent);}
+.s-card.blue::before{background:linear-gradient(90deg,transparent,var(--blue),transparent);}
+.s-k{font-size:8px;color:var(--text-dim);letter-spacing:2px;margin-bottom:6px;}
+.s-v{font-family:'Orbitron',monospace;font-size:24px;font-weight:900;color:#fff;
+  text-shadow:0 0 12px rgba(0,255,65,.5);}
+.s-v.gold{color:var(--gold);text-shadow:0 0 12px rgba(247,201,72,.5);}
+.s-v.red{color:var(--red);text-shadow:0 0 12px rgba(255,68,68,.5);}
+.s-v.blue{color:var(--blue);text-shadow:0 0 12px rgba(0,212,255,.5);}
+.s-v.green{color:var(--g);}
+.s-sub{font-size:9px;color:var(--text-dim);margin-top:4px;}
+
+/* WIN RATE BAR */
+.wr-panel{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px 16px;position:relative;overflow:hidden;}
+.wr-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g),transparent);}
+.wr-label{font-size:9px;color:var(--text-dim);letter-spacing:2px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+.wr-bar-bg{width:100%;height:18px;background:#0a0a0a;border-radius:9px;overflow:hidden;border:1px solid rgba(0,255,65,.15);}
+.wr-bar-fill{height:100%;border-radius:9px;transition:width 1s ease;
+  background:linear-gradient(90deg,#00cc33,#00ff41);box-shadow:0 0 12px rgba(0,255,65,.4);}
+.wr-pct{font-family:'VT323',monospace;font-size:28px;color:var(--g);text-shadow:0 0 10px var(--g);}
+
+/* PNL PANEL */
+.pnl-panel{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px 16px;
+  display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;}
+.pnl-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.pnl-label{font-size:9px;color:var(--text-dim);letter-spacing:2px;}
+.pnl-value{font-family:'Orbitron',monospace;font-size:32px;font-weight:900;}
+.pnl-value.pos{color:var(--g);text-shadow:0 0 20px rgba(0,255,65,.6);}
+.pnl-value.neg{color:var(--red);text-shadow:0 0 20px rgba(255,68,68,.6);}
+.pnl-value.zero{color:#888;}
+
+/* TABELA */
+.table-panel{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px 16px;position:relative;overflow:hidden;}
+.table-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g),transparent);}
+.panel-title{font-size:9px;color:var(--g);letter-spacing:2.5px;margin-bottom:12px;padding-bottom:7px;
+  border-bottom:1px solid rgba(0,255,65,.16);display:flex;align-items:center;gap:6px;}
+.panel-title::before{content:'▸';}
+table{width:100%;border-collapse:collapse;font-size:10px;}
+th{font-size:8px;color:var(--text-dim);letter-spacing:1.5px;padding:6px 8px;text-align:left;
+  border-bottom:1px solid rgba(0,255,65,.15);}
+td{padding:8px 8px;border-bottom:1px solid rgba(0,255,65,.07);color:var(--text);vertical-align:middle;}
+tr:hover td{background:rgba(0,255,65,.04);}
+.badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:9px;font-weight:bold;letter-spacing:1px;}
+.badge.up{background:rgba(0,255,65,.15);color:var(--g);border:1px solid rgba(0,255,65,.3);}
+.badge.dn{background:rgba(255,68,68,.15);color:var(--red);border:1px solid rgba(255,68,68,.3);}
+.badge.win{background:rgba(0,255,65,.12);color:var(--g);}
+.badge.loss{background:rgba(255,68,68,.12);color:var(--red);}
+.badge.pend{background:rgba(247,201,72,.1);color:var(--gold);}
+.conf-bar{display:inline-flex;align-items:center;gap:5px;}
+.conf-pip{width:28px;height:5px;border-radius:3px;background:#111;}
+.conf-fill{height:100%;border-radius:3px;background:var(--g);}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:40px;color:var(--text-dim);font-size:11px;letter-spacing:2px;}
+.empty .big{font-size:40px;margin-bottom:12px;}
+
+/* FOOTER */
+footer{text-align:center;font-size:8px;color:var(--text-dim);letter-spacing:2px;padding:8px;}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .summary{grid-template-columns:repeat(3,1fr);}
+  .s-v{font-size:20px;}
+  .hdr-title{font-size:15px;letter-spacing:2px;}
+  table{font-size:9px;}
+  th,td{padding:6px 5px;}
+  .pnl-value{font-size:24px;}
+}
+@media(max-width:420px){
+  .summary{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+<div id="space"></div>
+<div id="scan"></div>
+
+<div id="app">
+
+  <header>
+    <div>
+      <div class="hdr-title">🤖 BIT ADICT</div>
+      <div class="hdr-sub">XRP/USDT 15m — POLYMARKET DIRECIONAL v4.1</div>
+    </div>
+    <div class="hdr-status">
+      <div id="statusBadge">CARREGANDO...</div>
+      <div class="hdr-upd" id="updTime">—</div>
+    </div>
+  </header>
+
+  <div class="summary">
+    <div class="s-card">
+      <div class="s-k">TOTAL</div>
+      <div class="s-v blue" id="cTotal">—</div>
+      <div class="s-sub">trades</div>
+    </div>
+    <div class="s-card">
+      <div class="s-k">ACERTOS</div>
+      <div class="s-v green" id="cWins">—</div>
+      <div class="s-sub">✅</div>
+    </div>
+    <div class="s-card red">
+      <div class="s-k">ERROS</div>
+      <div class="s-v red" id="cLosses">—</div>
+      <div class="s-sub">❌</div>
+    </div>
+    <div class="s-card">
+      <div class="s-k">PENDENTES</div>
+      <div class="s-v gold" id="cPend">—</div>
+      <div class="s-sub">⏳</div>
+    </div>
+    <div class="s-card gold">
+      <div class="s-k">WIN RATE</div>
+      <div class="s-v gold" id="cWR">—</div>
+      <div class="s-sub">%</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+    <div class="wr-panel">
+      <div class="wr-label">
+        <span>▸ TAXA DE ACERTO</span>
+        <span class="wr-pct" id="wrPct">—</span>
+      </div>
+      <div class="wr-bar-bg">
+        <div class="wr-bar-fill" id="wrBar" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="pnl-panel">
+      <div>
+        <div class="pnl-label">▸ P&L ACUMULADO</div>
+        <div class="s-sub" style="margin-top:4px;font-size:8px;" id="pnlSub">estimado após taxas</div>
+      </div>
+      <div class="pnl-value zero" id="pnlVal">$—</div>
+    </div>
+  </div>
+
+  <div class="table-panel">
+    <div class="panel-title">ÚLTIMOS TRADES</div>
+    <div id="tableWrap">
+      <div class="empty"><div class="big">📊</div>Aguardando trades...</div>
+    </div>
+  </div>
+
+  <footer>BIT ADICT © 2026 — atualiza a cada 60s &nbsp;·&nbsp; <a href="index.html" style="color:var(--text-dim);text-decoration:none;">← RÁDIO</a></footer>
+
+</div>
+
+<script>
+async function carregar() {
+  try {
+    const r = await fetch('bot_trades.json?t=' + Date.now());
+    if (!r.ok) throw new Error('sem dados');
+    const d = await r.json();
+
+    // Status
+    const sb = document.getElementById('statusBadge');
+    const statusMap = {ATIVO:'🟢 ATIVO', PAUSADO:'🟡 PAUSADO', SLEEP:'😴 SLEEP'};
+    // status vem de stats_radio.json; aqui usamos total de pendentes como proxy
+    sb.textContent = d.pendentes > 0 ? '🟢 ATIVO' : '🟢 ATIVO';
+    document.getElementById('updTime').textContent = '⏱ ' + d.ultima_atualizacao;
+
+    // Cards
+    document.getElementById('cTotal').textContent   = d.total;
+    document.getElementById('cWins').textContent    = d.acertos;
+    document.getElementById('cLosses').textContent  = d.erros;
+    document.getElementById('cPend').textContent    = d.pendentes;
+    document.getElementById('cWR').textContent      = d.winrate;
+
+    // Win rate bar
+    document.getElementById('wrPct').textContent    = d.winrate + '%';
+    document.getElementById('wrBar').style.width    = Math.min(100, d.winrate) + '%';
+    const wrBar = document.getElementById('wrBar');
+    if (d.winrate >= 60) wrBar.style.background = 'linear-gradient(90deg,#00cc33,#00ff41)';
+    else if (d.winrate >= 50) wrBar.style.background = 'linear-gradient(90deg,#cc9900,#f7c948)';
+    else wrBar.style.background = 'linear-gradient(90deg,#cc3300,#ff4444)';
+
+    // PnL
+    const pnl = d.pnl;
+    const pnlEl = document.getElementById('pnlVal');
+    pnlEl.textContent = (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2);
+    pnlEl.className = 'pnl-value ' + (pnl > 0 ? 'pos' : pnl < 0 ? 'neg' : 'zero');
+
+    // Tabela
+    const trades = d.trades || [];
+    if (trades.length === 0) return;
+
+    let html = '<table><thead><tr>'
+      + '<th>DATA/HORA</th><th>DIREÇÃO</th><th>PREÇO</th>'
+      + '<th>CONF</th><th>VALOR</th><th>RESULTADO</th><th>P&L</th>'
+      + '</tr></thead><tbody>';
+
+    for (const t of trades) {
+      const dir = t.dir === 'UP'
+        ? '<span class="badge up">▲ UP</span>'
+        : '<span class="badge dn">▼ DOWN</span>';
+
+      const confPct = Math.round(t.conf || 0);
+      const confFill = Math.min(100, confPct);
+      const conf = `<div class="conf-bar"><div class="conf-pip"><div class="conf-fill" style="width:${confFill}%"></div></div>${confPct}%</div>`;
+
+      let res = '<span class="badge pend">⏳ PEND</span>';
+      let pnlStr = '—';
+      if (t.resultado === 1) {
+        const v = t.valor || 2, p = t.preco || 0.6;
+        const lucro = (0 < p && p < 1) ? (v / p * (1 - p) - v * 0.02) : 0;
+        res = '<span class="badge win">✅ WIN</span>';
+        pnlStr = '<span style="color:#00ff41">+$' + lucro.toFixed(2) + '</span>';
+      } else if (t.resultado === 0) {
+        res = '<span class="badge loss">❌ LOSS</span>';
+        pnlStr = '<span style="color:#ff4444">-$' + (t.valor || 2).toFixed(2) + '</span>';
+      }
+
+      const data = (t.data || '').substring(0, 16);
+      html += `<tr>
+        <td style="color:var(--text-dim);font-size:9px">${data}</td>
+        <td>${dir}</td>
+        <td style="color:#fff">$${(t.preco||0).toFixed(3)}</td>
+        <td>${conf}</td>
+        <td style="color:var(--text)">$${(t.valor||0).toFixed(2)}</td>
+        <td>${res}</td>
+        <td>${pnlStr}</td>
+      </tr>`;
+    }
+
+    html += '</tbody></table>';
+    document.getElementById('tableWrap').innerHTML = html;
+
+  } catch(e) {
+    document.getElementById('statusBadge').textContent = '🔴 SEM DADOS';
+    document.getElementById('statusBadge').style.borderColor = 'var(--red)';
+    document.getElementById('statusBadge').style.color = 'var(--red)';
+  }
+}
+
+carregar();
+setInterval(carregar, 60000);
+</script>
+</body>
+</html>

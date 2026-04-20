@@ -498,20 +498,110 @@ html,body{
   #main{grid-template-columns:1fr 1fr;}
   #right{display:none;}
 }
+
+/* ── TABLET / PHONE ── */
 @media(max-width:700px){
   body{overflow-x:hidden;overflow-y:auto;height:auto;}
   #app{padding:6px;gap:6px;}
   #main{grid-template-columns:1fr;gap:6px;}
   #right{display:flex;}
-  .stats-row{grid-template-columns:repeat(2,1fr);}
+
+  /* Header empilhado e centralizado */
+  #header{
+    flex-direction:column;align-items:center;
+    gap:6px;padding:10px 12px;text-align:center;
+  }
+  .hdr-logo{align-items:center;}
+  .hdr-logo .main{font-size:18px;letter-spacing:3px;}
+  .hdr-logo .sub{font-size:8px;letter-spacing:2px;}
+  .hdr-btc{align-items:center;}
+  .hdr-btc .btc-price{font-size:26px;}
+  .hdr-btc .btc-change{font-size:12px;}
   .hdr-clock{display:none;}
-  #tv-chart-wrap{height:200px;}
-  .hdr-btc .btc-price{font-size:20px;}
+
+  /* Stats 2×2 */
+  .stats-row{grid-template-columns:repeat(2,1fr);gap:5px;}
+  .stat-card .k{font-size:9px;}
+  .stat-card .v{font-size:16px;}
+
+  /* Player */
+  .now-playing{gap:12px;padding:12px;}
+  .album-art{width:60px;height:60px;min-width:60px;font-size:26px;}
+  .track-title{font-size:13px;}
+  .track-artist{font-size:10px;}
+  .track-dur{font-size:10px;}
+
+  /* Visualizer */
+  #visualizer{height:48px;}
+
+  /* Progress bar mais fácil de tocar */
+  .progress-bar{height:8px;margin:8px 0;}
+
+  /* Botões de controle — touch friendly */
+  .ctrl-btn{width:44px;height:44px;font-size:16px;}
+  .ctrl-btn.play-main{width:58px;height:58px;font-size:24px;}
+  .controls{gap:10px;margin:10px 0;}
+
+  /* Volume */
+  .vol-row{gap:8px;}
+  .vol-row input[type=range]{height:6px;}
+  #volVal{font-size:11px !important;}
+
+  /* Share button */
+  .share-btn{font-size:11px;padding:10px;margin-top:10px;}
+
+  /* Playlist */
+  .playlist{max-height:220px;}
+  .pl-item{padding:8px 10px;font-size:10px;}
+  .pl-num{font-size:9px;}
+  .pl-dur{font-size:9px;}
+
+  /* Lendas: 2 colunas no mobile */
+  .lendas-grid{grid-template-columns:repeat(2,1fr);}
+  .lenda-nome{font-size:9px;}
+  .lenda-titulo{font-size:8px;}
+  .lenda-fato{font-size:8px;}
+
+  /* Países: 1 coluna em tela pequena */
+  .paises-grid{grid-template-columns:1fr;}
+  .pais-nome{font-size:10px;}
+  .pais-fato{font-size:9px;}
+
+  /* Bot panel: 2 colunas */
+  #bot-panel > div > div[style*="grid-template-columns:repeat(3"]{
+    grid-template-columns:repeat(2,1fr) !important;
+  }
+
+  /* Chart */
+  #tv-chart-wrap{height:220px;}
+
+  /* Ticker legível */
+  .tick-item{font-size:11px;padding:0 14px;}
+  .tick-sym{font-size:11px;}
+
+  /* News bar */
+  .news-bar{gap:7px;padding:8px 10px;}
+  .news-bar .nb-text{font-size:10px;}
+  .news-bar .nb-label{font-size:9px;}
+
+  /* Footer empilhado */
+  #footer{flex-direction:column;gap:5px;text-align:center;padding:10px 12px;font-size:9px;}
+
+  /* Pt label */
+  .pt{font-size:10px;}
 }
+
+/* ── SMALL PHONE ≤480px ── */
 @media(max-width:480px){
-  .stats-row{grid-template-columns:1fr 1fr;}
-  .hdr-logo .main{font-size:13px;letter-spacing:2px;}
-  .btc-hero-price{font-size:26px;}
+  .hdr-logo .main{font-size:16px;letter-spacing:2px;}
+  .btc-hero-price{font-size:28px;}
+  .hdr-btc .btc-price{font-size:22px;}
+  .stats-row{grid-template-columns:1fr 1fr;gap:4px;}
+  .stat-card .v{font-size:15px;}
+  .partners-grid{gap:6px;}
+  .p-card{width:68px;padding:8px 4px 6px;}
+  .p-logo{height:30px;width:50px;}
+  .p-name{font-size:7px;}
 }
 
 /* ── VIDEO PANEL ── */
@@ -580,11 +670,13 @@ html,body{
     <div class="hdr-logo">
       <span class="main">⚡ RADIO BITCOIN</span>
       <span class="sub">A VOZ DA REVOLUÇÃO BITCOIN // COCKPIT V6.0</span>
-      <span class="sub" style="margin-top:4px;display:flex;gap:6px;align-items:center;" title="Brasil · Paraguai · Argentina · El Salvador">
+      <span class="sub" style="margin-top:4px;display:flex;gap:6px;align-items:center;" title="Brasil · Paraguai · Argentina · El Salvador · Portugal · EUA">
         <img src="https://flagcdn.com/w20/br.png" title="Brasil" style="height:14px;border-radius:2px;">
         <img src="https://flagcdn.com/w20/py.png" title="Paraguai" style="height:14px;border-radius:2px;">
         <img src="https://flagcdn.com/w20/ar.png" title="Argentina" style="height:14px;border-radius:2px;">
         <img src="https://flagcdn.com/w20/sv.png" title="El Salvador" style="height:14px;border-radius:2px;">
+        <img src="https://flagcdn.com/w20/pt.png" title="Portugal" style="height:14px;border-radius:2px;">
+        <img src="https://flagcdn.com/w20/us.png" title="EUA" style="height:14px;border-radius:2px;">
       </span>
     </div>
     <div class="hdr-btc">
@@ -777,12 +869,14 @@ html,body{
             <div style="color:var(--g);font-size:11px;margin:4px 0;">🪪 CARTÃO ELITE &nbsp;·&nbsp; <strong style="color:#fff;">50.000 sats</strong> &nbsp;→&nbsp; <strong style="color:var(--gold);">$100</strong></div>
             <div style="color:var(--g);font-size:11px;margin:4px 0;">🪪 CARTÃO STARTER &nbsp;·&nbsp; <strong style="color:#fff;">30.000 sats</strong> &nbsp;→&nbsp; <strong style="color:var(--gold);">$50</strong></div>
           </div>
-          <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px;" title="Brasil · Paraguai · Argentina · El Salvador">
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px;" title="Brasil · Paraguai · Argentina · El Salvador · Portugal · EUA">
             🌐
             <img src="https://flagcdn.com/w40/br.png" title="Brasil" style="height:20px;border-radius:3px;">
             <img src="https://flagcdn.com/w40/py.png" title="Paraguai" style="height:20px;border-radius:3px;">
             <img src="https://flagcdn.com/w40/ar.png" title="Argentina" style="height:20px;border-radius:3px;">
             <img src="https://flagcdn.com/w40/sv.png" title="El Salvador" style="height:20px;border-radius:3px;">
+            <img src="https://flagcdn.com/w40/pt.png" title="Portugal" style="height:20px;border-radius:3px;">
+            <img src="https://flagcdn.com/w40/us.png" title="EUA" style="height:20px;border-radius:3px;">
             <span style="font-size:9px;color:#888;">e além!</span>
           </div>
           <a href="https://t.me/bitadict" target="_blank"
