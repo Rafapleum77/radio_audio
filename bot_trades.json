@@ -1,0 +1,48 @@
+{
+  "total": 1,
+  "resolvidos": 1,
+  "acertos": 1,
+  "erros": 0,
+  "pendentes": 0,
+  "winrate": 100.0,
+  "pnl": 16.38,
+  "ultima_atualizacao": "20/04/2026 16:59:46",
+  "trades": [
+    {
+      "ts": 1776709800,
+      "data": "2026-04-20 15:42:35",
+      "moeda": "XRP",
+      "dir": "UP",
+      "preco": 0.59,
+      "conf": 82,
+      "valor": 24.27,
+      "razoes": [
+        "StochRSI baixo 29",
+        "Triple EMA bull",
+        "MACD bull acelerando",
+        "BTC UP 1.00",
+        "Funding neg -0.00001",
+        "15m trend UP RSI66",
+        "VWAP acima 0.69%"
+      ],
+      "rsi": 62.55,
+      "rsi15": 65.95,
+      "stoch_k": 29.2,
+      "stoch_d": 18.02,
+      "macd_hist": 7.39e-05,
+      "bb_pos": 0.926,
+      "vol_spike": 0.76,
+      "ob_ratio": 0.738,
+      "funding_rate": -8.38e-06,
+      "funding_trend": null,
+      "btc_sinal": "UP",
+      "btc_forca": 1.0,
+      "atr_pct": 0.249,
+      "var3": 0.0489,
+      "adx": 30.6,
+      "vwap_bias": "UP",
+      "trend15": "UP",
+      "resultado": 1
+    }
+  ]
+}
