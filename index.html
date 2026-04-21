@@ -454,6 +454,27 @@ html,body{
 .lenda-titulo{font-size:7px;color:var(--gold);letter-spacing:0.5px;}
 .lenda-fato{font-size:7px;color:var(--text-dim);line-height:1.4;margin-top:3px;}
 
+/* ── VOTAÇÃO SATOSHI ── */
+.satoshi-vote-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:8px;}
+.sv-card{background:rgba(0,10,0,0.7);border:1px solid rgba(0,255,65,0.15);border-radius:6px;padding:8px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.sv-card:hover{border-color:rgba(0,255,65,0.4);background:rgba(0,255,65,0.06);}
+.sv-card.voted{border-color:var(--gold);box-shadow:0 0 10px rgba(247,201,72,0.25);}
+.sv-card.voted::before{content:'✓';position:absolute;top:4px;right:6px;font-size:10px;color:var(--gold);}
+.sv-avatar{font-size:20px;margin-bottom:3px;}
+.sv-name{font-size:9px;color:#fff;font-weight:bold;letter-spacing:1px;}
+.sv-tier{font-size:7px;letter-spacing:1px;margin-bottom:3px;}
+.sv-tier.fav{color:#00ff41;}
+.sv-tier.alt{color:var(--blue);}
+.sv-tier.curi{color:#ff9900;}
+.sv-desc{font-size:7px;color:var(--text-dim);line-height:1.35;margin-top:2px;}
+.sv-bar-wrap{margin-top:5px;height:5px;background:#0a0a0a;border-radius:3px;overflow:hidden;}
+.sv-bar{height:100%;border-radius:3px;transition:width 0.6s ease;}
+.sv-pct{font-size:8px;color:var(--text-dim);margin-top:2px;}
+.sv-total{font-size:8px;color:var(--text-dim);text-align:right;margin-top:6px;}
+.sv-my-vote{font-size:8px;color:var(--gold);text-align:center;margin-top:6px;letter-spacing:1px;}
+.sv-reset{background:transparent;border:1px solid rgba(255,68,68,0.3);color:#ff6666;font-size:7px;padding:3px 8px;border-radius:3px;cursor:pointer;font-family:'Share Tech Mono',monospace;letter-spacing:1px;margin-top:4px;}
+.sv-reset:hover{border-color:#ff4444;background:rgba(255,68,68,0.08);}
+
 /* ── PAÍSES ── */
 .paises-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:6px;}
 .pais-card{
