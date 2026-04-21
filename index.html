@@ -1065,6 +1065,18 @@ html,body{
         </div>
       </div>
 
+      <!-- VOTAÇÃO: QUEM É SATOSHI? -->
+      <div class="panel" style="border-color:rgba(247,201,72,0.3)">
+        <div class="pt" style="color:var(--gold)">🗳️ QUEM É SATOSHI NAKAMOTO?</div>
+        <div style="font-size:8px;color:var(--text-dim);margin-bottom:4px;">Vote em quem você acredita ser o criador do Bitcoin</div>
+        <div class="satoshi-vote-grid" id="satoshiGrid"></div>
+        <div id="svMyVote" class="sv-my-vote" style="display:none"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+          <div class="sv-total" id="svTotal">0 votos</div>
+          <button class="sv-reset" onclick="satoshiReset()">↺ resetar meu voto</button>
+        </div>
+      </div>
+
       <!-- LENDAS DO BITCOIN -->
       <div class="panel">
         <div class="pt">🏛️ LENDAS DO BITCOIN</div>
