@@ -2497,6 +2497,82 @@ async function fetchBotStats() {
 fetchBotStats();
 setInterval(fetchBotStats, 300000); // atualiza a cada 5 min
 
+// ══════════════════════════════════════════════
+// VOTAÇÃO: QUEM É SATOSHI?
+// ══════════════════════════════════════════════
+const SATOSHI_CANDIDATES = [
+  { id:'hal',    emoji:'🏃', name:'HAL FINNEY',      tier:'fav',  tierLabel:'FAVORITO',    desc:'1ª transação BTC. Criptógrafo lendário. Vivia perto de Dorian Nakamoto. Faleceu em 2014.' },
+  { id:'szabo',  emoji:'🔐', name:'NICK SZABO',       tier:'fav',  tierLabel:'FAVORITO',    desc:'Criou o Bit Gold (precursor do BTC). Estilo de escrita idêntico ao Whitepaper.' },
+  { id:'adam',   emoji:'⚙️', name:'ADAM BACK',        tier:'fav',  tierLabel:'FAVORITO',    desc:'Inventor do Hashcash. 1ª pessoa citada no Whitepaper. CEO da Blockstream.' },
+  { id:'len',    emoji:'🕊️', name:'LEN SASSAMAN',     tier:'alt',  tierLabel:'ALTERNATIVO', desc:'Brilhante criptógrafo. Faleceu em 2011, logo após Satoshi "desaparecer".' },
+  { id:'leroux', emoji:'🎭', name:'PAUL LE ROUX',     tier:'alt',  tierLabel:'ALTERNATIVO', desc:'Ex-programador e chefe do crime organizado. Habilidades técnicas excepcionais.' },
+  { id:'group',  emoji:'👥', name:'CYPHERPUNKS',      tier:'alt',  tierLabel:'ALTERNATIVO', desc:'Teoria do grupo: um coletivo de gênios para eliminar o ponto único de falha.' },
+  { id:'dorian', emoji:'🗞️', name:'DORIAN NAKAMOTO',  tier:'curi', tierLabel:'POLÊMICO',    desc:'Apontado pela Newsweek em 2014. Nome real: Satoshi Nakamoto. Nega qualquer envolvimento.' },
+  { id:'craig',  emoji:'🤥', name:'CRAIG WRIGHT',     tier:'curi', tierLabel:'POLÊMICO',    desc:'Afirma ser Satoshi publicamente. Nunca moveu as moedas dos primeiros blocos. Desacreditado.' },
+];
+
+const SV_KEY  = 'satoshi_votes_v1';
+const SV_MINE = 'satoshi_my_vote_v1';
+
+function satoshiGetVotes() {
+  try { return JSON.parse(localStorage.getItem(SV_KEY)) || {}; } catch(e) { return {}; }
+}
+function satoshiSaveVotes(v) { localStorage.setItem(SV_KEY, JSON.stringify(v)); }
+function satoshiGetMine() { return localStorage.getItem(SV_MINE) || null; }
+
+function satoshiVote(id) {
+  if (satoshiGetMine()) return;
+  const votes = satoshiGetVotes();
+  votes[id] = (votes[id] || 0) + 1;
+  satoshiSaveVotes(votes);
+  localStorage.setItem(SV_MINE, id);
+  satoshiRender();
+}
+
+function satoshiReset() {
+  localStorage.removeItem(SV_MINE);
+  satoshiRender();
+}
+
+function satoshiRender() {
+  const votes  = satoshiGetVotes();
+  const mine   = satoshiGetMine();
+  const total  = Object.values(votes).reduce((a,b)=>a+b,0);
+  const grid   = document.getElementById('satoshiGrid');
+  const myEl   = document.getElementById('svMyVote');
+  const totEl  = document.getElementById('svTotal');
+  if (!grid) return;
+
+  const barColors = { fav:'linear-gradient(90deg,#00cc33,#00ff41)', alt:'linear-gradient(90deg,#0077cc,#00d4ff)', curi:'linear-gradient(90deg,#cc6600,#ff9900)' };
+
+  grid.innerHTML = SATOSHI_CANDIDATES.map(c => {
+    const v   = votes[c.id] || 0;
+    const pct = total > 0 ? Math.round(v/total*100) : 0;
+    const isVoted = mine === c.id;
+    return `<div class="sv-card${isVoted?' voted':''}" onclick="satoshiVote('${c.id}')">
+      <div class="sv-avatar">${c.emoji}</div>
+      <div class="sv-name">${c.name}</div>
+      <div class="sv-tier ${c.tier}">${c.tierLabel}</div>
+      <div class="sv-desc">${c.desc}</div>
+      <div class="sv-bar-wrap"><div class="sv-bar" style="width:${pct}%;background:${barColors[c.tier]}"></div></div>
+      <div class="sv-pct">${pct}% <span style="color:#444">(${v} voto${v!==1?'s':''})</span></div>
+    </div>`;
+  }).join('');
+
+  totEl.textContent = total + ' voto' + (total!==1?'s':'') + ' registrados';
+
+  if (mine) {
+    const c = SATOSHI_CANDIDATES.find(x=>x.id===mine);
+    myEl.style.display = '';
+    myEl.textContent   = '⚡ Seu voto: ' + (c ? c.name : mine);
+  } else {
+    myEl.style.display = 'none';
+    myEl.textContent   = '';
+  }
+}
+
+satoshiRender();
+
 </script>
 </body>
 </html>
