@@ -2453,52 +2453,74 @@ function _flashPanel(color) {
 
 async function fetchBotStats() {
   try {
-    const r = await fetch('stats_radio.json?t=' + Date.now());
-    if (!r.ok) return;
+    const r = await fetch('http://192.168.1.64:8080/RESULTADOS/estado_global.json?t=' + Date.now());
+    if (!r.ok) throw new Error('offline');
     const d = await r.json();
 
+    const bot = (d.bots && d.bots.XRP) ? d.bots.XRP : null;
     const statusEl = document.getElementById('bStatus');
-    const statusMap = { 'ATIVO': ['#00ff41','▶ ATIVO'], 'PAUSADO': ['#f7c948','⏸ PAUSADO'], 'SLEEP': ['#ff4444','💤 SLEEP'] };
-    const [sc, sl] = statusMap[d.status] || ['#aaa', d.status];
-    statusEl.textContent = sl; statusEl.style.color = sc;
 
+    if (!bot) {
+      statusEl.textContent = '⏸ PAUSADO'; statusEl.style.color = '#f7c948'; return;
+    }
+
+    // ATIVO se foi atualizado nos últimos 3 minutos
+    const ageSec = Date.now()/1000 - (d.atualizado || 0);
+    const ativo = bot.ativo && ageSec < 180;
+    statusEl.textContent = ativo ? '▶ ATIVO' : '⏸ PAUSADO';
+    statusEl.style.color  = ativo ? '#00ff41' : '#f7c948';
+
+    const banca = bot.banca || 0;
     const bancaEl = document.getElementById('bBanca');
-    bancaEl.textContent = '$' + d.banca_atual.toFixed(2);
+    bancaEl.textContent = '$' + banca.toFixed(2);
     bancaEl.style.color = '#00d4ff';
 
+    const pnl = bot.pnl || 0;
     const pnlEl = document.getElementById('bPnl');
-    const pnl = d.lucro_dia;
     pnlEl.textContent = (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2);
     pnlEl.style.color = pnl >= 0 ? '#00ff41' : '#ff4444';
 
-    document.getElementById('bTrades').textContent = d.total_trades;
+    const trades = bot.trades || 0;
+    document.getElementById('bTrades').textContent = trades;
     document.getElementById('bTrades').style.color = '#00d4ff';
 
+    const ganhos = bot.ganhos || 0;
+    const winRate = trades > 0 ? Math.round(ganhos / trades * 100) : 0;
     const winEl = document.getElementById('bWin');
-    winEl.textContent = d.taxa_acerto + '%';
-    winEl.style.color = d.taxa_acerto >= 55 ? '#00ff41' : d.taxa_acerto >= 45 ? '#f7c948' : '#ff4444';
+    winEl.textContent = winRate + '%';
+    winEl.style.color = winRate >= 55 ? '#00ff41' : winRate >= 45 ? '#f7c948' : '#ff4444';
 
-    const fv = d.sentimento_valor;
-    const fc = fv <= 25 ? '#ff4444' : fv >= 75 ? '#00ff41' : fv >= 60 ? '#f7c948' : '#00d4ff';
+    // RSI como sentimento
+    const rsi = bot.rsi || 50;
     const fngEl = document.getElementById('bFng');
-    fngEl.textContent = fv + ' ' + d.sentimento_label;
-    fngEl.style.color = fc;
+    let fLabel, fColor;
+    if (rsi >= 70)      { fLabel = 'GANÂNCIA'; fColor = '#00ff41'; }
+    else if (rsi >= 55) { fLabel = 'NEUTRO+';  fColor = '#f7c948'; }
+    else if (rsi >= 45) { fLabel = 'NEUTRO';   fColor = '#00d4ff'; }
+    else if (rsi >= 30) { fLabel = 'MEDO';     fColor = '#f7c948'; }
+    else                { fLabel = 'PÂNICO';   fColor = '#ff4444'; }
+    fngEl.textContent = Math.round(rsi) + ' — ' + fLabel;
+    fngEl.style.color = fColor;
 
-    document.getElementById('bUpdated').textContent = 'última atualização: ' + d.ultima_atualizacao;
+    const ts = new Date(d.atualizado * 1000).toLocaleTimeString('pt-BR');
+    document.getElementById('bUpdated').textContent = 'última atualização: ' + ts;
 
-    if (_botPrevTrades !== null && d.total_trades > _botPrevTrades) {
-      const ganhou = d.lucro_dia > (_botPrevPnl ?? d.lucro_dia);
+    if (_botPrevTrades !== null && trades > _botPrevTrades) {
+      const ganhou = pnl > (_botPrevPnl ?? pnl);
       if (ganhou) { _beepWin(); _flashPanel('#00ff41'); }
       else { _beepLoss(); _flashPanel('#ff4444'); }
     }
 
-    _botPrevPnl    = d.lucro_dia;
-    _botPrevTrades = d.total_trades;
-    _botPrevStatus = d.status;
-  } catch(e) { /* sem stats disponíveis */ }
+    _botPrevPnl    = pnl;
+    _botPrevTrades = trades;
+    _botPrevStatus = ativo ? 'ATIVO' : 'PAUSADO';
+  } catch(e) {
+    const statusEl = document.getElementById('bStatus');
+    if (statusEl) { statusEl.textContent = '⚠ OFFLINE'; statusEl.style.color = '#ff4444'; }
+  }
 }
 fetchBotStats();
-setInterval(fetchBotStats, 300000); // atualiza a cada 5 min
+setInterval(fetchBotStats, 15000); // atualiza a cada 15 segundos
 
 // ══════════════════════════════════════════════
 // VOTAÇÃO: QUEM É SATOSHI?
