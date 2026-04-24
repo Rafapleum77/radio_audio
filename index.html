@@ -1769,8 +1769,7 @@ setInterval(rotateSponsor, 8000);
 document.addEventListener('DOMContentLoaded', function() {
   const player = document.getElementById('vidPlayer');
   const desc = document.getElementById('vidDesc');
-  if(player) player.src = VID_CATS['trez'].src;
-  if(desc) desc.textContent = VID_CATS['trez'].desc;
+  switchVidCat('trez', document.querySelector('.vid-tab.active'));
 });
 
 
