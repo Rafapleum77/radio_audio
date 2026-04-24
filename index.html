@@ -2667,12 +2667,7 @@ let   _svOnline   = false;
 function satoshiGetMine() { return localStorage.getItem(SV_MINE) || null; }
 function _svLocalVotes() { try { return JSON.parse(localStorage.getItem(SV_LOCAL))||{}; } catch(e) { return {}; } }
 
-async function _svFetch(url, opts, timeout=3000) {
-  const ctrl = new AbortController();
-  const tid  = setTimeout(() => ctrl.abort(), timeout);
-  try { const r = await fetch(url, {...(opts||{}), signal: ctrl.signal}); clearTimeout(tid); return r; }
-  catch(e) { clearTimeout(tid); return null; }
-}
+function _svFetch(url, opts) { return _localFetch(url, opts); }
 
 async function satoshiLoadVotes() {
   const r = await _svFetch(SV_SERVER + '/RESULTADOS/satoshi_votes.json?t=' + Date.now());
