@@ -2665,7 +2665,7 @@ function satoshiReset() {
 }
 
 function satoshiRender() {
-  const votes  = satoshiGetVotes();
+  const votes  = _svVotes;
   const mine   = satoshiGetMine();
   const total  = Object.values(votes).reduce((a,b)=>a+b,0);
   const grid   = document.getElementById('satoshiGrid');
