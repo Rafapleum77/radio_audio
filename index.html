@@ -593,6 +593,15 @@ html,body{
     grid-template-columns:repeat(2,1fr) !important;
   }
 
+  /* Commodities: 3 colunas mantém mas fonte menor */
+  #cOilPrice, #cGoldPrice, #cSilverPrice { font-size:11px !important; }
+
+  /* Placar votação: linhas mais compactas */
+  #svPlacar div[style*="display:flex"] { gap:4px !important; }
+
+  /* Satoshi grid: 1 coluna em mobile */
+  .satoshi-vote-grid { grid-template-columns:1fr !important; }
+
   /* Chart */
   #tv-chart-wrap{height:220px;}
 
