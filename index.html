@@ -2530,6 +2530,16 @@ async function fetchCommodities() {
 fetchCommodities();
 setInterval(fetchCommodities, 60000);
 
+// ── UTILITÁRIO: fetch local com timeout ─────────────────────────
+function _localFetch(url, opts, ms) {
+  ms = ms || 3000;
+  const ctrl = new AbortController();
+  const tid  = setTimeout(() => ctrl.abort(), ms);
+  return fetch(url, Object.assign({}, opts || {}, {signal: ctrl.signal}))
+    .then(function(r){ clearTimeout(tid); return r; })
+    .catch(function(){ clearTimeout(tid); return null; });
+}
+
 // ── BOT BITADICT STATS ──────────────────────────────────────────
 let _botPrevPnl = null, _botPrevTrades = null, _botPrevStatus = null;
 
