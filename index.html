@@ -1512,8 +1512,33 @@ function switchVidCat(cat, btn) {
     loadTutChannel(VID_CATS.tut.currentChannel);
   } else {
     if(chanSel) chanSel.style.display = 'none';
-    if(player) player.src = VID_CATS[cat].src;
-    if(desc)   desc.textContent = VID_CATS[cat].desc;
+    const catData = VID_CATS[cat];
+    if (!catData) return;
+    // Canal com handle → overlay "abrir no YouTube"
+    if (catData.handle) {
+      if(player) player.style.display = 'none';
+      const wrap = player ? player.parentElement : null;
+      if(wrap) {
+        const old = wrap.querySelector('.handle-overlay');
+        if(old) old.remove();
+        const ov = document.createElement('div');
+        ov.className = 'handle-overlay';
+        ov.style.cssText = 'display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;height:200px;background:#111;border-radius:6px;';
+        ov.innerHTML = `<div style="font-size:28px;">📺</div>
+          <div style="font-size:13px;color:#fff;font-weight:bold;">${catData.desc}</div>
+          <a href="https://www.youtube.com/@${catData.handle}/videos" target="_blank"
+             style="background:#ff0000;color:#fff;font-weight:700;font-size:12px;padding:10px 20px;border-radius:6px;text-decoration:none;letter-spacing:1px;">
+            ▶ ABRIR NO YOUTUBE
+          </a>`;
+        wrap.appendChild(ov);
+      }
+    } else {
+      // Canal com src de embed
+      const old2 = player && player.parentElement ? player.parentElement.querySelector('.handle-overlay') : null;
+      if(old2) old2.remove();
+      if(player) { player.style.display = ''; player.src = catData.src || ''; }
+    }
+    if(desc) desc.textContent = catData.desc || '';
   }
 }
 
