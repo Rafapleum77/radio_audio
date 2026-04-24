@@ -2623,22 +2623,40 @@ const SATOSHI_CANDIDATES = [
   { id:'craig',  emoji:'🤥', name:'CRAIG WRIGHT',     tier:'curi', tierLabel:'POLÊMICO',    desc:'Afirma ser Satoshi publicamente. Nunca moveu as moedas dos primeiros blocos. Desacreditado.' },
 ];
 
-const SV_KEY  = 'satoshi_votes_v1';
-const SV_MINE = 'satoshi_my_vote_v1';
+const SV_MINE   = 'satoshi_my_vote_v1';
+const SV_SERVER = 'http://192.168.1.64:8080';
+let _svVotes    = {};
 
-function satoshiGetVotes() {
-  try { return JSON.parse(localStorage.getItem(SV_KEY)) || {}; } catch(e) { return {}; }
-}
-function satoshiSaveVotes(v) { localStorage.setItem(SV_KEY, JSON.stringify(v)); }
 function satoshiGetMine() { return localStorage.getItem(SV_MINE) || null; }
 
-function satoshiVote(id) {
-  if (satoshiGetMine()) return;
-  const votes = satoshiGetVotes();
-  votes[id] = (votes[id] || 0) + 1;
-  satoshiSaveVotes(votes);
-  localStorage.setItem(SV_MINE, id);
+async function satoshiLoadVotes() {
+  try {
+    const r = await fetch(SV_SERVER + '/RESULTADOS/satoshi_votes.json?t=' + Date.now());
+    if (r.ok) _svVotes = await r.json();
+  } catch(e) {}
   satoshiRender();
+}
+
+async function satoshiVote(id) {
+  if (satoshiGetMine()) return;
+  try {
+    const r = await fetch(SV_SERVER + '/votar_satoshi', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({id})
+    });
+    if (r.ok) {
+      const d = await r.json();
+      _svVotes = d.votos || _svVotes;
+      localStorage.setItem(SV_MINE, id);
+      satoshiRender();
+    }
+  } catch(e) {
+    // fallback local
+    _svVotes[id] = (_svVotes[id] || 0) + 1;
+    localStorage.setItem(SV_MINE, id);
+    satoshiRender();
+  }
 }
 
 function satoshiReset() {
