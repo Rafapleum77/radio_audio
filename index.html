@@ -2466,36 +2466,62 @@ renderContest();
 // Nostr real já inicializado acima via connectNostr()
 
 // ── COMMODITIES ─────────────────────────────────────────────────
-async function fetchCommodities() {
+function _renderCommodities(d) {
+  const map = [
+    ['oil',    'cOilPrice',    'cOilChg',    2],
+    ['gold',   'cGoldPrice',   'cGoldChg',   0],
+    ['silver', 'cSilverPrice', 'cSilverChg', 2],
+  ];
+  map.forEach(([key, pId, cId, dec]) => {
+    const item = d[key];
+    if (!item) return;
+    const pEl = document.getElementById(pId);
+    const cEl = document.getElementById(cId);
+    if (pEl) pEl.textContent = '$' + Number(item.price).toFixed(dec);
+    if (cEl) {
+      const chg = item.chg;
+      cEl.textContent = (chg >= 0 ? '▲ +' : '▼ ') + Math.abs(chg).toFixed(2) + '%';
+      cEl.style.color = chg >= 0 ? '#00ff41' : '#ff4444';
+    }
+  });
+  const upd = document.getElementById('cUpdated');
+  if (upd) upd.textContent = 'Yahoo Finance · ' + (d.ts || '--');
+}
+
+async function _commFromMacMini() {
+  const ctrl = new AbortController();
+  const tid = setTimeout(() => ctrl.abort(), 3000);
   try {
-    const r = await fetch('http://192.168.1.64:8080/RESULTADOS/commodities.json?t=' + Date.now());
-    if (!r.ok) throw new Error();
-    const d = await r.json();
-    const map = [
-      ['oil',    'cOilPrice',    'cOilChg',    2],
-      ['gold',   'cGoldPrice',   'cGoldChg',   0],
-      ['silver', 'cSilverPrice', 'cSilverChg', 2],
-    ];
-    map.forEach(([key, pId, cId, dec]) => {
-      const item = d[key];
-      if (!item) return;
-      const pEl = document.getElementById(pId);
-      const cEl = document.getElementById(cId);
-      if (pEl) pEl.textContent = '$' + item.price.toFixed(dec);
-      if (cEl) {
-        const chg = item.chg;
-        cEl.textContent = (chg >= 0 ? '▲ +' : '▼ ') + Math.abs(chg).toFixed(2) + '%';
-        cEl.style.color = chg >= 0 ? '#00ff41' : '#ff4444';
-      }
-    });
-    const upd = document.getElementById('cUpdated');
-    if (upd) upd.textContent = 'Yahoo Finance · ' + (d.ts || '--');
-  } catch(e) {
-    ['cOilPrice','cGoldPrice','cSilverPrice'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.textContent = '--';
-    });
+    const r = await fetch('http://192.168.1.64:8080/RESULTADOS/commodities.json?t=' + Date.now(), {signal: ctrl.signal});
+    clearTimeout(tid);
+    if (r.ok) return await r.json();
+  } catch(e) { clearTimeout(tid); }
+  return null;
+}
+
+async function _commFromProxy() {
+  const syms = ['CL=F','GC=F','SI=F'];
+  const keys = ['oil','gold','silver'];
+  const decs = [2, 0, 2];
+  const result = {};
+  for (let i = 0; i < syms.length; i++) {
+    try {
+      const yurl = 'https://query2.finance.yahoo.com/v8/finance/chart/' + encodeURIComponent(syms[i]) + '?interval=1d&range=1d';
+      const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(yurl));
+      const d = await r.json();
+      const meta = d.chart.result[0].meta;
+      const price = meta.regularMarketPrice;
+      const prev  = meta.chartPreviousClose || price;
+      result[keys[i]] = { price: +price.toFixed(decs[i]), chg: +((price - prev) / prev * 100).toFixed(2) };
+    } catch(e) {}
   }
+  result.ts = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+  return result.oil || result.gold || result.silver ? result : null;
+}
+
+async function fetchCommodities() {
+  const d = await _commFromMacMini() || await _commFromProxy();
+  if (d) _renderCommodities(d);
 }
 fetchCommodities();
 setInterval(fetchCommodities, 60000);
