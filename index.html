@@ -2493,13 +2493,8 @@ function _renderCommodities(d) {
 }
 
 async function _commFromMacMini() {
-  const ctrl = new AbortController();
-  const tid = setTimeout(() => ctrl.abort(), 3000);
-  try {
-    const r = await fetch('http://192.168.1.64:8080/RESULTADOS/commodities.json?t=' + Date.now(), {signal: ctrl.signal});
-    clearTimeout(tid);
-    if (r.ok) return await r.json();
-  } catch(e) { clearTimeout(tid); }
+  const r = await _localFetch('http://192.168.1.64:8080/RESULTADOS/commodities.json?t=' + Date.now());
+  if (r && r.ok) return await r.json();
   return null;
 }
 
