@@ -1,27 +1,26 @@
 {
-  "name": "Rádio BitAdict",
-  "short_name": "BitAdict",
+  "name": "Radio Bitcoin",
+  "short_name": "Radio Bitcoin",
   "description": "A voz da revolução Bitcoin — música, dados ao vivo e cultura Bitcoin.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000802",
-  "theme_color": "#00ff41",
+  "theme_color": "#f7931a",
   "orientation": "any",
   "lang": "pt-BR",
   "icons": [
     {
-      "src": "logo-radio.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "logo-radio.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
   ],
-  "categories": ["music", "entertainment", "finance"],
-  "screenshots": []
+  "categories": ["music", "entertainment", "finance"]
 }
