@@ -965,6 +965,41 @@ html,body{
         </div>
       </div>
 
+      <!-- BOT BITADICT (abaixo do cartão) -->
+      <div class="panel" id="bot-panel-2" style="border-color:rgba(0,212,255,0.35)">
+        <div class="pt" style="color:var(--blue)">🤖 BOT BITADICT — XRP/USDT 15m</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px">
+          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
+            <div class="k">STATUS</div>
+            <div class="v" id="bStatus2" style="font-size:13px">--</div>
+          </div>
+          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
+            <div class="k">BANCA ATUAL</div>
+            <div class="v" id="bBanca2" style="font-size:13px">--</div>
+          </div>
+          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
+            <div class="k">P&amp;L DIA</div>
+            <div class="v" id="bPnl2" style="font-size:13px">--</div>
+          </div>
+          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
+            <div class="k">TRADES</div>
+            <div class="v" id="bTrades2" style="font-size:13px">--</div>
+          </div>
+          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
+            <div class="k">WIN RATE</div>
+            <div class="v" id="bWin2" style="font-size:13px">--</div>
+          </div>
+          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
+            <div class="k">SENTIMENTO</div>
+            <div class="v" id="bFng2" style="font-size:11px">--</div>
+          </div>
+        </div>
+        <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:8px;color:var(--text-dim)" id="bUpdated2">última atualização: --</div>
+          <a href="http://192.168.1.64:8080/dashboard.html" target="_blank" style="font-size:9px;color:var(--blue);border:1px solid rgba(0,212,255,0.35);padding:4px 10px;border-radius:4px;text-decoration:none;letter-spacing:1px;" onmouseover="this.style.background='rgba(0,212,255,0.1)'" onmouseout="this.style.background='transparent'" title="Disponível apenas na rede local">↗ DASHBOARD (rede local)</a>
+        </div>
+      </div>
+
       <!-- CHART -->
       <div class="panel" id="chart-panel">
         <div class="chart-header">
