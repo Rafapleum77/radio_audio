@@ -2716,12 +2716,6 @@ function _botRender(d, fromCache) {
     const ts = new Date(d.atualizado * 1000).toLocaleTimeString('pt-BR');
     const updEl = document.getElementById('bUpdated');
     if (updEl) updEl.textContent = (fromCache ? '📦 cache · ' : 'ao vivo · ') + ts;
-    // sync painel 2 (abaixo do cartão)
-    ['bStatus','bBanca','bPnl','bTrades','bWin','bFng','bUpdated'].forEach(function(id) {
-      const src = document.getElementById(id);
-      const dst = document.getElementById(id + '2');
-      if (src && dst) { dst.textContent = src.textContent; dst.style.color = src.style.color; }
-    });
 }
 
 async function fetchBotStats() {
