@@ -2640,77 +2640,92 @@ function _flashPanel(color) {
   setTimeout(() => { p.style.boxShadow = ''; }, 1200);
 }
 
-async function fetchBotStats() {
-  try {
-    const r = await _localFetch('http://192.168.1.64:8080/RESULTADOS/estado_global.json?t=' + Date.now());
-    if (!r || !r.ok) throw new Error('offline');
-    const d = await r.json();
-
+function _botRender(d, fromCache) {
     const bot = (d.bots && d.bots.XRP) ? d.bots.XRP : null;
     const statusEl = document.getElementById('bStatus');
-
     if (!bot) {
-      statusEl.textContent = '⏸ PAUSADO'; statusEl.style.color = '#f7c948'; return;
+      if (statusEl) { statusEl.textContent = '⏸ PAUSADO'; statusEl.style.color = '#f7c948'; }
+      return;
     }
-
-    // ATIVO se foi atualizado nos últimos 3 minutos
     const ageSec = Date.now()/1000 - (d.atualizado || 0);
-    const ativo = bot.ativo && ageSec < 180;
-    statusEl.textContent = ativo ? '▶ ATIVO' : '⏸ PAUSADO';
-    statusEl.style.color  = ativo ? '#00ff41' : '#f7c948';
-
+    const ativo = bot.ativo && ageSec < 600;
+    if (statusEl) {
+      statusEl.textContent = ativo ? '▶ ATIVO' : '⏸ PAUSADO';
+      statusEl.style.color  = ativo ? '#00ff41' : '#f7c948';
+    }
     const banca = bot.banca || 0;
     const bancaEl = document.getElementById('bBanca');
-    bancaEl.textContent = '$' + banca.toFixed(2);
-    bancaEl.style.color = '#00d4ff';
-
+    if (bancaEl) { bancaEl.textContent = '$' + banca.toFixed(2); bancaEl.style.color = '#00d4ff'; }
     const pnl = bot.pnl || 0;
     const pnlEl = document.getElementById('bPnl');
-    pnlEl.textContent = (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2);
-    pnlEl.style.color = pnl >= 0 ? '#00ff41' : '#ff4444';
-
+    if (pnlEl) { pnlEl.textContent = (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2); pnlEl.style.color = pnl >= 0 ? '#00ff41' : '#ff4444'; }
     const trades = bot.trades || 0;
-    document.getElementById('bTrades').textContent = trades;
-    document.getElementById('bTrades').style.color = '#00d4ff';
-
+    const tradesEl = document.getElementById('bTrades');
+    if (tradesEl) { tradesEl.textContent = trades; tradesEl.style.color = '#00d4ff'; }
     const ganhos = bot.ganhos || 0;
     const winRate = trades > 0 ? Math.round(ganhos / trades * 100) : 0;
     const winEl = document.getElementById('bWin');
-    winEl.textContent = winRate + '%';
-    winEl.style.color = winRate >= 55 ? '#00ff41' : winRate >= 45 ? '#f7c948' : '#ff4444';
-
-    // RSI como sentimento
+    if (winEl) { winEl.textContent = winRate + '%'; winEl.style.color = winRate >= 55 ? '#00ff41' : winRate >= 45 ? '#f7c948' : '#ff4444'; }
     const rsi = bot.rsi || 50;
     const fngEl = document.getElementById('bFng');
-    let fLabel, fColor;
-    if (rsi >= 70)      { fLabel = 'GANÂNCIA'; fColor = '#00ff41'; }
-    else if (rsi >= 55) { fLabel = 'NEUTRO+';  fColor = '#f7c948'; }
-    else if (rsi >= 45) { fLabel = 'NEUTRO';   fColor = '#00d4ff'; }
-    else if (rsi >= 30) { fLabel = 'MEDO';     fColor = '#f7c948'; }
-    else                { fLabel = 'PÂNICO';   fColor = '#ff4444'; }
-    fngEl.textContent = Math.round(rsi) + ' — ' + fLabel;
-    fngEl.style.color = fColor;
-
-    const ts = new Date(d.atualizado * 1000).toLocaleTimeString('pt-BR');
-    document.getElementById('bUpdated').textContent = 'última atualização: ' + ts;
-
-    if (_botPrevTrades !== null && trades > _botPrevTrades) {
-      const ganhou = pnl > (_botPrevPnl ?? pnl);
-      if (ganhou) { _beepWin(); _flashPanel('#00ff41'); }
-      else { _beepLoss(); _flashPanel('#ff4444'); }
+    if (fngEl) {
+      let fLabel, fColor;
+      if (rsi >= 70)      { fLabel = 'GANÂNCIA'; fColor = '#00ff41'; }
+      else if (rsi >= 55) { fLabel = 'NEUTRO+';  fColor = '#f7c948'; }
+      else if (rsi >= 45) { fLabel = 'NEUTRO';   fColor = '#00d4ff'; }
+      else if (rsi >= 30) { fLabel = 'MEDO';     fColor = '#f7c948'; }
+      else                { fLabel = 'PÂNICO';   fColor = '#ff4444'; }
+      fngEl.textContent = Math.round(rsi) + ' — ' + fLabel;
+      fngEl.style.color = fColor;
     }
-
-    _botPrevPnl    = pnl;
-    _botPrevTrades = trades;
-    _botPrevStatus = ativo ? 'ATIVO' : 'PAUSADO';
-
+    const ts = new Date(d.atualizado * 1000).toLocaleTimeString('pt-BR');
+    const updEl = document.getElementById('bUpdated');
+    if (updEl) updEl.textContent = (fromCache ? '📦 cache · ' : 'ao vivo · ') + ts;
     // sync painel 2 (abaixo do cartão)
     ['bStatus','bBanca','bPnl','bTrades','bWin','bFng','bUpdated'].forEach(function(id) {
       const src = document.getElementById(id);
       const dst = document.getElementById(id + '2');
       if (src && dst) { dst.textContent = src.textContent; dst.style.color = src.style.color; }
     });
+}
+
+async function fetchBotStats() {
+  try {
+    const r = await _localFetch('http://192.168.1.64:8080/RESULTADOS/estado_global.json?t=' + Date.now());
+    if (!r || !r.ok) throw new Error('offline');
+    const d = await r.json();
+    try { localStorage.setItem('bot_estado', JSON.stringify({d, ts: Date.now()})); } catch(e) {}
+
+    const bot = (d.bots && d.bots.XRP) ? d.bots.XRP : null;
+    _botRender(d, false);
+
+    if (bot) {
+      const trades = bot.trades || 0;
+      const pnl    = bot.pnl    || 0;
+      if (_botPrevTrades !== null && trades > _botPrevTrades) {
+        const ganhou = pnl > (_botPrevPnl ?? pnl);
+        if (ganhou) { _beepWin(); _flashPanel('#00ff41'); }
+        else { _beepLoss(); _flashPanel('#ff4444'); }
+      }
+      _botPrevPnl    = pnl;
+      _botPrevTrades = trades;
+      _botPrevStatus = bot.ativo ? 'ATIVO' : 'PAUSADO';
+    }
   } catch(e) {
+    // tenta cache do localStorage
+    try {
+      const cached = localStorage.getItem('bot_estado');
+      if (cached) {
+        const obj = JSON.parse(cached);
+        const cacheAgeMin = (Date.now() - obj.ts) / 60000;
+        _botRender(obj.d, true);
+        const updEl = document.getElementById('bUpdated');
+        if (updEl) updEl.textContent = '📦 cache · ' + Math.round(cacheAgeMin) + 'min atrás';
+        const updEl2 = document.getElementById('bUpdated2');
+        if (updEl2) updEl2.textContent = updEl ? updEl.textContent : '';
+        return;
+      }
+    } catch(e2) {}
     const statusEl = document.getElementById('bStatus');
     if (statusEl) { statusEl.textContent = '⚠ OFFLINE'; statusEl.style.color = '#ff4444'; }
     const statusEl2 = document.getElementById('bStatus2');
