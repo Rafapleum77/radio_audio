@@ -2750,8 +2750,6 @@ async function fetchBotStats() {
         _botRender(obj.d, true);
         const updEl = document.getElementById('bUpdated');
         if (updEl) updEl.textContent = '📦 cache · ' + Math.round(cacheAgeMin) + 'min atrás';
-        const updEl2 = document.getElementById('bUpdated2');
-        if (updEl2) updEl2.textContent = updEl ? updEl.textContent : '';
         return;
       }
     } catch(e2) {}
