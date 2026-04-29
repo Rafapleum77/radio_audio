@@ -2572,8 +2572,16 @@ async function _commFromProxy() {
   return result.oil || result.gold || result.silver ? result : null;
 }
 
+async function _commFromStatic() {
+  try {
+    const r = await fetch('./commodities.json?t=' + Date.now());
+    if (r && r.ok) return await r.json();
+  } catch(e) {}
+  return null;
+}
+
 async function fetchCommodities() {
-  const d = await _commFromMacMini() || await _commFromProxy();
+  const d = await _commFromMacMini() || await _commFromProxy() || await _commFromStatic();
   if (d) _renderCommodities(d);
 }
 fetchCommodities();
