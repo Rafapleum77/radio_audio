@@ -2718,44 +2718,72 @@ function _botRender(d, fromCache) {
     if (updEl) updEl.textContent = (fromCache ? '📦 cache · ' : 'ao vivo · ') + ts;
 }
 
+function _botRenderStats(s) {
+  // renderiza a partir do stats_radio.json (fallback HTTPS GitHub Pages)
+  const statusEl = document.getElementById('bStatus');
+  const ativo = s.status === 'ATIVO';
+  if (statusEl) { statusEl.textContent = ativo ? '▶ ATIVO' : '⏸ PAUSADO'; statusEl.style.color = ativo ? '#00ff41' : '#f7c948'; }
+  const bancaEl = document.getElementById('bBanca');
+  if (bancaEl) { bancaEl.textContent = '$' + (s.banca_atual||0).toFixed(2); bancaEl.style.color = '#00d4ff'; }
+  const pnl = s.lucro_dia || 0;
+  const pnlEl = document.getElementById('bPnl');
+  if (pnlEl) { pnlEl.textContent = (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2); pnlEl.style.color = pnl >= 0 ? '#00ff41' : '#ff4444'; }
+  const tradesEl = document.getElementById('bTrades');
+  if (tradesEl) { tradesEl.textContent = s.total_trades || 0; tradesEl.style.color = '#00d4ff'; }
+  const win = s.taxa_acerto || 0;
+  const winEl = document.getElementById('bWin');
+  if (winEl) { winEl.textContent = win.toFixed(1) + '%'; winEl.style.color = win >= 55 ? '#00ff41' : win >= 45 ? '#f7c948' : '#ff4444'; }
+  const fngEl = document.getElementById('bFng');
+  if (fngEl) { fngEl.textContent = (s.sentimento_valor||'--') + ' — ' + (s.sentimento_label||'--'); fngEl.style.color = '#f7c948'; }
+  const updEl = document.getElementById('bUpdated');
+  if (updEl) updEl.textContent = '🌐 github · ' + (s.ultima_atualizacao || '--');
+}
+
 async function fetchBotStats() {
+  // 1) tenta servidor local (LAN)
   try {
     const r = await _localFetch('http://192.168.1.64:8080/RESULTADOS/estado_global.json?t=' + Date.now());
-    if (!r || !r.ok) throw new Error('offline');
+    if (!r || !r.ok) throw new Error('lan_fail');
     const d = await r.json();
     try { localStorage.setItem('bot_estado', JSON.stringify({d, ts: Date.now()})); } catch(e) {}
-
-    const bot = (d.bots && d.bots.XRP) ? d.bots.XRP : null;
     _botRender(d, false);
-
+    const bot = (d.bots && d.bots.XRP) ? d.bots.XRP : null;
     if (bot) {
-      const trades = bot.trades || 0;
-      const pnl    = bot.pnl    || 0;
+      const trades = bot.trades || 0, pnl = bot.pnl || 0;
       if (_botPrevTrades !== null && trades > _botPrevTrades) {
         const ganhou = pnl > (_botPrevPnl ?? pnl);
-        if (ganhou) { _beepWin(); _flashPanel('#00ff41'); }
-        else { _beepLoss(); _flashPanel('#ff4444'); }
+        if (ganhou) { _beepWin(); _flashPanel('#00ff41'); } else { _beepLoss(); _flashPanel('#ff4444'); }
       }
-      _botPrevPnl    = pnl;
-      _botPrevTrades = trades;
-      _botPrevStatus = bot.ativo ? 'ATIVO' : 'PAUSADO';
+      _botPrevPnl = pnl; _botPrevTrades = trades; _botPrevStatus = bot.ativo ? 'ATIVO' : 'PAUSADO';
     }
-  } catch(e) {
-    // tenta cache do localStorage
-    try {
-      const cached = localStorage.getItem('bot_estado');
-      if (cached) {
-        const obj = JSON.parse(cached);
-        const cacheAgeMin = (Date.now() - obj.ts) / 60000;
-        _botRender(obj.d, true);
-        const updEl = document.getElementById('bUpdated');
-        if (updEl) updEl.textContent = '📦 cache · ' + Math.round(cacheAgeMin) + 'min atrás';
-        return;
-      }
-    } catch(e2) {}
-    const statusEl = document.getElementById('bStatus');
-    if (statusEl) { statusEl.textContent = '⚠ OFFLINE'; statusEl.style.color = '#ff4444'; }
-  }
+    return;
+  } catch(e) {}
+
+  // 2) tenta stats_radio.json no GitHub Pages (HTTPS, atualizado pelo bot)
+  try {
+    const r = await fetch('./stats_radio.json?t=' + Date.now());
+    if (r && r.ok) {
+      const s = await r.json();
+      _botRenderStats(s);
+      return;
+    }
+  } catch(e) {}
+
+  // 3) localStorage cache
+  try {
+    const cached = localStorage.getItem('bot_estado');
+    if (cached) {
+      const obj = JSON.parse(cached);
+      _botRender(obj.d, true);
+      const updEl = document.getElementById('bUpdated');
+      if (updEl) updEl.textContent = '📦 cache · ' + Math.round((Date.now()-obj.ts)/60000) + 'min atrás';
+      return;
+    }
+  } catch(e) {}
+
+  // 4) sem dados
+  const statusEl = document.getElementById('bStatus');
+  if (statusEl) { statusEl.textContent = '⚠ OFFLINE'; statusEl.style.color = '#ff4444'; }
 }
 fetchBotStats();
 setInterval(fetchBotStats, 15000); // atualiza a cada 15 segundos
