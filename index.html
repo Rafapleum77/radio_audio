@@ -2757,8 +2757,6 @@ async function fetchBotStats() {
     } catch(e2) {}
     const statusEl = document.getElementById('bStatus');
     if (statusEl) { statusEl.textContent = '⚠ OFFLINE'; statusEl.style.color = '#ff4444'; }
-    const statusEl2 = document.getElementById('bStatus2');
-    if (statusEl2) { statusEl2.textContent = '⚠ OFFLINE'; statusEl2.style.color = '#ff4444'; }
   }
 }
 fetchBotStats();
