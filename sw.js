@@ -24,7 +24,7 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
 
-  // Nunca interceptar áudio, streams externos ou APIs de preço
+  // Nunca interceptar áudio, streams externos, APIs de preço ou dados dinâmicos
   if (
     e.request.url.includes('192.168.1.64') ||
     e.request.url.includes('binance') ||
@@ -32,9 +32,10 @@ self.addEventListener('fetch', e => {
     e.request.url.includes('youtube') ||
     e.request.url.includes('googleapis') ||
     e.request.url.includes('polymarket') ||
-    /\.(mp3|mp4|m4a|ogg|wav)$/.test(url.pathname)
+    /\.(mp3|mp4|m4a|ogg|wav)$/.test(url.pathname) ||
+    /\.(json)(\?.*)?$/.test(url.pathname + url.search)
   ) {
-    return; // deixa o browser lidar diretamente
+    return; // deixa o browser lidar diretamente (sem cache)
   }
 
   // Cache-first para assets locais (imagens, html, js)
