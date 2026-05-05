@@ -1920,18 +1920,63 @@ carregarPedidos();
 setInterval(carregarTracks, 600000);   // recarrega tracks a cada 10 min
 setInterval(carregarPedidos, 60000);   // recarrega pedidos a cada 1 min
 
-// Render playlist
+// Render playlist agrupada por categoria
 function renderPlaylist() {
   const pl = document.getElementById('playlist');
   pl.innerHTML = '';
+  const cats = {};
   TRACKS.forEach((t, i) => {
-    const div = document.createElement('div');
-    div.className = 'pl-item' + (i === currentIdx ? ' active' : '');
-    div.innerHTML = `<span class="pl-num">${i + 1}</span><span class="pl-title">${t.title}</span><span class="pl-dur">${t.dur}</span>`;
-    div.onclick = () => { currentIdx = i; loadTrack(); playTrack(); };
-    pl.appendChild(div);
+    const cat = t.category || 'Geral';
+    if (!cats[cat]) cats[cat] = [];
+    cats[cat].push({ t, i });
+  });
+  const catIcons = {
+    'IA': '🤖',
+    'Rock Internacional Anos 80': '🎸'
+  };
+  Object.entries(cats).forEach(([cat, items]) => {
+    const header = document.createElement('div');
+    header.style.cssText = 'font-size:8px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:6px 4px 3px;border-bottom:1px solid rgba(247,201,72,0.2);margin-bottom:2px;';
+    header.textContent = (catIcons[cat] || '🎵') + ' ' + cat;
+    pl.appendChild(header);
+    items.forEach(({ t, i }) => {
+      const div = document.createElement('div');
+      div.className = 'pl-item' + (i === currentIdx ? ' active' : '');
+      div.innerHTML = `<span class="pl-num">${i + 1}</span><span class="pl-title">${t.title}</span><span class="pl-dur">${t.dur}</span>`;
+      div.onclick = () => { currentIdx = i; loadTrack(); playTrack(); };
+      pl.appendChild(div);
+    });
   });
 }
+
+// Sugestões de músicas bitcoinheiras
+function enviarSugestao() {
+  const input = document.getElementById('sugInput');
+  const val = input.value.trim();
+  if (!val) return;
+  const lista = JSON.parse(localStorage.getItem('sugestoes_radio') || '[]');
+  const nova = { musica: val, ts: new Date().toLocaleString('pt-BR') };
+  lista.unshift(nova);
+  localStorage.setItem('sugestoes_radio', JSON.stringify(lista.slice(0, 30)));
+  input.value = '';
+  renderSugestoes();
+  const msg = encodeURIComponent('🎵 Sugestão de música para a Rádio Bitcoin: ' + val);
+  window.open('https://wa.me/5561998110979?text=' + msg, '_blank');
+}
+
+function renderSugestoes() {
+  const lista = JSON.parse(localStorage.getItem('sugestoes_radio') || '[]');
+  const el = document.getElementById('sugestoes-list');
+  if (!el) return;
+  if (!lista.length) { el.innerHTML = '<div style="font-size:9px;color:var(--text-dim);padding:4px">Nenhuma sugestão ainda. Seja o primeiro!</div>'; return; }
+  el.innerHTML = lista.map(s =>
+    `<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(0,255,65,0.08);font-size:9px">
+      <span style="color:var(--g)">🎵 ${s.musica}</span>
+      <span style="color:var(--text-dim)">${s.ts}</span>
+    </div>`
+  ).join('');
+}
+renderSugestoes();
 
 function loadTrack() {
   const t = TRACKS[currentIdx];
