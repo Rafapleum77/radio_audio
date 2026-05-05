@@ -833,6 +833,20 @@ html,body{
         <div style="font-size:8px;color:var(--text-dim);margin-top:4px">
           Telegram: <span style="color:var(--g)">/pedir Nome da Música</span>
         </div>
+
+        <!-- SUGESTÕES DE MÚSICAS BITCOINHEIRAS -->
+        <div class="pt" style="margin-top:14px;">💡 SUGIRA UMA MÚSICA BITCOINHEIRA</div>
+        <div style="margin-top:6px;">
+          <input id="sugInput" type="text" placeholder="Nome da música + artista..."
+            style="width:100%;background:#0a0a0a;border:1px solid rgba(0,255,65,0.3);color:var(--g);font-family:'Share Tech Mono',monospace;font-size:10px;padding:7px 8px;border-radius:4px;outline:none;box-sizing:border-box;"
+            onkeydown="if(event.key==='Enter')enviarSugestao()">
+          <button onclick="enviarSugestao()"
+            style="margin-top:5px;width:100%;background:rgba(0,255,65,0.12);border:1px solid rgba(0,255,65,0.35);color:var(--g);font-family:'Share Tech Mono',monospace;font-size:10px;padding:7px;border-radius:4px;cursor:pointer;letter-spacing:1px;transition:background .2s;"
+            onmouseover="this.style.background='rgba(0,255,65,0.22)'" onmouseout="this.style.background='rgba(0,255,65,0.12)'">
+            ⚡ ENVIAR SUGESTÃO
+          </button>
+        </div>
+        <div id="sugestoes-list" style="margin-top:6px;max-height:120px;overflow-y:auto;"></div>
       </div>
 
     </div><!-- /left -->
