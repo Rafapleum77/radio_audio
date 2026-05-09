@@ -3,6 +3,366 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ===== DASHBOARD TOPO RADIO BITCOIN (auto-inserido por deploy.py) ===== -->
+<!-- ============================================================
+     DASHBOARD DE COMANDO — RADIO BITCOIN
+     Cole este bloco no TOPO da pagina, ACIMA da secao "Quem e Satoshi".
+     Auto-refresh: 30s. Sem dependencia externa de CSS.
+     ============================================================ -->
+<section class="rb-dash" id="rb-dash">
+  <h2 class="rb-dash__title">▸ DASHBOARD DE COMANDO</h2>
+
+  <!-- Hero do estudio IA — imagem dos locutores no cockpit -->
+  <div class="rb-dash__hero-wrap">
+    <img class="rb-dash__hero" src="estudio_ia.jpg" alt="Estúdio IA — Radio Bitcoin (Manus, Gemini, Claude, Grok, GPT)">
+    <div class="rb-dash__hero-overlay"></div>
+  </div>
+
+  <div class="rb-dash__grid">
+
+    <!-- ============ ESQUERDA: POLYMARKET ============ -->
+    <div class="rb-card rb-poly">
+      <div class="rb-card__head">
+        <span class="rb-card__icon">🎯</span>
+        <span>POLYMARKET — PREVISÕES BTC</span>
+      </div>
+      <div id="rb-poly-list" class="rb-poly__list">
+        <div class="rb-loading">Carregando mercados…</div>
+      </div>
+    </div>
+
+    <!-- ============ DIREITA: LOCUTORES IA ============ -->
+    <div class="rb-card rb-locs">
+      <div class="rb-card__head">
+        <span class="rb-card__icon">📡</span>
+        <span>LOCUTORES IA — AO VIVO</span>
+        <span class="rb-noar-pill" id="rb-noar-pill">—</span>
+      </div>
+      <div id="rb-loc-grid" class="rb-loc-grid">
+        <div class="rb-loading">Carregando…</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Escopo .rb-dash — nao vaza pro resto do site */
+  .rb-dash {
+    --rb-bg-0:#0a0a0f; --rb-bg-1:#12141b; --rb-bg-2:#1a1d27;
+    --rb-line:#1f2330;
+    --rb-neon:#39ff14;        --rb-neon-soft:rgba(57,255,20,.18);
+    --rb-magenta:#a855f7;     --rb-magenta-soft:rgba(168,85,247,.22);
+    --rb-orange:#f7931a;      --rb-orange-soft:rgba(247,147,26,.22);
+    --rb-up:#22c55e;          --rb-down:#ef4444;
+    --rb-text:#d8e0d2;        --rb-text-dim:#7d8675;
+    --rb-mono:'JetBrains Mono','Fira Code','SF Mono','Courier New',ui-monospace,monospace;
+
+    background: var(--rb-bg-0);
+    padding: 18px 16px 22px;
+    color: var(--rb-text);
+    font-family: var(--rb-mono);
+    border-bottom: 1px solid var(--rb-line);
+  }
+  .rb-dash *, .rb-dash *::before, .rb-dash *::after { box-sizing: border-box; }
+
+  .rb-dash__title {
+    font-family: var(--rb-mono);
+    font-size: .85rem;
+    letter-spacing: 3px;
+    color: var(--rb-orange);
+    text-transform: uppercase;
+    margin: 0 auto 14px;
+    max-width: 1180px;
+  }
+
+  /* Hero do estudio IA — imagem cockpit */
+  .rb-dash__hero-wrap {
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto 14px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--rb-line);
+    box-shadow: 0 0 24px rgba(57,255,20,.08);
+  }
+  .rb-dash__hero {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 320px;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+  .rb-dash__hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(10,10,15,.65) 100%);
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    .rb-dash__hero { max-height: 180px; }
+  }
+
+  .rb-dash__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  @media (max-width: 880px) { .rb-dash__grid { grid-template-columns: 1fr; } }
+
+  .rb-card {
+    background: var(--rb-bg-1);
+    border: 1px solid var(--rb-line);
+    border-radius: 10px;
+    padding: 14px 16px 16px;
+  }
+  .rb-card__head {
+    font-size: .78rem;
+    letter-spacing: 2px;
+    color: var(--rb-neon);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--rb-line);
+    padding-bottom: 10px;
+  }
+  .rb-card__icon { font-size: 1rem; }
+
+  .rb-noar-pill {
+    margin-left: auto;
+    font-size: .65rem;
+    padding: 2px 9px;
+    border-radius: 99px;
+    background: var(--rb-bg-2);
+    border: 1px solid var(--rb-line);
+    color: var(--rb-text-dim);
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+  .rb-noar-pill.is-live { background: var(--rb-neon); color:#000; border-color: var(--rb-neon); box-shadow: 0 0 10px var(--rb-neon-soft); }
+  .rb-noar-pill.is-live[data-id="grok"] { background: var(--rb-magenta); border-color: var(--rb-magenta); color:#fff; box-shadow: 0 0 10px var(--rb-magenta-soft); }
+
+  /* ============ POLYMARKET ============ */
+  .rb-poly__list { display: flex; flex-direction: column; gap: 10px; }
+
+  .rb-poly__item {
+    background: var(--rb-bg-2);
+    border: 1px solid #1f3a1f;
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .rb-poly__q {
+    font-size: .78rem;
+    color: var(--rb-text);
+    margin-bottom: 8px;
+    line-height: 1.35;
+  }
+  .rb-poly__bar {
+    display: flex;
+    height: 16px;
+    border-radius: 99px;
+    overflow: hidden;
+    border: 1px solid var(--rb-line);
+    background: var(--rb-bg-1);
+    margin-bottom: 6px;
+  }
+  .rb-poly__up   { background: linear-gradient(90deg, var(--rb-up), #4ade80); }
+  .rb-poly__down { background: linear-gradient(90deg, #ff7575, var(--rb-down)); }
+
+  .rb-poly__row {
+    display: flex; justify-content: space-between;
+    font-size: .68rem; letter-spacing: .8px;
+  }
+  .rb-poly__row .up   { color: var(--rb-up);   font-weight: 700; }
+  .rb-poly__row .down { color: var(--rb-down); font-weight: 700; }
+
+  /* ============ LOCUTORES ============ */
+  .rb-loc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .rb-loc {
+    --c: var(--rb-neon);
+    background: var(--rb-bg-2);
+    border: 1px solid var(--rb-line);
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: border-color .15s, box-shadow .2s;
+  }
+  .rb-loc[data-id="grok"]   { --c: var(--rb-magenta); }
+  .rb-loc[data-id="manus"]  { --c: var(--rb-neon); }
+  .rb-loc[data-id="claude"] { --c: var(--rb-orange); }
+  .rb-loc[data-id="gpt"]    { --c: #10a37f; }
+
+  .rb-loc.is-live {
+    border-color: var(--c);
+    box-shadow: 0 0 14px color-mix(in srgb, var(--c) 35%, transparent);
+  }
+
+  .rb-loc__nome  { font-size: .9rem; font-weight: 800; color: var(--c); letter-spacing: 1.5px; text-transform: uppercase; }
+  .rb-loc__model { font-size: .6rem; color: var(--rb-text-dim); letter-spacing: 1px; margin-bottom: 6px; }
+  .rb-loc__row   { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+  .rb-loc__votos { font-size: 1.2rem; font-weight: 800; color: var(--rb-text); }
+  .rb-loc__pct   { font-size: .6rem; color: var(--rb-text-dim); letter-spacing: 1px; }
+
+  .rb-loc__bar {
+    height: 5px;
+    background: var(--rb-bg-1);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .rb-loc__fill {
+    height: 100%;
+    background: var(--c);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--c) 50%, transparent);
+    transition: width .4s ease;
+    border-radius: 99px;
+  }
+  .rb-loc__btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--c);
+    color: var(--c);
+    font-family: var(--rb-mono);
+    font-size: .7rem;
+    letter-spacing: 1.5px;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all .15s;
+  }
+  .rb-loc__btn:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--c) 18%, transparent);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--c) 35%, transparent);
+  }
+  .rb-loc__btn:disabled { opacity: .4; cursor: not-allowed; }
+
+  .rb-loading { color: var(--rb-text-dim); font-size: .8rem; padding: 8px 0; }
+</style>
+
+<script>
+(function(){
+  // Backend Flask local — IP fixo conforme auditoria
+  const RB_API = 'http://192.168.1.64:8091';
+
+  // 4 locutores neste bloco do topo (Gemini fica no bloco existente)
+  const LOCUTORES = [
+    { id:'manus',  nome:'Manus',  modelo:'Llama 3.1:8b' },
+    { id:'grok',   nome:'Grok',   modelo:'Auditor Sarcastico' },
+    { id:'claude', nome:'Claude', modelo:'Llama 3.1:8b' },
+    { id:'gpt',    nome:'GPT',    modelo:'radiobot' },
+  ];
+
+  const elPoly  = document.getElementById('rb-poly-list');
+  const elGrid  = document.getElementById('rb-loc-grid');
+  const elPill  = document.getElementById('rb-noar-pill');
+
+  function pct(n, total) { return total > 0 ? Math.round((n/total)*100) : 0; }
+  function esc(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  // ---------------- POLYMARKET ----------------
+  async function loadPoly() {
+    try {
+      const r = await fetch(`${RB_API}/api/polymarket/btc`, { cache: 'no-store' });
+      const j = await r.json();
+      const items = (j.questions || []).slice(0, 4);
+      if (!items.length) { elPoly.innerHTML = '<div class="rb-loading">Sem mercados ativos</div>'; return; }
+      elPoly.innerHTML = items.map(q => `
+        <div class="rb-poly__item">
+          <div class="rb-poly__q">${esc(q.pergunta)}</div>
+          <div class="rb-poly__bar">
+            <div class="rb-poly__up"   style="width:${q.up}%"></div>
+            <div class="rb-poly__down" style="width:${q.down}%"></div>
+          </div>
+          <div class="rb-poly__row">
+            <span class="up">▲ SIM ${q.up}%</span>
+            <span class="down">▼ NÃO ${q.down}%</span>
+          </div>
+        </div>
+      `).join('');
+    } catch(e) {
+      elPoly.innerHTML = '<div class="rb-loading">Erro ao carregar mercados</div>';
+    }
+  }
+
+  // ---------------- LOCUTORES ----------------
+  async function loadLocutores() {
+    try {
+      const r = await fetch(`${RB_API}/placar`, { cache: 'no-store' });
+      const j = await r.json();
+      const total = j.total || 0;
+      const noAr  = j.no_ar || null;
+
+      // Pill "NO AR" no header
+      if (noAr) {
+        elPill.textContent = `NO AR · ${noAr.toUpperCase()}`;
+        elPill.classList.add('is-live');
+        elPill.dataset.id = noAr;
+      } else {
+        elPill.textContent = '—'; elPill.classList.remove('is-live'); delete elPill.dataset.id;
+      }
+
+      elGrid.innerHTML = LOCUTORES.map(loc => {
+        const v = (j.votos && j.votos[loc.id]) || 0;
+        const p = pct(v, total);
+        const live = noAr === loc.id;
+        return `
+          <div class="rb-loc ${live?'is-live':''}" data-id="${loc.id}">
+            <div class="rb-loc__nome">${loc.nome}</div>
+            <div class="rb-loc__model">${esc(loc.modelo)}</div>
+            <div class="rb-loc__row">
+              <span class="rb-loc__votos">${v}</span>
+              <span class="rb-loc__pct">VOTOS · ${p}%</span>
+            </div>
+            <div class="rb-loc__bar"><div class="rb-loc__fill" style="width:${p}%"></div></div>
+            <button class="rb-loc__btn" onclick="rbVotar('${loc.id}', this)">&gt; Votar</button>
+          </div>
+        `;
+      }).join('');
+    } catch(e) {
+      elGrid.innerHTML = '<div class="rb-loading">Erro ao carregar locutores</div>';
+    }
+  }
+
+  // ---------------- VOTAR ----------------
+  window.rbVotar = async function(id, btn) {
+    if (!btn) return;
+    btn.disabled = true;
+    const txtOriginal = btn.textContent;
+    try {
+      const r = await fetch(`${RB_API}/votar`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ locutor: id })
+      });
+      const j = await r.json();
+      btn.textContent = r.ok ? '✓ OK' : (j.erro || 'Erro');
+      await loadLocutores();
+    } catch(e) {
+      btn.textContent = 'Erro';
+    } finally {
+      setTimeout(() => { btn.textContent = txtOriginal; btn.disabled = false; }, 1500);
+    }
+  };
+
+  // ---------------- TICK ----------------
+  function tick() { loadPoly(); loadLocutores(); }
+  tick();
+  setInterval(tick, 30000);
+})();
+</script>
+<!-- ============ FIM DO DASHBOARD DE COMANDO ============ -->
+
+<!-- ===== FIM DASHBOARD TOPO ===== -->
 <meta name="lightning" content="texugorecords@walletofsatoshi.com">
 <meta name="description" content="Estude Bitcoin agora. Música e informação.">
 <meta property="og:title" content="Radio Bitcoin — BitAdict">
