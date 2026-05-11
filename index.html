@@ -1483,6 +1483,64 @@ html,body{
 
 <!-- ===== FIM DASHBOARD TOPO ===== -->
 
+<!-- ===== PAINEL STOCK PICKS (auto) ===== -->
+<style>
+  .rb-stocks { background: linear-gradient(135deg,#0a1428 0%, #061020 100%); border:1px solid rgba(0,212,255,0.25); border-radius:8px; padding:16px; margin: 16px 0; }
+  .rb-stocks__header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+  .rb-stocks__title { font-size:14px; color:var(--blue,#00d4ff); letter-spacing:2px; margin:0; }
+  .rb-stocks__sub { font-size:9px; color:var(--text-dim,#7a8290); }
+  .rb-stocks__grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap:8px; }
+  .rb-stock { background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:10px; transition:transform .15s; }
+  .rb-stock:hover { transform: translateY(-2px); border-color:rgba(0,212,255,0.4); }
+  .rb-stock__sym { font-size:13px; font-weight:bold; color:#fff; letter-spacing:1px; }
+  .rb-stock__name { font-size:8px; color:var(--text-dim,#7a8290); margin-bottom:6px; text-transform:uppercase; }
+  .rb-stock__price { font-size:15px; font-weight:bold; color:#fff; }
+  .rb-stock__chg { font-size:10px; font-weight:bold; margin-top:2px; }
+  .rb-stock__chg.up { color:#22c55e; }
+  .rb-stock__chg.dn { color:#ef4444; }
+  .rb-stocks__foot { font-size:8px; color:var(--text-dim,#7a8290); margin-top:10px; text-align:right; }
+</style>
+<section class="rb-stocks" id="rb-stocks">
+  <div class="rb-stocks__header">
+    <h2 class="rb-stocks__title">▸ STOCK PICKS — SOBERANIA EM USD</h2>
+    <div class="rb-stocks__sub" id="rb-stocks-updated">carregando…</div>
+  </div>
+  <div class="rb-stocks__grid" id="rb-stocks-grid"></div>
+  <div class="rb-stocks__foot">Dados Yahoo Finance · atualizado a cada 15 min · NÃO É RECOMENDAÇÃO DE INVESTIMENTO</div>
+</section>
+<script>
+(function(){
+  const grid = document.getElementById('rb-stocks-grid');
+  const updated = document.getElementById('rb-stocks-updated');
+  async function load(){
+    try {
+      const r = await fetch('stocks.json?ts=' + Date.now());
+      if (!r.ok) throw new Error('http ' + r.status);
+      const d = await r.json();
+      grid.innerHTML = '';
+      d.tickers.forEach(t => {
+        const up = t.change_pct >= 0;
+        const card = document.createElement('div');
+        card.className = 'rb-stock';
+        card.innerHTML =
+          '<div class="rb-stock__sym">' + t.symbol + '</div>' +
+          '<div class="rb-stock__name">' + (t.name || '') + '</div>' +
+          '<div class="rb-stock__price">$' + t.price.toFixed(2) + '</div>' +
+          '<div class="rb-stock__chg ' + (up?'up':'dn') + '">' + (up?'▲':'▼') + ' ' + Math.abs(t.change_pct).toFixed(2) + '%</div>';
+        grid.appendChild(card);
+      });
+      const dt = new Date(d.updated_at);
+      updated.textContent = 'atualizado ' + dt.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+    } catch(e) {
+      updated.textContent = 'erro: ' + e.message;
+    }
+  }
+  load();
+  setInterval(load, 60000);
+})();
+</script>
+<!-- ===== FIM PAINEL STOCK PICKS ===== -->
+
       <!-- VOTAÇÃO: QUEM É SATOSHI? -->
       <div class="panel" style="border-color:rgba(247,201,72,0.3);padding:0;overflow:hidden;">
         <img src="banner_satoshi_vote.jpg" alt="Quem é Satoshi Nakamoto?" style="width:100%;display:block;border-radius:6px 6px 0 0;">

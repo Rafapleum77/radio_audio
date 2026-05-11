@@ -1,0 +1,36 @@
+name: Atualizar cotacoes de stocks
+
+on:
+  schedule:
+    # roda a cada 15 min em horario de mercado (14:30-21:00 UTC seg-sex)
+    - cron: '*/15 14-21 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Atualizar stocks.json
+        run: python scripts/update_stocks.py
+
+      - name: Commit se houve mudanca
+        run: |
+          if [[ -n "$(git status --porcelain stocks.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add stocks.json
+            git commit -m "chore(stocks): atualizar cotacoes [skip ci]"
+            git push
+          else
+            echo "sem mudancas em stocks.json"
+          fi
