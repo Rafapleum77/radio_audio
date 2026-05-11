@@ -1,4 +1,4 @@
-const CACHE = 'bitadict-v3';
+const CACHE = 'bitadict-v4';
 const SHELL = [
   '/',
   '/index.html',
