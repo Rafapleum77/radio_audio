@@ -1,4 +1,4 @@
-const CACHE = 'bitadict-v6';
+const CACHE = 'bitadict-v7';
 const SHELL = [
   '/',
   '/index.html',
@@ -24,7 +24,7 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
 
-  // Nunca interceptar áudio, streams externos, APIs de preço ou dados dinâmicos
+  // Nunca interceptar áudio, streams externos, APIs ou JSON dinâmicos
   if (
     e.request.url.includes('192.168.1.64') ||
     e.request.url.includes('binance') ||
@@ -32,13 +32,28 @@ self.addEventListener('fetch', e => {
     e.request.url.includes('youtube') ||
     e.request.url.includes('googleapis') ||
     e.request.url.includes('polymarket') ||
+    e.request.url.includes('financialmodelingprep') ||
     /\.(mp3|mp4|m4a|ogg|wav)$/.test(url.pathname) ||
     /\.(json)(\?.*)?$/.test(url.pathname + url.search)
   ) {
-    return; // deixa o browser lidar diretamente (sem cache)
+    return; // browser lida diretamente
   }
 
-  // Cache-first para assets locais (imagens, html, js)
+  // HTML/JS/CSS = network-first (sempre busca fresh, cache só pra fallback offline)
+  if (/\.(html|js|css)$/.test(url.pathname) || url.pathname === '/' || url.pathname.endsWith('/')) {
+    e.respondWith(
+      fetch(e.request).then(res => {
+        if (res && res.status === 200 && res.type === 'basic') {
+          const clone = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+        }
+        return res;
+      }).catch(() => caches.match(e.request).then(c => c || caches.match('/index.html')))
+    );
+    return;
+  }
+
+  // Imagens, fontes e outros assets = cache-first (não mudam tanto)
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;
@@ -48,7 +63,7 @@ self.addEventListener('fetch', e => {
           caches.open(CACHE).then(c => c.put(e.request, clone));
         }
         return res;
-      }).catch(() => caches.match('/index.html'));
+      }).catch(() => null);
     })
   );
 });
