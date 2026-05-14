@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-13T21:52:29.005915+00:00",
+  "updated_at": "2026-05-14T01:10:44.637314+00:00",
   "tickers": [
     {
       "symbol": "NVDA",
@@ -9,7 +9,8 @@
       "change_pct": 2.91,
       "currency": "USD",
       "market_state": "UNKNOWN",
-      "name": "NVIDIA"
+      "name": "NVIDIA",
+      "logo": "https://cdn.brandfetch.io/nvidia.com/w/200/h/200"
     },
     {
       "symbol": "TSLA",
@@ -19,7 +20,41 @@
       "change_pct": 0.06,
       "currency": "USD",
       "market_state": "UNKNOWN",
-      "name": "Tesla"
+      "name": "Tesla",
+      "logo": "https://cdn.brandfetch.io/tesla.com/w/200/h/200"
+    },
+    {
+      "symbol": "AAPL",
+      "price": 298.87,
+      "previous_close": 292.68,
+      "change_abs": 6.19,
+      "change_pct": 2.11,
+      "currency": "USD",
+      "market_state": "UNKNOWN",
+      "name": "Apple",
+      "logo": "https://cdn.brandfetch.io/apple.com/w/200/h/200"
+    },
+    {
+      "symbol": "AMZN",
+      "price": 270.13,
+      "previous_close": 268.99,
+      "change_abs": 1.14,
+      "change_pct": 0.42,
+      "currency": "USD",
+      "market_state": "UNKNOWN",
+      "name": "Amazon",
+      "logo": "https://cdn.brandfetch.io/amazon.com/w/200/h/200"
+    },
+    {
+      "symbol": "GOOGL",
+      "price": 402.62,
+      "previous_close": 388.64,
+      "change_abs": 13.98,
+      "change_pct": 3.6,
+      "currency": "USD",
+      "market_state": "UNKNOWN",
+      "name": "Alphabet",
+      "logo": "https://cdn.brandfetch.io/google.com/w/200/h/200"
     },
     {
       "symbol": "INTC",
@@ -29,7 +64,8 @@
       "change_pct": -7.07,
       "currency": "USD",
       "market_state": "UNKNOWN",
-      "name": "Intel"
+      "name": "Intel",
+      "logo": "https://cdn.brandfetch.io/intel.com/w/200/h/200"
     },
     {
       "symbol": "QCOM",
@@ -39,7 +75,8 @@
       "change_pct": -10.26,
       "currency": "USD",
       "market_state": "UNKNOWN",
-      "name": "Qualcomm"
+      "name": "Qualcomm",
+      "logo": "https://cdn.brandfetch.io/qualcomm.com/w/200/h/200"
     },
     {
       "symbol": "MU",
@@ -49,7 +86,8 @@
       "change_pct": 1.04,
       "currency": "USD",
       "market_state": "UNKNOWN",
-      "name": "Micron"
+      "name": "Micron",
+      "logo": "https://cdn.brandfetch.io/micron.com/w/200/h/200"
     },
     {
       "symbol": "TSM",
@@ -59,7 +97,8 @@
       "change_pct": -1.17,
       "currency": "USD",
       "market_state": "UNKNOWN",
-      "name": "Taiwan Semi"
+      "name": "Taiwan Semi",
+      "logo": "https://cdn.brandfetch.io/tsmc.com/w/200/h/200"
     },
     {
       "symbol": "INOD",
@@ -69,27 +108,8 @@
       "change_pct": -13.37,
       "currency": "USD",
       "market_state": "UNKNOWN",
-      "name": "Innodata"
-    },
-    {
-      "symbol": "SLV",
-      "price": 79.35,
-      "previous_close": 78.0,
-      "change_abs": 1.35,
-      "change_pct": 1.73,
-      "currency": "USD",
-      "market_state": "UNKNOWN",
-      "name": "iShares Silver"
-    },
-    {
-      "symbol": "IAU",
-      "price": 88.19,
-      "previous_close": 89.06,
-      "change_abs": -0.87,
-      "change_pct": -0.98,
-      "currency": "USD",
-      "market_state": "UNKNOWN",
-      "name": "iShares Gold"
+      "name": "Innodata",
+      "logo": "https://cdn.brandfetch.io/innodata.com/w/200/h/200"
     }
   ],
   "errors": []

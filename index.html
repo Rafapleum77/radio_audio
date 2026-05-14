@@ -1542,10 +1542,11 @@ html,body{
         const up = t.change_pct >= 0;
         const card = document.createElement('div');
         card.className = 'rb-stock';
-        const logo = 'https://financialmodelingprep.com/image-stock/' + t.symbol + '.png';
+        const logoMain = t.logo || ('https://cdn.brandfetch.io/' + t.symbol.toLowerCase() + '.com/w/200/h/200');
+        const logoFallback = 'https://financialmodelingprep.com/image-stock/' + t.symbol + '.png';
         card.innerHTML =
           '<div class="rb-stock__head">' +
-            '<img class="rb-stock__logo" src="' + logo + '" alt="" onerror="this.style.display=\'none\'" loading="lazy" />' +
+            '<img class="rb-stock__logo" src="' + logoMain + '" alt="" onerror="this.onerror=null;this.src=\'' + logoFallback + '\'" loading="lazy" />' +
             '<div class="rb-stock__sym">' + t.symbol + '</div>' +
           '</div>' +
           '<div class="rb-stock__name">' + (t.name || '') + '</div>' +

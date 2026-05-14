@@ -8,15 +8,16 @@ import urllib.request
 import urllib.error
 
 TICKERS = [
-    ("NVDA", "NVIDIA"),
-    ("TSLA", "Tesla"),
-    ("INTC", "Intel"),
-    ("QCOM", "Qualcomm"),
-    ("MU", "Micron"),
-    ("TSM", "Taiwan Semi"),
-    ("INOD", "Innodata"),
-    ("SLV", "iShares Silver"),
-    ("IAU", "iShares Gold"),
+    ("NVDA", "NVIDIA", "nvidia.com"),
+    ("TSLA", "Tesla", "tesla.com"),
+    ("AAPL", "Apple", "apple.com"),
+    ("AMZN", "Amazon", "amazon.com"),
+    ("GOOGL", "Alphabet", "google.com"),
+    ("INTC", "Intel", "intel.com"),
+    ("QCOM", "Qualcomm", "qualcomm.com"),
+    ("MU", "Micron", "micron.com"),
+    ("TSM", "Taiwan Semi", "tsmc.com"),
+    ("INOD", "Innodata", "innodata.com"),
 ]
 
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15"
@@ -47,10 +48,11 @@ def fetch(symbol: str) -> dict:
 def main():
     out = {"updated_at": datetime.now(timezone.utc).isoformat(), "tickers": []}
     erros = []
-    for sym, name in TICKERS:
+    for sym, name, domain in TICKERS:
         try:
             d = fetch(sym)
             d["name"] = name
+            d["logo"] = f"https://cdn.brandfetch.io/{domain}/w/200/h/200"
             out["tickers"].append(d)
             print(f"OK {sym}: {d['price']} {d['currency']} ({d['change_pct']:+.2f}%)")
             time.sleep(0.3)
