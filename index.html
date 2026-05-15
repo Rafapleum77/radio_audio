@@ -1370,8 +1370,8 @@ html,body{
 
 <script>
 (function(){
-  // Backend Flask local — IP fixo conforme auditoria
-  const RB_API = 'http://192.168.1.64:8091';
+  // Backend Flask local exposto via Cloudflare Tunnel
+  const RB_API = 'https://cds-rush-organizations-define.trycloudflare.com';
 
   // 4 locutores neste bloco do topo (Gemini fica no bloco existente)
   const LOCUTORES = [
