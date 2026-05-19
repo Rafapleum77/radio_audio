@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carteira BIT ADICT · Painel Live · Radio Bitcoin</title>
+<meta name="description" content="Painel ao vivo da carteira BIT ADICT — 12 ativos com indicadores técnicos BUY/HOLD/SELL, atualizado a cada 30 min.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f2a900">
+<link rel="icon" href="icon-512.png">
+<script data-goatcounter="https://radiobitcoin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<!-- OG -->
+<meta property="og:title" content="Painel Carteira BIT ADICT · ao vivo">
+<meta property="og:description" content="12 ativos com indicadores técnicos arrojados. Atualizado 30 min.">
+<meta property="og:image" content="https://radiobitcoin.org/img/bitadict/campanha/06_og_banner.webp">
+
+<style>
+  :root {
+    --btc: #f2a900; --btc-2: #cc8e00;
+    --bg: #07090d; --bg-2: #0b0e11; --panel: #141a24;
+    --txt: #c8d0d8; --txt-dim: #9ca3af;
+    --green: #4ade80; --green-dim: rgba(74,222,128,0.15);
+    --red:   #ef4444; --red-dim:   rgba(239,68,68,0.15);
+    --orange:#fb923c; --orange-dim:rgba(251,146,60,0.15);
+    --cyan:  #22d3ee; --cyan-dim:  rgba(34,211,238,0.15);
+    --gray:  #6b7280; --gray-dim:  rgba(107,114,128,0.15);
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif; background:var(--bg); color:var(--txt); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 28px 16px 80px; }
+
+  header { text-align:center; padding-bottom:18px; border-bottom:1px solid rgba(242,169,0,0.2); margin-bottom:24px; }
+  h1 { color:#fff; margin:0; font-size:24px; letter-spacing:1px; }
+  h1 b { color:var(--btc); }
+  .sub { font-family: ui-monospace,Menlo,monospace; font-size:10px; color:var(--btc); letter-spacing:3px; text-transform:uppercase; margin-top:6px; }
+  .ts { font-family: ui-monospace,Menlo,monospace; font-size:11px; color:var(--txt-dim); margin-top:6px; }
+
+  .summary { display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin: 20px 0 24px; }
+  .sumcard { background:var(--bg-2); border:1px solid rgba(242,169,0,0.2); border-radius:10px; padding:14px; text-align:center; }
+  .sumcard .v { font-size:36px; font-weight:800; line-height:1.1; }
+  .sumcard .k { font-family: ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-top:4px; }
+  .sumcard.buy  .v { color:var(--green); }
+  .sumcard.hold .v { color:var(--gray); }
+  .sumcard.sell .v { color:var(--red);   }
+
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:12px; }
+
+  .card {
+    background:var(--panel); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:14px;
+    border-left-width: 4px; position:relative;
+  }
+  .card.STRONG_BUY { border-left-color: var(--green); background: linear-gradient(90deg, var(--green-dim) 0%, var(--panel) 35%); }
+  .card.BUY         { border-left-color: var(--green); }
+  .card.ACUMULAR    { border-left-color: var(--cyan); background: linear-gradient(90deg, var(--cyan-dim) 0%, var(--panel) 35%); }
+  .card.HOLD        { border-left-color: var(--gray); }
+  .card.TRIM        { border-left-color: var(--orange); background: linear-gradient(90deg, var(--orange-dim) 0%, var(--panel) 35%); }
+  .card.SELL        { border-left-color: var(--red); background: linear-gradient(90deg, var(--red-dim) 0%, var(--panel) 35%); }
+
+  .card-top { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
+  .sym { font-size:18px; font-weight:800; color:#fff; letter-spacing:1px; font-family: ui-monospace,Menlo,monospace; }
+  .price { font-size:18px; font-weight:800; color:#fff; }
+  .change { font-family: ui-monospace,Menlo,monospace; font-size:11px; margin-left:4px; }
+  .change.up { color:var(--green); }
+  .change.dn { color:var(--red); }
+  .nome { font-size:11px; color:var(--txt-dim); margin-bottom:8px; }
+  .setor { font-family: ui-monospace,Menlo,monospace; font-size:9px; color:var(--btc); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; }
+
+  .reco { display:inline-block; padding:4px 10px; border-radius:14px; font-family: ui-monospace,Menlo,monospace; font-size:10px; font-weight:bold; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; }
+  .reco.STRONG_BUY  { background:var(--green);  color:#000; }
+  .reco.BUY         { background:var(--green-dim);  color:var(--green);  border:1px solid var(--green);  }
+  .reco.ACUMULAR    { background:var(--cyan-dim);   color:var(--cyan);   border:1px solid var(--cyan);   }
+  .reco.HOLD        { background:var(--gray-dim);   color:var(--gray);   border:1px solid var(--gray);   }
+  .reco.TRIM        { background:var(--orange-dim); color:var(--orange); border:1px solid var(--orange); }
+  .reco.SELL        { background:var(--red-dim);    color:var(--red);    border:1px solid var(--red);    }
+
+  .indicators { display:grid; grid-template-columns: repeat(3,1fr); gap:6px; font-size:11px; font-family: ui-monospace,Menlo,monospace; margin-top:8px; }
+  .ind { background:rgba(255,255,255,0.03); padding:6px 8px; border-radius:6px; }
+  .ind .k { font-size:9px; color:var(--txt-dim); letter-spacing:1px; text-transform:uppercase; }
+  .ind .v { font-size:12px; color:#fff; font-weight:600; }
+  .ind .v.green { color: var(--green); }
+  .ind .v.red   { color: var(--red); }
+  .ind .v.orange{ color: var(--orange); }
+
+  .racional { font-size:10px; color:var(--txt-dim); margin-top:10px; line-height:1.4; font-style:italic; }
+
+  .pct52 { margin-top:8px; height:3px; background:rgba(255,255,255,0.05); border-radius:2px; position:relative; }
+  .pct52::before { content:''; position:absolute; left:0; top:0; bottom:0; background:var(--btc); border-radius:2px; width: var(--pct, 50%); }
+
+  .ft { margin-top:32px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--txt-dim); font-family: ui-monospace,Menlo,monospace; text-align:center; }
+  .ft a { color:var(--btc); text-decoration:none; }
+  .err { color:var(--red); font-size:11px; }
+  .warn { background:#fef3c7; color:#78350f; padding:8px 12px; border-radius:6px; font-size:10px; text-align:center; margin-bottom:18px; letter-spacing:.5px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>📊 Carteira <b>BIT ADICT</b> · Painel Live</h1>
+    <div class="sub">// perfil arrojado · 12 ativos · indicadores técnicos</div>
+    <div class="ts" id="ts">carregando…</div>
+  </header>
+
+  <div class="warn">⚠️ Não é recomendação de investimento. Análise técnica automatizada baseada em RSI, MACD, SMA50/200 e posição em 52w range. Decisões financeiras são suas.</div>
+
+  <div class="summary" id="summary"></div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="ft">
+    Dados: Yahoo Finance · Atualização: cada 30 min em market hours · Open source ·
+    <a href="https://github.com/Rafapleum77/radio_audio/blob/main/scripts/carteira_picks.py" target="_blank">script</a> ·
+    <a href="/">← radiobitcoin.org</a>
+  </div>
+</div>
+
+<script>
+async function carregar() {
+  try {
+    const r = await fetch('carteira.json?t=' + Date.now());
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    render(d);
+  } catch (e) {
+    document.getElementById('grid').innerHTML = '<div class="err">erro ao carregar carteira.json: ' + e.message + '</div>';
+  }
+}
+
+function render(d) {
+  const ts = new Date(d.gerado_em);
+  document.getElementById('ts').textContent = 'última atualização: ' + ts.toLocaleString('pt-BR');
+
+  const s = d.resumo;
+  document.getElementById('summary').innerHTML = `
+    <div class="sumcard buy"><div class="v">${s.buy_signals}</div><div class="k">🟢 BUY / Acumular</div></div>
+    <div class="sumcard hold"><div class="v">${s.hold_signals}</div><div class="k">⚪ HOLD</div></div>
+    <div class="sumcard sell"><div class="v">${s.sell_signals}</div><div class="k">🔴 Trim / Sell</div></div>
+  `;
+
+  document.getElementById('grid').innerHTML = d.tickers.map(t => {
+    if (t.error) return `<div class="card SELL"><div class="sym">${t.symbol}</div><div class="err">${t.error}</div></div>`;
+    const chgClass = t.change_pct_1d >= 0 ? 'up' : 'dn';
+    const arrow = t.change_pct_1d >= 0 ? '▲' : '▼';
+    const recoCSS = t.reco.replace(' ','_');
+    const macdCSS = t.macd_bullish ? 'green' : 'red';
+    const rsiCSS = t.rsi > 75 ? 'red' : t.rsi > 65 ? 'orange' : t.rsi < 35 ? 'green' : '';
+    const sma50CSS = t.above_sma50 ? 'green' : 'red';
+    return `
+      <div class="card ${recoCSS}">
+        <div class="card-top">
+          <div class="sym">${t.symbol}</div>
+          <div><span class="price">$${t.price}</span><span class="change ${chgClass}">${arrow}${Math.abs(t.change_pct_1d).toFixed(1)}%</span></div>
+        </div>
+        <div class="nome">${t.nome}</div>
+        <div class="setor">// ${t.setor}</div>
+        <span class="reco ${recoCSS}">${t.reco}</span>
+        <div class="indicators">
+          <div class="ind"><div class="k">RSI 14</div><div class="v ${rsiCSS}">${t.rsi}</div></div>
+          <div class="ind"><div class="k">MACD</div><div class="v ${macdCSS}">${t.macd_bullish ? '↑ bull' : '↓ bear'}</div></div>
+          <div class="ind"><div class="k">SMA50</div><div class="v ${sma50CSS}">${t.above_sma50 ? 'acima' : 'abaixo'}</div></div>
+        </div>
+        <div class="pct52" style="--pct: ${t.pct_52w_range}%" title="${t.pct_52w_range}% do range 52w (${t.low_52w}–${t.high_52w})"></div>
+        <div class="racional">${t.racional}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+carregar();
+setInterval(carregar, 5 * 60 * 1000); // refresh a cada 5min do JSON
+</script>
+
+</body>
+</html>
