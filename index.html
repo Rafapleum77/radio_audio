@@ -794,7 +794,8 @@ html,body{
   .rb-ba__cta img { width:100%; max-width:520px; border-radius:8px; margin-bottom:14px; }
   .rb-ba__btns { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
   .rb-ba__btn { display:inline-block; padding:10px 22px; border-radius:30px; text-decoration:none; font-weight:bold; font-size:11px; letter-spacing:1px; text-transform:uppercase; transition:transform .15s; }
-  .rb-ba__btn.pri { background:#f2a900; color:#000; }
+  .rb-ba__btn.pri { background:linear-gradient(180deg,#f2a900 0%,#cc8e00 100%); color:#000; font-weight:800; border:1px solid rgba(255,217,102,0.6); box-shadow:0 4px 14px rgba(242,169,0,0.35), inset 0 1px 0 rgba(255,255,255,0.25); }
+  .rb-ba__btn.pri:hover { transform: translateY(-1px); box-shadow:0 6px 18px rgba(242,169,0,0.55), inset 0 1px 0 rgba(255,255,255,0.3); }
   .rb-ba__btn.sec { background:transparent; color:#f2a900; border:2px solid #f2a900; }
   .rb-ba__btn:active { transform:scale(.97); }
   .rb-ba__specs { background:#141a24; border-radius:10px; padding:14px 18px; border:1px solid rgba(255,255,255,0.06); }
@@ -984,10 +985,12 @@ html,body{
             <span style="font-size:9px;color:#888;">⚡ Lightning · 💵 USDT · 💶 Euro em espécie</span>
           </div>
           <a href="https://wa.me/5561998110979?text=Quero%20comprar%20o%20Pacote%20BIT%20ADICT%20por%20%E2%82%AC149" target="_blank"
-             style="display:block;background:#25D366;color:#000;font-weight:700;font-size:12px;padding:10px;border-radius:5px;text-decoration:none;letter-spacing:1px;text-transform:uppercase;box-shadow:0 0 6px #25D366;transition:opacity .2s;"
-             onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
-            ⚡ COMPRAR AGORA (WhatsApp)
+             style="display:block;background:linear-gradient(180deg,#f2a900 0%,#cc8e00 100%);color:#000;font-weight:800;font-size:12px;padding:12px;border-radius:6px;text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;border:1px solid rgba(255,217,102,0.6);box-shadow:0 4px 14px rgba(242,169,0,0.35), inset 0 1px 0 rgba(255,255,255,0.25);transition:transform .15s, box-shadow .15s;"
+             onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 6px 18px rgba(242,169,0,0.55), inset 0 1px 0 rgba(255,255,255,0.3)';"
+             onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 14px rgba(242,169,0,0.35), inset 0 1px 0 rgba(255,255,255,0.25)';">
+            🛡️ COMPRA SEGURA — WhatsApp
           </a>
+          <div style="font-size:9px;color:#9ca3af;margin-top:6px;letter-spacing:1px;text-transform:uppercase;text-align:center;">🔒 Atendimento verificado · sem intermediários</div>
         </div>
       </div>
 
@@ -1583,8 +1586,9 @@ html,body{
   .rb-pacote__title { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: #f2a900; letter-spacing: 3px; text-transform: uppercase; margin: 0 0 12px; }
   .rb-pacote__img { width: 100%; max-width: 560px; height: auto; border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 0 24px rgba(242,169,0,0.2); }
   .rb-pacote__sub { font-size: 11px; color: var(--text-dim,#7a8290); margin-top: 10px; }
-  .rb-pacote__cta { display: inline-block; margin-top: 10px; padding: 8px 18px; background: #25D366; color: #000; font-weight: bold; border-radius: 4px; text-decoration: none; font-size: 12px; letter-spacing: 1px; }
-  .rb-pacote__cta:hover { background: #1eb858; }
+  .rb-pacote__cta { display: inline-block; margin-top: 10px; padding: 12px 26px; background: linear-gradient(180deg,#f2a900 0%,#cc8e00 100%); color: #000; font-weight: 800; border-radius: 6px; text-decoration: none; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; border: 1px solid rgba(255,217,102,0.6); box-shadow: 0 4px 14px rgba(242,169,0,0.35), inset 0 1px 0 rgba(255,255,255,0.25); transition: transform .15s, box-shadow .15s; }
+  .rb-pacote__cta:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(242,169,0,0.55), inset 0 1px 0 rgba(255,255,255,0.3); }
+  .rb-pacote__trust { font-size: 9px; color: #9ca3af; margin-top: 8px; letter-spacing: 1px; text-transform: uppercase; }
   .rb-pacote__tiers { font-size: 11px; color: #ccffcc; margin: 8px 0 0; line-height: 1.6; }
   .rb-pacote__tiers strong { color: #fff; }
   .rb-pacote__tiers .price { color: var(--gold,#f2a900); }
@@ -1596,7 +1600,8 @@ html,body{
     🪪 <strong>CARTÃO ELITE</strong> · 50.000 sats → <span class="price">$100</span> &nbsp;·&nbsp; 🪪 <strong>CARTÃO STARTER</strong> · 30.000 sats → <span class="price">$50</span>
   </div>
   <div class="rb-pacote__sub">Dê o presente da soberania financeira. Cartões PVC físicos para qualquer lugar do mundo. Pagamento seguro via Wallet of Satoshi · 🇧🇷 🇵🇾 🇦🇷 🇸🇻 🇵🇹 🇺🇸 e além</div>
-  <a class="rb-pacote__cta" href="https://wa.me/5561998110979?text=Vi%20o%20kit%20de%20sats%20digital%20e%20necessito%20mais%20informa%C3%A7%C3%B5es" target="_blank">⚡ Comprar Cartão Voucher — WhatsApp</a>
+  <a class="rb-pacote__cta" href="https://wa.me/5561998110979?text=Vi%20o%20kit%20de%20sats%20digital%20e%20necessito%20mais%20informa%C3%A7%C3%B5es" target="_blank">🛡️ Comprar Cartão Voucher — WhatsApp</a>
+  <div class="rb-pacote__trust">🔒 Atendimento verificado · sem intermediários</div>
 </section>
 <!-- ===== FIM BANNER VALE SATS GLOBAL ===== -->
 
