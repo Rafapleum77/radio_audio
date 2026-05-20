@@ -1,0 +1,688 @@
+# -*- coding: utf-8 -*-
+"""
+BIT ADICT — BOT DIRECIONAL v1.0
+Estratégia: aposta 1 lado (UP ou DOWN) baseado em análise técnica do BTC
+- RSI + EMA + Momentum + Bollinger para decidir direção
+- $2 por trade, sem stop em perdas seguidas
+- Stop-loss global $20
+"""
+
+import os
+import sys
+import time
+import threading
+import requests
+import logging
+import pandas as pd
+import numpy as np
+import ccxt
+from web3 import Web3
+from dotenv import load_dotenv
+# Polymarket migrou pra CLOB V2 em 28/04/2026 — lib V1 nao funciona mais
+from py_clob_client_v2.client import ClobClient
+from py_clob_client_v2 import OrderArgsV2, OrderType, Side, SignatureTypeV2
+BUY = Side.BUY
+
+try:
+    if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
+        sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass
+
+load_dotenv()
+logging.basicConfig(level=logging.WARNING, format="%(levelname)s: %(message)s")
+
+# ═══════════════════════════════════════════════════════════════
+#  PAPER MODE (DRY_RUN=true não envia ordens reais, só loga)
+# ═══════════════════════════════════════════════════════════════
+DRY_RUN = os.getenv("DRY_RUN", "false").lower() == "true"
+SKIP_BALANCE_CHECK = os.getenv("SKIP_BALANCE_CHECK", "false").lower() == "true"
+PAPER_LOG = os.path.expanduser("~/Bots/RESULTADOS/paper_direcional.log")
+
+# ═══════════════════════════════════════════════════════════════
+#  CONFIG
+# ═══════════════════════════════════════════════════════════════
+
+HOST     = "https://clob.polymarket.com"
+POLY_RPC = os.getenv("POLY_RPC", "https://polygon-bor-rpc.publicnode.com")
+KEY      = os.getenv("POLY_KEY")
+FUNDER   = os.getenv("POLY_FUNDER")
+TG_TOKEN = os.getenv("TELEGRAM_TOKEN")
+TG_CHAT  = os.getenv("TELEGRAM_CHAT_ID")
+
+USDC_ADDRESS = Web3.to_checksum_address("0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174")
+CTF_EXCHANGE = Web3.to_checksum_address("0x4bFb41d5B3570DeFd03C39a9A4D8dE6Bd8B8982E")
+
+ERC20_ABI = [
+    {"inputs": [{"name": "account", "type": "address"}], "name": "balanceOf",
+     "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view", "type": "function"},
+    {"inputs": [{"name": "owner", "type": "address"}, {"name": "spender", "type": "address"}],
+     "name": "allowance", "outputs": [{"name": "", "type": "uint256"}],
+     "stateMutability": "view", "type": "function"},
+]
+
+VALOR_TRADE   = float(os.getenv("VALOR_TRADE",  "2.0"))   # $ por operação
+STOP_LOSS     = float(os.getenv("STOP_LOSS",    "20.0"))  # $ perda máxima global
+CONFIANCA_MIN = int(os.getenv("CONFIANCA_MIN",  "65"))    # score mínimo (subiu de 60→65)
+PRECO_MIN     = float(os.getenv("PRECO_MIN",    "0.45"))  # preço mínimo do lado escolhido
+INTERVALO     = 20       # segundos entre ciclos
+SLUG_BASE     = "btc-updown-5m"
+DURACAO_SLOT  = 300
+TEMPO_MIN     = 60       # segundos mínimos antes do slot expirar
+
+V, A, R, C, X = "\033[92m", "\033[93m", "\033[91m", "\033[96m", "\033[0m"
+B = "\033[1m"; DIM = "\033[2m"; MAG = "\033[95m"; WHT = "\033[97m"
+
+# ═══════════════════════════════════════════════════════════════
+#  ESTADO
+# ═══════════════════════════════════════════════════════════════
+
+estado = {
+    "pnl":            0.0,
+    "trades":         0,
+    "ganhos":         0,
+    "inicio":         time.time(),
+    "slot_executado": None,
+    "pausado":        False,
+    "encerrar":       False,
+    "ultima_direcao": None,
+    "maior_pnl":      0.0,
+}
+
+cache = {"slot": None, "t_up": None, "t_down": None, "titulo": None, "valido": False}
+_ultimo_update_id = 0
+exchange = ccxt.binance({"timeout": 10000, "enableRateLimit": True})
+_w3 = None
+
+# ═══════════════════════════════════════════════════════════════
+#  WEB3
+# ═══════════════════════════════════════════════════════════════
+
+def get_w3():
+    global _w3
+    if _w3 is None or not _w3.is_connected():
+        _w3 = Web3(Web3.HTTPProvider(POLY_RPC, request_kwargs={"timeout": 10}))
+    return _w3
+
+def obter_saldo_usdc(wallet):
+    try:
+        w3 = get_w3()
+        usdc = w3.eth.contract(address=USDC_ADDRESS, abi=ERC20_ABI)
+        return round(usdc.functions.balanceOf(Web3.to_checksum_address(wallet)).call() / 1e6, 4)
+    except:
+        return 0.0
+
+def obter_allowance_usdc(wallet):
+    try:
+        w3 = get_w3()
+        usdc = w3.eth.contract(address=USDC_ADDRESS, abi=ERC20_ABI)
+        return round(usdc.functions.allowance(Web3.to_checksum_address(wallet), CTF_EXCHANGE).call() / 1e6, 4)
+    except:
+        return 0.0
+
+# ═══════════════════════════════════════════════════════════════
+#  TELEGRAM
+# ═══════════════════════════════════════════════════════════════
+
+def enviar_telegram(msg):
+    if not TG_TOKEN or not TG_CHAT:
+        return
+    try:
+        requests.post(
+            f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage",
+            data={"chat_id": TG_CHAT, "text": msg, "parse_mode": "Markdown"},
+            timeout=10,
+        )
+    except:
+        pass
+
+def _uptime():
+    s = int(time.time() - estado["inicio"])
+    h, m = divmod(s // 60, 60)
+    return f"{h:02d}h{m:02d}m"
+
+def _taxa():
+    if estado["trades"] == 0: return "0%"
+    return f"{estado['ganhos']/estado['trades']*100:.1f}%"
+
+def processar_comando(texto):
+    cmd = texto.strip().lower().split()[0]
+    if cmd == "/status":
+        saldo = obter_saldo_usdc(FUNDER) if FUNDER else 0
+        enviar_telegram(
+            f"📊 *DIRECIONAL v1.0 — Status*\n"
+            f"Estado: `{'⏸ PAUSADO' if estado['pausado'] else '▶️ ATIVO'}`\n"
+            f"💵 Saldo: `${saldo:.2f}`\n"
+            f"📉 P&L: `${estado['pnl']:+.2f}`\n"
+            f"📈 Trades: `{estado['trades']}` | Win: `{_taxa()}`\n"
+            f"🎯 Última direção: `{estado['ultima_direcao'] or 'nenhuma'}`\n"
+            f"⏱️ Uptime: `{_uptime()}`"
+        )
+    elif cmd == "/pausar":
+        estado["pausado"] = True
+        enviar_telegram("⏸ *Bot PAUSADO*")
+    elif cmd == "/retomar":
+        estado["pausado"] = False
+        enviar_telegram("▶️ *Bot RETOMADO*")
+    elif cmd == "/stop":
+        estado["encerrar"] = True
+        enviar_telegram("🛑 *Encerrando...*")
+    elif cmd == "/ajuda":
+        enviar_telegram("/status /pausar /retomar /stop /ajuda")
+
+def _polling_telegram():
+    global _ultimo_update_id
+    if not TG_TOKEN: return
+    while not estado.get("encerrar"):
+        try:
+            resp = requests.get(
+                f"https://api.telegram.org/bot{TG_TOKEN}/getUpdates",
+                params={"offset": _ultimo_update_id + 1, "timeout": 3},
+                timeout=10,
+            ).json()
+            if resp.get("ok") and resp.get("result"):
+                for u in resp["result"]:
+                    _ultimo_update_id = u["update_id"]
+                    msg = u.get("message") or u.get("edited_message")
+                    if not msg: continue
+                    texto = msg.get("text", "")
+                    chat = str(msg.get("chat", {}).get("id", ""))
+                    if chat == str(TG_CHAT) and texto.startswith("/"):
+                        processar_comando(texto)
+        except:
+            pass
+        time.sleep(3)
+
+# ═══════════════════════════════════════════════════════════════
+#  ANÁLISE TÉCNICA — DECIDE DIREÇÃO
+# ═══════════════════════════════════════════════════════════════
+
+_cache_tec = {"ts": 0, "dados": None}
+
+def obter_dados_tecnicos():
+    """
+    v2.0 — @wehighallday upgrades:
+    - Bollinger em 15m (evita fakeouts do 1m)
+    - Donchian 7 dias para confirmar breakout real
+    - Volume spike detector
+    - Garbage collection explícito para evitar memory leak
+    """
+    import gc
+    agora = time.time()
+    if agora - _cache_tec["ts"] < 60:
+        return _cache_tec["dados"]
+    try:
+        # ── 1m para RSI/EMA/Momentum ─────────────────────────
+        bars_1m = exchange.fetch_ohlcv("BTC/USDT", timeframe="1m", limit=60)
+        df1 = pd.DataFrame(bars_1m, columns=["ts", "open", "high", "low", "close", "vol"])
+
+        # RSI 14
+        delta = df1["close"].diff()
+        gain  = delta.where(delta > 0, 0.0).rolling(14).mean()
+        loss  = (-delta.where(delta < 0, 0.0)).rolling(14).mean()
+        rs    = gain / loss.replace(0, np.nan)
+        rsi   = float((100 - (100 / (1 + rs))).iloc[-1])
+
+        # EMA 9 e 21
+        ema9  = float(df1["close"].ewm(span=9).mean().iloc[-1])
+        ema21 = float(df1["close"].ewm(span=21).mean().iloc[-1])
+
+        # Momentum 10 períodos
+        mom = float(df1["close"].iloc[-1] - df1["close"].iloc[-11])
+
+        # Variação 1m e 3m
+        preco_atual = float(df1["close"].iloc[-1])
+        var1m = float((df1["close"].iloc[-1] - df1["close"].iloc[-2]) / df1["close"].iloc[-2] * 100)
+        var3m = float((df1["close"].iloc[-1] - df1["close"].iloc[-4]) / df1["close"].iloc[-4] * 100)
+
+        # GC do df1m
+        del bars_1m, delta, gain, loss, rs
+        df1 = None
+        gc.collect()
+
+        # ── 15m para Bollinger (anti-fakeout) ────────────────
+        bars_15m = exchange.fetch_ohlcv("BTC/USDT", timeframe="15m", limit=40)
+        df15 = pd.DataFrame(bars_15m, columns=["ts", "open", "high", "low", "close", "vol"])
+
+        sma20_15 = df15["close"].rolling(20).mean()
+        std20_15 = df15["close"].rolling(20).std()
+        bb_upper_15 = float((sma20_15 + std20_15 * 2).iloc[-1])
+        bb_lower_15 = float((sma20_15 - std20_15 * 2).iloc[-1])
+        bb_pos_15 = (preco_atual - bb_lower_15) / (bb_upper_15 - bb_lower_15) if (bb_upper_15 - bb_lower_15) > 0 else 0.5
+
+        # Breakout acima da BB superior 15m?
+        bb_breakout_up   = preco_atual > bb_upper_15
+        bb_breakout_down = preco_atual < bb_lower_15
+
+        # Volume spike 15m (volume atual vs média 20 períodos)
+        vol_media_15 = float(df15["vol"].rolling(20).mean().iloc[-1])
+        vol_atual_15 = float(df15["vol"].iloc[-1])
+        vol_spike    = vol_atual_15 / vol_media_15 if vol_media_15 > 0 else 1.0
+
+        del bars_15m, sma20_15, std20_15
+        df15 = None
+        gc.collect()
+
+        # ── 1h para Donchian 7 dias (42 períodos × 1h = ~7d) ─
+        bars_1h = exchange.fetch_ohlcv("BTC/USDT", timeframe="1h", limit=170)
+        df1h = pd.DataFrame(bars_1h, columns=["ts", "open", "high", "low", "close", "vol"])
+
+        don_high = float(df1h["high"].rolling(168).max().iloc[-1])   # 7 dias
+        don_low  = float(df1h["low"].rolling(168).min().iloc[-1])
+        don_pos  = (preco_atual - don_low) / (don_high - don_low) if (don_high - don_low) > 0 else 0.5
+
+        # Breakout Donchian — fechou acima/abaixo do canal 7d?
+        don_breakout_up   = preco_atual >= don_high * 0.995
+        don_breakout_down = preco_atual <= don_low  * 1.005
+
+        del bars_1h
+        df1h = None
+        gc.collect()
+
+        dados = dict(
+            rsi=round(rsi, 2),
+            ema9=ema9, ema21=ema21,
+            mom=round(mom, 2),
+            # Bollinger 15m
+            bb_pos=round(bb_pos_15, 3),
+            bb_breakout_up=bb_breakout_up,
+            bb_breakout_down=bb_breakout_down,
+            # Volume spike 15m
+            vol_spike=round(vol_spike, 2),
+            # Donchian 7d
+            don_pos=round(don_pos, 3),
+            don_breakout_up=don_breakout_up,
+            don_breakout_down=don_breakout_down,
+            # Variações
+            var1m=round(var1m, 4),
+            var3m=round(var3m, 4),
+            preco=preco_atual,
+        )
+        _cache_tec["ts"]   = agora
+        _cache_tec["dados"] = dados
+        return dados
+    except Exception as e:
+        print(f"{A}[WARN] Dados técnicos: {e}{X}")
+        return _cache_tec["dados"]
+
+
+def decidir_direcao(d) -> tuple:
+    """
+    v2.0 — Lógica melhorada:
+    - Bollinger 15m (anti-fakeout)
+    - Donchian 7 dias (confirmação breakout real)
+    - Volume spike (confirma movimento)
+    - Preço mínimo 0.45 (evita apostas de baixa probabilidade)
+    """
+    if d is None:
+        return None, 0, []
+
+    pontos_up   = 0
+    pontos_down = 0
+    razoes      = []
+
+    # ── RSI ──────────────────────────────────────────────────
+    if d["rsi"] < 30:
+        pontos_up += 30
+        razoes.append(f"RSI oversold {d['rsi']:.1f}")
+    elif d["rsi"] < 40:
+        pontos_up += 15
+        razoes.append(f"RSI baixo {d['rsi']:.1f}")
+    elif d["rsi"] > 70:
+        pontos_down += 30
+        razoes.append(f"RSI overbought {d['rsi']:.1f}")
+    elif d["rsi"] > 60:
+        pontos_down += 15
+        razoes.append(f"RSI alto {d['rsi']:.1f}")
+
+    # ── EMA crossover ────────────────────────────────────────
+    if d["ema9"] > d["ema21"]:
+        pontos_up += 20
+        razoes.append("EMA9>EMA21 bullish")
+    else:
+        pontos_down += 20
+        razoes.append("EMA9<EMA21 bearish")
+
+    # ── Momentum ─────────────────────────────────────────────
+    if d["mom"] > 50:
+        pontos_up += 15
+        razoes.append(f"Mom+{d['mom']:.0f}")
+    elif d["mom"] > 0:
+        pontos_up += 7
+    elif d["mom"] < -50:
+        pontos_down += 15
+        razoes.append(f"Mom{d['mom']:.0f}")
+    elif d["mom"] < 0:
+        pontos_down += 7
+
+    # ── Bollinger 15m (anti-fakeout) ─────────────────────────
+    if d["bb_breakout_up"]:
+        pontos_down += 25   # breakout acima → reversão provável
+        razoes.append("BB15m breakout UP→reversão")
+    elif d["bb_breakout_down"]:
+        pontos_up += 25     # breakout abaixo → reversão provável
+        razoes.append("BB15m breakout DOWN→reversão")
+    elif d["bb_pos"] < 0.2:
+        pontos_up += 15
+        razoes.append(f"BB15m baixo {d['bb_pos']:.2f}")
+    elif d["bb_pos"] > 0.8:
+        pontos_down += 15
+        razoes.append(f"BB15m alto {d['bb_pos']:.2f}")
+
+    # ── Donchian 7 dias ──────────────────────────────────────
+    if d["don_breakout_up"]:
+        pontos_up += 20     # breakout acima do canal 7d = tendência forte
+        razoes.append("Donchian 7d breakout UP")
+    elif d["don_breakout_down"]:
+        pontos_down += 20
+        razoes.append("Donchian 7d breakout DOWN")
+    elif d["don_pos"] < 0.3:
+        pontos_up += 10
+        razoes.append(f"Don7d fundo {d['don_pos']:.2f}")
+    elif d["don_pos"] > 0.7:
+        pontos_down += 10
+        razoes.append(f"Don7d topo {d['don_pos']:.2f}")
+
+    # ── Volume spike (confirma movimento) ────────────────────
+    if d["vol_spike"] > 1.8:
+        # Volume alto confirma a direção dominante
+        if pontos_up > pontos_down:
+            pontos_up += 15
+            razoes.append(f"Vol spike {d['vol_spike']:.1f}x ↑confirma")
+        elif pontos_down > pontos_up:
+            pontos_down += 15
+            razoes.append(f"Vol spike {d['vol_spike']:.1f}x ↓confirma")
+
+    total = pontos_up + pontos_down
+    if total == 0:
+        return None, 0, razoes
+
+    if pontos_up > pontos_down:
+        confianca = int(pontos_up / total * 100)
+        return "UP", confianca, razoes
+    elif pontos_down > pontos_up:
+        confianca = int(pontos_down / total * 100)
+        return "DOWN", confianca, razoes
+    else:
+        return None, 50, razoes
+
+# ═══════════════════════════════════════════════════════════════
+#  POLYMARKET
+# ═══════════════════════════════════════════════════════════════
+
+def extrair_float(resp, chaves=("price", "value", "amount", "balance")):
+    if resp is None: return 0.0
+    if isinstance(resp, (int, float)): return float(resp)
+    if isinstance(resp, str):
+        try: return float(resp)
+        except: return 0.0
+    if isinstance(resp, dict):
+        for k in chaves:
+            if k in resp:
+                try: return float(resp[k])
+                except: continue
+    return 0.0
+
+def tempo_restante():
+    ts = int(time.time())
+    return DURACAO_SLOT - (ts % DURACAO_SLOT)
+
+def slot_atual_ts():
+    ts = int(time.time())
+    return ts - (ts % DURACAO_SLOT)
+
+def conectar(tentativas=5):
+    if not KEY or not FUNDER:
+        print(f"{R}[ERRO] POLY_KEY ou POLY_FUNDER não definidos{X}")
+        sys.exit(1)
+    for i in range(tentativas):
+        try:
+            c = ClobClient(HOST, key=KEY, chain_id=137, signature_type=SignatureTypeV2.POLY_PROXY, funder=FUNDER)
+            c.set_api_creds(c.derive_api_key())
+            print(f"{V}[OK] Conectado ao Polymarket{X}")
+            return c
+        except Exception as e:
+            print(f"{A}[WARN] Conexao falhou ({e}) — retry {2**i}s{X}")
+            time.sleep(2 ** i)
+    sys.exit(1)
+
+def atualizar_cache(client, tentativas=3):
+    slot = slot_atual_ts()
+    if cache["valido"] and cache["slot"] == slot:
+        return True
+    for s in [slot, slot - DURACAO_SLOT]:
+        slug = f"{SLUG_BASE}-{s}"
+        for _ in range(tentativas):
+            try:
+                resp = requests.get(f"https://gamma-api.polymarket.com/markets?slug={slug}", timeout=10).json()
+                if not resp: break
+                m = resp[0]
+                market = client.get_market(m["conditionId"])
+                tokens = market.get("tokens", [])
+                t_up   = next((t["token_id"] for t in tokens if t.get("outcome","").upper() in ["UP","YES"]), None)
+                t_down = next((t["token_id"] for t in tokens if t.get("outcome","").upper() in ["DOWN","NO"]), None)
+                if t_up and t_down:
+                    cache.update(slot=slot, t_up=t_up, t_down=t_down,
+                                 titulo=m.get("question","BTC UP/DOWN 5m"), valido=True)
+                    print(f"\n{C}[CACHE] Slot: {slug}{X}")
+                    return True
+                break
+            except requests.exceptions.Timeout:
+                time.sleep(2)
+            except:
+                break
+    cache["valido"] = False
+    return False
+
+def executar_ordem(client, token_id, preco, label, valor):
+    if DRY_RUN:
+        if preco <= 0:
+            return False, None, f"preço inválido: {preco}"
+        valor_real = max(valor, 5.0 * preco)
+        size = round(valor_real / preco, 2)
+        if size < 5.0:
+            return False, None, f"size inválido: {size}"
+        print(f"  [PAPER] {label}: {size} tokens @ {preco} (${valor_real:.2f})")
+        try:
+            with open(PAPER_LOG, "a") as f:
+                f.write(f"{int(time.time())},{label},{preco:.4f},{size},{valor_real:.2f},{token_id}\n")
+        except Exception:
+            pass
+        return True, f"paper-{int(time.time())}", None
+    try:
+        if preco <= 0:
+            return False, None, f"preço inválido: {preco}"
+        valor_real = max(valor, 5.0 * preco)  # garante size >= 5
+        size = round(valor_real / preco, 2)
+        if size < 5.0:
+            return False, None, f"size inválido: {size}"
+        args = OrderArgsV2(token_id=token_id, price=round(preco, 4), size=size, side=BUY)
+        resp = client.post_order(client.create_order(args), OrderType.GTC)
+        order_id = resp.get("orderID") or resp.get("id") if isinstance(resp, dict) else None
+        print(f"{V}  [OK] {label}: {size} tokens @ {preco} (${valor_real:.2f}){X}")
+        return True, order_id, None
+    except Exception as e:
+        print(f"{R}  [ERRO] {label}: {e}{X}")
+        return False, None, str(e)
+
+# ═══════════════════════════════════════════════════════════════
+#  STOP-LOSS
+# ═══════════════════════════════════════════════════════════════
+
+def verificar_stop_loss():
+    if estado["pnl"] <= -abs(STOP_LOSS):
+        msg = f"🛑 *STOP-LOSS DIRECIONAL*\nPerda: `${abs(estado['pnl']):.2f}`\nTrades: `{estado['trades']}`"
+        print(f"\n{R}{msg}{X}")
+        enviar_telegram(msg)
+        sys.exit(0)
+
+# ═══════════════════════════════════════════════════════════════
+#  LOOP PRINCIPAL
+# ═══════════════════════════════════════════════════════════════
+
+def monitorar():
+    print(f"\n{C}{'═'*60}")
+    print(f"  BIT ADICT — BOT DIRECIONAL v2.0")
+    print(f"  Valor/trade: ${VALOR_TRADE} | Stop: ${STOP_LOSS}")
+    print(f"  Conf.mín: {CONFIANCA_MIN}% | Preço mín: {PRECO_MIN}")
+    print(f"  Indicadores: RSI+EMA+Mom | BB15m | Donchian7d | VolSpike")
+    print(f"{'═'*60}{X}\n")
+
+    try:
+        saldo = obter_saldo_usdc(FUNDER)
+        allow = obter_allowance_usdc(FUNDER)
+        print(f"{V}[Web3] Saldo: ${saldo:.2f} | Allowance: ${allow:.2f}{X}")
+        if allow < VALOR_TRADE:
+            print(f"{R}[AVISO] Allowance insuficiente! Aprova em polymarket.com{X}")
+    except Exception as e:
+        print(f"{A}[WARN] Web3: {e}{X}")
+
+    client = conectar()
+
+    threading.Thread(target=_polling_telegram, daemon=True).start()
+    print(f"{V}[OK] Telegram iniciado{X}\n")
+
+    enviar_telegram(
+        f"🚀 *DIRECIONAL v2.0 iniciado!*\n"
+        f"Valor/trade: `${VALOR_TRADE}` | Stop: `${STOP_LOSS}`\n"
+        f"Confiança mín: `{CONFIANCA_MIN}%` | Preço mín: `{PRECO_MIN}`\n"
+        f"📊 BB15m + Donchian7d + VolSpike + RSI + EMA"
+    )
+
+    while True:
+        try:
+            if estado["encerrar"]:
+                break
+
+            verificar_stop_loss()
+
+            if estado["pausado"]:
+                time.sleep(INTERVALO)
+                continue
+
+            # Dados técnicos e decisão
+            d = obter_dados_tecnicos()
+            direcao, confianca, razoes = decidir_direcao(d)
+
+            tr = tempo_restante()
+
+            # Dashboard linha
+            dir_str = f"{V}▲ UP{X}" if direcao == "UP" else (f"{R}▼ DOWN{X}" if direcao == "DOWN" else f"{DIM}─ NEUTRO{X}")
+            conf_cor = V if confianca >= CONFIANCA_MIN else A
+            print(
+                f"\r{C}{time.strftime('%H:%M:%S')}{X} │ "
+                f"BTC:{C}${d['preco']:,.0f}{X} │ "
+                f"RSI:{C}{d['rsi']:.1f}{X} │ "
+                f"EMA:{V if d['ema9']>d['ema21'] else R}{'▲' if d['ema9']>d['ema21'] else '▼'}{X} │ "
+                f"Dir:{dir_str} {conf_cor}{confianca}%{X} │ "
+                f"T-{R if tr<TEMPO_MIN else V}{tr:03d}s{X} │ "
+                f"P&L:{V if estado['pnl']>=0 else R}{estado['pnl']:+.2f}{X} │ "
+                f"Win:{_taxa()}   ",
+                end=""
+            )
+
+            # Condições para entrar
+            mercado_ok = atualizar_cache(client)
+            if not mercado_ok:
+                time.sleep(INTERVALO)
+                continue
+
+            slot = cache["slot"]
+            slot_novo = slot != estado["slot_executado"]
+
+            if (direcao is not None and
+                confianca >= CONFIANCA_MIN and
+                tr >= TEMPO_MIN and
+                slot_novo):
+
+                # Escolhe token baseado na direção
+                token_id = cache["t_up"] if direcao == "UP" else cache["t_down"]
+                preco = extrair_float(
+                    client.get_price(token_id, side="BUY"),
+                    chaves=("price", "mid", "value")
+                )
+
+                if preco <= 0:
+                    time.sleep(INTERVALO)
+                    continue
+
+                # ── Filtro preço mínimo (evita apostas improváveis) ──
+                if preco < PRECO_MIN:
+                    print(f"\n{A}[SKIP] {direcao} preço {preco:.2f} < mínimo {PRECO_MIN} — mercado desequilibrado{X}")
+                    time.sleep(INTERVALO)
+                    continue
+
+                # Verifica saldo (pulado em paper OU se SKIP_BALANCE_CHECK=true)
+                # SKIP_BALANCE_CHECK: bypass quando cash real esta no proxy (nao no EOA Magic)
+                if not DRY_RUN and not SKIP_BALANCE_CHECK:
+                    saldo, saldo_ok = obter_saldo_usdc(FUNDER), True
+                    if saldo < VALOR_TRADE * 1.05:
+                        print(f"\n{R}[BLOQUEADO] Saldo insuficiente: ${saldo:.2f}{X}")
+                        time.sleep(INTERVALO)
+                        continue
+
+                print(f"\n{V}╔{'═'*50}╗")
+                print(f"║  ⚡ SINAL DIRECIONAL: {direcao} — Confiança {confianca}%")
+                print(f"║  Preço {direcao}: {preco} | Valor: ${VALOR_TRADE}")
+                print(f"║  Razões: {' | '.join(razoes[:3])}")
+                print(f"╚{'═'*50}╝{X}")
+
+                ok, order_id, erro = executar_ordem(client, token_id, preco, direcao, VALOR_TRADE)
+
+                if ok:
+                    estado["trades"] += 1
+                    estado["slot_executado"] = slot
+                    estado["ultima_direcao"] = direcao
+                    # PnL estimado (ganho se acertar: ~$valor/preco * (1-preco) - fees)
+                    ganho_pot = round(VALOR_TRADE / preco * (1 - preco) - VALOR_TRADE * 0.02, 3)
+
+                    enviar_telegram(
+                        f"🎯 *Trade Direcional — {direcao}*\n"
+                        f"Confiança: `{confianca}%`\n"
+                        f"Preço: `{preco}` | Valor: `${VALOR_TRADE}`\n"
+                        f"Ganho potencial: `${ganho_pot:.3f}`\n"
+                        f"📊 {' | '.join(razoes[:3])}\n"
+                        f"P&L acum.: `${estado['pnl']:+.2f}` | Win: `{_taxa()}`"
+                    )
+                    print(f"{V}  ✔ Ordem enviada! Potencial: ${ganho_pot:.3f}{X}")
+                    # hook Nostr best-effort: posta entrada em trade
+                    try:
+                        import sys as _sys
+                        _sys.path.insert(0, str(__import__('pathlib').Path.home() / 'Bots/tiktok_pipeline'))
+                        from post_nostr import publicar_trade
+                        publicar_trade("DIRECIONAL v2", f"BTC {direcao} 5m", f"ENTROU conf={confianca}%", ganho_pot)
+                    except Exception:
+                        pass  # Nostr falha nao quebra o bot
+                else:
+                    print(f"{R}  ✗ Falhou: {erro}{X}")
+
+            time.sleep(INTERVALO)
+
+        except KeyboardInterrupt:
+            break
+        except Exception as e:
+            err = str(e).lower()
+            print(f"\n{R}[ERRO] {e}{X}")
+            if any(k in err for k in ("connection", "timeout", "reset")):
+                try:
+                    client = conectar()
+                except:
+                    pass
+            time.sleep(10)
+
+    # Resumo final
+    h, m = divmod(int(time.time()-estado["inicio"])//60, 60)
+    print(f"\n{MAG}{'═'*45}")
+    print(f"  DIRECIONAL — SESSÃO ENCERRADA")
+    print(f"  P&L: ${estado['pnl']:+.2f} | Trades: {estado['trades']} | Win: {_taxa()}")
+    print(f"  Uptime: {h:02d}h{m:02d}m")
+    print(f"{'═'*45}{X}")
+    enviar_telegram(
+        f"⏹️ *Direcional encerrado*\n"
+        f"P&L: `${estado['pnl']:+.2f}` | Win: `{_taxa()}`\n"
+        f"Trades: `{estado['trades']}` | Uptime: `{h:02d}h{m:02d}m`"
+    )
+
+
+if __name__ == "__main__":
+    monitorar()
