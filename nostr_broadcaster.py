@@ -5,10 +5,18 @@ Posta automaticamente no Nostr a cada troca de música + preço BTC + link da r�
 """
 import json, time, hashlib, hmac, struct, asyncio, os, sys, requests
 from datetime import datetime
+from pathlib import Path
 
 # ── CONFIGURAÇÃO ──────────────────────────────────────────────────
-PRIVKEY_HEX  = "d912165db8bd067f6b9875b7e1a885c2812297a62408d0de007fb63f5502d7f8"
-PUBKEY_HEX   = "23d0a2c3a5ad569f135d3807de3e7b050e3f8e29d9ac088b54cc6d4f7b3827b1"
+# Chaves Nostr lidas via dotenv (~/Bots/XRP/.env, symlinked aqui como .env).
+# .env esta em .gitignore — NUNCA hardcoded aqui.
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).parent / ".env")
+except ImportError:
+    pass  # fallback: espera env vars ja exportadas pelo ambiente
+PRIVKEY_HEX = os.environ.get("NOSTR_PRIVKEY") or sys.exit("ERRO: NOSTR_PRIVKEY nao definida no .env")
+PUBKEY_HEX  = os.environ.get("NOSTR_PUBKEY")  or sys.exit("ERRO: NOSTR_PUBKEY nao definida no .env")
 RADIO_URL    = "https://radiobitcoin.bitadict.com"
 LIGHTNING    = "texugorecords@walletofsatoshi.com"
 TRACKS_JSON  = os.path.join(os.path.dirname(__file__), "tracks.json")
