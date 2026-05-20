@@ -811,9 +811,13 @@ html,body{
   <!-- HEADER NAV -->
   <nav id="hdr-nav" style="display:flex;justify-content:center;gap:0;padding:6px 12px;background:linear-gradient(180deg,#07090d 0%,#0b0e11 100%);border-bottom:1px solid rgba(242,169,0,0.18);flex-wrap:wrap;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;">
     <a href="/" style="color:#f2a900;text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Home">⚡ RÁDIO</a>
-    <a href="/carteira.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Carteira ao vivo com indicadores técnicos">📊 CARTEIRA</a>
-    <a href="/recovery.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="BIT ADICT Security Recovery Kit">🛡️ RECOVERY KIT</a>
-    <a href="/agenda.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;" title="Agenda de posts automatizados">📅 AGENDA</a>
+    <a href="/carteira.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Carteira ao vivo">📊 CARTEIRA</a>
+    <a href="/recovery.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="BIT ADICT Security Recovery Kit">🛡️ RECOVERY</a>
+    <a href="/vip.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Sinais em tempo real €19/mês">📡 VIP</a>
+    <a href="/mentoria.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Mentoria 1:1">👤 MENTORIA</a>
+    <a href="/curso.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Curso completo BIT ADICT">🎓 CURSO</a>
+    <a href="/ebook.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="eBook grátis 10 erros">📥 EBOOK</a>
+    <a href="/agenda.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;" title="Agenda de posts">📅 AGENDA</a>
   </nav>
 
   <!-- ===== ACOMPANHE A GENTE — 5 redes sociais com janelas otimas ===== -->
@@ -1790,6 +1794,86 @@ html,body{
   <div class="rb-pacote__trust">🔒 Atendimento verificado · sem intermediários</div>
 </section>
 <!-- ===== FIM BANNER VALE SATS GLOBAL ===== -->
+
+
+<!-- ===== BIT ADICT PRODUTOS (VIP · MENTORIA · EBOOK · CURSO) ===== -->
+<style>
+  .rb-produtos { max-width:1100px; margin:24px auto; padding:24px 14px; background:linear-gradient(180deg,#07090d 0%,#0b0e11 100%); border:1px solid rgba(242,169,0,0.25); border-radius:12px; box-shadow:0 8px 30px -10px rgba(242,169,0,0.25); }
+  .rb-produtos__head { text-align:center; margin-bottom:18px; }
+  .rb-produtos__tag { font-family:ui-monospace,Menlo,monospace; font-size:10px; color:#f2a900; letter-spacing:3px; text-transform:uppercase; }
+  .rb-produtos__title { font-size:22px; color:#fff; font-weight:900; margin:6px 0 4px; letter-spacing:1px; }
+  .rb-produtos__title b { color:#f2a900; }
+  .rb-produtos__sub { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#9ca3af; letter-spacing:2px; }
+  .rb-produtos__grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:18px; }
+  .rb-produtos__card { background:#141a24; border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:18px 16px; text-align:center; transition:border-color .2s, transform .15s; text-decoration:none; color:inherit; display:block; }
+  .rb-produtos__card:hover { border-color:#f2a900; transform:translateY(-2px); box-shadow:0 6px 20px -8px rgba(242,169,0,0.4); }
+  .rb-produtos__icon { font-size:36px; margin-bottom:8px; }
+  .rb-produtos__name { font-size:14px; color:#fff; font-weight:800; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
+  .rb-produtos__price { color:#f2a900; font-size:18px; font-weight:800; margin-bottom:4px; }
+  .rb-produtos__desc { color:#9ca3af; font-size:12px; line-height:1.4; }
+  .rb-produtos__badge-free { display:inline-block; background:#22c55e; color:#000; padding:2px 8px; border-radius:12px; font-size:9px; font-weight:bold; letter-spacing:1px; }
+  .rb-produtos__badge-new { display:inline-block; background:#f2a900; color:#000; padding:2px 8px; border-radius:12px; font-size:9px; font-weight:bold; letter-spacing:1px; }
+</style>
+<section class="rb-produtos">
+  <div class="rb-produtos__head">
+    <div class="rb-produtos__tag">▣▣▣ ECOSSISTEMA BIT ADICT ▣▣▣</div>
+    <h2 class="rb-produtos__title">DA INICIAÇÃO À <b>SOBERANIA</b></h2>
+    <div class="rb-produtos__sub">7 PORTAS DE ENTRADA · UMA OPERAÇÃO</div>
+  </div>
+  <div class="rb-produtos__grid">
+
+    <a class="rb-produtos__card" href="/ebook.html">
+      <div class="rb-produtos__icon">📥</div>
+      <div class="rb-produtos__name">eBook</div>
+      <div class="rb-produtos__price"><span class="rb-produtos__badge-free">GRÁTIS</span></div>
+      <div class="rb-produtos__desc">10 erros de quem perde Bitcoin · PDF 28 páginas</div>
+    </a>
+
+    <a class="rb-produtos__card" href="/recovery.html">
+      <div class="rb-produtos__icon">🛡️</div>
+      <div class="rb-produtos__name">Recovery Kit</div>
+      <div class="rb-produtos__price">€19 · €49 · €149</div>
+      <div class="rb-produtos__desc">Digital · pen drive · pacote completo com bots</div>
+    </a>
+
+    <a class="rb-produtos__card" href="/vip.html">
+      <div class="rb-produtos__icon">📡</div>
+      <div class="rb-produtos__name">VIP</div>
+      <div class="rb-produtos__price">€19<span style="font-size:13px;color:#9ca3af;">/mês</span></div>
+      <div class="rb-produtos__desc">Sinais dos 3 bots em tempo real · WhatsApp privado</div>
+    </a>
+
+    <a class="rb-produtos__card" href="/mentoria.html">
+      <div class="rb-produtos__icon">👤</div>
+      <div class="rb-produtos__name">Mentoria 1:1</div>
+      <div class="rb-produtos__price">€150/h · €497 4h</div>
+      <div class="rb-produtos__desc">Setup completo dos bots, opsec e Recovery Kit</div>
+    </a>
+
+    <a class="rb-produtos__card" href="/curso.html">
+      <div class="rb-produtos__icon">🎓</div>
+      <div class="rb-produtos__name">Curso</div>
+      <div class="rb-produtos__price">€297 <span style="font-size:11px;color:#9ca3af;">vitalício</span> <span class="rb-produtos__badge-new">PRÉ-VENDA</span></div>
+      <div class="rb-produtos__desc">8 módulos · 30+ aulas · soberania digital completa</div>
+    </a>
+
+    <a class="rb-produtos__card" href="https://chat.whatsapp.com/Eux7TBBova57booMCYJHmA" target="_blank" rel="noopener">
+      <div class="rb-produtos__icon">💬</div>
+      <div class="rb-produtos__name">Comunidade</div>
+      <div class="rb-produtos__price"><span class="rb-produtos__badge-free">GRÁTIS</span></div>
+      <div class="rb-produtos__desc">Grupo WhatsApp aberto · updates + dicas</div>
+    </a>
+
+    <a class="rb-produtos__card" href="https://wa.me/5561998110979?text=Quero%20comprar%20o%20Pacote%20BIT%20ADICT%20por%20%E2%82%AC149" target="_blank" rel="noopener">
+      <div class="rb-produtos__icon">📦</div>
+      <div class="rb-produtos__name">Pacote Completo</div>
+      <div class="rb-produtos__price">€149</div>
+      <div class="rb-produtos__desc">Recovery Kit + 4 bots + suporte WhatsApp</div>
+    </a>
+
+  </div>
+</section>
+<!-- ===== FIM BIT ADICT PRODUTOS ===== -->
 
 
 <!-- ===== PAINEL STOCK PICKS (auto) ===== -->
