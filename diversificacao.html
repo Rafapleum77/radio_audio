@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diversificação Soberana · Bitcoin + Shitcoins + Ações + Commodities · BIT ADICT</title>
+<script data-goatcounter="https://radiobitcoin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<meta name="description" content="Como o BIT ADICT diversifica: 60% Bitcoin + 15% shitcoins selecionadas + 15% ações globais (tech/semi/energia) + 10% commodities (ouro/prata/petróleo). Filosofia de portfólio soberano.">
+<meta name="lightning" content="texugorecords@walletofsatoshi.com">
+
+<meta property="og:title" content="Diversificação Soberana BIT ADICT · BTC + Alts + Ações + Commodities">
+<meta property="og:description" content="60/15/15/10. Como Rafael opera o portfólio dele com Bitcoin como base.">
+<meta property="og:url" content="https://radiobitcoin.org/diversificacao.html">
+<meta property="og:image" content="https://radiobitcoin.org/img/og/og_diversificacao.webp">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Radio Bitcoin">
+<meta property="og:locale" content="pt_BR">
+
+<link rel="icon" href="icon-512.png">
+<meta name="theme-color" content="#f2a900">
+<script src="/scripts/currency.js" defer></script>
+
+<style>
+  :root { --btc:#f2a900; --btc-2:#cc8e00; --bg:#07090d; --bg-2:#0b0e11; --txt:#c8d0d8; --txt-dim:#9ca3af;
+          --gold:#fbbf24; --silver:#cbd5e1; --oil:#1e293b; --tech:#22d3ee; --shit:#a78bfa; --btc-tier:#f2a900; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background:var(--bg); color:var(--txt); line-height:1.6; }
+  .wrap { max-width:980px; margin:0 auto; padding:24px 16px 80px; }
+
+  .hdr { text-align:center; padding:24px 0 16px; border-bottom:1px solid rgba(242,169,0,0.2); margin-bottom:24px; }
+  .hdr a { color:var(--txt-dim); text-decoration:none; font-size:11px; letter-spacing:2px; text-transform:uppercase; font-family:ui-monospace,Menlo,monospace; }
+  .hdr a:hover { color:var(--btc); }
+  .brand { font-size:22px; font-weight:900; letter-spacing:1px; color:#fff; margin:8px 0 2px; }
+  .brand b { color:var(--btc); }
+  .brand-sub { font-family:ui-monospace,Menlo,monospace; font-size:10px; color:var(--btc); letter-spacing:3px; text-transform:uppercase; }
+
+  h1 { font-size:32px; color:#fff; margin:0 0 8px; letter-spacing:0.5px; line-height:1.2; text-align:center; }
+  h1 b { color:var(--btc); }
+  .lead { text-align:center; color:var(--txt-dim); font-size:16px; max-width:680px; margin:0 auto 30px; line-height:1.6; }
+
+  .warn { background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.4); padding:14px 18px; border-radius:10px; color:#fca5a5; font-size:13px; line-height:1.6; margin:0 0 32px; }
+  .warn b { color:#ef4444; }
+
+  /* Tier blocks */
+  .tier { background:linear-gradient(180deg,#0b0e11 0%, #141a24 100%); border:1px solid rgba(255,255,255,0.06); border-radius:14px; padding:24px 22px; margin-bottom:18px; position:relative; }
+  .tier::before { content:""; position:absolute; left:0; top:0; bottom:0; width:6px; border-radius:14px 0 0 14px; }
+  .tier.t1::before { background:var(--btc-tier); }
+  .tier.t2::before { background:var(--shit); }
+  .tier.t3::before { background:var(--tech); }
+  .tier.t4::before { background:var(--gold); }
+
+  .tier__head { display:flex; align-items:baseline; justify-content:space-between; gap:14px; margin-bottom:12px; flex-wrap:wrap; }
+  .tier__name { color:#fff; font-size:22px; font-weight:800; letter-spacing:0.5px; margin:0; }
+  .tier__name b { color:var(--btc); }
+  .tier.t1 .tier__name b { color:var(--btc-tier); }
+  .tier.t2 .tier__name b { color:var(--shit); }
+  .tier.t3 .tier__name b { color:var(--tech); }
+  .tier.t4 .tier__name b { color:var(--gold); }
+  .tier__pct { font-family:ui-monospace,Menlo,monospace; font-size:32px; font-weight:800; color:var(--btc); letter-spacing:1px; }
+  .tier.t1 .tier__pct { color:var(--btc-tier); }
+  .tier.t2 .tier__pct { color:var(--shit); }
+  .tier.t3 .tier__pct { color:var(--tech); }
+  .tier.t4 .tier__pct { color:var(--gold); }
+  .tier__role { font-family:ui-monospace,Menlo,monospace; font-size:10px; color:var(--txt-dim); letter-spacing:2px; text-transform:uppercase; margin-bottom:18px; }
+
+  .tier h3 { color:var(--btc); font-size:14px; margin:18px 0 8px; font-family:ui-monospace,Menlo,monospace; letter-spacing:1.5px; text-transform:uppercase; }
+  .tier.t1 h3 { color:var(--btc-tier); }
+  .tier.t2 h3 { color:var(--shit); }
+  .tier.t3 h3 { color:var(--tech); }
+  .tier.t4 h3 { color:var(--gold); }
+
+  .tier p { color:var(--txt); font-size:14px; line-height:1.7; margin:0 0 12px; }
+  .tier p b { color:#ffd966; }
+
+  .picks { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:8px; margin:10px 0 14px; }
+  .pick { background:#07090d; border:1px solid rgba(255,255,255,0.08); padding:8px 12px; border-radius:8px; font-size:12px; text-align:center; }
+  .pick b { display:block; color:#fff; font-size:13px; font-weight:bold; }
+  .pick span { color:var(--txt-dim); font-size:10px; }
+
+  .rule { background:#07090d; border-left:3px solid var(--btc); padding:10px 14px; margin:12px 0; font-size:13px; color:var(--txt); border-radius:0 8px 8px 0; }
+  .rule b { color:var(--btc); }
+  .tier.t2 .rule { border-left-color:var(--shit); }
+  .tier.t2 .rule b { color:var(--shit); }
+  .tier.t3 .rule { border-left-color:var(--tech); }
+  .tier.t3 .rule b { color:var(--tech); }
+  .tier.t4 .rule { border-left-color:var(--gold); }
+  .tier.t4 .rule b { color:var(--gold); }
+
+  .allocation-bar { display:flex; height:50px; border-radius:10px; overflow:hidden; margin:30px 0 20px; box-shadow:0 4px 14px rgba(0,0,0,0.5); }
+  .allocation-bar > div { display:flex; align-items:center; justify-content:center; color:#000; font-weight:bold; font-size:13px; letter-spacing:1px; transition:flex 0.3s; }
+  .alloc-btc { background:var(--btc-tier); flex:60; }
+  .alloc-alt { background:var(--shit); flex:15; color:#fff; }
+  .alloc-eq  { background:var(--tech); flex:15; }
+  .alloc-com { background:var(--gold); flex:10; }
+
+  table.what-where { width:100%; border-collapse:collapse; background:#0b0e11; border-radius:10px; overflow:hidden; margin:20px 0; }
+  table.what-where th, table.what-where td { padding:10px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.05); font-size:13px; }
+  table.what-where th { background:#141a24; color:var(--btc); font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; }
+  table.what-where td b { color:#ffd966; }
+  table.what-where td.no { color:#ef4444; opacity:0.7; }
+
+  .cta { display:inline-block; padding:14px 28px; background:linear-gradient(180deg,var(--btc) 0%,var(--btc-2) 100%); color:#000; text-decoration:none; border-radius:30px; font-weight:800; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; margin:8px 4px; box-shadow:0 4px 14px rgba(242,169,0,0.35); }
+  .cta.sec { background:transparent; color:var(--btc); border:2px solid var(--btc); }
+
+  details { background:#141a24; padding:14px 18px; border-radius:10px; border:1px solid rgba(255,255,255,0.06); margin-bottom:10px; }
+  details summary { cursor:pointer; color:var(--btc); font-weight:bold; font-size:14px; }
+  details p { color:var(--txt-dim); font-size:13px; line-height:1.7; margin:10px 0 0; }
+
+  .ft { text-align:center; padding:30px 0 10px; color:var(--txt-dim); font-size:10px; letter-spacing:2px; text-transform:uppercase; font-family:ui-monospace,Menlo,monospace; }
+  .ft a { color:var(--btc); text-decoration:none; }
+
+  .hero-vis { text-align:center; padding:30px 20px; background:radial-gradient(ellipse at center, rgba(242,169,0,0.08) 0%, transparent 70%); border-radius:14px; margin-bottom:30px; }
+  .hero-vis__label { font-family:ui-monospace,Menlo,monospace; font-size:10px; color:var(--btc); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hdr">
+  <div class="brand-sub">RADIOBITCOIN.ORG · OPERAÇÃO VALE SATS GLOBAL</div>
+  <div class="brand">BIT <b>ADICT</b></div>
+  <a href="/">← VOLTAR PARA RÁDIO</a>
+</header>
+
+<h1>DIVERSIFICAÇÃO <b>SOBERANA</b></h1>
+<p class="lead">
+  Como eu (Rafael) opero meu portfólio na prática. Não é teoria de livro de finanças.
+  É o que aprendi <b style="color:#fff;">na pele</b> desde 2015 — bull runs, crashes, FTX, Terra Luna, halving 2024, ETF Bitcoin, e o ciclo atual de 2026.
+</p>
+
+<div class="warn">
+  ⚠️ <b>Disclaimer obrigatório:</b> Não sou consultor de investimento credenciado pela CVM. O conteúdo abaixo é educacional e reflete <i>minha</i> alocação pessoal. Não é recomendação. Resultados passados não garantem resultados futuros. Você é responsável pelas suas decisões. Comece pequeno, estude muito, opere com risco que possa perder.
+</div>
+
+<div class="hero-vis">
+  <div class="hero-vis__label">▣▣▣ ALOCAÇÃO BIT ADICT ▣▣▣</div>
+  <h2 style="color:#fff;font-size:22px;margin:8px 0 18px;">60 · 15 · 15 · 10</h2>
+  <div class="allocation-bar">
+    <div class="alloc-btc">60% BITCOIN</div>
+    <div class="alloc-alt">15% ALTS</div>
+    <div class="alloc-eq">15% AÇÕES</div>
+    <div class="alloc-com">10% COMMODITIES</div>
+  </div>
+  <p style="font-size:13px;color:var(--txt-dim);margin:0;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6;">
+    Essa é a alocação atual (Maio 2026). Em <b style="color:var(--btc);">bear market profundo</b> eu aumento BTC pra 80%+. Em <b style="color:var(--btc);">topo de ciclo</b> reduzo alts/equities e migro pra commodities + stables. <i>O modelo não é estático.</i>
+  </p>
+</div>
+
+<!-- ===== TIER 1 — BITCOIN ===== -->
+<section class="tier t1">
+  <div class="tier__head">
+    <h2 class="tier__name">TIER 1 · <b>BITCOIN</b></h2>
+    <div class="tier__pct">60%</div>
+  </div>
+  <div class="tier__role">▣ BASE · OURO DIGITAL · NÃO-NEGOCIÁVEL</div>
+
+  <p><b>Por quê é a base de tudo?</b> Bitcoin é o único ativo no portfolio que tem <b>política monetária finita</b> (21 milhões max), <b>custódia 100% soberana</b> (seed phrase = controle absoluto), e <b>sem contraparte</b>. Banco pode falir, governo pode confiscar conta, exchange pode congelar — Bitcoin self-custody é teu, ponto.</p>
+
+  <h3>Como eu opero</h3>
+  <div class="rule"><b>1. DCA religioso:</b> compra X reais/dólares por semana, sem olhar preço. Funcionou no $69k topo de 2021, funcionou no $15k bear de 2022, funciona no ciclo atual.</div>
+  <div class="rule"><b>2. Custódia split:</b> 80% em cold storage (hardware wallet sem nuvem) + 20% em hot wallet/Lightning pra operar. Nada em exchange por mais de 7 dias.</div>
+  <div class="rule"><b>3. Halving cycle awareness:</b> 12-18 meses depois do halving costuma ser o topo do ciclo. Próximo halving: Abril/2028. Atualmente (2026) tô no meio da fase de acumulação distribuída do ciclo pós-halving 2024.</div>
+  <div class="rule"><b>4. Sem alavancagem:</b> nunca uso futuros de BTC. Quem opera com 10x liquida no primeiro pavor de 8%. Spot only pra o tier 1.</div>
+
+  <h3>Erros que cometi</h3>
+  <p>• Tentei "timing" o topo de 2017 → vendi cedo demais → recomprei mais caro<br>
+     • Deixei 100% em exchange "porque era prático" → FTX me deu sustinho (não perdi mas vi gente perder)<br>
+     • Subestimei volatilidade — vendi no fundo de 2022 por pavor → arrependimento até hoje<br>
+     • Anotei seed em foto do iPhone (cloud sync ativo). Migrei pra metal antes que vazasse.</p>
+
+  <h3>Sinais de saída/redução</h3>
+  <p>Eu reduzo BTC quando: <b>(a)</b> RSI semanal em 80+ por 4+ semanas, <b>(b)</b> Pi Cycle Top sinaliza, <b>(c)</b> Coinbase no top da App Store por semanas, <b>(d)</b> motorista de Uber me dá dica de Bitcoin. Mas <b>nunca</b> vendo 100% — sempre fica posição base.</p>
+</section>
+
+<!-- ===== TIER 2 — SHITCOINS / ALTS ===== -->
+<section class="tier t2">
+  <div class="tier__head">
+    <h2 class="tier__name">TIER 2 · <b>SHITCOINS / ALTS</b></h2>
+    <div class="tier__pct">15%</div>
+  </div>
+  <div class="tier__role">▣ ESPECULAÇÃO COM CRITÉRIO · ALTA VOLATILIDADE</div>
+
+  <p><b>Aqui é onde a maioria perde dinheiro.</b> 99% das altcoins vão a zero no ciclo seguinte. Mas o <b>1% que sobrevive</b> rende 10-100x em bull market. Estratégia: <b>posição pequena, critério rígido, saída disciplinada</b>.</p>
+
+  <h3>Critérios de inclusão (filtro brutal)</h3>
+  <div class="rule"><b>Critério 1 · Sobreviveu a 2 bear markets:</b> elimina 80% das altcoins. ETH, SOL, XRP, BNB sobreviveram. Memecoin do mês não passa.</div>
+  <div class="rule"><b>Critério 2 · Caso de uso real:</b> ETH = smart contracts. SOL = DEX/throughput. XRP = remessas internacionais. Sem use case? Pula.</div>
+  <div class="rule"><b>Critério 3 · Liquidez forte:</b> volume diário >$500M. Senão vira "trap" — sobe fácil, vende impossível.</div>
+  <div class="rule"><b>Critério 4 · Nada de pre-sale, ICO, IDO:</b> compra só em exchange líquida após 6+ meses listado.</div>
+
+  <h3>Alts atuais (Maio 2026)</h3>
+  <div class="picks">
+    <div class="pick"><b>SOL</b><span>50% do alt bag</span></div>
+    <div class="pick"><b>ETH</b><span>25% do alt bag</span></div>
+    <div class="pick"><b>XRP</b><span>15% do alt bag</span></div>
+    <div class="pick"><b>SUI</b><span>5% spec</span></div>
+    <div class="pick"><b>HYPE</b><span>5% spec</span></div>
+  </div>
+
+  <h3>Como eu opero</h3>
+  <p><b>Spot quando convicto · Polymarket quando volátil:</b> ao invés de comprar SOL com alavancagem, opero em <a href="/vip.html" style="color:var(--shit);">Polymarket UP/DOWN</a> com os bots. Win/loss limitado, sem risco de liquidação. <b>Position size:</b> nenhuma alt sozinha passa de 5% do portfolio total.</p>
+
+  <h3>Erros que cometi</h3>
+  <p>• Comprei Terra/Luna em $80 "porque era estável" → zero<br>
+     • Comprei BNB "porque a CZ confiava no projeto" → CZ acabou preso, BNB se segurou mas susto sério<br>
+     • Apostei alto em SAFEMOON em 2021 → -98%<br>
+     • Cheguei a ter 30+ alts diferentes → me perdi → consolidei pra 5 max</p>
+
+  <h3>Sinais de saída</h3>
+  <p>Quando BTC dominance começa a subir consistente (sai do bottom de altseason ~40% pra ~55%+), reduzo alts pra 5% do portfolio e o restante migra pra BTC ou stables. Altseason termina rápido — vendo cedo, perco upside mas mantenho lucro.</p>
+</section>
+
+<!-- ===== TIER 3 — AÇÕES GLOBAIS ===== -->
+<section class="tier t3">
+  <div class="tier__head">
+    <h2 class="tier__name">TIER 3 · <b>AÇÕES GLOBAIS</b></h2>
+    <div class="tier__pct">15%</div>
+  </div>
+  <div class="tier__role">▣ HEDGE TECH + RENDA · CUSTÓDIA INSTITUCIONAL</div>
+
+  <p>Crypto sobe muito, cai muito. Ações americanas em setores estratégicos (semicondutores, energia limpa, AI) seguem ciclo diferente e <b>geram dividendos</b> em USD. Hedge importante contra crypto winter prolongado.</p>
+
+  <h3>Setores que opero</h3>
+  <div class="rule"><b>Semicondutores (50% do equity bag):</b> a infraestrutura da revolução AI/crypto/cloud. NVDA, TSM, MU, QCOM, INTC. Volátil mas tendência secular forte por 10+ anos.</div>
+  <div class="rule"><b>Tech blue chips (25%):</b> TSLA (energia + AI + transporte), INOD (data labeling pra AI). Empresas que mudam estrutura da economia.</div>
+  <div class="rule"><b>Renda elétrica / utilities (15%):</b> CWEN (Clearway Energy) — dividendos 6%+, energia renovável. Posição defensiva.</div>
+  <div class="rule"><b>Spec AI/Bio (10%):</b> nomes de growth seletivos, position size pequena (1-2% por nome).</div>
+
+  <h3>Picks atuais (carteira pública)</h3>
+  <div class="picks">
+    <div class="pick"><b>NVDA</b><span>infra AI</span></div>
+    <div class="pick"><b>TSM</b><span>chips</span></div>
+    <div class="pick"><b>TSLA</b><span>energia+AI</span></div>
+    <div class="pick"><b>MU</b><span>memória</span></div>
+    <div class="pick"><b>QCOM</b><span>mobile chips</span></div>
+    <div class="pick"><b>INTC</b><span>recovery play</span></div>
+    <div class="pick"><b>INOD</b><span>data AI</span></div>
+    <div class="pick"><b>CWEN</b><span>renda 6%+</span></div>
+  </div>
+  <p style="font-size:12px;color:var(--txt-dim);text-align:center;margin-top:8px;">
+    Carteira completa atualizada em tempo real: <a href="/carteira.html" style="color:var(--tech);">radiobitcoin.org/carteira.html</a>
+  </p>
+
+  <h3>Como eu opero</h3>
+  <p><b>Onde:</b> Avenue (BR pra acessar US sem IRS complicado) ou Interactive Brokers (global). Custódia: corretora regulada pela SEC. Tax: SEC W-8BEN form pra evitar bitributação. <b>Holding period</b>: 3-5 anos pra setor de tendência (semis), 6-18 meses pra spec.</p>
+
+  <h3>Posições passadas que saí</h3>
+  <p>• XLE (ETF petróleo) — entrei em 2021, saí em 2022 com +60%<br>
+     • iShares Gold (IAU) — segurei 2022-2023 como hedge inflação, troquei por Bitcoin em 2024<br>
+     • iShares Silver (SLV) — mesma lógica, saí pra realocar em BTC durante a queda</p>
+</section>
+
+<!-- ===== TIER 4 — COMMODITIES ===== -->
+<section class="tier t4">
+  <div class="tier__head">
+    <h2 class="tier__name">TIER 4 · <b>COMMODITIES</b></h2>
+    <div class="tier__pct">10%</div>
+  </div>
+  <div class="tier__role">▣ HEDGE INFLAÇÃO · DESCORRELAÇÃO · TANGÍVEL</div>
+
+  <p>O mundo financeiro é digital. Mas crise grande (war/inflação/crash) move dinheiro pra <b>commodities físicas</b>. Não opero pesado mas mantenho posição como seguro.</p>
+
+  <h3>Composição</h3>
+  <div class="rule"><b>Ouro físico/papel (50% do com bag):</b> ouro físico moedinhas <b>pequenas</b> (resgate prático), e/ou ETF IAU/GLD pra liquidez. Não confio em <i>ouro alocado em conta digital</i> — se não tá fisicamente comigo, é promessa.</div>
+  <div class="rule"><b>Prata (25%):</b> mais volátil que ouro, mas usado em painéis solar e eletrônica → demanda industrial cresce. Posição menor.</div>
+  <div class="rule"><b>Petróleo (15%):</b> via XLE ETF (não direto em barris). Hedge geopolítico. Saio quando guerra acaba ou demanda china desacelera.</div>
+  <div class="rule"><b>Terra agrícola (10%):</b> se tiver oportunidade local. No BR, lote pequeno produtivo no interior é hedge tangível.</div>
+
+  <h3>Como eu opero</h3>
+  <p><b>Onde guardo:</b> ouro físico em casa + cofre. ETFs em Avenue/IBKR. Nada em "exchange de ouro" tipo PAX Gold (não confio na auditoria). <b>Position size pequena:</b> 10% é teto. Commodity não rende dividendo, mas em crise vale o peso em ouro (literal).</p>
+
+  <h3>O que evito</h3>
+  <p>• <b>Café/soja/milho futuros</b> — alavancagem alta, vence rápido, perco em margin call<br>
+     • <b>"Tokenized gold"</b> tipo PAXG, XAUT — auditoria opaca, risco contraparte<br>
+     • <b>Diamantes "investimento"</b> — mercado de revenda zero, golpe de vendedor<br>
+     • <b>"Crowdfunding agrícola"</b> tipo gado fracionado — fraude estrutural geralmente</p>
+</section>
+
+<!-- ===== REBALANCEAMENTO ===== -->
+<section class="tier" style="border-color:rgba(242,169,0,0.4);">
+  <h2 style="color:var(--btc);margin:0 0 14px;font-size:22px;">Rebalanceamento · A operação real</h2>
+
+  <p><b>O segredo não é a alocação inicial.</b> É manter a alocação ao longo do tempo. Mercado se mexe — Bitcoin sobe 50% num mês, ações caem 15%, ouro fica parado. <b>Sem rebalanceamento</b>, depois de 1 ano a alocação tá toda errada.</p>
+
+  <div class="rule"><b>Trigger 1 · Mensal:</b> 1ª segunda do mês, abro a carteira, vejo %. Se algum tier desvia >5pp do target, rebalanceio.</div>
+  <div class="rule"><b>Trigger 2 · Ciclo BTC:</b> Pi Cycle Top + MVRV >3 + dominance crashando = vendo 30% das alts → BTC. Halving + 18 meses = fase de distribuição.</div>
+  <div class="rule"><b>Trigger 3 · Macro:</b> Fed cortando taxa pesado = tech/crypto bull. Fed subindo = aumenta commodities/cash. Inflação >5% = ouro/prata up.</div>
+  <div class="rule"><b>Trigger 4 · Catalisador único:</b> ETF Bitcoin spot aprovado em 2024 = aumentei posição BTC. Guerra começando = aumenta ouro. Eleição BR/US polarizada = reduz BR risco.</div>
+
+  <h3 style="color:var(--btc);">Como faço na prática</h3>
+  <p>Excel/Google Sheets simples: <b>3 colunas</b> — target%, atual%, ação. Linhas: BTC, Alts, Equities, Commodities, Stables. <b>"Ação"</b> é literalmente "comprar +R$300 BTC" ou "vender 10 NVDA". 15 minutos por mês. Não precisa de software pago. Eu uso o que mostra na <a href="/carteira.html" style="color:var(--btc);">carteira pública</a> + sheet manual.</p>
+</section>
+
+<!-- ===== ONDE COMPRAR ===== -->
+<section class="tier" style="border-color:rgba(255,255,255,0.1);">
+  <h2 style="color:#fff;margin:0 0 14px;font-size:20px;">Onde compro / onde guardo</h2>
+
+  <table class="what-where">
+    <thead><tr><th>Ativo</th><th>Onde comprar (BR/EU)</th><th>Onde guardar</th></tr></thead>
+    <tbody>
+      <tr><td><b>Bitcoin</b></td><td>Mercado Bitcoin (BR) · Bull Bitcoin (EU)</td><td>Hardware wallet (Coldcard/BitBox02) · cold storage</td></tr>
+      <tr><td>Alts (SOL/ETH/XRP)</td><td>Binance · Bybit · Kraken</td><td>Hardware wallet + 20% em exchange pra operar</td></tr>
+      <tr><td>Polymarket UP/DOWN</td><td>polymarket.com (USDC Polygon)</td><td>Wallet self-custodial só pra operação</td></tr>
+      <tr><td>Ações US</td><td>Avenue (BR) · Interactive Brokers</td><td>Custódia corretora (SEC regulada)</td></tr>
+      <tr><td>ETFs (IAU/XLE/SLV)</td><td>Avenue · IBKR</td><td>Custódia corretora</td></tr>
+      <tr><td>Ouro físico</td><td>Casa de câmbio local + leilão · OuroFino BR</td><td>Casa + cofre · NUNCA banco</td></tr>
+      <tr><td class="no">Coinbase / Binance long-term</td><td colspan="2" class="no">Não custódio mais que 7 dias em exchange. FTX me ensinou.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="tier" style="border-color:rgba(255,255,255,0.1);">
+  <h2 style="color:#fff;margin:0 0 14px;font-size:20px;">Dúvidas frequentes</h2>
+
+  <details><summary>Por que não 100% Bitcoin?</summary>
+  <p>Pensei nisso e tentei em 2021. Funciona em bull market mas <b>destrói psicologicamente em bear market</b>. Quando BTC cai 70%, ver a banca virar 30% é insuportável pra maioria das pessoas. Diversificar não é pra maximizar retorno — é pra <b>sobreviver bear markets sem capitular</b>.</p></details>
+
+  <details><summary>Por que não 100% ações S&P500 como Buffett diz?</summary>
+  <p>Buffett tá certo pra americano com USD. <b>Eu sou brasileiro / vivo entre BR e PT</b> e tenho real/euro como base. Bitcoin é meu hedge contra desvalorização das moedas locais. S&P500 + dolarização é parte (15% equity bag) mas não tudo.</p></details>
+
+  <details><summary>Vale a pena comprar shitcoin pequena promissora?</summary>
+  <p>Quase nunca. Pra cada moonshot 100x, 99 vão a zero. Se você quer especular: <b>position size de 1% do portfolio, no máximo</b>, e considera que pode perder 100%. Maioria das pessoas faz o contrário: 50% em shitcoin esperando ficar rica.</p></details>
+
+  <details><summary>Como começar do zero?</summary>
+  <p>Ordem que eu recomendo: <b>(1)</b> reserva de emergência 6 meses gastos em moeda local; <b>(2)</b> abre conta exchange séria e começa DCA Bitcoin semanal; <b>(3)</b> hardware wallet quando passar de US$2k em BTC; <b>(4)</b> abre conta Avenue/IBKR pra ações; <b>(5)</b> só depois pensa em alts/commodities. Não pula etapas.</p></details>
+
+  <details><summary>Quanto investir por mês?</summary>
+  <p>Regra: <b>nunca mais que você poderia perder e ainda dormir</b>. Pra iniciante: 10% da renda líquida. Pra quem já tem reserva: 20-30%. Quem opera profissional: mais que isso. Mas o número absoluto importa menos que <b>consistência</b> — R$500/mês por 5 anos vence R$30k de uma vez.</p></details>
+
+  <details><summary>E sobre Brasil/Portugal — impostos?</summary>
+  <p>Cuidado. Aqui não vou orientar nem criticar regra fiscal (não dá pra fazer isso publicamente sem credencial). Procura contador especializado em <b>investimentos internacionais + crypto</b>. No BR a Receita declarou regra clara desde 2019 — paga IR sobre ganho de capital crypto e exterior. Em PT desde 2023 também. <b>Cumpre.</b> Não vale o risco.</p></details>
+</section>
+
+<!-- ===== CTA FINAL ===== -->
+<section style="text-align:center;background:linear-gradient(135deg,#0b0e11 0%, #141a24 100%); padding:30px 24px; border-radius:14px; border:1px solid rgba(242,169,0,0.3); margin-top:30px;">
+  <h2 style="color:var(--btc);margin:0 0 12px;font-size:20px;">Quer aplicar isso na tua carteira?</h2>
+  <p style="color:var(--txt);font-size:14px;margin:0 0 20px;max-width:600px;margin-left:auto;margin-right:auto;">
+    Te ajudo a montar e operar — Recovery Kit + bots + setup completo. Tudo no teu PC, na tua wallet, sob teu comando.
+  </p>
+  <a class="cta" href="/mentoria.html">👤 MENTORIA 1:1</a>
+  <a class="cta sec" href="/curso.html">🎓 CURSO COMPLETO</a>
+  <a class="cta sec" href="/ebook.html">📥 EBOOK GRÁTIS</a>
+</section>
+
+<footer class="ft">
+  <p>RADIOBITCOIN.ORG · BIT ADICT · 2026</p>
+  <p>
+    <a href="/recovery.html">RECOVERY</a> ·
+    <a href="/vip.html">VIP</a> ·
+    <a href="/mentoria.html">MENTORIA</a> ·
+    <a href="/curso.html">CURSO</a> ·
+    <a href="/precos.html">PREÇOS</a> ·
+    <a href="/carteira.html">CARTEIRA AO VIVO</a>
+  </p>
+  <p style="margin-top:14px;font-size:9px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6;">
+    Conteúdo educacional. Não somos consultores de investimento credenciados pela CVM ou CMVM.
+    Reflete a alocação pessoal do autor em maio/2026 e pode mudar a qualquer momento sem aviso.
+    Resultados passados não garantem resultados futuros. Decisões são suas e por sua conta e risco.
+  </p>
+</footer>
+
+</div>
+</body>
+</html>
