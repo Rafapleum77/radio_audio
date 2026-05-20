@@ -816,6 +816,71 @@ html,body{
     <a href="/agenda.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;" title="Agenda de posts automatizados">📅 AGENDA</a>
   </nav>
 
+  <!-- ===== ACOMPANHE A GENTE — 5 redes sociais com janelas otimas ===== -->
+  <style>
+    .rb-social { padding: 18px 14px 12px; background: linear-gradient(180deg,#0b0e11 0%,#07090d 100%); border-bottom: 1px solid rgba(242,169,0,0.15); }
+    .rb-social__head { text-align:center; margin-bottom:14px; }
+    .rb-social__title { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#4ade80; letter-spacing:4px; text-transform:uppercase; margin:0; }
+    .rb-social__sub { font-family:ui-monospace,Menlo,monospace; font-size:9px; color:#9ca3af; letter-spacing:1.5px; margin-top:4px; }
+    .rb-social__grid { display:grid; grid-template-columns: repeat(5,1fr); gap:10px; max-width:880px; margin:0 auto; }
+    @media (max-width: 640px) { .rb-social__grid { grid-template-columns: repeat(2,1fr); } }
+    .rb-social__card { background:#141a24; border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:10px 8px; text-align:center; text-decoration:none; transition: border-color .2s, transform .15s; position: relative; }
+    .rb-social__card:hover { border-color:#f2a900; transform: translateY(-2px); }
+    .rb-social__icon { width:42px; height:42px; border-radius:50%; margin:2px auto 6px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+    .rb-social__card.yt .rb-social__icon { background:#FF0000; color:#fff; }
+    .rb-social__card.tt .rb-social__icon { background:#000; color:#fff; border:1px solid #25F4EE; }
+    .rb-social__card.ig .rb-social__icon { background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color:#fff; }
+    .rb-social__card.fb .rb-social__icon { background:#1877F2; color:#fff; }
+    .rb-social__card.x  .rb-social__icon { background:#000; color:#fff; }
+    .rb-social__name { color:#fff; font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; }
+    .rb-social__handle { color:#9ca3af; font-size:9px; margin-top:2px; }
+    .rb-social__live { position:absolute; top:6px; right:6px; width:6px; height:6px; border-radius:50%; background:#4ade80; box-shadow:0 0 6px #4ade80; }
+    .rb-social__windows { font-family:ui-monospace,Menlo,monospace; font-size:9px; color:#9ca3af; letter-spacing:1px; text-align:center; margin-top:14px; line-height:1.7; padding: 0 8px; }
+    .rb-social__windows b { color:#f2a900; }
+  </style>
+  <section class="rb-social">
+    <div class="rb-social__head">
+      <h2 class="rb-social__title">🟢 ACOMPANHE A GENTE</h2>
+      <div class="rb-social__sub">// posts diários nas 5 redes — agendados em horários de pico</div>
+    </div>
+    <div class="rb-social__grid">
+      <a class="rb-social__card yt" href="https://www.youtube.com/channel/UCgWTd-3UWDxLIgghsp8xD4Q" target="_blank" rel="noopener">
+        <span class="rb-social__live"></span>
+        <div class="rb-social__icon">▶</div>
+        <div class="rb-social__name">YouTube</div>
+        <div class="rb-social__handle">@radiobitcoin</div>
+      </a>
+      <a class="rb-social__card tt" href="https://www.tiktok.com/@bitadict" target="_blank" rel="noopener">
+        <span class="rb-social__live"></span>
+        <div class="rb-social__icon">♪</div>
+        <div class="rb-social__name">TikTok</div>
+        <div class="rb-social__handle">@bitadict</div>
+      </a>
+      <a class="rb-social__card ig" href="https://instagram.com/radiobitcoinbr" target="_blank" rel="noopener">
+        <span class="rb-social__live"></span>
+        <div class="rb-social__icon">◉</div>
+        <div class="rb-social__name">Instagram</div>
+        <div class="rb-social__handle">@radiobitcoinbr</div>
+      </a>
+      <a class="rb-social__card fb" href="https://facebook.com/1039153275957477" target="_blank" rel="noopener">
+        <span class="rb-social__live"></span>
+        <div class="rb-social__icon">f</div>
+        <div class="rb-social__name">Facebook</div>
+        <div class="rb-social__handle">Radiobitcoin.org</div>
+      </a>
+      <a class="rb-social__card x" href="https://x.com/bitadict" target="_blank" rel="noopener">
+        <span class="rb-social__live"></span>
+        <div class="rb-social__icon">𝕏</div>
+        <div class="rb-social__name">X</div>
+        <div class="rb-social__handle">@bitadict</div>
+      </a>
+    </div>
+    <div class="rb-social__windows">
+      Janelas ótimas: <b>YT</b> Ter/Qua/Qui 14–17h &nbsp;·&nbsp; <b>TT</b> Ter–Sex 19–21h &nbsp;·&nbsp; <b>IG</b> Ter/Qua/Qui 10–13h &nbsp;·&nbsp; <b>FB</b> Ter/Qua/Qui 9–11h &nbsp;·&nbsp; <b>X</b> Seg–Sex 9–11h e 18–20h
+    </div>
+  </section>
+  <!-- ===== FIM ACOMPANHE A GENTE ===== -->
+
   <!-- TICKER -->
   <div id="ticker">
     <div class="ticker-inner" id="tickerInner">
