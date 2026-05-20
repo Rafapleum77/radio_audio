@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Páginas pós-compra não indexar (têm noindex no HTML também)
+Disallow: /obrigado.html
+Disallow: /downloads/
+
+# Scripts internos
+Disallow: /scripts/
+Disallow: /widgets/include.js
+
+Sitemap: https://radiobitcoin.org/sitemap.xml
