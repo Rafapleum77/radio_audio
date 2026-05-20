@@ -822,8 +822,8 @@ html,body{
     .rb-social__head { text-align:center; margin-bottom:14px; }
     .rb-social__title { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#4ade80; letter-spacing:4px; text-transform:uppercase; margin:0; }
     .rb-social__sub { font-family:ui-monospace,Menlo,monospace; font-size:9px; color:#9ca3af; letter-spacing:1.5px; margin-top:4px; }
-    .rb-social__grid { display:grid; grid-template-columns: repeat(5,1fr); gap:10px; max-width:880px; margin:0 auto; }
-    @media (max-width: 640px) { .rb-social__grid { grid-template-columns: repeat(2,1fr); } }
+    .rb-social__grid { display:grid; grid-template-columns: repeat(6,1fr); gap:10px; max-width:1000px; margin:0 auto; }
+    @media (max-width: 640px) { .rb-social__grid { grid-template-columns: repeat(3,1fr); } }
     .rb-social__card { background:#141a24; border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:10px 8px; text-align:center; text-decoration:none; transition: border-color .2s, transform .15s; position: relative; }
     .rb-social__card:hover { border-color:#f2a900; transform: translateY(-2px); }
     .rb-social__icon { width:42px; height:42px; border-radius:50%; margin:2px auto 6px; display:flex; align-items:center; justify-content:center; font-size:18px; }
@@ -832,6 +832,7 @@ html,body{
     .rb-social__card.ig .rb-social__icon { background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color:#fff; }
     .rb-social__card.fb .rb-social__icon { background:#1877F2; color:#fff; }
     .rb-social__card.x  .rb-social__icon { background:#000; color:#fff; }
+    .rb-social__card.nostr .rb-social__icon { background:linear-gradient(135deg,#a855f7,#7c3aed); color:#fff; }
     .rb-social__name { color:#fff; font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; }
     .rb-social__handle { color:#9ca3af; font-size:9px; margin-top:2px; }
     .rb-social__live { position:absolute; top:6px; right:6px; width:6px; height:6px; border-radius:50%; background:#4ade80; box-shadow:0 0 6px #4ade80; }
@@ -874,9 +875,15 @@ html,body{
         <div class="rb-social__name">X</div>
         <div class="rb-social__handle">@bitadict</div>
       </a>
+      <a class="rb-social__card nostr" href="https://njump.me/npub1paqf0rwntldy09svmk3rgk7ppguuemxxcqpyph03pfsxwespg6jsz83k9n" target="_blank" rel="noopener" title="Sem servidor central · sem censura · Zaps Lightning">
+        <span class="rb-social__live"></span>
+        <div class="rb-social__icon">⚡</div>
+        <div class="rb-social__name">Nostr</div>
+        <div class="rb-social__handle">npub1paqf0r…</div>
+      </a>
     </div>
     <div class="rb-social__windows">
-      Janelas ótimas: <b>YT</b> Ter/Qua/Qui 14–17h &nbsp;·&nbsp; <b>TT</b> Ter–Sex 19–21h &nbsp;·&nbsp; <b>IG</b> Ter/Qua/Qui 10–13h &nbsp;·&nbsp; <b>FB</b> Ter/Qua/Qui 9–11h &nbsp;·&nbsp; <b>X</b> Seg–Sex 9–11h e 18–20h
+      Janelas ótimas: <b>YT</b> Ter/Qua/Qui 14–17h &nbsp;·&nbsp; <b>TT</b> Ter–Sex 19–21h &nbsp;·&nbsp; <b>IG</b> Ter/Qua/Qui 10–13h &nbsp;·&nbsp; <b>FB</b> Ter/Qua/Qui 9–11h &nbsp;·&nbsp; <b>X</b> Seg–Sex 9–11h e 18–20h &nbsp;·&nbsp; <b>Nostr</b> 24/7 (cron + Zaps Lightning)
     </div>
   </section>
   <!-- ===== FIM ACOMPANHE A GENTE ===== -->
@@ -2286,7 +2293,7 @@ html,body{
   <footer id="footer">
     <span><span class="status-dot"></span>ONLINE // RADIO BITCOIN V6.0</span>
     <span id="footerBlock">BLOCO: --</span>
-    <span>@bitadict // texugorecords@walletofsatoshi.com &nbsp;·&nbsp; <a href="https://github.com/rafaelrioscrosara" target="_blank" style="color:var(--text-dim);text-decoration:none;letter-spacing:1px;" onmouseover="this.style.color='var(--g)'" onmouseout="this.style.color='var(--text-dim)'">⌥ GITHUB</a></span>
+    <span>@bitadict // texugorecords@walletofsatoshi.com &nbsp;·&nbsp; <a href="https://njump.me/npub1paqf0rwntldy09svmk3rgk7ppguuemxxcqpyph03pfsxwespg6jsz83k9n" target="_blank" style="color:var(--text-dim);text-decoration:none;letter-spacing:1px;" onmouseover="this.style.color='#a855f7'" onmouseout="this.style.color='var(--text-dim)'" title="Nostr — npub1paqf0r…83k9n">⚡ NOSTR</a> &nbsp;·&nbsp; <a href="https://github.com/Rafapleum77" target="_blank" style="color:var(--text-dim);text-decoration:none;letter-spacing:1px;" onmouseover="this.style.color='var(--g)'" onmouseout="this.style.color='var(--text-dim)'">⌥ GITHUB</a></span>
   </footer>
 
 </div><!-- /app -->
@@ -2459,7 +2466,7 @@ function toggleNews() {
 // ══════════════════════════════════════════════
 // NOSTR REAL — Relay wss://relay.damus.io
 // ══════════════════════════════════════════════
-const NOSTR_NPUB = 'npub1g4fyqwm7aluax989qezdqy9rtupxygjf8yucd7txq8k38jjn6fsqspgrah';
+const NOSTR_NPUB = 'npub1paqf0rwntldy09svmk3rgk7ppguuemxxcqpyph03pfsxwespg6jsz83k9n'; // BIT ADICT - chave rotacionada 2026-05-20
 const NOSTR_RELAYS = [
   'wss://relay.damus.io',
   'wss://nos.lol',
