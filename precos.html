@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preços BIT ADICT · todos os produtos · €/$ comparativo</title>
+<script data-goatcounter="https://radiobitcoin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<meta name="description" content="Tabela comparativa BIT ADICT: eBook grátis, Recovery Kit €19-149, VIP €19/mês, Mentoria €150-497, Curso €297. Preços em € e $.">
+
+<meta property="og:title" content="Preços BIT ADICT · €/$ todos os produtos">
+<meta property="og:description" content="eBook grátis · Recovery Kit · VIP · Mentoria · Curso. Compara tudo lado a lado.">
+<meta property="og:url" content="https://radiobitcoin.org/precos.html">
+<meta property="og:image" content="https://radiobitcoin.org/img/og/og_curso.webp">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Radio Bitcoin">
+<meta property="og:locale" content="pt_BR">
+
+<link rel="icon" href="icon-512.png">
+<meta name="theme-color" content="#f2a900">
+<script src="/scripts/currency.js" defer></script>
+
+<style>
+  :root { --btc:#f2a900; --btc-2:#cc8e00; --bg:#07090d; --bg-2:#0b0e11; --txt:#c8d0d8; --txt-dim:#9ca3af; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background:var(--bg); color:var(--txt); line-height:1.5; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 24px 16px 80px; }
+
+  .hdr { text-align:center; padding:24px 0 16px; border-bottom:1px solid rgba(242,169,0,0.2); margin-bottom:24px; }
+  .hdr a { color:var(--txt-dim); text-decoration:none; font-size:11px; letter-spacing:2px; text-transform:uppercase; font-family:ui-monospace,Menlo,monospace; }
+  .hdr a:hover { color:var(--btc); }
+  .brand { font-size:22px; font-weight:900; letter-spacing:1px; color:#fff; margin:8px 0 2px; }
+  .brand b { color:var(--btc); }
+  .brand-sub { font-family:ui-monospace,Menlo,monospace; font-size:10px; color:var(--btc); letter-spacing:3px; text-transform:uppercase; }
+
+  h1 { color:#fff; text-align:center; font-size:30px; margin:0 0 6px; letter-spacing:1px; }
+  h1 b { color:var(--btc); }
+  .lead { text-align:center; color:var(--txt-dim); margin:0 0 32px; font-size:15px; }
+
+  .curr-toggle { text-align:center; margin-bottom:28px; }
+  .curr-toggle button { background:transparent; border:1px solid rgba(242,169,0,0.4); color:var(--txt-dim); padding:8px 18px; border-radius:30px; cursor:pointer; margin:0 4px; font-family:inherit; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; }
+  .curr-toggle button.active, .curr-toggle [data-curr-badge].active { background:var(--btc); color:#000; border-color:var(--btc); font-weight:bold; }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:14px; margin-bottom:30px; }
+  .card { background:linear-gradient(180deg,#0b0e11 0%,#141a24 100%); border:1px solid rgba(255,255,255,0.06); border-radius:14px; padding:24px 20px; display:flex; flex-direction:column; }
+  .card:hover { border-color:var(--btc); transform:translateY(-2px); box-shadow:0 10px 30px -10px rgba(242,169,0,0.3); transition:transform .15s, box-shadow .15s, border-color .15s; }
+  .card.best { border-color:var(--btc); box-shadow:0 0 0 1px var(--btc), 0 10px 30px -10px rgba(242,169,0,0.4); }
+  .card.free { border-color:#22c55e; }
+  .card__tag { font-family:ui-monospace,Menlo,monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--btc); }
+  .card.free .card__tag { color:#22c55e; }
+  .card__name { font-size:18px; color:#fff; font-weight:800; margin:6px 0 4px; letter-spacing:0.5px; }
+  .card__sub { color:var(--txt-dim); font-size:13px; margin-bottom:14px; min-height:38px; }
+  .card__price { font-size:36px; color:var(--btc); font-weight:800; line-height:1; margin-bottom:4px; }
+  .card.free .card__price { color:#22c55e; }
+  .card__price small { font-size:13px; color:var(--txt-dim); font-weight:400; }
+  .card__price-note { font-size:11px; color:var(--txt-dim); margin-bottom:14px; min-height:18px; }
+  .card__features { list-style:none; padding:0; margin:0 0 18px; font-size:13px; flex-grow:1; }
+  .card__features li { padding:5px 0; color:var(--txt); border-bottom:1px solid rgba(255,255,255,0.04); }
+  .card__features li:last-child { border-bottom:0; }
+  .card__features li b { color:#ffd966; }
+  .card__cta { display:block; text-align:center; padding:13px 20px; background:linear-gradient(180deg,var(--btc) 0%,var(--btc-2) 100%); color:#000; text-decoration:none; border-radius:30px; font-weight:800; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; }
+  .card.free .card__cta { background:linear-gradient(180deg,#22c55e 0%,#16a34a 100%); color:#000; }
+  .card__badge { position:absolute; top:-10px; right:14px; background:var(--btc); color:#000; font-size:9px; font-weight:bold; padding:4px 10px; border-radius:20px; letter-spacing:1.5px; }
+  .card { position:relative; }
+
+  table.compare { width:100%; border-collapse:collapse; background:#0b0e11; border-radius:12px; overflow:hidden; margin-bottom:30px; }
+  table.compare th, table.compare td { padding:12px 14px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); font-size:13px; }
+  table.compare th { background:#141a24; color:var(--btc); font-family:ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; }
+  table.compare th:first-child, table.compare td:first-child { text-align:left; color:#fff; font-weight:bold; }
+  table.compare td.yes { color:#22c55e; }
+  table.compare td.no { color:#ef4444; opacity:0.6; }
+  table.compare td.partial { color:#f2a900; }
+  @media (max-width: 720px) { table.compare { font-size:11px; } table.compare th, table.compare td { padding:8px 6px; } }
+
+  .ft { text-align:center; padding:24px 0; color:var(--txt-dim); font-size:10px; letter-spacing:2px; text-transform:uppercase; font-family:ui-monospace,Menlo,monospace; }
+  .ft a { color:var(--btc); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hdr">
+  <div class="brand-sub">RADIOBITCOIN.ORG · OPERAÇÃO VALE SATS GLOBAL</div>
+  <div class="brand">BIT <b>ADICT</b></div>
+  <a href="/">← VOLTAR PARA RÁDIO</a>
+</header>
+
+<h1>PREÇOS <b>BIT ADICT</b></h1>
+<p class="lead">Todos os produtos lado a lado · EUR e USD · sem letrinha miúda</p>
+
+<div class="curr-toggle">
+  <button data-curr-badge="EUR" onclick="rbSetCurrency('EUR')">€ EUR</button>
+  <button data-curr-badge="USD" onclick="rbSetCurrency('USD')">$ USD</button>
+  <button data-curr-badge="BOTH" onclick="rbSetCurrency('BOTH')">€ / $</button>
+</div>
+
+<div class="grid">
+
+  <!-- eBook -->
+  <div class="card free">
+    <div class="card__badge" style="background:#22c55e;">GRÁTIS</div>
+    <div class="card__tag">▣ LEAD MAGNET</div>
+    <div class="card__name">eBook 10 erros</div>
+    <div class="card__sub">PDF 28 páginas com os erros mais comuns de quem perde Bitcoin</div>
+    <div class="card__price">GRÁTIS</div>
+    <div class="card__price-note">+ newsletter semanal</div>
+    <ul class="card__features">
+      <li>✅ 28 páginas em PDF</li>
+      <li>✅ 10 erros + correção de cada</li>
+      <li>✅ Newsletter semanal (cancela quando quiser)</li>
+    </ul>
+    <a class="card__cta" href="/ebook.html">QUERO BAIXAR</a>
+  </div>
+
+  <!-- Digital -->
+  <div class="card">
+    <div class="card__tag">▣ DIGITAL</div>
+    <div class="card__name">Recovery Kit Digital</div>
+    <div class="card__sub">ZIP pronto pra rodar + Manual PDF + Atualizações</div>
+    <div class="card__price"><span data-price-eur="19" data-price-usd="19">€19 / $19</span></div>
+    <div class="card__price-note">pagamento único · acesso imediato</div>
+    <ul class="card__features">
+      <li>✅ Recovery Kit completo (4 abas)</li>
+      <li>✅ Manual PDF passo-a-passo</li>
+      <li>✅ Atualizações grátis</li>
+      <li>✅ Suporte WhatsApp</li>
+    </ul>
+    <a class="card__cta" href="/recovery.html">COMPRAR DIGITAL</a>
+  </div>
+
+  <!-- VIP -->
+  <div class="card">
+    <div class="card__tag">▣ RECORRENTE</div>
+    <div class="card__name">VIP</div>
+    <div class="card__sub">Sinais dos 3 bots em tempo real · WhatsApp privado</div>
+    <div class="card__price"><span data-price-eur="19" data-price-usd="19">€19 / $19</span><small>/mês</small></div>
+    <div class="card__price-note">cancela quando quiser</div>
+    <ul class="card__features">
+      <li>✅ Grupo VIP em tempo real</li>
+      <li>✅ Live semanal sexta 19h BR</li>
+      <li>✅ Painel banca aberta</li>
+      <li>✅ Comunidade Nostr exclusiva</li>
+    </ul>
+    <a class="card__cta" href="/vip.html">ENTRAR NO VIP</a>
+  </div>
+
+  <!-- Pen drive -->
+  <div class="card">
+    <div class="card__tag">▣ FÍSICO</div>
+    <div class="card__name">Recovery Kit Pen Drive</div>
+    <div class="card__sub">USB físico · entrega Portugal/mundo · Manual impresso</div>
+    <div class="card__price"><span data-price-eur="49" data-price-usd="49">€49 / $49</span></div>
+    <div class="card__price-note">com envio · 5 dias úteis EU</div>
+    <ul class="card__features">
+      <li>✅ Pen drive 8GB físico</li>
+      <li>✅ Recovery Kit pré-instalado</li>
+      <li>✅ Manual impresso</li>
+      <li>✅ 100% offline · sem internet</li>
+    </ul>
+    <a class="card__cta" href="/recovery.html">COMPRAR PEN DRIVE</a>
+  </div>
+
+  <!-- Mentoria 1h -->
+  <div class="card">
+    <div class="card__tag">▣ 1 PARA 1</div>
+    <div class="card__name">Mentoria 1h</div>
+    <div class="card__sub">Resolução de um problema específico (Zoom/Jitsi)</div>
+    <div class="card__price"><span data-price-eur="150" data-price-usd="150">€150 / $150</span><small>/h</small></div>
+    <div class="card__price-note">+ 7 dias suporte WhatsApp</div>
+    <ul class="card__features">
+      <li>✅ 1h call gravada</li>
+      <li>✅ Suporte WhatsApp 7 dias</li>
+      <li>✅ Resolução foco</li>
+    </ul>
+    <a class="card__cta" href="/mentoria.html">AGENDAR 1H</a>
+  </div>
+
+  <!-- Pacote €149 -->
+  <div class="card best">
+    <div class="card__badge">MAIS PEDIDO</div>
+    <div class="card__tag">▣ COMPLETO</div>
+    <div class="card__name">Pacote BIT ADICT</div>
+    <div class="card__sub">Recovery Kit + 4 bots + Moeda BTC + Barra Ouro</div>
+    <div class="card__price"><span data-price-eur="149" data-price-usd="149">€149 / $149</span></div>
+    <div class="card__price-note">pagamento único · com envio</div>
+    <ul class="card__features">
+      <li>✅ Recovery Kit completo</li>
+      <li>✅ <b>4 bots Polymarket (código completo)</b></li>
+      <li>✅ Moeda BTC física</li>
+      <li>✅ Barra de ouro coleção</li>
+      <li>✅ Grupo WhatsApp updates</li>
+      <li>✅ Suporte 90 dias</li>
+    </ul>
+    <a class="card__cta" href="/recovery.html">COMPRAR PACOTE</a>
+  </div>
+
+  <!-- Curso -->
+  <div class="card">
+    <div class="card__badge" style="background:#22c55e;">PRÉ-VENDA</div>
+    <div class="card__tag">▣ VITALÍCIO</div>
+    <div class="card__name">Curso BIT ADICT</div>
+    <div class="card__sub">8 módulos · 30+ aulas · soberania digital completa</div>
+    <div class="card__price"><span data-price-eur="297" data-price-usd="297">€297 / $297</span></div>
+    <div class="card__price-note"><span style="text-decoration:line-through;">€497/$497</span> · 3x sem juros</div>
+    <ul class="card__features">
+      <li>✅ <b>20h+ de conteúdo</b></li>
+      <li>✅ Acesso vitalício + atualizações</li>
+      <li>✅ Recovery Kit incluso (€19/$19)</li>
+      <li>✅ 4 bots inclusos (€149/$149)</li>
+      <li>✅ 30 dias VIP grátis</li>
+      <li>✅ Garantia 14 dias</li>
+    </ul>
+    <a class="card__cta" href="/curso.html">GARANTIR ACESSO</a>
+  </div>
+
+  <!-- Mentoria 4h -->
+  <div class="card best">
+    <div class="card__badge">MELHOR CUSTO/H</div>
+    <div class="card__tag">▣ 1 PARA 1 PRO</div>
+    <div class="card__name">Mentoria 4h</div>
+    <div class="card__sub">Setup completo dos bots + opsec + Recovery + self-custody</div>
+    <div class="card__price"><span data-price-eur="497" data-price-usd="497">€497 / $497</span></div>
+    <div class="card__price-note">economia <span data-price-eur="103" data-price-usd="103">€103 / $103</span> · + 30 dias VIP grátis</div>
+    <ul class="card__features">
+      <li>✅ <b>4 sessões de 1h</b> em 2 semanas</li>
+      <li>✅ Setup dos 4 bots no teu PC</li>
+      <li>✅ Drill de recuperação Recovery Kit</li>
+      <li>✅ 30 dias VIP grátis (<span data-price-eur="19" data-price-usd="19">€19/$19</span>)</li>
+      <li>✅ Suporte WhatsApp 30 dias</li>
+      <li>✅ Gravações + roteiro de operação</li>
+    </ul>
+    <a class="card__cta" href="/mentoria.html">AGENDAR PACOTE</a>
+  </div>
+
+</div>
+
+<h2 style="color:#fff;text-align:center;font-size:22px;margin:40px 0 16px;">Tabela <b style="color:var(--btc);">comparativa</b></h2>
+
+<table class="compare">
+  <thead>
+    <tr>
+      <th></th>
+      <th>eBook</th>
+      <th>Digital</th>
+      <th>Pen Drive</th>
+      <th>Pacote</th>
+      <th>VIP</th>
+      <th>Mentoria 1h</th>
+      <th>Mentoria 4h</th>
+      <th>Curso</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Preço</td>
+      <td class="yes">grátis</td>
+      <td><span data-price-eur="19" data-price-usd="19">€19/$19</span></td>
+      <td><span data-price-eur="49" data-price-usd="49">€49/$49</span></td>
+      <td><span data-price-eur="149" data-price-usd="149">€149/$149</span></td>
+      <td><span data-price-eur="19" data-price-usd="19">€19/$19</span>/mês</td>
+      <td><span data-price-eur="150" data-price-usd="150">€150/$150</span></td>
+      <td><span data-price-eur="497" data-price-usd="497">€497/$497</span></td>
+      <td><span data-price-eur="297" data-price-usd="297">€297/$297</span></td>
+    </tr>
+    <tr>
+      <td>Recovery Kit</td>
+      <td class="no">—</td>
+      <td class="yes">✓</td>
+      <td class="yes">✓</td>
+      <td class="yes">✓</td>
+      <td class="no">—</td>
+      <td class="partial">guia</td>
+      <td class="yes">✓ + drill</td>
+      <td class="yes">✓ módulo 3</td>
+    </tr>
+    <tr>
+      <td>Bots Polymarket (código)</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+      <td class="yes">4 bots</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+      <td class="yes">setup 4 bots</td>
+      <td class="yes">módulo 7</td>
+    </tr>
+    <tr>
+      <td>Sinais em tempo real</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+      <td class="partial">90 dias</td>
+      <td class="yes">contínuo</td>
+      <td class="no">—</td>
+      <td class="yes">30 dias</td>
+      <td class="yes">30 dias</td>
+    </tr>
+    <tr>
+      <td>Entrega física</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+      <td class="yes">pen drive</td>
+      <td class="yes">pen drive+brindes</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+    </tr>
+    <tr>
+      <td>1 para 1 comigo</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+      <td class="no">—</td>
+      <td class="yes">1h</td>
+      <td class="yes">4h</td>
+      <td class="partial">grupo</td>
+    </tr>
+    <tr>
+      <td>Suporte WhatsApp</td>
+      <td class="no">—</td>
+      <td class="yes">tira-dúvidas</td>
+      <td class="yes">tira-dúvidas</td>
+      <td class="yes">90 dias</td>
+      <td class="yes">incluso</td>
+      <td class="yes">7 dias</td>
+      <td class="yes">30 dias</td>
+      <td class="yes">durante curso</td>
+    </tr>
+    <tr>
+      <td>Acesso vitalício</td>
+      <td class="yes">✓</td>
+      <td class="yes">✓</td>
+      <td class="yes">✓</td>
+      <td class="yes">✓</td>
+      <td class="no">mensal</td>
+      <td class="yes">gravação</td>
+      <td class="yes">gravações</td>
+      <td class="yes">✓</td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="text-align:center;color:var(--txt-dim);font-size:13px;margin:20px 0 40px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7;">
+  💡 <b style="color:var(--btc);">Não sabe por onde começar?</b><br>
+  Baixa o eBook grátis primeiro. Se quiser ir mais fundo, o <b>Pacote €149/$149</b> é o que dá mais valor (Recovery Kit + 4 bots + brindes físicos). Pra quem opera em escala, <b>Mentoria 4h €497/$497</b> + VIP é o stack completo.
+</div>
+
+<footer class="ft">
+  <p>RADIOBITCOIN.ORG · BIT ADICT · 2026</p>
+  <p>
+    <a href="/">RÁDIO</a> ·
+    <a href="/recovery.html">RECOVERY</a> ·
+    <a href="/vip.html">VIP</a> ·
+    <a href="/mentoria.html">MENTORIA</a> ·
+    <a href="/ebook.html">EBOOK</a> ·
+    <a href="/curso.html">CURSO</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>

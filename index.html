@@ -817,8 +817,18 @@ html,body{
     <a href="/mentoria.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Mentoria 1:1">👤 MENTORIA</a>
     <a href="/curso.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Curso completo BIT ADICT">🎓 CURSO</a>
     <a href="/ebook.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="eBook grátis 10 erros">📥 EBOOK</a>
-    <a href="/agenda.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;" title="Agenda de posts">📅 AGENDA</a>
+    <a href="/precos.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Tabela comparativa de preços">💰 PREÇOS</a>
+    <a href="/agenda.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Agenda de posts">📅 AGENDA</a>
+    <span style="display:inline-flex;align-items:center;padding:0 8px;gap:4px;font-size:10px;letter-spacing:1px;">
+      <button data-curr-badge="EUR" onclick="rbSetCurrency('EUR')" style="background:transparent;border:1px solid rgba(242,169,0,0.3);color:#9ca3af;border-radius:4px;padding:2px 6px;cursor:pointer;font-family:inherit;font-size:9px;letter-spacing:1px;">€</button>
+      <button data-curr-badge="USD" onclick="rbSetCurrency('USD')" style="background:transparent;border:1px solid rgba(242,169,0,0.3);color:#9ca3af;border-radius:4px;padding:2px 6px;cursor:pointer;font-family:inherit;font-size:9px;letter-spacing:1px;">$</button>
+      <button data-curr-badge="BOTH" onclick="rbSetCurrency('BOTH')" style="background:transparent;border:1px solid rgba(242,169,0,0.3);color:#9ca3af;border-radius:4px;padding:2px 6px;cursor:pointer;font-family:inherit;font-size:9px;letter-spacing:1px;">€/$</button>
+    </span>
   </nav>
+  <style>
+    [data-curr-badge].active { background:#f2a900 !important; color:#000 !important; border-color:#f2a900 !important; font-weight:bold; }
+  </style>
+  <script src="/scripts/currency.js" defer></script>
 
   <!-- ===== ACOMPANHE A GENTE — 5 redes sociais com janelas otimas ===== -->
   <style>
@@ -1832,28 +1842,28 @@ html,body{
     <a class="rb-produtos__card" href="/recovery.html">
       <div class="rb-produtos__icon">🛡️</div>
       <div class="rb-produtos__name">Recovery Kit</div>
-      <div class="rb-produtos__price" style="font-size:15px;">€19/$19 · €49/$49 · €149/$149</div>
+      <div class="rb-produtos__price" style="font-size:14px;"><span data-price-eur="19" data-price-usd="19">€19 / $19</span> · <span data-price-eur="49" data-price-usd="49">€49 / $49</span> · <span data-price-eur="149" data-price-usd="149">€149 / $149</span></div>
       <div class="rb-produtos__desc">Digital · pen drive · pacote completo com bots</div>
     </a>
 
     <a class="rb-produtos__card" href="/vip.html">
       <div class="rb-produtos__icon">📡</div>
       <div class="rb-produtos__name">VIP</div>
-      <div class="rb-produtos__price">€19 / $19<span style="font-size:13px;color:#9ca3af;">/mês</span></div>
+      <div class="rb-produtos__price"><span data-price-eur="19" data-price-usd="19" data-price-suffix="<span style='font-size:13px;color:#9ca3af;'>/mês</span>">€19 / $19<span style="font-size:13px;color:#9ca3af;">/mês</span></span></div>
       <div class="rb-produtos__desc">Sinais dos 3 bots em tempo real · WhatsApp privado</div>
     </a>
 
     <a class="rb-produtos__card" href="/mentoria.html">
       <div class="rb-produtos__icon">👤</div>
       <div class="rb-produtos__name">Mentoria 1:1</div>
-      <div class="rb-produtos__price" style="font-size:15px;">€150/$150 · €497/$497</div>
+      <div class="rb-produtos__price" style="font-size:15px;"><span data-price-eur="150" data-price-usd="150">€150 / $150</span> · <span data-price-eur="497" data-price-usd="497">€497 / $497</span></div>
       <div class="rb-produtos__desc">Setup completo dos bots, opsec e Recovery Kit</div>
     </a>
 
     <a class="rb-produtos__card" href="/curso.html">
       <div class="rb-produtos__icon">🎓</div>
       <div class="rb-produtos__name">Curso</div>
-      <div class="rb-produtos__price">€297 / $297 <span style="font-size:11px;color:#9ca3af;">vitalício</span> <span class="rb-produtos__badge-new">PRÉ-VENDA</span></div>
+      <div class="rb-produtos__price"><span data-price-eur="297" data-price-usd="297">€297 / $297</span> <span style="font-size:11px;color:#9ca3af;">vitalício</span> <span class="rb-produtos__badge-new">PRÉ-VENDA</span></div>
       <div class="rb-produtos__desc">8 módulos · 30+ aulas · soberania digital completa</div>
     </a>
 

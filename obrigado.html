@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obrigado · BIT ADICT</title>
+<script data-goatcounter="https://radiobitcoin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="icon-512.png">
+<meta name="theme-color" content="#f2a900">
+<style>
+  body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background:#07090d; color:#c8d0d8; line-height:1.6; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .card { max-width:560px; background:linear-gradient(180deg,#0b0e11 0%,#141a24 100%); border:1px solid rgba(242,169,0,0.4); border-radius:14px; padding:40px 30px; text-align:center; box-shadow:0 10px 50px -10px rgba(242,169,0,0.4); }
+  .check { width:80px; height:80px; border-radius:50%; background:rgba(34,197,94,0.15); border:2px solid #22c55e; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; font-size:40px; }
+  h1 { color:#fff; font-size:26px; margin:0 0 10px; }
+  h1 b { color:#f2a900; }
+  .lead { color:#9ca3af; font-size:15px; margin:0 0 24px; }
+  .next { background:#07090d; border:1px solid rgba(242,169,0,0.2); border-radius:10px; padding:18px 22px; text-align:left; margin-bottom:20px; }
+  .next h3 { color:#f2a900; font-family:ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; margin:0 0 12px; }
+  .next ol { margin:0; padding-left:20px; font-size:14px; line-height:1.9; }
+  .next ol b { color:#ffd966; }
+  .cta { display:inline-block; padding:14px 28px; background:linear-gradient(180deg,#f2a900 0%,#cc8e00 100%); color:#000; text-decoration:none; border-radius:30px; font-weight:800; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; margin:6px 4px; box-shadow:0 4px 14px rgba(242,169,0,0.35); }
+  .cta.sec { background:transparent; color:#f2a900; border:2px solid #f2a900; }
+  .ft { margin-top:24px; font-size:11px; color:#9ca3af; letter-spacing:1px; text-transform:uppercase; font-family:ui-monospace,Menlo,monospace; }
+  .ft a { color:#f2a900; text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="check">✓</div>
+  <h1>Pagamento <b>confirmado</b></h1>
+  <p class="lead" id="lead">Tua compra foi processada. Te encontro no WhatsApp em até 10 minutos.</p>
+
+  <div class="next">
+    <h3>PRÓXIMOS PASSOS</h3>
+    <ol id="next-steps">
+      <li>Adiciona meu número: <b>+55 61 99811-0979</b></li>
+      <li>Me manda mensagem com o nome do produto (eu confirmo recebimento do pagamento)</li>
+      <li>Te entrego o acesso/envio em até 24h</li>
+    </ol>
+  </div>
+
+  <a class="cta" href="https://wa.me/5561998110979?text=Acabei%20de%20pagar%20e%20queria%20confirmar%20o%20acesso" target="_blank" rel="noopener">📱 ABRIR WHATSAPP</a>
+  <a class="cta sec" href="/">VOLTAR PRA RÁDIO</a>
+
+  <div class="ft">
+    📡 NOSTR · <a href="https://radiobitcoin.org">RADIOBITCOIN.ORG</a> · ⚡ LIGHTNING
+  </div>
+</div>
+
+<script>
+  // Personaliza por produto (?p=vip, ?p=digital, etc)
+  const params = new URLSearchParams(window.location.search);
+  const p = params.get('p') || 'default';
+  const config = {
+    'digital': {
+      lead: 'Recovery Kit Digital comprado. Te mando o link de download no WhatsApp em até 10 minutos.',
+      steps: ['Adiciona meu número: <b>+55 61 99811-0979</b>', 'Eu mando o link do ZIP + manual PDF', 'Confere com a tua seed offline (Wi-Fi desligado é o jeito mais seguro)'],
+    },
+    'pendrive': {
+      lead: 'Recovery Kit em pen drive a caminho! Te mando o tracking em até 48h.',
+      steps: ['Confere se o endereço de entrega tá certo no email da Stripe', 'Em 48h te mando o código de rastreio', 'Entrega Portugal/UE em ~5 dias úteis · BR/mundo conforme correios'],
+    },
+    'pacote': {
+      lead: 'Pacote Completo €149/$149 confirmado. Envio físico + acesso digital aos bots.',
+      steps: ['Confere endereço de entrega no email Stripe', 'Tracking do pen drive em 48h', 'Acesso ao código dos 4 bots no WhatsApp em 10min', 'Convite pro grupo BIT ADICT VIP de updates'],
+    },
+    'vip': {
+      lead: 'BIT ADICT VIP €19/$19/mês ativo. Te adiciono no grupo WhatsApp privado em até 10min.',
+      steps: ['Adiciona meu número: <b>+55 61 99811-0979</b>', 'Confirma teu número que vai pro grupo VIP', 'Te adiciono em até 10min · live semanal sexta 19h BR'],
+    },
+    'mentoria': {
+      lead: 'Mentoria BIT ADICT confirmada. Te mando o link do Calendly em até 10min.',
+      steps: ['Te mando o Calendly pra agendar a sessão', 'Sessões via Zoom/Jitsi (gravadas e entregues depois)', 'Suporte WhatsApp por 7 ou 30 dias conforme plano'],
+    },
+    'curso': {
+      lead: 'Curso BIT ADICT pré-vendido! Te aviso quando cada módulo for liberado.',
+      steps: ['Acesso liberado por módulo conforme finalizados (1-3 em Junho, demais até Dez/2026)', 'Te mando email + WhatsApp quando módulo novo abrir', 'Grupo WhatsApp do curso já te incluo agora pra updates'],
+    },
+    'default': null
+  };
+
+  const c = config[p];
+  if (c) {
+    document.getElementById('lead').textContent = c.lead;
+    document.getElementById('next-steps').innerHTML = c.steps.map(s => '<li>' + s + '</li>').join('');
+  }
+
+  if (window.goatcounter) {
+    window.goatcounter.count({ path: 'obrigado-' + p, event: true });
+  }
+</script>
+</body>
+</html>
