@@ -37,7 +37,7 @@ gen() {
         drawtext=fontfile='${FONT_BOLD}':text='${hook}':fontsize=110:fontcolor=${WHITE}:x=(w-text_w)/2:y=700:expansion=none:enable='between(t,0,5)',
         drawtext=fontfile='${FONT_BOLD}':text='${benefit}':fontsize=72:fontcolor=${WHITE}:x=(w-text_w)/2:y=720:expansion=none:enable='between(t,5,11)',
         drawtext=fontfile='${FONT_BOLD}':text='${cta}':fontsize=84:fontcolor=${WHITE}:x=(w-text_w)/2:y=720:expansion=none:enable='between(t,11,15)',
-        drawtext=fontfile='${FONT_BOLD}':text='${price}':fontsize=120:fontcolor=${BTC}:x=(w-text_w)/2:y=900:expansion=none:enable='between(t,11,15)',
+        drawtext=fontfile='${FONT_BOLD}':text='${price}':fontsize=80:fontcolor=${BTC}:x=(w-text_w)/2:y=920:expansion=none:enable='between(t,11,15)',
         drawtext=fontfile='${FONT_REG}':text='BIT ADICT':fontsize=44:fontcolor=${BTC}:x=(w-text_w)/2:y=1780:expansion=none,
         drawtext=fontfile='${FONT_REG}':text='radiobitcoin.org':fontsize=32:fontcolor=${DIM}:x=(w-text_w)/2:y=1830:expansion=none
       [v]
@@ -64,7 +64,7 @@ gen "promo_vip" \
     "VIP" \
     "Sinais dos 3 bots em tempo real" \
     "ENTRA AGORA" \
-    "EUR 19/mes"
+    "EUR 19 / USD 19"
 
 # 3. MENTORIA
 gen "promo_mentoria" \
@@ -72,7 +72,7 @@ gen "promo_mentoria" \
     "MENTORIA" \
     "Setup completo bots em 4 horas" \
     "AGENDA HOJE" \
-    "EUR 497"
+    "EUR 497 / USD 497"
 
 # 4. CURSO
 gen "promo_curso" \
@@ -80,7 +80,7 @@ gen "promo_curso" \
     "CURSO" \
     "8 modulos · soberania digital" \
     "GARANTE TEU" \
-    "EUR 297"
+    "EUR 297 / USD 297"
 
 echo ""
 echo "Vídeos gerados em: ${OUT}/"
