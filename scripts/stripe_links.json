@@ -1,0 +1,12 @@
+{
+  "_doc": "Preenche cada URL com o Payment Link gerado no dashboard.stripe.com → Products → Create payment link. Deixa vazio se ainda não criou (a landing mantém o botão WhatsApp). Depois roda: python3 scripts/apply_stripe.py",
+  "_status": "PENDING — Rafael precisa criar conta Stripe + gerar 7 Payment Links",
+
+  "recovery_digital_19": "",
+  "recovery_pendrive_49": "",
+  "pacote_completo_149": "",
+  "vip_mensal_19": "",
+  "mentoria_1h_150": "",
+  "mentoria_4h_497": "",
+  "curso_297": ""
+}
