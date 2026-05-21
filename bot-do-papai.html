@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎂 BOT DO PAPAI · 10 ANOS · Aniversariante BIT ADICT</title>
+<meta name="description" content="Bot do Papai - sistema de renda passiva criado pelo Rafael pro filho dele que faz 10 anos hoje, 21 de maio de 2026.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="icon-512.png">
+<meta name="theme-color" content="#f2a900">
+
+<style>
+  :root {
+    --btc:#f2a900; --btc-2:#cc8e00; --btc-light:#ffd966;
+    --bg:#07090d; --bg-2:#0b0e11; --bg-3:#141a24;
+    --txt:#c8d0d8; --txt-dim:#9ca3af;
+    --green:#22c55e; --pink:#ec4899; --purple:#a855f7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow-x: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: radial-gradient(ellipse at top, #1a1a2e 0%, var(--bg) 60%, #000 100%);
+    color: var(--txt); line-height: 1.6; min-height: 100vh;
+  }
+
+  /* Confetes */
+  .confete {
+    position: fixed; width: 10px; height: 10px;
+    pointer-events: none; z-index: 1;
+    animation: cair linear infinite;
+  }
+  @keyframes cair {
+    0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0.6; }
+  }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 80px; position: relative; z-index: 2; }
+
+  /* Header de aniversário */
+  .hdr-aniv {
+    text-align: center; margin-bottom: 40px;
+    animation: fadeIn 1s ease-out;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  .balao { font-size: 60px; margin-bottom: 6px; animation: flutuar 3s ease-in-out infinite; }
+  @keyframes flutuar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .feliz { font-size: 14px; color: var(--btc); letter-spacing: 3px; text-transform: uppercase; font-family: ui-monospace,Menlo,monospace; }
+  .nome-aniv { font-size: 56px; font-weight: 900; color: #fff; margin: 12px 0 8px; letter-spacing: 1px; line-height: 1.1; }
+  .nome-aniv b { color: var(--btc); }
+  .idade { font-size: 100px; font-weight: 900; background: linear-gradient(135deg, var(--btc) 0%, var(--pink) 50%, var(--purple) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin: 10px 0; text-shadow: 0 0 60px rgba(242,169,0,0.4); }
+  .data { font-family: ui-monospace,Menlo,monospace; font-size: 13px; color: var(--txt-dim); letter-spacing: 2px; text-transform: uppercase; }
+
+  /* Mensagem do pai */
+  .msg-pai {
+    background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg-3) 100%);
+    border: 1px solid rgba(242,169,0,0.3);
+    border-radius: 16px;
+    padding: 28px 28px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 8px 40px -10px rgba(242,169,0,0.25);
+  }
+  .msg-pai__tag { font-size: 10px; color: var(--btc); letter-spacing: 3px; text-transform: uppercase; font-family: ui-monospace,Menlo,monospace; margin-bottom: 14px; }
+  .msg-pai__txt { font-size: 16px; line-height: 1.8; color: #fff; }
+  .msg-pai__txt b { color: var(--btc); }
+  .msg-pai__sig { font-size: 13px; color: var(--btc); margin-top: 20px; font-style: italic; letter-spacing: 1px; }
+
+  /* Painel do bot */
+  .painel {
+    background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg-3) 100%);
+    border: 2px solid rgba(34,197,94,0.4);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 40px -10px rgba(34,197,94,0.3);
+  }
+  .painel__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+  .painel__nome { font-family: ui-monospace,Menlo,monospace; font-size: 14px; color: var(--btc); letter-spacing: 2px; font-weight: bold; }
+  .status-led {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(34,197,94,0.12); border: 1px solid var(--green);
+    padding: 6px 14px; border-radius: 20px;
+    font-family: ui-monospace,Menlo,monospace; font-size: 11px; color: var(--green);
+    letter-spacing: 1.5px; font-weight: bold;
+  }
+  .status-led::before {
+    content: ''; width: 8px; height: 8px; background: var(--green); border-radius: 50%;
+    animation: piscar 1.5s ease-in-out infinite;
+    box-shadow: 0 0 12px var(--green);
+  }
+  @keyframes piscar { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .stat {
+    background: rgba(7,9,13,0.6); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; padding: 14px 12px; text-align: center;
+  }
+  .stat__label { font-family: ui-monospace,Menlo,monospace; font-size: 9px; color: var(--txt-dim); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .stat__valor { font-size: 22px; color: #fff; font-weight: 800; }
+  .stat__valor.green { color: var(--green); }
+  .stat__valor.btc { color: var(--btc); }
+  .stat__sub { font-size: 10px; color: var(--txt-dim); margin-top: 2px; }
+
+  /* Botão Polymarket */
+  .cta-poly {
+    display: block;
+    background: linear-gradient(135deg, var(--btc) 0%, var(--btc-2) 100%);
+    color: #000;
+    text-align: center; padding: 18px 24px;
+    border-radius: 14px; text-decoration: none;
+    font-weight: 800; font-size: 14px; letter-spacing: 1px;
+    box-shadow: 0 6px 24px rgba(242,169,0,0.45);
+    transition: transform 0.15s, box-shadow 0.15s;
+    margin-bottom: 14px;
+  }
+  .cta-poly:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(242,169,0,0.6); }
+  .cta-poly__big { font-size: 20px; display: block; margin-bottom: 2px; }
+  .cta-poly__sub { font-size: 11px; font-weight: normal; opacity: 0.85; }
+
+  /* Linha do tempo educativa */
+  .timeline {
+    background: var(--bg-2);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .timeline h3 { font-family: ui-monospace,Menlo,monospace; color: var(--btc); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; text-align: center; }
+  .timeline__item { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .timeline__item:last-child { border-bottom: 0; }
+  .timeline__emoji { font-size: 22px; flex-shrink: 0; }
+  .timeline__txt { font-size: 13px; line-height: 1.5; color: var(--txt); }
+  .timeline__txt b { color: var(--btc); }
+
+  /* Footer */
+  .ft {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--txt-dim);
+    font-family: ui-monospace,Menlo,monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .ft a { color: var(--btc); text-decoration: none; }
+  .ft__small { font-size: 9px; margin-top: 8px; line-height: 1.5; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+  /* Botão bolo (Easter egg) */
+  .bolo-btn {
+    display: block; margin: 30px auto;
+    background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+    color: #fff; border: none;
+    padding: 16px 32px; border-radius: 30px;
+    font-size: 14px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(236,72,153,0.5);
+  }
+  .bolo-btn:hover { transform: scale(1.05); }
+</style>
+</head>
+<body>
+
+<!-- Confetes -->
+<div id="confete-container"></div>
+
+<div class="wrap">
+
+<!-- HEADER ANIVERSÁRIO -->
+<header class="hdr-aniv">
+  <div class="balao">🎂🎈🎁</div>
+  <div class="feliz">Parabéns Aniversariante</div>
+  <h1 class="nome-aniv">FELIZ <b>ANIVERSÁRIO</b></h1>
+  <div class="idade">10</div>
+  <div class="data">21 · MAIO · 2026</div>
+</header>
+
+<!-- MENSAGEM DO PAI -->
+<section class="msg-pai">
+  <div class="msg-pai__tag">▸ Recado do Papai ◂</div>
+  <p class="msg-pai__txt">
+    Filho, hoje você faz <b>10 anos</b>. Eu queria te dar um presente diferente —
+    não um brinquedo que quebra, mas <b>um sistema que aprende e cresce com você</b>.
+    <br><br>
+    Este é o <b>BOT DO PAPAI</b>. Ele opera sozinho 24 horas por dia em uma plataforma chamada Polymarket,
+    com uma pequena banca de <b>$101.11 dólares</b> que eu coloquei no seu nome.
+    Ele vai estudar gráficos, esperar oportunidades e tentar fazer pequenos ganhos pra você.
+    <br><br>
+    Você não precisa entender tudo agora. Mas quando crescer, vai aprender como
+    <b>computadores podem trabalhar pra você</b> — em vez de só te tomar tempo.
+    <br><br>
+    Isso é <b>soberania digital</b>. É o que eu construo todo dia.
+    E agora também é teu. 🧡
+  </p>
+  <div class="msg-pai__sig">— Papai, com amor · BIT ADICT · 2026</div>
+</section>
+
+<!-- PAINEL DO BOT -->
+<section class="painel">
+  <div class="painel__head">
+    <div class="painel__nome">🤖 BOT DO PAPAI · DIRECIONAL v2</div>
+    <div class="status-led">ATIVO</div>
+  </div>
+
+  <div class="grid">
+    <div class="stat">
+      <div class="stat__label">BANCA INICIAL</div>
+      <div class="stat__valor btc">$101.11</div>
+      <div class="stat__sub">USDC</div>
+    </div>
+    <div class="stat">
+      <div class="stat__label">RODANDO HÁ</div>
+      <div class="stat__valor green" id="uptime">--</div>
+      <div class="stat__sub">desde 21/mai</div>
+    </div>
+    <div class="stat">
+      <div class="stat__label">ESTRATÉGIA</div>
+      <div class="stat__valor" style="font-size:14px;line-height:1.3;">BTC<br>UP/DOWN<br>5 MIN</div>
+    </div>
+    <div class="stat">
+      <div class="stat__label">CONFIANÇA MÍN</div>
+      <div class="stat__valor">70%</div>
+      <div class="stat__sub">só entra forte</div>
+    </div>
+  </div>
+
+  <p style="text-align:center;color:var(--txt-dim);font-size:12px;font-family:ui-monospace,Menlo,monospace;letter-spacing:1px;line-height:1.6;">
+    7 indicadores técnicos · RSI · EMA · MOM · BB15m · Donchian7d · VolSpike · Padrão de Vela
+  </p>
+</section>
+
+<!-- VER NO POLYMARKET -->
+<a class="cta-poly" href="https://polymarket.com/profile/0xfD23e200c51ef70dE6BD99d43e4442ce0184c079" target="_blank" rel="noopener">
+  <span class="cta-poly__big">🔍 VER MEUS TRADES AO VIVO</span>
+  <span class="cta-poly__sub">Polymarket · acompanha em tempo real</span>
+</a>
+
+<!-- LINHA DO TEMPO EDUCATIVA -->
+<section class="timeline">
+  <h3>O QUE O BOT TÁ APRENDENDO POR VOCÊ</h3>
+
+  <div class="timeline__item">
+    <div class="timeline__emoji">📊</div>
+    <div class="timeline__txt">
+      Ele <b>olha o preço do Bitcoin</b> a cada segundo e tenta adivinhar se vai subir ou cair nos próximos 5 minutos.
+    </div>
+  </div>
+
+  <div class="timeline__item">
+    <div class="timeline__emoji">🎯</div>
+    <div class="timeline__txt">
+      Quando <b>tem 70% de certeza ou mais</b>, ele aposta $2. Se errar, perde $2. Se acertar, ganha entre $1 e $3.
+    </div>
+  </div>
+
+  <div class="timeline__item">
+    <div class="timeline__emoji">🛑</div>
+    <div class="timeline__txt">
+      Tem um <b>"freio de emergência"</b>: se perder $40 no total, ele para sozinho e te avisa.
+    </div>
+  </div>
+
+  <div class="timeline__item">
+    <div class="timeline__emoji">📈</div>
+    <div class="timeline__txt">
+      Toda madrugada o Papai vai te mostrar <b>quantos trades foram feitos</b> e quanto a banca cresceu (ou diminuiu).
+    </div>
+  </div>
+
+  <div class="timeline__item">
+    <div class="timeline__emoji">💡</div>
+    <div class="timeline__txt">
+      <b>Não é mágica — é matemática.</b> Quem entende as regras do jogo, joga melhor que quem só chuta.
+    </div>
+  </div>
+</section>
+
+<!-- BOTÃO BOLO -->
+<button class="bolo-btn" onclick="bolo()">🎂 ESTOURAR CONFETE 🎉</button>
+
+<!-- FOOTER -->
+<footer class="ft">
+  <p>BIT ADICT · OPERAÇÃO VALE SATS GLOBAL · 2026</p>
+  <p style="margin-top:10px;">
+    <a href="/">RADIO BITCOIN</a> ·
+    <a href="/diversificacao.html">DIVERSIFICAÇÃO</a> ·
+    <a href="/recovery.html">RECOVERY KIT</a>
+  </p>
+  <p class="ft__small">
+    Esta página é simbólica e foi feita com carinho pra um aniversário de 10 anos.
+    O bot opera estratégia estatística em Polymarket com banca real.
+    Resultados podem variar. Não é recomendação de investimento.
+    Decisões são responsabilidade dos pais.
+  </p>
+</footer>
+
+</div>
+
+<script>
+  // Uptime desde 21/mai/2026 às 00:00
+  function atualizarUptime() {
+    const inicio = new Date('2026-05-21T00:00:00-03:00').getTime();
+    const agora = Date.now();
+    const diff = Math.max(0, agora - inicio);
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const el = document.getElementById('uptime');
+    if (el) {
+      if (h >= 24) {
+        el.innerHTML = Math.floor(h/24) + 'd ' + (h%24) + 'h';
+      } else {
+        el.innerHTML = h + 'h ' + m + 'm';
+      }
+    }
+  }
+  atualizarUptime();
+  setInterval(atualizarUptime, 60000);
+
+  // Gera confetes
+  const cores = ['#f2a900', '#ec4899', '#a855f7', '#22c55e', '#ffd966', '#22d3ee'];
+  function criarConfete(qtd) {
+    const c = document.getElementById('confete-container');
+    for (let i = 0; i < qtd; i++) {
+      const conf = document.createElement('div');
+      conf.className = 'confete';
+      conf.style.left = Math.random() * 100 + '%';
+      conf.style.background = cores[Math.floor(Math.random() * cores.length)];
+      conf.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      conf.style.animationDelay = Math.random() * 5 + 's';
+      conf.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+      if (Math.random() > 0.5) conf.style.borderRadius = '50%';
+      c.appendChild(conf);
+    }
+  }
+  criarConfete(40);
+
+  // Botão bolo: estoura mais confete + som
+  function bolo() {
+    criarConfete(60);
+    try {
+      // Toca melodia parabéns simples
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const notas = [
+        [261.63, 0.0], [261.63, 0.2], [293.66, 0.4], [261.63, 0.8],
+        [349.23, 1.2], [329.63, 1.6]
+      ];
+      notas.forEach(([freq, t]) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.frequency.value = freq;
+        osc.type = 'triangle';
+        gain.gain.setValueAtTime(0.15, ctx.currentTime + t);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.35);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + t);
+        osc.stop(ctx.currentTime + t + 0.4);
+      });
+    } catch(e) {}
+  }
+</script>
+
+</body>
+</html>
