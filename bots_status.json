@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-05-21 20:21:20",
-  "atualizado_ts": 1779405680,
+  "atualizado_em": "2026-05-21 20:47:51",
+  "atualizado_ts": 1779407271,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -10,13 +10,13 @@
       "ativo": false,
       "pid": null,
       "status": {
-        "hora": "20:21:07",
-        "preco": "77609",
-        "rsi": "29.3",
-        "ema": "▼",
+        "hora": "20:47:43",
+        "preco": "77700",
+        "rsi": "60.7",
+        "ema": "▲",
         "dir": "UP",
-        "conf": "53",
-        "t": "233",
+        "conf": "71",
+        "t": "137",
         "pnl": "+0.00",
         "win": "0.0"
       },
@@ -26,19 +26,24 @@
       "win_rate": 0.0,
       "trades_recentes": [
         {
-          "dir": "DOWN",
-          "preco": "0.49",
-          "valor": "2.45"
+          "dir": "UP",
+          "preco": "0.94",
+          "valor": "4.70"
         },
         {
           "dir": "UP",
-          "preco": "0.48",
-          "valor": "2.40"
+          "preco": "0.47",
+          "valor": "2.35"
         },
         {
-          "dir": "DOWN",
-          "preco": "0.73",
-          "valor": "3.65"
+          "dir": "UP",
+          "preco": "0.59",
+          "valor": "2.95"
+        },
+        {
+          "dir": "UP",
+          "preco": "0.5",
+          "valor": "2.50"
         }
       ]
     },
@@ -78,8 +83,8 @@
     }
   },
   "radio_panel": {
-    "hora": "20:21:20",
-    "ts": 1779405680,
+    "hora": "20:47:52",
+    "ts": 1779407272,
     "pnl_total": 16.91,
     "bots": [
       {
@@ -90,7 +95,7 @@
         "trades": 16,
         "ganhos": 13,
         "banca": 120.0,
-        "ultima": "20:21:14"
+        "ultima": "20:47:48"
       },
       {
         "nome": "ARBITRAGE",
@@ -98,8 +103,8 @@
         "ativo": true,
         "pnl": -0.04,
         "win": 0.0,
-        "ultima": "20:21:17",
-        "uptime": "43h41m"
+        "ultima": "20:47:49",
+        "uptime": "44h07m"
       },
       {
         "nome": "DIRECIONAL",
@@ -107,7 +112,7 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "20:21:00"
+        "ultima": "20:47:49"
       }
     ],
     "maquinas": [
@@ -115,10 +120,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 15.3,
-        "ram_pct": 89.2,
+        "cpu": 46.2,
+        "ram_pct": 88.8,
         "disk_pct": 2.0,
-        "uptime": "6 days,  5:03"
+        "uptime": "6 days,  5:30"
       },
       {
         "nome": "INTEL",
@@ -133,10 +138,10 @@
         "nome": "NITRO",
         "papel": "Win11 - banners",
         "online": true,
-        "cpu": 1,
-        "ram_pct": 78.6,
+        "cpu": 26,
+        "ram_pct": 85.9,
         "disk_pct": 70.8,
-        "uptime": "77h"
+        "uptime": "78h"
       }
     ],
     "satoshi": {
