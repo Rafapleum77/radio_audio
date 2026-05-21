@@ -125,7 +125,7 @@ function renderizar(d) {
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
 
-  for (const key of ['direcional_rafael', 'direcional_gael', 'cliente_lenovo']) {
+  for (const key of ['direcional_rafael', 'direcional_gael', 'bot_aniversario']) {
     const bot = d.bots[key];
     if (!bot) continue;
 
@@ -152,14 +152,14 @@ function renderizar(d) {
     card.className = 'card ' + (ativo ? 'active' : 'offline');
 
     let nomeBot = '🤖 BOT <b>' + bot.nome + '</b> · Rafael';
-    if (bot.nome === 'BOT DO PAPAI') nomeBot = '🤖 BOT DO <b>PAPAI</b> · Gael';
-    if (bot.nome === 'CLIENTE PORTUGAL') nomeBot = '🤖 <b>CLIENTE PORTUGAL</b> · via API';
+    if (bot.nome === 'PETLENDAS BSB') nomeBot = '📡 <b>PETLENDAS BSB</b> · Mac Mini';
+    if (bot.nome === 'BOT ANIVERSÁRIO DO GAEL') nomeBot = '🎂 <b>BOT ANIVERSÁRIO</b> · Gael (10 anos)';
 
     card.innerHTML = `
       <div class="c-head">
         <div>
           <div class="c-nome">${nomeBot}</div>
-          <span class="c-moeda">${bot.moeda} · ${bot.moeda === 'BTC' ? '5min' : '15min'}${isCliente ? ' · Lenovo' : ''}</span>
+          <span class="c-moeda">${bot.moeda} · ${bot.moeda === 'BTC' ? '5min' : '15min'}${isCliente ? ' · Lenovo PC novo' : ''}</span>
         </div>
         <span class="led ${ativo ? 'on' : 'off'}">${ativo ? 'ATIVO' : 'OFFLINE'}</span>
       </div>
