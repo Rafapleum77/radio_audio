@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-05-21 19:56:59",
-  "atualizado_ts": 1779404219,
+  "atualizado_em": "2026-05-21 20:02:03",
+  "atualizado_ts": 1779404523,
   "bots": {
     "direcional_rafael": {
       "nome": "DIRECIONAL",
@@ -8,13 +8,13 @@
       "ativo": true,
       "pid": 32275,
       "status": {
-        "hora": "19:56:57",
-        "preco": "77628",
-        "rsi": "44.2",
+        "hora": "20:01:44",
+        "preco": "77593",
+        "rsi": "24.6",
         "ema": "▼",
-        "dir": "DOWN",
-        "conf": "72",
-        "t": "183",
+        "dir": "UP",
+        "conf": "59",
+        "t": "196",
         "pnl": "+0.00",
         "win": "0.0"
       },
@@ -44,22 +44,22 @@
           "valor": "2.45"
         }
       ],
-      "mtime": 1779404217.2434127,
-      "mtime_pretty": "19:56:57"
+      "mtime": 1779404504.5404778,
+      "mtime_pretty": "20:01:44"
     },
     "direcional_gael": {
-      "nome": "BOT DO PAPAI",
+      "nome": "PETLENDAS BSB",
       "moeda": "BTC",
       "ativo": true,
       "pid": 32275,
       "status": {
-        "hora": "19:56:54",
-        "preco": "77628",
-        "rsi": "44.2",
+        "hora": "20:02:00",
+        "preco": "77593",
+        "rsi": "24.6",
         "ema": "▼",
-        "dir": "DOWN",
-        "conf": "72",
-        "t": "186",
+        "dir": "UP",
+        "conf": "59",
+        "t": "180",
         "pnl": "+0.00",
         "win": "0.0"
       },
@@ -89,20 +89,20 @@
           "valor": "2.45"
         }
       ],
-      "mtime": 1779404214.3496141,
-      "mtime_pretty": "19:56:54"
+      "mtime": 1779404520.2481453,
+      "mtime_pretty": "20:02:00"
     },
-    "cliente_lenovo": {
-      "nome": "CLIENTE PORTUGAL",
+    "bot_aniversario": {
+      "nome": "BOT ANIVERSÁRIO DO GAEL",
       "moeda": "BTC",
       "ativo": true,
       "pid": null,
       "via": "polymarket_api",
       "status": null,
-      "wins": 1,
-      "losses": 2,
+      "wins": 0,
+      "losses": 3,
       "trades_total": 3,
-      "win_rate": 33.3,
+      "win_rate": 0.0,
       "trades_recentes": [
         {
           "dir": "UP",
@@ -120,7 +120,7 @@
           "valor": "2.80"
         }
       ],
-      "pnl_total": -12.78,
+      "pnl_total": -12.88,
       "posicoes_abertas": 1,
       "funder": "0x0CAc24471777064974fF9Cb768C5C146B4733742",
       "profile_url": "https://polymarket.com/profile/0x0CAc24471777064974fF9Cb768C5C146B4733742"

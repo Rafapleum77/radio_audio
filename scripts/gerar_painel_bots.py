@@ -177,16 +177,16 @@ def main():
         "atualizado_ts": int(time.time()),
         "bots": {
             "direcional_rafael": coletar_bot_full(LOG_RAFAEL, "DIRECIONAL", "XRP", "DIRECIONAL"),
-            "direcional_gael":   coletar_bot_full(LOG_GAEL,   "BOT DO PAPAI", "BTC", "DIRECIONAL_FILHO"),
-            "cliente_lenovo":    coletar_via_api_polymarket("0x0CAc24471777064974fF9Cb768C5C146B4733742", "CLIENTE PORTUGAL", "BTC"),
+            "direcional_gael":   coletar_bot_full(LOG_GAEL,   "PETLENDAS BSB", "BTC", "DIRECIONAL_FILHO"),
+            "bot_aniversario":   coletar_via_api_polymarket("0x0CAc24471777064974fF9Cb768C5C146B4733742", "BOT ANIVERSÁRIO DO GAEL", "BTC"),
         },
     }
     OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False))
     print(f"[{data['atualizado_em']}] {OUT} atualizado")
     print(f"  Rafael: ativo={data['bots']['direcional_rafael']['ativo']} status={'OK' if data['bots']['direcional_rafael']['status'] else 'sem leitura'}")
     print(f"  Gael:   ativo={data['bots']['direcional_gael']['ativo']} status={'OK' if data['bots']['direcional_gael']['status'] else 'sem leitura'}")
-    cliente = data['bots']['cliente_lenovo']
-    print(f"  Cliente Portugal: posicoes={cliente['posicoes_abertas']} pnl=${cliente['pnl_total']} trades={cliente['trades_total']}")
+    aniv = data['bots']['bot_aniversario']
+    print(f"  Bot Aniversario Gael: posicoes={aniv['posicoes_abertas']} pnl=${aniv['pnl_total']} trades={aniv['trades_total']}")
 
 
 if __name__ == "__main__":
