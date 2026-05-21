@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🛡️ Configurar Wallet · BIT ADICT · Guia visual passo a passo</title>
+<script data-goatcounter="https://radiobitcoin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<meta name="description" content="Guia visual passo a passo para configurar a wallet Polymarket e conectar com o bot DIRECIONAL v2 do BIT ADICT.">
+
+<meta property="og:title" content="Configurar Wallet · BIT ADICT">
+<meta property="og:description" content="Guia visual 6 telas pra configurar Polymarket + bot.">
+<meta property="og:url" content="https://radiobitcoin.org/wallet-setup.html">
+<meta property="og:type" content="article">
+
+<link rel="icon" href="icon-512.png">
+<meta name="theme-color" content="#f2a900">
+
+<style>
+  :root {
+    --btc:#f2a900; --btc-2:#cc8e00;
+    --bg:#07090d; --bg-2:#0b0e11; --bg-3:#141a24;
+    --txt:#c8d0d8; --txt-dim:#9ca3af;
+    --green:#22c55e; --red:#ef4444; --purple:#a855f7; --blue:#3b82f6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--txt); line-height: 1.6;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 24px 18px 80px; }
+
+  /* Header */
+  .hdr { text-align:center; padding:24px 0 12px; border-bottom:1px solid rgba(242,169,0,0.2); margin-bottom:24px; }
+  .hdr-brand { font-family:ui-monospace,Menlo,monospace; font-size:10px; color:var(--btc); letter-spacing:3px; text-transform:uppercase; }
+  .hdr-title { font-size:24px; font-weight:900; color:#fff; margin:10px 0 4px; }
+  .hdr-title b { color:var(--btc); }
+  .hdr-sub { font-size:12px; color:var(--txt-dim); }
+
+  /* Progress bar */
+  .progress {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--bg-2); border:1px solid rgba(242,169,0,0.25);
+    border-radius: 12px; padding: 14px 18px;
+    margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .progress-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 11px; color: var(--txt-dim); letter-spacing: 1px; text-transform: uppercase; font-family: ui-monospace,Menlo,monospace; }
+  .progress-bar { background: #07090d; height: 10px; border-radius: 5px; overflow: hidden; }
+  .progress-fill { background: linear-gradient(90deg, var(--btc) 0%, var(--green) 100%); height: 100%; width: 0; transition: width 0.4s ease; border-radius: 5px; }
+  .progress-text { text-align: center; margin-top: 8px; font-size: 13px; color: #fff; }
+  .progress-text b { color: var(--btc); }
+
+  /* Step cards */
+  .step {
+    background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg-3) 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 24px 22px;
+    margin-bottom: 18px; transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .step.done { border-color: var(--green); box-shadow: 0 6px 30px -10px rgba(34,197,94,0.3); }
+  .step.active { border-color: var(--btc); box-shadow: 0 6px 30px -10px rgba(242,169,0,0.4); }
+
+  .step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--bg-3); border: 2px solid var(--btc);
+    color: var(--btc); font-weight: bold; font-family: ui-monospace,Menlo,monospace;
+    margin-right: 12px;
+  }
+  .step.done .step-num { background: var(--green); color: #000; border-color: var(--green); }
+  .step.done .step-num::before { content: '✓'; font-size: 18px; }
+  .step.done .step-num-text { display: none; }
+
+  .step-head { display: flex; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+  .step-title { font-size: 18px; color: #fff; font-weight: bold; flex-grow: 1; }
+  .step-time { font-size: 11px; color: var(--txt-dim); background: rgba(255,255,255,0.04); padding: 4px 10px; border-radius: 12px; font-family: ui-monospace,Menlo,monospace; letter-spacing: 1px; }
+
+  .step-body { font-size: 14px; }
+  .step-body ol { padding-left: 24px; margin: 10px 0; }
+  .step-body ol li { padding: 6px 0; }
+  .step-body b { color: #ffd966; }
+  .step-body code {
+    background: #07090d; border: 1px solid rgba(242,169,0,0.3);
+    padding: 2px 8px; border-radius: 4px;
+    font-family: ui-monospace,Menlo,monospace; font-size: 12px; color: var(--btc);
+  }
+  .step-body pre {
+    background: #07090d; border: 1px solid rgba(242,169,0,0.2);
+    padding: 12px 14px; border-radius: 8px; margin: 12px 0;
+    font-family: ui-monospace,Menlo,monospace; font-size: 12px; color: var(--btc);
+    overflow-x: auto; white-space: pre-wrap; word-break: break-all;
+  }
+  .step-body a { color: var(--btc); }
+
+  /* Tip box */
+  .tip {
+    background: rgba(59,130,246,0.08); border-left: 4px solid var(--blue);
+    padding: 10px 14px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-size: 13px; color: var(--txt);
+  }
+  .tip b { color: var(--blue); }
+
+  .warn {
+    background: rgba(239,68,68,0.08); border-left: 4px solid var(--red);
+    padding: 10px 14px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-size: 13px; color: var(--txt);
+  }
+  .warn b { color: var(--red); }
+
+  /* Buttons */
+  .actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+  .btn {
+    flex: 1; min-width: 120px;
+    padding: 12px 16px; border-radius: 30px; border: 2px solid;
+    font-weight: 800; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.15s;
+    text-align: center; text-decoration: none; display: inline-block;
+  }
+  .btn-primary { background: linear-gradient(180deg,var(--btc) 0%,var(--btc-2) 100%); color: #000; border-color: var(--btc); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(242,169,0,0.4); }
+  .btn-secondary { background: transparent; color: var(--btc); border-color: var(--btc); }
+  .btn-secondary:hover { background: rgba(242,169,0,0.1); }
+  .btn-done { background: var(--green); color: #000; border-color: var(--green); }
+
+  /* Input field */
+  .field { margin: 12px 0; }
+  .field label { display: block; font-size: 11px; color: var(--btc); letter-spacing: 1.5px; text-transform: uppercase; font-family: ui-monospace,Menlo,monospace; margin-bottom: 6px; }
+  .field input {
+    width: 100%; padding: 10px 14px; background: #07090d;
+    border: 1px solid rgba(242,169,0,0.3); border-radius: 8px;
+    color: #fff; font-family: ui-monospace,Menlo,monospace; font-size: 13px;
+  }
+  .field input:focus { outline: none; border-color: var(--btc); }
+  .field-help { font-size: 11px; color: var(--txt-dim); margin-top: 4px; }
+
+  /* Final box */
+  .final {
+    background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(242,169,0,0.1) 100%);
+    border: 2px solid var(--green);
+    border-radius: 14px; padding: 24px;
+    text-align: center; display: none;
+  }
+  .final.show { display: block; }
+  .final h2 { color: var(--green); font-size: 22px; margin-bottom: 12px; }
+  .final pre { text-align: left; }
+
+  /* Footer */
+  .ft {
+    text-align: center; padding: 24px 0;
+    color: var(--txt-dim); font-family: ui-monospace,Menlo,monospace;
+    font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .ft a { color: var(--btc); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hdr">
+  <div class="hdr-brand">RADIOBITCOIN.ORG · BIT ADICT</div>
+  <h1 class="hdr-title">CONFIGURAR <b>WALLET POLYMARKET</b></h1>
+  <div class="hdr-sub">Guia visual · 7 passos · ~15 minutos do zero ao bot operando</div>
+</header>
+
+<!-- Progress -->
+<div class="progress">
+  <div class="progress-head">
+    <span>Progresso</span>
+    <span id="progress-percent">0%</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="progress-text"><b><span id="progress-done">0</span></b> de <b>7</b> passos concluídos</div>
+</div>
+
+<!-- STEP 1 -->
+<section class="step active" id="step-1" data-step="1">
+  <div class="step-head">
+    <div class="step-num"><span class="step-num-text">1</span></div>
+    <h2 class="step-title">Cria conta Polymarket com email NOVO</h2>
+    <span class="step-time">3 min</span>
+  </div>
+  <div class="step-body">
+    <p>Usa um <b>email exclusivo pra trading</b> — não usa teu email pessoal/principal.</p>
+    <ol>
+      <li>Cria um Gmail novo só pra isso (ex: <code>seunome.bitadict@gmail.com</code>)</li>
+      <li>Vai em <a href="https://polymarket.com" target="_blank">polymarket.com</a></li>
+      <li>Clica <b>Sign Up</b> (canto superior direito)</li>
+      <li>Escolhe método <b>Email</b> (não Google/Discord)</li>
+      <li>Confirma o email recebido</li>
+      <li>Define uma senha forte (anota num gerenciador de senhas!)</li>
+    </ol>
+    <div class="tip">💡 <b>Por quê email novo?</b> Polymarket cria uma wallet vinculada ao email. Mantém isolada das tuas outras contas.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" onclick="marcarDone(1)">✓ FEITO, PRÓXIMO</button>
+    <a class="btn btn-secondary" href="https://polymarket.com" target="_blank">Abrir Polymarket</a>
+  </div>
+</section>
+
+<!-- STEP 2 -->
+<section class="step" id="step-2" data-step="2">
+  <div class="step-head">
+    <div class="step-num"><span class="step-num-text">2</span></div>
+    <h2 class="step-title">Deposita o capital inicial ($30-100)</h2>
+    <span class="step-time">3 min</span>
+  </div>
+  <div class="step-body">
+    <p>Recomendo começar com <b>$30 a $50</b> pra primeiro mês. Aumenta depois de observar 7 dias.</p>
+    <ol>
+      <li>No topo da Polymarket, clica botão azul <b>Depósito</b></li>
+      <li>Escolhe método:
+        <ul>
+          <li><b>Buy with card</b> (mais fácil — Visa/Master)</li>
+          <li><b>Deposit USDC</b> via Polygon (se já tem em exchange)</li>
+        </ul>
+      </li>
+      <li>Insere valor: <b>$30</b> (ou $50, $100 conforme tua escolha)</li>
+      <li>Completa pagamento até o fim — não fecha a janela!</li>
+      <li>Aguarda mensagem <b>Success</b> e saldo aparecer no topo</li>
+    </ol>
+    <div class="warn">⚠️ <b>Cartão recusado?</b> Liga pro banco e pede "autorizar compras internacionais por 24h". Ou usa USDC de exchange.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" onclick="marcarDone(2)">✓ FEITO, PRÓXIMO</button>
+  </div>
+</section>
+
+<!-- STEP 3 -->
+<section class="step" id="step-3" data-step="3">
+  <div class="step-head">
+    <div class="step-num"><span class="step-num-text">3</span></div>
+    <h2 class="step-title">Ativa Resgate Automático (CRÍTICO pro bot)</h2>
+    <span class="step-time">1 min</span>
+  </div>
+  <div class="step-body">
+    <p>Sem isso, cada vitória do bot fica presa em CTF token até alguém clicar "resgatar". Com isso ativo, vira USDC automático.</p>
+    <ol>
+      <li>Avatar (canto sup. direito) → <b>Settings</b></li>
+      <li>Menu lateral → <b>Negociação</b></li>
+      <li>Procura linha <b>"Resgata os teus ganhos automaticamente"</b></li>
+      <li>Clica botão azul <b>Ativar</b></li>
+      <li>Polymarket vai processar onchain (gasless, pago por eles) — espera 30s</li>
+    </ol>
+    <div class="tip">💡 <b>Aprovação única, sempre ativo</b> — faz uma vez na vida da conta.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" onclick="marcarDone(3)">✓ FEITO, PRÓXIMO</button>
+  </div>
+</section>
+
+<!-- STEP 4 -->
+<section class="step" id="step-4" data-step="4">
+  <div class="step-head">
+    <div class="step-num"><span class="step-num-text">4</span></div>
+    <h2 class="step-title">Cria Relayer API Key (essencial pro bot operar)</h2>
+    <span class="step-time">2 min</span>
+  </div>
+  <div class="step-body">
+    <p>Permite o bot postar ordens via gasless flow (Deposit Wallet).</p>
+    <ol>
+      <li>Settings → <b>Chaves API do Relayer</b> (menu lateral)</li>
+      <li>Vai abrir tela com seção "Chaves API"</li>
+      <li>Clica botão azul <b>+ Criar novo</b></li>
+      <li>Polymarket gera 2 valores. <b>COPIA AMBOS</b>:</li>
+    </ol>
+    <div class="field">
+      <label>RELAYER_API_KEY (formato UUID)</label>
+      <input type="text" id="relayer_key" placeholder="019e4a1e-881f-7a39-a812-8a1c6c21152b">
+      <div class="field-help">Cola aqui pra eu gerar o .env final no passo 7</div>
+    </div>
+    <div class="field">
+      <label>RELAYER_API_KEY_ADDRESS (endereço 0x...)</label>
+      <input type="text" id="relayer_addr" placeholder="0xf08e606b35a0d53575af8e0f73a5b8381627dd33">
+    </div>
+    <div class="warn">⚠️ <b>Guarda essa chave em local seguro</b>. Quem tem ela pode movimentar saldo da conta.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" onclick="marcarDone(4)">✓ FEITO, PRÓXIMO</button>
+  </div>
+</section>
+
+<!-- STEP 5 -->
+<section class="step" id="step-5" data-step="5">
+  <div class="step-head">
+    <div class="step-num"><span class="step-num-text">5</span></div>
+    <h2 class="step-title">Exporta Private Key da wallet</h2>
+    <span class="step-time">2 min</span>
+  </div>
+  <div class="step-body">
+    <p>É a "senha" que o bot usa pra assinar ordens em nome da tua wallet.</p>
+    <ol>
+      <li>Settings → <b>Conta</b> (menu lateral)</li>
+      <li>Procura seção <b>"Export Private Key"</b> ou <b>"Show Recovery Key"</b></li>
+      <li>Polymarket pode pedir confirmação da senha do email — digita</li>
+      <li>Vai aparecer string de 66 caracteres começando com <code>0x</code></li>
+      <li><b>Copia inteira</b> (Ctrl+C)</li>
+    </ol>
+    <div class="field">
+      <label>POLY_KEY (private key)</label>
+      <input type="text" id="poly_key" placeholder="0x5a1af0d1b35fd7f8295b358341e10da84c8a8593fc2c05712468da27900caf3d">
+    </div>
+    <div class="warn">⚠️ <b>NUNCA mostra essa chave pra ninguém</b>. Nem suporte BIT ADICT pede ela. Quem tem essa chave, tem tudo.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" onclick="marcarDone(5)">✓ FEITO, PRÓXIMO</button>
+  </div>
+</section>
+
+<!-- STEP 6 -->
+<section class="step" id="step-6" data-step="6">
+  <div class="step-head">
+    <div class="step-num"><span class="step-num-text">6</span></div>
+    <h2 class="step-title">Pega o endereço da Wallet (Funder)</h2>
+    <span class="step-time">2 min</span>
+  </div>
+  <div class="step-body">
+    <p>Endereço da Smart Wallet (proxyWallet) — é pra onde o bot envia ordens.</p>
+    <ol>
+      <li>Clica no <b>avatar</b> (canto sup. direito)</li>
+      <li>Clica em <b>Profile</b> (Ver perfil)</li>
+      <li>Olha a barra de endereço do navegador. Vai ter algo tipo:<br>
+        <code>polymarket.com/profile/0xABCDEF1234...</code>
+      </li>
+      <li><b>Copia a parte depois de "profile/"</b> (40 caracteres hex)</li>
+    </ol>
+    <div class="field">
+      <label>POLY_FUNDER (endereço da Smart Wallet)</label>
+      <input type="text" id="poly_funder" placeholder="0xfD23e200c51ef70dE6BD99d43e4442ce0184c079">
+    </div>
+    <div class="tip">💡 Esse endereço é DIFERENTE da private key. Tem 42 caracteres (mais curto).</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" onclick="marcarDone(6)">✓ FEITO, PRÓXIMO</button>
+  </div>
+</section>
+
+<!-- STEP 7 -->
+<section class="step" id="step-7" data-step="7">
+  <div class="step-head">
+    <div class="step-num"><span class="step-num-text">7</span></div>
+    <h2 class="step-title">Gera o arquivo .env e cola no PC</h2>
+    <span class="step-time">2 min</span>
+  </div>
+  <div class="step-body">
+    <p>Vou montar o arquivo `.env` com tudo que tu colou. Tu copia, cola no Notepad do Windows, e salva em <code>C:\BIT_ADICT\.env</code></p>
+    <div id="env-output" style="display:none;">
+      <pre id="env-content"></pre>
+      <button class="btn btn-primary" onclick="copiarEnv()" style="margin-top:10px;">📋 COPIAR PRO CLIPBOARD</button>
+    </div>
+    <button class="btn btn-primary" onclick="gerarEnv()" id="btn-gerar">🛠️ GERAR ARQUIVO .env</button>
+    <ol style="margin-top:20px;">
+      <li>Clica em <b>GERAR ARQUIVO .env</b> acima</li>
+      <li>Clica em <b>COPIAR PRO CLIPBOARD</b></li>
+      <li>No PC, abre <b>Notepad</b>: Win+R → digita <code>notepad</code> → Enter</li>
+      <li>Cola tudo (Ctrl+V)</li>
+      <li>Salvar como: <b>Arquivo → Salvar como</b>
+        <ul>
+          <li>Local: <code>C:\BIT_ADICT\</code></li>
+          <li>Nome do arquivo (escreve exato com aspas): <code>".env"</code></li>
+          <li>Tipo: <b>Todos os arquivos</b></li>
+        </ul>
+      </li>
+      <li>Aperta Salvar</li>
+    </ol>
+    <div class="warn">⚠️ <b>Cuidado com o ponto na frente</b>. O nome do arquivo é <code>.env</code> (começa com ponto). Por isso precisa colocar entre aspas no Notepad.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" onclick="marcarDone(7); document.getElementById('final').classList.add('show'); setTimeout(()=>document.getElementById('final').scrollIntoView({behavior:'smooth'}), 200);">✓ ARQUIVO SALVO, FINALIZAR</button>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final" id="final">
+  <h2>🎉 Setup completo!</h2>
+  <p style="margin-bottom:20px;">Agora roda o bot. No PC:</p>
+  <ol style="text-align:left; max-width:500px; margin:0 auto 20px;">
+    <li>Vai no Desktop</li>
+    <li>Clica duas vezes no atalho <b>BOT BIT ADICT</b></li>
+    <li>Janela do bot abre e começa a operar 24/7</li>
+  </ol>
+  <p style="font-size:13px; color:var(--txt-dim);">
+    Bot vai aguardar sinal &gt;70% de confiança. Quando aparecer, posta ordem automaticamente.<br>
+    Primeiros trades em 5-30 minutos normalmente.
+  </p>
+  <div class="actions" style="justify-content:center; max-width:500px; margin:24px auto 0;">
+    <a class="btn btn-primary" href="/recovery.html">VOLTAR AO RECOVERY KIT</a>
+    <a class="btn btn-secondary" href="https://wa.me/5561998110979?text=Configurei%20wallet%20BIT%20ADICT%20e%20bot%20esta%20rodando" target="_blank">📱 AVISAR RAFAEL</a>
+  </div>
+</section>
+
+<footer class="ft">
+  <p>RADIOBITCOIN.ORG · BIT ADICT · 2026</p>
+  <p style="margin-top:8px;">
+    <a href="/recovery.html">RECOVERY KIT</a> ·
+    <a href="/">RÁDIO</a> ·
+    <a href="https://wa.me/5561998110979">WHATSAPP</a>
+  </p>
+  <p style="margin-top:12px; font-size:9px; max-width:500px; margin-left:auto; margin-right:auto; line-height:1.6;">
+    Suas chaves NUNCA são enviadas pelo formulário. Tudo fica no teu navegador (localStorage) até tu gerar o .env e fechar a aba.
+    Conteúdo educacional. Não somos consultores de investimento credenciados.
+  </p>
+</footer>
+
+</div>
+
+<script>
+const TOTAL = 7;
+let done = 0;
+
+function marcarDone(n) {
+  const step = document.getElementById('step-'+n);
+  if (step.classList.contains('done')) return;
+  step.classList.add('done');
+  step.classList.remove('active');
+  done++;
+  const next = document.getElementById('step-'+(n+1));
+  if (next) {
+    next.classList.add('active');
+    setTimeout(() => next.scrollIntoView({behavior:'smooth', block:'start'}), 200);
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  const pct = Math.round((done / TOTAL) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-percent').textContent = pct + '%';
+  document.getElementById('progress-done').textContent = done;
+}
+
+function gerarEnv() {
+  const polyKey = document.getElementById('poly_key').value.trim();
+  const polyFunder = document.getElementById('poly_funder').value.trim();
+  const relayerKey = document.getElementById('relayer_key').value.trim();
+  const relayerAddr = document.getElementById('relayer_addr').value.trim();
+
+  if (!polyKey || !polyFunder || !relayerKey || !relayerAddr) {
+    alert('Preenche os 4 campos (Private Key, Funder, Relayer Key, Relayer Address) antes de gerar.');
+    return;
+  }
+
+  const env = `# BIT ADICT bot DIRECIONAL v2 - config wallet
+# Gerado em ${new Date().toLocaleString('pt-BR')} via wallet-setup.html
+
+# ===== POLYMARKET WALLET (Deposit Wallet via email) =====
+POLY_KEY=${polyKey}
+POLY_FUNDER=${polyFunder}
+
+# ===== RELAYER API (Settings > Chaves API do Relayer) =====
+RELAYER_API_KEY=${relayerKey}
+RELAYER_API_KEY_ADDRESS=${relayerAddr}
+
+# ===== BANCA E ESTRATEGIA =====
+VALOR_TRADE=2.0
+STOP_LOSS=40.0
+CONFIANCA_MIN=70
+PRECO_MIN=0.45
+
+# ===== MODO =====
+DRY_RUN=false
+SKIP_BALANCE_CHECK=true
+SIGNATURE_TYPE=POLY_1271
+
+# ===== INFRA =====
+POLY_RPC=https://polygon-bor-rpc.publicnode.com
+LOG_PATH=C:\\BIT_ADICT\\logs\\direcional.log
+TELEGRAM_TOKEN=
+TELEGRAM_CHAT_ID=
+`;
+
+  document.getElementById('env-content').textContent = env;
+  document.getElementById('env-output').style.display = 'block';
+  document.getElementById('btn-gerar').textContent = '✅ ARQUIVO GERADO';
+  document.getElementById('btn-gerar').disabled = true;
+}
+
+function copiarEnv() {
+  const content = document.getElementById('env-content').textContent;
+  navigator.clipboard.writeText(content).then(() => {
+    alert('✅ Copiado! Cola no Notepad com Ctrl+V.');
+  }).catch(() => {
+    alert('Não consegui copiar automaticamente. Seleciona o texto manualmente e Ctrl+C.');
+  });
+}
+
+updateProgress();
+</script>
+</body>
+</html>
