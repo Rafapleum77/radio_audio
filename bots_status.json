@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-05-21 08:28:04",
-  "atualizado_ts": 1779362884,
+  "atualizado_em": "2026-05-21 17:19:01",
+  "atualizado_ts": 1779394741,
   "bots": {
     "direcional_rafael": {
       "nome": "DIRECIONAL",
@@ -8,13 +8,13 @@
       "ativo": true,
       "pid": 32275,
       "status": {
-        "hora": "08:27:46",
-        "preco": "77309",
-        "rsi": "44.3",
+        "hora": "17:18:45",
+        "preco": "77702",
+        "rsi": "56.6",
         "ema": "▲",
         "dir": "UP",
-        "conf": "75",
-        "t": "134",
+        "conf": "81",
+        "t": "075",
         "pnl": "+0.00",
         "win": "0.0"
       },
@@ -25,18 +25,58 @@
       "trades_recentes": [
         {
           "dir": "UP",
+          "preco": "0.48",
+          "valor": "2.40"
+        },
+        {
+          "dir": "UP",
+          "preco": "0.58",
+          "valor": "2.90"
+        },
+        {
+          "dir": "UP",
           "preco": "0.5",
           "valor": "2.50"
         },
         {
           "dir": "UP",
-          "preco": "0.53",
-          "valor": "2.65"
+          "preco": "0.46",
+          "valor": "2.30"
         },
         {
           "dir": "UP",
-          "preco": "0.5",
-          "valor": "2.50"
+          "preco": "0.62",
+          "valor": "3.10"
+        }
+      ],
+      "mtime": 1779394725.8482227,
+      "mtime_pretty": "17:18:45"
+    },
+    "direcional_gael": {
+      "nome": "BOT DO PAPAI",
+      "moeda": "BTC",
+      "ativo": true,
+      "pid": 32275,
+      "status": {
+        "hora": "17:18:53",
+        "preco": "77702",
+        "rsi": "56.6",
+        "ema": "▲",
+        "dir": "UP",
+        "conf": "81",
+        "t": "067",
+        "pnl": "+0.00",
+        "win": "0.0"
+      },
+      "wins": 0,
+      "losses": 0,
+      "trades_total": 0,
+      "win_rate": 0.0,
+      "trades_recentes": [
+        {
+          "dir": "UP",
+          "preco": "0.46",
+          "valor": "2.30"
         },
         {
           "dir": "UP",
@@ -45,36 +85,22 @@
         },
         {
           "dir": "UP",
-          "preco": "0.54",
-          "valor": "2.70"
+          "preco": "0.59",
+          "valor": "2.95"
+        },
+        {
+          "dir": "UP",
+          "preco": "0.47",
+          "valor": "2.35"
+        },
+        {
+          "dir": "UP",
+          "preco": "0.47",
+          "valor": "2.35"
         }
       ],
-      "mtime": 1779362866.0734835,
-      "mtime_pretty": "08:27:46"
-    },
-    "direcional_gael": {
-      "nome": "BOT DO PAPAI",
-      "moeda": "BTC",
-      "ativo": true,
-      "pid": 32275,
-      "status": {
-        "hora": "08:16:30",
-        "preco": "77354",
-        "rsi": "62.4",
-        "ema": "▲",
-        "dir": "UP",
-        "conf": "80",
-        "t": "210",
-        "pnl": "+0.00",
-        "win": "0"
-      },
-      "wins": 0,
-      "losses": 0,
-      "trades_total": 0,
-      "win_rate": 0.0,
-      "trades_recentes": [],
-      "mtime": 1779362876.5904262,
-      "mtime_pretty": "08:27:56"
+      "mtime": 1779394733.8739722,
+      "mtime_pretty": "17:18:53"
     }
   }
 }
