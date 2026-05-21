@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-05-21 19:40:52",
-  "atualizado_ts": 1779403252,
+  "atualizado_em": "2026-05-21 19:56:59",
+  "atualizado_ts": 1779404219,
   "bots": {
     "direcional_rafael": {
       "nome": "DIRECIONAL",
@@ -8,13 +8,13 @@
       "ativo": true,
       "pid": 32275,
       "status": {
-        "hora": "19:40:47",
-        "preco": "77555",
-        "rsi": "22.3",
+        "hora": "19:56:57",
+        "preco": "77628",
+        "rsi": "44.2",
         "ema": "▼",
-        "dir": "UP",
-        "conf": "53",
-        "t": "253",
+        "dir": "DOWN",
+        "conf": "72",
+        "t": "183",
         "pnl": "+0.00",
         "win": "0.0"
       },
@@ -24,9 +24,14 @@
       "win_rate": 0.0,
       "trades_recentes": [
         {
-          "dir": "DOWN",
-          "preco": "0.5",
-          "valor": "2.50"
+          "dir": "UP",
+          "preco": "0.48",
+          "valor": "2.40"
+        },
+        {
+          "dir": "UP",
+          "preco": "0.63",
+          "valor": "3.15"
         },
         {
           "dir": "UP",
@@ -34,13 +39,13 @@
           "valor": "2.55"
         },
         {
-          "dir": "UP",
-          "preco": "0.48",
-          "valor": "2.40"
+          "dir": "DOWN",
+          "preco": "0.49",
+          "valor": "2.45"
         }
       ],
-      "mtime": 1779403247.8017626,
-      "mtime_pretty": "19:40:47"
+      "mtime": 1779404217.2434127,
+      "mtime_pretty": "19:56:57"
     },
     "direcional_gael": {
       "nome": "BOT DO PAPAI",
@@ -48,13 +53,13 @@
       "ativo": true,
       "pid": 32275,
       "status": {
-        "hora": "19:40:50",
-        "preco": "77573",
-        "rsi": "28.0",
+        "hora": "19:56:54",
+        "preco": "77628",
+        "rsi": "44.2",
         "ema": "▼",
-        "dir": "UP",
-        "conf": "53",
-        "t": "250",
+        "dir": "DOWN",
+        "conf": "72",
+        "t": "186",
         "pnl": "+0.00",
         "win": "0.0"
       },
@@ -65,17 +70,60 @@
       "trades_recentes": [
         {
           "dir": "DOWN",
-          "preco": "0.54",
-          "valor": "2.70"
+          "preco": "0.47",
+          "valor": "2.35"
+        },
+        {
+          "dir": "UP",
+          "preco": "0.77",
+          "valor": "3.85"
+        },
+        {
+          "dir": "UP",
+          "preco": "0.51",
+          "valor": "2.55"
         },
         {
           "dir": "DOWN",
-          "preco": "0.47",
-          "valor": "2.35"
+          "preco": "0.49",
+          "valor": "2.45"
         }
       ],
-      "mtime": 1779403250.490081,
-      "mtime_pretty": "19:40:50"
+      "mtime": 1779404214.3496141,
+      "mtime_pretty": "19:56:54"
+    },
+    "cliente_lenovo": {
+      "nome": "CLIENTE PORTUGAL",
+      "moeda": "BTC",
+      "ativo": true,
+      "pid": null,
+      "via": "polymarket_api",
+      "status": null,
+      "wins": 1,
+      "losses": 2,
+      "trades_total": 3,
+      "win_rate": 33.3,
+      "trades_recentes": [
+        {
+          "dir": "UP",
+          "preco": "1.0",
+          "valor": "10.00"
+        },
+        {
+          "dir": "DOWN",
+          "preco": "49.0",
+          "valor": "2.45"
+        },
+        {
+          "dir": "UP",
+          "preco": "56.0",
+          "valor": "2.80"
+        }
+      ],
+      "pnl_total": -12.78,
+      "posicoes_abertas": 1,
+      "funder": "0x0CAc24471777064974fF9Cb768C5C146B4733742",
+      "profile_url": "https://polymarket.com/profile/0x0CAc24471777064974fF9Cb768C5C146B4733742"
     }
   }
 }
