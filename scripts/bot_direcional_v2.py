@@ -437,7 +437,9 @@ def conectar(tentativas=5):
         sys.exit(1)
     for i in range(tentativas):
         try:
-            c = ClobClient(HOST, key=KEY, chain_id=137, signature_type=SignatureTypeV2.POLY_PROXY, funder=FUNDER)
+            _sig_str = os.getenv("SIGNATURE_TYPE", "POLY_PROXY").upper()
+            _sig = getattr(SignatureTypeV2, _sig_str, SignatureTypeV2.POLY_PROXY)
+            c = ClobClient(HOST, key=KEY, chain_id=137, signature_type=_sig, funder=FUNDER)
             c.set_api_creds(c.derive_api_key())
             print(f"{V}[OK] Conectado ao Polymarket{X}")
             return c

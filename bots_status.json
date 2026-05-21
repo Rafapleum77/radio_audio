@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-05-21 17:19:01",
-  "atualizado_ts": 1779394741,
+  "atualizado_em": "2026-05-21 19:40:52",
+  "atualizado_ts": 1779403252,
   "bots": {
     "direcional_rafael": {
       "nome": "DIRECIONAL",
@@ -8,13 +8,13 @@
       "ativo": true,
       "pid": 32275,
       "status": {
-        "hora": "17:18:45",
-        "preco": "77702",
-        "rsi": "56.6",
-        "ema": "▲",
+        "hora": "19:40:47",
+        "preco": "77555",
+        "rsi": "22.3",
+        "ema": "▼",
         "dir": "UP",
-        "conf": "81",
-        "t": "075",
+        "conf": "53",
+        "t": "253",
         "pnl": "+0.00",
         "win": "0.0"
       },
@@ -24,33 +24,23 @@
       "win_rate": 0.0,
       "trades_recentes": [
         {
-          "dir": "UP",
-          "preco": "0.48",
-          "valor": "2.40"
-        },
-        {
-          "dir": "UP",
-          "preco": "0.58",
-          "valor": "2.90"
-        },
-        {
-          "dir": "UP",
+          "dir": "DOWN",
           "preco": "0.5",
           "valor": "2.50"
         },
         {
           "dir": "UP",
-          "preco": "0.46",
-          "valor": "2.30"
+          "preco": "0.51",
+          "valor": "2.55"
         },
         {
           "dir": "UP",
-          "preco": "0.62",
-          "valor": "3.10"
+          "preco": "0.48",
+          "valor": "2.40"
         }
       ],
-      "mtime": 1779394725.8482227,
-      "mtime_pretty": "17:18:45"
+      "mtime": 1779403247.8017626,
+      "mtime_pretty": "19:40:47"
     },
     "direcional_gael": {
       "nome": "BOT DO PAPAI",
@@ -58,13 +48,13 @@
       "ativo": true,
       "pid": 32275,
       "status": {
-        "hora": "17:18:53",
-        "preco": "77702",
-        "rsi": "56.6",
-        "ema": "▲",
+        "hora": "19:40:50",
+        "preco": "77573",
+        "rsi": "28.0",
+        "ema": "▼",
         "dir": "UP",
-        "conf": "81",
-        "t": "067",
+        "conf": "53",
+        "t": "250",
         "pnl": "+0.00",
         "win": "0.0"
       },
@@ -74,33 +64,18 @@
       "win_rate": 0.0,
       "trades_recentes": [
         {
-          "dir": "UP",
-          "preco": "0.46",
-          "valor": "2.30"
+          "dir": "DOWN",
+          "preco": "0.54",
+          "valor": "2.70"
         },
         {
-          "dir": "UP",
-          "preco": "0.52",
-          "valor": "2.60"
-        },
-        {
-          "dir": "UP",
-          "preco": "0.59",
-          "valor": "2.95"
-        },
-        {
-          "dir": "UP",
-          "preco": "0.47",
-          "valor": "2.35"
-        },
-        {
-          "dir": "UP",
+          "dir": "DOWN",
           "preco": "0.47",
           "valor": "2.35"
         }
       ],
-      "mtime": 1779394733.8739722,
-      "mtime_pretty": "17:18:53"
+      "mtime": 1779403250.490081,
+      "mtime_pretty": "19:40:50"
     }
   }
 }
