@@ -7,7 +7,7 @@ Lê logs dos 2 bots ativos:
 
 Cron sugerido: 1x/min via launchd.
 """
-import json, re, time, subprocess
+import json, re, time, subprocess, requests
 from pathlib import Path
 from datetime import datetime
 
@@ -131,6 +131,46 @@ def pid_ativo(folder_match):
     return None
 
 
+def coletar_via_api_polymarket(funder, nome, moeda):
+    """Coleta dados via API publica Polymarket (pra bots remotos sem log local)."""
+    try:
+        r = requests.get(f"https://data-api.polymarket.com/positions?user={funder}&limit=20", timeout=8)
+        positions = r.json() if r.status_code == 200 else []
+    except Exception:
+        positions = []
+
+    pnl_total = sum(p.get("cashPnl", 0) for p in positions)
+    wins = sum(1 for p in positions if p.get("cashPnl", 0) > 0)
+    losses = sum(1 for p in positions if p.get("cashPnl", 0) < 0)
+    abertas = sum(1 for p in positions if p.get("currentValue", 0) > 0.01 and not p.get("redeemable"))
+
+    trades_recentes = []
+    for p in positions[:5]:
+        trades_recentes.append({
+            "dir": p.get("outcome", "?").upper(),
+            "preco": str(round(p.get("avgPrice", 0) * 100, 1)),
+            "valor": f"{p.get('initialValue', 0):.2f}",
+        })
+
+    return {
+        "nome": nome,
+        "moeda": moeda,
+        "ativo": len(positions) > 0,
+        "pid": None,
+        "via": "polymarket_api",
+        "status": None,
+        "wins": wins,
+        "losses": losses,
+        "trades_total": wins + losses,
+        "win_rate": round(wins / max(wins + losses, 1) * 100, 1),
+        "trades_recentes": trades_recentes,
+        "pnl_total": round(pnl_total, 2),
+        "posicoes_abertas": abertas,
+        "funder": funder,
+        "profile_url": f"https://polymarket.com/profile/{funder}",
+    }
+
+
 def main():
     data = {
         "atualizado_em": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -138,12 +178,15 @@ def main():
         "bots": {
             "direcional_rafael": coletar_bot_full(LOG_RAFAEL, "DIRECIONAL", "XRP", "DIRECIONAL"),
             "direcional_gael":   coletar_bot_full(LOG_GAEL,   "BOT DO PAPAI", "BTC", "DIRECIONAL_FILHO"),
+            "cliente_lenovo":    coletar_via_api_polymarket("0x0CAc24471777064974fF9Cb768C5C146B4733742", "CLIENTE PORTUGAL", "BTC"),
         },
     }
     OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False))
     print(f"[{data['atualizado_em']}] {OUT} atualizado")
     print(f"  Rafael: ativo={data['bots']['direcional_rafael']['ativo']} status={'OK' if data['bots']['direcional_rafael']['status'] else 'sem leitura'}")
     print(f"  Gael:   ativo={data['bots']['direcional_gael']['ativo']} status={'OK' if data['bots']['direcional_gael']['status'] else 'sem leitura'}")
+    cliente = data['bots']['cliente_lenovo']
+    print(f"  Cliente Portugal: posicoes={cliente['posicoes_abertas']} pnl=${cliente['pnl_total']} trades={cliente['trades_total']}")
 
 
 if __name__ == "__main__":

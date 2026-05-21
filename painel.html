@@ -125,7 +125,7 @@ function renderizar(d) {
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
 
-  for (const key of ['direcional_rafael', 'direcional_gael']) {
+  for (const key of ['direcional_rafael', 'direcional_gael', 'cliente_lenovo']) {
     const bot = d.bots[key];
     if (!bot) continue;
 
@@ -147,13 +147,19 @@ function renderizar(d) {
           </div>
         `).join('');
 
+    const isCliente = bot.via === 'polymarket_api';
     const card = document.createElement('div');
     card.className = 'card ' + (ativo ? 'active' : 'offline');
+
+    let nomeBot = '🤖 BOT <b>' + bot.nome + '</b> · Rafael';
+    if (bot.nome === 'BOT DO PAPAI') nomeBot = '🤖 BOT DO <b>PAPAI</b> · Gael';
+    if (bot.nome === 'CLIENTE PORTUGAL') nomeBot = '🤖 <b>CLIENTE PORTUGAL</b> · via API';
+
     card.innerHTML = `
       <div class="c-head">
         <div>
-          <div class="c-nome">${bot.nome === 'BOT DO PAPAI' ? '🤖 BOT DO <b>PAPAI</b> · Gael' : '🤖 BOT <b>' + bot.nome + '</b> · Rafael'}</div>
-          <span class="c-moeda">${bot.moeda} · ${bot.moeda === 'BTC' ? '5min' : '15min'}</span>
+          <div class="c-nome">${nomeBot}</div>
+          <span class="c-moeda">${bot.moeda} · ${bot.moeda === 'BTC' ? '5min' : '15min'}${isCliente ? ' · Lenovo' : ''}</span>
         </div>
         <span class="led ${ativo ? 'on' : 'off'}">${ativo ? 'ATIVO' : 'OFFLINE'}</span>
       </div>
@@ -165,6 +171,18 @@ function renderizar(d) {
         <div class="stat"><div class="stat-k">WIN%</div><div class="stat-v btc">${bot.win_rate || 0}%</div></div>
       </div>
 
+      ${isCliente ? `
+      <div class="live">
+        <div style="font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:1.2px;color:var(--btc);margin-bottom:8px;text-transform:uppercase;">▸ DADOS POLYMARKET API · cliente remoto</div>
+        <div class="live-line">
+          <span class="k">PnL total:</span><span class="v ${(bot.pnl_total || 0) >= 0 ? 'g' : 'r'}">$${(bot.pnl_total || 0).toFixed(2)}</span>
+          <span class="k">Posições abertas:</span><span class="v">${bot.posicoes_abertas || 0}</span>
+        </div>
+        <div class="live-line" style="margin-top:8px;">
+          <a href="${bot.profile_url}" target="_blank" rel="noopener" style="color:var(--btc);text-decoration:none;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:1px;">🔗 VER NO POLYMARKET →</a>
+        </div>
+      </div>
+      ` : `
       <div class="live">
         <div style="font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:1.2px;color:var(--btc);margin-bottom:8px;text-transform:uppercase;">▸ ÚLTIMA LEITURA · ${s.hora || '--:--:--'}</div>
         <div class="live-line">
@@ -179,6 +197,7 @@ function renderizar(d) {
           <span class="k">P&L:</span><span class="v ${parseFloat(s.pnl || 0) >= 0 ? 'g' : 'r'}">${s.pnl || '+0.00'}</span>
         </div>
       </div>
+      `}
 
       <div class="trades">
         <div class="trades-title">▸ Últimos trades no log</div>
