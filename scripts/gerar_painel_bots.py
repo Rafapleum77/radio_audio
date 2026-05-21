@@ -1,22 +1,31 @@
 #!/usr/bin/env python3.11
 """
 Gera /Users/rafaelrioscrosara/Bots/radio/bots_status.json a cada execução.
-Lê logs dos 2 bots ativos:
-- DIRECIONAL (Rafael, XRP) em /tmp/direcional_live.log
-- DIRECIONAL_FILHO (Gael, BTC) em ~/Bots/DIRECIONAL_FILHO/logs/stdout.log
 
-Cron sugerido: 1x/min via launchd.
+Combina:
+- public_snapshot() do painel_radio.py (XRP, ARBITRAGE, DIRECIONAL, redes, locutores, radio, maquinas)
+- Bot do Petlendas BSB (Mac Mini DIRECIONAL_FILHO via log local)
+- Bot Aniversario Gael (Lenovo via API Polymarket)
+
+Cron 1x/min via launchd. Auto-commit pro repo radio.
 """
-import json, re, time, subprocess, requests
+from __future__ import annotations
+import json, re, sys, time, subprocess, requests
 from pathlib import Path
 from datetime import datetime
 
-OUT = Path.home() / "Bots/radio/bots_status.json"
-LOG_RAFAEL = Path("/tmp/direcional_live.log")
-LOG_GAEL   = Path.home() / "Bots/DIRECIONAL_FILHO/logs/stdout.log"
+# Importa painel_radio.py pra reusar coletores
+sys.path.insert(0, str(Path.home() / "Bots"))
+try:
+    import painel_radio as pr
+    SNAPSHOT_OK = True
+except Exception as e:
+    print(f"WARN: nao consegui importar painel_radio: {e}")
+    SNAPSHOT_OK = False
 
-# Regex pra capturar última linha de status de cada bot:
-# Formato: "HH:MM:SS │ BTC:$X │ RSI:Y │ EMA:▲ │ Dir:▲ UP NN% │ T-NNNs │ P&L:+X.XX │ Win:X.X%"
+OUT = Path.home() / "Bots/radio/bots_status.json"
+LOG_GAEL = Path.home() / "Bots/DIRECIONAL_FILHO/logs/stdout.log"
+
 RE = re.compile(
     r"(?P<hora>\d{2}:\d{2}:\d{2}).*?"
     r"(?:BTC|XRP):\$(?P<preco>[\d,.]+).*?"
@@ -27,13 +36,7 @@ RE = re.compile(
     r"P&L:(?P<pnl>[-+\d.]+).*?"
     r"Win:(?P<win>[\d.]+)%"
 )
-
-# Regex pra trades concluídos no log
-RE_TRADE = re.compile(
-    r"\[OK\]\s+(?P<dir>UP|DOWN):.*?@\s*(?P<preco>[\d.]+).*?\(\$(?P<valor>[\d.]+)\)"
-)
-RE_RESULT_WIN = re.compile(r"✓.*?(?:WIN|venceu|ganhou)\b", re.I)
-RE_RESULT_LOSS = re.compile(r"✗.*?(?:LOSS|perdeu)\b", re.I)
+RE_TRADE = re.compile(r"\[OK\]\s+(?P<dir>UP|DOWN):.*?@\s*(?P<preco>[\d.]+).*?\(\$(?P<valor>[\d.]+)\)")
 
 
 def strip_ansi(s):
@@ -48,26 +51,22 @@ def read_tail(path, max_bytes=16384):
         with path.open("rb") as f:
             if size > max_bytes:
                 f.seek(-max_bytes, 2)
-            data = f.read()
-        return strip_ansi(data.decode("utf-8", errors="replace"))
+            return strip_ansi(f.read().decode("utf-8", errors="replace"))
     except Exception:
         return ""
 
 
-def coletar_bot_full(log_path, nome, moeda, folder):
-    pid = pid_ativo(folder)
-    log = read_tail(log_path)
-    if not log:
-        return {
-            "nome": nome,
-            "moeda": moeda,
-            "ativo": pid is not None,
-            "pid": pid,
-            "status": None,
-            "trades_log": [],
-            "mtime": None,
-        }
+def coletar_petlendas_mac():
+    """Bot DIRECIONAL_FILHO rodando no Mac Mini (conta petlendasbsb@gmail.com)."""
+    pid = None
+    try:
+        out = subprocess.check_output(["pgrep", "-f", "DIRECIONAL_FILHO.*bot_direcional"], text=True).strip()
+        if out:
+            pid = int(out.split()[0])
+    except Exception:
+        pass
 
+    log = read_tail(LOG_GAEL)
     pedacos = re.split(r"[\r\n]+", log)
     status = None
     for p in reversed(pedacos):
@@ -78,9 +77,7 @@ def coletar_bot_full(log_path, nome, moeda, folder):
             status = d
             break
 
-    # Conta trades + win/loss
-    wins = 0
-    losses = 0
+    wins = losses = 0
     trades = []
     last_open = None
     for p in pedacos:
@@ -89,18 +86,16 @@ def coletar_bot_full(log_path, nome, moeda, folder):
             last_open = m.groupdict()
             trades.append({"dir": m.group("dir"), "preco": m.group("preco"), "valor": m.group("valor")})
         if last_open:
-            if RE_RESULT_WIN.search(p):
-                wins += 1
-                last_open = None
-            elif RE_RESULT_LOSS.search(p):
-                losses += 1
-                last_open = None
-
-    mtime = log_path.stat().st_mtime if log_path.exists() else None
+            if re.search(r"✓.*?(?:WIN|venceu|ganhou)", p, re.I):
+                wins += 1; last_open = None
+            elif re.search(r"✗.*?(?:LOSS|perdeu)", p, re.I):
+                losses += 1; last_open = None
 
     return {
-        "nome": nome,
-        "moeda": moeda,
+        "nome": "PETLENDAS BSB",
+        "moeda": "BTC",
+        "janela": "5min",
+        "local": "Mac Mini",
         "ativo": pid is not None,
         "pid": pid,
         "status": status,
@@ -109,32 +104,13 @@ def coletar_bot_full(log_path, nome, moeda, folder):
         "trades_total": wins + losses,
         "win_rate": round(wins / max(wins + losses, 1) * 100, 1),
         "trades_recentes": trades[-5:],
-        "mtime": mtime,
-        "mtime_pretty": datetime.fromtimestamp(mtime).strftime("%H:%M:%S") if mtime else None,
     }
 
 
-def pid_ativo(folder_match):
-    """Detecta PID do bot rodando em determinada pasta."""
+def coletar_via_api_polymarket(funder, nome, moeda, local):
+    """Bot remoto - puxa via API Polymarket."""
     try:
-        out = subprocess.check_output(["pgrep", "-f", "bot_direcional_v2.py"], text=True).strip()
-        for pid in out.split():
-            try:
-                cwd_out = subprocess.check_output(["lsof", "-p", pid, "-d", "cwd", "-F", "n"], text=True, stderr=subprocess.DEVNULL)
-                for line in cwd_out.splitlines():
-                    if line.startswith("n") and folder_match in line:
-                        return int(pid)
-            except Exception:
-                continue
-    except Exception:
-        pass
-    return None
-
-
-def coletar_via_api_polymarket(funder, nome, moeda):
-    """Coleta dados via API publica Polymarket (pra bots remotos sem log local)."""
-    try:
-        r = requests.get(f"https://data-api.polymarket.com/positions?user={funder}&limit=20", timeout=8)
+        r = requests.get(f"https://data-api.polymarket.com/positions?user={funder}&limit=30", timeout=8)
         positions = r.json() if r.status_code == 200 else []
     except Exception:
         positions = []
@@ -144,26 +120,25 @@ def coletar_via_api_polymarket(funder, nome, moeda):
     losses = sum(1 for p in positions if p.get("cashPnl", 0) < 0)
     abertas = sum(1 for p in positions if p.get("currentValue", 0) > 0.01 and not p.get("redeemable"))
 
-    trades_recentes = []
-    for p in positions[:5]:
-        trades_recentes.append({
-            "dir": p.get("outcome", "?").upper(),
-            "preco": str(round(p.get("avgPrice", 0) * 100, 1)),
-            "valor": f"{p.get('initialValue', 0):.2f}",
-        })
+    trades = [{
+        "dir": p.get("outcome", "?").upper(),
+        "preco": str(round(p.get("avgPrice", 0) * 100, 1)),
+        "valor": f"{p.get('initialValue', 0):.2f}",
+    } for p in positions[:5]]
 
     return {
         "nome": nome,
         "moeda": moeda,
+        "janela": "5min",
+        "local": local,
         "ativo": len(positions) > 0,
-        "pid": None,
         "via": "polymarket_api",
         "status": None,
         "wins": wins,
         "losses": losses,
         "trades_total": wins + losses,
         "win_rate": round(wins / max(wins + losses, 1) * 100, 1),
-        "trades_recentes": trades_recentes,
+        "trades_recentes": trades,
         "pnl_total": round(pnl_total, 2),
         "posicoes_abertas": abertas,
         "funder": funder,
@@ -175,18 +150,34 @@ def main():
     data = {
         "atualizado_em": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "atualizado_ts": int(time.time()),
-        "bots": {
-            "direcional_rafael": coletar_bot_full(LOG_RAFAEL, "DIRECIONAL", "XRP", "DIRECIONAL"),
-            "direcional_gael":   coletar_bot_full(LOG_GAEL,   "PETLENDAS BSB", "BTC", "DIRECIONAL_FILHO"),
-            "bot_aniversario":   coletar_via_api_polymarket("0x0CAc24471777064974fF9Cb768C5C146B4733742", "BOT ANIVERSÁRIO DO GAEL", "BTC"),
+        "polymarket_bots": {
+            "petlendas_bsb":   coletar_petlendas_mac(),
+            "bot_aniversario": coletar_via_api_polymarket(
+                "0x0CAc24471777064974fF9Cb768C5C146B4733742",
+                "BOT ANIVERSÁRIO DO GAEL",
+                "BTC",
+                "Lenovo PC novo"
+            ),
         },
     }
+
+    # Adiciona snapshot do painel local (XRP, ARBITRAGE, DIRECIONAL, redes, locutores, sistema)
+    if SNAPSHOT_OK:
+        try:
+            snap = pr.public_snapshot()
+            data["radio_panel"] = snap
+        except Exception as e:
+            print(f"WARN: snapshot painel_radio falhou: {e}")
+
     OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False))
-    print(f"[{data['atualizado_em']}] {OUT} atualizado")
-    print(f"  Rafael: ativo={data['bots']['direcional_rafael']['ativo']} status={'OK' if data['bots']['direcional_rafael']['status'] else 'sem leitura'}")
-    print(f"  Gael:   ativo={data['bots']['direcional_gael']['ativo']} status={'OK' if data['bots']['direcional_gael']['status'] else 'sem leitura'}")
-    aniv = data['bots']['bot_aniversario']
-    print(f"  Bot Aniversario Gael: posicoes={aniv['posicoes_abertas']} pnl=${aniv['pnl_total']} trades={aniv['trades_total']}")
+    print(f"[{data['atualizado_em']}] {OUT}")
+    p = data['polymarket_bots']
+    print(f"  Petlendas (Mac): ativo={p['petlendas_bsb']['ativo']}")
+    print(f"  Aniversario (Lenovo): trades={p['bot_aniversario']['trades_total']} pnl=${p['bot_aniversario']['pnl_total']}")
+    if SNAPSHOT_OK and "radio_panel" in data:
+        rp = data["radio_panel"]
+        bots_panel = rp.get("bots", [])
+        print(f"  Painel radio: {len(bots_panel)} bots + {len(rp.get('maquinas', []))} maquinas")
 
 
 if __name__ == "__main__":
