@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🤖 Painel dos Bots · BIT ADICT</title>
+<title>🤖 Painel Integrado · BIT ADICT</title>
 <script data-goatcounter="https://radiobitcoin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <link rel="icon" href="icon-512.png">
 <meta name="theme-color" content="#f2a900">
@@ -13,68 +13,86 @@
     --btc:#f2a900; --btc-2:#cc8e00;
     --bg:#07090d; --bg-2:#0b0e11; --bg-3:#141a24;
     --txt:#c8d0d8; --txt-dim:#9ca3af;
-    --green:#22c55e; --red:#ef4444;
+    --green:#22c55e; --red:#ef4444; --blue:#3b82f6; --purple:#a855f7; --pink:#ec4899;
   }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; background:var(--bg); color:var(--txt); line-height:1.5; }
-  .wrap { max-width:1000px; margin:0 auto; padding:24px 16px 80px; }
+  .wrap { max-width:1280px; margin:0 auto; padding:24px 14px 80px; }
 
-  .hdr { text-align:center; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid rgba(242,169,0,0.2); }
+  .hdr { text-align:center; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid rgba(242,169,0,0.2); }
   .hdr-tag { font-family:ui-monospace,Menlo,monospace; font-size:10px; color:var(--btc); letter-spacing:3px; text-transform:uppercase; }
-  .hdr-title { font-size:24px; font-weight:900; color:#fff; margin:8px 0 4px; }
+  .hdr-title { font-size:24px; font-weight:900; color:#fff; margin:6px 0 4px; }
   .hdr-title b { color:var(--btc); }
   .hdr-upd { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--txt-dim); letter-spacing:1.5px; text-transform:uppercase; }
   .hdr-upd span { color:var(--green); }
 
-  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(380px, 1fr)); gap:18px; margin-bottom:24px; }
+  /* Section title */
+  .sec-title { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--btc); letter-spacing:3px; text-transform:uppercase; margin:24px 0 12px; padding-left:6px; border-left:3px solid var(--btc); }
 
-  .card {
-    background:linear-gradient(180deg, var(--bg-2) 0%, var(--bg-3) 100%);
-    border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:20px;
-  }
-  .card.active { border-color:var(--green); box-shadow:0 6px 30px -10px rgba(34,197,94,0.3); }
-  .card.offline { border-color:var(--red); }
+  /* Grids */
+  .grid-bots { display:grid; grid-template-columns:repeat(auto-fit, minmax(360px, 1fr)); gap:12px; margin-bottom:6px; }
+  .grid-mini { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin-bottom:6px; }
+  .grid-machines { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; }
 
-  .c-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px; }
-  .c-nome { font-size:18px; color:#fff; font-weight:bold; }
+  /* Cards */
+  .card { background:linear-gradient(180deg, var(--bg-2) 0%, var(--bg-3) 100%); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:16px; }
+  .card.on { border-color:var(--green); box-shadow:0 4px 20px -8px rgba(34,197,94,0.25); }
+  .card.off { border-color:var(--red); opacity:0.7; }
+  .card.warn { border-color:var(--btc); }
+  .card-mini { padding:12px; }
+
+  .c-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:6px; }
+  .c-nome { font-size:14px; color:#fff; font-weight:bold; }
   .c-nome b { color:var(--btc); }
-  .c-moeda { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--btc); letter-spacing:2px; background:rgba(242,169,0,0.1); padding:3px 10px; border-radius:12px; }
+  .c-sub { font-family:ui-monospace,Menlo,monospace; font-size:10px; color:var(--btc); background:rgba(242,169,0,0.1); padding:2px 8px; border-radius:10px; }
 
-  .led { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:12px; font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:1.5px; font-weight:bold; }
+  .led { display:inline-flex; align-items:center; gap:5px; padding:3px 8px; border-radius:10px; font-family:ui-monospace,Menlo,monospace; font-size:9px; letter-spacing:1.2px; font-weight:bold; }
   .led.on { background:rgba(34,197,94,0.12); border:1px solid var(--green); color:var(--green); }
   .led.off { background:rgba(239,68,68,0.12); border:1px solid var(--red); color:var(--red); }
-  .led.on::before { content:''; width:7px; height:7px; background:var(--green); border-radius:50%; animation:pulse 1.5s ease-in-out infinite; box-shadow:0 0 10px var(--green); }
-  .led.off::before { content:''; width:7px; height:7px; background:var(--red); border-radius:50%; }
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+  .led.on::before { content:''; width:6px; height:6px; background:var(--green); border-radius:50%; animation:p 1.5s ease-in-out infinite; box-shadow:0 0 8px var(--green); }
+  .led.off::before { content:''; width:6px; height:6px; background:var(--red); border-radius:50%; }
+  @keyframes p { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-  .stats { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; margin-bottom:14px; }
-  .stat { background:rgba(7,9,13,0.6); border:1px solid rgba(255,255,255,0.05); padding:10px 6px; border-radius:8px; text-align:center; }
-  .stat-k { font-family:ui-monospace,Menlo,monospace; font-size:9px; color:var(--txt-dim); letter-spacing:1.2px; text-transform:uppercase; }
-  .stat-v { font-size:18px; color:#fff; font-weight:800; margin-top:2px; }
-  .stat-v.btc { color:var(--btc); }
+  .stats { display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-bottom:10px; }
+  .stat { background:rgba(7,9,13,0.6); border:1px solid rgba(255,255,255,0.05); padding:8px 4px; border-radius:6px; text-align:center; }
+  .stat-k { font-family:ui-monospace,Menlo,monospace; font-size:8px; color:var(--txt-dim); letter-spacing:1px; text-transform:uppercase; }
+  .stat-v { font-size:15px; color:#fff; font-weight:800; margin-top:2px; }
   .stat-v.g { color:var(--green); }
   .stat-v.r { color:var(--red); }
-  .stat-v.small { font-size:14px; }
+  .stat-v.btc { color:var(--btc); }
 
-  .live { background:rgba(7,9,13,0.6); border:1px solid rgba(242,169,0,0.2); border-radius:8px; padding:12px 14px; font-family:ui-monospace,Menlo,monospace; font-size:11px; line-height:1.7; color:var(--txt); margin-bottom:12px; }
-  .live-line { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  .live { background:rgba(7,9,13,0.6); border:1px solid rgba(242,169,0,0.2); border-radius:6px; padding:8px 10px; font-family:ui-monospace,Menlo,monospace; font-size:10px; line-height:1.5; margin-bottom:8px; }
+  .live-line { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
   .live-line .k { color:var(--txt-dim); }
   .live-line .v { color:#fff; font-weight:bold; }
   .live-line .v.btc { color:var(--btc); }
   .live-line .v.g { color:var(--green); }
   .live-line .v.r { color:var(--red); }
 
-  .trades { font-size:11px; color:var(--txt-dim); }
-  .trades-title { font-family:ui-monospace,Menlo,monospace; color:var(--btc); letter-spacing:1.5px; text-transform:uppercase; font-size:10px; margin-bottom:6px; }
-  .trade-item { padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; gap:10px; align-items:center; }
-  .trade-item:last-child { border-bottom:0; }
-  .badge-up { background:rgba(34,197,94,0.15); color:var(--green); padding:2px 6px; border-radius:4px; font-weight:bold; font-size:9px; }
-  .badge-down { background:rgba(239,68,68,0.15); color:var(--red); padding:2px 6px; border-radius:4px; font-weight:bold; font-size:9px; }
+  /* Mini cards (XRP/ARBITRAGE da radio) */
+  .mini-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+  .mini-nome { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--btc); letter-spacing:1.5px; font-weight:bold; }
+  .mini-row { display:flex; justify-content:space-between; font-size:11px; padding:3px 0; }
+  .mini-k { color:var(--txt-dim); }
+  .mini-v { color:#fff; font-weight:bold; font-family:ui-monospace,Menlo,monospace; }
 
-  .empty { text-align:center; padding:30px 14px; color:var(--txt-dim); font-size:13px; }
+  /* Machine cards */
+  .machine { font-family:ui-monospace,Menlo,monospace; font-size:10px; }
+  .machine-nome { color:var(--btc); font-size:11px; letter-spacing:1.5px; margin-bottom:6px; font-weight:bold; }
+  .machine-bar { background:#0a0e14; border-radius:3px; height:6px; overflow:hidden; margin:3px 0 6px; }
+  .machine-bar > div { height:100%; background:linear-gradient(90deg, var(--green) 0%, var(--btc) 70%, var(--red) 100%); }
+
+  .trades-mini { font-size:10px; color:var(--txt-dim); }
+  .trade-row { display:flex; gap:8px; padding:3px 0; border-bottom:1px solid rgba(255,255,255,0.04); align-items:center; }
+  .trade-row:last-child { border-bottom:0; }
+  .b-up { background:rgba(34,197,94,0.15); color:var(--green); padding:1px 5px; border-radius:3px; font-weight:bold; font-size:8px; }
+  .b-dn { background:rgba(239,68,68,0.15); color:var(--red); padding:1px 5px; border-radius:3px; font-weight:bold; font-size:8px; }
+
+  .empty-state { padding:30px 14px; text-align:center; color:var(--txt-dim); font-size:13px; background:var(--bg-2); border-radius:10px; }
+  .err { color:var(--red); font-size:11px; font-style:italic; }
 
   .actions { text-align:center; margin-top:20px; }
-  .btn { display:inline-block; padding:10px 20px; background:transparent; border:2px solid var(--btc); color:var(--btc); text-decoration:none; border-radius:30px; font-family:ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; margin:4px; }
+  .btn { display:inline-block; padding:9px 18px; background:transparent; border:2px solid var(--btc); color:var(--btc); text-decoration:none; border-radius:30px; font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; margin:4px; }
   .btn:hover { background:rgba(242,169,0,0.1); }
 
   .ft { text-align:center; margin-top:30px; color:var(--txt-dim); font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; }
@@ -86,23 +104,37 @@
 
 <header class="hdr">
   <div class="hdr-tag">▣ RADIOBITCOIN.ORG · OPERAÇÃO VALE SATS ▣</div>
-  <h1 class="hdr-title">PAINEL <b>DOS BOTS</b></h1>
+  <h1 class="hdr-title">PAINEL <b>INTEGRADO</b></h1>
   <div class="hdr-upd">Atualizado <span id="atualizado">--:--:--</span> · refresh 30s</div>
 </header>
 
-<div class="grid" id="grid">
-  <div class="card"><div class="empty">⏳ Carregando dados dos bots...</div></div>
+<!-- BOTS POLYMARKET DIRECIONAIS -->
+<div class="sec-title">▸ BOTS POLYMARKET DIRECIONAL</div>
+<div class="grid-bots" id="grid-direcionais">
+  <div class="empty-state">⏳ Carregando...</div>
 </div>
 
+<!-- BOTS DA RADIO (XRP / ARBITRAGE / DIRECIONAL Rafael) -->
+<div class="sec-title">▸ BOTS DA RÁDIO</div>
+<div class="grid-mini" id="grid-radio-bots"></div>
+
+<!-- MÁQUINAS -->
+<div class="sec-title">▸ MÁQUINAS</div>
+<div class="grid-machines" id="grid-machines"></div>
+
+<!-- REDES SOCIAIS + RADIO + LOCUTORES + VOTAÇÃO -->
+<div class="sec-title">▸ OPERAÇÃO BIT ADICT</div>
+<div class="grid-mini" id="grid-ops"></div>
+
 <div class="actions">
-  <a class="btn" href="/" >← RÁDIO</a>
+  <a class="btn" href="/">← RÁDIO</a>
   <a class="btn" href="/carteira.html">📊 CARTEIRA</a>
   <a class="btn" href="/bot-do-papai.html">🎂 BOT DO PAPAI</a>
+  <a class="btn" href="/recovery.html">🛡️ RECOVERY KIT</a>
 </div>
 
 <footer class="ft">
-  <p>BIT ADICT · 2026 · dados de bots Polymarket DIRECIONAL v2.0</p>
-  <p style="margin-top:8px;"><a href="/">radiobitcoin.org</a></p>
+  <p>BIT ADICT · 2026 · painel integrado v2</p>
 </footer>
 
 </div>
@@ -113,96 +145,224 @@ async function carregar() {
     const r = await fetch('bots_status.json?t=' + Date.now());
     if (!r.ok) throw new Error('sem dados');
     const d = await r.json();
-    renderizar(d);
+    document.getElementById('atualizado').textContent = d.atualizado_em || '--';
+    renderDirecionais(d);
+    renderRadioBots(d);
+    renderMachines(d);
+    renderOps(d);
   } catch (e) {
-    document.getElementById('grid').innerHTML = '<div class="card"><div class="empty">❌ Erro ao carregar: ' + e.message + '</div></div>';
+    document.getElementById('grid-direcionais').innerHTML = '<div class="empty-state err">Erro: ' + e.message + '</div>';
   }
 }
 
-function renderizar(d) {
-  document.getElementById('atualizado').textContent = d.atualizado_em || '--';
+function renderDirecionais(d) {
+  const grid = document.getElementById('grid-direcionais');
+  const bots = [];
+  if (d.radio_panel && d.radio_panel.bots) {
+    const direc = d.radio_panel.bots.find(b => b.nome === 'DIRECIONAL');
+    if (direc) bots.push({...direc, _local:'Mac Mini', _moeda:'XRP', _janela:'15min', _src:'log'});
+  }
+  if (d.polymarket_bots) {
+    bots.push({...d.polymarket_bots.petlendas_bsb, _src:'log'});
+    bots.push({...d.polymarket_bots.bot_aniversario, _src:'api'});
+  }
 
-  const grid = document.getElementById('grid');
   grid.innerHTML = '';
+  if (bots.length === 0) { grid.innerHTML = '<div class="empty-state">sem bots</div>'; return; }
 
-  for (const key of ['direcional_rafael', 'direcional_gael', 'bot_aniversario']) {
-    const bot = d.bots[key];
-    if (!bot) continue;
+  for (const b of bots) {
+    const ativo = b.ativo;
+    const s = b.status || {};
+    const isApi = b._src === 'api' || b.via === 'polymarket_api';
+    const moeda = b._moeda || b.moeda || 'BTC';
+    const janela = b._janela || b.janela || '5min';
+    const local = b._local || b.local || 'Mac Mini';
 
-    const ativo = bot.ativo;
-    const s = bot.status || {};
+    let nomeBot = '🤖 BOT <b>' + b.nome + '</b>';
+    if (b.nome === 'DIRECIONAL') nomeBot = '🤖 BOT <b>DIRECIONAL</b> · Rafael';
+    if (b.nome === 'PETLENDAS BSB') nomeBot = '📡 <b>PETLENDAS BSB</b>';
+    if (b.nome === 'BOT ANIVERSÁRIO DO GAEL') nomeBot = '🎂 <b>BOT ANIVERSÁRIO</b> · Gael';
+
     const dir = s.dir || '—';
     const arrow = dir === 'UP' ? '▲' : (dir === 'DOWN' ? '▼' : '');
     const dirClass = dir === 'UP' ? 'g' : (dir === 'DOWN' ? 'r' : '');
-    const confNum = parseInt(s.conf || '0');
-    const confClass = confNum >= 70 ? 'g' : (confNum >= 60 ? 'btc' : '');
+    const conf = parseInt(s.conf || 0);
+    const confClass = conf >= 70 ? 'g' : (conf >= 60 ? 'btc' : '');
 
-    const trades = bot.trades_recentes || [];
+    const trades = b.trades_recentes || [];
     const tradesHtml = trades.length === 0
-      ? '<div style="color:var(--txt-dim);font-size:11px;">nenhum trade no log recente</div>'
-      : trades.map(t => `
-          <div class="trade-item">
-            <span class="${t.dir === 'UP' ? 'badge-up' : 'badge-down'}">${t.dir}</span>
-            <span style="color:var(--txt);">$${t.valor} @ ${t.preco}¢</span>
-          </div>
-        `).join('');
+      ? '<div class="trades-mini" style="padding:4px 0;">sem trades recentes</div>'
+      : trades.map(t => `<div class="trade-row"><span class="${t.dir==='UP'?'b-up':'b-dn'}">${t.dir}</span><span class="trades-mini">$${t.valor} @ ${t.preco}¢</span></div>`).join('');
 
-    const isCliente = bot.via === 'polymarket_api';
+    let liveBlock = '';
+    if (isApi) {
+      liveBlock = `<div class="live">
+        <div style="color:var(--btc);font-size:9px;letter-spacing:1.2px;margin-bottom:4px;">▸ POLYMARKET API · remoto</div>
+        <div class="live-line">
+          <span class="k">PnL:</span><span class="v ${(b.pnl_total||0)>=0?'g':'r'}">$${(b.pnl_total||0).toFixed(2)}</span>
+          <span class="k">Abertas:</span><span class="v">${b.posicoes_abertas||0}</span>
+        </div>
+        <div class="live-line" style="margin-top:4px;"><a href="${b.profile_url}" target="_blank" style="color:var(--btc);text-decoration:none;font-size:9px;letter-spacing:1px;">🔗 VER NO POLYMARKET →</a></div>
+      </div>`;
+    } else {
+      liveBlock = `<div class="live">
+        <div style="color:var(--btc);font-size:9px;letter-spacing:1.2px;margin-bottom:4px;">▸ LIVE · ${s.hora||'--:--'}</div>
+        <div class="live-line">
+          <span class="k">${moeda}:</span><span class="v btc">$${s.preco?Number(s.preco).toLocaleString():'--'}</span>
+          <span class="k">RSI:</span><span class="v">${s.rsi||'--'}</span>
+          <span class="k">EMA:</span><span class="v">${s.ema||'—'}</span>
+          <span class="k">${arrow}</span><span class="v ${dirClass}">${dir}</span>
+          <span class="k">Conf:</span><span class="v ${confClass}">${conf}%</span>
+        </div>
+        <div class="live-line" style="margin-top:4px;">
+          <span class="k">T-${s.t||'--'}s</span>
+          <span class="k">P&L:</span><span class="v ${parseFloat(s.pnl||0)>=0?'g':'r'}">${s.pnl||'+0.00'}</span>
+          <span class="k">Win:</span><span class="v">${s.win||'0'}%</span>
+        </div>
+      </div>`;
+    }
+
     const card = document.createElement('div');
-    card.className = 'card ' + (ativo ? 'active' : 'offline');
-
-    let nomeBot = '🤖 BOT <b>' + bot.nome + '</b> · Rafael';
-    if (bot.nome === 'PETLENDAS BSB') nomeBot = '📡 <b>PETLENDAS BSB</b> · Mac Mini';
-    if (bot.nome === 'BOT ANIVERSÁRIO DO GAEL') nomeBot = '🎂 <b>BOT ANIVERSÁRIO</b> · Gael (10 anos)';
-
+    card.className = 'card ' + (ativo ? 'on' : 'off');
     card.innerHTML = `
       <div class="c-head">
         <div>
           <div class="c-nome">${nomeBot}</div>
-          <span class="c-moeda">${bot.moeda} · ${bot.moeda === 'BTC' ? '5min' : '15min'}${isCliente ? ' · Lenovo PC novo' : ''}</span>
+          <span class="c-sub">${moeda} · ${janela} · ${local}</span>
         </div>
-        <span class="led ${ativo ? 'on' : 'off'}">${ativo ? 'ATIVO' : 'OFFLINE'}</span>
+        <span class="led ${ativo?'on':'off'}">${ativo?'ATIVO':'OFFLINE'}</span>
       </div>
-
       <div class="stats">
-        <div class="stat"><div class="stat-k">TOTAL</div><div class="stat-v">${bot.trades_total || 0}</div></div>
-        <div class="stat"><div class="stat-k">WINS</div><div class="stat-v g">${bot.wins || 0}</div></div>
-        <div class="stat"><div class="stat-k">LOSS</div><div class="stat-v r">${bot.losses || 0}</div></div>
-        <div class="stat"><div class="stat-k">WIN%</div><div class="stat-v btc">${bot.win_rate || 0}%</div></div>
+        <div class="stat"><div class="stat-k">TOTAL</div><div class="stat-v">${b.trades_total||0}</div></div>
+        <div class="stat"><div class="stat-k">WINS</div><div class="stat-v g">${b.wins||0}</div></div>
+        <div class="stat"><div class="stat-k">LOSS</div><div class="stat-v r">${b.losses||0}</div></div>
+        <div class="stat"><div class="stat-k">WIN%</div><div class="stat-v btc">${b.win_rate||0}%</div></div>
       </div>
+      ${liveBlock}
+      <div class="trades-mini">${tradesHtml}</div>
+    `;
+    grid.appendChild(card);
+  }
+}
 
-      ${isCliente ? `
-      <div class="live">
-        <div style="font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:1.2px;color:var(--btc);margin-bottom:8px;text-transform:uppercase;">▸ DADOS POLYMARKET API · cliente remoto</div>
-        <div class="live-line">
-          <span class="k">PnL total:</span><span class="v ${(bot.pnl_total || 0) >= 0 ? 'g' : 'r'}">$${(bot.pnl_total || 0).toFixed(2)}</span>
-          <span class="k">Posições abertas:</span><span class="v">${bot.posicoes_abertas || 0}</span>
-        </div>
-        <div class="live-line" style="margin-top:8px;">
-          <a href="${bot.profile_url}" target="_blank" rel="noopener" style="color:var(--btc);text-decoration:none;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:1px;">🔗 VER NO POLYMARKET →</a>
-        </div>
+function renderRadioBots(d) {
+  const grid = document.getElementById('grid-radio-bots');
+  grid.innerHTML = '';
+  if (!d.radio_panel || !d.radio_panel.bots) { grid.style.display='none'; return; }
+  for (const b of d.radio_panel.bots) {
+    if (b.nome === 'DIRECIONAL') continue;
+    const card = document.createElement('div');
+    card.className = 'card card-mini ' + (b.ativo ? 'on' : 'off');
+    const pnlClass = (b.pnl||0) >= 0 ? 'g' : 'r';
+    card.innerHTML = `
+      <div class="mini-head">
+        <span class="mini-nome">${b.nome}</span>
+        <span class="led ${b.ativo?'on':'off'}">${b.ativo?(b.modo||'ON').toUpperCase():'OFF'}</span>
       </div>
-      ` : `
-      <div class="live">
-        <div style="font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:1.2px;color:var(--btc);margin-bottom:8px;text-transform:uppercase;">▸ ÚLTIMA LEITURA · ${s.hora || '--:--:--'}</div>
-        <div class="live-line">
-          <span class="k">${bot.moeda}:</span><span class="v btc">$${s.preco ? Number(s.preco).toLocaleString() : '--'}</span>
-          <span class="k">RSI:</span><span class="v">${s.rsi || '--'}</span>
-          <span class="k">EMA:</span><span class="v">${s.ema || '—'}</span>
-          <span class="k">Direção:</span><span class="v ${dirClass}">${arrow} ${dir}</span>
-          <span class="k">Conf:</span><span class="v ${confClass}">${s.conf || 0}%</span>
-        </div>
-        <div class="live-line" style="margin-top:6px;">
-          <span class="k">Janela termina em:</span><span class="v">${s.t || '--'}s</span>
-          <span class="k">P&L:</span><span class="v ${parseFloat(s.pnl || 0) >= 0 ? 'g' : 'r'}">${s.pnl || '+0.00'}</span>
-        </div>
-      </div>
-      `}
+      <div class="mini-row"><span class="mini-k">P&L</span><span class="mini-v" style="color:var(--${pnlClass==='g'?'green':'red'})">$${(b.pnl||0).toFixed(2)}</span></div>
+      <div class="mini-row"><span class="mini-k">Trades</span><span class="mini-v">${b.trades||0}</span></div>
+      <div class="mini-row"><span class="mini-k">Win</span><span class="mini-v">${b.win||0}%</span></div>
+      ${b.ultima ? `<div class="mini-row"><span class="mini-k">Última</span><span class="mini-v" style="font-size:10px;color:var(--txt-dim);">${b.ultima}</span></div>` : ''}
+    `;
+    grid.appendChild(card);
+  }
+}
 
-      <div class="trades">
-        <div class="trades-title">▸ Últimos trades no log</div>
-        ${tradesHtml}
+function renderMachines(d) {
+  const grid = document.getElementById('grid-machines');
+  grid.innerHTML = '';
+  const maquinas = (d.radio_panel && d.radio_panel.maquinas) || [];
+  for (const m of maquinas) {
+    const cpu = m.cpu || 0, ram = m.ram_pct || 0;
+    let cls = 'on';
+    if (!m.online) cls = 'off';
+    else if (cpu > 80 || ram > 80) cls = 'warn';
+    const card = document.createElement('div');
+    card.className = 'card card-mini ' + cls;
+    card.innerHTML = `
+      <div class="machine">
+        <div class="machine-nome">${m.nome}</div>
+        ${m.online ? `
+          <div style="font-size:10px;color:var(--txt-dim);">CPU ${cpu}%</div>
+          <div class="machine-bar"><div style="width:${cpu}%"></div></div>
+          <div style="font-size:10px;color:var(--txt-dim);">RAM ${ram}%</div>
+          <div class="machine-bar"><div style="width:${ram}%"></div></div>
+          ${m.uptime ? `<div style="font-size:9px;color:var(--txt-dim);margin-top:4px;">up: ${m.uptime}</div>` : ''}
+        ` : '<div class="err">offline</div>'}
       </div>
+    `;
+    grid.appendChild(card);
+  }
+  // Adiciona Lenovo (PC novo) como máquina extra
+  const lenovoCard = document.createElement('div');
+  lenovoCard.className = 'card card-mini on';
+  lenovoCard.innerHTML = `
+    <div class="machine">
+      <div class="machine-nome">LENOVO GAEL</div>
+      <div style="font-size:10px;color:var(--txt-dim);">i5-7200U · 20GB · SSD 689GB</div>
+      <div style="font-size:9px;color:var(--green);margin-top:6px;">⚡ Bot ANIVERSÁRIO ativo</div>
+      <div style="font-size:9px;color:var(--txt-dim);margin-top:2px;">Windows 11 · Ethernet</div>
+    </div>
+  `;
+  grid.appendChild(lenovoCard);
+}
+
+function renderOps(d) {
+  const grid = document.getElementById('grid-ops');
+  grid.innerHTML = '';
+  if (!d.radio_panel) return;
+
+  // Radio
+  const r = d.radio_panel.radio;
+  if (r) {
+    const card = document.createElement('div');
+    card.className = 'card card-mini on';
+    card.innerHTML = `
+      <div class="mini-head"><span class="mini-nome">📻 RÁDIO</span><span class="led on">ATIVO</span></div>
+      <div class="mini-row"><span class="mini-k">Música</span><span class="mini-v" style="font-size:10px;">${(r.atual||'').substring(0,30)}</span></div>
+      <div class="mini-row"><span class="mini-k">Próxima</span><span class="mini-v" style="font-size:10px;">${(r.proxima||'').substring(0,30)}</span></div>
+    `;
+    grid.appendChild(card);
+  }
+
+  // Locutores
+  const loc = d.radio_panel.locutores;
+  if (loc) {
+    const noar = (loc.lista || []).find(l => l.no_ar) || {};
+    const card = document.createElement('div');
+    card.className = 'card card-mini on';
+    card.innerHTML = `
+      <div class="mini-head"><span class="mini-nome">🎙️ LOCUTORES IA</span><span class="led on">ON</span></div>
+      <div class="mini-row"><span class="mini-k">No ar</span><span class="mini-v" style="color:var(--purple)">${noar.nome || '—'}</span></div>
+      <div class="mini-row"><span class="mini-k">Total</span><span class="mini-v">${(loc.lista||[]).length}</span></div>
+    `;
+    grid.appendChild(card);
+  }
+
+  // Redes sociais
+  const rs = d.radio_panel.redes_sociais;
+  if (rs && rs.redes) {
+    const totalPosted = rs.redes.reduce((s, r) => s + (r.videos_postados || 0), 0);
+    const conf = rs.redes.filter(r => r.configurada).length;
+    const card = document.createElement('div');
+    card.className = 'card card-mini on';
+    card.innerHTML = `
+      <div class="mini-head"><span class="mini-nome">📡 REDES SOCIAIS</span><span class="led on">${conf}/${rs.redes.length}</span></div>
+      <div class="mini-row"><span class="mini-k">Vídeos postados</span><span class="mini-v btc">${totalPosted}</span></div>
+      <div class="mini-row"><span class="mini-k">Agendador</span><span class="mini-v" style="color:${rs.agendador_rodando?'var(--green)':'var(--red)'}">${rs.agendador_rodando?'rodando':'parado'}</span></div>
+    `;
+    grid.appendChild(card);
+  }
+
+  // Satoshi votação
+  const sat = d.radio_panel.satoshi;
+  if (sat) {
+    const card = document.createElement('div');
+    card.className = 'card card-mini on';
+    card.innerHTML = `
+      <div class="mini-head"><span class="mini-nome">🟠 VOTAÇÃO SATOSHI</span><span class="led on">ON</span></div>
+      <div class="mini-row"><span class="mini-k">Sats</span><span class="mini-v btc">${sat.total_sats||0}</span></div>
+      <div class="mini-row"><span class="mini-k">Votos</span><span class="mini-v">${sat.total_votos||0}</span></div>
     `;
     grid.appendChild(card);
   }
