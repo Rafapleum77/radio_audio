@@ -1,0 +1,80 @@
+{
+  "atualizado_em": "2026-05-21 08:28:04",
+  "atualizado_ts": 1779362884,
+  "bots": {
+    "direcional_rafael": {
+      "nome": "DIRECIONAL",
+      "moeda": "XRP",
+      "ativo": true,
+      "pid": 32275,
+      "status": {
+        "hora": "08:27:46",
+        "preco": "77309",
+        "rsi": "44.3",
+        "ema": "▲",
+        "dir": "UP",
+        "conf": "75",
+        "t": "134",
+        "pnl": "+0.00",
+        "win": "0.0"
+      },
+      "wins": 0,
+      "losses": 0,
+      "trades_total": 0,
+      "win_rate": 0.0,
+      "trades_recentes": [
+        {
+          "dir": "UP",
+          "preco": "0.5",
+          "valor": "2.50"
+        },
+        {
+          "dir": "UP",
+          "preco": "0.53",
+          "valor": "2.65"
+        },
+        {
+          "dir": "UP",
+          "preco": "0.5",
+          "valor": "2.50"
+        },
+        {
+          "dir": "UP",
+          "preco": "0.52",
+          "valor": "2.60"
+        },
+        {
+          "dir": "UP",
+          "preco": "0.54",
+          "valor": "2.70"
+        }
+      ],
+      "mtime": 1779362866.0734835,
+      "mtime_pretty": "08:27:46"
+    },
+    "direcional_gael": {
+      "nome": "BOT DO PAPAI",
+      "moeda": "BTC",
+      "ativo": true,
+      "pid": 32275,
+      "status": {
+        "hora": "08:16:30",
+        "preco": "77354",
+        "rsi": "62.4",
+        "ema": "▲",
+        "dir": "UP",
+        "conf": "80",
+        "t": "210",
+        "pnl": "+0.00",
+        "win": "0"
+      },
+      "wins": 0,
+      "losses": 0,
+      "trades_total": 0,
+      "win_rate": 0.0,
+      "trades_recentes": [],
+      "mtime": 1779362876.5904262,
+      "mtime_pretty": "08:27:56"
+    }
+  }
+}

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🤖 Painel dos Bots · BIT ADICT</title>
+<script data-goatcounter="https://radiobitcoin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<link rel="icon" href="icon-512.png">
+<meta name="theme-color" content="#f2a900">
+
+<style>
+  :root {
+    --btc:#f2a900; --btc-2:#cc8e00;
+    --bg:#07090d; --bg-2:#0b0e11; --bg-3:#141a24;
+    --txt:#c8d0d8; --txt-dim:#9ca3af;
+    --green:#22c55e; --red:#ef4444;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; background:var(--bg); color:var(--txt); line-height:1.5; }
+  .wrap { max-width:1000px; margin:0 auto; padding:24px 16px 80px; }
+
+  .hdr { text-align:center; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid rgba(242,169,0,0.2); }
+  .hdr-tag { font-family:ui-monospace,Menlo,monospace; font-size:10px; color:var(--btc); letter-spacing:3px; text-transform:uppercase; }
+  .hdr-title { font-size:24px; font-weight:900; color:#fff; margin:8px 0 4px; }
+  .hdr-title b { color:var(--btc); }
+  .hdr-upd { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--txt-dim); letter-spacing:1.5px; text-transform:uppercase; }
+  .hdr-upd span { color:var(--green); }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(380px, 1fr)); gap:18px; margin-bottom:24px; }
+
+  .card {
+    background:linear-gradient(180deg, var(--bg-2) 0%, var(--bg-3) 100%);
+    border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:20px;
+  }
+  .card.active { border-color:var(--green); box-shadow:0 6px 30px -10px rgba(34,197,94,0.3); }
+  .card.offline { border-color:var(--red); }
+
+  .c-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px; }
+  .c-nome { font-size:18px; color:#fff; font-weight:bold; }
+  .c-nome b { color:var(--btc); }
+  .c-moeda { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--btc); letter-spacing:2px; background:rgba(242,169,0,0.1); padding:3px 10px; border-radius:12px; }
+
+  .led { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:12px; font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:1.5px; font-weight:bold; }
+  .led.on { background:rgba(34,197,94,0.12); border:1px solid var(--green); color:var(--green); }
+  .led.off { background:rgba(239,68,68,0.12); border:1px solid var(--red); color:var(--red); }
+  .led.on::before { content:''; width:7px; height:7px; background:var(--green); border-radius:50%; animation:pulse 1.5s ease-in-out infinite; box-shadow:0 0 10px var(--green); }
+  .led.off::before { content:''; width:7px; height:7px; background:var(--red); border-radius:50%; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+  .stats { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; margin-bottom:14px; }
+  .stat { background:rgba(7,9,13,0.6); border:1px solid rgba(255,255,255,0.05); padding:10px 6px; border-radius:8px; text-align:center; }
+  .stat-k { font-family:ui-monospace,Menlo,monospace; font-size:9px; color:var(--txt-dim); letter-spacing:1.2px; text-transform:uppercase; }
+  .stat-v { font-size:18px; color:#fff; font-weight:800; margin-top:2px; }
+  .stat-v.btc { color:var(--btc); }
+  .stat-v.g { color:var(--green); }
+  .stat-v.r { color:var(--red); }
+  .stat-v.small { font-size:14px; }
+
+  .live { background:rgba(7,9,13,0.6); border:1px solid rgba(242,169,0,0.2); border-radius:8px; padding:12px 14px; font-family:ui-monospace,Menlo,monospace; font-size:11px; line-height:1.7; color:var(--txt); margin-bottom:12px; }
+  .live-line { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  .live-line .k { color:var(--txt-dim); }
+  .live-line .v { color:#fff; font-weight:bold; }
+  .live-line .v.btc { color:var(--btc); }
+  .live-line .v.g { color:var(--green); }
+  .live-line .v.r { color:var(--red); }
+
+  .trades { font-size:11px; color:var(--txt-dim); }
+  .trades-title { font-family:ui-monospace,Menlo,monospace; color:var(--btc); letter-spacing:1.5px; text-transform:uppercase; font-size:10px; margin-bottom:6px; }
+  .trade-item { padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; gap:10px; align-items:center; }
+  .trade-item:last-child { border-bottom:0; }
+  .badge-up { background:rgba(34,197,94,0.15); color:var(--green); padding:2px 6px; border-radius:4px; font-weight:bold; font-size:9px; }
+  .badge-down { background:rgba(239,68,68,0.15); color:var(--red); padding:2px 6px; border-radius:4px; font-weight:bold; font-size:9px; }
+
+  .empty { text-align:center; padding:30px 14px; color:var(--txt-dim); font-size:13px; }
+
+  .actions { text-align:center; margin-top:20px; }
+  .btn { display:inline-block; padding:10px 20px; background:transparent; border:2px solid var(--btc); color:var(--btc); text-decoration:none; border-radius:30px; font-family:ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; margin:4px; }
+  .btn:hover { background:rgba(242,169,0,0.1); }
+
+  .ft { text-align:center; margin-top:30px; color:var(--txt-dim); font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; }
+  .ft a { color:var(--btc); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hdr">
+  <div class="hdr-tag">▣ RADIOBITCOIN.ORG · OPERAÇÃO VALE SATS ▣</div>
+  <h1 class="hdr-title">PAINEL <b>DOS BOTS</b></h1>
+  <div class="hdr-upd">Atualizado <span id="atualizado">--:--:--</span> · refresh 30s</div>
+</header>
+
+<div class="grid" id="grid">
+  <div class="card"><div class="empty">⏳ Carregando dados dos bots...</div></div>
+</div>
+
+<div class="actions">
+  <a class="btn" href="/" >← RÁDIO</a>
+  <a class="btn" href="/carteira.html">📊 CARTEIRA</a>
+  <a class="btn" href="/bot-do-papai.html">🎂 BOT DO PAPAI</a>
+</div>
+
+<footer class="ft">
+  <p>BIT ADICT · 2026 · dados de bots Polymarket DIRECIONAL v2.0</p>
+  <p style="margin-top:8px;"><a href="/">radiobitcoin.org</a></p>
+</footer>
+
+</div>
+
+<script>
+async function carregar() {
+  try {
+    const r = await fetch('bots_status.json?t=' + Date.now());
+    if (!r.ok) throw new Error('sem dados');
+    const d = await r.json();
+    renderizar(d);
+  } catch (e) {
+    document.getElementById('grid').innerHTML = '<div class="card"><div class="empty">❌ Erro ao carregar: ' + e.message + '</div></div>';
+  }
+}
+
+function renderizar(d) {
+  document.getElementById('atualizado').textContent = d.atualizado_em || '--';
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+
+  for (const key of ['direcional_rafael', 'direcional_gael']) {
+    const bot = d.bots[key];
+    if (!bot) continue;
+
+    const ativo = bot.ativo;
+    const s = bot.status || {};
+    const dir = s.dir || '—';
+    const arrow = dir === 'UP' ? '▲' : (dir === 'DOWN' ? '▼' : '');
+    const dirClass = dir === 'UP' ? 'g' : (dir === 'DOWN' ? 'r' : '');
+    const confNum = parseInt(s.conf || '0');
+    const confClass = confNum >= 70 ? 'g' : (confNum >= 60 ? 'btc' : '');
+
+    const trades = bot.trades_recentes || [];
+    const tradesHtml = trades.length === 0
+      ? '<div style="color:var(--txt-dim);font-size:11px;">nenhum trade no log recente</div>'
+      : trades.map(t => `
+          <div class="trade-item">
+            <span class="${t.dir === 'UP' ? 'badge-up' : 'badge-down'}">${t.dir}</span>
+            <span style="color:var(--txt);">$${t.valor} @ ${t.preco}¢</span>
+          </div>
+        `).join('');
+
+    const card = document.createElement('div');
+    card.className = 'card ' + (ativo ? 'active' : 'offline');
+    card.innerHTML = `
+      <div class="c-head">
+        <div>
+          <div class="c-nome">${bot.nome === 'BOT DO PAPAI' ? '🤖 BOT DO <b>PAPAI</b> · Gael' : '🤖 BOT <b>' + bot.nome + '</b> · Rafael'}</div>
+          <span class="c-moeda">${bot.moeda} · ${bot.moeda === 'BTC' ? '5min' : '15min'}</span>
+        </div>
+        <span class="led ${ativo ? 'on' : 'off'}">${ativo ? 'ATIVO' : 'OFFLINE'}</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="stat-k">TOTAL</div><div class="stat-v">${bot.trades_total || 0}</div></div>
+        <div class="stat"><div class="stat-k">WINS</div><div class="stat-v g">${bot.wins || 0}</div></div>
+        <div class="stat"><div class="stat-k">LOSS</div><div class="stat-v r">${bot.losses || 0}</div></div>
+        <div class="stat"><div class="stat-k">WIN%</div><div class="stat-v btc">${bot.win_rate || 0}%</div></div>
+      </div>
+
+      <div class="live">
+        <div style="font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:1.2px;color:var(--btc);margin-bottom:8px;text-transform:uppercase;">▸ ÚLTIMA LEITURA · ${s.hora || '--:--:--'}</div>
+        <div class="live-line">
+          <span class="k">${bot.moeda}:</span><span class="v btc">$${s.preco ? Number(s.preco).toLocaleString() : '--'}</span>
+          <span class="k">RSI:</span><span class="v">${s.rsi || '--'}</span>
+          <span class="k">EMA:</span><span class="v">${s.ema || '—'}</span>
+          <span class="k">Direção:</span><span class="v ${dirClass}">${arrow} ${dir}</span>
+          <span class="k">Conf:</span><span class="v ${confClass}">${s.conf || 0}%</span>
+        </div>
+        <div class="live-line" style="margin-top:6px;">
+          <span class="k">Janela termina em:</span><span class="v">${s.t || '--'}s</span>
+          <span class="k">P&L:</span><span class="v ${parseFloat(s.pnl || 0) >= 0 ? 'g' : 'r'}">${s.pnl || '+0.00'}</span>
+        </div>
+      </div>
+
+      <div class="trades">
+        <div class="trades-title">▸ Últimos trades no log</div>
+        ${tradesHtml}
+      </div>
+    `;
+    grid.appendChild(card);
+  }
+}
+
+carregar();
+setInterval(carregar, 30000);
+</script>
+</body>
+</html>
