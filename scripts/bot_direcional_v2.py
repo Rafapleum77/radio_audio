@@ -174,10 +174,104 @@ def atualizar_pnl_real(wallet):
                 novos_resolved += 1
                 cor = V if cash_pnl > 0 else R
                 print(f"\n{cor}[PNL] Trade resolvido: {cash_pnl:+.2f} | PnL sessão: {estado['pnl']:+.2f} | Win rate: {_taxa()}{X}")
+                cb_register_trade_result(cash_pnl)
         if novos_resolved > 0 and abs(estado["pnl"]) > 0:
             estado["maior_pnl"] = max(estado["maior_pnl"], estado["pnl"])
     except Exception:
         pass  # silencioso — não quebra o bot por API hiccup
+
+# ═══════════════════════════════════════════════════════════════
+#  CIRCUIT BREAKER (sobrevivência > otimização)
+# ═══════════════════════════════════════════════════════════════
+#  3 losses seguidos → pausa 4h
+#  5 losses seguidos → pausa 24h
+#  PnL do dia <= -3% do bankroll → pausa até fim do dia
+# ═══════════════════════════════════════════════════════════════
+
+import json
+from datetime import datetime as _dt
+
+BANKROLL_USD = float(os.getenv("BANKROLL_USD", "100.0"))  # tamanho banca pra calcular % daily loss
+DAILY_LOSS_PCT = float(os.getenv("DAILY_LOSS_PCT", "0.03"))  # 3% = pausa restante do dia
+LOSS_STREAK_PAUSE = int(os.getenv("LOSS_STREAK_PAUSE", "3"))
+LOSS_STREAK_HARD = int(os.getenv("LOSS_STREAK_HARD", "5"))
+PAUSE_4H = 4 * 3600
+PAUSE_24H = 24 * 3600
+
+_CB_DIR = os.path.expanduser("~/Bots/RESULTADOS")
+os.makedirs(_CB_DIR, exist_ok=True)
+_CB_FILE = os.path.join(_CB_DIR, f"cb_{(FUNDER or 'default')[2:10].lower()}.json")
+
+def cb_load():
+    try:
+        with open(_CB_FILE) as f:
+            d = json.load(f)
+            # reset diário automático
+            if d.get("daily_date") != _dt.now().strftime("%Y-%m-%d"):
+                d["daily_pnl"] = 0.0
+                d["daily_date"] = _dt.now().strftime("%Y-%m-%d")
+                cb_save(d)
+            return d
+    except Exception:
+        return {
+            "pause_until": 0,
+            "loss_streak": 0,
+            "daily_pnl": 0.0,
+            "daily_date": _dt.now().strftime("%Y-%m-%d"),
+            "pause_reason": "",
+        }
+
+def cb_save(d):
+    try:
+        with open(_CB_FILE, "w") as f:
+            json.dump(d, f, indent=2)
+    except Exception:
+        pass
+
+def cb_is_paused():
+    """Retorna (paused: bool, reason: str). Mostra log de status uma vez ao detectar pausa."""
+    d = cb_load()
+    agora = time.time()
+    if d.get("pause_until", 0) > agora:
+        restantes = int((d["pause_until"] - agora) / 60)
+        return True, f"{d.get('pause_reason','?')} (faltam {restantes}min)"
+    return False, ""
+
+def cb_register_trade_result(cash_pnl):
+    """Atualiza streak + daily_pnl. Aciona pausa se threshold atingido."""
+    d = cb_load()
+    d["daily_pnl"] = d.get("daily_pnl", 0.0) + cash_pnl
+
+    if cash_pnl < 0:
+        d["loss_streak"] = d.get("loss_streak", 0) + 1
+    else:
+        d["loss_streak"] = 0  # reset em qualquer win
+
+    agora = time.time()
+    pause_set = None
+
+    # Hard: 5 losses → 24h
+    if d["loss_streak"] >= LOSS_STREAK_HARD:
+        pause_set = (agora + PAUSE_24H, f"5 losses seguidos → pausa 24h")
+    # Soft: 3 losses → 4h
+    elif d["loss_streak"] >= LOSS_STREAK_PAUSE:
+        pause_set = (agora + PAUSE_4H, f"3 losses seguidos → pausa 4h")
+
+    # Daily loss limit: -3% do bankroll
+    daily_limit = -abs(BANKROLL_USD * DAILY_LOSS_PCT)
+    if d["daily_pnl"] <= daily_limit:
+        # pausa até meia-noite local
+        meia_noite = _dt.now().replace(hour=23, minute=59, second=59).timestamp()
+        if pause_set is None or meia_noite > pause_set[0]:
+            pause_set = (meia_noite, f"daily loss ${daily_limit:.0f} atingido → pausa restante do dia")
+
+    if pause_set:
+        d["pause_until"] = pause_set[0]
+        d["pause_reason"] = pause_set[1]
+        msg = f"🛑 CIRCUIT BREAKER: {pause_set[1]} | PnL dia: ${d['daily_pnl']:+.2f} | Streak: {d['loss_streak']}"
+        print(f"\n{R}{msg}{X}")
+        enviar_telegram(msg)
+    cb_save(d)
 
 # ═══════════════════════════════════════════════════════════════
 #  TELEGRAM
@@ -257,6 +351,23 @@ def _polling_telegram():
 # ═══════════════════════════════════════════════════════════════
 
 _cache_tec = {"ts": 0, "dados": None}
+_window_opens = {}  # {slot_ts: btc_open_price} — pra calcular Window Delta (sinal dominante)
+
+def _window_delta_pct(preco_atual):
+    """Variação % do BTC desde a abertura da janela 5min atual.
+    Sinal DOMINANTE pra mercados de curta duração (peso 5-7 vs 1-2 dos clássicos)."""
+    slot = slot_atual_ts()
+    if slot not in _window_opens:
+        _window_opens[slot] = preco_atual  # registra primeira observação
+        # limpa entradas antigas (>3 slots)
+        for old_slot in list(_window_opens.keys()):
+            if old_slot < slot - 3 * DURACAO_SLOT:
+                _window_opens.pop(old_slot, None)
+        return 0.0
+    open_price = _window_opens[slot]
+    if open_price <= 0:
+        return 0.0
+    return (preco_atual - open_price) / open_price * 100
 
 def obter_dados_tecnicos():
     """
@@ -338,6 +449,11 @@ def obter_dados_tecnicos():
         df1h = None
         gc.collect()
 
+        # ── WINDOW DELTA (sinal DOMINANTE pra mercado 5min) ──
+        # Pesquisa 2026: indicador mais forte pra prediction binária é a variação % do BTC
+        # desde a abertura da janela atual. RSI/EMA viram tiebreakers, não drivers.
+        win_delta = _window_delta_pct(preco_atual)
+
         dados = dict(
             rsi=round(rsi, 2),
             ema9=ema9, ema21=ema21,
@@ -356,6 +472,8 @@ def obter_dados_tecnicos():
             var1m=round(var1m, 4),
             var3m=round(var3m, 4),
             preco=preco_atual,
+            # Window Delta — sinal dominante pra 5min
+            win_delta=round(win_delta, 4),
         )
         _cache_tec["ts"]   = agora
         _cache_tec["dados"] = dados
@@ -379,6 +497,28 @@ def decidir_direcao(d) -> tuple:
     pontos_up   = 0
     pontos_down = 0
     razoes      = []
+
+    # ── WINDOW DELTA (DOMINANTE — peso 50 quando forte) ─────
+    # Pesquisa 2026: pra mercado 5min binário, esse é O sinal. Clássicos viram tiebreakers.
+    wd = d.get("win_delta", 0.0)
+    if wd >= 0.15:
+        pontos_up += 50
+        razoes.append(f"WinΔ +{wd:.2f}% FORTE↑")
+    elif wd >= 0.05:
+        pontos_up += 30
+        razoes.append(f"WinΔ +{wd:.2f}%↑")
+    elif wd >= 0.02:
+        pontos_up += 10
+        razoes.append(f"WinΔ +{wd:.2f}%")
+    elif wd <= -0.15:
+        pontos_down += 50
+        razoes.append(f"WinΔ {wd:.2f}% FORTE↓")
+    elif wd <= -0.05:
+        pontos_down += 30
+        razoes.append(f"WinΔ {wd:.2f}%↓")
+    elif wd <= -0.02:
+        pontos_down += 10
+        razoes.append(f"WinΔ {wd:.2f}%")
 
     # ── RSI ──────────────────────────────────────────────────
     if d["rsi"] < 30:
@@ -620,6 +760,13 @@ def monitorar():
 
             atualizar_pnl_real(FUNDER)
             verificar_stop_loss()
+
+            # Circuit breaker: 3/5 losses ou daily loss limit
+            cb_paused, cb_reason = cb_is_paused()
+            if cb_paused:
+                print(f"\r{R}[CB PAUSADO] {cb_reason}{X}                                              ", end="")
+                time.sleep(60)
+                continue
 
             if estado["pausado"]:
                 time.sleep(INTERVALO)
