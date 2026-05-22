@@ -1,21 +1,21 @@
 {
   "_doc": "Preenche cada URL com o Payment Link gerado no dashboard.stripe.com → Products → Create payment link. Cria UM link em EUR e UM link em USD pra cada produto (valor 19/49/149/297/150/497). Deixa vazio se ainda não criou. Depois roda: python3 scripts/apply_stripe.py",
   "_status": "PENDING — Rafael precisa criar conta Stripe + gerar 14 Payment Links (7 EUR + 7 USD)",
-  "_pricing": "Preço paralelo: EUR=USD com mesmo valor (€19 = $19, etc)",
+  "_pricing": "Preço paralelo: EUR=USD com mesmo valor (€20 = $20, etc)",
 
-  "recovery_digital_19": "https://buy.stripe.com/test_9B600jgvQfnAaZHc7QfEk00",
-  "recovery_digital_19_eur": "https://buy.stripe.com/test_9B600jgvQfnAaZHc7QfEk00",
-  "recovery_digital_19_usd": "",
-  "recovery_pendrive_49_eur": "",
-  "recovery_pendrive_49_usd": "",
+  "recovery_digital_20": "https://buy.stripe.com/test_9B600jgvQfnAaZHc7QfEk00",
+  "recovery_digital_20_eur": "https://buy.stripe.com/test_9B600jgvQfnAaZHc7QfEk00",
+  "recovery_digital_20_usd": "",
+  "recovery_pendrive_50_eur": "",
+  "recovery_pendrive_50_usd": "",
   "pacote_completo_149_eur": "",
   "pacote_completo_149_usd": "",
-  "vip_mensal_19_eur": "",
-  "vip_mensal_19_usd": "",
+  "vip_mensal_20_eur": "",
+  "vip_mensal_20_usd": "",
   "mentoria_1h_150_eur": "",
   "mentoria_1h_150_usd": "",
-  "mentoria_4h_497_eur": "",
-  "mentoria_4h_497_usd": "",
-  "curso_297_eur": "",
-  "curso_297_usd": ""
+  "mentoria_4h_500_eur": "",
+  "mentoria_4h_500_usd": "",
+  "curso_300_eur": "",
+  "curso_300_usd": ""
 }

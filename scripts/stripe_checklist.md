@@ -10,47 +10,47 @@
 
 ---
 
-## 1️⃣ Recovery Kit Digital · EUR (€19)
+## 1️⃣ Recovery Kit Digital · EUR (€20)
 
 - **Name**: `BIT ADICT Recovery Kit Digital`
 - **Description**:
   > Utilitário offline pra validar e recuperar acesso a wallets crypto. ZIP pronto pra rodar + Manual PDF + atualizações grátis. Inclui 4 ferramentas: BIP39 validator, recovery parcial, bruteforce Monero, saldo multi-chain (9 chains). 100% offline, open source.
-- **Price**: `19.00 EUR` · One-off
+- **Price**: `20.00 EUR` · One-off
 - **Statement descriptor**: `BITADICT RECOVERY KIT`
 - **Image**: https://radiobitcoin.org/img/bitadict/campanha/02_recovery_kit_49.webp
 - **After payment**: Custom URL → `https://radiobitcoin.org/obrigado.html?p=digital`
 - **Collect address**: ❌ Não (produto digital)
 
-→ **JSON key**: `recovery_digital_19_eur`
+→ **JSON key**: `recovery_digital_20_eur`
 
 ---
 
-## 2️⃣ Recovery Kit Digital · USD ($19)
+## 2️⃣ Recovery Kit Digital · USD ($20)
 
 Idêntico ao #1, mas:
-- **Price**: `19.00 USD`
-- **JSON key**: `recovery_digital_19_usd`
+- **Price**: `20.00 USD`
+- **JSON key**: `recovery_digital_20_usd`
 
 ---
 
-## 3️⃣ Recovery Kit Pen Drive · EUR (€49)
+## 3️⃣ Recovery Kit Pen Drive · EUR (€50)
 
 - **Name**: `BIT ADICT Recovery Kit Pen Drive`
 - **Description**:
   > Recovery Kit gravado em pen drive físico USB 8GB. Manual impresso. Entrega Portugal/Europa em 5 dias. Brasil/mundo via correios. 100% offline, open source.
-- **Price**: `49.00 EUR` · One-off
+- **Price**: `50.00 EUR` · One-off
 - **Statement**: `BITADICT PEN DRIVE`
 - **Image**: https://radiobitcoin.org/img/bitadict/campanha/02_recovery_kit_49.webp
 - **Redirect**: `https://radiobitcoin.org/obrigado.html?p=pendrive`
 - **Collect address**: ✅ Sim (precisa endereço entrega)
 - **Shipping**: define preço de envio depois (ou inclui no preço base)
 
-→ **JSON key**: `recovery_pendrive_49_eur`
+→ **JSON key**: `recovery_pendrive_50_eur`
 
 ---
 
-## 4️⃣ Recovery Kit Pen Drive · USD ($49)
-Igual #3, **Price**: `49.00 USD`, **JSON key**: `recovery_pendrive_49_usd`
+## 4️⃣ Recovery Kit Pen Drive · USD ($50)
+Igual #3, **Price**: `50.00 USD`, **JSON key**: `recovery_pendrive_50_usd`
 
 ---
 
@@ -59,7 +59,7 @@ Igual #3, **Price**: `49.00 USD`, **JSON key**: `recovery_pendrive_49_usd`
 - **Name**: `BIT ADICT Pacote Completo`
 - **Description**:
   > Pacote completo BIT ADICT: Recovery Kit (digital + pen drive) + código dos 4 bots Polymarket (DIRECIONAL/XRP/ARBITRAGE/SOL) + moeda Bitcoin física + barra de ouro coleção + grupo WhatsApp privado de updates + suporte direto 90 dias.
-- **Price**: `149.00 EUR` · One-off
+- **Price**: `150.00 EUR` · One-off
 - **Statement**: `BITADICT PACOTE`
 - **Image**: https://radiobitcoin.org/img/bitadict/campanha/06_og_banner.webp
 - **Redirect**: `https://radiobitcoin.org/obrigado.html?p=pacote`
@@ -70,27 +70,27 @@ Igual #3, **Price**: `49.00 USD`, **JSON key**: `recovery_pendrive_49_usd`
 ---
 
 ## 6️⃣ Pacote Completo · USD ($149)
-Igual #5, **Price**: `149.00 USD`, **JSON key**: `pacote_completo_149_usd`
+Igual #5, **Price**: `150.00 USD`, **JSON key**: `pacote_completo_149_usd`
 
 ---
 
-## 7️⃣ VIP Mensal · EUR (€19/mês) ⭐ RECORRENTE
+## 7️⃣ VIP Mensal · EUR (€20/mês) ⭐ RECORRENTE
 
 - **Name**: `BIT ADICT VIP`
 - **Description**:
   > Acesso ao grupo VIP WhatsApp com sinais dos 3 bots Polymarket em tempo real. Live semanal de revisão (sexta 19h BR). Painel de banca aberta. Comunidade educacional sobre soberania digital.
-- **Price**: `19.00 EUR` · **Recurring** · Monthly
+- **Price**: `20.00 EUR` · **Recurring** · Monthly
 - **Statement**: `BITADICT VIP`
 - **Image**: https://radiobitcoin.org/img/og/og_vip.webp
 - **Redirect**: `https://radiobitcoin.org/obrigado.html?p=vip`
 - **Customer portal**: ✅ Sim (clientes podem cancelar sozinhos)
 
-→ **JSON key**: `vip_mensal_19_eur`
+→ **JSON key**: `vip_mensal_20_eur`
 
 ---
 
-## 8️⃣ VIP Mensal · USD ($19/mês)
-Igual #7, **Price**: `19.00 USD` recurring monthly, **JSON key**: `vip_mensal_19_usd`
+## 8️⃣ VIP Mensal · USD ($20/mês)
+Igual #7, **Price**: `20.00 USD` recurring monthly, **JSON key**: `vip_mensal_20_usd`
 
 ---
 
@@ -113,40 +113,40 @@ Igual #9, **Price**: `150.00 USD`, **JSON key**: `mentoria_1h_150_usd`
 
 ---
 
-## 1️⃣1️⃣ Auditoria Multi-IA · EUR (€497)
+## 1️⃣1️⃣ Auditoria Multi-IA · EUR (€500)
 
 - **Name**: `Auditoria Multi-IA BIT ADICT`
 - **Description**:
   > Auditoria 360° do teu setup crypto: opsec + bots + diversificação + backup + herança. PDF executivo de 80 páginas. 6 IAs analisam em paralelo. 30 dias VIP grátis incluso. 3 follow-ups WhatsApp em 60 dias. Re-análise grátis após 6 meses.
-- **Price**: `497.00 EUR` · One-off
+- **Price**: `500.00 EUR` · One-off
 - **Statement**: `BITADICT AUDITORIA`
 - **Redirect**: `https://radiobitcoin.org/obrigado.html?p=mentoria`
 
-→ **JSON key**: `mentoria_4h_497_eur`
+→ **JSON key**: `mentoria_4h_500_eur`
 
 ---
 
-## 1️⃣2️⃣ Auditoria Multi-IA · USD ($497)
-Igual #11, **Price**: `497.00 USD`, **JSON key**: `mentoria_4h_497_usd`
+## 1️⃣2️⃣ Auditoria Multi-IA · USD ($500)
+Igual #11, **Price**: `500.00 USD`, **JSON key**: `mentoria_4h_500_usd`
 
 ---
 
-## 1️⃣3️⃣ Curso BIT ADICT Soberania Digital · EUR (€297) PRÉ-VENDA
+## 1️⃣3️⃣ Curso BIT ADICT Soberania Digital · EUR (€300) PRÉ-VENDA
 
 - **Name**: `Curso BIT ADICT Soberania Digital`
 - **Description**:
   > Curso completo 8 módulos · 30+ aulas · ~20h conteúdo. Bitcoin self-custody · Recovery Kit · opsec · Lightning · Nostr · bots Polymarket · herança. Acesso vitalício + atualizações grátis. Recovery Kit Digital incluso. Código dos 4 bots incluso. 30 dias VIP grátis. Certificado conclusão.
-- **Price**: `297.00 EUR` · One-off
+- **Price**: `300.00 EUR` · One-off
 - **Statement**: `BITADICT CURSO`
 - **Image**: https://radiobitcoin.org/img/og/og_curso.webp
 - **Redirect**: `https://radiobitcoin.org/obrigado.html?p=curso`
 
-→ **JSON key**: `curso_297_eur`
+→ **JSON key**: `curso_300_eur`
 
 ---
 
-## 1️⃣4️⃣ Curso · USD ($297)
-Igual #13, **Price**: `297.00 USD`, **JSON key**: `curso_297_usd`
+## 1️⃣4️⃣ Curso · USD ($300)
+Igual #13, **Price**: `300.00 USD`, **JSON key**: `curso_300_usd`
 
 ---
 

@@ -35,7 +35,7 @@ gen "og_vip" \
     "ASSINATURA MENSAL · BIT ADICT" \
     "VIP" \
     "Sinais dos 3 bots em tempo real · WhatsApp privado" \
-    "EUR 19 / USD 19 mes"
+    "EUR 20 / USD 20 mes"
 
 # MENTORIA
 gen "og_mentoria" \
@@ -56,7 +56,7 @@ gen "og_curso" \
     "PRE-VENDA · BIT ADICT" \
     "CURSO" \
     "8 modulos · 30+ aulas · acesso vitalicio" \
-    "EUR 297 / USD 297"
+    "EUR 300 / USD 300"
 
 # Converte pra WebP (mais leve)
 if command -v cwebp >/dev/null 2>&1; then
