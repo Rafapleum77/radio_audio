@@ -820,13 +820,25 @@ def monitorar():
 
                 # ── Filtro: só entra quando indicador concorda com favorito do mercado ──
                 # PRECO_MIN=0.55 → seu lado deve estar cotado >= 55% (consenso confirma indicador)
-                # PRECO_MAX=0.80 → não compra caro demais (R/R ruim, ex: 0.97 → +$0.02 vs -$1.94)
+                # PRECO_MAX=0.75 → não compra caro demais (R/R ruim, ex: 0.80 → +$0.02 vs -$3.20)
                 if preco < PRECO_MIN:
                     print(f"\n{A}[SKIP] {direcao} preço {preco:.2f} < {PRECO_MIN} — mercado discorda do indicador{X}")
                     time.sleep(INTERVALO)
                     continue
                 if preco > PRECO_MAX:
                     print(f"\n{A}[SKIP] {direcao} preço {preco:.2f} > {PRECO_MAX} — caro demais (R/R ruim){X}")
+                    time.sleep(INTERVALO)
+                    continue
+
+                # ── Filtro: exige Window Delta na direção da entrada ──
+                # Sem variação real do BTC na janela, sinais clássicos são ruido
+                wd = d.get("win_delta", 0.0)
+                if direcao == "UP" and wd < 0.05:
+                    print(f"\n{A}[SKIP] UP WinΔ {wd:+.2f}% < 0.05% — sem momentum na janela{X}")
+                    time.sleep(INTERVALO)
+                    continue
+                if direcao == "DOWN" and wd > -0.05:
+                    print(f"\n{A}[SKIP] DOWN WinΔ {wd:+.2f}% > -0.05% — sem momentum na janela{X}")
                     time.sleep(INTERVALO)
                     continue
 
