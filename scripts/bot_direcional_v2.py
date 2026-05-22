@@ -64,7 +64,7 @@ ERC20_ABI = [
 VALOR_TRADE   = float(os.getenv("VALOR_TRADE",  "2.0"))   # $ por operação
 STOP_LOSS     = float(os.getenv("STOP_LOSS",    "20.0"))  # $ perda máxima global
 CONFIANCA_MIN = int(os.getenv("CONFIANCA_MIN",  "65"))    # score mínimo (subiu de 60→65)
-PRECO_MIN     = float(os.getenv("PRECO_MIN",    "0.45"))  # preço mínimo do lado escolhido
+PRECO_MIN     = float(os.getenv("PRECO_MIN",    "0.55"))  # 0.55 = só compra quando indicador concorda com favorito do mercado (edge real). 0.45 (antigo) apostava sistematicamente no underdog → 0% win rate
 INTERVALO     = 20       # segundos entre ciclos
 SLUG_BASE     = "btc-updown-5m"
 DURACAO_SLOT  = 300
@@ -608,9 +608,10 @@ def monitorar():
                     time.sleep(INTERVALO)
                     continue
 
-                # ── Filtro preço mínimo (evita apostas improváveis) ──
+                # ── Filtro: só entra quando indicador concorda com favorito do mercado ──
+                # PRECO_MIN=0.55 → seu lado deve estar cotado >= 55% (consenso confirma indicador)
                 if preco < PRECO_MIN:
-                    print(f"\n{A}[SKIP] {direcao} preço {preco:.2f} < mínimo {PRECO_MIN} — mercado desequilibrado{X}")
+                    print(f"\n{A}[SKIP] {direcao} preço {preco:.2f} < {PRECO_MIN} — mercado discorda do indicador{X}")
                     time.sleep(INTERVALO)
                     continue
 
