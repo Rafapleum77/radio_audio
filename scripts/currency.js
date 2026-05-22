@@ -1,46 +1,51 @@
 /*!
- * BIT ADICT · currency switcher
- * Detecta país via Cloudflare CDN headers (geo-IP grátis), define moeda preferida.
- * Não bloqueia render — roda async e atualiza UI quando chega.
- * Fallback: mostra ambos (€/$). Manual override via localStorage('rb_currency').
+ * BIT ADICT · currency switcher · 3 moedas (EUR, USD, BRL)
+ * Detecta país via Cloudflare CDN headers, define moeda preferida.
+ * Override manual: rbSetCurrency('EUR'|'USD'|'BRL'|'ALL')
  */
 (function(){
   'use strict';
 
-  // Países que pagam em USD
+  const BRL_COUNTRIES = new Set(['BR']);
   const USD_COUNTRIES = new Set([
-    'US','CA','MX','BR','AR','CL','CO','PE','UY','VE','EC','BO','PY',  // Américas
-    'AU','NZ','SG','HK','TW','PH','MY','TH','VN','ID',  // Ásia-Pacífico
-    'AE','SA','QA','KW','BH','OM','IL','TR',  // Oriente Médio
-    'ZA','NG','EG','KE',  // África
-    'IN','JP','KR'  // Ásia
+    'US','CA','MX','AR','CL','CO','PE','UY','VE','EC','BO','PY',
+    'AU','NZ','SG','HK','TW','PH','MY','TH','VN','ID',
+    'AE','SA','QA','KW','BH','OM','IL','TR',
+    'ZA','NG','EG','KE','IN','JP','KR'
   ]);
-
-  // Países da zona EUR (preferem €)
   const EUR_COUNTRIES = new Set([
     'PT','ES','FR','DE','IT','NL','BE','LU','IE','AT','GR','FI','EE','LV','LT',
     'SK','SI','MT','CY','HR','CH','GB','NO','SE','DK','PL','CZ','HU','RO','BG'
   ]);
 
+  function fmtBRL(n) { return 'R$' + n.toLocaleString('pt-BR'); }
+
   function applyCurrency(curr) {
     document.documentElement.setAttribute('data-currency', curr);
-    document.querySelectorAll('[data-price-eur][data-price-usd]').forEach(el => {
+    document.querySelectorAll('[data-price-eur], [data-price-usd], [data-price-brl]').forEach(el => {
       const eur = el.getAttribute('data-price-eur');
       const usd = el.getAttribute('data-price-usd');
+      const brl = el.getAttribute('data-price-brl');
       const suffix = el.getAttribute('data-price-suffix') || '';
-      if (curr === 'EUR')      el.innerHTML = '€' + eur + suffix;
-      else if (curr === 'USD') el.innerHTML = '$' + usd + suffix;
-      else                     el.innerHTML = '€' + eur + ' / $' + usd + suffix;
+      let html = '';
+      if (curr === 'EUR' && eur)      html = '€' + eur;
+      else if (curr === 'USD' && usd) html = '$' + usd;
+      else if (curr === 'BRL' && brl) html = fmtBRL(parseInt(brl));
+      else {
+        const parts = [];
+        if (eur) parts.push('€' + eur);
+        if (usd) parts.push('$' + usd);
+        if (brl) parts.push(fmtBRL(parseInt(brl)));
+        html = parts.join(' / ');
+      }
+      el.innerHTML = html + suffix;
     });
-
-    // Atualiza badges de moeda (quem clicou)
     document.querySelectorAll('[data-curr-badge]').forEach(b => {
       b.classList.toggle('active', b.getAttribute('data-curr-badge') === curr);
     });
   }
 
   function detectFromCloudflare(callback) {
-    // Cloudflare expõe CF-IPCountry no header de resposta — pegamos via tiny endpoint
     fetch('https://www.cloudflare.com/cdn-cgi/trace', {cache:'no-store'})
       .then(r => r.text())
       .then(t => {
@@ -51,26 +56,24 @@
   }
 
   function pickCurrency(country) {
-    if (!country) return 'BOTH';
+    if (!country) return 'ALL';
+    if (BRL_COUNTRIES.has(country)) return 'BRL';
     if (USD_COUNTRIES.has(country)) return 'USD';
     if (EUR_COUNTRIES.has(country)) return 'EUR';
-    return 'BOTH';
+    return 'ALL';
   }
 
-  // 1) Override manual via localStorage (usuário clicou no badge)
   const saved = localStorage.getItem('rb_currency');
-  if (saved && ['EUR','USD','BOTH'].includes(saved)) {
-    applyCurrency(saved);
+  if (saved && ['EUR','USD','BRL','ALL','BOTH'].includes(saved)) {
+    applyCurrency(saved === 'BOTH' ? 'ALL' : saved);
   } else {
-    // 2) Auto-detecta via Cloudflare
-    applyCurrency('BOTH');  // render rápido com ambos
+    applyCurrency('ALL');
     detectFromCloudflare(country => {
       const curr = pickCurrency(country);
       applyCurrency(curr);
     });
   }
 
-  // 3) Botões manuais (badge no header)
   window.rbSetCurrency = function(curr) {
     localStorage.setItem('rb_currency', curr);
     applyCurrency(curr);

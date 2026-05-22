@@ -1,168 +1,143 @@
-# 💳 Stripe Payment Links · Checklist 14 produtos
+# 💳 Stripe Payment Links · Checklist 21 produtos (3 moedas)
 
 > Cria cada link em **https://dashboard.stripe.com/payment-links**
 > Cola URL gerada no `scripts/stripe_links.json` e roda `python3 scripts/apply_stripe.py`
 
-**Setup geral** (uma vez):
-- Dashboard → Settings → Branding → cor `#f2a900` + logo `radiobitcoin_logo_square.webp`
-- Dashboard → Settings → Customer Portal → ativa (clientes podem gerenciar assinatura sozinhos)
-- Dashboard → Payments → Methods → ativa **Cartão + Apple Pay + Google Pay + Link**
+**Total: 7 produtos × 3 moedas (EUR + USD + BRL) = 21 Payment Links**
+
+**Atalho**: cria primeiro em EUR (7 produtos), depois **duplica cada um pra USD** trocando só a moeda, depois **duplica cada um pra BRL** trocando moeda + valor.
 
 ---
 
-## 1️⃣ Recovery Kit Digital · EUR (€20)
+## 📋 TABELA DE PREÇOS (referência rápida)
 
-- **Name**: `BIT ADICT Recovery Kit Digital`
-- **Description**:
-  > Utilitário offline pra validar e recuperar acesso a wallets crypto. ZIP pronto pra rodar + Manual PDF + atualizações grátis. Inclui 4 ferramentas: BIP39 validator, recovery parcial, bruteforce Monero, saldo multi-chain (9 chains). 100% offline, open source.
-- **Price**: `20.00 EUR` · One-off
-- **Statement descriptor**: `BITADICT RECOVERY KIT`
-- **Image**: https://radiobitcoin.org/img/bitadict/campanha/02_recovery_kit_49.webp
-- **After payment**: Custom URL → `https://radiobitcoin.org/obrigado.html?p=digital`
-- **Collect address**: ❌ Não (produto digital)
-
-→ **JSON key**: `recovery_digital_20_eur`
-
----
-
-## 2️⃣ Recovery Kit Digital · USD ($20)
-
-Idêntico ao #1, mas:
-- **Price**: `20.00 USD`
-- **JSON key**: `recovery_digital_20_usd`
+| Produto | EUR | USD | BRL |
+|---------|-----|-----|-----|
+| Recovery Digital | €20 | $20 | R$100 |
+| Recovery Pen Drive | €50 | $50 | R$250 |
+| Pacote Completo | €150 | $150 | R$750 |
+| VIP Mensal (recurring) | €20/mês | $20/mês | R$100/mês |
+| Análise IA Express | €150 | $150 | R$750 |
+| Auditoria Multi-IA | €500 | $500 | R$2.500 |
+| Curso Soberania Digital | €300 | $300 | R$1.500 |
 
 ---
 
-## 3️⃣ Recovery Kit Pen Drive · EUR (€50)
+## 🛠️ Setup inicial (uma vez)
 
-- **Name**: `BIT ADICT Recovery Kit Pen Drive`
-- **Description**:
-  > Recovery Kit gravado em pen drive físico USB 8GB. Manual impresso. Entrega Portugal/Europa em 5 dias. Brasil/mundo via correios. 100% offline, open source.
-- **Price**: `50.00 EUR` · One-off
-- **Statement**: `BITADICT PEN DRIVE`
-- **Image**: https://radiobitcoin.org/img/bitadict/campanha/02_recovery_kit_49.webp
-- **Redirect**: `https://radiobitcoin.org/obrigado.html?p=pendrive`
-- **Collect address**: ✅ Sim (precisa endereço entrega)
-- **Shipping**: define preço de envio depois (ou inclui no preço base)
-
-→ **JSON key**: `recovery_pendrive_50_eur`
+1. **Branding** → cor `#f2a900` + logo `radiobitcoin_logo_square.webp`
+2. **Customer Portal → Ativar**
+3. **Payment Methods → Ativar**: Cartão, **Pix** (BR), Boleto, Apple Pay, Google Pay, Link
 
 ---
 
-## 4️⃣ Recovery Kit Pen Drive · USD ($50)
-Igual #3, **Price**: `50.00 USD`, **JSON key**: `recovery_pendrive_50_usd`
+## 1️⃣ Recovery Digital
+
+**Name**: `BIT ADICT Recovery Kit Digital`
+**Description**: Utilitário offline pra validar e recuperar acesso a wallets crypto. ZIP pronto pra rodar + Manual PDF + atualizações grátis. Inclui 4 ferramentas: BIP39 validator, recovery parcial, bruteforce Monero, saldo multi-chain (9 chains). 100% offline, open source.
+**Image**: https://radiobitcoin.org/img/bitadict/campanha/02_recovery_kit_49.webp
+**Redirect**: `https://radiobitcoin.org/obrigado.html?p=digital` · **Address**: ❌
+
+| Moeda | Preço | JSON key |
+|-------|-------|----------|
+| EUR | **€20** | `recovery_digital_20_eur` |
+| USD | **$20** | `recovery_digital_20_usd` |
+| BRL | **R$100** | `recovery_digital_20_brl` |
 
 ---
 
-## 5️⃣ Pacote Completo · EUR (€149)
+## 2️⃣ Recovery Pen Drive
 
-- **Name**: `BIT ADICT Pacote Completo`
-- **Description**:
-  > Pacote completo BIT ADICT: Recovery Kit (digital + pen drive) + código dos 4 bots Polymarket (DIRECIONAL/XRP/ARBITRAGE/SOL) + moeda Bitcoin física + barra de ouro coleção + grupo WhatsApp privado de updates + suporte direto 90 dias.
-- **Price**: `150.00 EUR` · One-off
-- **Statement**: `BITADICT PACOTE`
-- **Image**: https://radiobitcoin.org/img/bitadict/campanha/06_og_banner.webp
-- **Redirect**: `https://radiobitcoin.org/obrigado.html?p=pacote`
-- **Collect address**: ✅ Sim
+**Name**: `BIT ADICT Recovery Kit Pen Drive`
+**Description**: Recovery Kit gravado em pen drive físico USB 8GB. Manual impresso. Entrega Portugal/Europa em 5 dias. Brasil/mundo via correios. 100% offline, open source.
+**Redirect**: `https://radiobitcoin.org/obrigado.html?p=pendrive` · **Address**: ✅
 
-→ **JSON key**: `pacote_completo_149_eur`
-
----
-
-## 6️⃣ Pacote Completo · USD ($149)
-Igual #5, **Price**: `150.00 USD`, **JSON key**: `pacote_completo_149_usd`
+| Moeda | Preço | JSON key |
+|-------|-------|----------|
+| EUR | **€50** | `recovery_pendrive_50_eur` |
+| USD | **$50** | `recovery_pendrive_50_usd` |
+| BRL | **R$250** | `recovery_pendrive_50_brl` |
 
 ---
 
-## 7️⃣ VIP Mensal · EUR (€20/mês) ⭐ RECORRENTE
+## 3️⃣ Pacote Completo
 
-- **Name**: `BIT ADICT VIP`
-- **Description**:
-  > Acesso ao grupo VIP WhatsApp com sinais dos 3 bots Polymarket em tempo real. Live semanal de revisão (sexta 19h BR). Painel de banca aberta. Comunidade educacional sobre soberania digital.
-- **Price**: `20.00 EUR` · **Recurring** · Monthly
-- **Statement**: `BITADICT VIP`
-- **Image**: https://radiobitcoin.org/img/og/og_vip.webp
-- **Redirect**: `https://radiobitcoin.org/obrigado.html?p=vip`
-- **Customer portal**: ✅ Sim (clientes podem cancelar sozinhos)
+**Name**: `BIT ADICT Pacote Completo`
+**Description**: Recovery Kit (digital + pen drive) + código dos 4 bots Polymarket + moeda Bitcoin física + barra de ouro coleção + grupo WhatsApp privado + suporte 90 dias.
+**Image**: https://radiobitcoin.org/img/bitadict/campanha/06_og_banner.webp
+**Redirect**: `https://radiobitcoin.org/obrigado.html?p=pacote` · **Address**: ✅
 
-→ **JSON key**: `vip_mensal_20_eur`
-
----
-
-## 8️⃣ VIP Mensal · USD ($20/mês)
-Igual #7, **Price**: `20.00 USD` recurring monthly, **JSON key**: `vip_mensal_20_usd`
+| Moeda | Preço | JSON key |
+|-------|-------|----------|
+| EUR | **€150** | `pacote_completo_150_eur` |
+| USD | **$150** | `pacote_completo_150_usd` |
+| BRL | **R$750** | `pacote_completo_150_brl` |
 
 ---
 
-## 9️⃣ Análise IA Express · EUR (€150)
+## 4️⃣ VIP Mensal ⭐ RECORRENTE
 
-- **Name**: `Análise Multi-IA Express BIT ADICT`
-- **Description**:
-  > Relatório PDF de 20 páginas auditando 1 área específica do teu setup crypto (opsec OU bots OU diversificação OU backup). 6 IAs analisam (Claude+GPT+Gemini+Manus+Llama+DeepSeek). Entrega em 24h. Zero call humana.
-- **Price**: `150.00 EUR` · One-off
-- **Statement**: `BITADICT IA EXPRESS`
-- **Image**: https://radiobitcoin.org/img/og/og_mentoria.webp
-- **Redirect**: `https://radiobitcoin.org/obrigado.html?p=mentoria`
+**Name**: `BIT ADICT VIP`
+**Description**: Grupo VIP WhatsApp com sinais dos 3 bots Polymarket em tempo real. Live semanal sexta 19h BR. Painel de banca aberta. Comunidade educacional sobre soberania digital.
+**Image**: https://radiobitcoin.org/img/og/og_vip.webp
+**Redirect**: `https://radiobitcoin.org/obrigado.html?p=vip` · **Type**: Recurring Monthly
 
-→ **JSON key**: `mentoria_1h_150_eur`
-
----
-
-## 🔟 Análise IA Express · USD ($150)
-Igual #9, **Price**: `150.00 USD`, **JSON key**: `mentoria_1h_150_usd`
+| Moeda | Preço/mês | JSON key |
+|-------|-----------|----------|
+| EUR | **€20/mês** | `vip_mensal_20_eur` |
+| USD | **$20/mês** | `vip_mensal_20_usd` |
+| BRL | **R$100/mês** | `vip_mensal_20_brl` |
 
 ---
 
-## 1️⃣1️⃣ Auditoria Multi-IA · EUR (€500)
+## 5️⃣ Análise IA Express
 
-- **Name**: `Auditoria Multi-IA BIT ADICT`
-- **Description**:
-  > Auditoria 360° do teu setup crypto: opsec + bots + diversificação + backup + herança. PDF executivo de 80 páginas. 6 IAs analisam em paralelo. 30 dias VIP grátis incluso. 3 follow-ups WhatsApp em 60 dias. Re-análise grátis após 6 meses.
-- **Price**: `500.00 EUR` · One-off
-- **Statement**: `BITADICT AUDITORIA`
-- **Redirect**: `https://radiobitcoin.org/obrigado.html?p=mentoria`
+**Name**: `Análise Multi-IA Express BIT ADICT`
+**Description**: Relatório PDF de 20 páginas auditando 1 área específica do teu setup crypto. 6 IAs analisam (Claude+GPT+Gemini+Manus+Llama+DeepSeek). Entrega em 24h. Zero call humana.
+**Redirect**: `https://radiobitcoin.org/obrigado.html?p=mentoria`
 
-→ **JSON key**: `mentoria_4h_500_eur`
-
----
-
-## 1️⃣2️⃣ Auditoria Multi-IA · USD ($500)
-Igual #11, **Price**: `500.00 USD`, **JSON key**: `mentoria_4h_500_usd`
+| Moeda | Preço | JSON key |
+|-------|-------|----------|
+| EUR | **€150** | `mentoria_1h_150_eur` |
+| USD | **$150** | `mentoria_1h_150_usd` |
+| BRL | **R$750** | `mentoria_1h_150_brl` |
 
 ---
 
-## 1️⃣3️⃣ Curso BIT ADICT Soberania Digital · EUR (€300) PRÉ-VENDA
+## 6️⃣ Auditoria Multi-IA
 
-- **Name**: `Curso BIT ADICT Soberania Digital`
-- **Description**:
-  > Curso completo 8 módulos · 30+ aulas · ~20h conteúdo. Bitcoin self-custody · Recovery Kit · opsec · Lightning · Nostr · bots Polymarket · herança. Acesso vitalício + atualizações grátis. Recovery Kit Digital incluso. Código dos 4 bots incluso. 30 dias VIP grátis. Certificado conclusão.
-- **Price**: `300.00 EUR` · One-off
-- **Statement**: `BITADICT CURSO`
-- **Image**: https://radiobitcoin.org/img/og/og_curso.webp
-- **Redirect**: `https://radiobitcoin.org/obrigado.html?p=curso`
+**Name**: `Auditoria Multi-IA BIT ADICT`
+**Description**: Auditoria 360° do teu setup crypto: opsec + bots + diversificação + backup + herança. PDF executivo de 80 páginas. 6 IAs analisam. 30 dias VIP grátis. 3 follow-ups WhatsApp em 60 dias.
+**Redirect**: `https://radiobitcoin.org/obrigado.html?p=mentoria`
 
-→ **JSON key**: `curso_300_eur`
-
----
-
-## 1️⃣4️⃣ Curso · USD ($300)
-Igual #13, **Price**: `300.00 USD`, **JSON key**: `curso_300_usd`
+| Moeda | Preço | JSON key |
+|-------|-------|----------|
+| EUR | **€500** | `mentoria_4h_500_eur` |
+| USD | **$500** | `mentoria_4h_500_usd` |
+| BRL | **R$2.500** | `mentoria_4h_500_brl` |
 
 ---
 
-## ⚡ Workflow recomendado pra ti
+## 7️⃣ Curso BIT ADICT Soberania Digital
 
-1. Cria os 14 links no Stripe (estimo 30-45min — copia/cola das descrições acima)
-2. Cada link gera URL `https://buy.stripe.com/...`
-3. **Edita `scripts/stripe_links.json`** colocando cada URL na chave correspondente
-4. Roda: `python3 scripts/apply_stripe.py`
-5. Script atualiza as 5 landings (vip/mentoria/curso/recovery/index) com botões Stripe
-6. Commit + push automático
+**Name**: `Curso BIT ADICT Soberania Digital`
+**Description**: Curso completo 8 módulos · 30+ aulas · ~20h. Bitcoin self-custody · Recovery Kit · opsec · Lightning · Nostr · bots Polymarket · herança. Acesso vitalício. Recovery Kit + 4 bots inclusos. 30 dias VIP grátis. Certificado.
+**Image**: https://radiobitcoin.org/img/og/og_curso.webp
+**Redirect**: `https://radiobitcoin.org/obrigado.html?p=curso`
 
-**Modo TEST primeiro**: ativa Test Mode no Stripe (canto sup direito), cria os 14 links em test, valida fluxo end-to-end (pode pagar com cartão 4242 4242 4242 4242), aí desliga test e cria os mesmos 14 em produção.
+| Moeda | Preço | JSON key |
+|-------|-------|----------|
+| EUR | **€300** | `curso_300_eur` |
+| USD | **$300** | `curso_300_usd` |
+| BRL | **R$1.500** | `curso_300_brl` |
 
-## 🆘 Truques pra acelerar criação
+---
 
-- **Duplica produto existente**: depois de criar Recovery Kit Digital EUR, no produto clica "..." → Duplicate → muda só moeda pra USD
-- **Atalho**: cria EUR primeiro de todos (7 produtos), depois duplica todos pra USD (7 mais) trocando apenas a moeda
-- **Imagens**: sobe 4 imagens uma vez em Branding → reaproveita em todos
+## ⚡ Workflow
+
+1. Cria os 21 links no Stripe (~50min)
+2. Cola URLs no `scripts/stripe_links.json`
+3. Roda `python3 scripts/apply_stripe.py`
+4. Site fica com botões Stripe + WhatsApp em todas as landings
+
+**Modo TEST primeiro**: valida com cartão `4242 4242 4242 4242` antes de ativar produção.
