@@ -65,6 +65,7 @@ VALOR_TRADE   = float(os.getenv("VALOR_TRADE",  "2.0"))   # $ por operação
 STOP_LOSS     = float(os.getenv("STOP_LOSS",    "20.0"))  # $ perda máxima global
 CONFIANCA_MIN = int(os.getenv("CONFIANCA_MIN",  "65"))    # score mínimo (subiu de 60→65)
 PRECO_MIN     = float(os.getenv("PRECO_MIN",    "0.55"))  # 0.55 = só compra quando indicador concorda com favorito do mercado (edge real). 0.45 (antigo) apostava sistematicamente no underdog → 0% win rate
+PRECO_MAX     = float(os.getenv("PRECO_MAX",    "0.80"))  # evita trades caros demais (ex: 0.97 → ganho potencial ~$0.02)
 INTERVALO     = 20       # segundos entre ciclos
 SLUG_BASE     = "btc-updown-5m"
 DURACAO_SLOT  = 300
@@ -119,6 +120,64 @@ def obter_allowance_usdc(wallet):
         return round(usdc.functions.allowance(Web3.to_checksum_address(wallet), CTF_EXCHANGE).call() / 1e6, 4)
     except:
         return 0.0
+
+# ═══════════════════════════════════════════════════════════════
+#  PNL TRACKER REAL (via Polymarket data API)
+# ═══════════════════════════════════════════════════════════════
+
+_pnl_baseline_conds = set()  # conditionIds existentes no startup (não contam)
+_pnl_session_conds  = set()  # conditionIds novos já contabilizados na sessão
+_pnl_last_check     = 0.0
+
+def init_pnl_tracker(wallet):
+    """Marca posições atuais como baseline — só conta novas trades da sessão."""
+    if not wallet:
+        return
+    try:
+        r = requests.get(f"https://data-api.polymarket.com/positions?user={wallet}&limit=100", timeout=8)
+        if r.status_code != 200:
+            return
+        for p in (r.json() or []):
+            cid = p.get("conditionId") or ""
+            if cid:
+                _pnl_baseline_conds.add(cid)
+        print(f"{V}[PNL] Baseline: {len(_pnl_baseline_conds)} posições históricas ignoradas{X}")
+    except Exception as e:
+        print(f"{A}[PNL] Baseline falhou: {e}{X}")
+
+def atualizar_pnl_real(wallet):
+    """Polla posições resolvidas; atualiza estado['pnl'] e estado['ganhos']."""
+    global _pnl_last_check
+    agora = time.time()
+    if agora - _pnl_last_check < 30:  # cache 30s
+        return
+    _pnl_last_check = agora
+    if not wallet:
+        return
+    try:
+        r = requests.get(f"https://data-api.polymarket.com/positions?user={wallet}&limit=50", timeout=8)
+        if r.status_code != 200:
+            return
+        novos_resolved = 0
+        for p in (r.json() or []):
+            cid = p.get("conditionId") or ""
+            if not cid or cid in _pnl_baseline_conds or cid in _pnl_session_conds:
+                continue
+            cash_pnl = p.get("cashPnl") or 0
+            current_value = p.get("currentValue") or 0
+            # resolvido = currentValue ~0 (mercado fechou) e cashPnl != 0
+            if abs(current_value) < 0.01 and cash_pnl != 0:
+                _pnl_session_conds.add(cid)
+                estado["pnl"] += cash_pnl
+                if cash_pnl > 0:
+                    estado["ganhos"] += 1
+                novos_resolved += 1
+                cor = V if cash_pnl > 0 else R
+                print(f"\n{cor}[PNL] Trade resolvido: {cash_pnl:+.2f} | PnL sessão: {estado['pnl']:+.2f} | Win rate: {_taxa()}{X}")
+        if novos_resolved > 0 and abs(estado["pnl"]) > 0:
+            estado["maior_pnl"] = max(estado["maior_pnl"], estado["pnl"])
+    except Exception:
+        pass  # silencioso — não quebra o bot por API hiccup
 
 # ═══════════════════════════════════════════════════════════════
 #  TELEGRAM
@@ -541,13 +600,16 @@ def monitorar():
 
     client = conectar()
 
+    # PnL tracker: marca posições históricas como baseline (não contam na sessão)
+    init_pnl_tracker(FUNDER)
+
     threading.Thread(target=_polling_telegram, daemon=True).start()
     print(f"{V}[OK] Telegram iniciado{X}\n")
 
     enviar_telegram(
         f"🚀 *DIRECIONAL v2.0 iniciado!*\n"
         f"Valor/trade: `${VALOR_TRADE}` | Stop: `${STOP_LOSS}`\n"
-        f"Confiança mín: `{CONFIANCA_MIN}%` | Preço mín: `{PRECO_MIN}`\n"
+        f"Confiança mín: `{CONFIANCA_MIN}%` | Preço: `{PRECO_MIN}-{PRECO_MAX}`\n"
         f"📊 BB15m + Donchian7d + VolSpike + RSI + EMA"
     )
 
@@ -556,6 +618,7 @@ def monitorar():
             if estado["encerrar"]:
                 break
 
+            atualizar_pnl_real(FUNDER)
             verificar_stop_loss()
 
             if estado["pausado"]:
@@ -610,8 +673,13 @@ def monitorar():
 
                 # ── Filtro: só entra quando indicador concorda com favorito do mercado ──
                 # PRECO_MIN=0.55 → seu lado deve estar cotado >= 55% (consenso confirma indicador)
+                # PRECO_MAX=0.80 → não compra caro demais (R/R ruim, ex: 0.97 → +$0.02 vs -$1.94)
                 if preco < PRECO_MIN:
                     print(f"\n{A}[SKIP] {direcao} preço {preco:.2f} < {PRECO_MIN} — mercado discorda do indicador{X}")
+                    time.sleep(INTERVALO)
+                    continue
+                if preco > PRECO_MAX:
+                    print(f"\n{A}[SKIP] {direcao} preço {preco:.2f} > {PRECO_MAX} — caro demais (R/R ruim){X}")
                     time.sleep(INTERVALO)
                     continue
 
