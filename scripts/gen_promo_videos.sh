@@ -64,7 +64,7 @@ gen "promo_vip" \
     "VIP" \
     "Sinais dos 3 bots em tempo real" \
     "ENTRA AGORA" \
-    "EUR 19 / USD 19"
+    "EUR 20 / USD 20"
 
 # 3. MENTORIA
 gen "promo_mentoria" \
@@ -72,7 +72,7 @@ gen "promo_mentoria" \
     "MENTORIA" \
     "Setup completo bots em 4 horas" \
     "AGENDA HOJE" \
-    "EUR 497 / USD 497"
+    "EUR 500 / USD 500"
 
 # 4. CURSO
 gen "promo_curso" \
@@ -80,7 +80,7 @@ gen "promo_curso" \
     "CURSO" \
     "8 modulos · soberania digital" \
     "GARANTE TEU" \
-    "EUR 297 / USD 297"
+    "EUR 300 / USD 300"
 
 echo ""
 echo "Vídeos gerados em: ${OUT}/"

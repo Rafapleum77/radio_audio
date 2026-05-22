@@ -28,13 +28,13 @@ Pra cada produto, vai em **Products → Add product**, depois **More options →
 
 #### Produto 1: Recovery Kit Digital
 - Name: `BIT ADICT Recovery Kit Digital`
-- Price: **€19** (one-time)
+- Price: **€20** (one-time)
 - Após pagamento: **Redirect to** `https://radiobitcoin.org/obrigado.html?p=digital`
 - URL gerada → copia (ex: `https://buy.stripe.com/aEU14m9XB6JS6F2eUU`)
 
 #### Produto 2: Recovery Kit pen drive
 - Name: `BIT ADICT Recovery Kit Pen Drive`
-- Price: **€49** (one-time)
+- Price: **€50** (one-time)
 - Collect address: **Sim** (precisa endereço pra mandar)
 - Redirect: `https://radiobitcoin.org/obrigado.html?p=pendrive`
 
@@ -46,7 +46,7 @@ Pra cada produto, vai em **Products → Add product**, depois **More options →
 
 #### Produto 4: VIP mensal
 - Name: `BIT ADICT VIP`
-- Price: **€19** (recurring monthly)
+- Price: **€20** (recurring monthly)
 - Redirect: `https://radiobitcoin.org/obrigado.html?p=vip`
 
 #### Produto 5: Mentoria 1h
@@ -56,12 +56,12 @@ Pra cada produto, vai em **Products → Add product**, depois **More options →
 
 #### Produto 6: Mentoria 4h
 - Name: `BIT ADICT Mentoria Pacote 4h`
-- Price: **€497** (one-time)
+- Price: **€500** (one-time)
 - Redirect: `https://radiobitcoin.org/obrigado.html?p=mentoria`
 
 #### Produto 7: Curso pré-venda
 - Name: `BIT ADICT Soberania Digital`
-- Price: **€297** (one-time)
+- Price: **€300** (one-time)
 - Redirect: `https://radiobitcoin.org/obrigado.html?p=curso`
 
 ### 3. Trazer os links pro site (10 min)
