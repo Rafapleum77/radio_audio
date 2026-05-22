@@ -17,8 +17,8 @@ import os, sys, json, subprocess, time, requests
 from pathlib import Path
 from datetime import datetime
 
-TG_TOKEN = "8630704957:AAHdIs0CpwJ5JuAhIQh8rWU4hAW62fDOZ_GU"
-TG_CHAT  = "6239727715"
+TG_TOKEN = os.getenv("TG_WATCHDOG_TOKEN", "")  # criar novo via @BotFather, exportar
+TG_CHAT  = os.getenv("TG_WATCHDOG_CHAT", "6239727715")
 
 STATE_FILE = Path.home() / "Bots/RESULTADOS/watchdog_state.json"
 STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -51,6 +51,10 @@ BOTS = [
 ]
 
 def tg(msg):
+    if not TG_TOKEN:
+        # sem token: só loga em stdout
+        print(f"[ALERT] {msg}")
+        return
     try:
         requests.post(
             f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage",
