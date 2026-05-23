@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-05-21 22:40:43",
-  "atualizado_ts": 1779414043,
+  "atualizado_em": "2026-05-22 21:48:36",
+  "atualizado_ts": 1779497316,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -10,13 +10,13 @@
       "ativo": false,
       "pid": null,
       "status": {
-        "hora": "22:40:31",
-        "preco": "77440",
-        "rsi": "42.0",
-        "ema": "▼",
-        "dir": "DOWN",
-        "conf": "51",
-        "t": "269",
+        "hora": "07:35:11",
+        "preco": "77350",
+        "rsi": "75.0",
+        "ema": "▲",
+        "dir": "UP",
+        "conf": "55",
+        "t": "289",
         "pnl": "+0.00",
         "win": "0.0"
       },
@@ -27,13 +27,23 @@
       "trades_recentes": [
         {
           "dir": "UP",
-          "preco": "0.5",
-          "valor": "2.50"
+          "preco": "0.55",
+          "valor": "2.75"
+        },
+        {
+          "dir": "DOWN",
+          "preco": "0.88",
+          "valor": "4.40"
         },
         {
           "dir": "UP",
-          "preco": "0.48",
-          "valor": "2.40"
+          "preco": "0.6",
+          "valor": "3.00"
+        },
+        {
+          "dir": "UP",
+          "preco": "0.59",
+          "valor": "2.95"
         }
       ]
     },
@@ -45,10 +55,10 @@
       "ativo": true,
       "via": "polymarket_api",
       "status": null,
-      "wins": 1,
-      "losses": 7,
-      "trades_total": 8,
-      "win_rate": 12.5,
+      "wins": 0,
+      "losses": 30,
+      "trades_total": 30,
+      "win_rate": 0.0,
       "trades_recentes": [
         {
           "dir": "UP",
@@ -57,54 +67,54 @@
         },
         {
           "dir": "UP",
-          "preco": "52.0",
-          "valor": "2.60"
-        },
-        {
-          "dir": "DOWN",
-          "preco": "49.0",
-          "valor": "2.45"
+          "preco": "62.0",
+          "valor": "3.10"
         },
         {
           "dir": "UP",
-          "preco": "52.0",
-          "valor": "2.60"
+          "preco": "53.0",
+          "valor": "2.65"
         },
         {
           "dir": "UP",
-          "preco": "54.0",
-          "valor": "2.70"
+          "preco": "61.0",
+          "valor": "3.05"
+        },
+        {
+          "dir": "UP",
+          "preco": "51.0",
+          "valor": "2.55"
         }
       ],
-      "pnl_total": -20.6,
+      "pnl_total": -86.56,
       "posicoes_abertas": 0,
       "funder": "0x0CAc24471777064974fF9Cb768C5C146B4733742",
       "profile_url": "https://polymarket.com/profile/0x0CAc24471777064974fF9Cb768C5C146B4733742"
     }
   },
   "radio_panel": {
-    "hora": "22:40:43",
-    "ts": 1779414043,
-    "pnl_total": 16.91,
+    "hora": "21:48:37",
+    "ts": 1779497317,
+    "pnl_total": -1.1,
     "bots": [
       {
         "nome": "XRP",
         "modo": "LIVE",
         "ativo": true,
-        "pnl": 16.954,
-        "trades": 16,
-        "ganhos": 13,
+        "pnl": -1.038,
+        "trades": 2,
+        "ganhos": 1,
         "banca": 120.0,
-        "ultima": "22:40:39"
+        "ultima": "21:48:26"
       },
       {
         "nome": "ARBITRAGE",
         "modo": "LIVE",
         "ativo": true,
-        "pnl": -0.04,
+        "pnl": -0.06,
         "win": 0.0,
-        "ultima": "22:40:29",
-        "uptime": "46h00m"
+        "ultima": "21:48:36",
+        "uptime": "69h08m"
       },
       {
         "nome": "DIRECIONAL",
@@ -112,7 +122,7 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "22:40:35"
+        "ultima": "21:48:36"
       }
     ],
     "maquinas": [
@@ -120,10 +130,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 24.3,
-        "ram_pct": 99.6,
+        "cpu": 25.2,
+        "ram_pct": 88.4,
         "disk_pct": 2.0,
-        "uptime": "6 days,  7:23"
+        "uptime": "7 days,  6:31"
       },
       {
         "nome": "INTEL",
@@ -138,10 +148,19 @@
         "nome": "NITRO",
         "papel": "Win11 - banners",
         "online": true,
-        "cpu": 4,
-        "ram_pct": 86.0,
-        "disk_pct": 71.0,
-        "uptime": "79h"
+        "cpu": 1,
+        "ram_pct": 78.6,
+        "disk_pct": 71.4,
+        "uptime": "103h"
+      },
+      {
+        "nome": "LENOVO",
+        "papel": "Win10 - bot Gael (DIRECIONAL)",
+        "online": true,
+        "cpu": 11,
+        "ram_pct": 45.4,
+        "disk_pct": 25.6,
+        "uptime": "33h"
       }
     ],
     "satoshi": {

@@ -63,6 +63,32 @@ ATIVOS = {
         "DBC (Commodities)":    "DBC",
         "TLT (20y Treasury)":   "TLT",
     },
+    "🤖 Inteligência Artificial": {
+        "NVDA (Nvidia)":         "NVDA",
+        "MSFT (Microsoft)":      "MSFT",
+        "GOOGL (Google)":        "GOOGL",
+        "META (Meta)":           "META",
+        "PLTR (Palantir)":       "PLTR",
+        "SMCI (Super Micro)":    "SMCI",
+        "ARM (Arm Holdings)":    "ARM",
+        "AI (C3.ai)":            "AI",
+    },
+    "⚡ Energia (ações)": {
+        "XOM (Exxon)":           "XOM",
+        "CVX (Chevron)":         "CVX",
+        "SHEL (Shell)":          "SHEL",
+        "XLE (Energy ETF)":      "XLE",
+        "URA (Uranium ETF)":     "URA",
+        "PBR (Petrobras)":       "PBR",
+    },
+    "🏢 Imobiliário (REITs)": {
+        "VNQ (REIT ETF)":        "VNQ",
+        "O (Realty Income)":     "O",
+        "AMT (Am. Tower)":       "AMT",
+        "SPG (Simon Property)":  "SPG",
+        "PLD (Prologis)":        "PLD",
+        "EQIX (Equinix data)":   "EQIX",
+    },
 }
 
 def coletar(ticker):
