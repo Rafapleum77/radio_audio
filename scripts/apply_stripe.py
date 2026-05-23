@@ -28,20 +28,6 @@ MAPPINGS = [
         "wa_pattern": r"Quero%20o%20BIT%20ADICT%20VIP",
         "label": "💳 ASSINAR COM CARTÃO",
     },
-    # MENTORIA 1h
-    {
-        "key": "mentoria_1h_150",
-        "files": ["mentoria.html"],
-        "wa_pattern": r"Quero%20Mentoria%20BIT%20ADICT%201h",
-        "label": "💳 PAGAR 1H",
-    },
-    # MENTORIA 4h
-    {
-        "key": "mentoria_4h_500",
-        "files": ["mentoria.html"],
-        "wa_pattern": r"Quero%20Pacote%20Mentoria%204h",
-        "label": "💳 PAGAR PACOTE",
-    },
     # CURSO
     {
         "key": "curso_300",
