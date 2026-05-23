@@ -51,7 +51,7 @@ Pra cada produto, vai em **Products → Add product**, depois **More options →
 
 #### Produto 5: Mentoria 1h
 - Name: `BIT ADICT Mentoria 1h`
-- Price: **€150** (one-time)
+- Price: **€200** (one-time)
 - Redirect: `https://radiobitcoin.org/obrigado.html?p=mentoria`
 
 #### Produto 6: Mentoria 4h

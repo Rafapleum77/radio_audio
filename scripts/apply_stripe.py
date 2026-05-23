@@ -51,7 +51,7 @@ MAPPINGS = [
     },
     # PACOTE completo
     {
-        "key": "pacote_completo_150",
+        "key": "pacote_completo_200",
         "files": ["recovery.html", "index.html"],
         "wa_pattern": r"Quero%20comprar%20o%20Pacote%20BIT%20ADICT",
         "label": "💳 PAGAR COM CARTÃO",
