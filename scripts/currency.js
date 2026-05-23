@@ -43,6 +43,23 @@
     document.querySelectorAll('[data-curr-badge]').forEach(b => {
       b.classList.toggle('active', b.getAttribute('data-curr-badge') === curr);
     });
+    // botoes Stripe multi-moeda: troca href conforme moeda detectada
+    document.querySelectorAll('[data-stripe-eur], [data-stripe-usd], [data-stripe-brl]').forEach(el => {
+      const map = {
+        EUR: el.getAttribute('data-stripe-eur') || '',
+        USD: el.getAttribute('data-stripe-usd') || '',
+        BRL: el.getAttribute('data-stripe-brl') || '',
+      };
+      // preferencia: moeda detectada -> USD -> EUR -> BRL
+      const url = map[curr] || map.USD || map.EUR || map.BRL;
+      if (url) {
+        el.setAttribute('href', url);
+        el.style.display = '';
+      } else {
+        // nenhum link Stripe preenchido pra este produto — esconde o botao
+        el.style.display = 'none';
+      }
+    });
   }
 
   function detectFromCloudflare(callback) {
