@@ -163,16 +163,39 @@
 </div>
 
 <script>
+// Backup local: sempre salva leads no localStorage do visitante pra não perder por bug de provedor.
+// (rafael pode pedir o backup pra cada lead via console: JSON.parse(localStorage.getItem('rb_leads_ebook')))
+function saveLeadLocal(email){
+  try {
+    const k = 'rb_leads_ebook';
+    const list = JSON.parse(localStorage.getItem(k) || '[]');
+    list.push({email, ts: Date.now(), source: 'ebook-10-erros'});
+    localStorage.setItem(k, JSON.stringify(list));
+  } catch(e){}
+}
+
 function handleSubmit(e){
   e.preventDefault();
   const email = document.getElementById('email').value;
   if(!email) return false;
 
+  saveLeadLocal(email);
+
+  // captura primaria via formsubmit (precisa estar ativado no painel formsubmit.co)
   fetch('https://formsubmit.co/ajax/texugorecords@walletofsatoshi.com', {
     method: 'POST',
     headers: {'Content-Type':'application/json','Accept':'application/json'},
-    body: JSON.stringify({email: email, source: 'ebook-10-erros', _subject: 'Novo lead eBook BIT ADICT'})
-  }).catch(() => {});
+    body: JSON.stringify({
+      email: email,
+      source: 'ebook-10-erros',
+      _subject: 'Novo lead eBook BIT ADICT',
+      _template: 'table'
+    })
+  }).then(r => r.json()).then(j => {
+    if (j && j.success === 'false') {
+      console.warn('[BITADICT] formsubmit precisa de ativacao:', j.message);
+    }
+  }).catch(err => console.warn('[BITADICT] formsubmit erro:', err));
 
   if(window.goatcounter) window.goatcounter.count({path:'ebook-download', event:true});
 
