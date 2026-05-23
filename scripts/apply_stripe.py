@@ -18,24 +18,26 @@ ROOT = Path(__file__).resolve().parent.parent
 LINKS_FILE = ROOT / "scripts" / "stripe_links.json"
 
 # Mapeia produto → (arquivo, regex_pra_achar_botao_wa, label_botao_stripe)
+# Cada produto tem 3 chaves no JSON: {base}_eur, {base}_usd, {base}_brl
+# O botao gerado tem data-stripe-eur/usd/brl e o currency.js troca o href em runtime.
 MAPPINGS = [
     # VIP
     {
-        "key": "vip_mensal_19",
+        "key": "vip_mensal_20",
         "files": ["vip.html"],
         "wa_pattern": r"Quero%20o%20BIT%20ADICT%20VIP",
-        "label": "💳 ASSINAR COM CARTÃO · €19/MÊS",
+        "label": "💳 ASSINAR COM CARTÃO",
     },
     # MENTORIA 1h
     {
         "key": "mentoria_1h_150",
         "files": ["mentoria.html"],
         "wa_pattern": r"Quero%20Mentoria%20BIT%20ADICT%201h",
-        "label": "💳 PAGAR 1H · €150",
+        "label": "💳 PAGAR 1H",
     },
     # MENTORIA 4h
     {
-        "key": "mentoria_4h_497",
+        "key": "mentoria_4h_500",
         "files": ["mentoria.html"],
         "wa_pattern": r"Quero%20Pacote%20Mentoria%204h",
         "label": "💳 PAGAR PACOTE · €497",
