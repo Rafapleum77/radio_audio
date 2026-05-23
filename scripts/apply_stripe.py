@@ -40,35 +40,35 @@ MAPPINGS = [
         "key": "mentoria_4h_500",
         "files": ["mentoria.html"],
         "wa_pattern": r"Quero%20Pacote%20Mentoria%204h",
-        "label": "💳 PAGAR PACOTE · €497",
+        "label": "💳 PAGAR PACOTE",
     },
     # CURSO
     {
-        "key": "curso_297",
+        "key": "curso_300",
         "files": ["curso.html"],
         "wa_pattern": r"Quero%20o%20Curso%20BIT%20ADICT",
-        "label": "💳 PAGAR COM CARTÃO · €297",
+        "label": "💳 PAGAR COM CARTÃO",
     },
     # RECOVERY digital
     {
-        "key": "recovery_digital_19",
+        "key": "recovery_digital_20",
         "files": ["recovery.html", "index.html"],
         "wa_pattern": r"Quero%20o%20Recovery%20Kit%20Digital",
-        "label": "💳 PAGAR · €19",
+        "label": "💳 PAGAR COM CARTÃO",
     },
     # RECOVERY pen drive
     {
-        "key": "recovery_pendrive_49",
+        "key": "recovery_pendrive_50",
         "files": ["recovery.html", "index.html"],
         "wa_pattern": r"Quero%20o%20Recovery%20Kit%20no%20pen%20drive",
-        "label": "💳 PAGAR · €49",
+        "label": "💳 PAGAR COM CARTÃO",
     },
     # PACOTE completo
     {
-        "key": "pacote_completo_149",
+        "key": "pacote_completo_150",
         "files": ["recovery.html", "index.html"],
         "wa_pattern": r"Quero%20comprar%20o%20Pacote%20BIT%20ADICT",
-        "label": "💳 PAGAR · €149",
+        "label": "💳 PAGAR COM CARTÃO",
     },
 ]
 
