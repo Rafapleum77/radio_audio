@@ -32,7 +32,7 @@ Toda **sexta-feira às 9h da manhã (BR)** vou te mandar 1 email com:
 ## Quer mais?
 
 - **VIP €20/mês** — sinais dos 3 bots em tempo real no WhatsApp: https://radiobitcoin.org/vip.html
-- **Mentoria 1:1** — €150/h ou €500 pacote 4h pra setup completo: https://radiobitcoin.org/mentoria.html
+- **Mentoria 1:1** — €150/h ou €500 pacote 4h pra setup completo: https://radiobitcoin.org/analise-ia.html
 - **Recovery Kit** — €20 digital, €50 pen drive, €149 pacote completo: https://radiobitcoin.org/recovery.html
 - **Curso BIT ADICT** — pré-venda €300 vitalício: https://radiobitcoin.org/curso.html
 
