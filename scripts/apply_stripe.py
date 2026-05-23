@@ -133,13 +133,27 @@ def main():
     links = json.loads(LINKS_FILE.read_text())
     links = {k: v for k, v in links.items() if not k.startswith("_")}
 
-    pending = [k for k, v in links.items() if not v]
-    if pending:
-        print(f"⚠️  Links pendentes (não vão ser aplicados): {', '.join(pending)}")
-    active = {k: v for k, v in links.items() if v}
-    if not active:
+    # agrupa as 3 moedas por produto: vip_mensal_20_eur/usd/brl -> vip_mensal_20: {eur,usd,brl}
+    by_product: dict[str, dict[str, str]] = {}
+    for k, v in links.items():
+        if not v or "PREENCHER" in str(v):
+            continue
+        for suffix in ("_eur", "_usd", "_brl"):
+            if k.endswith(suffix):
+                base = k[:-4]
+                by_product.setdefault(base, {})[suffix[1:]] = v
+                break
+
+    if not by_product:
         print("Nada a fazer. Preenche pelo menos 1 URL em scripts/stripe_links.json")
         sys.exit(0)
+
+    # relatorio do que vai aplicar
+    for m in MAPPINGS:
+        base = m["key"]
+        urls = by_product.get(base, {})
+        flags = "".join(["✓" if c in urls else "·" for c in ("eur", "usd", "brl")])
+        print(f"  {base:30} [{flags}] EUR/USD/BRL")
 
     # primeiro reverte tudo (pra ser idempotente)
     for path in ROOT.glob("*.html"):
@@ -151,19 +165,20 @@ def main():
     # aplica
     total = 0
     for m in MAPPINGS:
-        url = links.get(m["key"])
-        if not url:
+        urls = by_product.get(m["key"])
+        if not urls:
             continue
         for fname in m["files"]:
             path = ROOT / fname
             if not path.exists():
                 continue
             html = path.read_text()
-            new_html, n = apply_for_mapping(html, m, url)
+            new_html, n = apply_for_mapping(html, m, urls)
             if n:
                 path.write_text(new_html)
                 total += n
-                print(f"✓ {fname}: {m['key']} ({n} botão{'es' if n > 1 else ''})")
+                moedas = "/".join(sorted(urls.keys())).upper()
+                print(f"✓ {fname}: {m['key']} ({moedas}) ({n} botão{'es' if n > 1 else ''})")
 
     print(f"\nTotal: {total} botões Stripe aplicados.")
     if total == 0:
