@@ -3,24 +3,19 @@
   "_status": "1/15 preenchidos em 2026-05-22 — recovery_digital_20_usd ainda é TEST (buy.stripe.com/test_...). Trocar por PROD assim que conta Stripe estiver verificada. Pix BRL e EUR Portugal são prioridade pra viagem ~15 dias. Mentoria removida (sem-atendimento-humano).",
   "_referencia": "scripts/stripe_checklist.md",
   "_warning": "Botoes Stripe ja sao injetados via scripts/apply_stripe.py (multi-moeda com data-stripe-eur/usd/brl). currency.js troca href em runtime. Se uma moeda nao tiver URL, botao fica oculto pra visitantes daquela regiao.",
-
   "recovery_digital_20_eur": "",
   "recovery_digital_20_usd": "https://buy.stripe.com/test_9B600jgvQfnAaZHc7QfEk00",
   "recovery_digital_20_brl": "",
-
   "recovery_pendrive_50_eur": "",
   "recovery_pendrive_50_usd": "",
   "recovery_pendrive_50_brl": "",
-
-  "pacote_completo_150_eur": "",
-  "pacote_completo_150_usd": "",
-  "pacote_completo_150_brl": "",
-
   "vip_mensal_20_eur": "",
   "vip_mensal_20_usd": "",
   "vip_mensal_20_brl": "",
-
   "curso_300_eur": "",
   "curso_300_usd": "",
-  "curso_300_brl": ""
+  "curso_300_brl": "",
+  "pacote_completo_200_eur": "",
+  "pacote_completo_200_usd": "",
+  "pacote_completo_200_brl": ""
 }

@@ -93,7 +93,7 @@ Se você quiser ir mais a fundo agora:
 
 → [Recovery Kit Digital €20](https://radiobitcoin.org/recovery.html) — ferramenta offline pra validar seed, recuperar acesso, multi-chain. O mesmo que eu uso.
 
-→ [Pacote Completo €150](https://radiobitcoin.org/recovery.html) — código completo dos 4 bots que rodam na minha frota + Recovery Kit + brindes físicos.
+→ [Pacote Completo €200](https://radiobitcoin.org/recovery.html) — código completo dos 4 bots que rodam na minha frota + Recovery Kit + brindes físicos.
 
 → [VIP €20/mês](https://radiobitcoin.org/vip.html) — sinais em tempo real dos 3 bots + comunidade WhatsApp.
 
