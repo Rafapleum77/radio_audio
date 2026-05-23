@@ -76,10 +76,15 @@ STRIPE_BTN_CLASS = "rb-ba__btn pri"
 STRIPE_MARKER = "<!-- STRIPE_BTN -->"
 
 
-def make_stripe_btn(url: str, label: str) -> str:
+def make_stripe_btn(urls: dict, label: str) -> str:
+    """urls = {'eur': '...', 'usd': '...', 'brl': '...'} (qualquer combinacao).
+    href default aponta pra USD se existir, senao primeiro disponivel.
+    O currency.js troca o href em runtime conforme moeda detectada."""
+    default = urls.get("usd") or urls.get("eur") or urls.get("brl") or ""
+    attrs = " ".join(f'data-stripe-{k}="{v}"' for k, v in urls.items() if v)
     return (
         f'{STRIPE_MARKER}<a class="{STRIPE_BTN_CLASS}" '
-        f'href="{url}" target="_blank" rel="noopener" '
+        f'href="{default}" {attrs} target="_blank" rel="noopener" '
         f'style="background:linear-gradient(180deg,#635bff 0%,#4b46c7 100%);'
         f'color:#fff;border:1px solid rgba(255,255,255,0.2);'
         f'box-shadow:0 4px 14px rgba(99,91,255,0.4);margin-right:8px;">'
@@ -87,13 +92,13 @@ def make_stripe_btn(url: str, label: str) -> str:
     )
 
 
-def apply_for_mapping(html: str, m: dict, url: str) -> tuple[str, int]:
+def apply_for_mapping(html: str, m: dict, urls: dict) -> tuple[str, int]:
     pattern = re.compile(
         r'(<a\s+[^>]*?class="' + re.escape(STRIPE_BTN_CLASS) +
         r'"[^>]*?href="https://wa\.me/5561998110979\?text=' + m["wa_pattern"] +
         r'[^"]*"[^>]*>[^<]*</a>)'
     )
-    btn_stripe = make_stripe_btn(url, m["label"])
+    btn_stripe = make_stripe_btn(urls, m["label"])
     new_html, n = pattern.subn(btn_stripe + "\n      " + r"\1", html, count=10)
     return new_html, n
 
