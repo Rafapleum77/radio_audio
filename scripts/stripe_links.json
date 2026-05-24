@@ -1,6 +1,6 @@
 {
   "_doc": "Preenche cada URL com Payment Link do Stripe (https://dashboard.stripe.com/payment-links). Total: 15 produtos (5 × 3 moedas). Roda: python3 scripts/apply_stripe.py",
-  "_status": "1/15 preenchidos em 2026-05-22 — recovery_digital_20_usd ainda é TEST (buy.stripe.com/test_...). Trocar por PROD assim que conta Stripe estiver verificada. Pix BRL e EUR Portugal são prioridade pra viagem ~15 dias. Mentoria removida (sem-atendimento-humano).",
+  "_status": "1/21 preenchidos - novos tiers €100 + €150 + €200 + recovery + vip + curso. Pix BRL/EUR Portugal prioridade pra viagem",
   "_referencia": "scripts/stripe_checklist.md",
   "_warning": "Botoes Stripe ja sao injetados via scripts/apply_stripe.py (multi-moeda com data-stripe-eur/usd/brl). currency.js troca href em runtime. Se uma moeda nao tiver URL, botao fica oculto pra visitantes daquela regiao.",
   "recovery_digital_20_eur": "",
@@ -17,5 +17,11 @@
   "curso_300_brl": "",
   "pacote_completo_200_eur": "",
   "pacote_completo_200_usd": "",
-  "pacote_completo_200_brl": ""
+  "pacote_completo_200_brl": "",
+  "pacote_essencial_100_eur": "",
+  "pacote_essencial_100_usd": "",
+  "pacote_essencial_100_brl": "",
+  "pacote_avancado_150_eur": "",
+  "pacote_avancado_150_usd": "",
+  "pacote_avancado_150_brl": ""
 }
