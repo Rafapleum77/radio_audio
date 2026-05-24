@@ -49,6 +49,20 @@ MAPPINGS = [
         "wa_pattern": r"Quero%20o%20Recovery%20Kit%20no%20pen%20drive",
         "label": "💳 PAGAR COM CARTÃO",
     },
+    # PACOTE Essencial
+    {
+        "key": "pacote_essencial_100",
+        "files": ["precos.html"],
+        "wa_pattern": r"Quero%20o%20Pacote%20Essencial%20BIT%20ADICT",
+        "label": "💳 PAGAR COM CARTÃO",
+    },
+    # PACOTE Avancado
+    {
+        "key": "pacote_avancado_150",
+        "files": ["precos.html"],
+        "wa_pattern": r"Quero%20o%20Pacote%20Avan%C3%A7ado%20BIT%20ADICT",
+        "label": "💳 PAGAR COM CARTÃO",
+    },
     # PACOTE completo
     {
         "key": "pacote_completo_200",
