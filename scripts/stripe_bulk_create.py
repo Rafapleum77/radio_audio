@@ -130,8 +130,10 @@ def main():
         try:
             product = find_or_create_product(slot_base, name, desc)
         except Exception as e:
-            errors.append(f"{slot_base}: product {e}")
-            print(f"  ERR product: {e}")
+            import traceback
+            traceback.print_exc()
+            errors.append(f"{slot_base}: product {e!r}")
+            print(f"  ERR product: {e!r}")
             continue
         for currency, amount in moedas:
             slot_key = f"{slot_base}_{currency}"
