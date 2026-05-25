@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-05-24 20:12:21",
-  "atualizado_ts": 1779664341,
+  "atualizado_em": "2026-05-24 21:13:13",
+  "atualizado_ts": 1779667993,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,36 +93,36 @@
     }
   },
   "radio_panel": {
-    "hora": "20:12:21",
-    "ts": 1779664341,
-    "pnl_total": 0.53,
+    "hora": "21:13:13",
+    "ts": 1779667993,
+    "pnl_total": 0.0,
     "bots": [
       {
         "nome": "XRP",
         "modo": "LIVE",
         "ativo": true,
-        "pnl": 0.592,
-        "trades": 1,
-        "ganhos": 1,
+        "pnl": 0.0,
+        "trades": 0,
+        "ganhos": 0,
         "banca": 120.0,
-        "ultima": "20:12:13"
+        "ultima": "21:13:09"
       },
       {
         "nome": "ARBITRAGE",
         "modo": "LIVE",
         "ativo": true,
-        "pnl": -0.06,
+        "pnl": 0.0,
         "win": 0.0,
-        "ultima": "20:12:05",
-        "uptime": "115h32m"
+        "ultima": "21:13:07",
+        "uptime": "00h20m"
       },
       {
         "nome": "DIRECIONAL",
-        "modo": "LIVE",
+        "modo": "PAPER",
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "20:12:21"
+        "ultima": "21:12:56"
       }
     ],
     "maquinas": [
@@ -130,10 +130,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 47.0,
-        "ram_pct": 96.0,
+        "cpu": 14.2,
+        "ram_pct": 88.2,
         "disk_pct": 2.0,
-        "uptime": "9 days,  4:54"
+        "uptime": "22 mins"
       },
       {
         "nome": "INTEL",
@@ -148,19 +148,19 @@
         "nome": "NITRO",
         "papel": "Win11 - banners",
         "online": true,
-        "cpu": 7,
-        "ram_pct": 96.8,
+        "cpu": 1,
+        "ram_pct": 89.0,
         "disk_pct": 72.7,
-        "uptime": "149h"
+        "uptime": "150h"
       },
       {
         "nome": "LENOVO",
         "papel": "Win10 - bot Gael (DIRECIONAL)",
         "online": true,
-        "cpu": 9,
-        "ram_pct": 40.9,
+        "cpu": 31,
+        "ram_pct": 40.4,
         "disk_pct": 24.7,
-        "uptime": "79h"
+        "uptime": "80h"
       }
     ],
     "satoshi": {
