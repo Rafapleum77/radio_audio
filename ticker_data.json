@@ -1,14 +1,43 @@
 {
-  "atualizado": "2026-05-25T02:23:30.300319+00:00",
-  "total_items": 11,
+  "atualizado": "2026-05-25T12:35:11.229971+00:00",
+  "total_items": 12,
   "items": [
     {
       "bot": "Gael Mac",
       "moeda": "BTC",
       "direcao": "UP",
-      "pnl": 3.02,
+      "pnl": 1.8,
       "ts": "live",
-      "mercado": "BTC - May 24, 6:55PM-7:00PM ET"
+      "mercado": "BTC - May 25, 2:15AM-2:20AM ET"
+    },
+    {
+      "bot": "Gael Mac",
+      "moeda": "BTC",
+      "direcao": "UP",
+      "pnl": 1.45,
+      "ts": "live",
+      "mercado": "BTC - May 24, 11:30PM-11:35PM "
+    },
+    {
+      "bot": "XRP",
+      "moeda": "XRP",
+      "direcao": "DOWN",
+      "pnl": 1.19,
+      "ts": "2026-05-25 07:15"
+    },
+    {
+      "bot": "XRP",
+      "moeda": "XRP",
+      "direcao": "UP",
+      "pnl": 1.49,
+      "ts": "2026-05-25 05:00"
+    },
+    {
+      "bot": "XRP",
+      "moeda": "XRP",
+      "direcao": "UP",
+      "pnl": 1.47,
+      "ts": "2026-05-25 02:30"
     },
     {
       "bot": "XRP",
@@ -58,29 +87,8 @@
       "direcao": "UP",
       "pnl": 2.35,
       "ts": "2026-05-21 13:00"
-    },
-    {
-      "bot": "XRP",
-      "moeda": "XRP",
-      "direcao": "DOWN",
-      "pnl": 1.24,
-      "ts": "2026-05-21 09:15"
-    },
-    {
-      "bot": "XRP",
-      "moeda": "XRP",
-      "direcao": "UP",
-      "pnl": 2.35,
-      "ts": "2026-05-20 23:00"
-    },
-    {
-      "bot": "XRP",
-      "moeda": "XRP",
-      "direcao": "DOWN",
-      "pnl": 2.0,
-      "ts": "2026-05-20 14:00"
     }
   ],
   "wins_xrp_hist": 10,
-  "pendentes_api": 1
+  "pendentes_api": 2
 }
