@@ -58,19 +58,31 @@ CATALOGO = [
      [("eur", 30000), ("usd", 30000), ("brl", 150000)]),
 ]
 
+def _paged(list_fn, **kwargs):
+    """Paginação manual — auto_paging_iter está bugado nesta versão do SDK."""
+    starting_after = None
+    while True:
+        args = dict(kwargs, limit=100)
+        if starting_after:
+            args["starting_after"] = starting_after
+        res = list_fn(**args)
+        for item in res.data:
+            yield item
+        if not res.has_more:
+            return
+        starting_after = res.data[-1].id
+
 def find_existing_link(slot_key):
-    """Procura Payment Link com metadata bitadict_slot == slot_key (1 página, 100 links max)."""
-    links = stripe.PaymentLink.list(limit=100, active=True)
-    for l in links.auto_paging_iter():
-        if l.metadata.get("bitadict_slot") == slot_key:
+    for l in _paged(stripe.PaymentLink.list, active=True):
+        md = dict(l.metadata or {})
+        if md.get("bitadict_slot") == slot_key:
             return l.url
     return None
 
 def find_or_create_product(slot_base, name, description):
-    """Busca product por metadata bitadict_product_slot, cria se nao existir."""
-    products = stripe.Product.list(limit=100, active=True)
-    for p in products.auto_paging_iter():
-        if p.metadata.get("bitadict_product_slot") == slot_base:
+    for p in _paged(stripe.Product.list, active=True):
+        md = dict(p.metadata or {})
+        if md.get("bitadict_product_slot") == slot_base:
             return p
     p = stripe.Product.create(
         name=name,
@@ -81,9 +93,7 @@ def find_or_create_product(slot_base, name, description):
     return p
 
 def find_or_create_price(product_id, currency, unit_amount, recurring, slot_key):
-    """Busca price ativa do product na moeda+amount+recorrencia. Cria se nao existir."""
-    prices = stripe.Price.list(product=product_id, active=True, limit=100)
-    for pr in prices.auto_paging_iter():
+    for pr in _paged(stripe.Price.list, product=product_id, active=True):
         if (pr.currency == currency
                 and pr.unit_amount == unit_amount
                 and bool(pr.recurring) == recurring):
