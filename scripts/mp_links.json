@@ -1,0 +1,11 @@
+{
+  "_doc": "Mercado Pago Checkout Pro - Preferences BRL. Use scripts/apply_mp.py pra injetar botoes.",
+  "recovery_digital_20_brl": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=198270120-94c64666-814c-4ba7-a379-f59443fb92f8",
+  "recovery_pendrive_50_brl": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=198270120-1b81ee47-3b6c-4974-a1f7-8adba887d5fd",
+  "pacote_essencial_100_brl": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=198270120-7c9b9437-1d0a-46ae-bad0-5d1d70d3f02f",
+  "pacote_avancado_150_brl": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=198270120-d3448f5d-e4ed-40cf-b9bb-a157ab46c6f9",
+  "pacote_completo_200_brl": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=198270120-c9d20be6-52a7-4864-a3cf-e94f76cb1093",
+  "vip_mensal_20_brl": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=198270120-2c828387-6723-4c2b-b75b-c72d811a03f0",
+  "curso_300_brl": "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=198270120-a3952adf-eff7-4a78-9467-9fc4aa5d8b0a",
+  "_status": "7/7 preenchidos (bulk 2026-05-24)"
+}
