@@ -81,7 +81,7 @@ def find_existing_link(slot_key):
 
 def find_or_create_product(slot_base, name, description):
     for p in _paged(stripe.Product.list, active=True):
-        md = dict(p.metadata or {})
+        md = p.to_dict().get("metadata") or {}
         if md.get("bitadict_product_slot") == slot_base:
             return p
     p = stripe.Product.create(
