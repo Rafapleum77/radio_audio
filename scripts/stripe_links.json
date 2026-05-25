@@ -5,7 +5,7 @@
   "_warning": "Botoes Stripe ja sao injetados via scripts/apply_stripe.py (multi-moeda com data-stripe-eur/usd/brl). currency.js troca href em runtime. Se uma moeda nao tiver URL, botao fica oculto pra visitantes daquela regiao.",
   "recovery_digital_20_eur": "",
   "recovery_digital_20_usd": "https://buy.stripe.com/test_9B600jgvQfnAaZHc7QfEk00",
-  "recovery_digital_20_brl": "",
+  "recovery_digital_20_brl": "https://buy.stripe.com/5kQ14nguufDO0Abc0X7Zu00",
   "recovery_pendrive_50_eur": "",
   "recovery_pendrive_50_usd": "",
   "recovery_pendrive_50_brl": "",
