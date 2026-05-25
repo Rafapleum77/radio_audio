@@ -74,7 +74,7 @@ def _paged(list_fn, **kwargs):
 
 def find_existing_link(slot_key):
     for l in _paged(stripe.PaymentLink.list, active=True):
-        md = dict(l.metadata or {})
+        md = l.to_dict().get("metadata") or {}
         if md.get("bitadict_slot") == slot_key:
             return l.url
     return None
