@@ -1,6 +1,6 @@
 {
   "_doc": "Preenche cada URL com Payment Link do Stripe (https://dashboard.stripe.com/payment-links). Total: 15 produtos (5 × 3 moedas). Roda: python3 scripts/apply_stripe.py",
-  "_status": "2/21 preenchidos (recovery_digital USD test + BRL prod). Pix BRL/EUR Portugal prioridade pra viagem",
+  "_status": "1/21 preenchidos (bulk gerado via API 2026-05-24)",
   "_referencia": "scripts/stripe_checklist.md",
   "_warning": "Botoes Stripe ja sao injetados via scripts/apply_stripe.py (multi-moeda com data-stripe-eur/usd/brl). currency.js troca href em runtime. Se uma moeda nao tiver URL, botao fica oculto pra visitantes daquela regiao.",
   "recovery_digital_20_eur": "",
