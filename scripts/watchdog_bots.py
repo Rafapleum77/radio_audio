@@ -42,12 +42,6 @@ BOTS = [
         "tipo": "mac_launchagent",
         "label": "com.surfgael.bot-direcional-filho",
     },
-    {
-        "nome": "Gael Lenovo (BTC 5m)",
-        "wallet": "0x0CAc24471777064974fF9Cb768C5C146B4733742",
-        "tipo": "lenovo_ssh",
-        "task_name": "BIT_ADICT_Direcional",
-    },
 ]
 
 def tg(msg):

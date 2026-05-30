@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "radio-audio",
+      "runtimeExecutable": "/opt/homebrew/bin/python3.11",
+      "runtimeArgs": ["-m", "http.server", "8765", "--directory", "/Users/rafaelrioscrosara/Desktop/radio_audio"],
+      "port": 8765
+    }
+  ]
+}
