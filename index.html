@@ -342,7 +342,11 @@ html,body{
 .pl-dur{color:var(--text-dim);font-size:8px;}
 
 /* ── CENTER ── */
-#center{display:flex;flex-direction:column;gap:8px;}
+#center{display:flex;flex-direction:column;gap:8px;min-width:0;}
+
+/* ── FIX MOBILE OVERFLOW ── grid items precisam min-width:0 senao expandem com min-content (ex: ticker nowrap) e estouram o viewport */
+#main > *{min-width:0;}
+img{max-width:100%;height:auto;}
 
 /* ── BTC CHART BIG ── */
 #chart-panel{padding:12px;}
