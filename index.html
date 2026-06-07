@@ -788,6 +788,81 @@ img{max-width:100%;height:auto;}
 <div id="zapFlash"></div>
 <div id="app">
 
+  <!-- ===== BANNER SPACEX IPO EXPRESS (Bybit) ===== -->
+  <style>
+  .sx-ipo{position:relative;overflow:hidden;margin:0 0 16px;border-radius:0 0 16px 16px;
+    background:radial-gradient(130% 150% at 50% -25%,#0c1c40 0%,#070d1c 52%,#02040a 100%);
+    border-bottom:2px solid rgba(247,166,0,.6);
+    box-shadow:0 12px 46px -12px rgba(247,166,0,.4),inset 0 0 90px rgba(24,70,160,.28);}
+  .sx-ipo__stars{position:absolute;inset:0;pointer-events:none;opacity:.8;
+    background-image:radial-gradient(1.4px 1.4px at 18% 28%,#fff,transparent),radial-gradient(1.2px 1.2px at 68% 58%,#cfe0ff,transparent),radial-gradient(1.3px 1.3px at 38% 78%,#fff,transparent),radial-gradient(1.2px 1.2px at 86% 22%,#fff,transparent),radial-gradient(1.4px 1.4px at 54% 12%,#9bd,transparent),radial-gradient(1px 1px at 8% 62%,#fff,transparent);}
+  .sx-ipo__glow{position:absolute;left:50%;top:-45%;width:460px;height:460px;transform:translateX(-50%);
+    background:radial-gradient(circle,rgba(247,166,0,.3),transparent 62%);filter:blur(8px);pointer-events:none;}
+  .sx-ipo__inner{position:relative;max-width:1100px;margin:0 auto;padding:18px 18px 20px;text-align:center;}
+  .sx-ipo__top{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px;}
+  .sx-ipo__bybit{font-weight:900;letter-spacing:3px;font-size:15px;color:#fff;}
+  .sx-ipo__bybit b{color:#f7a600;}
+  .sx-ipo__badge{font-size:9px;letter-spacing:2px;color:#f7a600;border:1px solid rgba(247,166,0,.5);border-radius:20px;padding:3px 11px;text-transform:uppercase;}
+  .sx-ipo__title{font-weight:900;line-height:.9;margin:6px 0 2px;}
+  .sx-ipo__sx{display:block;font-size:clamp(32px,8.5vw,60px);letter-spacing:2px;
+    background:linear-gradient(180deg,#ffffff,#9fb2c9 58%,#566377);-webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 22px rgba(150,180,255,.22);}
+  .sx-ipo__ipo{display:block;font-size:clamp(22px,6.2vw,46px);letter-spacing:4px;
+    background:linear-gradient(180deg,#ffd76a,#f7a600 55%,#b97400);-webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 2px 10px rgba(247,166,0,.4));}
+  .sx-ipo__sub{font-size:clamp(12px,3.2vw,17px);color:#dbe6f7;font-weight:700;margin:6px 0 12px;}
+  .sx-ipo__sub b{color:#2f93ff;}
+  .sx-ipo__date{color:#f7a600;font-weight:900;}
+  .sx-ipo__cd{display:flex;justify-content:center;gap:8px;margin:0 auto 12px;flex-wrap:wrap;}
+  .sx-ipo__u{background:rgba(8,18,42,.85);border:1px solid rgba(247,166,0,.32);border-radius:9px;padding:6px 9px;min-width:56px;}
+  .sx-ipo__n{font-size:21px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;line-height:1.1;}
+  .sx-ipo__l{font-size:8px;letter-spacing:1px;color:#8aa3c0;text-transform:uppercase;}
+  .sx-ipo__chips{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+  .sx-ipo__chip{font-size:11px;color:#e5e7eb;border:1px solid rgba(120,150,200,.32);border-radius:8px;padding:6px 12px;background:rgba(10,22,48,.6);}
+  .sx-ipo__chip b{color:#f7a600;}
+  .sx-ipo__cta{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,#f7a600,#ffce4d);color:#000;font-weight:900;font-size:16px;letter-spacing:1px;padding:13px 34px;border-radius:10px;text-decoration:none;box-shadow:0 6px 28px -6px rgba(247,166,0,.85);transition:transform .15s;}
+  .sx-ipo__cta:hover{transform:translateY(-2px);}
+  .sx-ipo__fine{font-size:9px;color:#5b6577;margin-top:10px;line-height:1.4;}
+  @media(max-width:560px){.sx-ipo__inner{padding:14px 12px 16px;}.sx-ipo__u{min-width:48px;padding:5px 7px;}.sx-ipo__n{font-size:18px;}}
+  </style>
+  <section class="sx-ipo">
+    <div class="sx-ipo__stars"></div>
+    <div class="sx-ipo__glow"></div>
+    <div class="sx-ipo__inner">
+      <div class="sx-ipo__top">
+        <span class="sx-ipo__bybit">BYB<b>I</b>T</span>
+        <span class="sx-ipo__badge">★ Acesso Exclusivo</span>
+      </div>
+      <div class="sx-ipo__title">
+        <span class="sx-ipo__sx">🚀 SPACEX</span>
+        <span class="sx-ipo__ipo">IPO EXPRESS</span>
+      </div>
+      <div class="sx-ipo__sub">Acesse o futuro com <b>USDC</b> · IPO da SpaceX <span class="sx-ipo__date">12 DE JUNHO</span> na Bybit</div>
+      <div class="sx-ipo__cd" id="sxCountdown"></div>
+      <div class="sx-ipo__chips">
+        <span class="sx-ipo__chip">🌐 RWA &amp; <b>Tokenização</b></span>
+        <span class="sx-ipo__chip">⛓️ <b>100%</b> On-Chain</span>
+      </div>
+      <a class="sx-ipo__cta" href="https://www.bybit.com/exclusive-user-campaign/?campaign_id=42996&affiliate_id=77408" target="_blank" rel="noopener">🚀 ENTRAR NA BYBIT »</a>
+      <div class="sx-ipo__fine">Investir em ativos tokenizados envolve risco. Não é recomendação de investimento. Termos e condições se aplicam.</div>
+    </div>
+  </section>
+  <script>
+  (function(){
+    var target=new Date('2026-06-12T00:00:00-03:00').getTime();
+    var el=document.getElementById('sxCountdown');if(!el)return;
+    function pad(n){return String(n).padStart(2,'0');}
+    function tick(){
+      var d=target-Date.now();
+      if(d<=0){el.innerHTML='<div class="sx-ipo__u" style="min-width:auto;padding:6px 16px;"><div class="sx-ipo__n" style="color:#f7a600;">● AO VIVO</div><div class="sx-ipo__l">agora na Bybit</div></div>';return;}
+      var dd=Math.floor(d/864e5),hh=Math.floor(d%864e5/36e5),mm=Math.floor(d%36e5/6e4),ss=Math.floor(d%6e4/1e3);
+      el.innerHTML=[[dd,'dias'],[pad(hh),'horas'],[pad(mm),'min'],[pad(ss),'seg']].map(function(u){return '<div class="sx-ipo__u"><div class="sx-ipo__n">'+u[0]+'</div><div class="sx-ipo__l">'+u[1]+'</div></div>';}).join('');
+    }
+    tick();setInterval(tick,1000);
+  })();
+  </script>
+  <!-- ===== FIM BANNER SPACEX IPO EXPRESS ===== -->
+
   <!-- HEADER -->
   <header id="header">
     <div class="hdr-logo">
