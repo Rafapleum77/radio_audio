@@ -2916,8 +2916,24 @@ async function carregarTracks() {
     if (r.ok) {
       TRACKS = await r.json();
       renderPlaylist();
+      if (!window._radioAutoStart && TRACKS.length) { window._radioAutoStart = true; autoStartRadio(); }
     }
   } catch(e) {}
+}
+
+// ── Autoplay ao entrar no site ──────────────────────────────
+// Navegadores bloqueiam áudio com som antes de uma interação do usuário.
+// Estratégia: tenta tocar imediatamente; se for bloqueado, inicia no
+// primeiro gesto (clique/toque/tecla/scroll) — o que ocorre em segundos.
+function autoStartRadio() {
+  currentIdx = 0;            // começa numa música de Bitcoin
+  loadTrack();
+  playTrack();              // tenta autoplay já
+  const kick = () => {
+    if (!isPlaying) { try { playTrack(); } catch(e) {} }
+    if (isPlaying) ['pointerdown','keydown','touchstart','scroll'].forEach(ev => window.removeEventListener(ev, kick));
+  };
+  ['pointerdown','keydown','touchstart','scroll'].forEach(ev => window.addEventListener(ev, kick, { passive: true }));
 }
 
 async function carregarPedidos() {
