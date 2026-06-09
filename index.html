@@ -2915,10 +2915,21 @@ async function carregarTracks() {
     const r = await fetch('tracks.json?t=' + Date.now());
     if (r.ok) {
       TRACKS = await r.json();
+      ordenarBitcoinPrimeiro();   // playlist Bitcoin/HODL/Satoshi no topo
       renderPlaylist();
       if (!window._radioAutoStart && TRACKS.length) { window._radioAutoStart = true; autoStartRadio(); }
     }
   } catch(e) {}
+}
+
+// Reordena TRACKS pra que as faixas de Bitcoin/HODL/Satoshi toquem primeiro —
+// é a "Radio Bitcoin Hype" que abre quando a pessoa entra no site.
+function ordenarBitcoinPrimeiro() {
+  const KW = ['bitcoin','hodl','satoshi','cripto','autocust','salva','missão','missao','moeda','soberan','btc'];
+  const isBtc = t => KW.some(k => String(t.title || '').toLowerCase().includes(k));
+  const btc = TRACKS.filter(isBtc);
+  const resto = TRACKS.filter(t => !isBtc(t));
+  if (btc.length) TRACKS = [...btc, ...resto];
 }
 
 // ── Autoplay ao entrar no site ──────────────────────────────
