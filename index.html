@@ -5,19 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="lightning" content="texugorecords@walletofsatoshi.com">
 <meta name="description" content="Estude Bitcoin agora. Música e informação.">
-<meta property="og:title" content="SpaceX Futuros na Bybit — contagem regressiva 12 de junho">
-<meta property="og:description" content="Negocie a expectativa do maior IPO da história com futuros na Bybit. Especulação de preço — não são ações reais da SpaceX.">
+<meta property="og:title" content="Radio Bitcoin — Estude Bitcoin. Música e informação 24/7">
+<meta property="og:description" content="Rádio online 24/7 sobre Bitcoin: música, notícias do mercado, bots de trading ao vivo e educação em soberania digital. BIT ADICT.">
 <meta property="og:url" content="https://radiobitcoin.org/">
-<meta property="og:image" content="https://radiobitcoin.org/img/bybit_spacex_og.png?v=2">
+<meta property="og:image" content="https://radiobitcoin.org/img/og/og_home.jpg">
 <meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:image:height" content="675">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Radio Bitcoin">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SpaceX Futuros na Bybit — contagem regressiva 12 de junho">
-<meta name="twitter:description" content="Negocie a expectativa do maior IPO da história com futuros na Bybit. Especulação de preço — não são ações reais da SpaceX.">
-<meta name="twitter:image" content="https://radiobitcoin.org/img/bybit_spacex_og.png?v=2">
+<meta name="twitter:title" content="Radio Bitcoin — Estude Bitcoin. Música e informação 24/7">
+<meta name="twitter:description" content="Rádio online 24/7 sobre Bitcoin: música, notícias, bots de trading ao vivo e educação em soberania digital.">
+<meta name="twitter:image" content="https://radiobitcoin.org/img/og/og_home.jpg">
+<link rel="canonical" href="https://radiobitcoin.org/">
 <title>Radio Bitcoin — Estude Bitcoin. Música e informação.</title>
 <script data-goatcounter="https://radiobitcoin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -73,10 +74,31 @@
     },
     {
       "@type": "Organization",
+      "@id": "https://radiobitcoin.org/#org",
       "name": "Radio Bitcoin · BIT ADICT",
       "url": "https://radiobitcoin.org",
       "logo": "https://radiobitcoin.org/icon-512.png",
       "sameAs": ["https://x.com/bitadict"]
+    },
+    {
+      "@type": "RadioStation",
+      "@id": "https://radiobitcoin.org/#radiostation",
+      "name": "Radio Bitcoin",
+      "url": "https://radiobitcoin.org",
+      "logo": "https://radiobitcoin.org/icon-512.png",
+      "image": "https://radiobitcoin.org/img/og/og_home.jpg",
+      "description": "Rádio online 24/7 sobre Bitcoin: música, notícias do mercado crypto e educação em soberania digital.",
+      "genre": ["Bitcoin", "Criptomoedas", "Música", "Notícias"],
+      "inLanguage": "pt-BR",
+      "parentOrganization": { "@id": "https://radiobitcoin.org/#org" }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://radiobitcoin.org/#website",
+      "url": "https://radiobitcoin.org",
+      "name": "Radio Bitcoin",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://radiobitcoin.org/#org" }
     }
   ]
 }
@@ -844,7 +866,7 @@ img{max-width:100%;height:auto;}
         <span class="sx-ipo__chip">📈 Opere <b>Long &amp; Short</b></span>
         <span class="sx-ipo__chip">⚠️ <b>Especulação</b> de preço</span>
       </div>
-      <a class="sx-ipo__cta" href="https://www.bybit.com/invite?ref=APLNO3&medium=referral&utm_campaign=evergreen" target="_blank" rel="noopener">🚀 OPERAR FUTUROS NA BYBIT »</a>
+      <a class="sx-ipo__cta" href="https://partner.bybit.com/b/161474" target="_blank" rel="noopener">🚀 OPERAR FUTUROS NA BYBIT »</a>
       <div class="sx-ipo__fine">Contratos de futuros: pura especulação sobre o preço — <b style="color:#8a94a6;">NÃO são ações reais</b> da SpaceX. Envolve risco de perda. Não é recomendação de investimento.</div>
     </div>
   </section>
@@ -864,18 +886,42 @@ img{max-width:100%;height:auto;}
   </script>
   <!-- ===== FIM BANNER SPACEX IPO EXPRESS ===== -->
 
+  <!-- ===== BANNER MISSÃO BITCOIN — CIUDAD DEL ESTE 19-20/SET ===== -->
+  <style>
+  .mb-cde{max-width:1100px;margin:14px auto;padding:22px 18px;background:linear-gradient(135deg,#0d0a04 0%,#1f1503 60%,#0d0a04 100%);border:2px solid rgba(242,169,0,0.7);border-radius:14px;box-shadow:0 0 38px -6px rgba(242,169,0,0.5);text-align:center;font-family:ui-monospace,Menlo,monospace;}
+  .mb-cde__badge{display:inline-block;background:#f2a900;color:#000;font-weight:900;font-size:10px;letter-spacing:2px;padding:4px 14px;border-radius:20px;text-transform:uppercase;margin-bottom:12px;animation:mbPulse 1.6s ease-in-out infinite;}
+  @keyframes mbPulse{0%,100%{box-shadow:0 0 0 0 rgba(242,169,0,0.6);}50%{box-shadow:0 0 0 9px rgba(242,169,0,0);}}
+  .mb-cde__title{font-size:clamp(20px,5vw,30px);color:#fff;font-weight:900;letter-spacing:1px;margin:4px 0;}
+  .mb-cde__title b{color:#f2a900;}
+  .mb-cde__where{font-size:clamp(13px,3.5vw,17px);color:#e5e7eb;margin:6px 0 4px;}
+  .mb-cde__dates{display:inline-block;background:rgba(242,169,0,0.12);border:1px solid rgba(242,169,0,0.45);border-radius:8px;padding:8px 18px;margin:10px 0 14px;font-size:clamp(14px,4vw,19px);color:#f2a900;font-weight:900;letter-spacing:2px;}
+  .mb-cde__sub{font-size:11px;color:#9ca3af;letter-spacing:1px;margin-bottom:16px;line-height:1.6;}
+  .mb-cde__cta{display:inline-block;background:linear-gradient(90deg,#f2a900,#ffce4d);color:#000;font-weight:900;font-size:15px;padding:14px 34px;border-radius:10px;text-decoration:none;letter-spacing:1.5px;box-shadow:0 4px 20px -4px rgba(242,169,0,0.7);transition:transform .15s;}
+  .mb-cde__cta:hover{transform:translateY(-2px);}
+  @media(max-width:640px){.mb-cde{margin:10px;padding:18px 12px;}.mb-cde__cta{display:block;padding:15px 10px;}}
+  </style>
+  <section class="mb-cde">
+    <div class="mb-cde__badge">🎟️ Evento Presencial · Vagas Limitadas</div>
+    <div class="mb-cde__title">⚡ MISSÃO <b>BITCOIN</b> — 2ª EDIÇÃO</div>
+    <div class="mb-cde__where">🇵🇾 Ciudad del Este · Paraguai · com <b style="color:#f2a900;">Renato Trezoitão</b></div>
+    <div class="mb-cde__dates">📅 19 E 20 DE SETEMBRO</div>
+    <div class="mb-cde__sub">Workshop de autocustódia + palestras · Autocustódia. Liberdade. Soberania.<br>Desconto para pagamento em BTC.</div>
+    <a class="mb-cde__cta" href="https://missaobitcoin.com.br" target="_blank" rel="noopener">🎟️ GARANTIR MEU INGRESSO »</a>
+  </section>
+  <!-- ===== FIM BANNER MISSÃO BITCOIN CDE ===== -->
+
   <!-- HEADER -->
   <header id="header">
     <div class="hdr-logo">
-      <span class="main">⚡ RADIO BITCOIN</span>
+      <h1 class="main" style="margin:0;">⚡ RADIO BITCOIN</h1>
       <span class="sub">A VOZ DA REVOLUÇÃO BITCOIN // COCKPIT V6.0</span>
       <span class="sub" style="margin-top:4px;display:flex;gap:6px;align-items:center;" title="Brasil · Paraguai · Argentina · El Salvador · Portugal · EUA">
-        <img src="https://flagcdn.com/w20/br.png" title="Brasil" style="height:14px;border-radius:2px;">
-        <img src="https://flagcdn.com/w20/py.png" title="Paraguai" style="height:14px;border-radius:2px;">
-        <img src="https://flagcdn.com/w20/ar.png" title="Argentina" style="height:14px;border-radius:2px;">
-        <img src="https://flagcdn.com/w20/sv.png" title="El Salvador" style="height:14px;border-radius:2px;">
-        <img src="https://flagcdn.com/w20/pt.png" title="Portugal" style="height:14px;border-radius:2px;">
-        <img src="https://flagcdn.com/w20/us.png" title="EUA" style="height:14px;border-radius:2px;">
+        <img src="https://flagcdn.com/w20/br.png" title="Brasil" alt="Bandeira Brasil" style="height:14px;border-radius:2px;">
+        <img src="https://flagcdn.com/w20/py.png" title="Paraguai" alt="Bandeira Paraguai" style="height:14px;border-radius:2px;">
+        <img src="https://flagcdn.com/w20/ar.png" title="Argentina" alt="Bandeira Argentina" style="height:14px;border-radius:2px;">
+        <img src="https://flagcdn.com/w20/sv.png" title="El Salvador" alt="Bandeira El Salvador" style="height:14px;border-radius:2px;">
+        <img src="https://flagcdn.com/w20/pt.png" title="Portugal" alt="Bandeira Portugal" style="height:14px;border-radius:2px;">
+        <img src="https://flagcdn.com/w20/us.png" title="EUA" alt="Bandeira EUA" style="height:14px;border-radius:2px;">
       </span>
     </div>
     <div class="hdr-btc">
@@ -1029,7 +1075,7 @@ img{max-width:100%;height:auto;}
       <div class="rb-bybit__deal">Deposite <b>R$100</b><br>e ganhe <b>R$20 de volta</b></div>
     </div>
   </div>
-  <a class="rb-bybit__cta" href="https://www.bybit.com/invite?ref=APLNO3&medium=referral&utm_campaign=evergreen" target="_blank" rel="noopener">⚡ ABRIR CONTA NA BYBIT</a>
+  <a class="rb-bybit__cta" href="https://partner.bybit.com/b/161474" target="_blank" rel="noopener">⚡ ABRIR CONTA NA BYBIT</a>
   <div class="rb-bybit__fine">Use o link acima pra garantir o cash back. Depois de comprar, tire da corretora e guarde em carteira fria — não é seu, se não é sua chave.</div>
 </section>
 <!-- ===== FIM BANNER BYBIT CASHBACK ===== -->
@@ -1346,7 +1392,7 @@ img{max-width:100%;height:auto;}
         </div>
         <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center;">
           <div style="font-size:8px;color:var(--text-dim)" id="bUpdated">última atualização: --</div>
-          <a href="http://192.168.1.64:8080/dashboard.html" target="_blank" style="font-size:9px;color:var(--blue);border:1px solid rgba(0,212,255,0.35);padding:4px 10px;border-radius:4px;text-decoration:none;letter-spacing:1px;" onmouseover="this.style.background='rgba(0,212,255,0.1)'" onmouseout="this.style.background='transparent'" title="Disponível apenas na rede local">↗ DASHBOARD (rede local)</a>
+          <a href="/mission_dashboard.html" target="_blank" style="font-size:9px;color:var(--blue);border:1px solid rgba(0,212,255,0.35);padding:4px 10px;border-radius:4px;text-decoration:none;letter-spacing:1px;" onmouseover="this.style.background='rgba(0,212,255,0.1)'" onmouseout="this.style.background='transparent'" title="Mission Control — espelho público">↗ DASHBOARD</a>
         </div>
       </div>
 
@@ -1373,7 +1419,7 @@ img{max-width:100%;height:auto;}
         <div class="pt" style="justify-content:space-between">
           <span>🎯 POLYMARKET — PREVISÕES BTC</span>
           <a href="https://polymarket.com" target="_blank" style="display:inline-flex;align-items:center;gap:5px;text-decoration:none;">
-            <img src="https://polymarket.com/favicon-32x32.png" width="16" height="16" style="border-radius:3px;" onerror="this.style.display='none'">
+            <img src="https://polymarket.com/favicon-32x32.png" alt="Polymarket" width="16" height="16" style="border-radius:3px;" onerror="this.style.display='none'">
             <span style="font-size:8px;color:#6366f1;letter-spacing:1px;font-family:'Orbitron',monospace;font-weight:700;">POLY</span>
           </a>
         </div>
@@ -1437,53 +1483,17 @@ img{max-width:100%;height:auto;}
             <img class="p-logo" src="logo_missao_bitcoin.png" alt="Missão Bitcoin" style="height:34px;width:96px;object-fit:contain;filter:none;opacity:1;">
             <div class="p-name" style="color:var(--gold);font-weight:bold;">Missão Bitcoin</div>
           </a>
-          <a class="p-card" href="#" title="Bitcoin">
-            <img class="p-logo" src="logo_btc.png" alt="Bitcoin">
-            <div class="p-name">Bitcoin</div>
-          </a>
-          <a class="p-card" href="#" title="Livecoins">
-            <img class="p-logo" src="logo_livecoins.png" alt="Livecoins">
-            <div class="p-name">Livecoins</div>
-          </a>
-          <a class="p-card" href="#" title="NoxPay">
-            <img class="p-logo" src="logo_noxpay.png" alt="NoxPay">
-            <div class="p-name">NoxPay</div>
-          </a>
-          <a class="p-card" href="#" title="Stack">
-            <img class="p-logo" src="logo_stack.png" alt="Stack">
-            <div class="p-name">Stack</div>
+          <a class="p-card" href="https://partner.bybit.com/b/161474" target="_blank" rel="noopener" title="Bybit — Parceiro Principal · cashback ao abrir conta" style="border-color:rgba(247,166,0,0.6);box-shadow:0 0 16px rgba(247,166,0,0.35);width:104px;background:#fff;">
+            <img class="p-logo" src="logo_bybit.png" alt="Bybit" style="height:30px;width:92px;object-fit:contain;filter:none;opacity:1;">
+            <div class="p-name" style="color:#b97c00;font-weight:bold;">Bybit ★</div>
           </a>
           <a class="p-card" href="https://lexbitcoin.com.br" target="_blank" title="Lex Bitcoin — Domine a Nova Propriedade Digital" style="border-color:rgba(242,169,0,0.4);width:104px;">
             <img class="p-logo" src="logo_lex.png" alt="Lex Bitcoin" style="height:30px;width:92px;object-fit:contain;filter:none;opacity:1;">
             <div class="p-name" style="color:var(--gold)">Lex Bitcoin</div>
           </a>
           <a class="p-card" href="https://stackbit.me" target="_blank" title="StackBit — acumule sats" style="border-color:rgba(242,169,0,0.6);box-shadow:0 0 16px rgba(242,169,0,0.35);width:104px;">
-            <img class="p-logo" src="logo_stackbit.png" alt="StackBit" style="height:48px;width:92px;filter:none;opacity:1;">
+            <img class="p-logo" src="logo_stack.png" alt="StackBit" style="height:44px;width:44px;object-fit:contain;filter:none;opacity:1;border-radius:50%;">
             <div class="p-name" style="color:var(--gold);font-size:8px;font-weight:bold;">StackBit</div>
-          </a>
-          <a class="p-card" href="#" title="Rádio Bitcoin">
-            <img class="p-logo" src="radiobitcoin_logo_square.webp" alt="Rádio Bitcoin">
-            <div class="p-name">Rádio BTC</div>
-          </a>
-          <a class="p-card" href="#" title="Mito">
-            <img class="p-logo" src="logo_mito.png" alt="Mito">
-            <div class="p-name">Mito</div>
-          </a>
-          <a class="p-card" href="#" title="NN">
-            <img class="p-logo" src="logo_nn.webp" alt="NN">
-            <div class="p-name">NN</div>
-          </a>
-          <a class="p-card" href="#" title="BJJ">
-            <img class="p-logo" src="logo-bjj.webp" alt="BJJ">
-            <div class="p-name">BJJ</div>
-          </a>
-          <a class="p-card" href="#" title="GG">
-            <img class="p-logo" src="logo-gg.webp" alt="GG">
-            <div class="p-name">GG</div>
-          </a>
-          <a class="p-card" href="#" title="Rádio">
-            <img class="p-logo" src="logo-radio.webp" alt="Rádio">
-            <div class="p-name">Rádio</div>
           </a>
           <a class="p-card" href="https://www.walletofsatoshi.com" target="_blank" title="Wallet of Satoshi" style="border-color:rgba(242,169,0,0.25)">
             <img class="p-logo" src="logo_wos.png" alt="Wallet of Satoshi" style="height:38px;width:38px;object-fit:contain;border-radius:9px;">
@@ -2611,14 +2621,15 @@ const VID_CATS = {
     desc: 'Polymarket — mercados de previsão'
   },
   trez: {
-    handle: 'rotinadotrezoitao',
-    desc: '🔥 Trezoitão — Bitcoin, lifestyle e liberdade financeira'
+    // Playlist de uploads do canal (UU…) — sempre abre no vídeo mais recente
+    src: 'https://www.youtube.com/embed/videoseries?list=UUC-r6vnXtcwBYq0VxZYhoXg&rel=0&modestbranding=1',
+    desc: '🔥 Trezoitão — último vídeo da Rotina do Trezoitão'
   },
   tut: {
     src: '', desc: '',
     channels: [
-      { label: '📺 Trezoitão', handle: 'rotinadotrezoitao', desc: 'Bitcoin, lifestyle e liberdade financeira' },
-      { label: '📰 Trezoitão News', handle: 'TrezoitaoNews', desc: 'Últimas notícias Bitcoin e cripto' },
+      { label: '📺 Trezoitão', playlist: 'UUC-r6vnXtcwBYq0VxZYhoXg', desc: 'Rotina do Trezoitão — sempre o último vídeo' },
+      { label: '📰 Trezoitão News', playlist: 'UUgHkl729tKs-yIFCqFP6ZCw', desc: 'Últimas notícias Bitcoin e cripto' },
       { label: '🌊 Tropical Bliss', playlist: 'PLbpi6ZahtOH6Ar_3GPy3workToB9IZD7j', desc: 'Música e cultura Bitcoin' },
       { label: '₿ Bitcoinheiro', handle: 'bitcoinheiro', desc: 'Educação Bitcoin em PT-BR' },
       { label: '📦 StackBit', handle: 'stackbitme', desc: 'Acumular sats e soberania digital' },
@@ -2937,7 +2948,17 @@ function ordenarBitcoinPrimeiro() {
 // Estratégia: tenta tocar imediatamente; se for bloqueado, inicia no
 // primeiro gesto (clique/toque/tecla/scroll) — o que ocorre em segundos.
 function autoStartRadio() {
-  currentIdx = 0;            // começa numa música de Bitcoin
+  // Abre sempre com "Missão Bitcoin", tocando baixinho (25%)
+  const mIdx = TRACKS.findIndex(t => String(t.title || '').toLowerCase().replace('ã','a') === 'missao bitcoin');
+  const mIdx2 = mIdx >= 0 ? mIdx : TRACKS.findIndex(t => String(t.title || '').toLowerCase().includes('miss'));
+  currentIdx = mIdx2 >= 0 ? mIdx2 : 0;
+  const vs = document.getElementById('volSlider');
+  if (vs) {
+    vs.value = 0.25;
+    audio.volume = 0.25;
+    const vv = document.getElementById('volVal');
+    if (vv) vv.textContent = '25%';
+  }
   loadTrack();
   playTrack();              // tenta autoplay já
   const kick = () => {
