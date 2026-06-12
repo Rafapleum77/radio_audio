@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-06-12 14:29:53",
-  "atualizado_ts": 1781285393,
+  "atualizado_em": "2026-06-12 14:59:16",
+  "atualizado_ts": 1781287156,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,8 +93,8 @@
     }
   },
   "radio_panel": {
-    "hora": "14:29:54",
-    "ts": 1781285394,
+    "hora": "14:59:16",
+    "ts": 1781287156,
     "pnl_total": 1.33,
     "bots": [
       {
@@ -102,10 +102,10 @@
         "modo": "LIVE",
         "ativo": true,
         "pnl": 1.328,
-        "trades": 4,
+        "trades": 5,
         "ganhos": 3,
         "banca": 120.0,
-        "ultima": "14:29:43"
+        "ultima": "14:59:14"
       },
       {
         "nome": "ARBITRAGE",
@@ -113,8 +113,8 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "14:29:42",
-        "uptime": "55h45m"
+        "ultima": "14:59:15",
+        "uptime": "56h15m"
       },
       {
         "nome": "DIRECIONAL",
@@ -122,7 +122,7 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "14:29:37"
+        "ultima": "14:59:09"
       },
       {
         "nome": "GAEL LENOVO",
@@ -130,7 +130,7 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "14:29:43"
+        "ultima": "14:59:15"
       }
     ],
     "maquinas": [
@@ -138,10 +138,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 39.3,
-        "ram_pct": 87.7,
+        "cpu": 43.3,
+        "ram_pct": 88.1,
         "disk_pct": 2.0,
-        "uptime": "2 days,  7:46"
+        "uptime": "2 days,  8:16"
       },
       {
         "nome": "INTEL",
@@ -156,10 +156,10 @@
         "nome": "NITRO",
         "papel": "Win11 - banners",
         "online": true,
-        "cpu": 8,
-        "ram_pct": 87.6,
+        "cpu": 4,
+        "ram_pct": 85.4,
         "disk_pct": 72.9,
-        "uptime": "599h"
+        "uptime": "600h"
       },
       {
         "nome": "LENOVO",
