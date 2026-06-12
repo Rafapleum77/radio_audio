@@ -846,6 +846,15 @@ img{max-width:100%;height:auto;}
   .sx-ipo__cta:hover{transform:translateY(-2px);}
   .sx-ipo__fine{font-size:9px;color:#5b6577;margin-top:10px;line-height:1.4;}
   @media(max-width:560px){.sx-ipo__inner{padding:14px 12px 16px;}.sx-ipo__u{min-width:48px;padding:5px 7px;}.sx-ipo__n{font-size:18px;}}
+  .sx-ipo__chartbtn{display:inline-flex;align-items:center;gap:8px;background:rgba(8,18,42,.85);border:1px solid rgba(247,166,0,.45);color:#f7a600;font-weight:900;font-size:13px;letter-spacing:1px;padding:10px 22px;border-radius:9px;cursor:pointer;margin:0 auto 12px;font-family:inherit;transition:all .15s;}
+  .sx-ipo__chartbtn:hover{background:rgba(247,166,0,.12);box-shadow:0 0 16px rgba(247,166,0,.3);}
+  .sx-ipo__chart{display:none;max-width:900px;margin:0 auto 14px;border:1px solid rgba(247,166,0,.35);border-radius:10px;overflow:hidden;background:#04070f;}
+  .sx-ipo__chart.open{display:block;}
+  .sx-ipo__chart-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;background:rgba(8,18,42,.9);border-bottom:1px solid rgba(247,166,0,.3);}
+  .sx-ipo__chart-head img{height:22px;width:auto;}
+  .sx-ipo__chart-head a{color:#f7a600;font-size:11px;font-weight:900;letter-spacing:1px;text-decoration:none;}
+  .sx-ipo__chart-body{height:340px;}
+  @media(max-width:560px){.sx-ipo__chart-body{height:260px;}}
   </style>
   <section class="sx-ipo">
     <div class="sx-ipo__stars"></div>
@@ -860,8 +869,16 @@ img{max-width:100%;height:auto;}
         <span class="sx-ipo__ipo">FUTUROS</span>
       </div>
       <div class="sx-ipo__sub">Negocie a expectativa do <b>maior IPO da história</b> com futuros na Bybit</div>
-      <div style="font-size:10px;letter-spacing:1.5px;color:#8aa3c0;text-transform:uppercase;margin-bottom:6px;">Estreia esperada · <span class="sx-ipo__date">12 de junho</span></div>
-      <div class="sx-ipo__cd" id="sxCountdown"></div>
+      <div style="font-size:10px;letter-spacing:1.5px;color:#8aa3c0;text-transform:uppercase;margin-bottom:6px;"><span class="sx-ipo__date">● SPCX</span> ao vivo na NASDAQ</div>
+      <button class="sx-ipo__chartbtn" id="sxChartBtn" type="button">📈 VER GRÁFICO SPCX AO VIVO</button>
+      <div class="sx-ipo__chart" id="sxChart">
+        <div class="sx-ipo__chart-head">
+          <a href="https://partner.bybit.com/b/161474" target="_blank" rel="noopener" aria-label="Bybit"><img src="logo_bybit.png" alt="Bybit"></a>
+          <span style="font-size:11px;color:#8aa3c0;letter-spacing:1px;">SPACEX · NASDAQ:SPCX</span>
+          <a href="https://partner.bybit.com/b/161474" target="_blank" rel="noopener">OPERAR FUTUROS »</a>
+        </div>
+        <div class="sx-ipo__chart-body" id="sxChartBody"></div>
+      </div>
       <div class="sx-ipo__chips">
         <span class="sx-ipo__chip">📈 Opere <b>Long &amp; Short</b></span>
         <span class="sx-ipo__chip">⚠️ <b>Especulação</b> de preço</span>
@@ -872,16 +889,21 @@ img{max-width:100%;height:auto;}
   </section>
   <script>
   (function(){
-    var target=new Date('2026-06-12T00:00:00-03:00').getTime();
-    var el=document.getElementById('sxCountdown');if(!el)return;
-    function pad(n){return String(n).padStart(2,'0');}
-    function tick(){
-      var d=target-Date.now();
-      if(d<=0){el.innerHTML='<div class="sx-ipo__u" style="min-width:auto;padding:6px 16px;"><div class="sx-ipo__n" style="color:#f7a600;">● AO VIVO</div><div class="sx-ipo__l">agora na Bybit</div></div>';return;}
-      var dd=Math.floor(d/864e5),hh=Math.floor(d%864e5/36e5),mm=Math.floor(d%36e5/6e4),ss=Math.floor(d%6e4/1e3);
-      el.innerHTML=[[dd,'dias'],[pad(hh),'horas'],[pad(mm),'min'],[pad(ss),'seg']].map(function(u){return '<div class="sx-ipo__u"><div class="sx-ipo__n">'+u[0]+'</div><div class="sx-ipo__l">'+u[1]+'</div></div>';}).join('');
+    var btn=document.getElementById('sxChartBtn'),box=document.getElementById('sxChart'),loaded=false;
+    if(!btn||!box)return;
+    function loadChart(){
+      if(loaded)return;loaded=true;
+      var ifr=document.createElement('iframe');
+      ifr.src='https://s.tradingview.com/widgetembed/?symbol=NASDAQ%3ASPCX&interval=30&theme=dark&style=1&locale=br&hide_top_toolbar=0&hide_legend=0&withdateranges=1&allow_symbol_change=0&saveimage=0';
+      ifr.style.cssText='width:100%;height:100%;border:0;display:block;';
+      ifr.loading='lazy';ifr.title='Gráfico SpaceX SPCX';
+      document.getElementById('sxChartBody').appendChild(ifr);
     }
-    tick();setInterval(tick,1000);
+    btn.onclick=function(){
+      var open=box.classList.toggle('open');
+      btn.textContent=open?'📉 FECHAR GRÁFICO':'📈 VER GRÁFICO SPCX AO VIVO';
+      if(open)loadChart();
+    };
   })();
   </script>
   <!-- ===== FIM BANNER SPACEX IPO EXPRESS ===== -->
