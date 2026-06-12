@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-06-12T13:59:07.149132+00:00",
+  "atualizado": "2026-06-12T14:29:11.061121+00:00",
   "total_items": 15,
   "items": [
     {
@@ -41,6 +41,13 @@
       "pnl": 1.9,
       "ts": "live",
       "mercado": "BTC - June 9, 11:05PM-11:10PM "
+    },
+    {
+      "bot": "XRP",
+      "moeda": "XRP",
+      "direcao": "UP",
+      "pnl": 1.35,
+      "ts": "2026-06-12 11:00"
     },
     {
       "bot": "XRP",
@@ -104,13 +111,6 @@
       "direcao": "UP",
       "pnl": 0.46,
       "ts": "2026-05-28 06:45"
-    },
-    {
-      "bot": "XRP",
-      "moeda": "XRP",
-      "direcao": "UP",
-      "pnl": 0.94,
-      "ts": "2026-05-28 06:15"
     }
   ],
   "wins_xrp_hist": 10,
