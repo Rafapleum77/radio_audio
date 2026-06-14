@@ -1,46 +1,34 @@
 {
-  "atualizado": "2026-06-13T20:23:16.851922+00:00",
-  "total_items": 15,
+  "atualizado": "2026-06-14T13:55:36.801897+00:00",
+  "total_items": 10,
   "items": [
     {
-      "bot": "Gael Lenovo",
-      "moeda": "BTC",
+      "bot": "XRP",
+      "moeda": "XRP",
       "direcao": "UP",
-      "pnl": 2.45,
-      "ts": "live",
-      "mercado": "BTC - June 9, 6:55AM-7:00AM ET"
+      "pnl": 0.56,
+      "ts": "2026-06-14 10:45"
     },
     {
-      "bot": "Gael Lenovo",
-      "moeda": "BTC",
-      "direcao": "UP",
-      "pnl": 1.88,
-      "ts": "live",
-      "mercado": "BTC - June 10, 1:40AM-1:45AM E"
+      "bot": "XRP",
+      "moeda": "XRP",
+      "direcao": "DOWN",
+      "pnl": 0.49,
+      "ts": "2026-06-14 02:15"
     },
     {
-      "bot": "Gael Lenovo",
-      "moeda": "BTC",
+      "bot": "XRP",
+      "moeda": "XRP",
       "direcao": "UP",
-      "pnl": 1.41,
-      "ts": "live",
-      "mercado": "BTC - June 9, 2:35PM-2:40PM ET"
+      "pnl": 0.63,
+      "ts": "2026-06-14 02:00"
     },
     {
-      "bot": "Gael Lenovo",
-      "moeda": "BTC",
+      "bot": "XRP",
+      "moeda": "XRP",
       "direcao": "UP",
-      "pnl": 1.33,
-      "ts": "live",
-      "mercado": "BTC - June 9, 7:50AM-7:55AM ET"
-    },
-    {
-      "bot": "Gael Lenovo",
-      "moeda": "BTC",
-      "direcao": "UP",
-      "pnl": 1.9,
-      "ts": "live",
-      "mercado": "BTC - June 9, 11:05PM-11:10PM "
+      "pnl": 0.89,
+      "ts": "2026-06-13 18:00"
     },
     {
       "bot": "XRP",
@@ -83,36 +71,8 @@
       "direcao": "UP",
       "pnl": 0.7,
       "ts": "2026-06-10 00:30"
-    },
-    {
-      "bot": "XRP",
-      "moeda": "XRP",
-      "direcao": "UP",
-      "pnl": 1.04,
-      "ts": "2026-06-09 00:45"
-    },
-    {
-      "bot": "XRP",
-      "moeda": "XRP",
-      "direcao": "DOWN",
-      "pnl": 0.49,
-      "ts": "2026-06-01 22:30"
-    },
-    {
-      "bot": "XRP",
-      "moeda": "XRP",
-      "direcao": "DOWN",
-      "pnl": 0.49,
-      "ts": "2026-05-29 16:15"
-    },
-    {
-      "bot": "XRP",
-      "moeda": "XRP",
-      "direcao": "UP",
-      "pnl": 0.89,
-      "ts": "2026-05-29 06:15"
     }
   ],
   "wins_xrp_hist": 10,
-  "pendentes_api": 5
+  "pendentes_api": 0
 }
