@@ -1008,31 +1008,71 @@ img{max-width:100%;height:auto;}
   </section>
   <!-- ===== FIM ACOMPANHE A GENTE ===== -->
 
-<!-- ===== SPARKLINE ACOES SUBINDO (antes do Bybit) ===== -->
-<div style="max-width:1100px;margin:0 auto 0;padding:0 12px;">
-  <div style="background:linear-gradient(135deg,#07090d,#0a0e0b);border:1px solid rgba(34,197,94,0.25);border-radius:12px 12px 0 0;padding:10px 16px 6px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-    <div style="font-size:10px;letter-spacing:2px;color:#4ade80;font-family:monospace;font-weight:700;">&#128200; ACOES EM ALTA &mdash; SOBERANIA EM USD</div>
-    <div id="sparkline-wrap" style="flex:1;min-width:220px;height:48px;"></div>
-    <div style="font-size:9px;color:#6b7280;font-family:monospace;">Yahoo Finance &middot; 15min</div>
+<!-- ===== PAINEL STOCK PICKS (auto) ===== -->
+<style>
+  .rb-stocks { background: linear-gradient(135deg,#0a1428 0%, #061020 100%); border:1px solid rgba(0,212,255,0.25); border-radius:8px; padding:16px; margin: 16px 0; }
+  .rb-stocks__header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+  .rb-stocks__title { font-size:14px; color:var(--blue,#00d4ff); letter-spacing:2px; margin:0; }
+  .rb-stocks__sub { font-size:9px; color:var(--text-dim,#7a8290); }
+  .rb-stocks__grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap:8px; }
+  .rb-stock { background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:10px; transition:transform .15s; position:relative; }
+  .rb-stock:hover { transform: translateY(-2px); border-color:rgba(0,212,255,0.4); }
+  .rb-stock__head { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .rb-stock__logo { width:28px; height:28px; border-radius:4px; background:#fff; padding:2px; object-fit:contain; flex-shrink:0; }
+  .rb-stock__logo[src=""], .rb-stock__logo:not([src]) { display:none; }
+  .rb-stock__sym { font-size:13px; font-weight:bold; color:#fff; letter-spacing:1px; }
+  .rb-stock__name { font-size:8px; color:var(--text-dim,#7a8290); margin-bottom:6px; text-transform:uppercase; }
+  .rb-stock__price { font-size:15px; font-weight:bold; color:#fff; }
+  .rb-stock__chg { font-size:10px; font-weight:bold; margin-top:2px; }
+  .rb-stock__chg.up { color:#22c55e; }
+  .rb-stock__chg.dn { color:#ef4444; }
+  .rb-stocks__foot { font-size:8px; color:var(--text-dim,#7a8290); margin-top:10px; text-align:right; }
+</style>
+<section class="rb-stocks" id="rb-stocks">
+  <div class="rb-stocks__header">
+    <h2 class="rb-stocks__title">▸ STOCK PICKS — SOBERANIA EM USD</h2>
+    <div class="rb-stocks__sub" id="rb-stocks-updated">carregando…</div>
   </div>
-</div>
+  <div class="rb-stocks__grid" id="rb-stocks-grid"></div>
+  <div class="rb-stocks__foot">Dados Yahoo Finance · atualizado a cada 15 min · NÃO É RECOMENDAÇÃO DE INVESTIMENTO</div>
+</section>
 <script>
 (function(){
-  const w=document.getElementById('sparkline-wrap');
-  if(!w)return;
-  const pts=[82,85,80,88,91,87,95,93,98,97,102,100,106,104,110,108,115,112,118,120];
-  const mn=Math.min(...pts),mx=Math.max(...pts),r=mx-mn||1;
-  const W=300,H=44,pad=4;
-  const coords=pts.map((v,i)=>{const x=pad+i*(W-pad*2)/(pts.length-1);const y=H-pad-(v-mn)/r*(H-pad*2);return x+','+y;});
-  w.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="width:100%;height:48px;">'
-    +'<defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c55e" stop-opacity=".35"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></linearGradient></defs>'
-    +'<path d="M'+coords.join('L')+' L'+(W-pad)+','+H+' L'+pad+','+H+'Z" fill="url(#sg)"/>'
-    +'<polyline points="'+coords.join(' ')+'" fill="none" stroke="#4ade80" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
-    +'<circle cx="'+(coords[coords.length-1].split(',')[0])+'" cy="'+(coords[coords.length-1].split(',')[1])+'" r="3.5" fill="#4ade80"/>'
-    +'</svg>';
+  const grid = document.getElementById('rb-stocks-grid');
+  const updated = document.getElementById('rb-stocks-updated');
+  async function load(){
+    try {
+      const r = await fetch('stocks.json?ts=' + Date.now());
+      if (!r.ok) throw new Error('http ' + r.status);
+      const d = await r.json();
+      grid.innerHTML = '';
+      d.tickers.forEach(t => {
+        const up = t.change_pct >= 0;
+        const card = document.createElement('div');
+        card.className = 'rb-stock';
+        const logoMain = t.logo || ('https://cdn.brandfetch.io/' + t.symbol.toLowerCase() + '.com/w/200/h/200');
+        const logoFallback = 'https://financialmodelingprep.com/image-stock/' + t.symbol + '.png';
+        card.innerHTML =
+          '<div class="rb-stock__head">' +
+            '<img class="rb-stock__logo" src="' + logoMain + '" alt="" onerror="this.onerror=null;this.src=\'' + logoFallback + '\'" loading="lazy" />' +
+            '<div class="rb-stock__sym">' + t.symbol + '</div>' +
+          '</div>' +
+          '<div class="rb-stock__name">' + (t.name || '') + '</div>' +
+          '<div class="rb-stock__price">$' + t.price.toFixed(2) + '</div>' +
+          '<div class="rb-stock__chg ' + (up?'up':'dn') + '">' + (up?'▲':'▼') + ' ' + Math.abs(t.change_pct).toFixed(2) + '%</div>';
+        grid.appendChild(card);
+      });
+      const dt = new Date(d.updated_at);
+      updated.textContent = 'atualizado ' + dt.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+    } catch(e) {
+      updated.textContent = 'erro: ' + e.message;
+    }
+  }
+  load();
+  setInterval(load, 60000);
 })();
 </script>
-<!-- ===== FIM SPARKLINE ===== -->
+<!-- ===== FIM PAINEL STOCK PICKS ===== -->
 
 <!-- ===== BANNER BYBIT CASHBACK (afiliado) ===== -->
 <style>
@@ -2084,73 +2124,6 @@ img{max-width:100%;height:auto;}
   </div>
 </section>
 <!-- ===== FIM BANNER BIT ADICT RECOVERY KIT ===== -->
-
-<!-- ===== PAINEL STOCK PICKS (auto) ===== -->
-<style>
-  .rb-stocks { background: linear-gradient(135deg,#0a1428 0%, #061020 100%); border:1px solid rgba(0,212,255,0.25); border-radius:8px; padding:16px; margin: 16px 0; }
-  .rb-stocks__header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
-  .rb-stocks__title { font-size:14px; color:var(--blue,#00d4ff); letter-spacing:2px; margin:0; }
-  .rb-stocks__sub { font-size:9px; color:var(--text-dim,#7a8290); }
-  .rb-stocks__grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap:8px; }
-  .rb-stock { background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:10px; transition:transform .15s; position:relative; }
-  .rb-stock:hover { transform: translateY(-2px); border-color:rgba(0,212,255,0.4); }
-  .rb-stock__head { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
-  .rb-stock__logo { width:28px; height:28px; border-radius:4px; background:#fff; padding:2px; object-fit:contain; flex-shrink:0; }
-  .rb-stock__logo[src=""], .rb-stock__logo:not([src]) { display:none; }
-  .rb-stock__sym { font-size:13px; font-weight:bold; color:#fff; letter-spacing:1px; }
-  .rb-stock__name { font-size:8px; color:var(--text-dim,#7a8290); margin-bottom:6px; text-transform:uppercase; }
-  .rb-stock__price { font-size:15px; font-weight:bold; color:#fff; }
-  .rb-stock__chg { font-size:10px; font-weight:bold; margin-top:2px; }
-  .rb-stock__chg.up { color:#22c55e; }
-  .rb-stock__chg.dn { color:#ef4444; }
-  .rb-stocks__foot { font-size:8px; color:var(--text-dim,#7a8290); margin-top:10px; text-align:right; }
-</style>
-<section class="rb-stocks" id="rb-stocks">
-  <div class="rb-stocks__header">
-    <h2 class="rb-stocks__title">▸ STOCK PICKS — SOBERANIA EM USD</h2>
-    <div class="rb-stocks__sub" id="rb-stocks-updated">carregando…</div>
-  </div>
-  <div class="rb-stocks__grid" id="rb-stocks-grid"></div>
-  <div class="rb-stocks__foot">Dados Yahoo Finance · atualizado a cada 15 min · NÃO É RECOMENDAÇÃO DE INVESTIMENTO</div>
-</section>
-<script>
-(function(){
-  const grid = document.getElementById('rb-stocks-grid');
-  const updated = document.getElementById('rb-stocks-updated');
-  async function load(){
-    try {
-      const r = await fetch('stocks.json?ts=' + Date.now());
-      if (!r.ok) throw new Error('http ' + r.status);
-      const d = await r.json();
-      grid.innerHTML = '';
-      d.tickers.forEach(t => {
-        const up = t.change_pct >= 0;
-        const card = document.createElement('div');
-        card.className = 'rb-stock';
-        const logoMain = t.logo || ('https://cdn.brandfetch.io/' + t.symbol.toLowerCase() + '.com/w/200/h/200');
-        const logoFallback = 'https://financialmodelingprep.com/image-stock/' + t.symbol + '.png';
-        card.innerHTML =
-          '<div class="rb-stock__head">' +
-            '<img class="rb-stock__logo" src="' + logoMain + '" alt="" onerror="this.onerror=null;this.src=\'' + logoFallback + '\'" loading="lazy" />' +
-            '<div class="rb-stock__sym">' + t.symbol + '</div>' +
-          '</div>' +
-          '<div class="rb-stock__name">' + (t.name || '') + '</div>' +
-          '<div class="rb-stock__price">$' + t.price.toFixed(2) + '</div>' +
-          '<div class="rb-stock__chg ' + (up?'up':'dn') + '">' + (up?'▲':'▼') + ' ' + Math.abs(t.change_pct).toFixed(2) + '%</div>';
-        grid.appendChild(card);
-      });
-      const dt = new Date(d.updated_at);
-      updated.textContent = 'atualizado ' + dt.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
-    } catch(e) {
-      updated.textContent = 'erro: ' + e.message;
-    }
-  }
-  load();
-  setInterval(load, 60000);
-})();
-</script>
-<!-- ===== FIM PAINEL STOCK PICKS ===== -->
-
       <!-- VOTAÇÃO: QUEM É SATOSHI? -->
       <div class="panel" style="border-color:rgba(242,169,0,0.3);padding:0;overflow:hidden;">
         <img src="banner_satoshi_vote.jpg" alt="Quem é Satoshi Nakamoto?" style="width:100%;display:block;border-radius:6px 6px 0 0;">
