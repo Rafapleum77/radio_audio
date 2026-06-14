@@ -17,7 +17,7 @@ except ImportError:
     pass  # fallback: espera env vars ja exportadas pelo ambiente
 PRIVKEY_HEX = os.environ.get("NOSTR_PRIVKEY") or sys.exit("ERRO: NOSTR_PRIVKEY nao definida no .env")
 PUBKEY_HEX  = os.environ.get("NOSTR_PUBKEY")  or sys.exit("ERRO: NOSTR_PUBKEY nao definida no .env")
-RADIO_URL    = "https://radiobitcoin.bitadict.com"
+RADIO_URL    = "https://radiobitcoin.org"
 LIGHTNING    = "texugorecords@walletofsatoshi.com"
 TRACKS_JSON  = os.path.join(os.path.dirname(__file__), "tracks.json")
 ESTADO_JSON  = os.path.expanduser("~/Bots/RESULTADOS/estado_global.json")

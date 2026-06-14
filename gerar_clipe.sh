@@ -27,7 +27,7 @@ ffmpeg -y \
     drawrect=x=0:y=1550:w=1080:h=370:color=black@0.75:t=fill,
     drawtext=fontfile='$FONT':text='📻 Rádio Bitcoin':fontcolor=00ff41:fontsize=42:x=(w-text_w)/2:y=1580:shadowcolor=black:shadowx=2:shadowy=2,
     drawtext=fontfile='$FONT':text='$TITLE':fontcolor=white:fontsize=52:x=(w-text_w)/2:y=1650:shadowcolor=black:shadowx=2:shadowy=2,
-    drawtext=fontfile='$FONT':text='radiobitcoin.bitadict.com':fontcolor=f7c948:fontsize=36:x=(w-text_w)/2:y=1740:shadowcolor=black:shadowx=2:shadowy=2,
+    drawtext=fontfile='$FONT':text='radiobitcoin.org':fontcolor=f7c948:fontsize=36:x=(w-text_w)/2:y=1740:shadowcolor=black:shadowx=2:shadowy=2,
     drawtext=fontfile='$FONT':text='⚡ texugorecords@walletofsatoshi.com':fontcolor=aaaaaa:fontsize=28:x=(w-text_w)/2:y=1800
   " \
   -c:v libx264 -preset fast -crf 23 \

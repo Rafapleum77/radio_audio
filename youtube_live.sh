@@ -52,7 +52,7 @@ ffmpeg \
     crop=1280:720,
     drawrect=x=0:y=580:w=1280:h=140:color=black@0.8:t=fill,
     drawtext=fontfile='$FONT':text='📻 RÁDIO BITCOIN — AO VIVO':fontcolor=00ff41:fontsize=40:x=(w-text_w)/2:y=595:shadowcolor=black:shadowx=2:shadowy=2,
-    drawtext=fontfile='$FONT':text='radiobitcoin.bitadict.com  ⚡ Zap\\: texugorecords@walletofsatoshi.com':fontcolor=f7c948:fontsize=26:x=(w-text_w)/2:y=650:shadowcolor=black:shadowx=1:shadowy=1,
+    drawtext=fontfile='$FONT':text='radiobitcoin.org  ⚡ Zap\\: texugorecords@walletofsatoshi.com':fontcolor=f7c948:fontsize=26:x=(w-text_w)/2:y=650:shadowcolor=black:shadowx=1:shadowy=1,
     drawtext=fontfile='$FONT':text='%{pts\\:localtime\\:$(date +%s)\\:%H\\:%M\\:%S}':fontcolor=aaaaaa:fontsize=22:x=w-120:y=10[vout]
   " \
   -map "[vout]" -map 0:a \
