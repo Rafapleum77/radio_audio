@@ -12,6 +12,7 @@ TICKERS = [
     ("STRK", "Strategy Pref 8%", "strategy.com"),
     ("IBIT", "iShares BTC ETF", "blackrock.com"),
     ("FBTC", "Fidelity BTC ETF", "fidelity.com"),
+    ("SPCX", "SpaceX", "spacex.com"),
     ("NVDA", "NVIDIA", "nvidia.com"),
     ("TSLA", "Tesla", "tesla.com"),
     ("AAPL", "Apple", "apple.com"),

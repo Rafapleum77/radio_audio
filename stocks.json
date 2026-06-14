@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-12T22:25:21.319203+00:00",
+  "updated_at": "2026-06-14T14:00:07.158894+00:00",
   "tickers": [
     {
       "symbol": "MSTR",
@@ -44,6 +44,17 @@
       "market_state": "UNKNOWN",
       "name": "Fidelity BTC ETF",
       "logo": "https://cdn.brandfetch.io/fidelity.com/w/200/h/200"
+    },
+    {
+      "symbol": "SPCX",
+      "price": 160.95,
+      "previous_close": 135.0,
+      "change_abs": 25.95,
+      "change_pct": 19.22,
+      "currency": "USD",
+      "market_state": "UNKNOWN",
+      "name": "SpaceX",
+      "logo": "https://cdn.brandfetch.io/spacex.com/w/200/h/200"
     },
     {
       "symbol": "NVDA",
