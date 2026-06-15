@@ -45,7 +45,7 @@
 </head><body>
 <header>
   <h1>BIT ADICT — MISSION CONTROL</h1>
-  <div class="ts">2026-06-15 16:04:56 • atualiza a cada 5min • radiobitcoin.org</div>
+  <div class="ts">2026-06-15 16:26:03 • atualiza a cada 5min • radiobitcoin.org</div>
 </header>
 <main class="grid">
   <section class="card">
@@ -57,9 +57,9 @@
               <span class="badge ok">ON</span>
             </div>
             <div class="bot-row"><span>Moeda</span><span>?</span></div>
-            <div class="bot-row"><span>Confiança</span><span>55%</span></div>
+            <div class="bot-row"><span>Confiança</span><span>52%</span></div>
             <div class="bot-row"><span>PnL</span><span class="pos">+0</span></div>
-            <div class="bot-row"><span>Último</span><span>16:04:37</span></div>
+            <div class="bot-row"><span>Último</span><span>16:25:32</span></div>
           </div>
         
           <div class="bot">
@@ -91,13 +91,13 @@
           <div class="pnl-total">
             <div class="big pos">+$0.00</div>
             <div class="dim">PnL real Polymarket — últimas 24h</div>
-            <div class="dim">$5.17 em posições abertas</div>
+            <div class="dim">$4.99 em posições abertas</div>
           </div>
           <div class="wallets">
               <div class="wallet">
                 <span>Rafael</span>
                 <span class="pos">+$0.00 24h</span>
-                <span class="dim">$0.17 aberto</span>
+                <span class="dim">$0.00 aberto</span>
               </div>
             
               <div class="wallet">
@@ -120,8 +120,8 @@
           <div class="maq">
             <div class="maq-head"><b>MAC MINI M2</b><span class="badge ok">ONLINE</span></div>
             <div class="dim">Bots + locutores</div>
-            <div class="bot-row"><span>CPU</span><span>31.1%</span></div>
-            <div class="bot-row"><span>RAM</span><span>99.5%</span></div>
+            <div class="bot-row"><span>CPU</span><span>19.7%</span></div>
+            <div class="bot-row"><span>RAM</span><span>88.5%</span></div>
             <div class="bot-row"><span>Disco</span><span>2%</span></div>
           </div>
         
@@ -129,7 +129,7 @@
             <div class="maq-head"><b>NITRO Win11</b><span class="badge ok">ONLINE</span></div>
             <div class="dim">Banners + render</div>
             <div class="bot-row"><span>CPU</span><span>5%</span></div>
-            <div class="bot-row"><span>RAM</span><span>60.5%</span></div>
+            <div class="bot-row"><span>RAM</span><span>63.8%</span></div>
             <div class="bot-row"><span>Disco</span><span>74.8%</span></div>
           </div>
         
@@ -157,71 +157,7 @@
       <tbody></tbody>
     </table>
   </section>
-
-  <section class="card devices-card" id="gastos-card">
-    <h2>💸 GASTOS & ASSINATURAS</h2>
-    <div id="gastos-alertas" style="margin-bottom:8px;"></div>
-    <div id="gastos-cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:12px;"></div>
-    <table id="gastos-tabela">
-      <thead><tr><td><b>Data</b></td><td><b>Serviço</b></td><td><b>Valor</b></td><td><b>Status</b></td></tr></thead>
-      <tbody></tbody>
-    </table>
-    <div style="font-size:10px;color:var(--dim);margin-top:6px;" id="gastos-ts"></div>
-  </section>
 </main>
-
-<script>
-(async function carregarGastos() {
-  try {
-    const r = await fetch('http://192.168.1.64:8880/gastos');
-    const gastos = await r.json();
-
-    const IGNORAR = (g) => g.servico === 'Stripe' && g.valor > 200; // filtra vendas
-
-    const agrup = {};
-    for (const g of gastos) {
-      if (!g.valor || IGNORAR(g)) continue;
-      if (!agrup[g.servico]) agrup[g.servico] = { total: 0, moeda: g.moeda, count: 0 };
-      agrup[g.servico].total += g.valor;
-      agrup[g.servico].count++;
-    }
-
-    const sym = m => m === 'BRL' ? 'R$' : m === 'EUR' ? '€' : '$';
-    const fmt = (v, m) => v ? sym(m) + parseFloat(v).toFixed(2) : '—';
-
-    // cards
-    const cardsEl = document.getElementById('gastos-cards');
-    for (const [srv, d] of Object.entries(agrup)) {
-      const div = document.createElement('div');
-      div.style.cssText = 'background:#0b0e11;border:1px solid #1f2937;border-radius:8px;padding:10px;';
-      div.innerHTML = `<div style="font-size:10px;color:#9ca3af;text-transform:uppercase;letter-spacing:1px;">${srv}</div>
-        <div style="font-size:20px;font-weight:bold;color:#fff;">${fmt(d.total, d.moeda)}</div>
-        <div style="font-size:10px;color:#666;">${d.count} cobranças / 90d</div>`;
-      cardsEl.appendChild(div);
-    }
-
-    // alertas
-    const alertasEl = document.getElementById('gastos-alertas');
-    if (gastos.find(g => g.servico === 'Manus AI')) {
-      alertasEl.innerHTML = '<div style="background:#ef444411;border:1px solid #ef4444;border-radius:6px;padding:6px 10px;font-size:11px;color:#ef9999;margin-bottom:6px;">⚠ <b>Manus AI</b> detectado — ainda usa? Se não, cancele.</div>';
-    }
-
-    // tabela
-    const tbody = document.querySelector('#gastos-tabela tbody');
-    for (const g of gastos) {
-      if (IGNORAR(g)) continue;
-      const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${g.data}</td><td>${g.servico}</td><td style="color:#fff;font-weight:bold;">${fmt(g.valor, g.moeda)}</td><td style="color:${g.valor ? '#22c55e' : '#666'};">${g.valor ? '✓' : '—'}</td>`;
-      tbody.appendChild(tr);
-    }
-
-    document.getElementById('gastos-ts').textContent = 'Fonte: Gmail scan • ' + new Date().toLocaleString('pt-BR');
-  } catch(e) {
-    document.getElementById('gastos-card').querySelector('h2').insertAdjacentHTML('afterend',
-      '<div style="color:#666;font-size:11px;">servidor gastos offline (porta 8880)</div>');
-  }
-})();
-</script>
 <footer>
   BIT ADICT • Operação Vale Sats Global • snapshot gerado pelo Mac Mini M2 em casa
 </footer>
