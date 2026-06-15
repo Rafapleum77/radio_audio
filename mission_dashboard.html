@@ -173,7 +173,7 @@
 <script>
 (async function carregarGastos() {
   try {
-    const r = await fetch('http://localhost:8880/gastos');
+    const r = await fetch('http://192.168.1.64:8880/gastos');
     const gastos = await r.json();
 
     const IGNORAR = (g) => g.servico === 'Stripe' && g.valor > 200; // filtra vendas
