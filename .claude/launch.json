@@ -6,6 +6,12 @@
       "runtimeExecutable": "/opt/homebrew/bin/python3.11",
       "runtimeArgs": ["-m", "http.server", "8765", "--directory", "/Users/rafaelrioscrosara/Desktop/radio_audio"],
       "port": 8765
+    },
+    {
+      "name": "radio-site",
+      "runtimeExecutable": "/opt/homebrew/bin/python3.11",
+      "runtimeArgs": ["-m", "http.server", "8766", "--directory", "/Users/rafaelrioscrosara/Bots/radio"],
+      "port": 8766
     }
   ]
 }
