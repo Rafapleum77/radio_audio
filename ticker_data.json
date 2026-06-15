@@ -1,7 +1,14 @@
 {
-  "atualizado": "2026-06-14T20:20:39.112522+00:00",
+  "atualizado": "2026-06-15T13:52:58.734608+00:00",
   "total_items": 10,
   "items": [
+    {
+      "bot": "XRP",
+      "moeda": "XRP",
+      "direcao": "UP",
+      "pnl": 1.55,
+      "ts": "2026-06-14 19:15"
+    },
     {
       "bot": "XRP",
       "moeda": "XRP",
@@ -64,13 +71,6 @@
       "direcao": "UP",
       "pnl": 1.29,
       "ts": "2026-06-11 19:00"
-    },
-    {
-      "bot": "XRP",
-      "moeda": "XRP",
-      "direcao": "UP",
-      "pnl": 1.08,
-      "ts": "2026-06-11 18:45"
     }
   ],
   "wins_xrp_hist": 10,
