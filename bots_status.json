@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-06-15 12:29:42",
-  "atualizado_ts": 1781537382,
+  "atualizado_em": "2026-06-15 12:59:23",
+  "atualizado_ts": 1781539163,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,19 +93,19 @@
     }
   },
   "radio_panel": {
-    "hora": "12:29:43",
-    "ts": 1781537383,
-    "pnl_total": -18.02,
+    "hora": "12:59:24",
+    "ts": 1781539164,
+    "pnl_total": -17.53,
     "bots": [
       {
         "nome": "XRP",
         "modo": "LIVE",
         "ativo": true,
-        "pnl": 0.0,
-        "trades": 0,
-        "ganhos": 0,
+        "pnl": 0.492,
+        "trades": 2,
+        "ganhos": 1,
         "banca": 120.0,
-        "ultima": "12:29:41"
+        "ultima": "12:59:19"
       },
       {
         "nome": "ARBITRAGE",
@@ -113,8 +113,8 @@
         "ativo": true,
         "pnl": -0.04,
         "win": 0.0,
-        "ultima": "12:29:27",
-        "uptime": "24h39m"
+        "ultima": "12:59:17",
+        "uptime": "25h09m"
       },
       {
         "nome": "DIRECIONAL",
@@ -122,7 +122,7 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "12:29:23"
+        "ultima": "12:59:11"
       },
       {
         "nome": "GAEL LENOVO",
@@ -130,7 +130,7 @@
         "ativo": true,
         "pnl": -17.98,
         "win": 0.0,
-        "ultima": "12:29:29"
+        "ultima": "12:59:13"
       }
     ],
     "maquinas": [
@@ -138,10 +138,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 16.1,
-        "ram_pct": 91.0,
+        "cpu": 15.6,
+        "ram_pct": 91.9,
         "disk_pct": 2.0,
-        "uptime": "1 day, 40 mins"
+        "uptime": "1 day,  1:10"
       },
       {
         "nome": "INTEL",
@@ -156,10 +156,10 @@
         "nome": "NITRO",
         "papel": "Win11 - banners",
         "online": true,
-        "cpu": 4,
-        "ram_pct": 53.3,
+        "cpu": 12,
+        "ram_pct": 52.6,
         "disk_pct": 74.6,
-        "uptime": "4h"
+        "uptime": "5h"
       },
       {
         "nome": "LENOVO",
