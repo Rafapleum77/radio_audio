@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-06-16 15:59:23",
-  "atualizado_ts": 1781636363,
+  "atualizado_em": "2026-06-16 16:29:39",
+  "atualizado_ts": 1781638179,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,19 +93,19 @@
     }
   },
   "radio_panel": {
-    "hora": "15:59:23",
-    "ts": 1781636363,
-    "pnl_total": 5.24,
+    "hora": "16:29:39",
+    "ts": 1781638179,
+    "pnl_total": -32.33,
     "bots": [
       {
         "nome": "XRP",
         "modo": "LIVE",
         "ativo": true,
-        "pnl": 5.282,
+        "pnl": 2.882,
         "trades": 5,
         "ganhos": 4,
         "banca": 120.0,
-        "ultima": "15:59:10"
+        "ultima": "16:29:38"
       },
       {
         "nome": "ARBITRAGE",
@@ -113,8 +113,8 @@
         "ativo": true,
         "pnl": -0.04,
         "win": 0.0,
-        "ultima": "15:59:16",
-        "uptime": "52h09m"
+        "ultima": "16:29:32",
+        "uptime": "52h39m"
       },
       {
         "nome": "DIRECIONAL",
@@ -122,15 +122,15 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "15:59:08"
+        "ultima": "16:29:39"
       },
       {
         "nome": "GAEL LENOVO",
         "modo": "LIVE",
         "ativo": true,
-        "pnl": 0.0,
+        "pnl": -35.17,
         "win": 0.0,
-        "ultima": null
+        "ultima": "16:29:39"
       }
     ],
     "maquinas": [
@@ -138,10 +138,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 18.4,
-        "ram_pct": 88.2,
+        "cpu": 18.3,
+        "ram_pct": 87.4,
         "disk_pct": 2.0,
-        "uptime": "2 days,  4:10"
+        "uptime": "2 days,  4:40"
       },
       {
         "nome": "INTEL",
@@ -156,9 +156,9 @@
         "nome": "NITRO",
         "papel": "Win11 - banners",
         "online": true,
-        "cpu": 5,
-        "ram_pct": 78.6,
-        "disk_pct": 73.7,
+        "cpu": 22,
+        "ram_pct": 77.8,
+        "disk_pct": 73.9,
         "uptime": "32h"
       },
       {
