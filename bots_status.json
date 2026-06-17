@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-06-16 17:29:24",
-  "atualizado_ts": 1781641764,
+  "atualizado_em": "2026-06-16 22:31:09",
+  "atualizado_ts": 1781659869,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,19 +93,19 @@
     }
   },
   "radio_panel": {
-    "hora": "17:29:24",
-    "ts": 1781641764,
-    "pnl_total": -32.33,
+    "hora": "22:31:10",
+    "ts": 1781659870,
+    "pnl_total": -34.55,
     "bots": [
       {
         "nome": "XRP",
         "modo": "LIVE",
         "ativo": true,
-        "pnl": 2.882,
-        "trades": 5,
-        "ganhos": 4,
+        "pnl": 4.305,
+        "trades": 6,
+        "ganhos": 5,
         "banca": 120.0,
-        "ultima": "17:29:20"
+        "ultima": "22:31:09"
       },
       {
         "nome": "ARBITRAGE",
@@ -113,8 +113,8 @@
         "ativo": true,
         "pnl": -0.04,
         "win": 0.0,
-        "ultima": "17:29:19",
-        "uptime": "53h39m"
+        "ultima": "22:31:08",
+        "uptime": "58h41m"
       },
       {
         "nome": "DIRECIONAL",
@@ -122,15 +122,15 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "17:29:12"
+        "ultima": "22:31:01"
       },
       {
         "nome": "GAEL LENOVO",
         "modo": "LIVE",
         "ativo": true,
-        "pnl": -35.17,
+        "pnl": -38.82,
         "win": 0.0,
-        "ultima": "17:29:24"
+        "ultima": "22:31:00"
       }
     ],
     "maquinas": [
@@ -138,10 +138,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 15.9,
-        "ram_pct": 86.9,
+        "cpu": 28.5,
+        "ram_pct": 84.1,
         "disk_pct": 2.0,
-        "uptime": "2 days,  5:40"
+        "uptime": "2 days, 10:42"
       },
       {
         "nome": "INTEL",
@@ -156,10 +156,10 @@
         "nome": "NITRO",
         "papel": "Win11 - banners",
         "online": true,
-        "cpu": 77,
-        "ram_pct": 75.6,
-        "disk_pct": 73.9,
-        "uptime": "33h"
+        "cpu": 8,
+        "ram_pct": 64.1,
+        "disk_pct": 74.6,
+        "uptime": "38h"
       },
       {
         "nome": "LENOVO",
