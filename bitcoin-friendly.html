@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Países Bitcoin Friendly — Guia Completo de Isenção Fiscal | Rádio Bitcoin</title>
+<meta name="description" content="Guia completo dos países mais favoráveis ao Bitcoin: isenção de impostos, regulação clara e liberdade financeira. El Salvador, Mônaco, Dubai, Singapura e mais.">
+<meta property="og:title" content="Países Bitcoin Friendly — Guia Completo">
+<meta property="og:description" content="Onde no mundo você pode viver com Bitcoin sem pagar impostos sobre gains. Guia atualizado 2026.">
+<meta property="og:image" content="https://radiobitcoin.org/img/bitcoin-friendly-og.png">
+<meta property="og:url" content="https://radiobitcoin.org/bitcoin-friendly">
+<link rel="canonical" href="https://radiobitcoin.org/bitcoin-friendly">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<script data-goatcounter="https://radiobitcoin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+:root {
+  --bg: #07090d;
+  --bg2: #0b0e14;
+  --card: #111721;
+  --bd: #1f2937;
+  --txt: #c8d0d8;
+  --dim: #6b7280;
+  --gold: #f2a900;
+  --green: #22c55e;
+  --red: #ef4444;
+  --blue: #3b82f6;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font:14px/1.6 -apple-system,Segoe UI,Helvetica,sans-serif;min-height:100vh;}
+
+/* HEADER */
+header{background:var(--bg2);border-bottom:1px solid var(--bd);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100;}
+.logo{font-family:'Orbitron',monospace;font-size:14px;color:var(--gold);letter-spacing:2px;text-decoration:none;}
+.logo span{color:#fff;}
+nav a{color:var(--dim);font-size:12px;text-decoration:none;margin-left:16px;letter-spacing:1px;}
+nav a:hover{color:var(--gold);}
+
+/* HERO */
+.hero{text-align:center;padding:60px 24px 40px;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(242,169,0,0.08) 0%,transparent 70%);}
+.hero-badge{display:inline-block;background:rgba(242,169,0,.12);border:1px solid rgba(242,169,0,.4);color:var(--gold);font-size:10px;letter-spacing:3px;padding:5px 16px;border-radius:20px;text-transform:uppercase;margin-bottom:16px;}
+.hero h1{font-family:'Orbitron',monospace;font-size:clamp(22px,5vw,44px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;}
+.hero h1 span{color:var(--gold);}
+.hero p{font-size:clamp(13px,2vw,16px);color:var(--dim);max-width:640px;margin:0 auto 24px;}
+.hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;}
+.hero-stat{text-align:center;}
+.hero-stat .n{font-family:'Orbitron',monospace;font-size:28px;font-weight:900;color:var(--gold);}
+.hero-stat .l{font-size:10px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;}
+
+/* LEGENDA */
+.legend{max-width:1100px;margin:0 auto 32px;padding:0 24px;}
+.legend-inner{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px 20px;display:flex;gap:24px;flex-wrap:wrap;align-items:center;}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:12px;}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.dot.ótimo{background:#22c55e;}
+.dot.bom{background:#84cc16;}
+.dot.médio{background:#f59e0b;}
+.dot.atenção{background:#ef4444;}
+
+/* GRADE */
+.grade{max-width:1100px;margin:0 auto;padding:0 24px 60px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
+
+/* CARD */
+.pcard{background:var(--card);border:1px solid var(--bd);border-radius:14px;overflow:hidden;transition:transform .15s,border-color .15s;}
+.pcard:hover{transform:translateY(-3px);border-color:rgba(242,169,0,.4);}
+.pcard-head{padding:18px 18px 14px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--bd);}
+.pcard-flag{width:52px;height:38px;object-fit:cover;border-radius:5px;flex-shrink:0;}
+.pcard-title{flex:1;}
+.pcard-title h2{font-size:16px;font-weight:800;color:#fff;margin-bottom:2px;}
+.pcard-title .sub{font-size:10px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;}
+.pcard-score{text-align:right;flex-shrink:0;}
+.score-n{font-family:'Orbitron',monospace;font-size:20px;font-weight:900;}
+.score-l{font-size:9px;color:var(--dim);letter-spacing:1px;}
+.score-5{color:#22c55e;}
+.score-4{color:#84cc16;}
+.score-3{color:#f59e0b;}
+
+.pcard-body{padding:14px 18px;}
+.pcard-body p{font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:12px;}
+
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.pill{font-size:9px;letter-spacing:1px;padding:3px 10px;border-radius:12px;font-weight:700;text-transform:uppercase;white-space:nowrap;}
+.pill.green{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3);}
+.pill.gold{background:rgba(242,169,0,.12);color:var(--gold);border:1px solid rgba(242,169,0,.3);}
+.pill.blue{background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.3);}
+.pill.red{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.3);}
+
+.fatos{border-top:1px solid var(--bd);padding-top:12px;}
+.fato{display:flex;gap:8px;margin-bottom:8px;font-size:11px;align-items:flex-start;}
+.fato-icon{font-size:14px;flex-shrink:0;line-height:1.2;}
+.fato-txt{color:var(--txt);line-height:1.5;}
+.fato-txt b{color:#fff;}
+
+/* TABELA */
+.tabela-wrap{max-width:1100px;margin:0 auto 60px;padding:0 24px;}
+.tabela-wrap h2{font-family:'Orbitron',monospace;font-size:13px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;}
+.tabela{width:100%;border-collapse:collapse;font-size:12px;}
+.tabela th{background:var(--bg2);color:var(--dim);letter-spacing:1px;font-size:10px;text-transform:uppercase;padding:10px 12px;border-bottom:2px solid var(--bd);text-align:left;}
+.tabela td{padding:10px 12px;border-bottom:1px solid var(--bd);vertical-align:middle;}
+.tabela tr:hover td{background:rgba(255,255,255,.02);}
+.tabela td:first-child{font-weight:700;color:#fff;}
+.check{color:#22c55e;}
+.cross{color:#ef4444;}
+.maybe{color:#f59e0b;}
+.tabela-scroll{overflow-x:auto;}
+
+/* AVISO */
+.aviso{max-width:1100px;margin:0 auto 40px;padding:0 24px;}
+.aviso-inner{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);border-radius:10px;padding:16px 20px;font-size:11px;color:#f87171;line-height:1.7;}
+.aviso-inner b{color:#fff;}
+
+/* BACK */
+.back-bar{max-width:1100px;margin:0 auto 60px;padding:0 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.btn-back{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--bd);color:var(--txt);font-size:12px;padding:10px 20px;border-radius:8px;text-decoration:none;transition:border-color .15s;}
+.btn-back:hover{border-color:var(--gold);color:var(--gold);}
+.btn-radio{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,var(--gold),#ffce4d);color:#000;font-weight:900;font-size:12px;letter-spacing:1px;padding:10px 22px;border-radius:8px;text-decoration:none;}
+
+footer{text-align:center;padding:20px;color:var(--dim);font-size:10px;border-top:1px solid var(--bd);letter-spacing:1px;}
+@media(max-width:600px){.grade{grid-template-columns:1fr;}.hero{padding:40px 16px 28px;}.hero-stats{gap:20px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">RÁDIO <span>BITCOIN</span></a>
+  <nav>
+    <a href="/">Início</a>
+    <a href="/#paises">Países</a>
+    <a href="/bitcoin-friendly">BTC Friendly</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">&#127759; Guia Global 2026</div>
+  <h1>Países <span>Bitcoin</span><br>Friendly</h1>
+  <p>Onde no mundo você pode viver, investir e guardar Bitcoin pagando zero ou quase zero imposto sobre seus ganhos. Guia atualizado com legislação, fatos e dicas.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="n">15</div><div class="l">Países analisados</div></div>
+    <div class="hero-stat"><div class="n">8</div><div class="l">Isenção total</div></div>
+    <div class="hero-stat"><div class="n">0%</div><div class="l">Imposto (melhores)</div></div>
+  </div>
+</section>
+
+<div class="legend">
+  <div class="legend-inner">
+    <b style="font-size:11px;color:#fff;letter-spacing:1px;">SCORE:</b>
+    <div class="legend-item"><div class="dot ótimo"></div> 5/5 — Isenção total + ambiente pro-Bitcoin</div>
+    <div class="legend-item"><div class="dot bom"></div> 4/5 — Isenção ou taxação muito baixa</div>
+    <div class="legend-item"><div class="dot médio"></div> 3/5 — Favorable mas com ressalvas</div>
+    <div class="legend-item"><div class="dot atenção"></div> 2/5 — Regulado mas aceitável</div>
+  </div>
+</div>
+
+<div class="grade">
+
+  <!-- EL SALVADOR -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/sv.png" alt="El Salvador">
+      <div class="pcard-title">
+        <h2>El Salvador</h2>
+        <div class="sub">América Central</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-5">5/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>O país pioneiro. Em 2021 tornou o Bitcoin moeda legal — o único no mundo. Ganhos em BTC são isentos de imposto de renda. O governo minera Bitcoin com energia vulcânica.</p>
+      <div class="pills">
+        <span class="pill green">Moeda legal</span>
+        <span class="pill green">0% ganhos BTC</span>
+        <span class="pill gold">Volcán Bond</span>
+        <span class="pill blue">Wallet Chivo</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">⚡</div><div class="fato-txt"><b>Bitcoin Beach:</b> A cidade de El Zonte usa BTC como moeda corrente local desde antes da lei.</div></div>
+        <div class="fato"><div class="fato-icon">🌋</div><div class="fato-txt"><b>Mining vulcânico:</b> O governo usa energia geotérmica do vulcão para minerar Bitcoin.</div></div>
+        <div class="fato"><div class="fato-icon">🏦</div><div class="fato-txt"><b>Bitcoin Bond:</b> El Salvador emitiu títulos soberanos lastreados em Bitcoin (Volcán Bond).</div></div>
+        <div class="fato"><div class="fato-icon">✈️</div><div class="fato-txt"><b>Para emigrar:</b> Residência permanente disponível. Custo de vida muito baixo.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MÔNACO -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/mc.png" alt="Mônaco">
+      <div class="pcard-title">
+        <h2>Mônaco 🇲🇨</h2>
+        <div class="sub">Europa — Trezoitão esteve aqui</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-5">5/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>O principado mais famoso do mundo. Sem imposto de renda pessoal para residentes. Crypto gains completamente isentos. Hub da elite financeira europeia — onde Trezoitão entrevistou Lucas Di Grassi.</p>
+      <div class="pills">
+        <span class="pill green">0% imposto de renda</span>
+        <span class="pill green">0% crypto gains</span>
+        <span class="pill gold">Elite financeira</span>
+        <span class="pill blue">Residência europeia</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">🏎️</div><div class="fato-txt"><b>Formula E + Bitcoin:</b> Pilotos como Lucas Di Grassi já pregam soberania financeira em BTC.</div></div>
+        <div class="fato"><div class="fato-icon">🏦</div><div class="fato-txt"><b>Sem imposto de renda:</b> Residentes não pagam IR — crypto gains incluídos.</div></div>
+        <div class="fato"><div class="fato-icon">🇪🇺</div><div class="fato-txt"><b>Acesso europeu:</b> Fronteira com França, área Schengen, estabilidade política máxima.</div></div>
+        <div class="fato"><div class="fato-icon">💰</div><div class="fato-txt"><b>Custo:</b> Residência exige patrimônio comprovado. Aluguel alto. Para quem já tem Bitcoin.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMIRADOS ÁRABES -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/ae.png" alt="Emirados Árabes">
+      <div class="pcard-title">
+        <h2>Emirados Árabes</h2>
+        <div class="sub">Oriente Médio — Dubai</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-5">5/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>Dubai é o principal hub cripto do mundo fora dos EUA. Zero imposto sobre ganhos de capital em crypto. A VARA (Virtual Assets Regulatory Authority) criou o framework regulatório mais claro do mundo.</p>
+      <div class="pills">
+        <span class="pill green">0% ganhos capital</span>
+        <span class="pill green">VARA regulatório</span>
+        <span class="pill gold">Hub global cripto</span>
+        <span class="pill blue">Residência fácil</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">🏙️</div><div class="fato-txt"><b>Dubai DIFC:</b> Centro financeiro com regulação própria e extremamente favorável à crypto.</div></div>
+        <div class="fato"><div class="fato-icon">📋</div><div class="fato-txt"><b>VARA:</b> Framework regulatório claro para exchanges, custódia e transações cripto.</div></div>
+        <div class="fato"><div class="fato-icon">✈️</div><div class="fato-txt"><b>Golden Visa:</b> Visto de residência de 10 anos para investidores. Processo rápido.</div></div>
+        <div class="fato"><div class="fato-icon">🌍</div><div class="fato-txt"><b>Conexões:</b> Hub de voos global. Acesso fácil para Europa, Ásia e África.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SINGAPURA -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/sg.png" alt="Singapura">
+      <div class="pcard-title">
+        <h2>Singapura</h2>
+        <div class="sub">Ásia — Hub financeiro</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-5">5/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>A cidade-estado asiática mais favorável ao Bitcoin. Sem imposto sobre ganhos de capital em nenhum ativo — incluindo crypto. Regulação clara via MAS (Monetary Authority of Singapore).</p>
+      <div class="pills">
+        <span class="pill green">0% ganhos de capital</span>
+        <span class="pill green">MAS regulatório</span>
+        <span class="pill gold">Fintech hub</span>
+        <span class="pill blue">Rule of law top</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">📊</div><div class="fato-txt"><b>Sem CGT:</b> Singapura não tem capital gains tax — para crypto, ações ou imóveis.</div></div>
+        <div class="fato"><div class="fato-icon">🏦</div><div class="fato-txt"><b>MAS:</b> Regula PSP (Payment Service Providers) — Bitcoin é Digital Payment Token oficial.</div></div>
+        <div class="fato"><div class="fato-icon">🌐</div><div class="fato-txt"><b>Gateway Ásia:</b> Porta de entrada para mercados da Ásia-Pacífico. Inglês oficial.</div></div>
+        <div class="fato"><div class="fato-icon">⚠️</div><div class="fato-txt"><b>Atenção:</b> Trading frequente pode ser tratado como renda (income tax). Long-term é isento.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUÍÇA -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/ch.png" alt="Suíça">
+      <div class="pcard-title">
+        <h2>Suíça</h2>
+        <div class="sub">Europa — Crypto Valley</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-4">4/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>Zug, a "Crypto Valley", é o endereço de dezenas de fundações Bitcoin e projetos blockchain. Ganhos de capital em crypto são isentos para pessoas físicas — desde que não seja atividade profissional.</p>
+      <div class="pills">
+        <span class="pill green">0% CGT pessoa física</span>
+        <span class="pill gold">Crypto Valley Zug</span>
+        <span class="pill blue">Estabilidade máxima</span>
+        <span class="pill gold">Franc suíço forte</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">🏔️</div><div class="fato-txt"><b>Crypto Valley:</b> Zug abriga Ethereum Foundation, Cardano e mais de 1000 projetos blockchain.</div></div>
+        <div class="fato"><div class="fato-icon">📋</div><div class="fato-txt"><b>Isenção:</b> Pessoa física que não é trader profissional não paga CGT em crypto.</div></div>
+        <div class="fato"><div class="fato-icon">🏛️</div><div class="fato-txt"><b>FINMA:</b> Regulador suíço com framework claro para ICOs, DeFi e custódia.</div></div>
+        <div class="fato"><div class="fato-icon">💰</div><div class="fato-txt"><b>Custo:</b> Custo de vida alto. Mas segurança, privacidade e estabilidade sem paralelo.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MALTA -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/mt.png" alt="Malta">
+      <div class="pcard-title">
+        <h2>Malta</h2>
+        <div class="sub">Europa — Ilha Blockchain</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-4">4/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>Autodenominada "Ilha Blockchain", Malta foi pioneira em regulação cripto na UE. Ganhos de long-term holding de Bitcoin são isentos. Framework legal via MFSA com três leis específicas para crypto.</p>
+      <div class="pills">
+        <span class="pill green">Long-term isento</span>
+        <span class="pill gold">Ilha Blockchain</span>
+        <span class="pill blue">União Europeia</span>
+        <span class="pill gold">MFSA regulatório</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">⚖️</div><div class="fato-txt"><b>Três leis:</b> MDIA Act, VFAA e ITASA — o framework cripto mais completo da UE em 2018.</div></div>
+        <div class="fato"><div class="fato-icon">🏖️</div><div class="fato-txt"><b>Qualidade de vida:</b> Clima mediterrâneo, inglês oficial, membro da UE e zona Euro.</div></div>
+        <div class="fato"><div class="fato-icon">📋</div><div class="fato-txt"><b>Isenção:</b> Crypto como investimento de longo prazo — sem CGT. Trading ativo pode incidir IR.</div></div>
+        <div class="fato"><div class="fato-icon">🌐</div><div class="fato-txt"><b>Passaporte europeu:</b> Residência em Malta dá acesso livre a toda a União Europeia.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARAGUAI -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/py.png" alt="Paraguai">
+      <div class="pcard-title">
+        <h2>Paraguai</h2>
+        <div class="sub">América do Sul — próximo ao Brasil</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-4">4/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>O país mais próximo ao Brasil com energia elétrica ultra-barata (Itaipu) e regulação favorável ao Bitcoin. Lei cripto aprovada em 2022. Mining em expansão. Ciudad del Este é hub de eventos Bitcoin.</p>
+      <div class="pills">
+        <span class="pill green">Regulação 2022</span>
+        <span class="pill green">Energia barata</span>
+        <span class="pill gold">Missão Bitcoin</span>
+        <span class="pill blue">Próximo ao Brasil</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">⚡</div><div class="fato-txt"><b>Itaipu:</b> Energia elétrica mais barata da América do Sul — ideal para mining Bitcoin.</div></div>
+        <div class="fato"><div class="fato-icon">📋</div><div class="fato-txt"><b>Lei 6885/2022:</b> Regulamenta mineração e uso de crypto como ativo digital.</div></div>
+        <div class="fato"><div class="fato-icon">🎟️</div><div class="fato-txt"><b>Missão Bitcoin:</b> Ciudad del Este sedia eventos com Trezoitão e comunidade Bitcoin BR.</div></div>
+        <div class="fato"><div class="fato-icon">🏠</div><div class="fato-txt"><b>Residência:</b> Processo simples e barato. Custo de vida bem abaixo do Brasil.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GEÓRGIA -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/ge.png" alt="Geórgia">
+      <div class="pcard-title">
+        <h2>Geórgia</h2>
+        <div class="sub">Cáucaso — joia escondida</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-5">5/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>Uma das maiores surpresas do mundo cripto. Pessoas físicas não pagam imposto sobre crypto gains. Custo de vida baixíssimo, internet rápida, residência fácil e governo extremamente liberal economicamente.</p>
+      <div class="pills">
+        <span class="pill green">0% pessoa física</span>
+        <span class="pill green">Residência fácil</span>
+        <span class="pill gold">Custo baixo</span>
+        <span class="pill blue">Mining favorável</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">🆓</div><div class="fato-txt"><b>Isenção total:</b> Pessoas físicas não pagam nenhum imposto sobre ganhos em crypto.</div></div>
+        <div class="fato"><div class="fato-icon">💻</div><div class="fato-txt"><b>Mining:</b> Eletricidade barata e temperatura amena tornam o país ideal para mineração.</div></div>
+        <div class="fato"><div class="fato-icon">🏔️</div><div class="fato-txt"><b>Tbilisi:</b> Capital com custo de vida 70% menor que Europa Ocidental. Nômades digitais adoram.</div></div>
+        <div class="fato"><div class="fato-icon">✈️</div><div class="fato-txt"><b>Visa on arrival:</b> Brasileiros entram sem visto por até 365 dias. Residência simples.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ILHAS CAYMAN -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/ky.png" alt="Ilhas Cayman">
+      <div class="pcard-title">
+        <h2>Ilhas Cayman</h2>
+        <div class="sub">Caribe — offshore clássico</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-5">5/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>O clássico offshore financeiro do Caribe. Zero imposto de renda, zero imposto sobre ganhos de capital, zero imposto sobre herança. Para crypto, é simplesmente livre — sem tributação de qualquer natureza.</p>
+      <div class="pills">
+        <span class="pill green">0% imposto de renda</span>
+        <span class="pill green">0% ganhos de capital</span>
+        <span class="pill gold">Offshore clássico</span>
+        <span class="pill gold">USD moeda oficial</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">🏝️</div><div class="fato-txt"><b>Zero impostos:</b> Sem IR, CGT, herança ou imposto sobre lucros. Crypto incluso.</div></div>
+        <div class="fato"><div class="fato-icon">🏦</div><div class="fato-txt"><b>CIMA:</b> Autoridade regulatória financeira com framework para fundos cripto.</div></div>
+        <div class="fato"><div class="fato-icon">💵</div><div class="fato-txt"><b>USD:</b> Dólar americano é moeda oficial. Estabilidade cambial máxima.</div></div>
+        <div class="fato"><div class="fato-icon">⚠️</div><div class="fato-txt"><b>Atenção:</b> Residência requer comprovação de meios. Custo de vida alto. Para patrimônios maiores.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BERMUDA -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/bm.png" alt="Bermuda">
+      <div class="pcard-title">
+        <h2>Bermuda</h2>
+        <div class="sub">Atlântico Norte — pioneiro cripto</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-5">5/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>Histórico: Bermuda foi o primeiro país do mundo a aceitar pagamento de impostos governamentais em stablecoins. Sem imposto de renda ou CGT. Framework DABA entre os mais avançados do mundo.</p>
+      <div class="pills">
+        <span class="pill green">0% imposto de renda</span>
+        <span class="pill green">0% ganhos de capital</span>
+        <span class="pill gold">DABA framework</span>
+        <span class="pill blue">1º a aceitar crypto em impostos</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">🥇</div><div class="fato-txt"><b>Pioneiro:</b> 1º governo do mundo a aceitar pagamento de impostos em stablecoin (USDC).</div></div>
+        <div class="fato"><div class="fato-icon">📋</div><div class="fato-txt"><b>DABA:</b> Digital Asset Business Act — licença para exchanges e custódia com clareza jurídica.</div></div>
+        <div class="fato"><div class="fato-icon">🏖️</div><div class="fato-txt"><b>Qualidade:</b> Clima tropical, segurança alta, infraestrutura britânica de qualidade.</div></div>
+        <div class="fato"><div class="fato-icon">💰</div><div class="fato-txt"><b>Custo:</b> Um dos lugares mais caros do mundo. Para HNW (High Net Worth) individuals.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANAMÁ -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/pa.png" alt="Panamá">
+      <div class="pcard-title">
+        <h2>Panamá</h2>
+        <div class="sub">América Central — territorial</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-4">4/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>Sistema tributário territorial: só paga imposto sobre renda gerada dentro do Panamá. Renda estrangeira — incluindo crypto — é isenta. Lei cripto aprovada em 2022. Dolarizado e estável.</p>
+      <div class="pills">
+        <span class="pill green">Renda estrangeira isenta</span>
+        <span class="pill green">Lei cripto 2022</span>
+        <span class="pill gold">Sistema territorial</span>
+        <span class="pill blue">USD dolarizado</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">🌎</div><div class="fato-txt"><b>Territorial:</b> Só tributa renda gerada no Panamá. Ganhos crypto = renda estrangeira = isento.</div></div>
+        <div class="fato"><div class="fato-icon">📋</div><div class="fato-txt"><b>Lei 129/2022:</b> Crypto reconhecida como ativo digital. Aceita para pagamento de serviços.</div></div>
+        <div class="fato"><div class="fato-icon">🏙️</div><div class="fato-txt"><b>Cidade do Panamá:</b> Hub financeiro da América Latina. Infraestrutura de 1º mundo.</div></div>
+        <div class="fato"><div class="fato-icon">✈️</div><div class="fato-txt"><b>Residência:</b> Programa "Friendly Nations Visa" para brasileiros. Processo acessível.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTUGAL -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/pt.png" alt="Portugal">
+      <div class="pcard-title">
+        <h2>Portugal</h2>
+        <div class="sub">Europa — língua portuguesa</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-3">3/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>Até 2022 era o paraíso fiscal cripto da Europa — 0% para pessoa física. Em 2023 mudou: agora há 28% de imposto para holdings com menos de 1 ano. Acima de 1 ano ainda é isento. Ideal para long-term hodlers.</p>
+      <div class="pills">
+        <span class="pill green">+1 ano: isento</span>
+        <span class="pill red">-1 ano: 28% CGT</span>
+        <span class="pill gold">NHR disponível</span>
+        <span class="pill blue">Lusófono</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">📋</div><div class="fato-txt"><b>Mudança 2023:</b> Holdings &gt;365 dias ainda isentos. Abaixo disso, 28% de CGT.</div></div>
+        <div class="fato"><div class="fato-icon">🏛️</div><div class="fato-txt"><b>NHR (Non-Habitual Resident):</b> Regime fiscal especial com benefícios para novos residentes por 10 anos.</div></div>
+        <div class="fato"><div class="fato-icon">🇧🇷</div><div class="fato-txt"><b>Para brasileiros:</b> Língua, cultura e acesso à UE. Porta de entrada à Europa sem barreira idiomática.</div></div>
+        <div class="fato"><div class="fato-icon">🌊</div><div class="fato-txt"><b>Qualidade de vida:</b> Clima, gastronomia, segurança e custo abaixo da média europeia.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARGENTINA -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/ar.png" alt="Argentina">
+      <div class="pcard-title">
+        <h2>Argentina</h2>
+        <div class="sub">América do Sul — adoção por necessidade</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-3">3/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>A inflação crônica fez da Argentina um dos países com maior adoção Bitcoin do mundo — não por governo, mas pelo povo. Milei abriu caminho para contratos em USD e crypto. Adoção massiva de USDT.</p>
+      <div class="pills">
+        <span class="pill gold">Adoção orgânica</span>
+        <span class="pill gold">Milei pro-mercado</span>
+        <span class="pill blue">Contratos em BTC legais</span>
+        <span class="pill red">Inflação histórica</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">📈</div><div class="fato-txt"><b>Adoção real:</b> Argentinos usam USDT e BTC no dia a dia para proteger patrimônio da inflação.</div></div>
+        <div class="fato"><div class="fato-icon">🗽</div><div class="fato-txt"><b>Milei:</b> Presidente libertário removeu restrições cambiais e legalizou contratos em crypto.</div></div>
+        <div class="fato"><div class="fato-icon">⚠️</div><div class="fato-txt"><b>Impostos:</b> Ainda há tributação sobre ganhos de capital. Evasão fiscal é comum, não é ideal.</div></div>
+        <div class="fato"><div class="fato-icon">💡</div><div class="fato-txt"><b>Por que incluir:</b> Maior laboratório mundial de adoção Bitcoin por pressão inflacionária.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EUA -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/us.png" alt="EUA">
+      <div class="pcard-title">
+        <h2>EUA</h2>
+        <div class="sub">América do Norte — ETF e Trump</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-3">3/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>O maior mercado Bitcoin do mundo. ETFs spot aprovados em jan/2024. Trump criou reserva estratégica nacional de Bitcoin. Mas a tributação existe — long-term CGT entre 0-20% dependendo da renda.</p>
+      <div class="pills">
+        <span class="pill gold">ETFs Bitcoin spot</span>
+        <span class="pill gold">Reserva estratégica</span>
+        <span class="pill blue">0-20% long-term CGT</span>
+        <span class="pill blue">Porto Rico: 0%</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">📊</div><div class="fato-txt"><b>ETFs:</b> BlackRock, Fidelity e outros com bilhões em BTC. Legitimação institucional máxima.</div></div>
+        <div class="fato"><div class="fato-icon">🏛️</div><div class="fato-txt"><b>Reserva nacional:</b> Trump criou Strategic Bitcoin Reserve — governo dos EUA hodla BTC.</div></div>
+        <div class="fato"><div class="fato-icon">🏝️</div><div class="fato-txt"><b>Porto Rico (Act 22):</b> Residentes de PR pagam 0% em ganhos de capital. Território americano.</div></div>
+        <div class="fato"><div class="fato-icon">⚠️</div><div class="fato-txt"><b>IRS:</b> Obrigação de declarar cada transação. Complexidade tributária alta para traders.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BRASIL -->
+  <div class="pcard">
+    <div class="pcard-head">
+      <img class="pcard-flag" src="https://flagcdn.com/w80/br.png" alt="Brasil">
+      <div class="pcard-title">
+        <h2>Brasil</h2>
+        <div class="sub">América do Sul — regulado</div>
+      </div>
+      <div class="pcard-score"><div class="score-n score-3">3/5</div><div class="score-l">Score</div></div>
+    </div>
+    <div class="pcard-body">
+      <p>Bitcoin regulamentado como ativo financeiro desde 2022. Mercado enorme e vibrante. Mas a tributação é pesada: 15-22,5% sobre ganhos acima de R$35.000/mês. CVM fiscaliza. Exchanges devem reportar.</p>
+      <div class="pills">
+        <span class="pill gold">Regulamentado 2022</span>
+        <span class="pill red">15-22,5% CGT</span>
+        <span class="pill blue">Maior mercado LATAM</span>
+        <span class="pill gold">Isenção até R$35k/mês</span>
+      </div>
+      <div class="fatos">
+        <div class="fato"><div class="fato-icon">📋</div><div class="fato-txt"><b>Lei 14.478/2022:</b> Marco legal das criptomoedas. Bitcoin como ativo financeiro oficial.</div></div>
+        <div class="fato"><div class="fato-icon">💰</div><div class="fato-txt"><b>Isenção:</b> Ganhos de até R$35.000/mês são isentos de IR — boa para HODLers médios.</div></div>
+        <div class="fato"><div class="fato-icon">🏦</div><div class="fato-txt"><b>Exchanges:</b> Obrigadas a reportar transações à Receita Federal automaticamente.</div></div>
+        <div class="fato"><div class="fato-icon">🌍</div><div class="fato-txt"><b>Oportunidade:</b> Para patrimônios maiores, estrutura internacional via países desta lista é o caminho.</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TABELA COMPARATIVA -->
+<div class="tabela-wrap">
+  <h2>&#9654; Comparativo Rápido — Tributação Crypto 2026</h2>
+  <div class="tabela-scroll">
+  <table class="tabela">
+    <thead>
+      <tr>
+        <th>País</th>
+        <th>CGT Crypto</th>
+        <th>Imposto Renda</th>
+        <th>Regulação</th>
+        <th>Residência p/ BR</th>
+        <th>Custo de vida</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>🇸🇻 El Salvador</td><td><span class="check">✓ 0%</span></td><td><span class="check">✓ 0% em BTC</span></td><td><span class="check">✓ BTC moeda legal</span></td><td>Fácil</td><td>Baixo</td></tr>
+      <tr><td>🇲🇨 Mônaco</td><td><span class="check">✓ 0%</span></td><td><span class="check">✓ 0%</span></td><td><span class="check">✓ Favorável</span></td><td>Difícil (patrimônio)</td><td>Muito alto</td></tr>
+      <tr><td>🇦🇪 Emirados (Dubai)</td><td><span class="check">✓ 0%</span></td><td><span class="check">✓ 0%</span></td><td><span class="check">✓ VARA</span></td><td>Fácil (Golden Visa)</td><td>Alto</td></tr>
+      <tr><td>🇸🇬 Singapura</td><td><span class="check">✓ 0%</span></td><td><span class="maybe">~ 0-22%</span></td><td><span class="check">✓ MAS</span></td><td>Médio</td><td>Alto</td></tr>
+      <tr><td>🇨🇭 Suíça</td><td><span class="check">✓ 0% (pessoa física)</span></td><td><span class="maybe">~ 15-45%</span></td><td><span class="check">✓ FINMA</span></td><td>Difícil</td><td>Muito alto</td></tr>
+      <tr><td>🇲🇹 Malta</td><td><span class="check">✓ 0% (long-term)</span></td><td><span class="maybe">~ 0-35%</span></td><td><span class="check">✓ MFSA</span></td><td>Fácil (UE)</td><td>Médio</td></tr>
+      <tr><td>🇵🇾 Paraguai</td><td><span class="check">✓ Baixo</span></td><td><span class="check">✓ 10%</span></td><td><span class="check">✓ Lei 2022</span></td><td>Muito fácil</td><td>Baixo</td></tr>
+      <tr><td>🇬🇪 Geórgia</td><td><span class="check">✓ 0%</span></td><td><span class="check">✓ 0% (crypto)</span></td><td><span class="maybe">~ Em desenvolvimento</span></td><td>Muito fácil (365 dias)</td><td>Muito baixo</td></tr>
+      <tr><td>🇰🇾 Ilhas Cayman</td><td><span class="check">✓ 0%</span></td><td><span class="check">✓ 0%</span></td><td><span class="check">✓ CIMA</span></td><td>Difícil (patrimônio)</td><td>Alto</td></tr>
+      <tr><td>🇧🇲 Bermuda</td><td><span class="check">✓ 0%</span></td><td><span class="check">✓ 0%</span></td><td><span class="check">✓ DABA</span></td><td>Difícil</td><td>Muito alto</td></tr>
+      <tr><td>🇵🇦 Panamá</td><td><span class="check">✓ 0% (estrangeiro)</span></td><td><span class="check">✓ Territorial</span></td><td><span class="check">✓ Lei 2022</span></td><td>Fácil</td><td>Médio</td></tr>
+      <tr><td>🇵🇹 Portugal</td><td><span class="maybe">~ 0% +1 ano / 28% -1 ano</span></td><td><span class="maybe">~ 14.5-48%</span></td><td><span class="check">✓ UE regulado</span></td><td>Muito fácil</td><td>Médio</td></tr>
+      <tr><td>🇦🇷 Argentina</td><td><span class="maybe">~ 15%</span></td><td><span class="maybe">~ 5-35%</span></td><td><span class="check">✓ Milei pro-mercado</span></td><td>Muito fácil</td><td>Baixo</td></tr>
+      <tr><td>🇺🇸 EUA</td><td><span class="maybe">~ 0-20% (long-term)</span></td><td><span class="maybe">~ 10-37%</span></td><td><span class="check">✓ ETF aprovado</span></td><td>Difícil</td><td>Alto</td></tr>
+      <tr><td>🇧🇷 Brasil</td><td><span class="maybe">~ 15-22,5% (&gt;R$35k/mês)</span></td><td><span class="maybe">~ 7.5-27.5%</span></td><td><span class="maybe">~ Lei 2022</span></td><td>—</td><td>Médio</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="aviso">
+  <div class="aviso-inner">
+    <b>⚠️ Aviso Legal:</b> Este guia é educacional. Legislações tributárias mudam. Consulte um advogado tributarista especializado em cripto antes de tomar qualquer decisão de residência fiscal. As informações acima refletem o conhecimento disponível em 2026 e não constituem consultoria jurídica ou fiscal. A Rádio Bitcoin não se responsabiliza por decisões baseadas neste conteúdo.
+  </div>
+</div>
+
+<div class="back-bar">
+  <a class="btn-back" href="/">&#8592; Voltar à Rádio Bitcoin</a>
+  <a class="btn-radio" href="https://radiobitcoin.org" target="_blank">&#127925; Ouvir a Rádio »</a>
+</div>
+
+<footer>
+  RÁDIO BITCOIN · radiobitcoin.org · Guia Bitcoin Friendly 2026 · Educação financeira soberana
+</footer>
+
+</body>
+</html>
