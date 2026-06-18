@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-06-18 11:29:51",
-  "atualizado_ts": 1781792991,
+  "atualizado_em": "2026-06-18 11:59:14",
+  "atualizado_ts": 1781794754,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,8 +93,8 @@
     }
   },
   "radio_panel": {
-    "hora": "11:29:52",
-    "ts": 1781792992,
+    "hora": "11:59:14",
+    "ts": 1781794754,
     "pnl_total": -40.83,
     "bots": [
       {
@@ -105,7 +105,7 @@
         "trades": 7,
         "ganhos": 4,
         "banca": 120.0,
-        "ultima": "11:29:50"
+        "ultima": "11:59:06"
       },
       {
         "nome": "ARBITRAGE",
@@ -113,8 +113,8 @@
         "ativo": true,
         "pnl": -0.08,
         "win": 0.0,
-        "ultima": "11:29:02",
-        "uptime": "95h39m"
+        "ultima": "11:57:56",
+        "uptime": "96h07m"
       },
       {
         "nome": "DIRECIONAL",
@@ -122,7 +122,7 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "11:29:43"
+        "ultima": "11:59:01"
       },
       {
         "nome": "GAEL LENOVO",
@@ -139,9 +139,9 @@
         "papel": "M2 - bots + locutores",
         "online": true,
         "cpu": 18.4,
-        "ram_pct": 93.3,
+        "ram_pct": 89.1,
         "disk_pct": 2.0,
-        "uptime": "3 days, 23:40"
+        "uptime": "4 days, 10 mins"
       },
       {
         "nome": "INTEL",
@@ -156,10 +156,10 @@
         "nome": "NITRO",
         "papel": "Win11 - banners",
         "online": true,
-        "cpu": 10,
-        "ram_pct": 89.6,
+        "cpu": 4,
+        "ram_pct": 85.5,
         "disk_pct": 75.8,
-        "uptime": "75h"
+        "uptime": "76h"
       },
       {
         "nome": "LENOVO",
