@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-06-18 13:59:30",
-  "atualizado_ts": 1781801970,
+  "atualizado_em": "2026-06-18 14:29:05",
+  "atualizado_ts": 1781803745,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,8 +93,8 @@
     }
   },
   "radio_panel": {
-    "hora": "13:59:31",
-    "ts": 1781801971,
+    "hora": "14:29:05",
+    "ts": 1781803745,
     "pnl_total": -37.56,
     "bots": [
       {
@@ -105,7 +105,7 @@
         "trades": 9,
         "ganhos": 6,
         "banca": 120.0,
-        "ultima": "13:59:28"
+        "ultima": "14:28:58"
       },
       {
         "nome": "ARBITRAGE",
@@ -113,8 +113,8 @@
         "ativo": true,
         "pnl": -0.08,
         "win": 0.0,
-        "ultima": "13:59:27",
-        "uptime": "98h09m"
+        "ultima": "14:29:02",
+        "uptime": "98h39m"
       },
       {
         "nome": "DIRECIONAL",
@@ -138,10 +138,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 17.3,
-        "ram_pct": 88.4,
+        "cpu": 16.5,
+        "ram_pct": 90.4,
         "disk_pct": 2.0,
-        "uptime": "4 days,  2:10"
+        "uptime": "4 days,  2:40"
       },
       {
         "nome": "INTEL",
@@ -156,9 +156,9 @@
         "nome": "NITRO",
         "papel": "Win11 - banners",
         "online": true,
-        "cpu": 8,
-        "ram_pct": 85.2,
-        "disk_pct": 76.5,
+        "cpu": 4,
+        "ram_pct": 81.5,
+        "disk_pct": 76.7,
         "uptime": "78h"
       },
       {
