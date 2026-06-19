@@ -244,7 +244,7 @@ html,body{
   overflow:hidden;
 }
 .panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#f2a900,transparent);}
-.pt{font-size:9px;letter-spacing:2px;color:#9ca3af;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid #1f2937;display:flex;align-items:center;gap:6px;font-family:ui-monospace,Menlo,monospace;}
+.pt{font-size:10px;letter-spacing:2px;color:#d1d5db;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid #1f2937;display:flex;align-items:center;gap:6px;font-family:ui-monospace,Menlo,monospace;font-weight:600;}
 .pt::before{content:'▸';color:#f2a900;}
 
 /* ── BTC PRICE HERO ── */
@@ -271,7 +271,7 @@ html,body{
 #player-panel{margin-bottom:8px;background:#0d1117;}
 /* BTC price ticker no player */
 #player-btc-row{display:flex;justify-content:space-between;align-items:center;background:#111827;border:1px solid #1f2937;border-radius:6px;padding:6px 10px;margin-bottom:10px;font-family:ui-monospace,Menlo,monospace;}
-#player-btc-price{font-size:15px;font-weight:800;color:#f2a900;letter-spacing:1px;}
+#player-btc-price{font-size:16px;font-weight:800;color:#f2a900;letter-spacing:1px;}
 #player-btc-change{font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;}
 #player-btc-change.pos{background:rgba(34,197,94,.15);color:#22c55e;}
 #player-btc-change.neg{background:rgba(239,68,68,.15);color:#ef4444;}
@@ -301,9 +301,9 @@ html,body{
   border:2px solid #f2a900;
 }
 .track-info{flex:1;min-width:0;}
-.track-title{font-size:12px;color:#e5e7eb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;letter-spacing:.3px;}
-.track-artist{font-size:9px;color:#6b7280;margin-top:2px;letter-spacing:1px;font-family:ui-monospace,Menlo,monospace;}
-.track-dur{font-size:10px;color:#f2a900;margin-top:4px;font-family:ui-monospace,Menlo,monospace;font-weight:600;}
+.track-title{font-size:13px;color:#f9fafb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;letter-spacing:.3px;}
+.track-artist{font-size:10px;color:#9ca3af;margin-top:2px;letter-spacing:1px;font-family:ui-monospace,Menlo,monospace;}
+.track-dur{font-size:11px;color:#f2a900;margin-top:4px;font-family:ui-monospace,Menlo,monospace;font-weight:700;}
 
 .waveform{display:none;}
 .progress-bar{width:100%;height:3px;background:#1f2937;border-radius:2px;cursor:pointer;margin:4px 0;}
@@ -334,24 +334,24 @@ html,body{
 .pl-item{
   display:grid;grid-template-columns:18px 1fr auto;
   align-items:center;gap:6px;
-  padding:5px 8px;
+  padding:6px 8px;
   border:1px solid #1f2937;
   border-radius:5px;
   background:#111827;
   cursor:pointer;
   transition:all 0.15s;
-  font-size:9px;
-  font-family:ui-monospace,Menlo,monospace;
+  font-size:11px;
+  font-family:-apple-system,Segoe UI,Helvetica,sans-serif;
 }
 .pl-item:hover{border-color:#374151;background:#1a2332;}
 .pl-item.active{
   border-color:#f2a900;
   background:#1a1500;
 }
-.pl-num{color:#6b7280;text-align:center;font-size:8px;}
-.pl-title{color:#c8d0d8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pl-item.active .pl-title{color:#f2a900;font-weight:bold;}
-.pl-dur{color:#6b7280;font-size:8px;}
+.pl-num{color:#6b7280;text-align:center;font-size:10px;}
+.pl-title{color:#e5e7eb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500;}
+.pl-item.active .pl-title{color:#fbbf24;font-weight:700;}
+.pl-dur{color:#9ca3af;font-size:10px;}
 
 /* ── CENTER ── */
 #center{display:flex;flex-direction:column;gap:8px;min-width:0;}
@@ -1296,10 +1296,10 @@ img{max-width:100%;height:auto;}
         <div class="pt" style="margin-top:14px;">💡 SUGIRA UMA MÚSICA BITCOINHEIRA</div>
         <div style="margin-top:6px;">
           <input id="sugInput" type="text" placeholder="Nome da música + artista..."
-            style="width:100%;background:#0a0a0a;border:1px solid rgba(0,255,65,0.3);color:var(--g);font-family:'Share Tech Mono',monospace;font-size:10px;padding:7px 8px;border-radius:4px;outline:none;box-sizing:border-box;"
+            style="width:100%;background:#111827;border:1px solid #374151;color:#e5e7eb;font-family:-apple-system,Segoe UI,sans-serif;font-size:11px;padding:8px 10px;border-radius:6px;outline:none;box-sizing:border-box;"
             onkeydown="if(event.key==='Enter')enviarSugestao()">
           <button onclick="enviarSugestao()"
-            style="margin-top:5px;width:100%;background:rgba(0,255,65,0.12);border:1px solid rgba(0,255,65,0.35);color:var(--g);font-family:'Share Tech Mono',monospace;font-size:10px;padding:7px;border-radius:4px;cursor:pointer;letter-spacing:1px;transition:background .2s;"
+            style="margin-top:5px;width:100%;background:#1f2937;border:1px solid #374151;color:#e5e7eb;font-family:-apple-system,Segoe UI,sans-serif;font-size:11px;padding:8px;border-radius:6px;cursor:pointer;letter-spacing:0.5px;transition:background .2s;font-weight:600;"
             onmouseover="this.style.background='rgba(0,255,65,0.22)'" onmouseout="this.style.background='rgba(0,255,65,0.12)'">
             ⚡ ENVIAR SUGESTÃO
           </button>
