@@ -232,7 +232,7 @@ html,body{
 @keyframes tickscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ── MAIN GRID ── */
-#main{display:grid;grid-template-columns:280px 1fr 260px;gap:8px;flex:1;}
+#main{display:grid;grid-template-columns:320px 1fr 260px;gap:8px;flex:1;}
 
 /* ── PANELS ── */
 .panel{
@@ -606,7 +606,7 @@ img{max-width:100%;height:auto;}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1200px){
-  #main{grid-template-columns:250px 1fr 240px;}
+  #main{grid-template-columns:300px 1fr 240px;}
 }
 @media(max-width:1000px){
   #main{grid-template-columns:1fr 1fr;}
@@ -646,7 +646,7 @@ img{max-width:100%;height:auto;}
   .track-dur{font-size:10px;}
 
   /* Visualizer */
-  #visualizer{height:48px;}
+  #visualizer{height:72px;}
 
   /* Progress bar mais fácil de tocar */
   .progress-bar{height:8px;margin:8px 0;}
@@ -770,9 +770,9 @@ img{max-width:100%;height:auto;}
 
 /* ── VISUALIZER ── */
 #visualizer{
-  width:100%;height:36px;display:block;
-  border-radius:4px;margin:6px 0;
-  background:#111827;
+  width:100%;height:64px;display:block;
+  border-radius:6px;margin:8px 0;
+  background:#0d1117;
 }
 
 /* ── SHARE BTN ── */
@@ -3378,19 +3378,60 @@ function _drawVisualizer() {
   _visRaf = requestAnimationFrame(_drawVisualizer);
   const canvas = document.getElementById('visualizer');
   if (!canvas || !_analyser) return;
-  const W = canvas.offsetWidth || 220, H = 40;
+  const W = canvas.offsetWidth || 300, H = 64;
   canvas.width = W; canvas.height = H;
   const ctx2 = canvas.getContext('2d');
-  const data  = new Uint8Array(_analyser.frequencyBinCount);
+  const data = new Uint8Array(_analyser.frequencyBinCount);
   _analyser.getByteFrequencyData(data);
   ctx2.clearRect(0, 0, W, H);
-  const bw = W / data.length;
-  data.forEach((v, i) => {
-    const bh  = (v / 255) * H;
-    const hue = 115 + (v / 255) * 55;
-    ctx2.fillStyle = `hsla(${hue},100%,52%,0.85)`;
-    ctx2.fillRect(i * bw, H - bh, bw - 1, bh);
-  });
+
+  // Grid lines estilo trading
+  ctx2.strokeStyle = 'rgba(255,255,255,0.04)';
+  ctx2.lineWidth = 1;
+  for (let y = H*0.25; y < H; y += H*0.25) {
+    ctx2.beginPath(); ctx2.moveTo(0, y); ctx2.lineTo(W, y); ctx2.stroke();
+  }
+
+  // Candles estilo BTC
+  const numCandles = 32;
+  const step = Math.floor(data.length / numCandles);
+  const cw = Math.floor(W / numCandles);
+  const gap = Math.max(1, Math.floor(cw * 0.25));
+
+  for (let i = 0; i < numCandles; i++) {
+    const slice = data.slice(i * step, (i + 1) * step);
+    const avg = slice.reduce((a, b) => a + b, 0) / slice.length;
+    const mx = Math.max(...slice);
+    const mn = Math.min(...slice);
+
+    const bodyH = Math.max(2, (avg / 255) * H * 0.75);
+    const highH = (mx / 255) * H * 0.92;
+    const lowH  = Math.max(0, (mn / 255) * H * 0.4);
+
+    const x = i * cw;
+    const bodyY = H - bodyH;
+
+    const isUp = (i % 3 !== 0) || avg > 80;
+    const color = isUp ? '#22c55e' : '#ef4444';
+    const colorAlpha = isUp ? 'rgba(34,197,94,0.7)' : 'rgba(239,68,68,0.7)';
+
+    // Wick superior
+    ctx2.strokeStyle = colorAlpha;
+    ctx2.lineWidth = 1;
+    ctx2.beginPath();
+    ctx2.moveTo(x + cw/2, H - highH);
+    ctx2.lineTo(x + cw/2, bodyY);
+    ctx2.stroke();
+
+    // Body do candle
+    ctx2.fillStyle = colorAlpha;
+    ctx2.fillRect(x + gap, bodyY, cw - gap*2, bodyH);
+
+    // Borda do candle
+    ctx2.strokeStyle = color;
+    ctx2.lineWidth = 1;
+    ctx2.strokeRect(x + gap, bodyY, cw - gap*2, bodyH);
+  }
 }
 
 function playTrack() {
