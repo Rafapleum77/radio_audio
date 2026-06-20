@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>⚔️ Campeonato de IA — Rádio Bitcoin.org</title>
+<meta name="description" content="4 IAs entram. 1 sai campeã. Claude vs Gemini vs GPT vs Manus — quem entende mais de Bitcoin e soberania digital? Você decide.">
+<meta property="og:title" content="⚔️ Campeonato de IA — Rádio Bitcoin.org">
+<meta property="og:description" content="4 IAs competem. Você vota. A melhor IA Bitcoin do mundo é decidida aqui.">
+<meta property="og:image" content="https://radiobitcoin.org/kit_valor100.jpg">
+<style>
+:root {
+  --bg: #07090d; --bg2: #0b0e11; --card: #111721; --bd: #1f2937;
+  --gold: #f2a900; --txt: #c8d0d8; --dim: #9ca3af;
+  --claude: #cc785c; --gemini: #4285F4; --gpt: #10a37f; --manus: #a855f7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,Segoe UI,Helvetica,sans-serif;min-height:100vh;}
+a{color:inherit;text-decoration:none;}
+
+/* HEADER */
+.hero{background:linear-gradient(180deg,#0a0f1a 0%,var(--bg) 100%);border-bottom:1px solid rgba(242,169,0,0.2);padding:28px 20px 20px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(242,169,0,0.08),transparent);}
+.hero-badge{display:inline-block;background:rgba(242,169,0,0.12);border:1px solid rgba(242,169,0,0.4);color:var(--gold);font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:14px;font-family:ui-monospace,Menlo,monospace;}
+.hero h1{font-size:clamp(28px,6vw,48px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:8px;}
+.hero h1 span{color:var(--gold);}
+.hero-sub{font-size:13px;color:var(--dim);max-width:480px;margin:0 auto 18px;line-height:1.6;}
+.live-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);color:#ef4444;font-size:10px;font-weight:700;letter-spacing:2px;padding:4px 12px;border-radius:20px;font-family:ui-monospace,Menlo,monospace;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#ef4444;animation:blink 1s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* BRACKET */
+.bracket-wrap{padding:20px;max-width:900px;margin:0 auto;}
+.bracket-title{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;text-align:center;}
+.bracket{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:center;}
+.bracket-col{display:flex;flex-direction:column;gap:8px;}
+.bracket-center{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 12px;}
+.b-card{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:8px;position:relative;}
+.b-card.winner{border-color:var(--gold);box-shadow:0 0 12px rgba(242,169,0,0.2);}
+.b-card.loser{opacity:0.45;}
+.b-card.tbd{opacity:0.5;border-style:dashed;}
+.b-ai-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.b-ai-name{font-size:12px;font-weight:700;color:#fff;}
+.b-ai-score{font-size:11px;color:var(--dim);margin-left:auto;font-family:ui-monospace,Menlo,monospace;}
+.b-vs{font-size:10px;color:var(--dim);text-align:center;padding:4px 0;}
+.trophy{font-size:36px;text-align:center;line-height:1;margin-bottom:6px;}
+.final-card{background:linear-gradient(135deg,rgba(242,169,0,0.1),rgba(242,169,0,0.05));border:1px solid rgba(242,169,0,0.4);border-radius:10px;padding:10px 16px;text-align:center;min-width:120px;}
+.final-label{font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-family:ui-monospace,Menlo,monospace;margin-bottom:4px;}
+.final-name{font-size:14px;font-weight:900;color:#fff;}
+.connector{border-top:1px solid rgba(255,255,255,0.1);width:20px;}
+
+/* RODADA ATUAL */
+.arena{max-width:900px;margin:0 auto;padding:0 20px 40px;}
+.round-header{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.round-info h2{font-size:16px;font-weight:800;color:#fff;margin-bottom:2px;}
+.round-info p{font-size:11px;color:var(--dim);}
+.round-num{font-family:ui-monospace,Menlo,monospace;font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;background:rgba(242,169,0,0.1);border:1px solid rgba(242,169,0,0.3);border-radius:20px;padding:4px 12px;}
+
+.challenge-box{background:linear-gradient(135deg,#0d1520,#07090d);border:1px solid rgba(242,169,0,0.3);border-radius:12px;padding:16px 20px;margin-bottom:20px;text-align:center;}
+.challenge-label{font-size:9px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;font-family:ui-monospace,Menlo,monospace;margin-bottom:8px;}
+.challenge-text{font-size:17px;font-weight:700;color:#fff;line-height:1.4;}
+
+/* AI CARDS */
+.ai-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:20px;}
+.ai-card{background:var(--card);border:2px solid var(--bd);border-radius:12px;overflow:hidden;transition:border-color .2s,transform .15s;cursor:pointer;}
+.ai-card:hover{transform:translateY(-2px);}
+.ai-card.voted{transform:none;}
+.ai-header{padding:12px 16px;display:flex;align-items:center;gap:10px;}
+.ai-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.ai-meta{}
+.ai-name-big{font-size:14px;font-weight:900;color:#fff;}
+.ai-version{font-size:9px;color:var(--dim);letter-spacing:1px;}
+.ai-response{padding:0 16px 14px;font-size:12px;color:#d1d5db;line-height:1.65;border-top:1px solid rgba(255,255,255,0.05);padding-top:12px;margin-top:0;font-style:italic;}
+.ai-footer{padding:10px 16px;border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
+.vote-bar-wrap{flex:1;height:5px;background:rgba(255,255,255,0.08);border-radius:3px;margin-right:10px;overflow:hidden;}
+.vote-bar{height:100%;border-radius:3px;transition:width .6s ease;}
+.vote-pct{font-size:11px;font-weight:700;font-family:ui-monospace,Menlo,monospace;}
+.vote-btn{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:20px;cursor:pointer;transition:all .15s;font-family:inherit;}
+.vote-btn:hover{background:rgba(255,255,255,0.12);}
+.vote-btn.my-vote{border-color:var(--gold);color:var(--gold);background:rgba(242,169,0,0.1);}
+.ai-card.claude{--ai-color:var(--claude);}
+.ai-card.gemini{--ai-color:var(--gemini);}
+.ai-card.gpt{--ai-color:var(--gpt);}
+.ai-card.manus{--ai-color:var(--manus);}
+.ai-card:hover,.ai-card.voted{border-color:var(--ai-color);}
+.ai-avatar.claude{background:rgba(204,120,92,0.2);}
+.ai-avatar.gemini{background:rgba(66,133,244,0.2);}
+.ai-avatar.gpt{background:rgba(16,163,127,0.2);}
+.ai-avatar.manus{background:rgba(168,85,247,0.2);}
+.vote-bar.claude{background:var(--claude);}
+.vote-bar.gemini{background:var(--gemini);}
+.vote-bar.gpt{background:var(--gpt);}
+.vote-bar.manus{background:var(--manus);}
+.vote-pct.claude{color:var(--claude);}
+.vote-pct.gemini{color:var(--gemini);}
+.vote-pct.gpt{color:var(--gpt);}
+.vote-pct.manus{color:var(--manus);}
+
+/* TOTAL */
+.vote-total{text-align:center;font-size:11px;color:var(--dim);margin-bottom:20px;font-family:ui-monospace,Menlo,monospace;}
+
+/* RODADAS */
+.rounds-nav{display:flex;gap:8px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px;}
+.round-tab{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:7px 16px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s;font-family:inherit;color:var(--dim);}
+.round-tab.active{background:rgba(242,169,0,0.12);border-color:var(--gold);color:var(--gold);}
+.round-tab.locked{opacity:.4;cursor:default;}
+
+/* PLACAR GERAL */
+.scoreboard{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px 20px;margin-bottom:20px;}
+.scoreboard h3{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;}
+.score-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.score-row:last-child{border-bottom:none;}
+.score-pos{font-size:10px;color:var(--dim);width:18px;font-family:ui-monospace,Menlo,monospace;}
+.score-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.score-name{font-size:13px;font-weight:700;color:#fff;flex:1;}
+.score-pts{font-size:12px;font-family:ui-monospace,Menlo,monospace;font-weight:700;}
+.score-bar-wrap{width:80px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+.score-bar{height:100%;border-radius:2px;transition:width .8s ease;}
+
+/* SHARE */
+.share-box{background:linear-gradient(135deg,rgba(242,169,0,0.08),rgba(242,169,0,0.03));border:1px solid rgba(242,169,0,0.25);border-radius:12px;padding:16px 20px;text-align:center;margin-bottom:24px;}
+.share-box p{font-size:12px;color:var(--dim);margin-bottom:12px;}
+.share-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:none;letter-spacing:.5px;transition:transform .15s;font-family:inherit;}
+.share-btn:active{transform:scale(.96);}
+.share-wa{background:#25D366;color:#fff;}
+.share-tw{background:#1d9bf0;color:#fff;}
+.share-copy{background:var(--card);border:1px solid var(--bd);color:var(--txt);}
+
+/* FOOTER NAV */
+.fnav{text-align:center;padding:16px;border-top:1px solid var(--bd);font-size:10px;color:var(--dim);font-family:ui-monospace,Menlo,monospace;}
+.fnav a{color:#6b7280;margin:0 8px;}
+
+/* PRÓXIMAS RODADAS */
+.upcoming{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px 20px;margin-bottom:20px;}
+.upcoming h3{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;}
+.upcoming-row{display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.upcoming-row:last-child{border-bottom:none;}
+.upr-num{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--gold);width:22px;flex-shrink:0;}
+.upr-info h4{font-size:12px;color:#fff;font-weight:700;margin-bottom:2px;}
+.upr-info p{font-size:10px;color:var(--dim);}
+.upr-badge{font-size:9px;padding:2px 8px;border-radius:10px;letter-spacing:1px;font-weight:700;font-family:ui-monospace,Menlo,monospace;margin-left:auto;white-space:nowrap;flex-shrink:0;}
+.upr-badge.live{background:rgba(239,68,68,.15);color:#ef4444;}
+.upr-badge.next{background:rgba(242,169,0,.12);color:var(--gold);}
+.upr-badge.soon{background:rgba(255,255,255,.05);color:var(--dim);}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">⚔️ Temporada 1 · 2026</div>
+  <h1>Campeonato<br>de <span>IA</span></h1>
+  <p class="hero-sub">4 inteligências artificiais entram na arena. Cada rodada tem um desafio Bitcoin. Você vota. A melhor IA do mundo é decidida aqui.</p>
+  <div class="live-badge"><div class="live-dot"></div>RODADA 1 AO VIVO</div>
+</div>
+
+<!-- BRACKET -->
+<div class="bracket-wrap">
+  <div class="bracket-title">// chaveamento — temporada 1</div>
+  <div class="bracket">
+    <!-- Esquerda: Semi 1 -->
+    <div class="bracket-col">
+      <div class="b-card winner" style="border-color:var(--claude);">
+        <div class="b-ai-dot" style="background:var(--claude);"></div>
+        <div class="b-ai-name">Claude</div>
+        <div class="b-ai-score" id="bsc-claude">—%</div>
+      </div>
+      <div class="b-vs">vs</div>
+      <div class="b-card" style="">
+        <div class="b-ai-dot" style="background:var(--gemini);"></div>
+        <div class="b-ai-name">Gemini</div>
+        <div class="b-ai-score" id="bsc-gemini">—%</div>
+      </div>
+    </div>
+
+    <!-- Centro: Final -->
+    <div class="bracket-center">
+      <div class="trophy">🏆</div>
+      <div class="final-card">
+        <div class="final-label">Final</div>
+        <div class="final-name" id="finalWinner">A decidir</div>
+      </div>
+    </div>
+
+    <!-- Direita: Semi 2 -->
+    <div class="bracket-col">
+      <div class="b-card" style="">
+        <div class="b-ai-dot" style="background:var(--gpt);"></div>
+        <div class="b-ai-name">GPT-4o</div>
+        <div class="b-ai-score" id="bsc-gpt">—%</div>
+      </div>
+      <div class="b-vs">vs</div>
+      <div class="b-card" style="">
+        <div class="b-ai-dot" style="background:var(--manus);"></div>
+        <div class="b-ai-name">Manus</div>
+        <div class="b-ai-score" id="bsc-manus">—%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ARENA -->
+<div class="arena">
+
+  <!-- TABS DE RODADA -->
+  <div class="rounds-nav">
+    <button class="round-tab active" onclick="setRound(1,this)">Rodada 1</button>
+    <button class="round-tab locked" title="Desbloqueia após Rodada 1">Semi-Final</button>
+    <button class="round-tab locked" title="Desbloqueia após Semi-Final">Final ⚔️</button>
+  </div>
+
+  <!-- DESAFIO ATUAL -->
+  <div class="challenge-box">
+    <div class="challenge-label">🎯 Desafio desta rodada</div>
+    <div class="challenge-text" id="challengeText">"Escreva em 3 frases por que Bitcoin vence o sistema financeiro tradicional. Sem jargão técnico — fale com quem nunca ouviu falar de Bitcoin."</div>
+  </div>
+
+  <!-- HEADER RODADA -->
+  <div class="round-header">
+    <div class="round-info">
+      <h2 id="roundTitle">Rodada 1 — Semifinal A</h2>
+      <p id="roundDesc">Claude Sonnet vs Gemini Flash · votação aberta</p>
+    </div>
+    <div class="round-num" id="roundLabel">RODADA 1 / 3</div>
+  </div>
+
+  <!-- CARDS DAS IAs -->
+  <div class="ai-grid" id="aiGrid"></div>
+  <div class="vote-total" id="voteTotal">0 votos computados</div>
+
+  <!-- PLACAR GERAL -->
+  <div class="scoreboard">
+    <h3>// placar geral temporada 1</h3>
+    <div id="scoreRows"></div>
+  </div>
+
+  <!-- PRÓXIMAS RODADAS -->
+  <div class="upcoming">
+    <h3>// agenda do campeonato</h3>
+    <div class="upcoming-row">
+      <div class="upr-num">R1</div>
+      <div class="upr-info">
+        <h4>Claude vs Gemini · GPT vs Manus</h4>
+        <p>Desafio: convencer um leigo sobre Bitcoin em 3 frases</p>
+      </div>
+      <div class="upr-badge live">AO VIVO</div>
+    </div>
+    <div class="upcoming-row">
+      <div class="upr-num">R2</div>
+      <div class="upr-info">
+        <h4>Semi-Final — Top 2 de cada grupo</h4>
+        <p>Desafio: criar a melhor letra de música Bitcoin (1 estrofe)</p>
+      </div>
+      <div class="upr-badge next">PRÓXIMA</div>
+    </div>
+    <div class="upcoming-row">
+      <div class="upr-num">R3</div>
+      <div class="upr-info">
+        <h4>Final — As 2 melhores IAs do mundo</h4>
+        <p>Desafio: montar um plano de soberania digital completo em 60 segundos de leitura</p>
+      </div>
+      <div class="upr-badge soon">EM BREVE</div>
+    </div>
+    <div class="upcoming-row">
+      <div class="upr-num">🏆</div>
+      <div class="upr-info">
+        <h4>Campeã recebe troféu digital + destaque permanente na Rádio</h4>
+        <p>+ episódio especial no podcast do amigo · resultado transmitido ao vivo</p>
+      </div>
+      <div class="upr-badge soon">ESPECIAL</div>
+    </div>
+  </div>
+
+  <!-- COMPARTILHAR -->
+  <div class="share-box">
+    <p>Chama o pessoal pra votar — quanto mais votos, mais legítimo o resultado! 🔥</p>
+    <div class="share-btns">
+      <button class="share-btn share-wa" onclick="shareWA()">💬 WhatsApp</button>
+      <button class="share-btn share-tw" onclick="shareTW()">🐦 X / Twitter</button>
+      <button class="share-btn share-copy" onclick="copyLink()">🔗 Copiar link</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="fnav">
+  <a href="/">📻 Rádio</a>
+  <a href="/futcoin">⚽ FutCoin</a>
+  <a href="/recovery.html">🛡️ Recovery Kit</a>
+  <a href="/mission_dashboard.html">📡 Mission Control</a>
+  &nbsp;·&nbsp; radiobitcoin.org
+</div>
+
+<script>
+// ─── DADOS DO CAMPEONATO ───────────────────────────────────────
+const ROUNDS = [
+  {
+    id: 1,
+    title: 'Rodada 1 — Semifinal A: Claude vs Gemini',
+    desc: 'Claude Sonnet 4.6 vs Gemini 2.0 Flash · votação aberta',
+    label: 'RODADA 1 / 3',
+    challenge: '"Escreva em 3 frases por que Bitcoin vence o sistema financeiro tradicional. Sem jargão técnico — fale com quem nunca ouviu falar de Bitcoin."',
+    pairs: [
+      {
+        id: 'claude',
+        name: 'Claude',
+        version: 'Sonnet 4.6 · Anthropic',
+        emoji: '🟠',
+        cssClass: 'claude',
+        response: `O dinheiro que você tem no banco pode ser bloqueado, inflacionado ou confiscado a qualquer momento — sem você ser consultado. Bitcoin é o primeiro dinheiro da história que ninguém controla: nem governo, nem banco, nem eu. Você guarda a chave, você tem o dinheiro; simples assim.`
+      },
+      {
+        id: 'gemini',
+        name: 'Gemini',
+        version: '2.0 Flash · Google',
+        emoji: '🔵',
+        cssClass: 'gemini',
+        response: `Imagine que seu salário pudesse encolher todo ano automaticamente, como se alguém tirasse R$ 10 de cada R$ 100 sem pedir permissão — isso é a inflação. Bitcoin tem quantidade máxima de 21 milhões de moedas e ninguém pode imprimir mais, então ele não encolhe. É como ter ouro que você carrega no celular e envia para qualquer pessoa no mundo em segundos.`
+      },
+      {
+        id: 'gpt',
+        name: 'GPT-4o',
+        version: 'GPT-4o · OpenAI',
+        emoji: '🟢',
+        cssClass: 'gpt',
+        response: `O sistema financeiro atual foi construído para servir bancos e governos — Bitcoin foi construído para servir pessoas. Com ele, você pode enviar dinheiro para qualquer lugar do mundo sem pedir permissão a ninguém, sem pagar taxas absurdas e sem precisar confiar em uma instituição que pode falir. É liberdade financeira de verdade, disponível para qualquer pessoa com um celular.`
+      },
+      {
+        id: 'manus',
+        name: 'Manus',
+        version: 'radiobot · local',
+        emoji: '🟣',
+        cssClass: 'manus',
+        response: `Banco pode fechar conta, governo pode imprimir dinheiro, plataforma pode te banir — com Bitcoin não existe isso. Você tem a chave, é seu. Não tem CEO, não tem BC, não tem "sistema fora do ar". É matemática pura rodando em milhares de computadores ao redor do mundo ao mesmo tempo. Ninguém desliga isso.`
+      }
+    ]
+  }
+];
+
+// ─── ESTADO ───────────────────────────────────────────────────
+const STORAGE_KEY = 'cia_votes_v1';
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+// state = { round1: { myVote: 'claude', votes: {claude:12, gemini:8, gpt:5, manus:3} } }
+
+function getVotes(roundId) {
+  const key = 'round' + roundId;
+  if (!state[key]) state[key] = { myVote: null, votes: { claude: 47, gemini: 31, gpt: 24, manus: 19 } };
+  return state[key];
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+// ─── RENDER ───────────────────────────────────────────────────
+let currentRound = 1;
+
+function renderGrid(roundId) {
+  const round = ROUNDS.find(r => r.id === roundId);
+  if (!round) return;
+  const rv = getVotes(roundId);
+  const total = Object.values(rv.votes).reduce((a, b) => a + b, 0);
+  const grid = document.getElementById('aiGrid');
+
+  grid.innerHTML = round.pairs.map(ai => {
+    const votes = rv.votes[ai.id] || 0;
+    const pct = total > 0 ? Math.round(votes / total * 100) : 0;
+    const isMyVote = rv.myVote === ai.id;
+    return `
+    <div class="ai-card ${ai.cssClass} ${isMyVote ? 'voted' : ''}" onclick="vote(${roundId}, '${ai.id}')">
+      <div class="ai-header">
+        <div class="ai-avatar ${ai.cssClass}">${ai.emoji}</div>
+        <div class="ai-meta">
+          <div class="ai-name-big">${ai.name}</div>
+          <div class="ai-version">${ai.version}</div>
+        </div>
+      </div>
+      <div class="ai-response">"${ai.response}"</div>
+      <div class="ai-footer">
+        <div class="vote-bar-wrap"><div class="vote-bar ${ai.cssClass}" style="width:${pct}%"></div></div>
+        <div class="vote-pct ${ai.cssClass}" style="margin-right:8px;">${pct}%</div>
+        <button class="vote-btn ${isMyVote ? 'my-vote' : ''}" onclick="vote(${roundId},'${ai.id}');event.stopPropagation();">
+          ${isMyVote ? '✓ Votei' : '▲ Votar'}
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('voteTotal').textContent = total + ' votos computados';
+  updateBracket(roundId);
+  updateScoreboard();
+}
+
+function vote(roundId, aiId) {
+  const rv = getVotes(roundId);
+  if (rv.myVote === aiId) return;
+  if (rv.myVote) rv.votes[rv.myVote] = Math.max(0, (rv.votes[rv.myVote] || 1) - 1);
+  rv.votes[aiId] = (rv.votes[aiId] || 0) + 1;
+  rv.myVote = aiId;
+  saveState();
+  renderGrid(roundId);
+}
+
+function updateBracket(roundId) {
+  const rv = getVotes(roundId);
+  const total = Object.values(rv.votes).reduce((a, b) => a + b, 0);
+  ['claude', 'gemini', 'gpt', 'manus'].forEach(id => {
+    const el = document.getElementById('bsc-' + id);
+    if (!el) return;
+    const v = rv.votes[id] || 0;
+    el.textContent = total > 0 ? Math.round(v / total * 100) + '%' : '—%';
+  });
+  // Líder do grupo A
+  const groupA = { claude: rv.votes.claude || 0, gemini: rv.votes.gemini || 0 };
+  const leaderA = Object.entries(groupA).sort((a, b) => b[1] - a[1])[0][0];
+  const nameA = leaderA === 'claude' ? 'Claude' : 'Gemini';
+  // Líder do grupo B
+  const groupB = { gpt: rv.votes.gpt || 0, manus: rv.votes.manus || 0 };
+  const leaderB = Object.entries(groupB).sort((a, b) => b[1] - a[1])[0][0];
+  const nameB = leaderB === 'gpt' ? 'GPT-4o' : 'Manus';
+  document.getElementById('finalWinner').textContent = nameA + ' vs ' + nameB;
+}
+
+function updateScoreboard() {
+  const rv = getVotes(1);
+  const ais = [
+    { id: 'claude', name: 'Claude', color: 'var(--claude)' },
+    { id: 'gemini', name: 'Gemini', color: 'var(--gemini)' },
+    { id: 'gpt', name: 'GPT-4o', color: 'var(--gpt)' },
+    { id: 'manus', name: 'Manus', color: 'var(--manus)' },
+  ].map(a => ({ ...a, pts: rv.votes[a.id] || 0 }))
+   .sort((a, b) => b.pts - a.pts);
+
+  const max = ais[0].pts || 1;
+  document.getElementById('scoreRows').innerHTML = ais.map((a, i) => `
+    <div class="score-row">
+      <div class="score-pos">${['🥇','🥈','🥉','4º'][i]}</div>
+      <div class="score-dot" style="background:${a.color};"></div>
+      <div class="score-name">${a.name}</div>
+      <div class="score-bar-wrap"><div class="score-bar" style="width:${Math.round(a.pts/max*100)}%;background:${a.color};"></div></div>
+      <div class="score-pts" style="color:${a.color};">${a.pts} pts</div>
+    </div>`).join('');
+}
+
+function setRound(id, el) {
+  if (el.classList.contains('locked')) return;
+  currentRound = id;
+  document.querySelectorAll('.round-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const r = ROUNDS.find(x => x.id === id);
+  if (r) {
+    document.getElementById('roundTitle').textContent = r.title;
+    document.getElementById('roundDesc').textContent = r.desc;
+    document.getElementById('roundLabel').textContent = r.label;
+    document.getElementById('challengeText').textContent = r.challenge;
+  }
+  renderGrid(id);
+}
+
+// ─── SHARE ────────────────────────────────────────────────────
+const SHARE_URL = 'https://radiobitcoin.org/campeonato-ia';
+const SHARE_TEXT = '⚔️ Campeonato de IA — Claude vs Gemini vs GPT vs Manus. Qual IA entende mais de Bitcoin? Eu já votei! Vote você também:';
+
+function shareWA() {
+  window.open('https://wa.me/?text=' + encodeURIComponent(SHARE_TEXT + '\n' + SHARE_URL));
+}
+function shareTW() {
+  window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(SHARE_TEXT) + '&url=' + encodeURIComponent(SHARE_URL));
+}
+function copyLink() {
+  navigator.clipboard.writeText(SHARE_URL).then(() => alert('Link copiado! ✓'));
+}
+
+// ─── INIT ─────────────────────────────────────────────────────
+renderGrid(1);
+</script>
+</body>
+</html>
