@@ -548,21 +548,23 @@ img{max-width:100%;height:auto;}
 .lenda-fato{font-size:7px;color:var(--text-dim);line-height:1.4;margin-top:3px;}
 
 /* ── VOTAÇÃO SATOSHI ── */
-.satoshi-vote-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:8px;}
-.sv-card{background:rgba(0,10,0,0.7);border:1px solid rgba(0,255,65,0.15);border-radius:6px;padding:8px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
-.sv-card:hover{border-color:rgba(0,255,65,0.4);background:rgba(0,255,65,0.06);}
-.sv-card.voted{border-color:var(--gold);box-shadow:0 0 10px rgba(242,169,0,0.25);}
-.sv-card.voted::before{content:'✓';position:absolute;top:4px;right:6px;font-size:10px;color:var(--gold);}
-.sv-avatar{font-size:20px;margin-bottom:3px;}
-.sv-name{font-size:9px;color:#fff;font-weight:bold;letter-spacing:1px;}
-.sv-tier{font-size:7px;letter-spacing:1px;margin-bottom:3px;}
+.satoshi-vote-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px;}
+.sv-card{background:#0d1117;border:1px solid rgba(255,255,255,0.07);border-radius:10px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.sv-card:hover{border-color:rgba(242,169,0,0.4);transform:translateY(-2px);box-shadow:0 6px 20px -6px rgba(242,169,0,0.25);}
+.sv-card.voted{border-color:var(--gold);box-shadow:0 0 14px rgba(242,169,0,0.3);}
+.sv-card.voted::after{content:'✓ VOTEI';position:absolute;top:6px;right:6px;font-size:7px;font-weight:900;color:var(--gold);background:rgba(242,169,0,0.15);border:1px solid rgba(242,169,0,0.4);padding:2px 6px;border-radius:10px;font-family:ui-monospace,Menlo,monospace;letter-spacing:1px;}
+.sv-photo{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#141a24;}
+.sv-photo-fallback{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:36px;background:linear-gradient(135deg,#0d1117,#141a24);}
+.sv-body{padding:7px 8px 8px;}
+.sv-name{font-size:9px;color:#fff;font-weight:900;letter-spacing:1px;line-height:1.2;margin-bottom:2px;}
+.sv-tier{font-size:7px;letter-spacing:1px;margin-bottom:4px;font-family:ui-monospace,Menlo,monospace;font-weight:700;}
 .sv-tier.fav{color:#00ff41;}
-.sv-tier.alt{color:var(--blue);}
-.sv-tier.curi{color:#ff9900;}
-.sv-desc{font-size:7px;color:var(--text-dim);line-height:1.35;margin-top:2px;}
-.sv-bar-wrap{margin-top:5px;height:5px;background:#0a0a0a;border-radius:3px;overflow:hidden;}
-.sv-bar{height:100%;border-radius:3px;transition:width 0.6s ease;}
-.sv-pct{font-size:8px;color:var(--text-dim);margin-top:2px;}
+.sv-tier.alt{color:#38bdf8;}
+.sv-tier.curi{color:#f97316;}
+.sv-desc{font-size:7px;color:var(--text-dim);line-height:1.4;margin-bottom:5px;}
+.sv-bar-wrap{height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;}
+.sv-bar{height:100%;border-radius:2px;transition:width 0.6s ease;}
+.sv-pct{font-size:7px;color:var(--text-dim);margin-top:3px;font-family:ui-monospace,Menlo,monospace;}
 .sv-total{font-size:8px;color:var(--text-dim);text-align:right;margin-top:6px;}
 .sv-my-vote{font-size:8px;color:var(--gold);text-align:center;margin-top:6px;letter-spacing:1px;}
 .sv-reset{background:transparent;border:1px solid rgba(255,68,68,0.3);color:#ff6666;font-size:7px;padding:3px 8px;border-radius:3px;cursor:pointer;font-family:'Share Tech Mono',monospace;letter-spacing:1px;margin-top:4px;}
@@ -4372,14 +4374,22 @@ setInterval(fetchBotStats, 15000); // atualiza a cada 15 segundos
 // VOTAÇÃO: QUEM É SATOSHI?
 // ══════════════════════════════════════════════
 const SATOSHI_CANDIDATES = [
-  { id:'hal',    emoji:'🏃', name:'HAL FINNEY',      tier:'fav',  tierLabel:'FAVORITO',    desc:'1ª transação BTC. Criptógrafo lendário. Vivia perto de Dorian Nakamoto. Faleceu em 2014.' },
-  { id:'szabo',  emoji:'🔐', name:'NICK SZABO',       tier:'fav',  tierLabel:'FAVORITO',    desc:'Criou o Bit Gold (precursor do BTC). Estilo de escrita idêntico ao Whitepaper.' },
-  { id:'adam',   emoji:'⚙️', name:'ADAM BACK',        tier:'fav',  tierLabel:'FAVORITO',    desc:'Inventor do Hashcash. 1ª pessoa citada no Whitepaper. CEO da Blockstream.' },
-  { id:'len',    emoji:'🕊️', name:'LEN SASSAMAN',     tier:'alt',  tierLabel:'ALTERNATIVO', desc:'Brilhante criptógrafo. Faleceu em 2011, logo após Satoshi "desaparecer".' },
-  { id:'leroux', emoji:'🎭', name:'PAUL LE ROUX',     tier:'alt',  tierLabel:'ALTERNATIVO', desc:'Ex-programador e chefe do crime organizado. Habilidades técnicas excepcionais.' },
-  { id:'group',  emoji:'👥', name:'CYPHERPUNKS',      tier:'alt',  tierLabel:'ALTERNATIVO', desc:'Teoria do grupo: um coletivo de gênios para eliminar o ponto único de falha.' },
-  { id:'dorian', emoji:'🗞️', name:'DORIAN NAKAMOTO',  tier:'curi', tierLabel:'POLÊMICO',    desc:'Apontado pela Newsweek em 2014. Nome real: Satoshi Nakamoto. Nega qualquer envolvimento.' },
-  { id:'craig',  emoji:'🤥', name:'CRAIG WRIGHT',     tier:'curi', tierLabel:'POLÊMICO',    desc:'Afirma ser Satoshi publicamente. Nunca moveu as moedas dos primeiros blocos. Desacreditado.' },
+  { id:'hal',    emoji:'🏃', name:'HAL FINNEY',      tier:'fav',  tierLabel:'FAVORITO',    desc:'1ª transação BTC. Criptógrafo lendário. Faleceu em 2014.',
+    img:'https://image.pollinations.ai/prompt/hal+finney+bitcoin+cypherpunk+programmer+portrait+dark+background+neon+orange+cinematic+realistic?width=200&height=200&model=flux&nologo=true&seed=111' },
+  { id:'szabo',  emoji:'🔐', name:'NICK SZABO',       tier:'fav',  tierLabel:'FAVORITO',    desc:'Criou o Bit Gold. Estilo de escrita idêntico ao Whitepaper.',
+    img:'https://image.pollinations.ai/prompt/nick+szabo+bitcoin+cryptographer+smart+contracts+portrait+dark+background+neon+blue+cinematic+realistic?width=200&height=200&model=flux&nologo=true&seed=222' },
+  { id:'adam',   emoji:'⚙️', name:'ADAM BACK',        tier:'fav',  tierLabel:'FAVORITO',    desc:'Inventor do Hashcash. 1ª citado no Whitepaper. CEO Blockstream.',
+    img:'https://image.pollinations.ai/prompt/adam+back+hashcash+bitcoin+inventor+portrait+dark+background+neon+gold+cinematic+realistic?width=200&height=200&model=flux&nologo=true&seed=333' },
+  { id:'len',    emoji:'🕊️', name:'LEN SASSAMAN',     tier:'alt',  tierLabel:'ALTERNATIVO', desc:'Criptógrafo brilhante. Faleceu em 2011, quando Satoshi desapareceu.',
+    img:'https://image.pollinations.ai/prompt/len+sassaman+privacy+cryptographer+portrait+dark+background+neon+cyan+cinematic+realistic?width=200&height=200&model=flux&nologo=true&seed=444' },
+  { id:'leroux', emoji:'🎭', name:'PAUL LE ROUX',     tier:'alt',  tierLabel:'ALTERNATIVO', desc:'Ex-programador genial. Líder do crime organizado. Habilidades excepcionais.',
+    img:'https://image.pollinations.ai/prompt/mysterious+programmer+criminal+mastermind+portrait+dark+background+neon+purple+cinematic+dramatic?width=200&height=200&model=flux&nologo=true&seed=555' },
+  { id:'group',  emoji:'👥', name:'CYPHERPUNKS',      tier:'alt',  tierLabel:'ALTERNATIVO', desc:'Um coletivo de gênios criou Bitcoin para eliminar ponto único de falha.',
+    img:'https://image.pollinations.ai/prompt/group+of+cypherpunk+hackers+anonymous+collective+dark+room+neon+green+code+cinematic+dramatic?width=200&height=200&model=flux&nologo=true&seed=666' },
+  { id:'dorian', emoji:'🗞️', name:'DORIAN NAKAMOTO',  tier:'curi', tierLabel:'POLÊMICO',    desc:'Newsweek apontou em 2014. Nome real: Satoshi Nakamoto. Nega envolvimento.',
+    img:'https://image.pollinations.ai/prompt/dorian+nakamoto+japanese+american+elderly+engineer+portrait+dark+background+neon+orange+cinematic+realistic?width=200&height=200&model=flux&nologo=true&seed=777' },
+  { id:'craig',  emoji:'🤥', name:'CRAIG WRIGHT',     tier:'curi', tierLabel:'POLÊMICO',    desc:'Afirma ser Satoshi. Nunca moveu as moedas originais. Desacreditado.',
+    img:'https://image.pollinations.ai/prompt/craig+wright+fake+satoshi+fraud+portrait+dark+background+red+neon+cinematic+dramatic?width=200&height=200&model=flux&nologo=true&seed=888' },
 ];
 
 const SV_MINE     = 'satoshi_my_vote_v1';
@@ -4467,12 +4477,16 @@ function satoshiRender() {
     const pct = total > 0 ? Math.round(v/total*100) : 0;
     const isVoted = mine === c.id;
     return `<div class="sv-card${isVoted?' voted':''}" onclick="satoshiVote('${c.id}')">
-      <div class="sv-avatar">${c.emoji}</div>
-      <div class="sv-name">${c.name}</div>
-      <div class="sv-tier ${c.tier}">${c.tierLabel}</div>
-      <div class="sv-desc">${c.desc}</div>
-      <div class="sv-bar-wrap"><div class="sv-bar" style="width:${pct}%;background:${barColors[c.tier]}"></div></div>
-      <div class="sv-pct">${pct}% <span style="color:#444">(${v} voto${v!==1?'s':''})</span></div>
+      <img class="sv-photo" src="${c.img}" alt="${c.name}" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="sv-photo-fallback" style="display:none">${c.emoji}</div>
+      <div class="sv-body">
+        <div class="sv-name">${c.name}</div>
+        <div class="sv-tier ${c.tier}">${c.tierLabel}</div>
+        <div class="sv-desc">${c.desc}</div>
+        <div class="sv-bar-wrap"><div class="sv-bar" style="width:${pct}%;background:${barColors[c.tier]}"></div></div>
+        <div class="sv-pct">${pct}% · ${v} voto${v!==1?'s':''}</div>
+      </div>
     </div>`;
   }).join('');
 
