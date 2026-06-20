@@ -2424,6 +2424,167 @@ img{max-width:100%;height:auto;}
         </div>
       </div>
 
+      <!-- CALENDÁRIO BITCOIN -->
+      <div class="panel" id="calendario-btc" style="background:linear-gradient(180deg,#050a08 0%,#060c09 100%);border-color:rgba(0,255,136,0.2);">
+        <div class="pt" style="color:#00ff88;letter-spacing:3px;">📅 CALENDÁRIO BITCOIN 2026 — CONFERÊNCIAS GLOBAIS</div>
+
+        <style>
+        /* ── CALENDÁRIO BTC ── */
+        .cal-months{display:flex;gap:4px;flex-wrap:wrap;margin:10px 0 14px;}
+        .cal-month-btn{font-family:ui-monospace,Menlo,monospace;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 10px;border-radius:5px;cursor:pointer;border:1px solid rgba(0,255,136,0.2);color:#4b5563;background:#050a08;transition:all .15s;white-space:nowrap;}
+        .cal-month-btn.has-event{color:#6b7280;border-color:rgba(0,255,136,0.3);}
+        .cal-month-btn.active,.cal-month-btn:hover{color:#00ff88;border-color:rgba(0,255,136,0.7);background:rgba(0,255,136,0.08);box-shadow:0 0 10px rgba(0,255,136,0.1);}
+        .cal-month-btn.active{font-weight:900;}
+
+        .cal-events-list{display:flex;flex-direction:column;gap:8px;min-height:60px;}
+        .cal-event{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:8px;background:#060c09;border:1px solid rgba(255,255,255,0.07);transition:border-color .15s;text-decoration:none;}
+        .cal-event:hover{border-color:rgba(0,255,136,0.3);}
+        .cal-event.tier1{border-left:3px solid #00ff88;}
+        .cal-event.tier2{border-left:3px solid #00dcff;}
+        .cal-event.tier3{border-left:3px solid #f2a900;}
+        .cal-event.tier4{border-left:3px solid #a855f7;}
+        .cal-ev-date{font-family:ui-monospace,Menlo,monospace;font-size:20px;font-weight:900;line-height:1;flex-shrink:0;width:32px;text-align:center;}
+        .cal-event.tier1 .cal-ev-date{color:#00ff88;}
+        .cal-event.tier2 .cal-ev-date{color:#00dcff;}
+        .cal-event.tier3 .cal-ev-date{color:#f2a900;}
+        .cal-event.tier4 .cal-ev-date{color:#a855f7;}
+        .cal-ev-month-mini{font-family:ui-monospace,Menlo,monospace;font-size:7px;color:#374151;text-transform:uppercase;letter-spacing:1px;text-align:center;}
+        .cal-ev-body{flex:1;}
+        .cal-ev-name{font-size:11px;font-weight:800;color:#e5e7eb;margin-bottom:2px;}
+        .cal-ev-loc{font-size:9px;color:#6b7280;}
+        .cal-ev-loc b{color:#9ca3af;}
+        .cal-ev-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px;}
+        .cal-ev-tag{font-size:7px;font-family:ui-monospace,Menlo,monospace;font-weight:700;letter-spacing:.8px;padding:2px 7px;border-radius:10px;text-transform:uppercase;}
+        .cal-ev-tag.g{background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.25);}
+        .cal-ev-tag.b{background:rgba(0,220,255,0.1);color:#00dcff;border:1px solid rgba(0,220,255,0.25);}
+        .cal-ev-tag.o{background:rgba(242,169,0,0.1);color:#f2a900;border:1px solid rgba(242,169,0,0.25);}
+        .cal-ev-tag.p{background:rgba(168,85,247,0.1);color:#c084fc;border:1px solid rgba(168,85,247,0.25);}
+        .cal-ev-tag.r{background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.25);}
+
+        .cal-empty{font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#374151;padding:16px;text-align:center;letter-spacing:1px;}
+        .cal-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+        .cal-leg{display:flex;align-items:center;gap:4px;font-size:8px;color:#4b5563;font-family:ui-monospace,Menlo,monospace;}
+        .cal-leg-bar{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+        .cal-all-btn{font-family:ui-monospace,Menlo,monospace;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:5px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);color:#6b7280;background:transparent;transition:all .15s;margin-left:auto;}
+        .cal-all-btn.active,.cal-all-btn:hover{color:#e5e7eb;border-color:rgba(255,255,255,0.3);}
+        .cal-header-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
+        </style>
+
+        <div class="cal-legend">
+          <div class="cal-leg"><div class="cal-leg-bar" style="background:#00ff88;"></div>Tier 1 — Must-go global</div>
+          <div class="cal-leg"><div class="cal-leg-bar" style="background:#00dcff;"></div>Tier 2 — Top regional</div>
+          <div class="cal-leg"><div class="cal-leg-bar" style="background:#f2a900;"></div>Tier 3 — LATAM / BR</div>
+          <div class="cal-leg"><div class="cal-leg-bar" style="background:#a855f7;"></div>Tier 4 — Mining / Tech</div>
+        </div>
+
+        <div class="cal-header-row">
+          <div class="cal-months" id="cal-months-row"></div>
+          <button class="cal-all-btn" id="cal-all-btn" onclick="calShowAll()">VER TODOS</button>
+        </div>
+
+        <div class="cal-events-list" id="cal-events-list"></div>
+
+        <div style="font-size:7.5px;color:#374151;margin-top:12px;font-family:ui-monospace,Menlo,monospace;">* Datas estimadas com base em edições anteriores. Confirme no site oficial antes de viajar.</div>
+
+        <script>
+        (function(){
+          var EVENTS = [
+            // JAN
+            {day:20,month:1,name:'Bitcoin Policy Summit',loc:'Washington D.C., EUA',desc:'Lobby e política Bitcoin nos EUA',tags:[{l:'Política',c:'b'},{l:'EUA',c:'b'}],tier:2,url:''},
+            // FEV
+            {day:10,month:2,name:'Consensus Hong Kong',loc:'Hong Kong',desc:'CoinDesk — maior conferência de crypto da Ásia',tags:[{l:'Crypto',c:'b'},{l:'Ásia',c:'b'},{l:'Altcoins',c:'r'}],tier:2,url:''},
+            // MAR
+            {day:5,month:3,name:'BTC Policy Fly-In',loc:'Washington D.C., EUA',desc:'Advocacia Bitcoin no Congresso americano',tags:[{l:'Política',c:'b'},{l:'EUA',c:'b'}],tier:2,url:''},
+            // ABR
+            {day:14,month:4,name:'Bitconf Brasil',loc:'São Paulo, Brasil 🇧🇷',desc:'Maior evento Bitcoin do Brasil — palestrantes nacionais e internacionais',tags:[{l:'Brasil',c:'o'},{l:'LATAM',c:'o'},{l:'Bitcoin',c:'g'}],tier:3,url:'https://bitconf.com.br'},
+            // MAI
+            {day:5,month:5,name:'Bitcoin 2026',loc:'Nashville, Tennessee, EUA',desc:'O maior evento Bitcoin do mundo — dezenas de milhares de presentes, Michael Saylor, etc.',tags:[{l:'Must Go',c:'g'},{l:'EUA',c:'b'},{l:'Global',c:'g'}],tier:1,url:'https://b.tc/conference'},
+            {day:19,month:5,name:'Consensus Austin',loc:'Austin, Texas, EUA',desc:'CoinDesk Consensus — foco em Crypto & AI',tags:[{l:'Crypto',c:'b'},{l:'EUA',c:'b'}],tier:2,url:''},
+            // JUN
+            {day:5,month:6,name:'BTC Prague',loc:'Praga, República Tcheca 🇨🇿',desc:'Maior conferência Bitcoin da Europa — 100% Bitcoin only, sem altcoins',tags:[{l:'Must Go',c:'g'},{l:'Europa',c:'b'},{l:'Bitcoin Only',c:'g'}],tier:1,url:'https://btcprague.com'},
+            {day:18,month:6,name:'Bitcoin Summit Africa',loc:'Nairobi, Quênia',desc:'Adoção Bitcoin na África — Lightning, remessas, inclusão financeira',tags:[{l:'África',c:'p'},{l:'Lightning',c:'g'},{l:'Bitcoin',c:'g'}],tier:2,url:''},
+            // JUL
+            {day:8,month:7,name:'Mining Disrupt',loc:'Miami, Florida, EUA',desc:'Conferência de mineração Bitcoin — ASIC, energia, hashrate',tags:[{l:'Mining',c:'p'},{l:'EUA',c:'b'},{l:'Tech',c:'b'}],tier:4,url:''},
+            // AGO
+            {day:12,month:8,name:'Bitcoin Alive',loc:'Sydney, Austrália',desc:'Principal evento Bitcoin da Oceania — autocustódia e Lightning',tags:[{l:'Austrália',c:'b'},{l:'Bitcoin',c:'g'}],tier:2,url:''},
+            {day:22,month:8,name:'Satoshi Spritz',loc:'Berlim, Alemanha',desc:'Comunidade Bitcoin europeia — meetup premium com palestrantes globais',tags:[{l:'Europa',c:'b'},{l:'Bitcoin Only',c:'g'}],tier:2,url:''},
+            // SET
+            {day:5,month:9,name:'Baltic Honeybadger',loc:'Riga, Letônia 🇱🇻',desc:'Conferência Bitcoin mais antiga da Europa — puristas Bitcoin only, sem hype',tags:[{l:'Must Go',c:'g'},{l:'Europa',c:'b'},{l:'Bitcoin Only',c:'g'},{l:'OG',c:'o'}],tier:1,url:'https://baltichoneybadger.com'},
+            {day:18,month:9,name:'TABConf',loc:'Atlanta, Georgia, EUA',desc:'Conferência técnica Bitcoin — devs, Lightning, protocolos',tags:[{l:'Técnico',c:'p'},{l:'Devs',c:'b'},{l:'Lightning',c:'g'}],tier:2,url:'https://tabconf.com'},
+            // OUT
+            {day:7,month:10,name:'Bitcoin Amsterdam',loc:'Amsterdam, Holanda 🇳🇱',desc:'Top conferência Bitcoin da Europa Ocidental — 100% Bitcoin only',tags:[{l:'Europa',c:'b'},{l:'Bitcoin Only',c:'g'}],tier:1,url:'https://bitcoin.nl'},
+            {day:21,month:10,name:'Plan B Forum Lugano',loc:'Lugano, Suíça 🇨🇭',desc:'Cidade suíça que adotou Bitcoin como moeda — evento anual de adoção municipal',tags:[{l:'Europa',c:'b'},{l:'Adoção',c:'g'},{l:'Suíça',c:'b'}],tier:2,url:'https://planb.lugano.ch'},
+            {day:28,month:10,name:'Labitconf',loc:'Montevidéu, Uruguai',desc:'Maior conferência Bitcoin/Crypto da LATAM — foco em Argentina, Brasil, Uruguai',tags:[{l:'LATAM',c:'o'},{l:'Brasil',c:'o'},{l:'Argentina',c:'o'}],tier:3,url:'https://labitconf.com'},
+            // NOV
+            {day:10,month:11,name:'Adopting Bitcoin',loc:'El Salvador 🇸🇻',desc:'Na terra onde BTC é moeda legal — Lightning e adoção nacional',tags:[{l:'Must Go',c:'g'},{l:'El Salvador',c:'o'},{l:'Lightning',c:'g'}],tier:1,url:'https://adoptingbitcoin.org'},
+            {day:24,month:11,name:'Bitcoin Atlantis',loc:'Açores / Lisboa, Portugal 🇵🇹',desc:'Evento Bitcoin na Europa lusófona — ótimo para brasileiros',tags:[{l:'Europa',c:'b'},{l:'Portugal',c:'o'},{l:'LATAM friendly',c:'o'}],tier:2,url:''},
+            // DEZ
+            {day:3,month:12,name:'Bitconf de Encerramento',loc:'São Paulo, Brasil 🇧🇷',desc:'Edição de encerramento do ano Bitconf — review do mercado e previsões',tags:[{l:'Brasil',c:'o'},{l:'LATAM',c:'o'}],tier:3,url:''},
+            {day:12,month:12,name:'Year in Bitcoin — Livestream',loc:'Online / Global',desc:'Retrospectiva anual da comunidade Bitcoin global',tags:[{l:'Online',c:'b'},{l:'Global',c:'g'}],tier:3,url:''},
+          ];
+
+          var MONTHS = ['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
+          var currentMonth = null;
+
+          function render(events){
+            var el = document.getElementById('cal-events-list');
+            if(!events.length){el.innerHTML='<div class="cal-empty">— Nenhum evento neste mês —</div>';return;}
+            el.innerHTML = events.map(function(e){
+              var tags = e.tags.map(function(t){return '<span class="cal-ev-tag '+t.c+'">'+t.l+'</span>';}).join('');
+              var tierCls = 'tier'+e.tier;
+              var wrap = e.url ? 'a href="'+e.url+'" target="_blank"' : 'div';
+              var wrapEnd = e.url ? 'a' : 'div';
+              return '<'+wrap+' class="cal-event '+tierCls+'">'+
+                '<div>'+
+                  '<div class="cal-ev-date">'+e.day+'</div>'+
+                  '<div class="cal-ev-month-mini">'+MONTHS[e.month-1]+'</div>'+
+                '</div>'+
+                '<div class="cal-ev-body">'+
+                  '<div class="cal-ev-name">'+e.name+'</div>'+
+                  '<div class="cal-ev-loc"><b>📍</b> '+e.loc+' · '+e.desc+'</div>'+
+                  '<div class="cal-ev-tags">'+tags+'</div>'+
+                '</div>'+
+              '</'+wrapEnd+'>';
+            }).join('');
+          }
+
+          function calMonth(m){
+            currentMonth = m;
+            document.querySelectorAll('.cal-month-btn').forEach(function(b){b.classList.remove('active');});
+            document.getElementById('cal-all-btn').classList.remove('active');
+            document.querySelectorAll('.cal-month-btn[data-m="'+m+'"]').forEach(function(b){b.classList.add('active');});
+            render(EVENTS.filter(function(e){return e.month===m;}));
+          }
+          function calShowAll(){
+            currentMonth = null;
+            document.querySelectorAll('.cal-month-btn').forEach(function(b){b.classList.remove('active');});
+            document.getElementById('cal-all-btn').classList.add('active');
+            render(EVENTS);
+          }
+          window.calMonth = calMonth;
+          window.calShowAll = calShowAll;
+
+          // build month buttons
+          var row = document.getElementById('cal-months-row');
+          var eventMonths = EVENTS.map(function(e){return e.month;});
+          MONTHS.forEach(function(m,i){
+            var btn = document.createElement('button');
+            btn.className = 'cal-month-btn' + (eventMonths.indexOf(i+1)>-1?' has-event':'');
+            btn.dataset.m = i+1;
+            btn.textContent = m;
+            btn.onclick = function(){calMonth(i+1);};
+            row.appendChild(btn);
+          });
+
+          // default: show current month or next event
+          var now = new Date();
+          var curM = now.getMonth()+1;
+          var firstM = EVENTS.filter(function(e){return e.month>=curM;})[0];
+          setTimeout(function(){calMonth(firstM?firstM.month:1);},200);
+        })();
+        </script>
+      </div>
+
       <!-- DONOS DO BITCOIN -->
       <div class="panel" id="donos-bitcoin" style="background:linear-gradient(180deg,#050810 0%,#060a0d 100%);border-color:rgba(242,169,0,0.25);">
         <div class="pt" style="color:#f2a900;letter-spacing:3px;">₿ QUEM SÃO OS DONOS DO BITCOIN? — 2026</div>
