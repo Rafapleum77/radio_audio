@@ -1071,7 +1071,7 @@ img{max-width:100%;height:auto;}
     .rb-social__head { text-align:center; margin-bottom:14px; }
     .rb-social__title { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#4ade80; letter-spacing:4px; text-transform:uppercase; margin:0; }
     .rb-social__sub { font-family:ui-monospace,Menlo,monospace; font-size:9px; color:#9ca3af; letter-spacing:1.5px; margin-top:4px; }
-    .rb-social__grid { display:grid; grid-template-columns: repeat(6,1fr); gap:10px; max-width:1000px; margin:0 auto; }
+    .rb-social__grid { display:grid; grid-template-columns: repeat(7,1fr); gap:10px; max-width:1100px; margin:0 auto; }
     @media (max-width: 640px) { .rb-social__grid { grid-template-columns: repeat(3,1fr); } }
     .rb-social__card { background:#141a24; border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:10px 8px; text-align:center; text-decoration:none; transition: border-color .2s, transform .15s; position: relative; }
     .rb-social__card:hover { border-color:#f2a900; transform: translateY(-2px); }
@@ -1082,6 +1082,7 @@ img{max-width:100%;height:auto;}
     .rb-social__card.fb .rb-social__icon { background:#1877F2; color:#fff; }
     .rb-social__card.x  .rb-social__icon { background:#000; color:#fff; }
     .rb-social__card.nostr .rb-social__icon { background:linear-gradient(135deg,#a855f7,#7c3aed); color:#fff; }
+    .rb-social__card.sc   .rb-social__icon { background:#ff5500; color:#fff; }
     .rb-social__name { color:#fff; font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; }
     .rb-social__handle { color:#9ca3af; font-size:9px; margin-top:2px; }
     .rb-social__live { position:absolute; top:6px; right:6px; width:6px; height:6px; border-radius:50%; background:#4ade80; box-shadow:0 0 6px #4ade80; }
@@ -1129,6 +1130,11 @@ img{max-width:100%;height:auto;}
         <div class="rb-social__icon">⚡</div>
         <div class="rb-social__name">Nostr</div>
         <div class="rb-social__handle">npub1paqf0r…</div>
+      </a>
+      <a class="rb-social__card sc" href="https://soundcloud.com/radio-bitcoin" target="_blank" rel="noopener" title="Ouça as músicas da Rádio Bitcoin no SoundCloud">
+        <div class="rb-social__icon">☁️</div>
+        <div class="rb-social__name">SoundCloud</div>
+        <div class="rb-social__handle">radio-bitcoin</div>
       </a>
     </div>
     <div class="rb-social__windows">
@@ -1334,7 +1340,7 @@ img{max-width:100%;height:auto;}
           <span id="volVal" style="font-size:9px;color:var(--text-dim);min-width:28px">80%</span>
         </div>
 
-        <audio id="audioEl" preload="none" crossorigin="anonymous"></audio>
+        <audio id="audioEl" preload="auto"></audio>
         <button class="share-btn" onclick="shareOnX()">𝕏 COMPARTILHAR FAIXA ATUAL</button>
 
         <div class="pt" style="margin-top:10px;">📀 PLAYLIST</div>
@@ -3711,6 +3717,26 @@ audio.onended = () => {
   if (isRepeat) { audio.play(); } else { nextTrack(); }
 };
 
+// Auto-resume em stall/buffer vazio (conexão do carro)
+let _stallTimer = null;
+audio.onwaiting = () => {
+  _stallTimer = setTimeout(() => {
+    if (audio.paused || audio.readyState < 3) {
+      const pos = audio.currentTime;
+      audio.load();
+      audio.currentTime = pos;
+      audio.play().catch(() => {});
+    }
+  }, 3000);
+};
+audio.onplaying = () => { clearTimeout(_stallTimer); };
+audio.onstalled = () => {
+  // Tenta retomar sem reload primeiro
+  setTimeout(() => {
+    if (isPlaying && audio.paused) audio.play().catch(() => {});
+  }, 1500);
+};
+
 audio.ontimeupdate = () => {
   if (!audio.duration) return;
   const pct = (audio.currentTime / audio.duration) * 100;
@@ -4573,24 +4599,44 @@ function satoshiRender() {
   const placar = document.getElementById('svPlacar');
   if (!grid) return;
 
-  // Renderiza placar top-3
-  if (placar && total > 0) {
+  // Renderiza estatísticas completas
+  if (placar) {
     const sorted = SATOSHI_CANDIDATES
       .map(c => ({...c, v: votes[c.id]||0, pct: total>0 ? Math.round((votes[c.id]||0)/total*100) : 0}))
-      .sort((a,b) => b.v - a.v)
-      .slice(0, 3);
+      .sort((a,b) => b.v - a.v);
     const medals = ['🥇','🥈','🥉'];
-    placar.innerHTML = '<div style="font-size:8px;color:var(--gold);letter-spacing:1px;margin-bottom:6px;">🏆 PLACAR — ' + total + ' voto' + (total!==1?'s':'') + ' · ' + (_svOnline?'<span style="color:#00ff41">● ONLINE</span>':'<span style="color:#f2a900">● LOCAL</span>') + '</div>' +
-      sorted.map((c,i) => `<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
-        <span style="font-size:13px;">${medals[i]}</span>
-        <span style="font-size:9px;color:#fff;flex:1;">${c.emoji} ${c.name}</span>
-        <div style="flex:2;height:6px;background:#111;border-radius:3px;overflow:hidden;">
-          <div style="width:${c.pct}%;height:100%;background:linear-gradient(90deg,#f2a900,#ff9900);border-radius:3px;transition:width 0.6s;"></div>
+    const barColorMap = { fav:'#00ff41', alt:'#38bdf8', curi:'#f97316' };
+    const statusHtml = _svOnline
+      ? '<span style="color:#00ff41;font-size:8px;">● ONLINE</span>'
+      : '<span style="color:#f2a900;font-size:8px;">● LOCAL</span>';
+
+    if (total === 0) {
+      placar.innerHTML = `<div style="text-align:center;padding:10px 0;font-size:9px;color:#444;font-family:ui-monospace,Menlo,monospace;">
+        Nenhum voto ainda — seja o primeiro! 👇
+      </div>`;
+    } else {
+      placar.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div style="font-size:8px;color:var(--gold);font-family:ui-monospace,Menlo,monospace;font-weight:900;letter-spacing:1px;">📊 ESTATÍSTICAS — ${total} voto${total!==1?'s':''}</div>
+          ${statusHtml}
         </div>
-        <span style="font-size:9px;color:var(--gold);min-width:28px;text-align:right;">${c.pct}%</span>
-      </div>`).join('');
-  } else if (placar) {
-    placar.innerHTML = '<div style="font-size:8px;color:#444;text-align:center;padding:8px;">Seja o primeiro a votar 👇</div>';
+        ${sorted.map((c,i) => `
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+            <img src="${c.img}" alt="${c.name}" style="width:22px;height:22px;border-radius:4px;object-fit:cover;flex-shrink:0;border:1px solid rgba(255,255,255,0.08);"
+                 onerror="this.style.display='none'">
+            <div style="font-size:8px;font-weight:700;color:${i<3?'#fff':'#9ca3af'};width:74px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              ${i<3?medals[i]:' '} ${c.name.split(' ')[0]}
+            </div>
+            <div style="flex:1;height:7px;background:rgba(255,255,255,0.05);border-radius:4px;overflow:hidden;">
+              <div style="width:${c.pct}%;height:100%;background:${i===0?'linear-gradient(90deg,'+barColorMap[c.tier]+','+barColorMap[c.tier]+'aa)':'linear-gradient(90deg,rgba(255,255,255,0.2),rgba(255,255,255,0.1))'};border-radius:4px;transition:width 0.8s ease;"></div>
+            </div>
+            <div style="font-size:8px;font-weight:900;color:${i===0?barColorMap[c.tier]:'#6b7280'};min-width:26px;text-align:right;font-family:ui-monospace,Menlo,monospace;">${c.pct}%</div>
+            <div style="font-size:7px;color:#374151;min-width:18px;text-align:right;font-family:ui-monospace,Menlo,monospace;">${c.v}v</div>
+          </div>`).join('')}
+        <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.05);font-size:7px;color:#374151;font-family:ui-monospace,Menlo,monospace;text-align:right;">
+          líder: ${sorted[0].name} com ${sorted[0].pct}% dos votos
+        </div>`;
+    }
   }
 
   const barColors = { fav:'linear-gradient(90deg,#00cc33,#00ff41)', alt:'linear-gradient(90deg,#0077cc,#00d4ff)', curi:'linear-gradient(90deg,#cc6600,#ff9900)' };
