@@ -2724,6 +2724,18 @@ img{max-width:100%;height:auto;}
     <!-- RIGHT -->
     <div id="right">
 
+      <!-- BIT ADICT CARD DISCRETO -->
+      <a href="/ebook.html" style="display:block;text-decoration:none;background:linear-gradient(135deg,#07090d 0%,#0d1117 60%,#111827 100%);border:1px solid rgba(242,169,0,0.3);border-radius:10px;padding:10px 14px;margin-bottom:10px;transition:border-color .2s;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <div style="font-family:ui-monospace,Menlo,monospace;font-size:13px;font-weight:900;color:#f2a900;letter-spacing:2px;">BIT ADICT</div>
+          <div style="font-size:8px;color:#6b7280;font-family:ui-monospace,Menlo,monospace;letter-spacing:1px;">soberania digital</div>
+        </div>
+        <div style="background:linear-gradient(90deg,rgba(242,169,0,0.15),rgba(242,169,0,0.05));border:1px solid rgba(242,169,0,0.25);border-radius:6px;padding:7px 10px;text-align:center;">
+          <div style="font-size:9px;color:#f2a900;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">📥 10 Erros que Destroem Teu Bitcoin</div>
+          <div style="font-size:8px;color:#9ca3af;margin-top:2px;">eBook gratuito · 28 páginas</div>
+        </div>
+      </a>
+
       <!-- ZAP -->
       <div class="zap-card" id="zap-section">
         <div class="zap-title">⚡ APOIE VIA LIGHTNING</div>
@@ -3243,9 +3255,9 @@ function ordenarBitcoinPrimeiro() {
 // Estratégia: tenta tocar imediatamente; se for bloqueado, inicia no
 // primeiro gesto (clique/toque/tecla/scroll) — o que ocorre em segundos.
 function autoStartRadio() {
-  // Abre sempre com "Missão Bitcoin", tocando baixinho (25%)
-  const mIdx = TRACKS.findIndex(t => String(t.title || '').toLowerCase().replace('ã','a') === 'missao bitcoin');
-  const mIdx2 = mIdx >= 0 ? mIdx : TRACKS.findIndex(t => String(t.title || '').toLowerCase().includes('miss'));
+  // Abre sempre com "Juros Negativos", tocando baixinho (25%)
+  const mIdx = TRACKS.findIndex(t => String(t.title || '').toLowerCase().includes('juros negativos'));
+  const mIdx2 = mIdx >= 0 ? mIdx : TRACKS.findIndex(t => String(t.title || '').toLowerCase().includes('juros'));
   currentIdx = mIdx2 >= 0 ? mIdx2 : 0;
   const vs = document.getElementById('volSlider');
   if (vs) {
