@@ -549,10 +549,11 @@ img{max-width:100%;height:auto;}
 
 /* ── VOTAÇÃO SATOSHI ── */
 .satoshi-vote-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px;}
-.sv-card{background:#0d1117;border:1px solid rgba(255,255,255,0.07);border-radius:10px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
-.sv-card:hover{border-color:rgba(242,169,0,0.4);transform:translateY(-2px);box-shadow:0 6px 20px -6px rgba(242,169,0,0.25);}
+.sv-card{background:#0d1117;border:1px solid rgba(255,255,255,0.07);border-radius:10px;cursor:pointer;transition:all 0.2s;position:relative;overflow:visible;}
+.sv-card:hover{border-color:rgba(242,169,0,0.5);transform:translateY(-3px);box-shadow:0 8px 24px -6px rgba(242,169,0,0.3);}
 .sv-card.voted{border-color:var(--gold);box-shadow:0 0 14px rgba(242,169,0,0.3);}
-.sv-card.voted::after{content:'✓ VOTEI';position:absolute;top:6px;right:6px;font-size:7px;font-weight:900;color:var(--gold);background:rgba(242,169,0,0.15);border:1px solid rgba(242,169,0,0.4);padding:2px 6px;border-radius:10px;font-family:ui-monospace,Menlo,monospace;letter-spacing:1px;}
+.sv-card.voted::after{content:'✓ VOTEI';position:absolute;top:6px;right:6px;font-size:7px;font-weight:900;color:var(--gold);background:rgba(242,169,0,0.15);border:1px solid rgba(242,169,0,0.4);padding:2px 6px;border-radius:10px;font-family:ui-monospace,Menlo,monospace;letter-spacing:1px;z-index:1;}
+.sv-card-inner{border-radius:10px;overflow:hidden;}
 .sv-photo{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#141a24;}
 .sv-photo-fallback{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:36px;background:linear-gradient(135deg,#0d1117,#141a24);}
 .sv-body{padding:7px 8px 8px;}
@@ -569,6 +570,53 @@ img{max-width:100%;height:auto;}
 .sv-my-vote{font-size:8px;color:var(--gold);text-align:center;margin-top:6px;letter-spacing:1px;}
 .sv-reset{background:transparent;border:1px solid rgba(255,68,68,0.3);color:#ff6666;font-size:7px;padding:3px 8px;border-radius:3px;cursor:pointer;font-family:'Share Tech Mono',monospace;letter-spacing:1px;margin-top:4px;}
 .sv-reset:hover{border-color:#ff4444;background:rgba(255,68,68,0.08);}
+
+/* TOOLTIP PREVIEW */
+.sv-tooltip{
+  display:none;
+  position:absolute;
+  left:calc(100% + 10px);
+  top:0;
+  width:200px;
+  background:#0b0e11;
+  border:1px solid rgba(242,169,0,0.4);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 12px 40px -8px rgba(0,0,0,0.8),0 0 20px rgba(242,169,0,0.15);
+  z-index:999;
+  pointer-events:none;
+}
+.sv-card:nth-child(even) .sv-tooltip{left:auto;right:calc(100% + 10px);}
+.sv-card:hover .sv-tooltip{display:block;animation:svTipIn .15s ease;}
+@keyframes svTipIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
+.sv-card:nth-child(even):hover .sv-tooltip{animation:svTipInR .15s ease;}
+@keyframes svTipInR{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:translateX(0)}}
+.svt-photo{width:100%;height:120px;object-fit:cover;display:block;}
+.svt-body{padding:10px 12px;}
+.svt-name{font-size:12px;font-weight:900;color:#fff;letter-spacing:1px;margin-bottom:3px;}
+.svt-tier{font-size:8px;font-family:ui-monospace,Menlo,monospace;font-weight:700;letter-spacing:1.5px;margin-bottom:8px;}
+.svt-tier.fav{color:#00ff41;}
+.svt-tier.alt{color:#38bdf8;}
+.svt-tier.curi{color:#f97316;}
+.svt-fact{font-size:10px;color:#d1d5db;line-height:1.55;margin-bottom:8px;}
+.svt-cta{display:block;text-align:center;background:linear-gradient(90deg,rgba(242,169,0,0.15),rgba(242,169,0,0.08));border:1px solid rgba(242,169,0,0.35);border-radius:6px;padding:6px;font-size:9px;font-weight:900;color:var(--gold);letter-spacing:1.5px;font-family:ui-monospace,Menlo,monospace;}
+
+/* TOAST VOTO */
+#svToast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:linear-gradient(135deg,#0d1a0d,#0b1a0b);
+  border:1px solid #00ff41;
+  border-radius:12px;padding:14px 22px;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:0 8px 32px -6px rgba(0,255,65,0.4);
+  z-index:9999;opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;min-width:260px;
+}
+#svToast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+#svToast .t-icon{font-size:24px;flex-shrink:0;}
+#svToast .t-txt{}
+#svToast .t-title{font-size:13px;font-weight:900;color:#00ff41;letter-spacing:1px;}
+#svToast .t-sub{font-size:10px;color:#9ca3af;margin-top:2px;font-family:ui-monospace,Menlo,monospace;}
 
 /* ── PAÍSES ── */
 .paises-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:6px;}
@@ -4427,20 +4475,28 @@ setInterval(fetchBotStats, 15000); // atualiza a cada 15 segundos
 // ══════════════════════════════════════════════
 const SATOSHI_CANDIDATES = [
   { id:'hal',    emoji:'🏃', name:'HAL FINNEY',      tier:'fav',  tierLabel:'FAVORITO',    desc:'1ª transação BTC. Criptógrafo lendário. Faleceu em 2014.',
+    full:'Recebeu a primeira transação de Bitcoin da história — 10 BTC enviados pelo próprio Satoshi. Criptógrafo pioneiro, criador do RPOW. Morava a poucos quarteirões de Dorian Nakamoto. Faleceu em 2014 com ALS. Muitos acreditam que Hal ERA Satoshi.',
     img:'img/satoshi/hal.jpg' },
   { id:'szabo',  emoji:'🔐', name:'NICK SZABO',       tier:'fav',  tierLabel:'FAVORITO',    desc:'Criou o Bit Gold. Estilo de escrita idêntico ao Whitepaper.',
+    full:'Criou o Bit Gold em 1998 — precursor direto do Bitcoin. Análise linguística do Whitepaper mostra padrões de escrita quase idênticos aos de Szabo. Inventou o conceito de "smart contracts" nos anos 90. Nunca confirmou nem negou ser Satoshi.',
     img:'img/satoshi/szabo.jpg' },
   { id:'adam',   emoji:'⚙️', name:'ADAM BACK',        tier:'fav',  tierLabel:'FAVORITO',    desc:'Inventor do Hashcash. 1ª citado no Whitepaper. CEO Blockstream.',
+    full:'Inventou o Hashcash em 1997 — o sistema de prova de trabalho que o Bitcoin usa até hoje. É a primeira pessoa citada no Whitepaper original. Atual CEO da Blockstream. Trocou e-mails com Satoshi antes do lançamento. Diz que não é Satoshi.',
     img:'img/satoshi/adam.jpg' },
   { id:'len',    emoji:'🕊️', name:'LEN SASSAMAN',     tier:'alt',  tierLabel:'ALTERNATIVO', desc:'Criptógrafo brilhante. Faleceu em 2011, quando Satoshi desapareceu.',
+    full:'Brilhante criptógrafo e ativista de privacidade. Trabalhou com criptografia de e-mail e anonimato. Faleceu em julho de 2011 — exatamente quando Satoshi parou de aparecer. Há um tributo a ele embutido nos dados da blockchain do Bitcoin.',
     img:'img/satoshi/len.jpg' },
   { id:'leroux', emoji:'🎭', name:'PAUL LE ROUX',     tier:'alt',  tierLabel:'ALTERNATIVO', desc:'Ex-programador genial. Líder do crime organizado. Habilidades excepcionais.',
+    full:'Programador prodígio que criou o E4M (software de criptografia de disco) sozinho. Tornou-se chefe de uma das maiores organizações criminosas do mundo. Habilidades técnicas excepcionais + paranoia com privacidade = perfil compatível com Satoshi. Atualmente preso nos EUA.',
     img:'img/satoshi/leroux.jpg' },
   { id:'group',  emoji:'👥', name:'CYPHERPUNKS',      tier:'alt',  tierLabel:'ALTERNATIVO', desc:'Um coletivo de gênios criou Bitcoin para eliminar ponto único de falha.',
+    full:'Teoria do grupo: Bitcoin foi criado por um coletivo anônimo de cypherpunks para garantir que nenhuma pessoa pudesse ser forçada a revelar chaves ou ser eliminada. O nome "Satoshi Nakamoto" seria um pseudônimo coletivo. Faz sentido pela amplitude do projeto.',
     img:'img/satoshi/group.jpg' },
   { id:'dorian', emoji:'🗞️', name:'DORIAN NAKAMOTO',  tier:'curi', tierLabel:'POLÊMICO',    desc:'Newsweek apontou em 2014. Nome real: Satoshi Nakamoto. Nega envolvimento.',
+    full:'Em 2014 a Newsweek publicou uma matéria bombástica apontando Dorian Prentice Satoshi Nakamoto como o criador do Bitcoin. Engenheiro aposentado, ex-funcionário do governo americano, morava perto de Hal Finney. Negou veementemente. O verdadeiro Satoshi reapareceu apenas para dizer "não sou Dorian".',
     img:'img/satoshi/dorian.jpg' },
   { id:'craig',  emoji:'🤥', name:'CRAIG WRIGHT',     tier:'curi', tierLabel:'POLÊMICO',    desc:'Afirma ser Satoshi. Nunca moveu as moedas originais. Desacreditado.',
+    full:'Craig Wright afirma publicamente ser Satoshi Nakamoto desde 2016. Nunca conseguiu provar movendo as moedas dos blocos originais. Foi desmascarado pela comunidade repetidamente. Em 2024, um tribunal britânico declarou que ele mentiu sobre ser Satoshi. O maior fraude da história do Bitcoin.',
     img:'img/satoshi/craig.jpg' },
 ];
 
@@ -4469,7 +4525,6 @@ async function satoshiLoadVotes() {
 
 async function satoshiVote(id) {
   if (satoshiGetMine()) return;
-  // Tenta servidor
   const r = await _svFetch(SV_SERVER + '/votar_satoshi', {
     method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({id})
   });
@@ -4477,7 +4532,6 @@ async function satoshiVote(id) {
     const d = await r.json();
     _svVotes = d.votos || _svVotes;
   } else {
-    // Fallback local
     const local = _svLocalVotes();
     local[id] = (local[id]||0) + 1;
     localStorage.setItem(SV_LOCAL, JSON.stringify(local));
@@ -4485,6 +4539,23 @@ async function satoshiVote(id) {
   }
   localStorage.setItem(SV_MINE, id);
   satoshiRender();
+  // Toast de confirmação
+  const c = SATOSHI_CANDIDATES.find(x => x.id === id);
+  svShowToast(c ? c.name : id);
+}
+
+function svShowToast(name) {
+  let t = document.getElementById('svToast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'svToast';
+    t.innerHTML = `<div class="t-icon">⚡</div><div class="t-txt"><div class="t-title">VOTO COMPUTADO!</div><div class="t-sub" id="svToastSub"></div></div>`;
+    document.body.appendChild(t);
+  }
+  document.getElementById('svToastSub').textContent = 'Você votou em ' + name + ' como Satoshi Nakamoto';
+  t.classList.add('show');
+  clearTimeout(window._svToastTimer);
+  window._svToastTimer = setTimeout(() => t.classList.remove('show'), 3500);
 }
 
 function satoshiReset() {
@@ -4529,15 +4600,28 @@ function satoshiRender() {
     const pct = total > 0 ? Math.round(v/total*100) : 0;
     const isVoted = mine === c.id;
     return `<div class="sv-card${isVoted?' voted':''}" onclick="satoshiVote('${c.id}')">
-      <img class="sv-photo" src="${c.img}" alt="${c.name}" loading="lazy"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="sv-photo-fallback" style="display:none">${c.emoji}</div>
-      <div class="sv-body">
-        <div class="sv-name">${c.name}</div>
-        <div class="sv-tier ${c.tier}">${c.tierLabel}</div>
-        <div class="sv-desc">${c.desc}</div>
-        <div class="sv-bar-wrap"><div class="sv-bar" style="width:${pct}%;background:${barColors[c.tier]}"></div></div>
-        <div class="sv-pct">${pct}% · ${v} voto${v!==1?'s':''}</div>
+      <div class="sv-card-inner">
+        <img class="sv-photo" src="${c.img}" alt="${c.name}" loading="lazy"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="sv-photo-fallback" style="display:none">${c.emoji}</div>
+        <div class="sv-body">
+          <div class="sv-name">${c.name}</div>
+          <div class="sv-tier ${c.tier}">${c.tierLabel}</div>
+          <div class="sv-desc">${c.desc}</div>
+          <div class="sv-bar-wrap"><div class="sv-bar" style="width:${pct}%;background:${barColors[c.tier]}"></div></div>
+          <div class="sv-pct">${pct}% · ${v} voto${v!==1?'s':''}</div>
+        </div>
+      </div>
+      <!-- TOOLTIP PREVIEW -->
+      <div class="sv-tooltip">
+        <img class="svt-photo" src="${c.img}" alt="${c.name}"
+             onerror="this.style.display='none';">
+        <div class="svt-body">
+          <div class="svt-name">${c.name}</div>
+          <div class="svt-tier ${c.tier}">${c.tierLabel}</div>
+          <div class="svt-fact">${c.full || c.desc}</div>
+          <div class="svt-cta">🗳️ CLIQUE PARA VOTAR</div>
+        </div>
       </div>
     </div>`;
   }).join('');
