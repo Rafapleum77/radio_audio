@@ -3312,9 +3312,9 @@ function ordenarBitcoinPrimeiro() {
 // Estratégia: tenta tocar imediatamente; se for bloqueado, inicia no
 // primeiro gesto (clique/toque/tecla/scroll) — o que ocorre em segundos.
 function autoStartRadio() {
-  // Abre sempre com "Juros Negativos", tocando baixinho (25%)
-  const mIdx = TRACKS.findIndex(t => String(t.title || '').toLowerCase().includes('juros negativos'));
-  const mIdx2 = mIdx >= 0 ? mIdx : TRACKS.findIndex(t => String(t.title || '').toLowerCase().includes('juros'));
+  // Abre com "Bitcoin é a Salvação" (hit no Spotify)
+  const mIdx = TRACKS.findIndex(t => String(t.title || '').toLowerCase().includes('salvação'));
+  const mIdx2 = mIdx >= 0 ? mIdx : TRACKS.findIndex(t => String(t.title || '').toLowerCase().includes('salva'));
   currentIdx = mIdx2 >= 0 ? mIdx2 : 0;
   const vs = document.getElementById('volSlider');
   if (vs) {
