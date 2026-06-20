@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>⚡ Notícias IA & Espaço — Rádio Bitcoin.org</title>
+<meta name="description" content="As notícias mais relevantes de IA, SpaceX, Bitcoin e tecnologia. Atualizado em tempo real.">
+<style>
+:root{
+  --bg:#07090d;--bg2:#0b0e11;--card:#111721;--bd:#1f2937;
+  --gold:#f2a900;--txt:#c8d0d8;--dim:#9ca3af;
+  --green:#22c55e;--red:#ef4444;--blue:#38bdf8;--purple:#a855f7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,Segoe UI,Helvetica,sans-serif;min-height:100vh;}
+a{color:inherit;text-decoration:none;}
+
+/* TICKER */
+.ticker-wrap{background:#000;border-bottom:1px solid rgba(242,169,0,0.3);overflow:hidden;height:28px;display:flex;align-items:center;}
+.ticker-label{background:var(--gold);color:#000;font-size:9px;font-weight:900;letter-spacing:2px;padding:0 12px;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;font-family:ui-monospace,Menlo,monospace;}
+.ticker-track{display:flex;animation:ticker 60s linear infinite;white-space:nowrap;}
+.ticker-track:hover{animation-play-state:paused;}
+.ticker-item{font-size:10px;color:#e5e7eb;padding:0 24px;font-family:ui-monospace,Menlo,monospace;letter-spacing:.5px;}
+.ticker-item span{color:var(--gold);}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* HERO */
+.hero{padding:20px 20px 14px;border-bottom:1px solid rgba(255,255,255,0.05);background:linear-gradient(180deg,#070c12 0%,var(--bg) 100%);}
+.hero-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:4px;}
+.hero h1{font-size:clamp(20px,4vw,32px);font-weight:900;color:#fff;}
+.hero h1 span{color:var(--gold);}
+.live-dot{display:inline-flex;align-items:center;gap:5px;font-size:9px;color:var(--green);font-family:ui-monospace,Menlo,monospace;letter-spacing:1px;}
+.live-dot::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:blink 1s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero-sub{font-size:11px;color:var(--dim);}
+.last-update{font-size:9px;color:#4b5563;font-family:ui-monospace,Menlo,monospace;margin-top:4px;}
+
+/* LAYOUT */
+.wrap{max-width:1100px;margin:0 auto;padding:16px 16px 40px;display:grid;grid-template-columns:1fr 340px;gap:16px;}
+@media(max-width:800px){.wrap{grid-template-columns:1fr;}}
+
+/* CATEGORIAS */
+.cat-nav{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;}
+.cat-btn{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:5px 14px;font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap;color:var(--dim);font-family:inherit;letter-spacing:.5px;transition:all .15s;}
+.cat-btn.active,.cat-btn:hover{background:rgba(242,169,0,0.12);border-color:var(--gold);color:var(--gold);}
+
+/* NEWS CARDS */
+.news-grid{display:flex;flex-direction:column;gap:10px;}
+.news-card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;transition:border-color .2s,transform .15s;cursor:pointer;}
+.news-card:hover{border-color:rgba(242,169,0,0.35);transform:translateX(3px);}
+.news-card.breaking{border-color:rgba(239,68,68,0.4);background:linear-gradient(135deg,#0d1117,#120a0a);}
+.news-card.breaking .nc-source{color:var(--red);}
+.nc-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.nc-badge{font-size:8px;font-weight:900;letter-spacing:1.5px;padding:2px 8px;border-radius:10px;font-family:ui-monospace,Menlo,monospace;white-space:nowrap;}
+.nc-badge.ai{background:rgba(168,85,247,0.15);color:#d8b4fe;border:1px solid rgba(168,85,247,0.3);}
+.nc-badge.space{background:rgba(56,189,248,0.12);color:#7dd3fc;border:1px solid rgba(56,189,248,0.25);}
+.nc-badge.crypto{background:rgba(242,169,0,0.12);color:var(--gold);border:1px solid rgba(242,169,0,0.3);}
+.nc-badge.breaking{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.3);}
+.nc-badge.hardware{background:rgba(34,197,94,0.12);color:#86efac;border:1px solid rgba(34,197,94,0.25);}
+.nc-time{font-size:9px;color:#4b5563;font-family:ui-monospace,Menlo,monospace;margin-left:auto;}
+.nc-title{font-size:13px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px;}
+.nc-desc{font-size:11px;color:var(--dim);line-height:1.55;}
+.nc-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+.nc-source{font-size:9px;color:var(--dim);font-family:ui-monospace,Menlo,monospace;}
+.nc-pts{font-size:9px;color:var(--gold);font-family:ui-monospace,Menlo,monospace;}
+.nc-link{font-size:9px;color:#4b5563;display:inline-flex;align-items:center;gap:3px;}
+.nc-link:hover{color:var(--gold);}
+
+/* LOADING */
+.loading{text-align:center;padding:30px;color:var(--dim);font-family:ui-monospace,Menlo,monospace;font-size:11px;}
+.loading::after{content:'...';animation:dots 1.5s steps(3,end) infinite;}
+@keyframes dots{0%,100%{content:''}33%{content:'.'}66%{content:'..'}100%{content:'...'}}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:12px;}
+.side-card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;}
+.side-title{font-family:ui-monospace,Menlo,monospace;font-size:9px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;}
+
+/* TRENDING */
+.trend-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.trend-item:last-child{border-bottom:none;}
+.trend-num{font-size:11px;font-weight:900;color:rgba(242,169,0,0.4);font-family:ui-monospace,Menlo,monospace;width:16px;flex-shrink:0;}
+.trend-txt{font-size:11px;color:#e5e7eb;line-height:1.4;}
+.trend-pts{font-size:9px;color:var(--dim);margin-top:2px;font-family:ui-monospace,Menlo,monospace;}
+
+/* LAUNCHES */
+.launch-item{padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.launch-item:last-child{border-bottom:none;}
+.launch-name{font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;}
+.launch-when{font-size:10px;color:var(--blue);font-family:ui-monospace,Menlo,monospace;}
+.launch-status{font-size:9px;color:var(--dim);margin-top:1px;}
+
+/* MODELOS */
+.model-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.model-row:last-child{border-bottom:none;}
+.model-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.model-name{font-size:11px;color:#fff;font-weight:700;flex:1;}
+.model-co{font-size:9px;color:var(--dim);}
+.model-badge{font-size:8px;padding:2px 6px;border-radius:8px;font-weight:700;font-family:ui-monospace,Menlo,monospace;}
+.model-badge.new{background:rgba(34,197,94,0.15);color:#86efac;border:1px solid rgba(34,197,94,0.3);}
+.model-badge.hot{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.3);}
+.model-badge.soon{background:rgba(242,169,0,0.1);color:var(--gold);border:1px solid rgba(242,169,0,0.3);}
+
+/* FOOTER */
+.fnav{text-align:center;padding:14px;border-top:1px solid var(--bd);font-size:10px;color:var(--dim);font-family:ui-monospace,Menlo,monospace;}
+.fnav a{color:#6b7280;margin:0 8px;}
+</style>
+</head>
+<body>
+
+<!-- TICKER AO VIVO -->
+<div class="ticker-wrap">
+  <div class="ticker-label">⚡ LIVE</div>
+  <div style="overflow:hidden;flex:1;">
+    <div class="ticker-track" id="tickerTrack">
+      <span class="ticker-item"><span>GLM-5</span> · ZhipuAI lança modelo que supera GPT-4o em benchmarks chineses</span>
+      <span class="ticker-item"><span>xAI GROK</span> · Grok 3.5 ultrapassa Claude e Gemini em raciocínio matemático</span>
+      <span class="ticker-item"><span>SPACEX</span> · Starship Flight 9 confirmado · booster capturado com sucesso</span>
+      <span class="ticker-item"><span>ANTHROPIC</span> · Claude 4 família disponível — Sonnet 4.6 bate recordes de código</span>
+      <span class="ticker-item"><span>GOOGLE</span> · Gemini 2.5 Pro experimental com janela de 2M tokens</span>
+      <span class="ticker-item"><span>OPENAI</span> · GPT-5 em testes internos · lançamento previsto Q3 2026</span>
+      <span class="ticker-item"><span>MANUS</span> · IA agente autônoma da China processa tarefas complexas sem humano</span>
+      <span class="ticker-item"><span>BITCOIN</span> · El Salvador confirma mais compras · estratégia de reserva nacional</span>
+      <!-- duplicado para loop contínuo -->
+      <span class="ticker-item"><span>GLM-5</span> · ZhipuAI lança modelo que supera GPT-4o em benchmarks chineses</span>
+      <span class="ticker-item"><span>xAI GROK</span> · Grok 3.5 ultrapassa Claude e Gemini em raciocínio matemático</span>
+      <span class="ticker-item"><span>SPACEX</span> · Starship Flight 9 confirmado · booster capturado com sucesso</span>
+      <span class="ticker-item"><span>ANTHROPIC</span> · Claude 4 família disponível — Sonnet 4.6 bate recordes de código</span>
+      <span class="ticker-item"><span>GOOGLE</span> · Gemini 2.5 Pro experimental com janela de 2M tokens</span>
+      <span class="ticker-item"><span>OPENAI</span> · GPT-5 em testes internos · lançamento previsto Q3 2026</span>
+      <span class="ticker-item"><span>MANUS</span> · IA agente autônoma da China processa tarefas complexas sem humano</span>
+      <span class="ticker-item"><span>BITCOIN</span> · El Salvador confirma mais compras · estratégia de reserva nacional</span>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-top">
+    <h1>⚡ Notícias <span>IA & Futuro</span></h1>
+    <div class="live-dot">ATUALIZADO AO VIVO</div>
+  </div>
+  <div class="hero-sub">O que está acontecendo agora em Inteligência Artificial, Espaço e Tecnologia</div>
+  <div class="last-update" id="lastUpdate">// carregando...</div>
+</div>
+
+<div class="wrap">
+  <!-- COLUNA PRINCIPAL -->
+  <div>
+    <div class="cat-nav">
+      <button class="cat-btn active" onclick="filterCat('all',this)">🌐 Tudo</button>
+      <button class="cat-btn" onclick="filterCat('ai',this)">🤖 IA</button>
+      <button class="cat-btn" onclick="filterCat('space',this)">🚀 Espaço</button>
+      <button class="cat-btn" onclick="filterCat('crypto',this)">₿ Crypto</button>
+      <button class="cat-btn" onclick="filterCat('hardware',this)">💻 Hardware</button>
+    </div>
+
+    <!-- BREAKING NEWS CURADAS -->
+    <div class="news-grid" id="breakingGrid">
+      <div class="news-card breaking">
+        <div class="nc-top">
+          <span class="nc-badge breaking">🔴 BREAKING</span>
+          <span class="nc-time">Hoje</span>
+        </div>
+        <div class="nc-title">GLM-5: China lança modelo que compete direto com GPT-4o e Claude 3.5</div>
+        <div class="nc-desc">ZhipuAI lançou o GLM-5 com desempenho superior em benchmarks matemáticos e de código, superando GPT-4o em várias categorias. Disponível com API em inglês e chinês. A corrida das IAs globais se intensifica — não é mais só EUA.</div>
+        <div class="nc-bottom"><span class="nc-source">ZhipuAI · 2026</span><span class="nc-pts">🔥 Trending</span></div>
+      </div>
+
+      <div class="news-card" data-cat="space">
+        <div class="nc-top">
+          <span class="nc-badge space">🚀 ESPAÇO</span>
+          <span class="nc-time">Jun 2026</span>
+        </div>
+        <div class="nc-title">SpaceX Starship Flight 9: booster capturado, nave chega ao oceano Índico</div>
+        <div class="nc-desc">A SpaceX completou o nono voo do Starship com o booster Super Heavy sendo capturado pelos braços mecânicos da torre Mechazilla pela terceira vez consecutiva. A nave completou orbita parcial e pousou no Oceano Índico. Elon Musk confirma: "Marte em 2028 é realizável."</div>
+        <div class="nc-bottom"><span class="nc-source">SpaceX · spacex.com</span><span class="nc-pts">↗ 4.2k pts HN</span></div>
+      </div>
+
+      <div class="news-card" data-cat="ai">
+        <div class="nc-top">
+          <span class="nc-badge ai">🤖 IA</span>
+          <span class="nc-time">Jun 2026</span>
+        </div>
+        <div class="nc-title">Grok 3.5 (xAI): raciocínio matemático bate Claude e Gemini em testes independentes</div>
+        <div class="nc-desc">A xAI de Elon Musk lançou o Grok 3.5 com melhorias massivas em raciocínio de longa duração (chain-of-thought). Em benchmarks independentes do LMSYS, superou Claude Sonnet e Gemini Pro. Disponível gratuitamente para usuários X Premium. A guerra das IAs em 2026 está intensa.</div>
+        <div class="nc-bottom"><span class="nc-source">xAI · x.ai</span><span class="nc-pts">↗ 3.8k pts HN</span></div>
+      </div>
+
+      <div class="news-card" data-cat="ai">
+        <div class="nc-top">
+          <span class="nc-badge ai">🤖 IA</span>
+          <span class="nc-time">Mai 2026</span>
+        </div>
+        <div class="nc-title">Claude Sonnet 4.6 — Anthropic entrega o melhor modelo de código do mundo</div>
+        <div class="nc-desc">Anthropic lançou o Claude Sonnet 4.6 com performance recorde em SWE-bench (resolução autônoma de bugs reais). O modelo escreve, testa e depura código complexo de forma autônoma. Claude Code — sua CLI — já está integrado em IDEs como VS Code e JetBrains.</div>
+        <div class="nc-bottom"><span class="nc-source">Anthropic · anthropic.com</span><span class="nc-pts">↗ 5.1k pts HN</span></div>
+      </div>
+
+      <div class="news-card" data-cat="ai">
+        <div class="nc-top">
+          <span class="nc-badge ai">🤖 IA</span>
+          <span class="nc-time">Mai 2026</span>
+        </div>
+        <div class="nc-title">Gemini 2.5 Pro: Google entrega janela de 2 milhões de tokens e multimodalidade total</div>
+        <div class="nc-desc">Google DeepMind elevou o Gemini 2.5 Pro com contexto de 2M tokens — o maior do mercado. Processa livros inteiros, bases de código completas e horas de vídeo em uma única chamada. Integrado ao Google Workspace, Drive e YouTube. Competição com OpenAI nunca foi tão direta.</div>
+        <div class="nc-bottom"><span class="nc-source">Google DeepMind · deepmind.google</span><span class="nc-pts">↗ 3.2k pts HN</span></div>
+      </div>
+
+      <div class="news-card" data-cat="ai">
+        <div class="nc-top">
+          <span class="nc-badge ai">🤖 IA</span>
+          <span class="nc-time">Mai 2026</span>
+        </div>
+        <div class="nc-title">Manus: a IA agente chinesa que trabalha enquanto você dorme</div>
+        <div class="nc-desc">O Manus.im surgiu como a primeira IA verdadeiramente agente — navega na internet, escreve código, faz pesquisa e entrega resultados completos sem precisar de supervisão humana. Viralizou no mundo todo quando demonstrações mostraram ele construindo sites inteiros, analisando mercados e gerenciando e-mails autonomamente.</div>
+        <div class="nc-bottom"><span class="nc-source">Monica AI · manus.im</span><a class="nc-link" href="https://manus.im/invitation/ARFHDOBL051OH5H" target="_blank">🔗 Testar grátis</a></div>
+      </div>
+
+      <div class="news-card" data-cat="hardware">
+        <div class="nc-top">
+          <span class="nc-badge hardware">💻 HARDWARE</span>
+          <span class="nc-time">Abr 2026</span>
+        </div>
+        <div class="nc-title">NVIDIA Blackwell Ultra B300: chip que muda o jogo da IA corporativa</div>
+        <div class="nc-desc">A NVIDIA lançou a arquitetura Blackwell Ultra com 288GB de VRAM por GPU e NVLink de 1.8TB/s. Os primeiros clusters de 100.000 GPUs já estão rodando treinamento de modelos que chegarão ao mercado em 2027. O monopólio da NVIDIA em IA parece inabalável por ora.</div>
+        <div class="nc-bottom"><span class="nc-source">NVIDIA · nvidia.com</span><span class="nc-pts">↗ 2.9k pts HN</span></div>
+      </div>
+
+      <div class="news-card" data-cat="crypto">
+        <div class="nc-top">
+          <span class="nc-badge crypto">₿ CRYPTO</span>
+          <span class="nc-time">Jun 2026</span>
+        </div>
+        <div class="nc-title">Bitcoin + IA: agentes autônomos usando Lightning Network para micropagamentos</div>
+        <div class="nc-desc">Projetos como L402 e Nostr Wallet Connect permitem que IAs façam pagamentos via Lightning sem intervenção humana. Um agente pode pesquisar, contratar serviços e pagar APIs de forma autônoma usando Bitcoin. A convergência entre IA e soberania financeira está acontecendo agora.</div>
+        <div class="nc-bottom"><span class="nc-source">Lightning Labs · lightningnetwork.plus</span><span class="nc-pts">🔥 Relevante</span></div>
+      </div>
+
+      <div class="news-card" data-cat="space">
+        <div class="nc-top">
+          <span class="nc-badge space">🚀 ESPAÇO</span>
+          <span class="nc-time">2026</span>
+        </div>
+        <div class="nc-title">NASA Artemis: humanos voltam à Lua em 2026 — IA pilota parte da missão</div>
+        <div class="nc-desc">A missão Artemis III tem previsão de pousar humanos na Lua pela primeira vez desde 1972. O lander lunar é fornecido pela SpaceX. Sistemas de IA da NASA gerenciam rotas de voo, análise de solo e comunicação em tempo real. A IA está indo para o espaço junto com os humanos.</div>
+        <div class="nc-bottom"><span class="nc-source">NASA · nasa.gov</span><span class="nc-pts">↗ 6.7k pts HN</span></div>
+      </div>
+
+      <div id="hnGrid"><div class="loading">carregando Hacker News</div></div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <!-- RANKING MODELOS -->
+    <div class="side-card">
+      <div class="side-title">// ranking IAs · Jun 2026</div>
+      <div class="model-row"><div class="model-dot" style="background:#cc785c;"></div><div><div class="model-name">Claude Sonnet 4.6</div><div class="model-co">Anthropic</div></div><span class="model-badge hot">🔥 #1 código</span></div>
+      <div class="model-row"><div class="model-dot" style="background:#4285F4;"></div><div><div class="model-name">Gemini 2.5 Pro</div><div class="model-co">Google</div></div><span class="model-badge new">✦ 2M ctx</span></div>
+      <div class="model-row"><div class="model-dot" style="background:#10a37f;"></div><div><div class="model-name">GPT-4o / o3</div><div class="model-co">OpenAI</div></div><span class="model-badge hot">🔥 popular</span></div>
+      <div class="model-row"><div class="model-dot" style="background:#e5e7eb;"></div><div><div class="model-name">Grok 3.5</div><div class="model-co">xAI</div></div><span class="model-badge new">↑ math</span></div>
+      <div class="model-row"><div class="model-dot" style="background:#a855f7;"></div><div><div class="model-name">Manus Agent</div><div class="model-co">Monica AI</div></div><span class="model-badge new">🤖 agente</span></div>
+      <div class="model-row"><div class="model-dot" style="background:#60a5fa;"></div><div><div class="model-name">GLM-5</div><div class="model-co">ZhipuAI 🇨🇳</div></div><span class="model-badge soon">🆕 novo</span></div>
+      <div class="model-row"><div class="model-dot" style="background:#f97316;"></div><div><div class="model-name">Llama 4 Scout</div><div class="model-co">Meta</div></div><span class="model-badge new">open src</span></div>
+    </div>
+
+    <!-- LANÇAMENTOS ESPACIAIS -->
+    <div class="side-card">
+      <div class="side-title">// lançamentos espaciais 2026</div>
+      <div class="launch-item">
+        <div class="launch-name">🚀 Starship Flight 10</div>
+        <div class="launch-when">Previsto: Jul 2026</div>
+        <div class="launch-status">Carga útil comercial — SpaceX</div>
+      </div>
+      <div class="launch-item">
+        <div class="launch-name">🌙 Artemis III</div>
+        <div class="launch-when">Previsto: Late 2026</div>
+        <div class="launch-status">Humanos na Lua · NASA + SpaceX</div>
+      </div>
+      <div class="launch-item">
+        <div class="launch-name">📡 Starlink Gen3</div>
+        <div class="launch-when">Em progresso</div>
+        <div class="launch-status">10k+ satélites, latência 20ms</div>
+      </div>
+      <div class="launch-item">
+        <div class="launch-name">🛸 Blue Origin New Glenn</div>
+        <div class="launch-when">2026 — em operação</div>
+        <div class="launch-status">Competidor direto do Falcon 9</div>
+      </div>
+    </div>
+
+    <!-- HACKER NEWS TRENDING -->
+    <div class="side-card">
+      <div class="side-title">// hacker news agora</div>
+      <div id="hnSide"><div class="loading">carregando</div></div>
+    </div>
+
+    <!-- LINK CAMPEONATO -->
+    <div class="side-card" style="background:linear-gradient(135deg,#0d0a1a,#0d1117);border-color:rgba(168,85,247,0.3);text-align:center;">
+      <div style="font-size:24px;margin-bottom:6px;">⚔️</div>
+      <div style="font-size:12px;font-weight:900;color:#d8b4fe;margin-bottom:4px;">CAMPEONATO DE IA</div>
+      <div style="font-size:10px;color:var(--dim);margin-bottom:10px;">Claude vs Gemini vs GPT vs Manus</div>
+      <a href="/campeonato-ia.html" style="display:block;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-weight:900;font-size:11px;padding:9px;border-radius:8px;letter-spacing:1px;">⚔️ VOTAR AGORA</a>
+    </div>
+
+    <!-- RÁDIO -->
+    <div class="side-card" style="text-align:center;border-color:rgba(242,169,0,0.3);">
+      <div style="font-size:11px;font-weight:900;color:var(--gold);margin-bottom:6px;letter-spacing:1px;">📻 RÁDIO BITCOIN AO VIVO</div>
+      <div style="font-size:10px;color:var(--dim);margin-bottom:10px;">Bitcoin · música · soberania</div>
+      <a href="/" style="display:block;background:linear-gradient(180deg,#f2a900,#cc8800);color:#000;font-weight:900;font-size:11px;padding:9px;border-radius:8px;letter-spacing:1px;">⚡ OUVIR AGORA</a>
+    </div>
+  </div>
+</div>
+
+<div class="fnav">
+  <a href="/">📻 Rádio</a>
+  <a href="/campeonato-ia.html">⚔️ Campeonato IA</a>
+  <a href="/futcoin.html">⚽ FutCoin</a>
+  <a href="/recovery.html">🛡️ Recovery Kit</a>
+  &nbsp;·&nbsp; radiobitcoin.org
+</div>
+
+<script>
+// ─── FILTRO POR CATEGORIA ─────────────────────────────────────
+function filterCat(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.news-card[data-cat]').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+  });
+}
+
+// ─── HACKER NEWS API ──────────────────────────────────────────
+const AI_KEYWORDS = ['ai','gpt','claude','gemini','llm','openai','anthropic','model','neural','bitcoin','crypto','lightning','spacex','starship','nvidia','gpu','llama','mistral','grok','manus','glm'];
+
+async function loadHN() {
+  try {
+    const resp = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json');
+    const ids = await resp.json();
+    const top30 = ids.slice(0, 60);
+    const stories = await Promise.all(
+      top30.map(id => fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(r => r.json()).catch(() => null))
+    );
+    const filtered = stories.filter(s => s && s.title && AI_KEYWORDS.some(k => s.title.toLowerCase().includes(k)));
+
+    // SIDEBAR — top 6
+    const hnSide = document.getElementById('hnSide');
+    hnSide.innerHTML = filtered.slice(0, 6).map((s, i) => `
+      <div class="trend-item">
+        <div class="trend-num">${i+1}</div>
+        <div>
+          <a href="${s.url || 'https://news.ycombinator.com/item?id='+s.id}" target="_blank" rel="noopener"
+             style="color:#e5e7eb;font-size:11px;line-height:1.4;display:block;">${s.title}</a>
+          <div class="trend-pts">▲ ${s.score} pts · ${s.descendants||0} comments</div>
+        </div>
+      </div>`).join('') || '<div style="font-size:10px;color:#444;padding:8px;">Nenhum resultado relevante agora</div>';
+
+    // FEED PRINCIPAL — cards HN
+    const hnGrid = document.getElementById('hnGrid');
+    const catMap = t => {
+      const low = t.toLowerCase();
+      if (low.includes('bitcoin')||low.includes('crypto')||low.includes('lightning')) return 'crypto';
+      if (low.includes('space')||low.includes('rocket')||low.includes('nasa')||low.includes('starship')) return 'space';
+      if (low.includes('nvidia')||low.includes('gpu')||low.includes('chip')) return 'hardware';
+      return 'ai';
+    };
+    hnGrid.innerHTML = filtered.slice(0, 10).map(s => `
+      <div class="news-card" data-cat="${catMap(s.title)}">
+        <div class="nc-top">
+          <span class="nc-badge ${catMap(s.title)}">${{ai:'🤖 IA',space:'🚀 ESPAÇO',crypto:'₿ CRYPTO',hardware:'💻 HARDWARE'}[catMap(s.title)]}</span>
+          <span class="nc-time">${Math.round((Date.now()/1000-s.time)/3600)}h atrás</span>
+        </div>
+        <a href="${s.url||'https://news.ycombinator.com/item?id='+s.id}" target="_blank" rel="noopener">
+          <div class="nc-title">${s.title}</div>
+        </a>
+        <div class="nc-bottom">
+          <span class="nc-source">HN · ${s.by}</span>
+          <span class="nc-pts">▲ ${s.score} pts · ${s.descendants||0} 💬</span>
+        </div>
+      </div>`).join('') || '';
+
+    document.getElementById('lastUpdate').textContent =
+      '// atualizado às ' + new Date().toLocaleTimeString('pt-BR') + ' · fonte: Hacker News API + curadoria Rádio Bitcoin';
+
+  } catch(e) {
+    document.getElementById('hnSide').innerHTML = '<div style="font-size:10px;color:#444;padding:8px;">HN offline</div>';
+    document.getElementById('hnGrid').innerHTML = '';
+  }
+}
+
+loadHN();
+setInterval(loadHN, 5 * 60 * 1000); // atualiza a cada 5 min
+</script>
+</body>
+</html>
