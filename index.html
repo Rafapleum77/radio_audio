@@ -2424,6 +2424,190 @@ img{max-width:100%;height:auto;}
         </div>
       </div>
 
+      <!-- DONOS DO BITCOIN -->
+      <div class="panel" id="donos-bitcoin" style="background:linear-gradient(180deg,#050810 0%,#060a0d 100%);border-color:rgba(242,169,0,0.25);">
+        <div class="pt" style="color:#f2a900;letter-spacing:3px;">₿ QUEM SÃO OS DONOS DO BITCOIN? — 2026</div>
+
+        <style>
+        /* ── DONOS BTC ── */
+        .dbtc-tabs{display:flex;gap:5px;margin:10px 0 14px;flex-wrap:wrap;}
+        .dbtc-tab{font-family:ui-monospace,Menlo,monospace;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:5px;cursor:pointer;border:1px solid rgba(242,169,0,0.25);color:#6b7280;background:#070c10;transition:all .18s;}
+        .dbtc-tab.active,.dbtc-tab:hover{color:#f2a900;border-color:rgba(242,169,0,0.6);background:rgba(242,169,0,0.08);}
+        .dbtc-view{display:none;}.dbtc-view.active{display:block;}
+
+        /* barras */
+        .dbtc-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;}
+        .dbtc-bar-label{width:130px;flex-shrink:0;font-size:9px;color:#9ca3af;text-align:right;font-family:ui-monospace,Menlo,monospace;line-height:1.2;}
+        .dbtc-bar-label small{display:block;font-size:7px;color:#4b5563;}
+        .dbtc-bar-track{flex:1;height:18px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;position:relative;}
+        .dbtc-bar-fill{height:100%;border-radius:4px;width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;justify-content:flex-end;padding-right:6px;}
+        .dbtc-bar-fill span{font-size:8px;font-weight:900;font-family:ui-monospace,Menlo,monospace;white-space:nowrap;}
+        .dbtc-bar-btc{width:80px;flex-shrink:0;font-size:8px;font-family:ui-monospace,Menlo,monospace;color:#f2a900;text-align:right;}
+
+        /* timeline */
+        .dbtc-timeline{position:relative;padding-left:18px;}
+        .dbtc-timeline::before{content:'';position:absolute;left:5px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,rgba(242,169,0,0.6),rgba(242,169,0,0.05));}
+        .dbtc-titem{position:relative;margin-bottom:14px;}
+        .dbtc-titem::before{content:'';position:absolute;left:-15px;top:4px;width:8px;height:8px;border-radius:50%;border:2px solid #f2a900;background:#050810;}
+        .dbtc-tyear{font-family:ui-monospace,Menlo,monospace;font-size:10px;font-weight:900;color:#f2a900;margin-bottom:3px;}
+        .dbtc-tdesc{font-size:10px;color:#6b7280;line-height:1.5;}
+        .dbtc-tdesc b{color:#d1d5db;}
+        .dbtc-ttags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px;}
+        .dbtc-ttag{font-size:7px;font-family:ui-monospace,Menlo,monospace;font-weight:700;letter-spacing:.8px;padding:2px 7px;border-radius:10px;text-transform:uppercase;}
+        .dbtc-ttag.g{background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.25);}
+        .dbtc-ttag.o{background:rgba(242,169,0,0.1);color:#f2a900;border:1px solid rgba(242,169,0,0.25);}
+        .dbtc-ttag.b{background:rgba(0,220,255,0.1);color:#00dcff;border:1px solid rgba(0,220,255,0.25);}
+        .dbtc-ttag.r{background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.25);}
+        .dbtc-ttag.p{background:rgba(168,85,247,0.1);color:#c084fc;border:1px solid rgba(168,85,247,0.25);}
+
+        /* legenda mini */
+        .dbtc-legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+        .dbtc-leg{display:flex;align-items:center;gap:4px;font-size:8px;color:#6b7280;font-family:ui-monospace,Menlo,monospace;}
+        .dbtc-leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+        </style>
+
+        <!-- tabs -->
+        <div class="dbtc-tabs">
+          <div class="dbtc-tab active" onclick="dbtcTab('holders')">🏆 Maiores Holders</div>
+          <div class="dbtc-tab" onclick="dbtcTab('categorias')">🗂️ Por Categoria</div>
+          <div class="dbtc-tab" onclick="dbtcTab('timeline')">📅 Evolução 2009→2026</div>
+        </div>
+
+        <!-- VIEW 1: Maiores Holders individuais -->
+        <div class="dbtc-view active" id="dbtc-holders">
+          <div class="dbtc-legend">
+            <div class="dbtc-leg"><div class="dbtc-leg-dot" style="background:#f2a900;"></div>Satoshi / Cypherpunks</div>
+            <div class="dbtc-leg"><div class="dbtc-leg-dot" style="background:#00dcff;"></div>ETFs & Institucional</div>
+            <div class="dbtc-leg"><div class="dbtc-leg-dot" style="background:#00ff88;"></div>Empresas públicas</div>
+            <div class="dbtc-leg"><div class="dbtc-leg-dot" style="background:#a855f7;"></div>Governos</div>
+            <div class="dbtc-leg"><div class="dbtc-leg-dot" style="background:#f87171;"></div>Exchanges</div>
+          </div>
+          <div id="dbtc-bars-holders">
+            <!-- JS renderiza -->
+          </div>
+          <div style="font-size:8px;color:#374151;margin-top:10px;font-family:ui-monospace,Menlo,monospace;">* Estimativas 2026. Satoshi ~1M BTC nunca movidos. Total supply: 21M BTC.</div>
+        </div>
+
+        <!-- VIEW 2: Por Categoria -->
+        <div class="dbtc-view" id="dbtc-categorias">
+          <div id="dbtc-bars-cat"></div>
+          <div style="font-size:8px;color:#374151;margin-top:10px;font-family:ui-monospace,Menlo,monospace;">* ~3-4M BTC considerados perdidos para sempre (wallets sem chave).</div>
+        </div>
+
+        <!-- VIEW 3: Timeline -->
+        <div class="dbtc-view" id="dbtc-timeline">
+          <div class="dbtc-timeline">
+
+            <div class="dbtc-titem">
+              <div class="dbtc-tyear">🟡 2009 — Gênese</div>
+              <div class="dbtc-tdesc"><b>Satoshi Nakamoto</b> minera o bloco genesis em 3 jan. Era apenas ele e poucos cypherpunks. Hal Finney recebe a 1ª transação. O Bitcoin não valia nada.</div>
+              <div class="dbtc-ttags"><span class="dbtc-ttag o">Satoshi</span><span class="dbtc-ttag g">Hal Finney</span><span class="dbtc-ttag b">Cypherpunks</span></div>
+            </div>
+
+            <div class="dbtc-titem">
+              <div class="dbtc-tyear">🍕 2010 — Pizza e Primeiros Preços</div>
+              <div class="dbtc-tdesc"><b>Laszlo Hanyecz</b> paga 10.000 BTC por duas pizzas (hoje ~$1 bilhão). Primeiras exchanges surgem. Preço: $0,003. Donos: mineradores e entusiastas.</div>
+              <div class="dbtc-ttags"><span class="dbtc-ttag o">Mineradores</span><span class="dbtc-ttag b">Laszlo</span><span class="dbtc-ttag g">Mt.Gox</span></div>
+            </div>
+
+            <div class="dbtc-titem">
+              <div class="dbtc-tyear">🌑 2013 — Silk Road & $1.000</div>
+              <div class="dbtc-tdesc">Bitcoin atinge <b>$1.000</b> pela 1ª vez. Silk Road derrubado pelo FBI (confisca ~170k BTC). Winklevoss twins compram 1% de todo o supply. China proíbe pela 1ª vez.</div>
+              <div class="dbtc-ttags"><span class="dbtc-ttag b">Winklevoss</span><span class="dbtc-ttag r">FBI/Governos</span><span class="dbtc-ttag p">Especuladores</span></div>
+            </div>
+
+            <div class="dbtc-titem">
+              <div class="dbtc-tyear">🚀 2017 — Retail Mania & $20k</div>
+              <div class="dbtc-tdesc">Explosão de ICOs. Bitcoin atinge <b>$20.000</b>. Milhões de varejo entram via Coinbase. Futures CME lançados — Wall Street chega. Hard fork BCash divide comunidade.</div>
+              <div class="dbtc-ttags"><span class="dbtc-ttag p">Retail</span><span class="dbtc-ttag b">CME Futures</span><span class="dbtc-ttag r">Mt.Gox legado</span></div>
+            </div>
+
+            <div class="dbtc-titem">
+              <div class="dbtc-tyear">🏦 2020-21 — Institucional entra</div>
+              <div class="dbtc-tdesc"><b>MicroStrategy</b> começa a comprar (hoje +580k BTC). Tesla compra $1,5B. El Salvador adota BTC como moeda legal. NFTs e DeFi trazem novo público. BTC: $69.000.</div>
+              <div class="dbtc-ttags"><span class="dbtc-ttag g">MicroStrategy</span><span class="dbtc-ttag o">El Salvador</span><span class="dbtc-ttag b">Tesla</span></div>
+            </div>
+
+            <div class="dbtc-titem">
+              <div class="dbtc-tyear">🏛️ 2024 — ETFs aprovados nos EUA</div>
+              <div class="dbtc-tdesc">SEC aprova ETFs Bitcoin spot em jan/2024. <b>BlackRock IBIT</b> vira o maior ETF da história em velocidade de captação. Bilhões fluem. BTC: $100.000.</div>
+              <div class="dbtc-ttags"><span class="dbtc-ttag b">BlackRock</span><span class="dbtc-ttag b">Fidelity</span><span class="dbtc-ttag g">ETF Spot</span></div>
+            </div>
+
+            <div class="dbtc-titem">
+              <div class="dbtc-tyear">🇺🇸 2025-26 — EUA compra Bitcoin</div>
+              <div class="dbtc-tdesc"><b>Trump</b> cria Reserva Estratégica Nacional de Bitcoin. EUA se torna o maior holder soberano declarado (~200k BTC). Países competem por reservas. BTC: $100-150k.</div>
+              <div class="dbtc-ttags"><span class="dbtc-ttag r">EUA Gov</span><span class="dbtc-ttag p">Reservas soberanas</span><span class="dbtc-ttag g">Autocustódia global</span></div>
+            </div>
+
+          </div>
+        </div>
+
+        <script>
+        (function(){
+          var HOLDERS = [
+            {label:'Satoshi Nakamoto',sub:'~1M BTC — nunca movidos',btc:1000000,pct:4.76,color:'#f2a900'},
+            {label:'BlackRock IBIT',sub:'ETF Bitcoin EUA',btc:620000,pct:2.95,color:'#00dcff'},
+            {label:'MicroStrategy',sub:'Michael Saylor',btc:580000,pct:2.76,color:'#00ff88'},
+            {label:'Fidelity FBTC',sub:'ETF Bitcoin EUA',btc:200000,pct:0.95,color:'#00dcff'},
+            {label:'Grayscale GBTC',sub:'Trust histórico',btc:195000,pct:0.93,color:'#00dcff'},
+            {label:'EUA — Governo',sub:'Reserva Estratégica Nacional',btc:200000,pct:0.95,color:'#a855f7'},
+            {label:'Binance',sub:'Exchange — reservas custodiais',btc:580000,pct:2.76,color:'#f87171'},
+            {label:'Coinbase',sub:'Exchange + custódia ETFs',btc:900000,pct:4.28,color:'#f87171'},
+            {label:'Winklevoss / Gemini',sub:'Desde 2013',btc:100000,pct:0.48,color:'#00ff88'},
+            {label:'El Salvador',sub:'Reserva soberana + bond',btc:6000,pct:0.03,color:'#a855f7'},
+          ];
+          var CATS = [
+            {label:'ETFs & Fundos',sub:'BlackRock, Fidelity, Grayscale…',btc:1200000,pct:5.7,color:'#00dcff'},
+            {label:'Exchanges (custódia)',sub:'Binance, Coinbase, Kraken…',btc:1800000,pct:8.6,color:'#f87171'},
+            {label:'Satoshi / Primeiros',sub:'Wallets 2009-2011 inativas',btc:1100000,pct:5.2,color:'#f2a900'},
+            {label:'Empresas Públicas',sub:'MicroStrategy, Tesla, Marathon…',btc:700000,pct:3.3,color:'#00ff88'},
+            {label:'Governos',sub:'EUA, Alemanha, China (apreensões)…',btc:450000,pct:2.1,color:'#a855f7'},
+            {label:'Retail — Autocustódia',sub:'Milhões de wallets individuais',btc:5000000,pct:23.8,color:'#00ff88'},
+            {label:'BTC Perdidos / Inacessíveis',sub:'Wallets sem chave, hard drives',btc:3500000,pct:16.7,color:'#374151'},
+            {label:'Em circulação / outros',sub:'Exchanges menores, DeFi, etc.',btc:5800000,pct:27.6,color:'#6b7280'},
+          ];
+
+          function fmt(n){return n>=1000000?(n/1000000).toFixed(2)+'M':(n>=1000?(n/1000).toFixed(0)+'k':n);}
+
+          function renderBars(data, containerId){
+            var max = Math.max.apply(null, data.map(function(d){return d.btc;}));
+            var el = document.getElementById(containerId);
+            if(!el) return;
+            el.innerHTML = data.map(function(d){
+              var w = Math.round(d.btc/max*100);
+              return '<div class="dbtc-bar-row">'+
+                '<div class="dbtc-bar-label">'+d.label+'<small>'+d.sub+'</small></div>'+
+                '<div class="dbtc-bar-track">'+
+                  '<div class="dbtc-bar-fill" style="background:'+d.color+';opacity:0.85;width:0" data-w="'+w+'%">'+
+                    '<span style="color:'+(d.color==='#f2a900'||d.color==='#00ff88'?'#000':'#fff')+'">'+d.pct+'%</span>'+
+                  '</div>'+
+                '</div>'+
+                '<div class="dbtc-bar-btc">'+fmt(d.btc)+'</div>'+
+              '</div>';
+            }).join('');
+            // animate
+            setTimeout(function(){
+              el.querySelectorAll('.dbtc-bar-fill').forEach(function(b){b.style.width=b.dataset.w;});
+            },80);
+          }
+
+          function dbtcTab(name){
+            document.querySelectorAll('.dbtc-tab').forEach(function(t){t.classList.remove('active');});
+            document.querySelectorAll('.dbtc-view').forEach(function(v){v.classList.remove('active');});
+            event.target.classList.add('active');
+            document.getElementById('dbtc-'+name).classList.add('active');
+            if(name==='holders') renderBars(HOLDERS,'dbtc-bars-holders');
+            if(name==='categorias') renderBars(CATS,'dbtc-bars-cat');
+          }
+          window.dbtcTab = dbtcTab;
+
+          // init first tab
+          setTimeout(function(){renderBars(HOLDERS,'dbtc-bars-holders');},300);
+        })();
+        </script>
+      </div>
+
       <!-- PAÍSES BITCOIN-FRIENDLY -->
       <div class="panel" id="paises" style="background:linear-gradient(180deg,#060810 0%,#07090d 100%);border-color:rgba(0,220,255,0.2);">
         <div class="pt" style="color:#00dcff;letter-spacing:3px;">🌍 PAÍSES BITCOIN-FRIENDLY — GUIA 2026</div>
