@@ -1154,27 +1154,28 @@ img{max-width:100%;height:auto;}
 
 <!-- ===== BANNER BYBIT CASHBACK (afiliado) ===== -->
 <style>
-  .rb-bybit { max-width:1100px; margin:24px auto; padding:30px 18px; background:linear-gradient(135deg,#0a0a0d 0%,#1a1407 100%); border:2px solid rgba(247,166,0,0.6); border-radius:16px; box-shadow:0 0 42px -8px rgba(247,166,0,0.45); text-align:center; }
-  .rb-bybit__badge { display:inline-block; background:#f7a600; color:#000; font-weight:900; font-size:10px; letter-spacing:2px; padding:4px 14px; border-radius:20px; text-transform:uppercase; margin-bottom:14px; }
-  .rb-bybit__logo { display:inline-block; background:#fff; padding:14px 28px; border-radius:14px; margin-bottom:10px; box-shadow:0 0 28px -4px rgba(247,166,0,0.6); }
-  .rb-bybit__logo img { height:clamp(28px,6.5vw,44px); width:auto; display:block; }
-  .rb-bybit__title { font-size:clamp(18px,4.5vw,24px); color:#fff; font-weight:900; margin:8px 0 4px; letter-spacing:1px; }
+  .rb-bybit { max-width:1100px; margin:24px auto; padding:24px 18px; background:linear-gradient(160deg,#07090d 0%,#0b0e11 60%,#07090f 100%); border:1px solid rgba(247,166,0,0.3); border-radius:12px; box-shadow:0 0 30px -10px rgba(247,166,0,0.2); text-align:center; }
+  .rb-bybit__badge { display:inline-block; background:rgba(247,166,0,0.12); border:1px solid rgba(247,166,0,0.35); color:#f7a600; font-weight:900; font-size:9px; letter-spacing:2px; padding:4px 14px; border-radius:20px; text-transform:uppercase; margin-bottom:14px; font-family:ui-monospace,Menlo,monospace; }
+  .rb-bybit__logo { display:inline-block; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); padding:10px 22px; border-radius:10px; margin-bottom:10px; }
+  .rb-bybit__logo img { height:clamp(24px,5.5vw,38px); width:auto; display:block; filter:brightness(1.1); }
+  .rb-bybit__title { font-size:clamp(16px,4vw,22px); color:#fff; font-weight:900; margin:8px 0 4px; letter-spacing:1px; }
   .rb-bybit__title b { color:#f7a600; }
-  .rb-bybit__sub { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#9ca3af; letter-spacing:1.5px; margin-bottom:18px; }
-  .rb-bybit__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:0 auto 20px; max-width:760px; }
-  .rb-bybit__card { background:#14130d; border:1px solid rgba(247,166,0,0.25); border-radius:10px; padding:18px 16px; }
-  .rb-bybit__flag { font-size:30px; margin-bottom:6px; }
-  .rb-bybit__region { font-size:12px; color:#f7a600; font-weight:800; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
-  .rb-bybit__deal { font-size:13px; color:#e5e7eb; line-height:1.5; }
+  .rb-bybit__sub { font-family:ui-monospace,Menlo,monospace; font-size:10px; color:#6b7280; letter-spacing:1.5px; margin-bottom:18px; }
+  .rb-bybit__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin:0 auto 20px; max-width:700px; }
+  .rb-bybit__card { background:#111721; border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:16px 14px; transition:border-color .2s; }
+  .rb-bybit__card:hover { border-color:rgba(247,166,0,0.3); }
+  .rb-bybit__flag { font-size:26px; margin-bottom:6px; }
+  .rb-bybit__region { font-family:ui-monospace,Menlo,monospace; font-size:10px; color:#f7a600; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+  .rb-bybit__deal { font-size:12px; color:#9ca3af; line-height:1.6; }
   .rb-bybit__deal b { color:#22c55e; font-weight:800; }
-  .rb-bybit__cta { display:inline-block; background:linear-gradient(90deg,#f7a600,#ffce4d); color:#000; font-weight:900; font-size:16px; padding:15px 38px; border-radius:10px; text-decoration:none; letter-spacing:1.5px; box-shadow:0 4px 20px -4px rgba(247,166,0,0.7); transition:transform .15s; }
-  .rb-bybit__cta:hover { transform:translateY(-2px); }
-  .rb-bybit__fine { font-family:ui-monospace,Menlo,monospace; font-size:10px; color:#6b7280; letter-spacing:1px; margin-top:14px; line-height:1.5; }
+  .rb-bybit__cta { display:inline-block; background:linear-gradient(180deg,#f7a600 0%,#cc8800 100%); color:#000; font-weight:900; font-size:13px; padding:12px 32px; border-radius:30px; text-decoration:none; letter-spacing:1.5px; box-shadow:0 4px 18px -4px rgba(247,166,0,0.5); transition:transform .15s,box-shadow .15s; font-family:ui-monospace,Menlo,monospace; }
+  .rb-bybit__cta:hover { transform:translateY(-2px); box-shadow:0 6px 22px -4px rgba(247,166,0,0.7); }
+  .rb-bybit__fine { font-family:ui-monospace,Menlo,monospace; font-size:9px; color:#4b5563; letter-spacing:1px; margin-top:12px; line-height:1.6; }
   @media (max-width:600px){
-    .rb-bybit { margin:16px 10px; padding:22px 14px; }
-    .rb-bybit__grid { grid-template-columns:1fr; gap:10px; max-width:340px; }
-    .rb-bybit__card { padding:14px 12px; }
-    .rb-bybit__cta { display:block; width:100%; box-sizing:border-box; padding:16px 10px; }
+    .rb-bybit { margin:12px 8px; padding:18px 12px; }
+    .rb-bybit__grid { grid-template-columns:1fr; gap:8px; max-width:320px; }
+    .rb-bybit__card { padding:12px 10px; }
+    .rb-bybit__cta { display:block; width:100%; box-sizing:border-box; padding:14px 10px; }
   }
 </style>
 <section class="rb-bybit">
