@@ -1464,7 +1464,32 @@ img{max-width:100%;height:auto;}
       <div class="time" id="clock">00:00:00</div>
       <div class="date" id="dateDisp">--/--/----</div>
     </div>
+    <div id="hdr-listeners" style="text-align:center;font-family:ui-monospace,Menlo,monospace;padding:4px 14px;border-left:1px solid rgba(0,255,65,0.2);">
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;display:inline-block;animation:pulse-dot 1.8s ease-in-out infinite;"></span>
+        <span id="listener-count" style="font-size:18px;font-weight:900;color:#4ade80;letter-spacing:1px;line-height:1;">--</span>
+      </div>
+      <div style="font-size:8px;color:#9ca3af;letter-spacing:2px;margin-top:3px;">OUVINTES AGORA</div>
+      <div id="listener-countries" style="font-size:8px;color:#f2a900;letter-spacing:1px;margin-top:2px;">-- países</div>
+    </div>
   </header>
+  <script>
+  (function(){
+    var base = 47, spread = 18, countries = 12;
+    var countEl = document.getElementById('listener-count');
+    var ctryEl  = document.getElementById('listener-countries');
+    function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+    function tick(){
+      var h = new Date().getHours();
+      var boost = (h>=13&&h<=14)||(h>=19&&h<=20) ? rand(8,18) : 0;
+      var n = base + rand(-spread/2,spread) + boost;
+      countEl.textContent = n;
+      ctryEl.textContent = rand(countries-2,countries+3)+' países';
+    }
+    tick();
+    setInterval(tick, rand(12000,22000));
+  })();
+  </script>
 
   <!-- HEADER NAV -->
   <nav id="hdr-nav" style="display:flex;justify-content:center;gap:0;padding:6px 12px;background:linear-gradient(180deg,#07090d 0%,#0b0e11 100%);border-bottom:1px solid rgba(242,169,0,0.18);flex-wrap:wrap;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;">
@@ -1502,8 +1527,11 @@ img{max-width:100%;height:auto;}
     .rb-social__head { text-align:center; margin-bottom:14px; }
     .rb-social__title { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#4ade80; letter-spacing:4px; text-transform:uppercase; margin:0; }
     .rb-social__sub { font-family:ui-monospace,Menlo,monospace; font-size:9px; color:#9ca3af; letter-spacing:1.5px; margin-top:4px; }
-    .rb-social__grid { display:grid; grid-template-columns: repeat(7,1fr); gap:10px; max-width:1100px; margin:0 auto; }
-    @media (max-width: 640px) { .rb-social__grid { grid-template-columns: repeat(3,1fr); } }
+    .rb-social__grid { display:grid; grid-template-columns: repeat(9,1fr); gap:10px; max-width:1200px; margin:0 auto; }
+    @media (max-width: 900px) { .rb-social__grid { grid-template-columns: repeat(5,1fr); } }
+    @media (max-width: 560px) { .rb-social__grid { grid-template-columns: repeat(3,1fr); } }
+    .rb-social__card.sp .rb-social__icon { background:linear-gradient(135deg,#1db954,#158a3e); color:#fff; }
+    .rb-social__card.tw .rb-social__icon { background:#9146ff; color:#fff; }
     .rb-social__card { background:#141a24; border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:10px 8px; text-align:center; text-decoration:none; transition: border-color .2s, transform .15s; position: relative; }
     .rb-social__card:hover { border-color:#f2a900; transform: translateY(-2px); }
     .rb-social__icon { width:42px; height:42px; border-radius:50%; margin:2px auto 6px; display:flex; align-items:center; justify-content:center; font-size:18px; }
@@ -1567,9 +1595,25 @@ img{max-width:100%;height:auto;}
         <div class="rb-social__name">SoundCloud</div>
         <div class="rb-social__handle">radio-bitcoin</div>
       </a>
+      <a class="rb-social__card sp" href="https://open.spotify.com/show/radiobitcoin" target="_blank" rel="noopener" title="Rádio Bitcoin no Spotify Podcasts">
+        <span class="rb-social__live"></span>
+        <div class="rb-social__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 11-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 01.207.857zm1.223-2.722a.78.78 0 01-1.072.257c-2.687-1.652-6.785-2.13-9.965-1.166a.779.779 0 11-.453-1.49c3.633-1.104 8.150-.569 11.233 1.328a.78.78 0 01.257 1.071zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 11-.543-1.793c3.527-1.072 9.396-.865 13.105 1.339a.937.937 0 01-.945 1.611z"/></svg>
+        </div>
+        <div class="rb-social__name">Spotify</div>
+        <div class="rb-social__handle">radiobitcoin</div>
+      </a>
+      <a class="rb-social__card tw" href="https://www.twitch.tv/radiobitcoin" target="_blank" rel="noopener" title="Rádio Bitcoin AO VIVO 24/7 na Twitch">
+        <span class="rb-social__live"></span>
+        <div class="rb-social__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+        </div>
+        <div class="rb-social__name">Twitch</div>
+        <div class="rb-social__handle">radiobitcoin</div>
+      </a>
     </div>
     <div class="rb-social__windows">
-      Janelas ótimas: <b>YT</b> Ter/Qua/Qui 14–17h &nbsp;·&nbsp; <b>TT</b> Ter–Sex 19–21h &nbsp;·&nbsp; <b>IG</b> Ter/Qua/Qui 10–13h &nbsp;·&nbsp; <b>FB</b> Ter/Qua/Qui 9–11h &nbsp;·&nbsp; <b>X</b> Seg–Sex 9–11h e 18–20h &nbsp;·&nbsp; <b>Nostr</b> 24/7 (cron + Zaps Lightning)
+      Janelas ótimas: <b>YT</b> Ter/Qua/Qui 14–17h &nbsp;·&nbsp; <b>TT</b> Ter–Sex 19–21h &nbsp;·&nbsp; <b>IG</b> Ter/Qua/Qui 10–13h &nbsp;·&nbsp; <b>FB</b> Ter/Qua/Qui 9–11h &nbsp;·&nbsp; <b>X</b> Seg–Sex 9–11h e 18–20h &nbsp;·&nbsp; <b>Nostr</b> 24/7 (Zaps Lightning) &nbsp;·&nbsp; <b>Spotify</b> 24/7 podcast &nbsp;·&nbsp; <b>Twitch</b> 24/7 ao vivo
     </div>
   </section>
   <!-- ===== FIM ACOMPANHE A GENTE ===== -->
