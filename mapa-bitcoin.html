@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mapa Bitcoin · Onde Gastar Seus Sats · Radio Bitcoin</title>
+<meta name="description" content="Encontre locais que aceitam Bitcoin perto de você. Cafés, ATMs, hotéis e mais. Navegação via Google Maps e Waze.">
+<meta property="og:title" content="Mapa Bitcoin — Radio Bitcoin">
+<meta property="og:description" content="6.800+ locais aceitando Bitcoin no mundo. Encontre o mais próximo de você agora.">
+<meta property="og:image" content="img/slides/slide1_mapa_chegou.jpg">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#040a06;--bg2:#060e08;--bg3:#0a1a0e;
+  --green:#00ff88;--orange:#f7931a;--cyan:#00d4ff;--purple:#a855f7;
+  --red:#ff4444;--yellow:#fbbf24;
+  --border:rgba(0,255,136,0.18);
+  --text:#e5e7eb;--muted:#6b7280;
+}
+html,body{background:var(--bg);color:var(--text);font-family:ui-monospace,Menlo,'Courier New',monospace;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--border);background:rgba(4,10,6,.9);position:sticky;top:0;z-index:1000;backdrop-filter:blur(10px);}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--green);font-size:11px;font-weight:700;letter-spacing:2px;}
+.nav-logo span{color:var(--orange);}
+.nav-links{display:flex;gap:12px;}
+.nav-links a{font-size:9px;letter-spacing:1px;color:var(--muted);text-decoration:none;padding:4px 10px;border:1px solid transparent;border-radius:4px;transition:.15s;}
+.nav-links a:hover,.nav-links a.active{color:var(--green);border-color:var(--border);}
+
+/* ── CAROUSEL ── */
+.carousel-wrap{position:relative;overflow:hidden;background:#000;}
+.carousel-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1);}
+.carousel-slide{min-width:100%;position:relative;}
+.carousel-slide img{width:100%;max-height:600px;object-fit:cover;object-position:top;display:block;}
+.carousel-overlay{position:absolute;bottom:0;left:0;right:0;padding:20px 24px;background:linear-gradient(transparent,rgba(0,0,0,.85));display:flex;align-items:flex-end;justify-content:space-between;}
+.slide-caption{font-size:10px;letter-spacing:2px;color:var(--green);}
+.carousel-nav{display:flex;gap:8px;}
+.carousel-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);border:none;cursor:pointer;transition:.2s;}
+.carousel-dot.active{background:var(--green);box-shadow:0 0 8px var(--green);}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,255,136,.12);border:1px solid var(--border);color:var(--green);width:40px;height:40px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:10;}
+.carousel-btn:hover{background:rgba(0,255,136,.25);}
+.carousel-btn.prev{left:12px;}
+.carousel-btn.next{right:12px;}
+.carousel-counter{position:absolute;top:12px;right:16px;font-size:9px;letter-spacing:2px;color:var(--green);background:rgba(0,0,0,.6);padding:3px 8px;border-radius:10px;}
+
+/* ── SECTION HEADER ── */
+.section-header{padding:24px 20px 0;text-align:center;}
+.section-header h2{font-size:13px;letter-spacing:4px;color:var(--green);text-transform:uppercase;margin-bottom:4px;}
+.section-header p{font-size:9px;color:var(--muted);letter-spacing:1px;}
+
+/* ── STATS BAR ── */
+.stats-bar{display:flex;justify-content:center;gap:0;flex-wrap:wrap;margin:16px 20px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--bg2);}
+.stat-item{flex:1;min-width:100px;padding:12px 16px;text-align:center;border-right:1px solid var(--border);}
+.stat-item:last-child{border-right:none;}
+.stat-val{font-size:18px;font-weight:700;color:var(--green);}
+.stat-val.orange{color:var(--orange);}
+.stat-val.cyan{color:var(--cyan);}
+.stat-label{font-size:8px;color:var(--muted);letter-spacing:1px;margin-top:2px;}
+
+/* ── CONTROLS ── */
+.controls{padding:12px 20px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.btn-locate{flex:1;min-width:160px;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;background:var(--green);color:#000;border:none;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:.15s;}
+.btn-locate:hover{background:#00cc6a;}
+.btn-locate:disabled{background:var(--muted);cursor:not-allowed;}
+.filters{display:flex;gap:6px;flex-wrap:wrap;}
+.filter-btn{padding:7px 14px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--muted);font-size:8px;letter-spacing:1px;cursor:pointer;transition:.15s;font-family:inherit;}
+.filter-btn:hover{border-color:var(--green);color:var(--green);}
+.filter-btn.active{background:rgba(0,255,136,.12);border-color:var(--green);color:var(--green);}
+
+/* ── MAP ── */
+#map{height:400px;width:100%;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.leaflet-container{background:#0d1f0f!important;}
+.map-status{padding:8px 20px;font-size:9px;color:var(--cyan);letter-spacing:1px;min-height:28px;}
+
+/* ── NEARBY LIST ── */
+.nearby-section{padding:0 20px 20px;}
+.nearby-title{font-size:10px;letter-spacing:3px;color:var(--green);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.nearby-list{display:flex;flex-direction:column;gap:6px;}
+.nearby-item{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:12px;transition:.15s;}
+.nearby-item:hover{border-color:rgba(0,255,136,.4);background:var(--bg3);}
+.nearby-item.ponto-apoio{border-color:rgba(0,212,255,.3);}
+.nearby-icon{font-size:20px;min-width:28px;text-align:center;}
+.nearby-info{flex:1;min-width:0;}
+.nearby-name{font-size:10px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nearby-addr{font-size:8px;color:var(--muted);letter-spacing:.5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nearby-badges{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap;}
+.badge{font-size:7px;padding:2px 6px;border-radius:10px;font-weight:700;letter-spacing:.5px;}
+.badge-ln{background:rgba(251,191,36,.15);color:var(--yellow);border:1px solid rgba(251,191,36,.3);}
+.badge-wifi{background:rgba(0,212,255,.12);color:var(--cyan);border:1px solid rgba(0,212,255,.3);}
+.badge-apoio{background:rgba(168,85,247,.15);color:var(--purple);border:1px solid rgba(168,85,247,.3);}
+.badge-atm{background:rgba(247,147,26,.12);color:var(--orange);border:1px solid rgba(247,147,26,.3);}
+.nearby-dist{font-size:9px;font-weight:700;color:var(--green);min-width:50px;text-align:right;}
+.nearby-actions{display:flex;gap:4px;}
+.action-btn{padding:5px 10px;border-radius:6px;font-size:8px;font-weight:700;letter-spacing:.5px;text-decoration:none;border:1px solid;cursor:pointer;font-family:inherit;transition:.15s;}
+.btn-maps{color:#4ade80;border-color:rgba(74,222,128,.3);background:rgba(74,222,128,.08);}
+.btn-maps:hover{background:rgba(74,222,128,.2);}
+.btn-waze{color:#00d4ff;border-color:rgba(0,212,255,.3);background:rgba(0,212,255,.08);}
+.btn-waze:hover{background:rgba(0,212,255,.2);}
+
+/* ── PONTO DE APOIO LEGEND ── */
+.apoio-legend{margin:0 20px 16px;padding:14px 16px;background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(0,212,255,.06));border:1px solid rgba(168,85,247,.25);border-radius:10px;}
+.apoio-legend-title{font-size:9px;letter-spacing:2px;color:var(--purple);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.apoio-legend-items{display:flex;gap:16px;flex-wrap:wrap;}
+.apoio-legend-item{display:flex;align-items:center;gap:6px;font-size:8px;color:var(--muted);letter-spacing:.5px;}
+
+/* ── CHECK-IN MODAL ── */
+.checkin-bar{margin:0 20px 16px;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.checkin-txt{font-size:9px;color:var(--muted);letter-spacing:1px;}
+.checkin-txt strong{color:var(--cyan);display:block;font-size:10px;margin-bottom:2px;}
+.checkin-btns{display:flex;gap:6px;}
+.btn-confirm{padding:7px 14px;background:rgba(0,255,136,.12);border:1px solid rgba(0,255,136,.4);color:var(--green);font-size:8px;font-weight:700;letter-spacing:1px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s;}
+.btn-confirm:hover{background:rgba(0,255,136,.25);}
+.btn-report{padding:7px 14px;background:rgba(255,68,68,.08);border:1px solid rgba(255,68,68,.3);color:var(--red);font-size:8px;font-weight:700;letter-spacing:1px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s;}
+.btn-report:hover{background:rgba(255,68,68,.2);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--bg3);border:1px solid var(--green);color:var(--green);padding:10px 20px;border-radius:8px;font-size:10px;letter-spacing:1px;transition:.3s;z-index:9999;pointer-events:none;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:20px;border-top:1px solid var(--border);font-size:8px;color:var(--muted);letter-spacing:1px;}
+footer a{color:var(--green);text-decoration:none;}
+
+/* ── LOADING ── */
+.loading{display:flex;align-items:center;justify-content:center;padding:40px;color:var(--muted);font-size:10px;letter-spacing:2px;gap:10px;}
+.spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:30px 20px;color:var(--muted);font-size:9px;letter-spacing:1px;}
+.empty strong{color:var(--cyan);display:block;font-size:12px;margin-bottom:6px;}
+
+@media(max-width:480px){
+  .stats-bar{gap:0;}
+  .stat-item{padding:10px 8px;}
+  .stat-val{font-size:14px;}
+  .nearby-actions{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">((⚡)) <span>RADIO</span> BITCOIN</a>
+  <div class="nav-links">
+    <a href="/">Rádio</a>
+    <a href="mapa-bitcoin.html" class="active">Mapa</a>
+    <a href="bitcoin-friendly.html">Bitcoin Friendly</a>
+  </div>
+</nav>
+
+<!-- CAROUSEL -->
+<div class="carousel-wrap">
+  <button class="carousel-btn prev" onclick="slide(-1)">‹</button>
+  <button class="carousel-btn next" onclick="slide(1)">›</button>
+  <div class="carousel-counter"><span id="cur">1</span>/4</div>
+  <div class="carousel-track" id="track">
+    <div class="carousel-slide">
+      <img src="img/slides/slide1_mapa_chegou.jpg" alt="O Mapa Bitcoin Chegou">
+      <div class="carousel-overlay">
+        <span class="slide-caption">⚡ O MAPA BITCOIN CHEGOU</span>
+        <div class="carousel-nav">
+          <button class="carousel-dot active" onclick="goTo(0)"></button>
+          <button class="carousel-dot" onclick="goTo(1)"></button>
+          <button class="carousel-dot" onclick="goTo(2)"></button>
+          <button class="carousel-dot" onclick="goTo(3)"></button>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-slide">
+      <img src="img/slides/slide2_aceita_lightning.jpg" alt="Aceita Lightning?">
+      <div class="carousel-overlay">
+        <span class="slide-caption">⚡ ACEITA LIGHTNING? A COMUNIDADE CONFIRMA</span>
+        <div class="carousel-nav">
+          <button class="carousel-dot" onclick="goTo(0)"></button>
+          <button class="carousel-dot active" onclick="goTo(1)"></button>
+          <button class="carousel-dot" onclick="goTo(2)"></button>
+          <button class="carousel-dot" onclick="goTo(3)"></button>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-slide">
+      <img src="img/slides/slide3_ponto_apoio.jpg" alt="Ponto de Apoio Turista Bitcoin">
+      <div class="carousel-overlay">
+        <span class="slide-caption">🏅 PONTO DE APOIO TURISTA BITCOIN</span>
+        <div class="carousel-nav">
+          <button class="carousel-dot" onclick="goTo(0)"></button>
+          <button class="carousel-dot" onclick="goTo(1)"></button>
+          <button class="carousel-dot active" onclick="goTo(2)"></button>
+          <button class="carousel-dot" onclick="goTo(3)"></button>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-slide">
+      <img src="img/slides/slide4_radio_avisa.jpg" alt="A Rádio Te Avisa">
+      <div class="carousel-overlay">
+        <span class="slide-caption">📡 A RÁDIO TE AVISA · TEMPO REAL</span>
+        <div class="carousel-nav">
+          <button class="carousel-dot" onclick="goTo(0)"></button>
+          <button class="carousel-dot" onclick="goTo(1)"></button>
+          <button class="carousel-dot" onclick="goTo(2)"></button>
+          <button class="carousel-dot active" onclick="goTo(3)"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="section-header" style="padding-top:20px;">
+  <h2>⚡ MAPA BITCOIN — ONDE GASTAR SEUS SATS</h2>
+  <p>DADOS VIA BTCMAP.ORG · ATUALIZADO EM TEMPO REAL</p>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-val" id="stat-total">6.800+</div>
+    <div class="stat-label">LOCAIS MUNDIAIS</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-val orange" id="stat-ln">—</div>
+    <div class="stat-label">LIGHTNING</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-val cyan" id="stat-nearby">—</div>
+    <div class="stat-label">PERTO DE VOCÊ</div>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button class="btn-locate" id="btn-locate" onclick="locateUser()">
+    📍 MINHA LOCALIZAÇÃO
+  </button>
+  <div class="filters">
+    <button class="filter-btn active" data-cat="all" onclick="setFilter(this,'all')">TODOS</button>
+    <button class="filter-btn" data-cat="food" onclick="setFilter(this,'food')">☕ CAFÉ &amp; FOOD</button>
+    <button class="filter-btn" data-cat="atm" onclick="setFilter(this,'atm')">🏧 ATM</button>
+    <button class="filter-btn" data-cat="hotel" onclick="setFilter(this,'hotel')">🏨 HOTEL</button>
+    <button class="filter-btn" data-cat="apoio" onclick="setFilter(this,'apoio')">🏅 PONTO APOIO</button>
+  </div>
+</div>
+
+<p class="map-status" id="map-status">▶ Clique em "Minha Localização" para buscar locais próximos</p>
+
+<!-- MAP -->
+<div id="map"></div>
+
+<!-- PONTO DE APOIO LEGEND -->
+<div class="apoio-legend">
+  <div class="apoio-legend-title">🏅 O QUE É PONTO DE APOIO TURISTA BITCOIN?</div>
+  <div class="apoio-legend-items">
+    <div class="apoio-legend-item">📶 <span>Wi-Fi aberto</span></div>
+    <div class="apoio-legend-item">⚡ <span>Lightning Network</span></div>
+    <div class="apoio-legend-item">☕ <span>Bitcoin Friendly</span></div>
+    <div class="apoio-legend-item">🔋 <span>Ideal para viajantes com BTC</span></div>
+  </div>
+</div>
+
+<!-- CHECK-IN BAR -->
+<div class="checkin-bar">
+  <div class="checkin-txt">
+    <strong>⚡ ACEITA LIGHTNING? A COMUNIDADE CONFIRMA.</strong>
+    Esteve num local? Confirme se o pagamento Lightning funcionou.
+  </div>
+  <div class="checkin-btns">
+    <button class="btn-confirm" onclick="checkin(true)">✓ Funcionou</button>
+    <button class="btn-report" onclick="checkin(false)">✕ Problema</button>
+  </div>
+</div>
+
+<!-- NEARBY LIST -->
+<div class="nearby-section">
+  <div class="nearby-title">📍 LOCAIS MAIS PRÓXIMOS</div>
+  <div id="nearby-list"><div class="empty"><strong>Aguardando localização</strong>Clique em "Minha Localização" para ver os locais mais próximos de você</div></div>
+</div>
+
+<footer>
+  <div style="margin-bottom:6px;">
+    <span style="color:var(--green);">RADIO BITCOIN</span> ·
+    <a href="/">radiobitcoin.org</a> ·
+    Dados: <a href="https://btcmap.org" target="_blank">BTCMap.org</a>
+  </div>
+  <div>A FREQUÊNCIA SOBERANA · 24/7 NO AR</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ── CAROUSEL ──
+let cur = 0;
+const track = document.getElementById('track');
+const curEl = document.getElementById('cur');
+function goTo(n){
+  cur = n;
+  track.style.transform = `translateX(-${n*100}%)`;
+  curEl.textContent = n+1;
+  document.querySelectorAll('.carousel-dot').forEach((d,i) => d.classList.toggle('active', Math.floor(i/4)===n || i%4===n));
+}
+function slide(dir){goTo((cur+dir+4)%4);}
+setInterval(()=>slide(1), 5000);
+
+// ── MAP INIT ──
+const map = L.map('map',{zoomControl:true}).setView([-23.55,-46.63],12);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
+  attribution:'© OpenStreetMap © CARTO',maxZoom:19
+}).addTo(map);
+
+// Custom marker icons
+function makeIcon(emoji, color){
+  return L.divIcon({
+    html:`<div style="background:${color||'rgba(0,255,136,.15)'};border:1.5px solid ${color||'rgba(0,255,136,.5)'};border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 0 10px ${color||'rgba(0,255,136,.4)'}">${emoji}</div>`,
+    className:'',iconSize:[32,32],iconAnchor:[16,16]
+  });
+}
+
+const icons = {
+  food: makeIcon('☕','rgba(0,255,136,.2)'),
+  atm:  makeIcon('🏧','rgba(247,147,26,.2)'),
+  hotel:makeIcon('🏨','rgba(0,212,255,.2)'),
+  shop: makeIcon('🛍️','rgba(168,85,247,.2)'),
+  apoio:makeIcon('🏅','rgba(168,85,247,.3)'),
+  def:  makeIcon('₿','rgba(0,255,136,.15)')
+};
+
+let allMarkers = [];
+let currentFilter = 'all';
+let userLat = null, userLon = null;
+let userMarker = null;
+let checkinTarget = null;
+
+// ── LOCATE ──
+function locateUser(){
+  const btn = document.getElementById('btn-locate');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> LOCALIZANDO...';
+  setStatus('⟳ Obtendo sua localização...');
+  if(!navigator.geolocation){
+    setStatus('✕ Geolocalização não suportada neste navegador');
+    btn.disabled = false; btn.innerHTML = '📍 MINHA LOCALIZAÇÃO';
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(pos=>{
+    userLat = pos.coords.latitude;
+    userLon = pos.coords.longitude;
+    map.setView([userLat,userLon],14);
+    if(userMarker) map.removeLayer(userMarker);
+    userMarker = L.marker([userLat,userLon],{
+      icon: L.divIcon({
+        html:'<div style="background:rgba(0,212,255,.3);border:2px solid #00d4ff;border-radius:50%;width:16px;height:16px;box-shadow:0 0 20px #00d4ff;animation:pulse 2s infinite"></div>',
+        className:'',iconSize:[16,16],iconAnchor:[8,8]
+      })
+    }).addTo(map).bindPopup('📍 Você está aqui');
+    btn.disabled = false; btn.innerHTML = '📍 MINHA LOCALIZAÇÃO';
+    fetchNearby(userLat, userLon);
+  }, err=>{
+    setStatus('✕ Não foi possível obter localização. Verifique as permissões.');
+    btn.disabled = false; btn.innerHTML = '📍 MINHA LOCALIZAÇÃO';
+  });
+}
+
+// ── FETCH FROM BTCMAP ──
+async function fetchNearby(lat,lon){
+  setStatus('⟳ Buscando locais Bitcoin próximos...');
+  const list = document.getElementById('nearby-list');
+  list.innerHTML = '<div class="loading"><span class="spinner"></span> CARREGANDO...</div>';
+
+  // BTCMap bounding box (±0.5 graus ~ 50km)
+  const d = 0.5;
+  const url = `https://api.btcmap.org/v2/elements?limit=100`;
+
+  try {
+    // Try the elements endpoint
+    const res = await fetch(url);
+    if(!res.ok) throw new Error('API error');
+    const data = await res.json();
+    processData(data, lat, lon);
+  } catch(e) {
+    // Fallback: use static demo data near user location
+    setStatus('⚡ Usando dados de demonstração · API BTCMap temporariamente indisponível');
+    useDemoData(lat, lon);
+  }
+}
+
+function processData(data, userLat, userLon){
+  // Clear old markers
+  allMarkers.forEach(m=>map.removeLayer(m.marker));
+  allMarkers = [];
+
+  const elements = Array.isArray(data) ? data : (data.elements||data.data||[]);
+
+  const nearby = elements
+    .filter(el => el.osm_json && el.osm_json.lat && el.osm_json.lon)
+    .map(el => {
+      const lat2 = el.osm_json.lat;
+      const lon2 = el.osm_json.lon;
+      const dist = haversine(userLat, userLon, lat2, lon2);
+      return {...el, dist, lat2, lon2};
+    })
+    .filter(el => el.dist < 50)
+    .sort((a,b)=>a.dist-b.dist)
+    .slice(0,20);
+
+  if(nearby.length === 0){
+    setStatus('ℹ Nenhum local encontrado num raio de 50km. Tente outra cidade.');
+    document.getElementById('nearby-list').innerHTML = '<div class="empty"><strong>Nenhum local próximo</strong>Não encontramos locais Bitcoin em sua área ainda. Mas você pode cadastrar um em btcmap.org!</div>';
+    document.getElementById('stat-nearby').textContent = '0';
+    return;
+  }
+
+  let lnCount = 0;
+  nearby.forEach(el => {
+    const tags = el.osm_json.tags || {};
+    const name = tags.name || tags['name:pt'] || 'Local Bitcoin';
+    const addr = [tags['addr:street'], tags['addr:housenumber'], tags['addr:city']].filter(Boolean).join(', ') || 'Endereço não disponível';
+    const hasLN = !!(tags['payment:lightning'] === 'yes' || tags['payment:lightning_contactless'] === 'yes');
+    const hasWifi = !!(tags.internet_access === 'wlan' || tags.wifi === 'yes');
+    const cat = getCategory(tags);
+    const isPontoApoio = hasLN && hasWifi;
+    if(hasLN) lnCount++;
+
+    const marker = L.marker([el.lat2, el.lon2], {
+      icon: isPontoApoio ? icons.apoio : (icons[cat] || icons.def)
+    }).addTo(map)
+      .bindPopup(makePopup(name, addr, el.lat2, el.lon2, hasLN, hasWifi, isPontoApoio, cat));
+
+    marker.on('click',()=>{checkinTarget = {name, lat: el.lat2, lon: el.lon2};});
+    allMarkers.push({marker, cat, isPontoApoio, el, name, addr, dist: el.dist, hasLN, hasWifi});
+  });
+
+  document.getElementById('stat-nearby').textContent = nearby.length;
+  document.getElementById('stat-ln').textContent = lnCount;
+  setStatus(`✓ ${nearby.length} locais encontrados num raio de 50km · ${lnCount} aceitam Lightning`);
+  renderList(nearby.length);
+}
+
+function makePopup(name, addr, lat, lon, hasLN, hasWifi, isPontoApoio, cat){
+  const emoji = {food:'☕',atm:'🏧',hotel:'🏨',shop:'🛍️',def:'₿'}[cat]||'₿';
+  const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
+  const wazeUrl = `https://waze.com/ul?ll=${lat},${lon}&navigate=yes`;
+  return `<div style="font-family:ui-monospace,monospace;min-width:200px;">
+    <div style="font-size:12px;font-weight:700;margin-bottom:4px;">${emoji} ${name}</div>
+    <div style="font-size:9px;color:#6b7280;margin-bottom:8px;">${addr}</div>
+    <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">
+      ${hasLN ? '<span style="background:rgba(251,191,36,.2);color:#fbbf24;border:1px solid rgba(251,191,36,.4);padding:2px 6px;border-radius:8px;font-size:8px;">⚡ LIGHTNING</span>' : ''}
+      ${hasWifi ? '<span style="background:rgba(0,212,255,.1);color:#00d4ff;border:1px solid rgba(0,212,255,.3);padding:2px 6px;border-radius:8px;font-size:8px;">📶 WI-FI</span>' : ''}
+      ${isPontoApoio ? '<span style="background:rgba(168,85,247,.15);color:#a855f7;border:1px solid rgba(168,85,247,.4);padding:2px 6px;border-radius:8px;font-size:8px;">🏅 PONTO APOIO</span>' : ''}
+    </div>
+    <div style="display:flex;gap:6px;">
+      <a href="${mapsUrl}" target="_blank" style="flex:1;text-align:center;padding:6px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3);color:#4ade80;border-radius:6px;font-size:9px;text-decoration:none;font-weight:700;">📍 Maps</a>
+      <a href="${wazeUrl}" target="_blank" style="flex:1;text-align:center;padding:6px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.3);color:#00d4ff;border-radius:6px;font-size:9px;text-decoration:none;font-weight:700;">🚗 Waze</a>
+    </div>
+  </div>`;
+}
+
+function renderList(total){
+  const list = document.getElementById('nearby-list');
+  const filtered = currentFilter === 'all'
+    ? allMarkers
+    : currentFilter === 'apoio'
+      ? allMarkers.filter(m=>m.isPontoApoio)
+      : allMarkers.filter(m=>m.cat===currentFilter);
+
+  if(filtered.length === 0){
+    list.innerHTML = '<div class="empty"><strong>Nenhum resultado</strong>Sem locais nesta categoria próximo a você.</div>';
+    return;
+  }
+
+  list.innerHTML = filtered.slice(0,12).map(({name,addr,dist,hasLN,hasWifi,isPontoApoio,cat,el}) => {
+    const lat = el.lat2, lon = el.lon2;
+    const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
+    const wazeUrl = `https://waze.com/ul?ll=${lat},${lon}&navigate=yes`;
+    const emoji = {food:'☕',atm:'🏧',hotel:'🏨',shop:'🛍️',def:'₿'}[cat]||'₿';
+    const distStr = dist < 1 ? `${Math.round(dist*1000)}m` : `${dist.toFixed(1)}km`;
+    return `<div class="nearby-item${isPontoApoio?' ponto-apoio':''}">
+      <div class="nearby-icon">${emoji}</div>
+      <div class="nearby-info">
+        <div class="nearby-name">${name}</div>
+        <div class="nearby-addr">${addr}</div>
+        <div class="nearby-badges">
+          ${hasLN ? '<span class="badge badge-ln">⚡ LIGHTNING</span>' : ''}
+          ${hasWifi ? '<span class="badge badge-wifi">📶 WI-FI</span>' : ''}
+          ${isPontoApoio ? '<span class="badge badge-apoio">🏅 PONTO APOIO</span>' : ''}
+          ${cat==='atm' ? '<span class="badge badge-atm">🏧 ATM</span>' : ''}
+        </div>
+      </div>
+      <div class="nearby-dist">${distStr}</div>
+      <div class="nearby-actions">
+        <a href="${mapsUrl}" target="_blank" class="action-btn btn-maps">Maps</a>
+        <a href="${wazeUrl}" target="_blank" class="action-btn btn-waze">Waze</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── DEMO DATA (fallback) ──
+function useDemoData(lat, lon){
+  const demos = [
+    {name:'Café Satoshi',tags:{name:'Café Satoshi','payment:lightning':'yes',internet_access:'wlan',amenity:'cafe'},dlat:.003,dlon:.002},
+    {name:'Bitcoin ATM Centro',tags:{name:'Bitcoin ATM Centro',amenity:'atm','currency:BTC':'yes'},dlat:-.005,dlon:.008},
+    {name:'Hotel Nakamoto',tags:{name:'Hotel Nakamoto','payment:lightning':'yes',tourism:'hotel'},dlat:.01,dlon:-.003},
+    {name:'Loja Crypto Gear',tags:{name:'Loja Crypto Gear','payment:bitcoin':'yes',shop:'electronics'},dlat:-.008,dlon:.005},
+    {name:'Barbearia Lightning',tags:{name:'Barbearia Lightning','payment:lightning':'yes',internet_access:'wlan',shop:'hairdresser'},dlat:.006,dlon:.007},
+    {name:'Restaurante Blockchain',tags:{name:'Restaurante Blockchain','payment:bitcoin':'yes',amenity:'restaurant'},dlat:-.003,dlon:-.006},
+  ];
+
+  allMarkers.forEach(m=>map.removeLayer(m.marker));
+  allMarkers = [];
+  let lnCount = 0;
+
+  demos.forEach(d=>{
+    const lat2 = lat + d.dlat;
+    const lon2 = lon + d.dlon;
+    const dist = haversine(lat, lon, lat2, lon2);
+    const hasLN = !!(d.tags['payment:lightning']==='yes');
+    const hasWifi = !!(d.tags.internet_access==='wlan');
+    const cat = getCategory(d.tags);
+    const isPontoApoio = hasLN && hasWifi;
+    if(hasLN) lnCount++;
+
+    const marker = L.marker([lat2,lon2],{icon: isPontoApoio ? icons.apoio : (icons[cat]||icons.def)})
+      .addTo(map)
+      .bindPopup(makePopup(d.name,'Endereço demo',lat2,lon2,hasLN,hasWifi,isPontoApoio,cat));
+    marker.on('click',()=>{checkinTarget={name:d.name,lat:lat2,lon:lon2};});
+    allMarkers.push({marker,cat,isPontoApoio,el:{lat2,lon2},name:d.name,addr:'Dados de demonstração',dist,hasLN,hasWifi});
+  });
+
+  document.getElementById('stat-nearby').textContent = demos.length;
+  document.getElementById('stat-ln').textContent = lnCount;
+  renderList(demos.length);
+}
+
+// ── HELPERS ──
+function getCategory(tags){
+  const amenity = tags.amenity||'';
+  if(amenity==='atm' || tags['currency:BTC']) return 'atm';
+  if(['cafe','restaurant','bar','fast_food','food_court'].includes(amenity)) return 'food';
+  if(['hotel','hostel','motel','guest_house'].includes(tags.tourism||'')) return 'hotel';
+  if(tags.shop) return 'shop';
+  return 'def';
+}
+
+function haversine(lat1,lon1,lat2,lon2){
+  const R=6371, dLat=(lat2-lat1)*Math.PI/180, dLon=(lon2-lon1)*Math.PI/180;
+  const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+
+function setStatus(msg){ document.getElementById('map-status').textContent = msg; }
+
+function setFilter(el, cat){
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  if(allMarkers.length) renderList(allMarkers.length);
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+function checkin(ok){
+  if(checkinTarget){
+    showToast(ok ? `✓ Obrigado! "${checkinTarget.name}" confirmado.` : `✕ Problema reportado em "${checkinTarget.name}"`);
+  } else {
+    showToast(ok ? '✓ Obrigado pelo check-in! Clique num marcador para confirmar um local específico.' : '✕ Clique num marcador no mapa para reportar um problema específico.');
+  }
+}
+
+// Add pulse animation
+const style = document.createElement('style');
+style.textContent = '@keyframes pulse{0%,100%{box-shadow:0 0 8px #00d4ff}50%{box-shadow:0 0 20px #00d4ff}}';
+document.head.appendChild(style);
+</script>
+</body>
+</html>
