@@ -2710,6 +2710,209 @@ img{max-width:100%;height:auto;}
 </script>
 <!-- ============ FIM DO DASHBOARD DE COMANDO ============ -->
 
+<!-- ===== PAINEL LOCUTORES IA AO VIVO ===== -->
+<style>
+.lv{background:#080b10;padding:28px 20px 36px;font-family:'Share Tech Mono',ui-monospace,monospace;border-bottom:1px solid rgba(57,255,20,.1);}
+.lv-title{font-family:'Orbitron',ui-monospace,monospace;font-size:11px;letter-spacing:4px;color:#f7931a;text-transform:uppercase;max-width:1200px;margin:0 auto 22px;display:flex;align-items:center;gap:10px;}
+.lv-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(57,255,20,.25),transparent);}
+.lv-clock{font-family:'Orbitron',monospace;font-size:13px;color:#39ff14;letter-spacing:3px;text-shadow:0 0 10px rgba(57,255,20,.5);}
+
+/* Cards locutores */
+.lv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1200px;margin:0 auto 28px;}
+@media(max-width:900px){.lv-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.lv-grid{grid-template-columns:1fr 1fr;gap:8px;}}
+.lv-card{background:rgba(12,16,22,.92);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:18px 14px;text-align:center;position:relative;transition:.2s;cursor:default;}
+.lv-card.online{border-color:rgba(57,255,20,.5);box-shadow:0 0 24px rgba(57,255,20,.12),inset 0 0 20px rgba(57,255,20,.04);}
+.lv-card.online::before{content:'● ON AIR';position:absolute;top:8px;right:10px;font-family:'Orbitron',monospace;font-size:7px;font-weight:700;color:#39ff14;text-shadow:0 0 8px #39ff14;letter-spacing:1.5px;animation:lv-blink 1.2s step-end infinite;}
+@keyframes lv-blink{0%,100%{opacity:1}50%{opacity:.3}}
+.lv-card.standby{opacity:.7;}
+.lv-card.standby::before{content:'● STANDBY';position:absolute;top:8px;right:10px;font-family:'Orbitron',monospace;font-size:7px;color:#9ca3af;letter-spacing:1.5px;}
+
+/* SVG logos */
+.lv-logo{width:68px;height:68px;margin:8px auto 12px;display:flex;align-items:center;justify-content:center;}
+.lv-logo svg{width:64px;height:64px;filter:drop-shadow(0 0 10px var(--lc,#39ff14));}
+
+/* nomes / status */
+.lv-name{font-family:'Orbitron',monospace;font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;color:var(--lc);}
+.lv-model{font-size:9px;color:#6b7a99;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;}
+.lv-slot{font-size:10px;background:rgba(242,169,0,.1);border:1px solid rgba(242,169,0,.2);border-radius:4px;padding:3px 8px;color:#f2a900;display:inline-block;margin-bottom:8px;}
+.lv-status{display:inline-flex;align-items:center;gap:5px;font-size:10px;letter-spacing:1px;}
+.lv-dot{width:6px;height:6px;border-radius:50%;}
+.lv-card.online .lv-dot{background:#39ff14;box-shadow:0 0 6px #39ff14;}
+.lv-card.standby .lv-dot{background:#f2a900;box-shadow:0 0 4px #f2a900;}
+
+/* Grade 24h */
+.lv-sched-wrap{max-width:1200px;margin:0 auto 28px;}
+.lv-sched-head{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:3px;color:#f2a900;margin-bottom:12px;}
+.lv-sched{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+@media(max-width:700px){.lv-sched{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:400px){.lv-sched{grid-template-columns:repeat(2,1fr);}}
+.lv-block{background:rgba(12,16,22,.92);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:12px 10px;text-align:center;transition:.2s;}
+.lv-block.now{border-color:rgba(57,255,20,.5);box-shadow:0 0 16px rgba(57,255,20,.12);background:rgba(57,255,20,.04);}
+.lv-block-time{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;color:#f2a900;letter-spacing:1px;margin-bottom:6px;}
+.lv-block-logo{width:36px;height:36px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;}
+.lv-block-logo svg{width:32px;height:32px;}
+.lv-block-name{font-family:'Orbitron',monospace;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;}
+.lv-block-prog{font-size:9px;color:#6b7a99;line-height:1.4;}
+.lv-block.now .lv-block-prog{color:#c8d0dc;}
+
+/* Arquitetura */
+.lv-arch-wrap{max-width:1200px;margin:0 auto;}
+.lv-arch-head{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:3px;color:#f2a900;margin-bottom:12px;}
+.lv-arch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+@media(max-width:700px){.lv-arch{grid-template-columns:1fr 1fr;}}
+@media(max-width:450px){.lv-arch{grid-template-columns:1fr;}}
+.lv-arch-card{background:rgba(12,16,22,.92);border:1px solid rgba(0,245,255,.1);border-radius:8px;padding:14px;}
+.lv-arch-icon{font-size:22px;margin-bottom:8px;}
+.lv-arch-title{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;color:#00f5ff;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.lv-arch-desc{font-size:10px;color:#6b7a99;line-height:1.6;}
+.lv-arch-desc strong{color:#c8d0dc;}
+</style>
+
+<section class="lv" id="locutores-ao-vivo">
+
+  <div class="lv-title">
+    ⚡ LOCUTORES IA — REVEZAMENTO 24H
+    <span class="lv-clock" id="lv-clock">--:--:--</span>
+  </div>
+
+  <!-- Cards dos 4 locutores -->
+  <div class="lv-grid" id="lv-grid">
+    <!-- preenchido pelo JS -->
+  </div>
+
+  <!-- Grade 24h -->
+  <div class="lv-sched-wrap">
+    <div class="lv-sched-head">⏰ GRADE DE PROGRAMAÇÃO — 24H AUTOMATIZADA</div>
+    <div class="lv-sched" id="lv-sched">
+      <!-- preenchido pelo JS -->
+    </div>
+  </div>
+
+  <!-- Arquitetura técnica -->
+  <div class="lv-arch-wrap">
+    <div class="lv-arch-head">🔧 ARQUITETURA TÉCNICA</div>
+    <div class="lv-arch">
+      <div class="lv-arch-card">
+        <div class="lv-arch-icon">🧠</div>
+        <div class="lv-arch-title">GERAÇÃO DE CONTEÚDO</div>
+        <div class="lv-arch-desc">LLM local (<strong>radiobot:latest</strong> via Ollama) gera scripts de notícias, análise de mercado e comentários a cada ciclo com temperatura ajustável.</div>
+      </div>
+      <div class="lv-arch-card">
+        <div class="lv-arch-icon">🎙️</div>
+        <div class="lv-arch-title">SÍNTESE DE VOZ</div>
+        <div class="lv-arch-desc">TTS local converte texto em áudio com a voz de cada locutor. <strong>Latência &lt; 3s</strong>, sem dependência de APIs pagas.</div>
+      </div>
+      <div class="lv-arch-card">
+        <div class="lv-arch-icon">📡</div>
+        <div class="lv-arch-title">TRANSMISSÃO LIVE</div>
+        <div class="lv-arch-desc"><strong>ffmpeg</strong> injeta o áudio gerado no stream Icecast em tempo real. Fallback automático para música se o locutor travar.</div>
+      </div>
+      <div class="lv-arch-card">
+        <div class="lv-arch-icon">📊</div>
+        <div class="lv-arch-title">DADOS EM TEMPO REAL</div>
+        <div class="lv-arch-desc">Preço BTC, Polymarket, fear &amp; greed e on-chain são injetados no prompt a cada geração. O locutor fala de dados <strong>ao vivo</strong>.</div>
+      </div>
+      <div class="lv-arch-card">
+        <div class="lv-arch-icon">🔄</div>
+        <div class="lv-arch-title">REVEZAMENTO AUTOMÁTICO</div>
+        <div class="lv-arch-desc">Cron job troca o locutor ativo por blocos de 6h. O placar de votos da audiência influencia quem toca no horário nobre.</div>
+      </div>
+      <div class="lv-arch-card">
+        <div class="lv-arch-icon">⚡</div>
+        <div class="lv-arch-title">BREAKING NEWS</div>
+        <div class="lv-arch-desc">Monitor de RSS detecta breaking news Bitcoin. <strong>Interrompe a programação</strong> automaticamente e gera flash informativo em &lt; 60s.</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+(function(){
+  // ── SVGs inline dos 4 locutores ──────────────────────────────
+  var SVG = {
+    gpt: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="30" stroke="#10a37f" stroke-width="2" opacity=".3"/><text x="32" y="42" text-anchor="middle" font-size="28" font-family="serif" font-weight="900" fill="#10a37f">∞</text><circle cx="32" cy="32" r="30" stroke="#10a37f" stroke-width="1.5" stroke-dasharray="4 4" opacity=".4"><animateTransform attributeName="transform" type="rotate" values="0 32 32;360 32 32" dur="12s" repeatCount="indefinite"/></circle></svg>',
+    claude: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="32,4 60,20 60,44 32,60 4,44 4,20" stroke="#f7931a" stroke-width="2" fill="none" opacity=".25"/><polygon points="32,12 52,23 52,41 32,52 12,41 12,23" stroke="#f7931a" stroke-width="1.5" fill="rgba(247,147,26,.08)"/><text x="32" y="40" text-anchor="middle" font-size="22" font-family="serif" font-weight="900" fill="#f7931a">◆</text></svg>',
+    gemini: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="32,4 36,28 60,32 36,36 32,60 28,36 4,32 28,28" fill="rgba(0,212,255,.15)" stroke="#00d4ff" stroke-width="2"/><polygon points="32,14 34,30 50,32 34,34 32,50 30,34 14,32 30,30" fill="rgba(0,212,255,.2)" stroke="#00d4ff" stroke-width="1"/><circle cx="32" cy="32" r="4" fill="#00d4ff" opacity=".9"><animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/></circle></svg>',
+    manus: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="32,4 60,20 60,44 32,60 4,44 4,20" stroke="#a855f7" stroke-width="2" fill="rgba(168,85,247,.1)"/><text x="32" y="39" text-anchor="middle" font-size="20" font-family="monospace" font-weight="900" fill="#a855f7">M</text><circle cx="32" cy="32" r="28" stroke="#a855f7" stroke-width=".8" stroke-dasharray="2 6" opacity=".5"><animateTransform attributeName="transform" type="rotate" values="360 32 32;0 32 32" dur="20s" repeatCount="indefinite"/></circle></svg>'
+  };
+
+  var LOCUTORES = [
+    { id:'gpt',    nome:'GPT-4o',   modelo:'radiobot:latest', cor:'#10a37f', slots:'06h–12h', prog:'Mercado matinal + análise BTC' },
+    { id:'claude', nome:'Claude',   modelo:'Llama 3.1:8b',   cor:'#f7931a', slots:'12h–18h', prog:'Tarde: macro + on-chain data' },
+    { id:'gemini', nome:'Gemini',   modelo:'Gemini API',     cor:'#00d4ff', slots:'18h–00h', prog:'Prime time + Polymarket ao vivo' },
+    { id:'manus',  nome:'Manus',    modelo:'radiobot:latest', cor:'#a855f7', slots:'00h–06h', prog:'Madrugada: breaking news global' }
+  ];
+
+  var SCHEDULE = [
+    { range:[0,6],   loc:'manus',  prog:'Madrugada · Breaking News Global',    label:'00h–06h' },
+    { range:[6,12],  loc:'gpt',    prog:'Mercado Matinal · Análise BTC/DXY',   label:'06h–12h' },
+    { range:[12,18], loc:'claude', prog:'Tarde Bitcoin · On-chain + Macro',     label:'12h–18h' },
+    { range:[18,21], loc:'gemini', prog:'Prime Time · Polymarket ao vivo',      label:'18h–21h' },
+    { range:[21,24], loc:'gemini', prog:'Noite · Resumo do dia + Breaking',     label:'21h–00h' }
+  ];
+
+  function getActive(h){
+    for(var i=0;i<SCHEDULE.length;i++){
+      var s=SCHEDULE[i];
+      if(h>=s.range[0]&&h<s.range[1]) return s.loc;
+    }
+    return 'manus';
+  }
+
+  function renderClock(){
+    var el=document.getElementById('lv-clock');
+    if(!el) return;
+    var n=new Date();
+    el.textContent=[n.getHours(),n.getMinutes(),n.getSeconds()].map(function(v){return String(v).padStart(2,'0');}).join(':');
+  }
+
+  function renderGrid(h){
+    var g=document.getElementById('lv-grid');
+    if(!g) return;
+    var active=getActive(h);
+    g.innerHTML=LOCUTORES.map(function(l){
+      var isOn=l.id===active;
+      return '<div class="lv-card '+(isOn?'online':'standby')+'" style="--lc:'+l.cor+'">'+
+        '<div class="lv-logo">'+SVG[l.id]+'</div>'+
+        '<div class="lv-name">'+l.nome+'</div>'+
+        '<div class="lv-model">'+l.modelo+'</div>'+
+        '<div class="lv-slot">'+l.slots+'</div>'+
+        '<div class="lv-status"><span class="lv-dot"></span><span style="color:'+(isOn?'#39ff14':'#9ca3af')+';font-family:\'Orbitron\',monospace;font-size:9px;letter-spacing:1px;">'+(isOn?'ONLINE':'STANDBY')+'</span></div>'+
+      '</div>';
+    }).join('');
+  }
+
+  function renderSched(h){
+    var s=document.getElementById('lv-sched');
+    if(!s) return;
+    s.innerHTML=SCHEDULE.map(function(b){
+      var loc=LOCUTORES.find(function(l){return l.id===b.loc;});
+      var now=h>=b.range[0]&&h<b.range[1];
+      return '<div class="lv-block'+(now?' now':'')+'">'+
+        '<div class="lv-block-time">'+b.label+'</div>'+
+        '<div class="lv-block-logo" style="filter:drop-shadow(0 0 6px '+(loc?loc.cor:'#fff')+')">'+SVG[b.loc]+'</div>'+
+        '<div class="lv-block-name" style="color:'+(loc?loc.cor:'#fff')+'">'+loc.nome+'</div>'+
+        '<div class="lv-block-prog">'+b.prog+'</div>'+
+      '</div>';
+    }).join('');
+  }
+
+  function tick(){
+    var h=new Date().getHours();
+    renderGrid(h);
+    renderSched(h);
+  }
+
+  renderClock();
+  tick();
+  setInterval(renderClock, 1000);
+  setInterval(tick, 60000);
+})();
+</script>
+<!-- ===== FIM PAINEL LOCUTORES IA AO VIVO ===== -->
+
 <!-- ===== FIM DASHBOARD TOPO ===== -->
 
 <!-- ===== BANNER VALE SATS GLOBAL (auto) ===== -->
