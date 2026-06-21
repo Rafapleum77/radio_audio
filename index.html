@@ -2426,264 +2426,369 @@ img{max-width:100%;height:auto;}
 
       <!-- MAPA BITCOIN GLOBAL -->
       <div class="panel" id="mapa-bitcoin" style="background:linear-gradient(180deg,#040a06 0%,#050c07 100%);border-color:rgba(0,255,136,0.25);">
-        <div class="pt" style="color:#00ff88;letter-spacing:3px;">⚡ MAPA BITCOIN — ONDE GASTAR SEUS SATS</div>
+        <div class="pt" style="color:#00ff88;letter-spacing:3px;">⚡ MAPA BITCOIN — REDE DE APOIO GLOBAL</div>
 
         <style>
-        /* ── MAPA BTC ── */
         #btcmap-leaflet{height:340px;border-radius:10px;border:1px solid rgba(0,255,136,0.2);overflow:hidden;margin:10px 0;}
-        .btcmap-bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
+        .btcmap-bar{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
         .btcmap-filter{font-family:ui-monospace,Menlo,monospace;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 10px;border-radius:5px;cursor:pointer;border:1px solid rgba(0,255,136,0.2);color:#4b5563;background:#040a06;transition:all .15s;white-space:nowrap;}
         .btcmap-filter.active,.btcmap-filter:hover{color:#00ff88;border-color:rgba(0,255,136,0.65);background:rgba(0,255,136,0.08);}
-        .btcmap-locbtn{font-family:ui-monospace,Menlo,monospace;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:5px;cursor:pointer;border:1px solid rgba(242,169,0,0.4);color:#f2a900;background:rgba(242,169,0,0.08);transition:all .15s;margin-left:auto;}
+        .btcmap-locbtn{font-family:ui-monospace,Menlo,monospace;font-size:8px;font-weight:700;letter-spacing:1px;padding:5px 12px;border-radius:5px;cursor:pointer;border:1px solid rgba(242,169,0,0.4);color:#f2a900;background:rgba(242,169,0,0.08);transition:all .15s;margin-left:auto;white-space:nowrap;}
         .btcmap-locbtn:hover{border-color:rgba(242,169,0,0.8);box-shadow:0 0 10px rgba(242,169,0,0.2);}
-        .btcmap-stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
-        .btcmap-stat{background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);border-radius:6px;padding:6px 12px;text-align:center;}
+        .btcmap-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+        .btcmap-stat{background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);border-radius:6px;padding:6px 12px;text-align:center;flex:1;min-width:70px;}
         .btcmap-stat .n{font-family:ui-monospace,Menlo,monospace;font-size:16px;font-weight:900;color:#00ff88;}
-        .btcmap-stat .l{font-size:8px;color:#374151;letter-spacing:1px;text-transform:uppercase;font-family:ui-monospace,Menlo,monospace;}
-        .btcmap-list{display:flex;flex-direction:column;gap:6px;margin-top:12px;max-height:260px;overflow-y:auto;}
-        .btcmap-item{display:flex;gap:10px;align-items:center;padding:8px 10px;background:#050c07;border:1px solid rgba(0,255,136,0.1);border-radius:8px;transition:border-color .15s;}
-        .btcmap-item:hover{border-color:rgba(0,255,136,0.35);}
-        .btcmap-item-icon{font-size:18px;flex-shrink:0;width:28px;text-align:center;}
+        .btcmap-stat .l{font-size:7.5px;color:#374151;letter-spacing:1px;text-transform:uppercase;font-family:ui-monospace,Menlo,monospace;}
+
+        /* anuncio de voz */
+        .btcmap-voice-bar{display:flex;align-items:center;gap:8px;background:rgba(242,169,0,0.07);border:1px solid rgba(242,169,0,0.2);border-radius:8px;padding:8px 12px;margin-bottom:10px;}
+        .btcmap-voice-text{flex:1;font-size:9px;color:#9ca3af;font-family:ui-monospace,Menlo,monospace;line-height:1.4;}
+        .btcmap-voice-text b{color:#f2a900;}
+        .btcmap-voice-btn{font-size:9px;font-family:ui-monospace,Menlo,monospace;font-weight:700;padding:5px 10px;border-radius:5px;cursor:pointer;border:1px solid rgba(242,169,0,0.4);color:#f2a900;background:rgba(242,169,0,0.1);white-space:nowrap;transition:all .15s;}
+        .btcmap-voice-btn:hover{background:rgba(242,169,0,0.2);}
+        .btcmap-voice-bar.hidden{display:none;}
+
+        /* lista */
+        .btcmap-list{display:flex;flex-direction:column;gap:6px;margin-top:8px;max-height:320px;overflow-y:auto;}
+        .btcmap-item{display:flex;gap:8px;align-items:flex-start;padding:9px 10px;background:#050c07;border:1px solid rgba(0,255,136,0.1);border-radius:8px;transition:border-color .15s;}
+        .btcmap-item:hover{border-color:rgba(0,255,136,0.3);}
+        .btcmap-item.apoio{border-color:rgba(242,169,0,0.3);background:linear-gradient(90deg,rgba(242,169,0,0.04),#050c07);}
+        .btcmap-item-icon{font-size:20px;flex-shrink:0;width:28px;text-align:center;margin-top:1px;}
         .btcmap-item-body{flex:1;min-width:0;}
         .btcmap-item-name{font-size:10px;font-weight:700;color:#e5e7eb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-        .btcmap-item-addr{font-size:8px;color:#4b5563;margin-top:2px;}
+        .btcmap-item-addr{font-size:8px;color:#4b5563;margin-top:1px;}
         .btcmap-item-tags{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px;}
-        .btcmap-tag{font-size:7px;font-family:ui-monospace,Menlo,monospace;font-weight:700;letter-spacing:.6px;padding:1px 6px;border-radius:8px;text-transform:uppercase;}
-        .btcmap-tag.ln{background:rgba(0,255,136,0.12);color:#00ff88;border:1px solid rgba(0,255,136,0.25);}
+        .btcmap-tag{font-size:7px;font-family:ui-monospace,Menlo,monospace;font-weight:700;letter-spacing:.5px;padding:1px 6px;border-radius:8px;text-transform:uppercase;}
+        .btcmap-tag.ln{background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.25);}
         .btcmap-tag.onchain{background:rgba(242,169,0,0.1);color:#f2a900;border:1px solid rgba(242,169,0,0.25);}
         .btcmap-tag.atm{background:rgba(0,220,255,0.1);color:#00dcff;border:1px solid rgba(0,220,255,0.25);}
-        .btcmap-nav{display:flex;gap:4px;flex-shrink:0;}
-        .btcmap-navbtn{font-size:9px;padding:4px 8px;border-radius:5px;text-decoration:none;font-weight:700;font-family:ui-monospace,Menlo,monospace;white-space:nowrap;transition:all .15s;}
+        .btcmap-tag.wifi{background:rgba(168,85,247,0.1);color:#c084fc;border:1px solid rgba(168,85,247,0.25);}
+        .btcmap-tag.apoio{background:rgba(242,169,0,0.12);color:#f2a900;border:1px solid rgba(242,169,0,0.4);}
+        .btcmap-tag.checkin{background:rgba(0,255,136,0.12);color:#00ff88;border:1px solid rgba(0,255,136,0.4);}
+        .btcmap-item-right{display:flex;flex-direction:column;gap:4px;align-items:flex-end;flex-shrink:0;}
+        .btcmap-navbtn{font-size:8px;padding:3px 7px;border-radius:4px;text-decoration:none;font-weight:700;font-family:ui-monospace,Menlo,monospace;white-space:nowrap;transition:all .15s;display:block;text-align:center;}
         .btcmap-navbtn.maps{background:rgba(66,133,244,0.15);color:#60a5fa;border:1px solid rgba(66,133,244,0.3);}
         .btcmap-navbtn.waze{background:rgba(0,212,70,0.1);color:#00d446;border:1px solid rgba(0,212,70,0.25);}
-        .btcmap-navbtn:hover{opacity:.8;transform:scale(1.04);}
+        .btcmap-navbtn.checkin-btn{background:rgba(0,255,136,0.08);color:#00ff88;border:1px solid rgba(0,255,136,0.25);cursor:pointer;}
+        .btcmap-navbtn.checkin-btn:hover{background:rgba(0,255,136,0.2);}
+        .btcmap-navbtn.checked{background:rgba(0,255,136,0.2);color:#00ff88;border-color:rgba(0,255,136,0.6);}
         .btcmap-loading{font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#374151;padding:20px;text-align:center;letter-spacing:1px;}
         .btcmap-src{font-size:7.5px;color:#374151;margin-top:10px;font-family:ui-monospace,Menlo,monospace;}
+        .btcmap-checkin-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;}
+        .btcmap-checkin-modal.open{display:flex;}
+        .btcmap-checkin-box{background:#050c07;border:1px solid rgba(0,255,136,0.4);border-radius:12px;padding:20px;max-width:320px;width:90%;}
+        .btcmap-checkin-title{font-size:12px;font-weight:900;color:#00ff88;margin-bottom:12px;font-family:ui-monospace,Menlo,monospace;}
+        .btcmap-checkin-name{font-size:14px;font-weight:800;color:#e5e7eb;margin-bottom:14px;}
+        .btcmap-checkin-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+        .btcmap-checkin-opt{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);cursor:pointer;font-size:11px;color:#9ca3af;transition:all .15s;}
+        .btcmap-checkin-opt:hover,.btcmap-checkin-opt.sel{border-color:rgba(0,255,136,0.5);color:#e5e7eb;background:rgba(0,255,136,0.07);}
+        .btcmap-checkin-stars{display:flex;gap:6px;margin-bottom:14px;}
+        .btcmap-star{font-size:22px;cursor:pointer;opacity:.3;transition:opacity .1s;}
+        .btcmap-star.lit{opacity:1;}
+        .btcmap-checkin-btns{display:flex;gap:8px;}
+        .btcmap-checkin-confirm{flex:1;padding:9px;border-radius:6px;background:rgba(0,255,136,0.15);color:#00ff88;border:1px solid rgba(0,255,136,0.4);font-family:ui-monospace,Menlo,monospace;font-weight:700;font-size:10px;cursor:pointer;letter-spacing:1px;}
+        .btcmap-checkin-cancel{padding:9px 14px;border-radius:6px;background:transparent;color:#4b5563;border:1px solid rgba(255,255,255,0.08);font-family:ui-monospace,Menlo,monospace;font-size:10px;cursor:pointer;}
         </style>
 
-        <!-- stats dinâmicos -->
+        <!-- modal check-in -->
+        <div class="btcmap-checkin-modal" id="bm-modal">
+          <div class="btcmap-checkin-box">
+            <div class="btcmap-checkin-title">⚡ CHECK-IN BITCOIN</div>
+            <div class="btcmap-checkin-name" id="bm-modal-name"></div>
+            <div style="font-size:9px;color:#6b7280;margin-bottom:10px;font-family:ui-monospace,Menlo,monospace;">Avalie o pagamento com Lightning:</div>
+            <div class="btcmap-checkin-stars" id="bm-stars">
+              <span class="btcmap-star" data-s="1">⭐</span>
+              <span class="btcmap-star" data-s="2">⭐</span>
+              <span class="btcmap-star" data-s="3">⭐</span>
+              <span class="btcmap-star" data-s="4">⭐</span>
+              <span class="btcmap-star" data-s="5">⭐</span>
+            </div>
+            <div class="btcmap-checkin-opts">
+              <div class="btcmap-checkin-opt" data-v="ln_ok" onclick="bmSelOpt(this)">⚡ Lightning funcionou perfeitamente</div>
+              <div class="btcmap-checkin-opt" data-v="onchain_ok" onclick="bmSelOpt(this)">₿ Paguei on-chain, funcionou</div>
+              <div class="btcmap-checkin-opt" data-v="wifi" onclick="bmSelOpt(this)">📶 Tem Wi-Fi aberto para clientes BTC</div>
+              <div class="btcmap-checkin-opt" data-v="problema" onclick="bmSelOpt(this)">⚠️ Tive algum problema</div>
+            </div>
+            <div class="btcmap-checkin-btns">
+              <button class="btcmap-checkin-cancel" onclick="bmCloseModal()">Cancelar</button>
+              <button class="btcmap-checkin-confirm" onclick="bmConfirmCheckin()">✅ CONFIRMAR CHECK-IN</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- stats -->
         <div class="btcmap-stats">
-          <div class="btcmap-stat"><div class="n" id="bm-total">…</div><div class="l">locais no mundo</div></div>
-          <div class="btcmap-stat"><div class="n" id="bm-ln">…</div><div class="l">aceitam Lightning</div></div>
-          <div class="btcmap-stat"><div class="n" id="bm-nearby">…</div><div class="l">perto de você</div></div>
+          <div class="btcmap-stat"><div class="n" id="bm-total">6.800+</div><div class="l">Locais no mundo</div></div>
+          <div class="btcmap-stat"><div class="n" id="bm-ln">…</div><div class="l">Lightning ⚡</div></div>
+          <div class="btcmap-stat"><div class="n" id="bm-nearby">…</div><div class="l">Perto de você</div></div>
+          <div class="btcmap-stat"><div class="n" id="bm-apoio">…</div><div class="l">Pontos de Apoio</div></div>
+          <div class="btcmap-stat"><div class="n" id="bm-checkins">0</div><div class="l">Seus check-ins</div></div>
+        </div>
+
+        <!-- barra de anúncio de voz -->
+        <div class="btcmap-voice-bar hidden" id="bm-voice-bar">
+          <div class="btcmap-voice-text" id="bm-voice-text"><b>Radio Bitcoin:</b> …</div>
+          <button class="btcmap-voice-btn" onclick="bmFalarAnuncio()">🔊 OUVIR</button>
         </div>
 
         <!-- filtros -->
         <div class="btcmap-bar">
-          <button class="btcmap-filter active" data-cat="all" onclick="bmFilter(this,'all')">🌐 Todos</button>
-          <button class="btcmap-filter" data-cat="food" onclick="bmFilter(this,'food')">☕ Café & Food</button>
-          <button class="btcmap-filter" data-cat="atm" onclick="bmFilter(this,'atm')">🏧 ATM Bitcoin</button>
-          <button class="btcmap-filter" data-cat="hotel" onclick="bmFilter(this,'hotel')">🏨 Hotel</button>
-          <button class="btcmap-filter" data-cat="shop" onclick="bmFilter(this,'shop')">🛍️ Loja</button>
+          <button class="btcmap-filter active" onclick="bmFilter(this,'all')">🌐 Todos</button>
+          <button class="btcmap-filter" onclick="bmFilter(this,'food')">☕ Café & Food</button>
+          <button class="btcmap-filter" onclick="bmFilter(this,'atm')">🏧 ATM</button>
+          <button class="btcmap-filter" onclick="bmFilter(this,'hotel')">🏨 Hotel</button>
+          <button class="btcmap-filter" onclick="bmFilter(this,'shop')">🛍️ Loja</button>
+          <button class="btcmap-filter" onclick="bmFilter(this,'apoio')" style="border-color:rgba(242,169,0,0.3);color:#f2a900;">🏅 Ponto de Apoio</button>
           <button class="btcmap-locbtn" onclick="bmMinhaLoc()">📍 Minha localização</button>
         </div>
 
-        <!-- mapa Leaflet -->
+        <!-- mapa -->
         <div id="btcmap-leaflet"><div class="btcmap-loading">Carregando mapa…</div></div>
 
-        <!-- lista de locais próximos -->
-        <div id="btcmap-list-wrap" style="display:none;">
-          <div style="font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#00ff88;margin:10px 0 6px;letter-spacing:1px;">⚡ LOCAIS PRÓXIMOS A VOCÊ</div>
+        <!-- lista próximos -->
+        <div id="btcmap-list-wrap" style="display:none;margin-top:10px;">
+          <div style="font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#00ff88;margin-bottom:6px;letter-spacing:1px;">⚡ LOCAIS PRÓXIMOS — CLIQUE EM ✅ PARA FAZER CHECK-IN</div>
           <div class="btcmap-list" id="btcmap-list"></div>
         </div>
 
-        <div class="btcmap-src">Dados: BTCMap.org (open source) · Atualizado em tempo real · <a href="https://btcmap.org" target="_blank" style="color:#00ff88;">Contribua adicionando locais »</a></div>
+        <div class="btcmap-src">Dados: <a href="https://btcmap.org" target="_blank" style="color:#00ff88;">BTCMap.org</a> (open source) · Check-ins salvos localmente · <a href="https://btcmap.org/add-location" target="_blank" style="color:#00ff88;">Adicionar local »</a></div>
 
-        <!-- Leaflet CSS + JS -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
         <script>
         (function(){
-          var _map = null;
-          var _markers = [];
-          var _allData = [];
-          var _userLat = null, _userLng = null;
-          var _curCat = 'all';
+          var _map=null,_markers=[],_allData=[],_curCat='all';
+          var _userLat=null,_userLng=null;
+          var _modalId=null,_modalName='',_curStar=0,_curOpt=null;
+          var _CHECKINS_KEY='btcmap_checkins_v1';
+          var _anuncioTxt='';
 
-          // ── INIT MAP ──
-          function initMap(lat, lng){
-            if(_map) return;
-            var el = document.getElementById('btcmap-leaflet');
-            el.innerHTML = '';
-            _map = L.map('btcmap-leaflet',{zoomControl:true}).setView([lat,lng],13);
+          /* ─ CHECKINS LOCAL STORAGE ─ */
+          function loadCheckins(){try{return JSON.parse(localStorage.getItem(_CHECKINS_KEY)||'{}');}catch(e){return {};}}
+          function saveCheckin(id,data){var c=loadCheckins();c[id]=data;localStorage.setItem(_CHECKINS_KEY,JSON.stringify(c));}
+          function countCheckins(){return Object.keys(loadCheckins()).length;}
+          function updateCheckinCount(){document.getElementById('bm-checkins').textContent=countCheckins();}
+
+          /* ─ MAPA ─ */
+          function initMap(lat,lng){
+            if(_map)return;
+            document.getElementById('btcmap-leaflet').innerHTML='';
+            _map=L.map('btcmap-leaflet',{zoomControl:true}).setView([lat,lng],13);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
-              attribution:'© OSM © Carto',
-              subdomains:'abcd', maxZoom:20
+              attribution:'© OSM © Carto',subdomains:'abcd',maxZoom:20
             }).addTo(_map);
           }
 
-          // ── ÍCONES ──
-          function getIcon(tags){
-            var emoji = '₿';
-            var k = JSON.stringify(tags||{}).toLowerCase();
-            if(k.includes('atm')||k.includes('bitcoin_atm')) emoji='🏧';
-            else if(k.includes('cafe')||k.includes('coffee')||k.includes('restaurant')||k.includes('bar')||k.includes('food')) emoji='☕';
-            else if(k.includes('hotel')||k.includes('hostel')||k.includes('lodging')) emoji='🏨';
-            else if(k.includes('shop')||k.includes('store')||k.includes('retail')) emoji='🛍️';
+          /* ─ HELPERS ─ */
+          function dist(a,b,c,d){var R=6371,dL=(c-a)*Math.PI/180,dO=(d-b)*Math.PI/180;var x=Math.sin(dL/2)*Math.sin(dL/2)+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dO/2)*Math.sin(dO/2);return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));}
+          function tagStr(t){return JSON.stringify(t||{}).toLowerCase();}
+          function isLN(t){return t['payment:lightning']||t['payment:lightning_contactless'];}
+          function isWifi(t){return t['internet_access']||t['wifi']||t['internet_access:fee']==='no';}
+          function isATM(t){var s=tagStr(t);return s.includes('atm')||t.amenity==='atm';}
+          function isApoio(t){return isLN(t)&&isWifi(t);}
+          function getEmoji(t){
+            if(isATM(t)) return'🏧';
+            var s=tagStr(t);
+            if(s.includes('cafe')||s.includes('coffee')||s.includes('bakery')) return'☕';
+            if(s.includes('restaurant')||s.includes('food')||s.includes('bar')) return'🍽️';
+            if(s.includes('hotel')||s.includes('hostel')||s.includes('lodging')) return'🏨';
+            if(s.includes('shop')||s.includes('store')||s.includes('boutique')) return'🛍️';
+            return'₿';
+          }
+          function catMatch(t,cat){
+            if(cat==='all') return true;
+            if(cat==='apoio') return isApoio(t);
+            var s=tagStr(t);
+            if(cat==='atm') return isATM(t);
+            if(cat==='food') return s.includes('cafe')||s.includes('coffee')||s.includes('restaurant')||s.includes('bar')||s.includes('food')||s.includes('bakery');
+            if(cat==='hotel') return s.includes('hotel')||s.includes('hostel')||s.includes('lodging');
+            if(cat==='shop') return s.includes('shop')||s.includes('store')||s.includes('boutique');
+            return true;
+          }
+          function getIcon(t,id){
+            var checkins=loadCheckins();
+            var verified=checkins[id]&&checkins[id].opt!=='problema';
+            var border=verified?'#f2a900':isApoio(t)?'#a855f7':'#00ff88';
+            var glow=verified?'rgba(242,169,0,0.5)':isApoio(t)?'rgba(168,85,247,0.4)':'rgba(0,255,136,0.4)';
             return L.divIcon({
-              html:'<div style="background:#050c07;border:2px solid #00ff88;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 0 8px rgba(0,255,136,0.4);">'+emoji+'</div>',
+              html:'<div style="background:#050c07;border:2px solid '+border+';border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;box-shadow:0 0 8px '+glow+';">'+(verified?'✅':getEmoji(t))+'</div>',
               className:'',iconSize:[28,28],iconAnchor:[14,14]
             });
           }
 
-          // ── CATEGORIA ──
-          function catMatch(tags, cat){
-            if(cat==='all') return true;
-            var k = JSON.stringify(tags||{}).toLowerCase();
-            if(cat==='atm') return k.includes('atm');
-            if(cat==='food') return k.includes('cafe')||k.includes('coffee')||k.includes('restaurant')||k.includes('bar')||k.includes('food')||k.includes('bakery');
-            if(cat==='hotel') return k.includes('hotel')||k.includes('hostel')||k.includes('lodging');
-            if(cat==='shop') return k.includes('shop')||k.includes('store')||k.includes('boutique')||k.includes('retail');
-            return true;
+          /* ─ ANÚNCIO DE VOZ ─ */
+          function gerarAnuncio(nearby){
+            if(!nearby.length) return;
+            var top=nearby[0];
+            var c=top.f.osm_json,t=c.tags||{};
+            var name=t.name||t['name:pt']||t['name:en']||'um local';
+            var distStr=top.d<1?(Math.round(top.d*1000)+' metros'):(top.d.toFixed(1)+' quilômetros');
+            var tipo=isATM(t)?'um caixa eletrônico Bitcoin':isWifi(t)&&isLN(t)?'um ponto de apoio com Wi-Fi e Lightning':'um local que aceita Lightning Network';
+            _anuncioTxt='Radio Bitcoin informa: A '+distStr+' de você existe '+tipo+': '+name+'. Use o botão Waze ou Maps para chegar lá. Missão Bitcoin — construindo a economia circular.';
+            var bar=document.getElementById('bm-voice-bar');
+            document.getElementById('bm-voice-text').innerHTML='<b>Radio Bitcoin:</b> A '+distStr+' de você — <b>'+name+'</b> '+(isLN(t)?'⚡ Lightning':'₿')+(isWifi(t)?' 📶 Wi-Fi':'');
+            bar.classList.remove('hidden');
           }
+          window.bmFalarAnuncio=function(){
+            if(!_anuncioTxt||!window.speechSynthesis) return;
+            speechSynthesis.cancel();
+            var u=new SpeechSynthesisUtterance(_anuncioTxt);
+            u.lang='pt-BR';u.rate=1.05;u.pitch=0.92;u.volume=1;
+            // tenta voz pt-BR
+            var voices=speechSynthesis.getVoices();
+            var vBR=voices.find(function(v){return v.lang==='pt-BR';});
+            if(vBR) u.voice=vBR;
+            speechSynthesis.speak(u);
+          };
 
-          // ── RENDER MARKERS ──
+          /* ─ MARKERS ─ */
           function renderMarkers(){
             if(!_map) return;
             _markers.forEach(function(m){_map.removeLayer(m);});
-            _markers = [];
-            var filtered = _allData.filter(function(f){return catMatch(f.osm_json&&f.osm_json.tags,_curCat);});
-            filtered.slice(0,500).forEach(function(f){
-              var c = f.osm_json;
-              if(!c||!c.lat||!c.lon) return;
-              var tags = c.tags||{};
-              var name = tags.name||tags['name:en']||tags['name:pt']||'Local Bitcoin';
-              var ln = tags['payment:lightning']||tags['payment:lightning_contactless']||tags['currency:XBT'];
-              var addr = [tags['addr:street'],tags['addr:city'],tags['addr:country']].filter(Boolean).join(', ');
-              var mk = L.marker([c.lat,c.lon],{icon:getIcon(tags)}).addTo(_map);
-              var mapUrl = 'https://www.google.com/maps/dir/?api=1&destination='+c.lat+','+c.lon;
-              var wazeUrl = 'https://waze.com/ul?ll='+c.lat+','+c.lon+'&navigate=yes';
+            _markers=[];
+            var filtered=_allData.filter(function(f){var c=f.osm_json;return c&&c.lat&&c.lon&&catMatch(c.tags||{},_curCat);});
+            filtered.slice(0,600).forEach(function(f){
+              var c=f.osm_json,t=c.tags||{};
+              var id=f.id||f.osm_id||(c.lat+''+c.lon);
+              var name=t.name||t['name:pt']||t['name:en']||'Local Bitcoin';
+              var addr=[t['addr:street'],t['addr:city'],t['addr:country']].filter(Boolean).join(', ');
+              var mk=L.marker([c.lat,c.lon],{icon:getIcon(t,id)}).addTo(_map);
+              var mapUrl='https://www.google.com/maps/dir/?api=1&destination='+c.lat+','+c.lon;
+              var wazeUrl='https://waze.com/ul?ll='+c.lat+','+c.lon+'&navigate=yes';
+              var checkins=loadCheckins();var ck=checkins[id];
               mk.bindPopup(
-                '<div style="background:#050c07;color:#e5e7eb;font-family:ui-monospace,monospace;min-width:200px;padding:4px;">'+
-                '<div style="font-size:12px;font-weight:900;color:#00ff88;margin-bottom:4px;">'+name+'</div>'+
-                (addr?'<div style="font-size:9px;color:#6b7280;margin-bottom:6px;">📍 '+addr+'</div>':'')+
-                (ln?'<div style="font-size:8px;color:#00ff88;margin-bottom:6px;">⚡ Aceita Lightning Network</div>':'')+
-                '<div style="display:flex;gap:6px;margin-top:6px;">'+
-                '<a href="'+mapUrl+'" target="_blank" style="background:rgba(66,133,244,0.2);color:#60a5fa;border:1px solid rgba(66,133,244,0.4);border-radius:4px;padding:4px 8px;text-decoration:none;font-size:9px;font-weight:700;">🗺️ Maps</a>'+
-                '<a href="'+wazeUrl+'" target="_blank" style="background:rgba(0,212,70,0.1);color:#00d446;border:1px solid rgba(0,212,70,0.3);border-radius:4px;padding:4px 8px;text-decoration:none;font-size:9px;font-weight:700;">🚗 Waze</a>'+
+                '<div style="background:#050c07;color:#e5e7eb;font-family:ui-monospace,monospace;min-width:210px;padding:4px;">'+
+                '<div style="font-size:12px;font-weight:900;color:#00ff88;margin-bottom:3px;">'+name+'</div>'+
+                (addr?'<div style="font-size:8px;color:#6b7280;margin-bottom:5px;">📍 '+addr+'</div>':'')+
+                (isLN(t)?'<div style="font-size:8px;color:#00ff88;margin-bottom:2px;">⚡ Lightning Network</div>':'')+
+                (isWifi(t)?'<div style="font-size:8px;color:#c084fc;margin-bottom:2px;">📶 Wi-Fi disponível</div>':'')+
+                (isApoio(t)?'<div style="font-size:8px;color:#f2a900;font-weight:900;margin-bottom:5px;">🏅 PONTO DE APOIO TURISTA BITCOIN</div>':'')+
+                (ck?'<div style="font-size:8px;color:#00ff88;margin-bottom:5px;">✅ Seu check-in: '+ck.opt+'</div>':'')+
+                '<div style="display:flex;gap:5px;margin-top:6px;">'+
+                '<a href="'+mapUrl+'" target="_blank" style="background:rgba(66,133,244,0.2);color:#60a5fa;border:1px solid rgba(66,133,244,0.35);border-radius:4px;padding:4px 8px;text-decoration:none;font-size:8px;font-weight:700;">🗺️ Maps</a>'+
+                '<a href="'+wazeUrl+'" target="_blank" style="background:rgba(0,212,70,0.1);color:#00d446;border:1px solid rgba(0,212,70,0.25);border-radius:4px;padding:4px 8px;text-decoration:none;font-size:8px;font-weight:700;">🚗 Waze</a>'+
+                '<span onclick="bmAbrirModal(''+id+'',''+name.replace(/'/g,'')+'',event)" style="background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.3);border-radius:4px;padding:4px 8px;font-size:8px;font-weight:700;cursor:pointer;">✅ Check-in</span>'+
                 '</div></div>',
-                {className:'btcmap-popup'}
+                {className:'',maxWidth:240}
               );
               _markers.push(mk);
             });
           }
 
-          // ── LISTA PRÓXIMOS ──
-          function dist(lat1,lon1,lat2,lon2){
-            var R=6371,dLat=(lat2-lat1)*Math.PI/180,dLon=(lon2-lon1)*Math.PI/180;
-            var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
-            return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-          }
-
+          /* ─ LISTA ─ */
           function renderLista(lat,lng){
-            var nearby = _allData.map(function(f){
-              var c=f.osm_json; if(!c||!c.lat||!c.lon) return null;
+            var scored=_allData.map(function(f){
+              var c=f.osm_json;if(!c||!c.lat||!c.lon) return null;
               return {f:f,d:dist(lat,lng,c.lat,c.lon)};
-            }).filter(Boolean).sort(function(a,b){return a.d-b.d;}).slice(0,12);
+            }).filter(Boolean).sort(function(a,b){return a.d-b.d;});
 
-            document.getElementById('bm-nearby').textContent = nearby.filter(function(x){return x.d<5;}).length;
+            document.getElementById('bm-nearby').textContent=scored.filter(function(x){return x.d<5;}).length;
+            document.getElementById('bm-apoio').textContent=_allData.filter(function(f){var t=f.osm_json&&f.osm_json.tags||{};return isApoio(t);}).length;
+            gerarAnuncio(scored.slice(0,3));
+
             document.getElementById('btcmap-list-wrap').style.display='block';
-
-            var el = document.getElementById('btcmap-list');
-            el.innerHTML = nearby.map(function(x){
-              var c=x.f.osm_json, tags=c.tags||{};
-              var name=tags.name||tags['name:en']||'Local Bitcoin';
-              var addr=[tags['addr:street'],tags['addr:city']].filter(Boolean).join(', ')||tags['addr:country']||'';
-              var ln=tags['payment:lightning']||tags['payment:lightning_contactless'];
-              var isAtm=JSON.stringify(tags).toLowerCase().includes('atm');
-              var emoji=isAtm?'🏧':(JSON.stringify(tags).toLowerCase().includes('cafe')||JSON.stringify(tags).toLowerCase().includes('coffee'))&&'☕'||'₿';
+            var checkins=loadCheckins();
+            var el=document.getElementById('btcmap-list');
+            el.innerHTML=scored.slice(0,15).map(function(x){
+              var c=x.f.osm_json,t=c.tags||{};
+              var id=x.f.id||x.f.osm_id||(c.lat+''+c.lon);
+              var name=t.name||t['name:pt']||t['name:en']||'Local Bitcoin';
+              var addr=[t['addr:street'],t['addr:city']].filter(Boolean).join(', ')||t['addr:country']||'';
               var distStr=x.d<1?(Math.round(x.d*1000)+'m'):(x.d.toFixed(1)+'km');
               var mapUrl='https://www.google.com/maps/dir/?api=1&destination='+c.lat+','+c.lon;
               var wazeUrl='https://waze.com/ul?ll='+c.lat+','+c.lon+'&navigate=yes';
-              return '<div class="btcmap-item">'+
-                '<div class="btcmap-item-icon">'+emoji+'</div>'+
+              var ck=checkins[id];
+              var nameEsc=name.replace(/'/g,'');
+              return '<div class="btcmap-item'+(isApoio(t)?' apoio':'')+'">'+ 
+                '<div class="btcmap-item-icon">'+getEmoji(t)+'</div>'+
                 '<div class="btcmap-item-body">'+
-                  '<div class="btcmap-item-name">'+name+'</div>'+
+                  '<div class="btcmap-item-name">'+name+(isApoio(t)?' 🏅':'')+'</div>'+
                   '<div class="btcmap-item-addr">'+distStr+' · '+addr+'</div>'+
                   '<div class="btcmap-item-tags">'+
-                    (ln?'<span class="btcmap-tag ln">⚡ Lightning</span>':'')+
-                    (isAtm?'<span class="btcmap-tag atm">🏧 ATM</span>':'<span class="btcmap-tag onchain">₿ On-chain</span>')+
+                    (isLN(t)?'<span class="btcmap-tag ln">⚡ LN</span>':'')+
+                    (isATM(t)?'<span class="btcmap-tag atm">🏧 ATM</span>':'<span class="btcmap-tag onchain">₿</span>')+
+                    (isWifi(t)?'<span class="btcmap-tag wifi">📶 Wi-Fi</span>':'')+
+                    (isApoio(t)?'<span class="btcmap-tag apoio">🏅 APOIO</span>':'')+
+                    (ck?'<span class="btcmap-tag checkin">✅ Check-in</span>':'')+
                   '</div>'+
                 '</div>'+
-                '<div class="btcmap-nav">'+
+                '<div class="btcmap-item-right">'+
                   '<a href="'+mapUrl+'" target="_blank" class="btcmap-navbtn maps">Maps</a>'+
                   '<a href="'+wazeUrl+'" target="_blank" class="btcmap-navbtn waze">Waze</a>'+
+                  '<span onclick="bmAbrirModal(''+id+'',''+nameEsc+'',event)" class="btcmap-navbtn checkin-btn'+(ck?' checked':'')+'">'+( ck?'✅':'⚡ Check-in')+'</span>'+
                 '</div>'+
               '</div>';
             }).join('');
           }
 
-          // ── LOAD DATA ──
+          /* ─ LOAD BTCMAP API ─ */
           function loadBTCMap(lat,lng){
-            // Busca raio de 50km ao redor da posição
             var delta=0.45;
             var url='https://api.btcmap.org/v2/elements?lat_min='+(lat-delta)+'&lon_min='+(lng-delta)+'&lat_max='+(lat+delta)+'&lon_max='+(lng+delta);
-            fetch(url)
-              .then(function(r){return r.json();})
-              .then(function(data){
-                _allData = (data||[]).filter(function(f){
-                  return f.osm_json&&f.osm_json.lat&&f.osm_json.lon&&!f['deleted_at'];
-                });
-                var lnCount = _allData.filter(function(f){
-                  var t=f.osm_json&&f.osm_json.tags||{};
-                  return t['payment:lightning']||t['payment:lightning_contactless'];
-                }).length;
-                document.getElementById('bm-nearby').textContent = _allData.filter(function(f){
-                  return dist(lat,lng,f.osm_json.lat,f.osm_json.lon)<5;
-                }).length;
-                document.getElementById('bm-ln').textContent = lnCount;
-                renderMarkers();
-                renderLista(lat,lng);
-              })
-              .catch(function(){
-                // fallback: load global stats
-                fetch('https://api.btcmap.org/v2/elements?limit=1')
-                  .then(function(r){return r.json();}).then(function(){})
-                  .catch(function(){});
-              });
-            // total global
-            fetch('https://api.btcmap.org/v2/areas?limit=1')
-              .then(function(r){return r.json();})
-              .catch(function(){});
-            fetch('https://api.btcmap.org/v2/elements?limit=1&active=true')
-              .then(function(){document.getElementById('bm-total').textContent='6.800+';})
-              .catch(function(){document.getElementById('bm-total').textContent='6.800+';});
+            fetch(url).then(function(r){return r.json();}).then(function(data){
+              _allData=(data||[]).filter(function(f){return f.osm_json&&f.osm_json.lat&&f.osm_json.lon&&!f['deleted_at'];});
+              var ln=_allData.filter(function(f){var t=f.osm_json.tags||{};return isLN(t);}).length;
+              document.getElementById('bm-ln').textContent=ln;
+              renderMarkers();
+              renderLista(lat,lng);
+            }).catch(function(e){console.warn('BTCMap API erro:',e);});
           }
 
-          // ── MINHA LOCALIZAÇÃO ──
-          window.bmMinhaLoc = function(){
-            if(!navigator.geolocation){alert('Geolocalização não disponível');return;}
+          /* ─ MINHA LOC ─ */
+          window.bmMinhaLoc=function(){
+            if(!navigator.geolocation){alert('Geolocalização não suportada');return;}
             navigator.geolocation.getCurrentPosition(function(pos){
-              var lat=pos.coords.latitude, lng=pos.coords.longitude;
-              _userLat=lat; _userLng=lng;
+              var lat=pos.coords.latitude,lng=pos.coords.longitude;
+              _userLat=lat;_userLng=lng;
               initMap(lat,lng);
-              // marcador do usuário
-              L.marker([lat,lng],{
-                icon:L.divIcon({
-                  html:'<div style="background:#f2a900;border:3px solid #fff;border-radius:50%;width:16px;height:16px;box-shadow:0 0 12px rgba(242,169,0,0.8);"></div>',
-                  className:'',iconSize:[16,16],iconAnchor:[8,8]
-                })
-              }).addTo(_map).bindPopup('<b style="color:#f2a900;">Você está aqui</b>').openPopup();
+              L.marker([lat,lng],{icon:L.divIcon({html:'<div style="background:#f2a900;border:3px solid #fff;border-radius:50%;width:16px;height:16px;box-shadow:0 0 12px rgba(242,169,0,0.8);"></div>',className:'',iconSize:[16,16],iconAnchor:[8,8]})}).addTo(_map).bindPopup('<b style="color:#f2a900;">Você está aqui</b>').openPopup();
+              _map.setView([lat,lng],14);
               loadBTCMap(lat,lng);
-            }, function(){alert('Permita o acesso à localização para ver os locais próximos.');});
+            },function(){alert('Permita o acesso à localização.');});
           };
 
-          // ── FILTRO ──
-          window.bmFilter = function(btn, cat){
+          /* ─ FILTRO ─ */
+          window.bmFilter=function(btn,cat){
             document.querySelectorAll('.btcmap-filter').forEach(function(b){b.classList.remove('active');});
-            btn.classList.add('active');
-            _curCat = cat;
-            renderMarkers();
+            btn.classList.add('active');_curCat=cat;renderMarkers();
           };
 
-          // ── DEFAULT: São Paulo (hub Bitcoin BR) ──
-          setTimeout(function(){
-            var lat=-23.5505, lng=-46.6333;
-            initMap(lat,lng);
-            loadBTCMap(lat,lng);
-          },400);
+          /* ─ MODAL CHECK-IN ─ */
+          window.bmAbrirModal=function(id,name,e){
+            if(e){e.stopPropagation();e.preventDefault();}
+            _modalId=id;_modalName=name;_curStar=0;_curOpt=null;
+            document.getElementById('bm-modal-name').textContent=name;
+            document.querySelectorAll('.btcmap-star').forEach(function(s){s.classList.remove('lit');});
+            document.querySelectorAll('.btcmap-checkin-opt').forEach(function(o){o.classList.remove('sel');});
+            document.getElementById('bm-modal').classList.add('open');
+          };
+          window.bmCloseModal=function(){document.getElementById('bm-modal').classList.remove('open');};
+          window.bmSelOpt=function(el){
+            document.querySelectorAll('.btcmap-checkin-opt').forEach(function(o){o.classList.remove('sel');});
+            el.classList.add('sel');_curOpt=el.dataset.v;
+          };
+          document.getElementById('bm-stars').addEventListener('click',function(e){
+            var s=e.target.closest('.btcmap-star');if(!s) return;
+            _curStar=parseInt(s.dataset.s);
+            document.querySelectorAll('.btcmap-star').forEach(function(x){x.classList.toggle('lit',parseInt(x.dataset.s)<=_curStar);});
+          });
+          window.bmConfirmCheckin=function(){
+            if(!_curOpt){alert('Selecione uma opção.');return;}
+            saveCheckin(_modalId,{name:_modalName,opt:_curOpt,stars:_curStar,ts:Date.now()});
+            updateCheckinCount();bmCloseModal();
+            renderMarkers();
+            if(_userLat) renderLista(_userLat,_userLng);
+            // voz de confirmação
+            if(window.speechSynthesis){
+              var u=new SpeechSynthesisUtterance('Check-in confirmado em '+_modalName+'. Obrigado por contribuir com a rede Bitcoin!');
+              u.lang='pt-BR';u.rate=1.05;speechSynthesis.speak(u);
+            }
+          };
+          document.getElementById('bm-modal').addEventListener('click',function(e){if(e.target===this) bmCloseModal();});
 
+          /* ─ INIT: São Paulo ─ */
+          updateCheckinCount();
+          setTimeout(function(){initMap(-23.5505,-46.6333);loadBTCMap(-23.5505,-46.6333);},400);
         })();
         </script>
       </div>
