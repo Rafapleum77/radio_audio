@@ -2217,10 +2217,48 @@ img{max-width:100%;height:auto;}
 <section class="rb-dash" id="rb-dash">
   <h2 class="rb-dash__title">▸ DASHBOARD DE COMANDO</h2>
 
-  <!-- Hero do estudio IA — imagem dos locutores no cockpit -->
+  <!-- Hero DeLorean — enquadrado e com HUD overlay -->
   <div class="rb-dash__hero-wrap">
     <img class="rb-dash__hero" src="delorean_radio.jpg" alt="Radio Bitcoin — DeLorean · Bybit · SpaceX">
+    <!-- gradientes laterais para fundir nas bordas -->
     <div class="rb-dash__hero-overlay"></div>
+    <div class="rb-hero-fade-left"></div>
+    <div class="rb-hero-fade-right"></div>
+    <!-- HUD corners -->
+    <div class="rb-hud rb-hud-tl"></div>
+    <div class="rb-hud rb-hud-tr"></div>
+    <div class="rb-hud rb-hud-bl"></div>
+    <div class="rb-hud rb-hud-br"></div>
+    <!-- Labels HUD -->
+    <div class="rb-hud-label rb-hud-label-tl">
+      <span class="rb-hud-tag">GEMINI ID</span>
+      <span class="rb-hud-sub">with dynamic data</span>
+    </div>
+    <div class="rb-hud-label rb-hud-label-tr">
+      <span class="rb-hud-tag">CLAUDE ID</span>
+      <span class="rb-hud-sub">with dynamic date</span>
+    </div>
+    <div class="rb-hud-label rb-hud-label-bl">
+      <span class="rb-hud-tag">GPT ID</span>
+      <span class="rb-hud-sub">with dynamic data</span>
+    </div>
+    <div class="rb-hud-label rb-hud-label-br">
+      <span class="rb-hud-tag">GROK ID</span>
+      <span class="rb-hud-sub">with dynamic date</span>
+    </div>
+    <!-- Texto central direita -->
+    <div class="rb-hero-copy">
+      <div class="rb-hero-copy__line1">ENERGIA É O DINHEIRO DO FUTURO.</div>
+      <div class="rb-hero-copy__line2">INTELIGÊNCIA ARTIFICIAL E BITCOIN TÊM A MESMA RAIZ PROFUNDA.</div>
+      <div class="rb-hero-copy__line3">O CONSENSO ESTÁ ERRADO.</div>
+      <div class="rb-hero-copy__tags">DADOS DINÂMICOS &amp; LIVE STATUS · IA LOCUTORES AO VIVO</div>
+    </div>
+    <!-- Badges parceiros no rodapé -->
+    <div class="rb-hero-partners">
+      <span class="rb-hero-partner">BYB<span style="color:#f7931a">I</span>T</span>
+      <span class="rb-hero-sep">·</span>
+      <span class="rb-hero-partner">SpaceX</span>
+    </div>
   </div>
 
   <div class="rb-dash__grid">
@@ -2430,23 +2468,117 @@ img{max-width:100%;height:auto;}
     margin: 0 auto 20px;
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid var(--rb-line-strong);
-    box-shadow: 0 0 40px rgba(57,255,20,.07), 0 8px 32px rgba(0,0,0,.5);
+    border: 1px solid rgba(57,255,20,.2);
+    box-shadow: 0 0 60px rgba(57,255,20,.06), 0 0 0 1px rgba(247,147,26,.08), 0 8px 32px rgba(0,0,0,.6);
   }
   .rb-dash__hero {
     display: block;
     width: 100%;
-    height: auto;
-    max-height: 340px;
+    height: 320px;
     object-fit: cover;
-    object-position: center 30%;
+    object-position: center 35%;
   }
+  /* Overlay gradiente fundo → transparente → fundo nos lados */
   .rb-dash__hero-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 45%, rgba(8,11,16,.75) 100%);
+    background: linear-gradient(180deg, rgba(8,11,16,.25) 0%, transparent 30%, transparent 60%, rgba(8,11,16,.85) 100%);
     pointer-events: none;
   }
-  @media (max-width: 600px) { .rb-dash__hero { max-height: 200px; } }
+  .rb-hero-fade-left {
+    position: absolute; top:0; left:0; bottom:0; width:14%;
+    background: linear-gradient(90deg, rgba(8,11,16,.7), transparent);
+    pointer-events: none;
+  }
+  .rb-hero-fade-right {
+    position: absolute; top:0; right:0; bottom:0; width:14%;
+    background: linear-gradient(270deg, rgba(8,11,16,.7), transparent);
+    pointer-events: none;
+  }
+
+  /* Cantos HUD */
+  .rb-hud {
+    position: absolute;
+    width: 18px; height: 18px;
+    pointer-events: none;
+  }
+  .rb-hud-tl { top:10px; left:10px;  border-top:2px solid #39ff14; border-left:2px solid #39ff14; }
+  .rb-hud-tr { top:10px; right:10px; border-top:2px solid #39ff14; border-right:2px solid #39ff14; }
+  .rb-hud-bl { bottom:10px; left:10px;  border-bottom:2px solid #39ff14; border-left:2px solid #39ff14; }
+  .rb-hud-br { bottom:10px; right:10px; border-bottom:2px solid #39ff14; border-right:2px solid #39ff14; }
+
+  /* Labels HUD nos cantos */
+  .rb-hud-label {
+    position: absolute;
+    font-family: var(--rb-mono);
+    display: flex; flex-direction: column; gap: 2px;
+    pointer-events: none;
+  }
+  .rb-hud-label-tl { top: 16px; left: 36px; }
+  .rb-hud-label-tr { top: 16px; right: 36px; text-align: right; }
+  .rb-hud-label-bl { bottom: 40px; left: 36px; }
+  .rb-hud-label-br { bottom: 40px; right: 36px; text-align: right; }
+  .rb-hud-tag {
+    font-size: 9px; font-weight: 700; letter-spacing: 2px;
+    color: #fff; text-transform: uppercase;
+    background: rgba(8,11,16,.6); padding: 2px 6px; border-radius: 2px;
+    border: 1px solid rgba(57,255,20,.3);
+  }
+  .rb-hud-sub {
+    font-size: 8px; color: rgba(200,208,220,.5); letter-spacing: 1px;
+    padding-left: 6px;
+  }
+
+  /* Bloco de copy direita */
+  .rb-hero-copy {
+    position: absolute;
+    right: 36px; top: 50%; transform: translateY(-50%);
+    max-width: 280px;
+    text-align: right;
+    pointer-events: none;
+  }
+  .rb-hero-copy__line1 {
+    font-family: var(--rb-mono);
+    font-size: 13px; font-weight: 700; letter-spacing: 1px;
+    color: #fff; line-height: 1.3; margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(0,0,0,.8);
+  }
+  .rb-hero-copy__line2 {
+    font-family: var(--rb-mono);
+    font-size: 10px; color: rgba(200,208,220,.75);
+    line-height: 1.5; margin-bottom: 10px; letter-spacing: .5px;
+    text-shadow: 0 0 12px rgba(0,0,0,.9);
+  }
+  .rb-hero-copy__line3 {
+    font-family: 'Orbitron', var(--rb-mono);
+    font-size: 14px; font-weight: 900; letter-spacing: 2px;
+    color: var(--rb-orange);
+    text-shadow: 0 0 20px rgba(247,147,26,.5);
+    margin-bottom: 10px;
+  }
+  .rb-hero-copy__tags {
+    font-size: 8px; letter-spacing: 1.5px; color: #39ff14;
+    text-shadow: 0 0 10px rgba(57,255,20,.4);
+    text-transform: uppercase;
+  }
+
+  /* Badges parceiros no rodapé */
+  .rb-hero-partners {
+    position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 14px;
+    font-family: 'Orbitron', var(--rb-mono);
+    font-size: 11px; font-weight: 900; letter-spacing: 3px;
+    color: rgba(255,255,255,.7);
+    text-shadow: 0 0 12px rgba(0,0,0,.9);
+    pointer-events: none;
+  }
+  .rb-hero-partner { color: #fff; }
+  .rb-hero-sep { color: rgba(255,255,255,.3); }
+
+  @media (max-width: 700px) {
+    .rb-dash__hero { height: 200px; }
+    .rb-hero-copy { display: none; }
+    .rb-hud-label-tr, .rb-hud-label-br { display: none; }
+  }
 
   /* ── Grid ── */
   .rb-dash__grid {
