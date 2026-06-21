@@ -861,6 +861,111 @@ img{max-width:100%;height:auto;}
 }
 .share-btn:hover{background:#1f2937;border-color:#374151;color:#e5e7eb;}
 </style>
+<style>
+/* ═══════════════════════════════════════════════
+   STACKBIT 1248 — PAINEL BIP39
+   Prefixo: .stk-
+═══════════════════════════════════════════════ */
+.stk-header-panel{background:linear-gradient(135deg,#0d1117 0%,#111620 100%);border:1px solid rgba(244,196,48,0.35);border-radius:10px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px;box-shadow:0 4px 20px rgba(244,196,48,0.08);}
+.stk-header-left{display:flex;align-items:center;gap:14px;}
+.stk-logo-circle{width:54px;height:54px;border-radius:50%;border:2.5px solid #f4c430;box-shadow:0 0 14px rgba(244,196,48,0.3);object-fit:cover;flex-shrink:0;}
+.stk-title-block h2{font-family:'Orbitron',monospace;font-size:16px;font-weight:900;color:#f4c430;text-shadow:0 0 10px rgba(244,196,48,0.3);letter-spacing:3px;line-height:1.2;margin:0;}
+.stk-title-block p{font-size:10px;color:#8b949e;letter-spacing:1.5px;margin:3px 0 0 0;}
+.stk-header-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.stk-btn{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:7px 13px;border-radius:5px;cursor:pointer;text-decoration:none;transition:all 0.2s;border:none;white-space:nowrap;display:inline-block;}
+.stk-btn-gold{background:#f4c430;color:#3d3d3d;box-shadow:0 0 8px rgba(244,196,48,0.3);}
+.stk-btn-gold:hover{background:#ffe066;box-shadow:0 0 16px rgba(244,196,48,0.4);}
+.stk-btn-green{background:transparent;color:#00ff41;border:1.5px solid #00ff41;box-shadow:0 0 6px rgba(0,255,65,0.2);}
+.stk-btn-green:hover{background:rgba(0,255,65,0.08);}
+.stk-btn-outline{background:transparent;color:#8b949e;border:1.5px solid rgba(139,148,158,0.35);}
+.stk-btn-outline:hover{color:#c9d1d9;border-color:#8b949e;}
+.stk-ticker{background:rgba(0,0,0,0.5);border:1px solid rgba(244,196,48,0.15);border-radius:6px;padding:6px 0;overflow:hidden;white-space:nowrap;margin-bottom:14px;}
+.stk-ticker-inner{display:inline-block;animation:stkScroll 40s linear infinite;font-size:10px;color:#f4c430;letter-spacing:1.5px;padding-left:100%;}
+@keyframes stkScroll{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
+.stk-section-label{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;color:#00ff41;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.stk-section-label::before{content:'';display:inline-block;width:3px;height:14px;background:#00ff41;box-shadow:0 0 6px rgba(0,255,65,0.4);border-radius:2px;}
+.stk-cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+@media(max-width:900px){.stk-cards-grid{grid-template-columns:repeat(2,1fr);}}
+.stk-card{background:rgba(0,0,0,0.35);border:1px solid rgba(0,255,65,0.12);border-radius:8px;padding:14px 13px;transition:border-color 0.2s,box-shadow 0.2s;}
+.stk-card:hover{border-color:rgba(0,255,65,0.3);box-shadow:0 0 12px rgba(0,255,65,0.06);}
+.stk-card-num{font-family:'VT323',monospace;font-size:38px;color:#f4c430;line-height:1;margin-bottom:6px;text-shadow:0 0 8px rgba(244,196,48,0.3);}
+.stk-card h3{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;color:#00ff41;letter-spacing:1.5px;margin-bottom:7px;text-transform:uppercase;}
+.stk-card p{font-size:11px;color:#8b949e;line-height:1.55;margin:0;}
+.stk-card code{color:#00ff41;background:rgba(0,255,65,0.08);padding:1px 4px;border-radius:3px;font-size:10px;}
+.stk-legend{background:rgba(0,0,0,0.3);border:1px solid rgba(244,196,48,0.25);border-radius:8px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;}
+.stk-legend-label{font-family:'Orbitron',monospace;font-size:9px;color:#f4c430;letter-spacing:2px;margin-bottom:8px;font-weight:700;}
+.stk-legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;flex-shrink:0;}
+.stk-legend-cell{width:32px;height:32px;background:rgba(244,196,48,0.12);border:1.5px solid #f4c430;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'VT323',monospace;font-size:20px;color:#f4c430;}
+.stk-legend-text{font-size:11px;color:#8b949e;line-height:2;}
+.stk-legend-text strong{color:#00ff41;}
+.stk-legend-sub{font-size:10px;color:#8b949e;margin-top:4px;}
+.stk-tabs{display:flex;gap:0;border-bottom:1.5px solid rgba(0,255,65,0.12);margin-bottom:16px;}
+.stk-tab-btn{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:9px 16px;cursor:pointer;color:#8b949e;border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:all 0.2s;background:none;border-top:none;border-left:none;border-right:none;white-space:nowrap;}
+.stk-tab-btn:hover{color:#c9d1d9;}
+.stk-tab-btn.active{color:#00ff41;border-bottom-color:#00ff41;text-shadow:0 0 6px rgba(0,255,65,0.3);}
+.stk-tab-pane{display:none;}
+.stk-tab-pane.active{display:block;}
+.stk-search-row{display:grid;grid-template-columns:1fr 160px;gap:10px;margin-bottom:12px;}
+.stk-input{background:rgba(0,0,0,0.5);border:1.5px solid rgba(0,255,65,0.25);border-radius:6px;color:#00ff41;font-family:'Share Tech Mono',monospace;font-size:13px;padding:10px 14px;outline:none;transition:all 0.2s;width:100%;}
+.stk-input:focus{border-color:#00ff41;box-shadow:0 0 10px rgba(0,255,65,0.2);}
+.stk-input::placeholder{color:rgba(0,255,65,0.3);}
+.stk-suggestions{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;min-height:0;}
+.stk-sug-btn{background:rgba(0,255,65,0.07);border:1px solid rgba(0,255,65,0.2);border-radius:4px;color:#00ff41;font-family:'Share Tech Mono',monospace;font-size:11px;padding:4px 10px;cursor:pointer;transition:all 0.15s;}
+.stk-sug-btn:hover{background:rgba(0,255,65,0.14);border-color:#00ff41;}
+.stk-result{background:rgba(0,0,0,0.4);border:1.5px solid rgba(244,196,48,0.3);border-radius:8px;padding:16px 18px;margin-bottom:14px;display:none;}
+.stk-result.show{display:block;}
+.stk-result-top{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;flex-wrap:wrap;}
+.stk-result-num{font-family:'VT323',monospace;font-size:42px;color:#f4c430;text-shadow:0 0 12px rgba(244,196,48,0.3);line-height:1;}
+.stk-result-word{font-family:'Orbitron',monospace;font-size:22px;font-weight:900;color:#00ff41;text-shadow:0 0 10px rgba(0,255,65,0.3);letter-spacing:3px;}
+.stk-result-digits{font-size:12px;color:#8b949e;letter-spacing:1px;margin-bottom:12px;}
+.stk-result-digits span{color:#f4c430;font-size:14px;}
+.stk-punch-title{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;color:#8b949e;letter-spacing:2px;margin-bottom:12px;text-transform:uppercase;}
+.stk-punch-grid{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px;}
+.stk-punch-group{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.stk-punch-lbl{font-family:'Orbitron',monospace;font-size:8px;color:#8b949e;letter-spacing:1px;}
+.stk-punch-cells{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+.stk-punch-cell{width:34px;height:34px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:'VT323',monospace;font-size:18px;font-weight:bold;border:1.5px solid rgba(0,255,65,0.18);background:rgba(0,0,0,0.5);color:rgba(255,255,255,0.18);transition:all 0.15s;cursor:pointer;user-select:none;}
+.stk-punch-cell.marked{background:rgba(0,255,65,0.18);border-color:#00ff41;color:#00ff41;box-shadow:0 0 7px rgba(0,255,65,0.3);}
+.stk-punch-digit{font-family:'VT323',monospace;font-size:26px;color:#f4c430;text-shadow:0 0 6px rgba(244,196,48,0.3);line-height:1;}
+.stk-punch-summary{font-size:10px;color:#8b949e;letter-spacing:1px;margin-top:4px;padding:7px 10px;background:rgba(0,0,0,0.3);border-radius:4px;border-left:3px solid #00ff41;}
+.stk-gab-controls{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+.stk-select{background:rgba(0,0,0,0.5);border:1.5px solid rgba(0,255,65,0.25);border-radius:5px;color:#00ff41;font-family:'Orbitron',monospace;font-size:9px;padding:8px 12px;outline:none;cursor:pointer;letter-spacing:1px;}
+.stk-gab-outer{overflow-x:auto;padding-bottom:6px;}
+.stk-gab-table{border-collapse:separate;border-spacing:3px;min-width:max-content;}
+.stk-gab-table th{font-family:'Orbitron',monospace;font-size:8px;color:#f4c430;letter-spacing:1px;padding:5px 3px;text-align:center;background:rgba(0,0,0,0.4);border-radius:3px;min-width:40px;}
+.stk-gab-table td.stk-row-lbl{font-family:'Orbitron',monospace;font-size:8px;color:#8b949e;padding:3px 8px 3px 3px;white-space:nowrap;text-align:right;}
+.stk-mini-cells{display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:2px;}
+.stk-gab-cell{width:16px;height:16px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'VT323',monospace;font-size:12px;border:1px solid rgba(0,255,65,0.12);background:rgba(0,0,0,0.4);color:rgba(255,255,255,0.12);cursor:pointer;transition:all 0.12s;user-select:none;}
+.stk-gab-cell.marked{background:rgba(0,255,65,0.18);border-color:#00ff41;color:#00ff41;box-shadow:0 0 4px rgba(0,255,65,0.3);}
+.stk-table-filter{margin-bottom:12px;}
+.stk-table-wrap{max-height:360px;overflow-y:auto;border:1px solid rgba(0,255,65,0.12);border-radius:7px;}
+.stk-table-wrap::-webkit-scrollbar{width:5px;}
+.stk-table-wrap::-webkit-scrollbar-track{background:rgba(0,0,0,0.3);}
+.stk-table-wrap::-webkit-scrollbar-thumb{background:rgba(0,255,65,0.25);border-radius:3px;}
+.stk-table{width:100%;border-collapse:collapse;font-size:11px;}
+.stk-table thead th{position:sticky;top:0;background:rgba(0,0,0,0.85);font-family:'Orbitron',monospace;font-size:8px;color:#f4c430;letter-spacing:2px;padding:9px 12px;text-align:left;border-bottom:1px solid rgba(244,196,48,0.25);z-index:2;}
+.stk-table tbody tr{border-bottom:1px solid rgba(0,255,65,0.04);transition:background 0.1s;}
+.stk-table tbody tr:hover{background:rgba(0,255,65,0.03);}
+.stk-table td{padding:6px 12px;color:#8b949e;}
+.stk-table td:first-child{color:#f4c430;font-weight:bold;width:55px;}
+.stk-table td:nth-child(2){color:#00ff41;cursor:pointer;font-weight:bold;font-size:12px;}
+.stk-table td:nth-child(2):hover{text-decoration:underline;}
+.stk-table td:nth-child(3){color:#f4c430;font-family:'VT323',monospace;font-size:15px;letter-spacing:2px;}
+.stk-table td:nth-child(4){color:#8b949e;font-size:10px;}
+@media print{
+  #stackbit-1248-panel .stk-header-panel,
+  #stackbit-1248-panel .stk-ticker,
+  #stackbit-1248-panel .stk-tabs{display:none!important;}
+  #stackbit-1248-panel .stk-tab-pane{display:block!important;}
+  #stackbit-1248-panel{background:white!important;color:black!important;}
+  .stk-card{background:#f9f9f9!important;border:1px solid #ccc!important;}
+  .stk-card-num{color:#c8a000!important;}
+  .stk-card h3{color:#2a7a2a!important;}
+  .stk-card p,.stk-card code{color:#333!important;background:#eee!important;}
+  .stk-gab-cell{border:1px solid #999!important;color:#ccc!important;background:#f5f5f5!important;}
+  .stk-gab-cell.marked{background:#d4f7d4!important;color:#2a7a2a!important;border-color:#2a7a2a!important;}
+}
+</style>
 </head>
 <body>
 
@@ -3595,6 +3700,147 @@ img{max-width:100%;height:auto;}
 
       </div>
 
+      <!-- ═══════════════════════════════════════════
+           STACKBIT 1248 — PAINEL BIP39
+           Posição: antes de #biblioteca
+      ═══════════════════════════════════════════ -->
+      <div id="stackbit-1248-panel" class="panel" style="margin-bottom:14px;">
+
+        <!-- Header -->
+        <div class="stk-header-panel">
+          <div class="stk-header-left">
+            <img src="logo_stack.png" alt="Stackbit" class="stk-logo-circle">
+            <div class="stk-title-block">
+              <h2>STACKBIT 1248</h2>
+              <p>PAINEL BIP39 · SEED RECOVERY · METALWALLET INOX 304</p>
+            </div>
+          </div>
+          <div class="stk-header-btns">
+            <a href="https://stackbit.me/produto/stackbit-1248/" target="_blank" class="stk-btn stk-btn-gold">🛒 COMPRAR</a>
+            <a href="https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt" target="_blank" class="stk-btn stk-btn-green">⚡ BIP39</a>
+            <a href="https://stackbit.me/tutorial-stackbit-1248/" target="_blank" class="stk-btn stk-btn-outline">📖 TUTORIAL</a>
+            <button onclick="window.print()" class="stk-btn stk-btn-outline">🖨️ IMPRIMIR</button>
+          </div>
+        </div>
+
+        <!-- Ticker -->
+        <div class="stk-ticker">
+          <div class="stk-ticker-inner">
+            ⚡ STACKBIT 1248 · METALWALLET INOX 304 &nbsp;|&nbsp; 🔒 SEED RECOVERY · 12 OU 24 PALAVRAS &nbsp;|&nbsp; ₿ BIP39 · 2048 PALAVRAS &nbsp;|&nbsp; 🔥 RESISTENTE A FOGO · +1200°C &nbsp;|&nbsp; 💧 À PROVA DE ÁGUA · INOX 304 &nbsp;|&nbsp; 🎯 CODIFICAÇÃO POR PUNÇÃO &nbsp;|&nbsp; 🔐 OPEN SOURCE · SEM CÂMERAS &nbsp;|&nbsp; ⚡ STACKBIT 1248 · METALWALLET INOX 304
+          </div>
+        </div>
+
+        <!-- Como Funciona -->
+        <div class="stk-section-label">⚙️ COMO FUNCIONA O SISTEMA 1248</div>
+        <div class="stk-cards-grid">
+          <div class="stk-card">
+            <div class="stk-card-num">1</div>
+            <h3>Encontre o Número</h3>
+            <p>Anote o número de cada palavra BIP39.<br>Ex.: <code>LOUNGE = 1059</code></p>
+          </div>
+          <div class="stk-card">
+            <div class="stk-card-num">2</div>
+            <h3>Decodifique em 4 Dígitos</h3>
+            <p>Cada palavra vira 4 dígitos: <code>0-2 · 0-9 · 0-9 · 0-9</code><br>1059 → <code>1 · 0 · 5 · 9</code></p>
+          </div>
+          <div class="stk-card">
+            <div class="stk-card-num">3</div>
+            <h3>Marque os Quadros</h3>
+            <p>Cada quadro tem 4 células: <code>1 · 2 · 4 · 8</code><br>Para <code>5</code>, marque <code>1+4</code>.</p>
+          </div>
+          <div class="stk-card">
+            <div class="stk-card-num">4</div>
+            <h3>Punção no Metal</h3>
+            <p>Confira, bata com o punção, queime o adesivo. <code>Sem câmeras!</code></p>
+          </div>
+        </div>
+
+        <!-- Legenda -->
+        <div class="stk-legend">
+          <div>
+            <div class="stk-legend-label">LEGENDA — VALORES POR CÉLULA</div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div class="stk-legend-grid">
+                <div class="stk-legend-cell">1</div>
+                <div class="stk-legend-cell">2</div>
+                <div class="stk-legend-cell">4</div>
+                <div class="stk-legend-cell">8</div>
+              </div>
+              <div style="font-size:10px;color:#8b949e;">1 quadro = 1 dígito</div>
+            </div>
+          </div>
+          <div class="stk-legend-text">
+            <strong>Célula 1</strong> = valor 1 &nbsp;|&nbsp; <strong>Célula 2</strong> = valor 2<br>
+            <strong>Célula 4</strong> = valor 4 &nbsp;|&nbsp; <strong>Célula 8</strong> = valor 8<br>
+            Soma das marcadas = dígito &nbsp;|&nbsp; Nenhuma marcada = <strong>0</strong><br>
+            <span class="stk-legend-sub">Ex: marcar 1+4 = <strong style="color:#f4c430">5</strong> &nbsp;|&nbsp; marcar 2+8 = 10 (impossível — máx. dígito = 9)</span>
+          </div>
+        </div>
+
+        <!-- Abas -->
+        <div class="stk-tabs">
+          <button class="stk-tab-btn active" onclick="stkTab('busca',this)">🔍 BUSCAR PALAVRA BIP39</button>
+          <button class="stk-tab-btn" onclick="stkTab('gabarito',this)">🎯 GABARITO INTERATIVO</button>
+          <button class="stk-tab-btn" onclick="stkTab('lista',this)">📋 LISTA COMPLETA 2048</button>
+        </div>
+
+        <!-- Aba 1: Busca -->
+        <div id="stk-tab-busca" class="stk-tab-pane active">
+          <div class="stk-search-row">
+            <input type="text" id="stk-word" class="stk-input" placeholder="Digite a palavra BIP39... ex: lounge" oninput="stkSearchWord(this.value)">
+            <input type="number" id="stk-num" class="stk-input" placeholder="Nº 1 – 2048" min="1" max="2048" oninput="stkSearchNum(this.value)">
+          </div>
+          <div id="stk-suggestions" class="stk-suggestions"></div>
+          <div id="stk-result" class="stk-result">
+            <div class="stk-result-top">
+              <div class="stk-result-num" id="stk-res-num"></div>
+              <div class="stk-result-word" id="stk-res-word"></div>
+            </div>
+            <div class="stk-result-digits" id="stk-res-digits"></div>
+            <div class="stk-punch-title">GABARITO DE PUNÇÃO — CLIQUE NAS CÉLULAS PARA SIMULAR</div>
+            <div class="stk-punch-grid" id="stk-punch-grid"></div>
+            <div class="stk-punch-summary" id="stk-punch-summary"></div>
+          </div>
+        </div>
+
+        <!-- Aba 2: Gabarito Interativo -->
+        <div id="stk-tab-gabarito" class="stk-tab-pane">
+          <div class="stk-gab-controls">
+            <select id="stk-gab-count" class="stk-select" onchange="stkBuildGab()">
+              <option value="12">12 PALAVRAS</option>
+              <option value="24">24 PALAVRAS</option>
+            </select>
+            <button class="stk-btn stk-btn-outline" onclick="stkClearGab()">🗑️ LIMPAR</button>
+            <button class="stk-btn stk-btn-outline" onclick="window.print()">🖨️ IMPRIMIR</button>
+          </div>
+          <div class="stk-gab-outer">
+            <table class="stk-gab-table" id="stk-gab-table"></table>
+          </div>
+        </div>
+
+        <!-- Aba 3: Lista -->
+        <div id="stk-tab-lista" class="stk-tab-pane">
+          <div class="stk-table-filter">
+            <input type="text" class="stk-input" placeholder="Filtrar palavras..." oninput="stkFilterTable(this.value)" style="max-width:300px;">
+          </div>
+          <div class="stk-table-wrap">
+            <table class="stk-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>PALAVRA</th>
+                  <th>CÓDIGO 1248</th>
+                  <th>DÍGITOS</th>
+                </tr>
+              </thead>
+              <tbody id="stk-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+      <!-- FIM STACKBIT 1248 -->
+
       <!-- BIBLIOTECA -->
       <div class="panel" id="biblioteca" style="background:linear-gradient(180deg,#060810 0%,#07090d 100%);border-color:rgba(242,169,0,0.2);">
         <div class="pt" style="color:#f2a900;letter-spacing:3px;">
@@ -5725,6 +5971,151 @@ iaRender();
   🛡️ Pacote BIT ADICT <span class="rb-sticky-cta__price">$149</span> · WhatsApp
 </a>
 <!-- ===== FIM CTA STICKY MOBILE ===== -->
+
+<script>
+/* ═══════════════════════════════════════════
+   STACKBIT 1248 — JavaScript
+   Namespace: stk* (sem conflito com o site)
+═══════════════════════════════════════════ */
+(function() {
+  const STK_BIP39 = ["abandon","ability","able","about","above","absent","absorb","abstract","absurd","abuse","access","accident","account","accuse","achieve","acid","acoustic","acquire","across","act","action","actor","actress","actual","adapt","add","addict","address","adjust","admit","adult","advance","advice","aerobic","afford","afraid","again","age","agent","agree","ahead","aim","air","airport","aisle","alarm","album","alcohol","alert","alien","all","alley","allow","almost","alone","alpha","already","also","alter","always","amateur","amazing","among","amount","amused","analyst","anchor","ancient","anger","angle","angry","animal","ankle","announce","annual","another","answer","antenna","antique","anxiety","any","apart","apology","appear","apple","approve","april","arch","arctic","area","arena","argue","arm","armed","armor","army","around","arrange","arrest","arrive","arrow","art","artefact","artist","artwork","ask","aspect","assault","asset","assist","assume","asthma","athlete","atom","attack","attend","attitude","attract","auction","audit","august","aunt","author","auto","autumn","average","avocado","avoid","awake","aware","away","awesome","awful","awkward","axis","baby","balance","bamboo","banana","banner","bar","barely","bargain","barrel","base","basic","basket","battle","beach","bean","beauty","because","become","beef","before","begin","behave","behind","believe","below","belt","bench","benefit","best","betray","better","between","beyond","bicycle","bid","bike","bind","biology","bird","birth","bitter","black","blade","blame","blanket","blast","bleak","bless","blind","blood","blossom","blouse","blue","blur","blush","board","boat","body","boil","bomb","bone","book","boost","border","boring","borrow","boss","bottom","bounce","box","boy","bracket","brain","brand","brave","bread","breeze","brick","bridge","brief","bright","bring","brisk","broccoli","broken","bronze","broom","brother","brown","brush","bubble","buddy","budget","buffalo","build","bulb","bulk","bullet","bundle","bunker","burden","burger","burst","bus","business","busy","butter","buyer","buzz","cabbage","cabin","cable","cactus","cage","cake","call","calm","camera","camp","can","canal","cancel","candy","cannon","canvas","canyon","capable","capital","captain","car","carbon","card","cargo","carpet","carry","cart","case","cash","casino","castle","casual","cat","catalog","catch","category","cattle","caught","cause","caution","cave","ceiling","celery","cement","census","century","cereal","certain","chair","chalk","champion","change","chaos","chapter","charge","chase","chat","cheap","check","cheese","chef","cherry","chest","chicken","chief","child","chimney","choice","choose","chronic","chuckle","chunk","cigar","cinnamon","circle","citizen","city","civil","claim","clap","clarify","claw","clay","clean","clerk","clever","click","client","cliff","climb","clinic","clip","clock","clog","close","cloth","cloud","clown","club","clump","cluster","clutch","coach","coast","coconut","code","coffee","coil","coin","collect","color","column","combine","come","comfort","comic","common","company","concert","conduct","confirm","congress","connect","consider","control","convince","cook","cool","copper","copy","coral","core","corn","correct","cost","cotton","couch","country","couple","course","cousin","cover","coyote","crack","cradle","craft","cram","crane","crash","crater","crawl","crazy","cream","credit","creek","crew","cricket","crime","crisp","critic","cross","crouch","crowd","crucial","cruel","cruise","crumble","crunch","crush","cry","crystal","cube","culture","cup","cupboard","curious","current","curtain","curve","cushion","custom","cute","cycle","dad","damage","damp","dance","danger","daring","dash","daughter","dawn","day","deal","debate","debris","decade","december","decide","decline","decorate","decrease","deer","defense","define","defy","degree","delay","deliver","demand","demise","denial","dentist","deny","depart","depend","deposit","depth","deputy","derive","describe","desert","design","desk","despair","destroy","detail","detect","develop","device","devote","diagram","dial","diamond","diary","dice","diesel","diet","differ","digital","dignity","dilemma","dinner","dinosaur","direct","dirt","disagree","discover","disease","dish","dismiss","disorder","display","distance","divert","divide","divorce","dizzy","doctor","document","dog","doll","dolphin","domain","donate","donkey","donor","door","dose","double","dove","draft","dragon","drama","drastic","draw","dream","dress","drift","drill","drink","drip","drive","drop","drum","dry","duck","dumb","dune","during","dust","dutch","duty","dwarf","dynamic","eager","eagle","early","earn","earth","easily","east","easy","echo","ecology","edge","edit","educate","effort","egg","eight","either","elbow","elder","electric","elegant","element","elephant","elevator","elite","else","embark","embody","embrace","emerge","emotion","employ","empower","empty","enable","enact","endless","endorse","enemy","energy","enforce","engage","engine","enhance","enjoy","enlist","enough","enrich","enroll","ensure","enter","entire","entry","envelope","episode","equal","equip","erase","erode","erosion","error","erupt","escape","essay","essence","estate","eternal","ethics","evidence","evil","evoke","evolve","exact","example","excess","exchange","excite","exclude","exercise","exhaust","exhibit","exile","exist","exit","exotic","expand","expire","explain","expose","express","extend","extra","eye","fable","face","faculty","faint","faith","fall","false","fame","family","famous","fan","fancy","fantasy","far","fashion","fat","fatal","father","fatigue","fault","favorite","feature","february","federal","fee","feed","feel","feet","fellow","felt","fence","festival","fetch","fever","few","fiber","fiction","field","figure","file","film","filter","final","find","fine","finger","finish","fire","firm","first","fiscal","fish","fit","fitness","fix","flag","flame","flash","flat","flavor","flee","flight","flip","float","flock","floor","flower","fluid","flush","fly","foam","focus","fog","foil","follow","food","foot","force","forest","forget","fork","fortune","forum","forward","fossil","foster","found","fox","fragile","frame","frequent","fresh","friend","fringe","frog","front","frost","frown","frozen","fruit","fuel","fun","funny","furnace","fury","future","gadget","gain","galaxy","gallery","game","gap","garbage","garden","garlic","garment","gas","gasp","gate","gather","gauge","gaze","general","genius","genre","gentle","genuine","gesture","ghost","giant","gift","giggle","ginger","giraffe","girl","give","glad","glance","glare","glass","glide","glimpse","globe","gloom","glory","glove","glow","glue","goat","goddess","gold","good","goose","gorilla","gospel","gossip","govern","gown","grab","grace","grain","grant","grape","grasp","grass","gravity","great","green","grid","grief","grit","grocery","group","grow","grunt","guard","guide","guilt","guitar","gun","gym","habit","hair","half","hammer","hamster","hand","happy","harsh","harvest","hat","have","hawk","hazard","head","health","heart","heavy","hedgehog","height","hello","helmet","help","hen","hero","hidden","high","hill","hint","hip","hire","history","hobby","hockey","hold","hole","holiday","hollow","home","honey","hood","hope","horn","hospital","host","hour","hover","hub","huge","human","humble","humor","hundred","hungry","hunt","hurdle","hurry","hurt","husband","hybrid","ice","icon","ignore","ill","illegal","image","imitate","immense","immune","impact","impose","improve","impulse","inbox","income","increase","index","indicate","indoor","industry","infant","inflict","inform","inhale","inject","inner","innocent","input","inquiry","insane","insect","inside","inspire","install","intact","interest","into","invest","invite","involve","iron","island","isolate","issue","item","ivory","jacket","jaguar","jar","jazz","jealous","jeans","jelly","jewel","job","join","joke","journey","joy","judge","juice","jump","jungle","junior","junk","just","kangaroo","keen","keep","ketchup","key","kick","kid","kingdom","kiss","kit","kitchen","kite","kitten","kiwi","knee","knife","knock","know","lab","lamp","language","laptop","large","later","laugh","laundry","lava","law","lawn","lawsuit","layer","lazy","leader","learn","leave","lecture","left","leg","legal","legend","lemon","lend","length","lens","leopard","lesson","letter","level","liar","liberty","library","license","life","lift","like","limb","lion","liquid","list","little","live","lizard","load","loan","lobster","local","lock","logic","lonely","long","loop","lottery","loud","lounge","love","loyal","lucky","luggage","lumber","lunar","lunch","luxury","mad","magic","magnet","maid","main","mammal","mango","mansion","manual","maple","marble","march","margin","marine","market","marriage","mask","master","match","material","math","matrix","matter","maximum","maze","meadow","mean","medal","media","melody","melt","member","memory","mention","menu","mercy","merge","merit","merry","mesh","message","metal","method","middle","midnight","milk","million","mimic","mind","minimum","minor","minute","miracle","miss","mitten","model","modify","mom","monitor","monkey","monster","month","moon","moral","more","morning","mosquito","mother","motion","motor","mountain","mouse","move","movie","much","muffin","mule","multiply","muscle","museum","mushroom","music","must","mutual","myself","mystery","naive","name","napkin","narrow","nasty","natural","nature","near","neck","need","negative","neglect","neither","nephew","nerve","nest","network","news","next","nice","night","noble","noise","nominee","noodle","normal","north","notable","note","nothing","notice","novel","now","nuclear","number","nurse","nut","oak","obey","object","oblige","obscure","obtain","ocean","october","odor","off","offer","office","often","oil","okay","old","olive","olympic","omit","once","onion","open","opera","oppose","option","orange","orbit","orchard","order","ordinary","organ","orient","original","orphan","ostrich","other","outdoor","outside","oval","over","own","oyster","ozone","pact","paddle","page","pair","palace","palm","panda","panel","panic","panther","paper","parade","parent","park","parrot","party","pass","patch","path","patrol","pause","pave","payment","peace","peanut","peasant","pelican","pen","penalty","pencil","people","pepper","perfect","permit","person","pet","phone","photo","phrase","physical","piano","picnic","picture","piece","pig","pigeon","pill","pilot","pink","pioneer","pipe","pistol","pitch","pizza","place","planet","plastic","plate","play","please","pledge","pluck","plug","plunge","poem","poet","point","polar","pole","police","pond","pony","pool","popular","portion","position","possible","post","potato","pottery","poverty","powder","power","practice","praise","predict","prefer","prepare","present","pretty","prevent","price","pride","primary","print","priority","prison","private","prize","problem","process","produce","profit","program","project","promote","proof","property","prosper","protect","proud","provide","public","pudding","pull","pulp","pulse","pumpkin","punish","pupil","purchase","purity","purpose","push","put","puzzle","pyramid","quality","quantum","quarter","question","quick","quit","quiz","quote","rabbit","raccoon","race","rack","radar","radio","rage","rail","rain","raise","rally","ramp","ranch","random","range","rapid","rare","rate","rather","raven","reach","ready","real","reason","rebel","rebuild","recall","receive","recipe","record","recycle","reduce","reflect","reform","refuse","region","regret","regular","reject","relax","release","relief","rely","remain","remember","remind","remove","render","renew","rent","reopen","repair","repeat","replace","report","require","rescue","resemble","resist","resource","response","result","retire","retreat","return","reunion","reveal","review","reward","rhythm","ribbon","rid","ride","ridge","rifle","right","rigid","ring","riot","ripple","risk","ritual","rival","river","road","roast","robot","robust","rocket","romance","roof","rookie","rose","rotate","rough","royal","rubber","rude","rug","rule","run","runway","rural","sad","saddle","sadness","safe","sail","salad","salmon","salon","salt","salute","same","sample","sand","satisfy","satoshi","sauce","sausage","save","say","scale","scan","scare","scatter","scene","scheme","science","scissors","scorpion","scout","scrap","screen","script","scrub","sea","search","season","seat","second","secret","section","security","seed","seek","segment","select","sell","seminar","senior","sense","sentence","series","service","session","settle","setup","seven","shadow","shaft","shallow","share","shed","shell","sheriff","shield","shift","shine","ship","shiver","shock","shoe","shoot","shop","short","shoulder","shove","shrimp","shrug","shuffle","shy","sibling","siege","sight","sign","silent","silk","silly","silver","similar","simple","since","sing","siren","sister","situate","six","size","sketch","skill","skin","skirt","skull","slab","slam","sleep","slender","slice","slide","slight","slim","slogan","slot","slow","slush","small","smart","smile","smoke","smooth","snack","snake","snap","sniff","snow","soap","soccer","social","sock","solar","soldier","solid","solution","solve","someone","song","soon","sorry","soul","sound","soup","source","south","space","spare","spatial","spawn","speak","special","speed","sphere","spice","spider","spike","spin","spirit","split","spoil","sponsor","spoon","spray","spread","spring","spy","square","squeeze","squirrel","stable","stadium","staff","stage","stairs","stamp","stand","start","state","stay","steak","steel","stem","step","stereo","stick","still","sting","stock","stomach","stone","stop","store","storm","story","stove","strategy","street","strike","strong","struggle","student","stuff","stumble","style","subject","submit","subway","success","such","sudden","suffer","sugar","suggest","suit","summer","sun","sunny","sunset","super","supply","supreme","sure","surface","surge","surprise","sustain","swallow","swamp","swap","swear","sweet","swift","swim","swing","switch","sword","symbol","symptom","syrup","table","tackle","tag","tail","talent","tank","tape","target","task","tattoo","taxi","teach","team","tell","ten","tenant","tennis","tent","term","test","text","thank","that","theme","then","theory","there","they","thing","this","thought","three","thrive","throw","thumb","thunder","ticket","tilt","timber","time","tiny","tip","tired","title","toast","tobacco","today","together","toilet","token","tomato","tomorrow","tone","tongue","tonight","tool","tooth","top","topic","topple","torch","tornado","tortoise","toss","total","tourist","toward","tower","town","toy","track","trade","traffic","tragic","train","transfer","trap","trash","travel","tray","treat","tree","trend","trial","tribe","trick","trigger","trim","trip","trophy","trouble","truck","truly","trumpet","trust","truth","try","tube","tuition","tumble","tuna","tunnel","turkey","turn","turtle","twelve","twenty","twice","twin","twist","two","type","typical","ugly","umbrella","unable","unaware","uncle","uncover","under","undo","unfair","unfold","unhappy","uniform","unique","universe","unknown","unlock","until","unusual","unveil","update","upgrade","uphold","upon","upper","upset","urban","useful","useless","usual","utility","vacant","vacuum","vague","valid","valley","valve","van","vanish","vapor","various","vast","vault","vehicle","velvet","vendor","venture","venue","verb","verify","version","very","veteran","viable","vibrant","vicious","victory","video","view","village","vintage","violin","virtual","virus","visa","visit","visual","vital","vivid","vocal","voice","void","volcano","volume","vote","voyage","wage","wagon","wait","walk","wall","walnut","want","warfare","warm","warrior","waste","water","wave","way","wealth","weapon","wear","weasel","web","wedding","weekend","weird","welcome","well","west","wet","whale","wheat","wheel","when","where","whip","whisper","wide","width","wife","wild","will","win","window","wine","wing","wink","winner","winter","wire","wisdom","wise","wish","witness","wolf","woman","wonder","wood","wool","word","world","worry","worth","wrap","wreck","wrestle","wrist","write","wrong","yard","year","yellow","you","young","youth","zebra","zero","zone","zoo"];
+
+  function stkGetDigits(num){const n=num-1;return[Math.floor(n/1000),Math.floor(n/100)%10,Math.floor(n/10)%10,n%10];}
+  function stkDigitToCells(d){const m=[];let r=d;if(r>=8){m.push(8);r-=8;}if(r>=4){m.push(4);r-=4;}if(r>=2){m.push(2);r-=2;}if(r>=1){m.push(1);r-=1;}return m;}
+
+  window.stkTab=function(id,el){
+    document.querySelectorAll('.stk-tab-btn').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.stk-tab-pane').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('stk-tab-'+id).classList.add('active');
+    if(id==='gabarito')stkBuildGab();
+    if(id==='lista')stkBuildTable('');
+  };
+  window.stkSearchWord=function(val){
+    document.getElementById('stk-num').value='';
+    document.getElementById('stk-suggestions').innerHTML='';
+    if(!val.trim()){document.getElementById('stk-result').classList.remove('show');return;}
+    const v=val.trim().toLowerCase();
+    const idx=STK_BIP39.findIndex(w=>w===v);
+    if(idx!==-1){stkShowResult(idx+1,STK_BIP39[idx]);}
+    else{
+      const parts=STK_BIP39.filter(w=>w.startsWith(v)).slice(0,6);
+      if(parts.length){document.getElementById('stk-suggestions').innerHTML=parts.map(w=>`<button class="stk-sug-btn" onclick="stkPickWord('${w}')">${w}</button>`).join('');}
+      document.getElementById('stk-result').classList.remove('show');
+    }
+  };
+  window.stkPickWord=function(w){
+    document.getElementById('stk-word').value=w;
+    document.getElementById('stk-suggestions').innerHTML='';
+    stkShowResult(STK_BIP39.indexOf(w)+1,w);
+  };
+  window.stkSearchNum=function(val){
+    document.getElementById('stk-word').value='';
+    document.getElementById('stk-suggestions').innerHTML='';
+    const n=parseInt(val);
+    if(!n||n<1||n>2048){document.getElementById('stk-result').classList.remove('show');return;}
+    stkShowResult(n,STK_BIP39[n-1]);
+  };
+  function stkShowResult(num,word){
+    const digits=stkGetDigits(num);
+    document.getElementById('stk-res-num').textContent='#'+num;
+    document.getElementById('stk-res-word').textContent=word.toUpperCase();
+    document.getElementById('stk-res-digits').innerHTML='DÍGITOS: <span>'+digits.join('</span> · <span>')+'</span>';
+    stkRenderPunch(digits,'stk-punch-grid','stk-punch-summary');
+    document.getElementById('stk-result').classList.add('show');
+  }
+  function stkRenderPunch(digits,gridId,summaryId){
+    const labels=['×1000','×100','×10','×1'];
+    const grid=document.getElementById(gridId);
+    grid.innerHTML='';
+    const summary=[];
+    digits.forEach((d,i)=>{
+      const marked=stkDigitToCells(d);
+      const group=document.createElement('div');
+      group.className='stk-punch-group';
+      group.innerHTML=`<div class="stk-punch-lbl">${labels[i]}</div>`;
+      const cells=document.createElement('div');
+      cells.className='stk-punch-cells';
+      [1,2,4,8].forEach(v=>{
+        const cell=document.createElement('div');
+        cell.className='stk-punch-cell'+(marked.includes(v)?' marked':'');
+        cell.textContent=v;
+        cell.onclick=()=>cell.classList.toggle('marked');
+        cells.appendChild(cell);
+      });
+      group.appendChild(cells);
+      const dnum=document.createElement('div');
+      dnum.className='stk-punch-digit';
+      dnum.textContent=d;
+      group.appendChild(dnum);
+      grid.appendChild(group);
+      summary.push(`D${i+1}=${d}(${marked.length?marked.join('+'):'vazio'})`);
+    });
+    if(summaryId)document.getElementById(summaryId).textContent='Punção: '+summary.join('  |  ');
+  }
+  window.stkBuildGab=function(){
+    const count=parseInt(document.getElementById('stk-gab-count').value);
+    const table=document.getElementById('stk-gab-table');
+    table.innerHTML='';
+    let header='<thead><tr><th style="min-width:50px;text-align:right;padding-right:6px;">DIG.</th>';
+    for(let w=1;w<=count;w++)header+=`<th>W${w}</th>`;
+    header+='</tr></thead>';
+    table.innerHTML=header;
+    const rowLabels=['×1000','×100','×10','×1'];
+    const tbody=document.createElement('tbody');
+    rowLabels.forEach((label,di)=>{
+      const tr=document.createElement('tr');
+      const tdLabel=document.createElement('td');
+      tdLabel.className='stk-row-lbl';
+      tdLabel.textContent=label;
+      tr.appendChild(tdLabel);
+      for(let w=1;w<=count;w++){
+        const td=document.createElement('td');
+        td.style.padding='2px';
+        const miniGrid=document.createElement('div');
+        miniGrid.className='stk-mini-cells';
+        [1,2,4,8].forEach(v=>{
+          const cell=document.createElement('div');
+          cell.className='stk-gab-cell';
+          cell.textContent=v;
+          cell.onclick=()=>cell.classList.toggle('marked');
+          miniGrid.appendChild(cell);
+        });
+        td.appendChild(miniGrid);
+        tr.appendChild(td);
+      }
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+  };
+  window.stkClearGab=function(){document.querySelectorAll('.stk-gab-cell.marked').forEach(c=>c.classList.remove('marked'));};
+  window.stkBuildTable=function(filter){
+    const tbody=document.getElementById('stk-table-body');
+    const f=filter.toLowerCase();
+    let html='';
+    STK_BIP39.forEach((w,i)=>{
+      const num=i+1;
+      if(f&&!w.includes(f)&&!String(num).includes(f))return;
+      const digits=stkGetDigits(num);
+      html+=`<tr><td>${num}</td><td onclick="stkPickFromTable('${w}')">${w}</td><td>${digits.join('')}</td><td>${digits.join(' · ')}</td></tr>`;
+    });
+    tbody.innerHTML=html;
+  };
+  window.stkPickFromTable=function(w){
+    document.getElementById('stk-word').value=w;
+    stkShowResult(STK_BIP39.indexOf(w)+1,w);
+    document.querySelectorAll('.stk-tab-btn').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.stk-tab-pane').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.stk-tab-btn')[0].classList.add('active');
+    document.getElementById('stk-tab-busca').classList.add('active');
+  };
+  window.stkFilterTable=function(val){stkBuildTable(val);};
+
+  // Init
+  stkBuildTable('');
+  stkBuildGab();
+})();
+</script>
 
 </body>
 </html>
