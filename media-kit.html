@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Media Kit · Anuncie na Rádio Bitcoin · radiobitcoin.org</title>
+<meta name="description" content="Alcance 40+ países, audiência qualificada de bitcoiners, investidores e empreendedores. Formatos de patrocínio, áudio e display para corretoras e projetos Bitcoin.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://radiobitcoin.org/media-kit.html">
+<meta property="og:title" content="Media Kit — Rádio Bitcoin">
+<meta property="og:description" content="Anuncie para a maior audiência Bitcoin em língua portuguesa. 40+ países, 24/7 no ar.">
+<meta property="og:image" content="img/og/og_home.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#070a0f; --bg2:#0b0e15; --bg3:#111620;
+  --gold:#f4c430; --gold2:rgba(244,196,48,.12); --gold3:rgba(244,196,48,.25);
+  --green:#00ff41; --green2:rgba(0,255,65,.1);
+  --cyan:#00d4ff; --cyan2:rgba(0,212,255,.1);
+  --orange:#f7931a;
+  --text:#e2e8f0; --muted:#9ca3af; --dim:#4b5563;
+  --mono:'Share Tech Mono',monospace;
+  --orb:'Orbitron',monospace;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(7,10,15,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--gold3);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.nav-logo{font-family:var(--orb);font-size:12px;font-weight:900;color:var(--gold);letter-spacing:3px;text-decoration:none;}
+.nav-logo span{color:var(--green);}
+.nav-cta{padding:8px 20px;background:var(--gold);color:#000;font-family:var(--orb);font-size:9px;font-weight:700;letter-spacing:2px;border-radius:5px;text-decoration:none;transition:.15s;}
+.nav-cta:hover{background:#ffe066;}
+
+/* ── HERO ── */
+.hero{position:relative;padding:80px 24px 60px;text-align:center;overflow:hidden;border-bottom:1px solid var(--gold3);}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(244,196,48,.06) 0%,transparent 70%);}
+.hero-badge{display:inline-block;font-size:9px;letter-spacing:3px;color:var(--gold);border:1px solid var(--gold3);padding:4px 14px;border-radius:99px;margin-bottom:20px;background:var(--gold2);}
+.hero h1{font-family:var(--orb);font-size:clamp(22px,4vw,42px);font-weight:900;color:#fff;letter-spacing:4px;line-height:1.2;margin-bottom:16px;text-shadow:0 0 40px rgba(244,196,48,.2);}
+.hero h1 span{color:var(--gold);}
+.hero-sub{font-size:13px;color:var(--muted);max-width:600px;margin:0 auto 40px;line-height:1.7;letter-spacing:.5px;}
+
+/* Métricas hero */
+.hero-metrics{display:flex;justify-content:center;gap:0;flex-wrap:wrap;max-width:900px;margin:0 auto;border:1px solid var(--gold3);border-radius:12px;overflow:hidden;background:rgba(11,14,21,.8);}
+.hm{flex:1;min-width:140px;padding:24px 20px;text-align:center;border-right:1px solid var(--gold3);position:relative;}
+.hm:last-child{border-right:none;}
+.hm-val{font-family:var(--orb);font-size:clamp(24px,3vw,36px);font-weight:900;color:var(--gold);line-height:1;margin-bottom:6px;text-shadow:0 0 20px rgba(244,196,48,.3);}
+.hm-val.green{color:var(--green);text-shadow:0 0 20px rgba(0,255,65,.3);}
+.hm-val.cyan{color:var(--cyan);text-shadow:0 0 20px rgba(0,212,255,.3);}
+.hm-label{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+.hm-sub{font-size:8px;color:var(--dim);margin-top:3px;letter-spacing:1px;}
+
+/* ── SEÇÃO ── */
+.section{padding:60px 24px;max-width:1100px;margin:0 auto;}
+.section-label{font-size:9px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.section-label::before{content:'';width:24px;height:2px;background:var(--gold);}
+.section h2{font-family:var(--orb);font-size:clamp(16px,2.5vw,24px);font-weight:900;color:#fff;letter-spacing:3px;margin-bottom:6px;}
+.section-desc{font-size:12px;color:var(--muted);line-height:1.7;max-width:680px;margin-bottom:40px;}
+
+/* ── AUDIÊNCIA ── */
+.aud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px;}
+@media(max-width:700px){.aud-grid{grid-template-columns:1fr;}}
+.aud-card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:20px;}
+.aud-icon{font-size:28px;margin-bottom:12px;}
+.aud-title{font-family:var(--orb);font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:2px;margin-bottom:8px;}
+.aud-text{font-size:11px;color:var(--muted);line-height:1.7;}
+
+/* Mapa de países */
+.countries{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:40px;}
+.country-tag{font-size:9px;padding:4px 10px;border-radius:4px;border:1px solid rgba(0,212,255,.2);color:var(--cyan);background:var(--cyan2);letter-spacing:1px;}
+.country-tag.top{border-color:var(--gold);color:var(--gold);background:var(--gold2);}
+
+/* ── FORMATOS / PRICING ── */
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:800px){.pkg-grid{grid-template-columns:1fr;}}
+
+.pkg{border-radius:12px;padding:28px 24px;position:relative;transition:.2s;}
+.pkg-bronze{background:linear-gradient(135deg,#0d0f14,#12141a);border:1px solid rgba(180,140,100,.3);}
+.pkg-silver{background:linear-gradient(135deg,#0d1017,#101420);border:1px solid rgba(0,212,255,.3);}
+.pkg-gold{background:linear-gradient(135deg,#100f08,#1a160a);border:2px solid var(--gold3);box-shadow:0 0 30px rgba(244,196,48,.08);}
+
+.pkg-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-family:var(--orb);font-size:8px;font-weight:700;letter-spacing:2px;padding:4px 14px;border-radius:99px;white-space:nowrap;}
+.pkg-gold .pkg-badge{background:var(--gold);color:#000;}
+.pkg-silver .pkg-badge{background:var(--cyan);color:#000;}
+.pkg-bronze .pkg-badge{background:#b48c64;color:#000;}
+
+.pkg-tier{font-family:var(--orb);font-size:11px;font-weight:700;letter-spacing:3px;margin-bottom:6px;}
+.pkg-gold .pkg-tier{color:var(--gold);}
+.pkg-silver .pkg-tier{color:var(--cyan);}
+.pkg-bronze .pkg-tier{color:#b48c64;}
+
+.pkg-name{font-family:var(--orb);font-size:18px;font-weight:900;color:#fff;margin-bottom:16px;}
+.pkg-price{font-size:32px;font-weight:700;font-family:var(--orb);margin-bottom:4px;}
+.pkg-gold .pkg-price{color:var(--gold);}
+.pkg-silver .pkg-price{color:var(--cyan);}
+.pkg-bronze .pkg-price{color:#b48c64;}
+.pkg-period{font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:20px;}
+
+.pkg-divider{height:1px;background:rgba(255,255,255,.06);margin:20px 0;}
+
+.pkg-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px;}
+.pkg-features li{font-size:11px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
+.pkg-features li::before{content:'✓';flex-shrink:0;font-weight:700;}
+.pkg-gold .pkg-features li::before{color:var(--gold);}
+.pkg-silver .pkg-features li::before{color:var(--cyan);}
+.pkg-bronze .pkg-features li::before{color:#b48c64;}
+
+.pkg-cta{display:block;text-align:center;padding:11px;border-radius:7px;font-family:var(--orb);font-size:9px;font-weight:700;letter-spacing:2px;text-decoration:none;transition:.15s;}
+.pkg-gold .pkg-cta{background:var(--gold);color:#000;}
+.pkg-gold .pkg-cta:hover{background:#ffe066;}
+.pkg-silver .pkg-cta{background:transparent;border:1.5px solid var(--cyan);color:var(--cyan);}
+.pkg-silver .pkg-cta:hover{background:var(--cyan2);}
+.pkg-bronze .pkg-cta{background:transparent;border:1.5px solid #b48c64;color:#b48c64;}
+.pkg-bronze .pkg-cta:hover{background:rgba(180,140,100,.1);}
+
+/* ── FORMATOS de mídia ── */
+.formats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+@media(max-width:640px){.formats-grid{grid-template-columns:1fr;}}
+.fmt{background:var(--bg2);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px 22px;display:flex;gap:16px;align-items:flex-start;}
+.fmt-icon{font-size:26px;flex-shrink:0;margin-top:2px;}
+.fmt-name{font-family:var(--orb);font-size:10px;font-weight:700;color:var(--green);letter-spacing:2px;margin-bottom:6px;}
+.fmt-desc{font-size:11px;color:var(--muted);line-height:1.6;}
+.fmt-spec{font-size:10px;color:var(--dim);margin-top:6px;letter-spacing:.5px;}
+
+/* ── PARCEIROS ATUAIS ── */
+.partners-bar{display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;padding:32px 24px;border:1px solid var(--gold3);border-radius:12px;background:rgba(11,14,21,.6);}
+.partner-item{display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.75;transition:.2s;text-decoration:none;}
+.partner-item:hover{opacity:1;}
+.partner-logo{height:36px;object-fit:contain;filter:grayscale(30%);}
+.partner-name{font-size:8px;letter-spacing:2px;color:var(--muted);}
+
+/* ── AUDIÊNCIA HORÁRIA ── */
+.schedule{background:var(--bg2);border:1px solid rgba(0,212,255,.15);border-radius:10px;padding:24px;margin-bottom:40px;}
+.schedule-title{font-family:var(--orb);font-size:10px;color:var(--cyan);letter-spacing:2px;margin-bottom:16px;}
+.schedule-row{display:flex;gap:12px;margin-bottom:10px;align-items:center;font-size:11px;}
+.sched-time{color:var(--gold);font-weight:700;min-width:80px;}
+.sched-bar{flex:1;height:8px;border-radius:99px;background:rgba(0,212,255,.08);overflow:hidden;}
+.sched-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--green));}
+.sched-label{color:var(--muted);font-size:10px;min-width:160px;}
+
+/* ── CTA FINAL ── */
+.cta-section{background:linear-gradient(135deg,#0d0f08,#100f08);border-top:2px solid var(--gold3);border-bottom:2px solid var(--gold3);padding:80px 24px;text-align:center;}
+.cta-section h2{font-family:var(--orb);font-size:clamp(18px,3vw,30px);font-weight:900;color:var(--gold);letter-spacing:4px;margin-bottom:12px;}
+.cta-section p{font-size:12px;color:var(--muted);margin-bottom:36px;line-height:1.7;}
+.cta-btns{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
+.cta-primary{padding:14px 36px;background:var(--gold);color:#000;font-family:var(--orb);font-size:11px;font-weight:700;letter-spacing:2px;border-radius:7px;text-decoration:none;transition:.15s;}
+.cta-primary:hover{background:#ffe066;transform:translateY(-1px);}
+.cta-secondary{padding:14px 36px;background:transparent;border:1.5px solid var(--gold);color:var(--gold);font-family:var(--orb);font-size:11px;font-weight:700;letter-spacing:2px;border-radius:7px;text-decoration:none;transition:.15s;}
+.cta-secondary:hover{background:var(--gold2);}
+
+/* ── FAQ ── */
+.faq{max-width:700px;margin:0 auto;}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.06);padding:20px 0;}
+.faq-q{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;cursor:pointer;}
+.faq-a{font-size:11px;color:var(--muted);line-height:1.7;}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(244,196,48,.2),transparent);margin:0;}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:24px;font-size:9px;color:var(--dim);letter-spacing:1px;border-top:1px solid rgba(255,255,255,.05);}
+footer a{color:var(--gold);text-decoration:none;}
+
+/* ── HIGHLIGHT BOX ── */
+.highlight{background:linear-gradient(135deg,rgba(244,196,48,.06),rgba(0,212,255,.04));border:1px solid var(--gold3);border-radius:10px;padding:20px 24px;margin-bottom:40px;font-size:12px;color:var(--muted);line-height:1.8;}
+.highlight strong{color:var(--gold);}
+
+@media(max-width:600px){
+  .hm{min-width:50%;border-bottom:1px solid var(--gold3);}
+  .pkg-grid{gap:40px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">((⚡)) <span>RADIO</span> BITCOIN</a>
+  <a href="https://t.me/Bitadictbot" target="_blank" class="nav-cta">FALAR COM RAFAEL →</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">MEDIA KIT · 2026</div>
+  <h1>A VOZ DO BITCOIN<br>EM <span>LÍNGUA PORTUGUESA</span></h1>
+  <p class="hero-sub">Rádio Bitcoin é o maior terminal de inteligência Bitcoin em português — 24h no ar, 40+ países, audiência de bitcoiners, investidores e empreendedores que já tomaram a decisão mais importante das suas vidas.</p>
+
+  <div class="hero-metrics">
+    <div class="hm">
+      <div class="hm-val">24/7</div>
+      <div class="hm-label">No ar</div>
+      <div class="hm-sub">365 dias por ano</div>
+    </div>
+    <div class="hm">
+      <div class="hm-val green">40+</div>
+      <div class="hm-label">Países</div>
+      <div class="hm-sub">Alcance global</div>
+    </div>
+    <div class="hm">
+      <div class="hm-val cyan">10:30</div>
+      <div class="hm-label">Horário nobre</div>
+      <div class="hm-sub">Abertura NY · pico de ouvintes</div>
+    </div>
+    <div class="hm">
+      <div class="hm-val">6 IA</div>
+      <div class="hm-label">Locutores</div>
+      <div class="hm-sub">Manus · Gemini · Claude · GPT</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- AUDIÊNCIA -->
+<div class="section">
+  <div class="section-label">Quem nos ouve</div>
+  <h2>AUDIÊNCIA QUALIFICADA</h2>
+  <p class="section-desc">Não temos ouvintes casuais. Quem chega à Rádio Bitcoin já passou pela curva de aprendizado — está pronto para agir, comprar, investir e recomendar.</p>
+
+  <div class="aud-grid">
+    <div class="aud-card">
+      <div class="aud-icon">₿</div>
+      <div class="aud-title">BITCOINERS CONVICTOS</div>
+      <div class="aud-text">Já holdaram, já compraram, já pesquisaram. Buscam inteligência de mercado diária, não introdução ao Bitcoin.</div>
+    </div>
+    <div class="aud-card">
+      <div class="aud-icon">📊</div>
+      <div class="aud-title">INVESTIDORES ATIVOS</div>
+      <div class="aud-text">Acompanham Polymarket, on-chain data, macro americana. Tomam decisões baseadas em dados, não em hype.</div>
+    </div>
+    <div class="aud-card">
+      <div class="aud-icon">🚀</div>
+      <div class="aud-title">EMPREENDEDORES CRIPTO</div>
+      <div class="aud-text">Rodam bots, operam corretoras, acumulam sats. Gastam em ferramentas, hardware wallets e educação financeira.</div>
+    </div>
+    <div class="aud-card">
+      <div class="aud-icon">🏦</div>
+      <div class="aud-title">GESTORES & TESOUREIROS</div>
+      <div class="aud-text">Profissionais de finanças explorando alocação em Bitcoin. Alta renda, alta decisão de compra.</div>
+    </div>
+    <div class="aud-card">
+      <div class="aud-icon">🌎</div>
+      <div class="aud-title">DIÁSPORA LUSÓFONA</div>
+      <div class="aud-text">Brasil, Portugal, Angola, Moçambique. Português como idioma financeiro — um mercado de 260 milhões de pessoas.</div>
+    </div>
+    <div class="aud-card">
+      <div class="aud-icon">⚡</div>
+      <div class="aud-title">USUÁRIOS LIGHTNING</div>
+      <div class="aud-text">Pagam em sats, usam wallets custodiais e não-custodiais, compram hardware. Alta propensão de gastos cripto.</div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-bottom:16px;">Presença global</div>
+  <div class="countries">
+    <span class="country-tag top">🇧🇷 Brasil</span>
+    <span class="country-tag top">🇵🇹 Portugal</span>
+    <span class="country-tag top">🇺🇸 EUA</span>
+    <span class="country-tag">🇦🇴 Angola</span>
+    <span class="country-tag">🇲🇿 Moçambique</span>
+    <span class="country-tag">🇦🇷 Argentina</span>
+    <span class="country-tag">🇨🇴 Colômbia</span>
+    <span class="country-tag">🇲🇽 México</span>
+    <span class="country-tag">🇪🇸 Espanha</span>
+    <span class="country-tag">🇬🇧 Reino Unido</span>
+    <span class="country-tag">🇩🇪 Alemanha</span>
+    <span class="country-tag">🇳🇱 Holanda</span>
+    <span class="country-tag">🇨🇦 Canadá</span>
+    <span class="country-tag">🇯🇵 Japão</span>
+    <span class="country-tag">🇦🇺 Austrália</span>
+    <span class="country-tag">🇨🇭 Suíça</span>
+    <span class="country-tag">+ 25 países</span>
+  </div>
+
+  <!-- Horários nobres -->
+  <div class="schedule">
+    <div class="schedule-title">⏰ HORÁRIOS DE PICO — JANELAS PREMIUM PARA ANUNCIANTES</div>
+    <div class="schedule-row">
+      <span class="sched-time">10:30 BRT</span>
+      <div class="sched-bar"><div class="sched-fill" style="width:100%"></div></div>
+      <span class="sched-label">Abertura mercados NY · pico máximo</span>
+    </div>
+    <div class="schedule-row">
+      <span class="sched-time">16:30 BRT</span>
+      <div class="sched-bar"><div class="sched-fill" style="width:88%"></div></div>
+      <span class="sched-label">Fechamento NYSE/Nasdaq · 2º pico</span>
+    </div>
+    <div class="schedule-row">
+      <span class="sched-time">09:00 BRT</span>
+      <div class="sched-bar"><div class="sched-fill" style="width:72%"></div></div>
+      <span class="sched-label">Abertura B3 · ouvintes BR</span>
+    </div>
+    <div class="schedule-row">
+      <span class="sched-time">22:00 BRT</span>
+      <div class="sched-bar"><div class="sched-fill" style="width:60%"></div></div>
+      <span class="sched-label">Noite PT/EU · audiência europeia</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FORMATOS DE MÍDIA -->
+<div class="section">
+  <div class="section-label">Formatos disponíveis</div>
+  <h2>COMO SUA MARCA APARECE</h2>
+  <p class="section-desc">Múltiplos pontos de contato na mesma audiência: voz, display, cockpit de dados e email. Integração nativa — não parece anúncio, parece parte do terminal.</p>
+
+  <div class="formats-grid" style="margin-bottom:40px;">
+    <div class="fmt">
+      <div class="fmt-icon">🎙️</div>
+      <div>
+        <div class="fmt-name">SPOT DE VOZ IA</div>
+        <div class="fmt-desc">30s de áudio gerado por IA no estilo da rádio, inserido entre blocos informativos. Soa como editorial, não como propaganda.</div>
+        <div class="fmt-spec">Formato: 30s · Frequência: até 4×/hora · Voz: locutor IA da rádio</div>
+      </div>
+    </div>
+    <div class="fmt">
+      <div class="fmt-icon">⚡</div>
+      <div>
+        <div class="fmt-name">SLOT NO COCKPIT</div>
+        <div class="fmt-desc">Logo + link + tagline no painel principal da home. Visível 24/7 para todos os visitantes do terminal de dados.</div>
+        <div class="fmt-spec">Formato: 180×60px logo · Posição: Parceiros do cockpit · Destaque neon</div>
+      </div>
+    </div>
+    <div class="fmt">
+      <div class="fmt-icon">📡</div>
+      <div>
+        <div class="fmt-name">BANNER HERO</div>
+        <div class="fmt-desc">Banner full-width no topo da home com identidade visual da Rádio Bitcoin. Máxima visibilidade, estética cyberpunk.</div>
+        <div class="fmt-spec">Formato: 1200×200px · Posição: topo da home · Link externo</div>
+      </div>
+    </div>
+    <div class="fmt">
+      <div class="fmt-icon">📧</div>
+      <div>
+        <div class="fmt-name">NEWSLETTER SEMANAL</div>
+        <div class="fmt-desc">Menção patrocinada na newsletter Bitcoin Semanal enviada para a base de inscritos qualificados.</div>
+        <div class="fmt-spec">Formato: texto + logo · Posição: início do email · Frequência: 1×/semana</div>
+      </div>
+    </div>
+    <div class="fmt">
+      <div class="fmt-icon">🗺️</div>
+      <div>
+        <div class="fmt-name">MAPA BITCOIN — DESTAQUE</div>
+        <div class="fmt-desc">Marcador premium no Mapa Bitcoin com badge "Parceiro Verificado" e destaque visual para ATMs, exchanges e pontos físicos.</div>
+        <div class="fmt-spec">Formato: marcador destacado + popup · Mapa interativo · BTCMap integrado</div>
+      </div>
+    </div>
+    <div class="fmt">
+      <div class="fmt-icon">🎯</div>
+      <div>
+        <div class="fmt-name">EDITORIAL PATROCINADO</div>
+        <div class="fmt-desc">Conteúdo educativo sobre seu produto ou serviço narrado pelos locutores IA da rádio, publicado como painel dedicado.</div>
+        <div class="fmt-spec">Formato: painel HTML + spot de voz · Duração: 1 mês · Co-branded</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PACOTES / PRICING -->
+<div class="section">
+  <div class="section-label">Investimento</div>
+  <h2>PACOTES DE PATROCÍNIO</h2>
+  <p class="section-desc">Preços em USD. Pagamentos aceitos em Bitcoin (Lightning ou on-chain), USDC e transferência bancária EUR/BRL.</p>
+
+  <div class="pkg-grid">
+
+    <!-- BRONZE -->
+    <div class="pkg pkg-bronze" style="margin-top:12px;">
+      <div class="pkg-badge" style="background:#b48c64;color:#000;">APOIADOR</div>
+      <div class="pkg-tier">BRONZE</div>
+      <div class="pkg-name">Visibilidade</div>
+      <div class="pkg-price">$197</div>
+      <div class="pkg-period">por mês</div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-features">
+        <li>Logo no painel de Parceiros (home)</li>
+        <li>Link externo permanente</li>
+        <li>1 menção na newsletter mensal</li>
+        <li>Badge "Apoiador" no Mapa Bitcoin</li>
+        <li>Relatório mensal de impressões</li>
+      </ul>
+      <a href="https://t.me/Bitadictbot" target="_blank" class="pkg-cta">CONTRATAR →</a>
+    </div>
+
+    <!-- SILVER -->
+    <div class="pkg pkg-silver" style="margin-top:12px;">
+      <div class="pkg-badge" style="background:var(--cyan);color:#000;">MAIS POPULAR</div>
+      <div class="pkg-tier">SILVER</div>
+      <div class="pkg-name">Presença</div>
+      <div class="pkg-price">$497</div>
+      <div class="pkg-period">por mês</div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-features">
+        <li>Tudo do Bronze</li>
+        <li>2 spots de voz IA por dia (14 semanal)</li>
+        <li>Slot destacado no cockpit (neon border)</li>
+        <li>1 menção por semana na newsletter</li>
+        <li>Marcador premium no Mapa Bitcoin</li>
+        <li>Relatório quinzenal de métricas</li>
+      </ul>
+      <a href="https://t.me/Bitadictbot" target="_blank" class="pkg-cta">CONTRATAR →</a>
+    </div>
+
+    <!-- GOLD -->
+    <div class="pkg pkg-gold">
+      <div class="pkg-badge">⭐ PARCEIRO PRINCIPAL</div>
+      <div class="pkg-tier">GOLD</div>
+      <div class="pkg-name">Integração Total</div>
+      <div class="pkg-price">$1.497</div>
+      <div class="pkg-period">por mês · mín. 3 meses</div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-features">
+        <li>Tudo do Silver</li>
+        <li>Banner Hero full-width na home</li>
+        <li>4 spots de voz por hora no horário nobre (10:30 e 16:30)</li>
+        <li>Painel editorial dedicado co-branded</li>
+        <li>Menção em TODOS os emails da semana</li>
+        <li>Badge "Parceiro Principal da Rádio" em todas as páginas</li>
+        <li>Relatório semanal detalhado (CTR, impressões, conversões)</li>
+        <li>Reunião mensal de estratégia com Rafael</li>
+      </ul>
+      <a href="https://t.me/Bitadictbot" target="_blank" class="pkg-cta">FALAR COM RAFAEL →</a>
+    </div>
+
+  </div>
+
+  <div class="highlight" style="margin-top:32px;">
+    <strong>Nota para corretoras e projetos Bitcoin:</strong> Todos os anunciantes passam por curadoria editorial. A Rádio Bitcoin mantém coerência com os valores de soberania digital, auto-custódia e economia austríaca. Produtos que incentivem dependência de terceiros ou comprometam a segurança dos usuários não serão aceitos — independente do valor oferecido.
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PARCEIROS ATUAIS -->
+<div class="section">
+  <div class="section-label">Quem já confia</div>
+  <h2>PARCEIROS ATUAIS</h2>
+  <p class="section-desc">Marcas que já entenderam o valor de falar com a audiência mais qualificada do Bitcoin em português.</p>
+
+  <div class="partners-bar">
+    <a href="https://partner.bybit.com/b/161474" target="_blank" class="partner-item">
+      <img src="logo_bybit.png" alt="Bybit" class="partner-logo" style="height:28px;">
+      <span class="partner-name">PARCEIRO PRINCIPAL</span>
+    </a>
+    <a href="https://stackbit.me" target="_blank" class="partner-item">
+      <img src="logo_stack.png" alt="Stackbit" class="partner-logo">
+      <span class="partner-name">METALWALLET OFICIAL</span>
+    </a>
+    <div class="partner-item" style="border:1px dashed rgba(244,196,48,.2);padding:16px 24px;border-radius:8px;cursor:default;">
+      <div style="font-family:var(--orb);font-size:9px;color:var(--dim);letter-spacing:2px;">SEU LOGO AQUI</div>
+      <span class="partner-name" style="color:var(--gold);">VAGA DISPONÍVEL</span>
+    </div>
+    <div class="partner-item" style="border:1px dashed rgba(244,196,48,.2);padding:16px 24px;border-radius:8px;cursor:default;">
+      <div style="font-family:var(--orb);font-size:9px;color:var(--dim);letter-spacing:2px;">SEU LOGO AQUI</div>
+      <span class="partner-name" style="color:var(--gold);">VAGA DISPONÍVEL</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<div class="section">
+  <div class="section-label">Dúvidas frequentes</div>
+  <h2>FAQ — ANUNCIANTES</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <div class="faq-q">Como é feita a medição de resultados?</div>
+      <div class="faq-a">Fornecemos relatório com impressões no cockpit (via Google Analytics), cliques nos links de parceiros (UTM rastreado) e estimativa de alcance de áudio com base na taxa de conexões simultâneas ao stream. Para campanhas Gold, incluímos dados de conversão via pixel se o anunciante tiver.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Posso pagar em Bitcoin?</div>
+      <div class="faq-a">Sim — e damos preferência a isso. Aceitamos Lightning Network (instantâneo, sem taxa mínima), on-chain BTC e USDC na rede Polygon. Também aceitamos PIX (BRL) e transferência EUR para contas portuguesas.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Quanto tempo leva para o anúncio ir ao ar?</div>
+      <div class="faq-a">Bronze e Silver: 48h após confirmação de pagamento. Gold: 72h (inclui produção do spot de voz IA e do painel editorial). Para campanhas de lançamento urgentes, entre em contato diretamente.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Vocês aceitam qualquer tipo de anunciante?</div>
+      <div class="faq-a">Não. Todos passam por curadoria. Não anunciamos exchanges sem regulamentação clara, projetos anônimos sem histórico verificável, produtos de trading com promessas de retorno garantido, ou qualquer serviço que comprometa a soberania financeira do usuário.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Existe contrato de exclusividade por categoria?</div>
+      <div class="faq-a">Parceiros Gold têm direito a exclusividade de categoria (apenas uma exchange, apenas um hardware wallet, etc.) durante o período de contrato. Pacotes Silver e Bronze não incluem exclusividade.</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CTA FINAL -->
+<div class="cta-section">
+  <h2>PRONTO PARA ANUNCIAR?</h2>
+  <p>Fale diretamente com Rafael — fundador da Rádio Bitcoin.<br>Resposta em até 24h. Sem intermediários, sem agência.</p>
+  <div class="cta-btns">
+    <a href="https://t.me/Bitadictbot" target="_blank" class="cta-primary">⚡ TELEGRAM — RESPOSTA RÁPIDA</a>
+    <a href="mailto:alegriaitacare@gmail.com" class="cta-secondary">✉ EMAIL</a>
+  </div>
+</div>
+
+<footer>
+  <div style="margin-bottom:6px;">
+    <a href="/">radiobitcoin.org</a> · A FREQUÊNCIA SOBERANA · 24/7 NO AR
+  </div>
+  <div>© 2026 Rádio Bitcoin · Todos os direitos reservados · Dados de audiência atualizados mensalmente</div>
+</footer>
+
+</body>
+</html>
