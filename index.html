@@ -2314,10 +2314,10 @@ img{max-width:100%;height:auto;}
       <!-- FIM STACKBIT 1248 -->
 
       <!-- MINI WIDGET CARTEIRA (live) -->
-      <a href="/carteira.html" id="rb-carteira-widget" style="display:block;text-decoration:none;color:inherit;background:linear-gradient(160deg,#07090d 0%,#0b0e11 100%);border:1px solid rgba(242,169,0,0.25);border-radius:12px;padding:14px;margin:0 0 10px;box-shadow:0 4px 18px -8px rgba(242,169,0,0.3);transition:border-color .2s,transform .15s;">
+      <div id="rb-carteira-widget" style="display:block;color:inherit;background:linear-gradient(160deg,#07090d 0%,#0b0e11 100%);border:1px solid rgba(242,169,0,0.25);border-radius:12px;padding:14px;margin:0 0 10px;box-shadow:0 4px 18px -8px rgba(242,169,0,0.3);">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
           <div style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#f2a900;letter-spacing:2px;text-transform:uppercase;">📊 Carteira BIT ADICT</div>
-          <div style="font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#9ca3af;letter-spacing:1px;">ver tudo →</div>
+          <div style="font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#9ca3af;letter-spacing:1px;">balanço de hoje</div>
         </div>
         <div id="rb-cw-summary" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;">
           <div style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.3);border-radius:6px;padding:6px;text-align:center;"><div style="font-size:18px;font-weight:800;color:#4ade80;" id="rb-cw-buy">·</div><div style="font-family:ui-monospace,Menlo,monospace;font-size:8px;color:#9ca3af;letter-spacing:1px;">BUY</div></div>
@@ -2325,10 +2325,10 @@ img{max-width:100%;height:auto;}
           <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);border-radius:6px;padding:6px;text-align:center;"><div style="font-size:18px;font-weight:800;color:#ef4444;" id="rb-cw-sell">·</div><div style="font-family:ui-monospace,Menlo,monospace;font-size:8px;color:#9ca3af;letter-spacing:1px;">SELL</div></div>
         </div>
         <div id="rb-cw-picks" style="display:flex;flex-direction:column;gap:4px;">
-          <div style="color:#9ca3af;font-size:11px;text-align:center;padding:8px 0;">carregando picks…</div>
+          <div style="color:#9ca3af;font-size:11px;text-align:center;padding:8px 0;">carregando…</div>
         </div>
         <div id="rb-cw-ts" style="font-family:ui-monospace,Menlo,monospace;font-size:8px;color:#6b7280;text-align:center;margin-top:8px;letter-spacing:1px;">--</div>
-      </a>
+      </div>
       <script>
       (async function(){
         try {
@@ -2340,24 +2340,129 @@ img{max-width:100%;height:auto;}
           document.getElementById('rb-cw-sell').textContent = d.resumo.sell_signals;
           const ts = new Date(d.gerado_em);
           document.getElementById('rb-cw-ts').textContent = '⟳ ' + ts.toLocaleString('pt-BR', {hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit'});
-          // top picks: STRONG BUY ou BUY ou ACUMULAR, max 4
-          const picks = d.tickers.filter(t => ['STRONG BUY','BUY','ACUMULAR'].includes(t.reco)).slice(0,4);
+          // Nomes dos ativos ficam no painel pago "Onde Investir Hoje".
+          // Aqui só o teaser com a contagem.
+          const nBuy = d.resumo.buy_signals || 0;
           const target = document.getElementById('rb-cw-picks');
-          if (picks.length === 0) { target.innerHTML = '<div style="color:#9ca3af;font-size:11px;text-align:center;padding:8px 0;">sem picks de compra agora</div>'; return; }
-          target.innerHTML = picks.map(t => {
-            const arrow = t.change_pct_1d >= 0 ? '▲' : '▼';
-            const chgColor = t.change_pct_1d >= 0 ? '#4ade80' : '#ef4444';
-            return `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px;background:rgba(74,222,128,0.06);border-radius:6px;border-left:2px solid #4ade80;">
-              <div><span style="font-family:ui-monospace,Menlo,monospace;font-weight:800;color:#fff;font-size:12px;">${t.symbol}</span> <span style="font-size:9px;color:#9ca3af;">${t.nome.slice(0,18)}</span></div>
-              <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#fff;">$${t.price} <span style="color:${chgColor};font-size:9px;">${arrow}${Math.abs(t.change_pct_1d).toFixed(1)}%</span></div>
-            </div>`;
-          }).join('');
+          if (nBuy === 0) {
+            target.innerHTML = '<div style="color:#9ca3af;font-size:11px;text-align:center;padding:8px 0;">sem oportunidades de compra agora</div>';
+          } else {
+            target.innerHTML = '<div onclick="document.getElementById(\'oih-panel\').scrollIntoView({behavior:\'smooth\',block:\'center\'})" style="cursor:pointer;text-align:center;background:rgba(0,255,65,0.06);border:1px dashed rgba(0,255,65,0.35);border-radius:8px;padding:10px;">'
+              + '<div style="font-size:12px;color:#fff;">🔒 <b style="color:#00ff41;">' + nBuy + ' oportunidades de compra</b> hoje</div>'
+              + '<div style="font-size:10px;color:#9ca3af;margin-top:3px;">veja os nomes em <b style="color:#00ff41;">Onde Investir Hoje ↓</b></div></div>';
+          }
         } catch(e) {
           document.getElementById('rb-cw-picks').innerHTML = '<div style="color:#ef4444;font-size:10px;text-align:center;">offline</div>';
         }
       })();
       </script>
       <!-- FIM MINI WIDGET CARTEIRA -->
+
+      <!-- ===== ONDE INVESTIR HOJE (conteúdo premium via Lightning) ===== -->
+      <div id="oih-panel" style="background:linear-gradient(160deg,#0a1206 0%,#0b0e11 100%);border:1px solid rgba(0,255,65,0.3);border-radius:12px;padding:14px;margin:0 0 10px;box-shadow:0 4px 18px -8px rgba(0,255,65,0.25);">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
+          <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#00ff41;letter-spacing:1.5px;font-weight:700;">💰 ONDE INVESTIR HOJE</div>
+          <div style="font-family:ui-monospace,Menlo,monospace;font-size:8px;color:#9ca3af;letter-spacing:1px;">ANÁLISE DA IA · AO VIVO</div>
+        </div>
+        <div style="font-size:12px;color:#c8d0dc;line-height:1.5;margin-bottom:10px;">
+          🤖 Hoje nossa IA analisou o mercado e achou <b id="oih-count" style="color:#00ff41;">--</b> oportunidades de compra.
+          <span id="oih-when" style="color:#6b7280;font-size:10px;"></span>
+        </div>
+
+        <!-- bloqueado -->
+        <div id="oih-locked">
+          <div id="oih-blur" style="filter:blur(6px);user-select:none;pointer-events:none;display:flex;flex-direction:column;gap:5px;margin-bottom:10px;opacity:.8;"></div>
+          <div style="text-align:center;background:rgba(0,255,65,0.05);border:1px dashed rgba(0,255,65,0.35);border-radius:8px;padding:12px;">
+            <div style="font-size:12px;color:#fff;margin-bottom:8px;">🔓 Veja <b>exatamente onde investir</b> agora</div>
+            <button id="oih-btn" onclick="oihUnlock(this)" style="width:100%;background:linear-gradient(180deg,#00ff41,#00cc34);color:#000;font-family:'Orbitron',ui-monospace,monospace;font-size:12px;font-weight:800;letter-spacing:.5px;border:none;border-radius:8px;padding:11px;cursor:pointer;box-shadow:0 3px 12px rgba(0,255,65,0.35);">⚡ ABRIR COM BITCOIN</button>
+            <div style="font-size:9px;color:#9ca3af;margin-top:7px;line-height:1.4;">1.000 satoshis — os centavinhos do Bitcoin.<br>Pagamento na hora, sem cadastro, sem cartão.</div>
+          </div>
+        </div>
+
+        <!-- liberado -->
+        <div id="oih-unlocked" style="display:none;">
+          <div id="oih-picks" style="display:flex;flex-direction:column;gap:5px;"></div>
+          <div style="font-size:9px;color:#00ff41;text-align:center;margin-top:8px;">✅ Liberado! Obrigado por apoiar com Bitcoin ⚡</div>
+        </div>
+        <div style="font-size:8px;color:#4b5563;text-align:center;margin-top:8px;">Não é recomendação de investimento. Análise automatizada por IA.</div>
+      </div>
+
+      <script>
+      (function(){
+        var PRECO_SATS = 1000;
+        var LN_ADDR = 'texugorecords@walletofsatoshi.com';
+        var picksCache = [];
+
+        function hojeKey(){ var d=new Date(); return 'oih_unlocked_'+d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+        function jaLiberado(){ try { return localStorage.getItem(hojeKey())==='1'; } catch(e){ return false; } }
+        function marcarLiberado(){ try { localStorage.setItem(hojeKey(),'1'); } catch(e){} }
+
+        function renderPicks(el, blur){
+          el.innerHTML = picksCache.map(function(p){
+            var nome = blur ? '████████' : (p.nome||p.symbol);
+            var sym  = blur ? '████' : p.symbol;
+            var chg  = (p.change_pct_1d>=0?'▲':'▼')+Math.abs(p.change_pct_1d||0).toFixed(1)+'%';
+            var cor  = (p.change_pct_1d>=0)?'#4ade80':'#ef4444';
+            return '<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:rgba(0,255,65,0.06);border-radius:6px;border-left:3px solid #00ff41;">'
+              +'<div><span style="font-family:ui-monospace,Menlo,monospace;font-weight:800;color:#fff;font-size:13px;">'+sym+'</span> <span style="font-size:10px;color:#9ca3af;">'+nome+'</span></div>'
+              +'<div style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#fff;">'+(blur?'$███':'$'+p.price)+' <span style="color:'+cor+';font-size:10px;">'+chg+'</span></div></div>';
+          }).join('');
+        }
+
+        function mostrarLiberado(){
+          document.getElementById('oih-locked').style.display='none';
+          var u=document.getElementById('oih-unlocked'); u.style.display='block';
+          renderPicks(document.getElementById('oih-picks'), false);
+        }
+
+        fetch('carteira.json?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
+          var buys=(d.tickers||[]).filter(function(t){return ['STRONG BUY','BUY','ACUMULAR','COMPRA'].indexOf(t.reco)>=0;});
+          picksCache=buys;
+          document.getElementById('oih-count').textContent=buys.length;
+          if(d.gerado_em){ try{ document.getElementById('oih-when').textContent='· '+new Date(d.gerado_em).toLocaleDateString('pt-BR'); }catch(e){} }
+          renderPicks(document.getElementById('oih-blur'), true);
+          if(jaLiberado()) mostrarLiberado();
+        }).catch(function(){ document.getElementById('oih-count').textContent='—'; });
+
+        async function fetchInvoice(sats){
+          var parts=LN_ADDR.split('@');
+          var meta=await fetch('https://'+parts[1]+'/.well-known/lnurlp/'+parts[0]).then(function(r){return r.json();});
+          var cb=meta.callback+(meta.callback.indexOf('?')>=0?'&':'?')+'amount='+(sats*1000)+'&comment='+encodeURIComponent('Onde Investir Hoje - Radio Bitcoin');
+          var inv=await fetch(cb).then(function(r){return r.json();});
+          if(!inv.pr) throw new Error('sem invoice');
+          return inv.pr;
+        }
+
+        window.oihUnlock = async function(btn){
+          var orig=btn.textContent;
+          // 1) WebLN (Alby) — pagamento verificado em 1 clique
+          if(typeof window.webln!=='undefined'){
+            try{
+              btn.textContent='⏳ gerando...'; btn.disabled=true;
+              await window.webln.enable();
+              var pr=await fetchInvoice(PRECO_SATS);
+              await window.webln.sendPayment(pr); // se completa, pagou
+              marcarLiberado(); mostrarLiberado(); return;
+            }catch(e){ btn.disabled=false; btn.textContent=orig; }
+          }
+          // 2) Sem WebLN: abre QR/carteira + botão "já paguei"
+          try{
+            btn.textContent='⏳ invoice...'; btn.disabled=true;
+            var pr2=await fetchInvoice(PRECO_SATS);
+            var box=document.createElement('div');
+            box.style.cssText='text-align:center;margin-top:10px;';
+            box.innerHTML='<img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=lightning:'+pr2+'" alt="QR" style="background:#fff;padding:8px;border-radius:8px;width:180px;height:180px;">'
+              +'<div style="font-size:9px;color:#9ca3af;margin:6px 0;">Escaneie com sua carteira Lightning</div>'
+              +'<a href="lightning:'+pr2+'" style="display:inline-block;font-size:10px;color:#00ff41;margin-bottom:8px;">abrir carteira no celular →</a><br>'
+              +'<button onclick="window.__oihPaid()" style="background:#00ff41;color:#000;border:none;border-radius:6px;padding:8px 16px;font-weight:700;font-size:11px;cursor:pointer;">✅ Já paguei, liberar</button>';
+            btn.parentNode.appendChild(box);
+            btn.style.display='none';
+            window.__oihPaid=function(){ marcarLiberado(); mostrarLiberado(); };
+          }catch(e2){ btn.disabled=false; btn.textContent=orig; alert('Não consegui gerar o pagamento agora. Tente de novo.'); }
+        };
+      })();
+      </script>
+      <!-- ===== FIM ONDE INVESTIR HOJE ===== -->
 
       <!-- STATS -->
       <div class="stats-row">

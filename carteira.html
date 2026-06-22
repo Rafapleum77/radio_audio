@@ -149,22 +149,26 @@ function render(d) {
     const macdCSS = t.macd_bullish ? 'green' : 'red';
     const rsiCSS = t.rsi > 75 ? 'red' : t.rsi > 65 ? 'orange' : t.rsi < 35 ? 'green' : '';
     const sma50CSS = t.above_sma50 ? 'green' : 'red';
+    // Ativos de COMPRA têm o nome bloqueado (conteúdo do "Onde Investir Hoje").
+    const isBuy = ['STRONG BUY','BUY','ACUMULAR'].includes(t.reco);
+    const simbolo = isBuy ? '🔒 ●●●●' : t.symbol;
+    const nomeEx  = isBuy ? 'Liberado em "Onde Investir Hoje" na rádio' : t.nome;
     return `
       <div class="card ${recoCSS}">
         <div class="card-top">
-          <div class="sym">${t.symbol}</div>
-          <div><span class="price">$${t.price}</span><span class="change ${chgClass}">${arrow}${Math.abs(t.change_pct_1d).toFixed(1)}%</span></div>
+          <div class="sym">${simbolo}</div>
+          <div><span class="price">${isBuy ? '🔒' : '$'+t.price}</span>${isBuy ? '' : `<span class="change ${chgClass}">${arrow}${Math.abs(t.change_pct_1d).toFixed(1)}%</span>`}</div>
         </div>
-        <div class="nome">${t.nome}</div>
-        <div class="setor">// ${t.setor}</div>
+        <div class="nome">${nomeEx}</div>
+        <div class="setor">// ${isBuy ? 'oportunidade de compra' : t.setor}</div>
         <span class="reco ${recoCSS}">${t.reco}</span>
         <div class="indicators">
           <div class="ind"><div class="k">RSI 14</div><div class="v ${rsiCSS}">${t.rsi}</div></div>
           <div class="ind"><div class="k">MACD</div><div class="v ${macdCSS}">${t.macd_bullish ? '↑ bull' : '↓ bear'}</div></div>
           <div class="ind"><div class="k">SMA50</div><div class="v ${sma50CSS}">${t.above_sma50 ? 'acima' : 'abaixo'}</div></div>
         </div>
-        <div class="pct52" style="--pct: ${t.pct_52w_range}%" title="${t.pct_52w_range}% do range 52w (${t.low_52w}–${t.high_52w})"></div>
-        <div class="racional">${t.racional}</div>
+        <div class="pct52" style="--pct: ${t.pct_52w_range}%" title="${isBuy ? '' : t.pct_52w_range+'% do range 52w ('+t.low_52w+'–'+t.high_52w+')'}"></div>
+        <div class="racional">${isBuy ? '🔒 Análise completa e nome do ativo no painel <b>Onde Investir Hoje</b> em <a href="/" style="color:#00ff41;">radiobitcoin.org</a>' : t.racional}</div>
       </div>
     `;
   }).join('');
