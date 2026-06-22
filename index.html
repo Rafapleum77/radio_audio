@@ -5103,12 +5103,83 @@ img{max-width:100%;height:auto;}
           <div class="zap-stat"><strong>0 KYC</strong>livre</div>
         </div>
         <div class="zap-btns">
-          <a href="lightning:texugorecords@walletofsatoshi.com?amount=1000" class="zap-btn">⚡ 1K</a>
-          <a href="lightning:texugorecords@walletofsatoshi.com?amount=5000" class="zap-btn">⚡ 5K</a>
-          <a href="lightning:texugorecords@walletofsatoshi.com?amount=21000" class="zap-btn">⚡ 21K</a>
+          <button type="button" class="zap-btn" onclick="zapPay(1000,this)">⚡ 1K</button>
+          <button type="button" class="zap-btn" onclick="zapPay(5000,this)">⚡ 5K</button>
+          <button type="button" class="zap-btn" onclick="zapPay(21000,this)">⚡ 21K</button>
         </div>
-        <a href="lightning:texugorecords@walletofsatoshi.com" class="zap-btn zap-btn-main">⚡ ENVIAR SATS</a>
+        <button type="button" class="zap-btn zap-btn-main" onclick="zapPay(0,this)">⚡ ENVIAR SATS</button>
+        <div id="zap-webln-hint" style="font-size:8px;color:var(--text-dim);margin-top:6px;line-height:1.4;"></div>
       </div>
+
+      <script>
+      // ── Doação Lightning com WebLN (Alby) + fallback ──────────────────────
+      // Auditoria 51.md Prioridade #1: links lightning: puros convertem mal.
+      // Com WebLN (extensão Alby/etc) a doação vira 1 clique com invoice dinâmica.
+      (function(){
+        var LN_ADDR = 'texugorecords@walletofsatoshi.com';
+        var hint = document.getElementById('zap-webln-hint');
+        function hasWebln(){ return (typeof window.webln !== 'undefined'); }
+        if (hint) {
+          hint.textContent = hasWebln()
+            ? '✅ Carteira WebLN detectada — doação em 1 clique.'
+            : '💡 Instale a extensão Alby para doar com 1 clique. Sem ela, abre sua carteira Lightning.';
+        }
+        // Resolve Lightning Address → invoice via LNURL-pay
+        async function fetchInvoice(amountSats){
+          var parts = LN_ADDR.split('@');
+          var url = 'https://' + parts[1] + '/.well-known/lnurlp/' + parts[0];
+          var meta = await fetch(url).then(function(r){return r.json();});
+          if (meta.tag !== 'payRequest' && !meta.callback) throw new Error('LNURL inválido');
+          var min = Math.ceil((meta.minSendable||1000)/1000);
+          var max = Math.floor((meta.maxSendable||100000000)/1000);
+          if (amountSats < min) amountSats = min;
+          if (amountSats > max) amountSats = max;
+          var cb = meta.callback + (meta.callback.indexOf('?')>=0?'&':'?') +
+                   'amount=' + (amountSats*1000) +
+                   '&comment=' + encodeURIComponent('Apoio Radio Bitcoin');
+          var inv = await fetch(cb).then(function(r){return r.json();});
+          if (!inv.pr) throw new Error('invoice não retornada');
+          return inv.pr;
+        }
+        window.zapPay = async function(amountSats, btn){
+          var original = btn ? btn.textContent : '';
+          // valor 0 = "ENVIAR SATS" → pergunta o valor
+          if (!amountSats) {
+            var v = prompt('Quantos sats você quer enviar?', '2100');
+            if (!v) return;
+            amountSats = parseInt(v, 10);
+            if (!amountSats || amountSats < 1) return;
+          }
+          // Caminho 1: WebLN (1 clique)
+          if (hasWebln()) {
+            try {
+              if (btn){ btn.textContent='⏳ gerando...'; btn.disabled=true; }
+              await window.webln.enable();
+              var pr = await fetchInvoice(amountSats);
+              await window.webln.sendPayment(pr);
+              if (btn){ btn.textContent='✅ obrigado!'; }
+              setTimeout(function(){ if(btn){btn.textContent=original; btn.disabled=false;} }, 2500);
+              return;
+            } catch(e){
+              console.warn('WebLN falhou, usando fallback', e);
+              if (btn){ btn.disabled=false; btn.textContent=original; }
+              // cai pro fallback abaixo
+            }
+          }
+          // Caminho 2 (fallback): abre carteira via protocolo lightning:
+          try {
+            if (btn){ btn.textContent='⏳ invoice...'; btn.disabled=true; }
+            var pr2 = await fetchInvoice(amountSats);
+            window.location.href = 'lightning:' + pr2;
+            if (btn){ setTimeout(function(){ btn.textContent=original; btn.disabled=false; }, 2000); }
+          } catch(e2){
+            // Caminho 3 (último recurso): lightning address direto
+            window.location.href = 'lightning:' + LN_ADDR + '?amount=' + amountSats;
+            if (btn){ btn.textContent=original; btn.disabled=false; }
+          }
+        };
+      })();
+      </script>
 
       <!-- SPOTIFY PLAYLIST -->
       <div class="panel" style="padding:0;overflow:hidden;border-color:rgba(30,215,96,0.4);">
