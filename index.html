@@ -2998,6 +2998,39 @@ img{max-width:100%;height:auto;}
   setInterval(rvzUpdateStatus, 60000);
   rvzUpdateClock();
 
+  // ---------------- CLIQUE NO LOCUTOR → LIGA A RÁDIO ----------------
+  // Os cards de locutor não têm áudio próprio (a rádio toca a playlist musical).
+  // Ao clicar, iniciamos a rádio e damos feedback visual de que está no ar.
+  (function rvzClickToPlay(){
+    const ids = ['gpt','claude','gemini','grok'];
+    ids.forEach(function(ia){
+      const card = document.getElementById('rvz-card-'+ia);
+      if(!card) return;
+      card.style.cursor = 'pointer';
+      card.title = 'Clique para ligar a Rádio Bitcoin';
+      card.addEventListener('click', function(){
+        try {
+          const a = document.getElementById('audioEl');
+          if (a && (a.paused || !window.isPlaying)) {
+            if (typeof loadTrack === 'function' && (!a.src || a.src === window.location.href)) {
+              loadTrack();
+            }
+            if (typeof playTrack === 'function') {
+              playTrack();
+            } else if (a) {
+              a.play().catch(function(){});
+            }
+          }
+          const pp = document.getElementById('player-panel');
+          if (pp) pp.scrollIntoView({behavior:'smooth', block:'center'});
+          card.style.transition = 'box-shadow .3s';
+          card.style.boxShadow = '0 0 24px rgba(0,255,136,.7)';
+          setTimeout(function(){ card.style.boxShadow = ''; }, 700);
+        } catch(e) { console.warn('rvz click', e); }
+      });
+    });
+  })();
+
   // ---------------- L402 HEALTH ----------------
   (function l402Health() {
     const satsEl = document.getElementById('l402-sats-24h');
