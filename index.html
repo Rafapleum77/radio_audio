@@ -6847,7 +6847,9 @@ async function _commFromStatic() {
 }
 
 async function fetchCommodities() {
-  const d = await _commFromMacMini() || await _commFromProxy() || await _commFromStatic();
+  // Static primeiro: arquivo commodities.json (atualizado pelo updater + push) é o
+  // que SEMPRE funciona pro visitante público. Proxy/LAN só como reforço ao vivo.
+  const d = await _commFromStatic() || await _commFromProxy() || await _commFromMacMini();
   if (d) _renderCommodities(d);
 }
 fetchCommodities();
