@@ -1934,6 +1934,385 @@ img{max-width:100%;height:auto;}
              style="width:100%;max-width:340px;display:block;margin:0 auto;border-top:2px solid rgba(242,169,0,0.35);">
       </div>
 
+
+      <!-- ===== TREZOITÃO + STACKBIT (movidos pro topo) ===== -->
+      <style>
+/* ===== PAINEL ROTINA DO TREZOITÃO — prefixo .trz- ===== */
+#trezoitao{background:#0d1018;border:1px solid rgba(242,169,0,.3);border-radius:8px;overflow:hidden;font-family:'Share Tech Mono',monospace;}
+.trz-header{background:linear-gradient(135deg,#0d1018 0%,#1a1200 50%,#0d1018 100%);border-bottom:1px solid rgba(242,169,0,.4);padding:20px 20px 14px;display:flex;align-items:center;gap:16px;position:relative;flex-wrap:wrap;}
+.trz-header::before{content:'▶ CANAL PARCEIRO · YOUTUBE';position:absolute;top:7px;left:20px;font-size:9px;color:#00ff88;letter-spacing:2px;font-family:'Orbitron',monospace;}
+.trz-logo-container{flex-shrink:0;width:76px;height:76px;border-radius:50%;overflow:hidden;border:2px solid #f2a900;box-shadow:0 0 16px rgba(242,169,0,.4),0 0 32px rgba(242,169,0,.12);margin-top:6px;}
+.trz-logo-container img{width:76px;height:76px;object-fit:cover;display:block;border-radius:50%;}
+.trz-header-info{flex:1;margin-top:8px;}
+.trz-channel-name{font-family:'Orbitron',monospace;font-size:20px;font-weight:900;color:#f2a900;text-shadow:0 0 10px rgba(242,169,0,.5);letter-spacing:1px;line-height:1.1;margin:0 0 3px;}
+.trz-channel-sub{font-family:'Rajdhani',sans-serif;font-size:11px;color:#00f5ff;letter-spacing:2px;text-transform:uppercase;margin:0 0 8px;}
+.trz-stats{display:flex;gap:18px;align-items:center;}
+.trz-stat{text-align:center;}
+.trz-stat-value{font-family:'VT323',monospace;font-size:20px;color:#00ff88;display:block;line-height:1;}
+.trz-stat-label{font-size:8px;color:rgba(200,208,220,.6);text-transform:uppercase;letter-spacing:1px;}
+.trz-header-actions{display:flex;flex-direction:column;gap:6px;margin-left:auto;}
+.trz-btn-subscribe{background:#f2a900;color:#000;border:none;padding:7px 14px;font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1px;cursor:pointer;border-radius:3px;text-decoration:none;display:inline-block;text-align:center;transition:.2s;}
+.trz-btn-subscribe:hover{background:#ff6b00;box-shadow:0 0 10px rgba(242,169,0,.6);}
+.trz-btn-refresh{background:transparent;color:#00f5ff;border:1px solid #00f5ff;padding:6px 14px;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:3px;transition:.2s;}
+.trz-btn-refresh:hover{background:rgba(0,245,255,.1);box-shadow:0 0 8px rgba(0,245,255,.3);}
+.trz-update-time{font-size:9px;color:rgba(200,208,220,.5);text-align:right;margin-top:2px;}
+.trz-toolbar{background:#111622;border-bottom:1px solid rgba(0,245,255,.15);padding:10px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.trz-filter-btn{background:transparent;color:rgba(200,208,220,.7);border:1px solid rgba(200,208,220,.2);padding:4px 10px;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:.2s;}
+.trz-filter-btn:hover,.trz-filter-btn.active{background:rgba(242,169,0,.15);color:#f2a900;border-color:#f2a900;}
+.trz-search{flex:1;min-width:140px;background:#0a0e1a;border:1px solid rgba(0,245,255,.15);color:#c8d0dc;padding:5px 10px;font-family:'Share Tech Mono',monospace;font-size:12px;border-radius:3px;outline:none;}
+.trz-search:focus{border-color:#f2a900;box-shadow:0 0 6px rgba(242,169,0,.2);}
+.trz-view-btns{display:flex;gap:4px;margin-left:auto;}
+.trz-view-btn{background:transparent;color:rgba(200,208,220,.5);border:1px solid rgba(200,208,220,.15);padding:4px 8px;font-size:14px;cursor:pointer;border-radius:3px;transition:.2s;}
+.trz-view-btn.active,.trz-view-btn:hover{color:#f2a900;border-color:#f2a900;}
+.trz-grid{padding:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;}
+.trz-grid.list-mode{grid-template-columns:1fr;}
+.trz-card{background:#111622;border:1px solid rgba(0,245,255,.1);border-radius:6px;overflow:hidden;cursor:pointer;transition:.2s;text-decoration:none;display:block;color:#c8d0dc;}
+.trz-card:hover{border-color:#f2a900;box-shadow:0 0 12px rgba(242,169,0,.2);transform:translateY(-2px);}
+.trz-thumb-wrap{position:relative;width:100%;padding-top:56.25%;background:#000;overflow:hidden;}
+.trz-thumb-wrap img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;transition:transform .3s;}
+.trz-card:hover .trz-thumb-wrap img{transform:scale(1.05);}
+.trz-badge-new{position:absolute;top:6px;left:6px;background:#00ff88;color:#000;font-family:'Orbitron',monospace;font-size:8px;font-weight:700;padding:2px 6px;border-radius:2px;letter-spacing:1px;z-index:2;}
+.trz-play-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;background:rgba(0,0,0,.3);}
+.trz-card:hover .trz-play-icon{opacity:1;}
+.trz-play-icon span{width:40px;height:40px;background:rgba(242,169,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:#000;padding-left:4px;}
+.trz-card-body{padding:8px 10px;}
+.trz-card-title{font-family:'Share Tech Mono',monospace;font-size:11px;color:#c8d0dc;line-height:1.4;margin:0 0 4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.trz-card-date{font-size:10px;color:rgba(200,208,220,.4);}
+.trz-card.list-card{display:flex;align-items:center;gap:12px;}
+.trz-card.list-card .trz-thumb-wrap{width:160px;min-width:160px;padding-top:0;height:90px;flex-shrink:0;}
+.trz-card.list-card .trz-thumb-wrap img{position:static;width:100%;height:100%;}
+.trz-card.list-card .trz-card-title{-webkit-line-clamp:2;font-size:12px;}
+.trz-footer{background:#111622;border-top:1px solid rgba(0,245,255,.1);padding:8px 16px;display:flex;align-items:center;justify-content:space-between;font-size:10px;color:rgba(200,208,220,.4);font-family:'Share Tech Mono',monospace;}
+.trz-loading{text-align:center;padding:40px;color:#f2a900;font-family:'VT323',monospace;font-size:22px;letter-spacing:2px;}
+.trz-error{text-align:center;padding:30px;color:rgba(200,208,220,.5);font-size:12px;font-family:'Share Tech Mono',monospace;}
+@media(max-width:600px){.trz-grid{grid-template-columns:repeat(2,1fr);gap:8px;padding:10px;}.trz-channel-name{font-size:15px;}.trz-header-actions{display:none;}.trz-stats{gap:10px;}}
+/* ===== FIM TREZOITÃO ===== */
+      </style>
+      <!-- ========== PAINEL ROTINA DO TREZOITÃO ========== -->
+      <section id="trezoitao" style="margin:20px 0;">
+        <div class="trz-header">
+          <div class="trz-logo-container">
+            <img src="trz_foto_real.jpg" alt="Rotina do Trezoitão">
+          </div>
+          <div class="trz-header-info">
+            <h2 class="trz-channel-name">ROTINA DO TREZOITÃO</h2>
+            <p class="trz-channel-sub">Liberdade · Escola Austríaca · Bitcoin · Soberania</p>
+            <div class="trz-stats">
+              <div class="trz-stat"><span class="trz-stat-value" id="trz-subs">135K</span><span class="trz-stat-label">Inscritos</span></div>
+              <div class="trz-stat"><span class="trz-stat-value" id="trz-total">—</span><span class="trz-stat-label">Vídeos</span></div>
+              <div class="trz-stat"><span class="trz-stat-value" id="trz-last">—</span><span class="trz-stat-label">Último vídeo</span></div>
+            </div>
+          </div>
+          <div class="trz-header-actions">
+            <a href="https://www.youtube.com/@rotinadotrezoitao?sub_confirmation=1" target="_blank" class="trz-btn-subscribe">▶ INSCREVER-SE</a>
+            <button class="trz-btn-refresh" onclick="trzLoadVideos(true)">↺ ATUALIZAR</button>
+            <div class="trz-update-time" id="trz-update-time">Aguardando...</div>
+          </div>
+        </div>
+        <div class="trz-toolbar">
+          <button class="trz-filter-btn active" onclick="trzFilter('all',this)">TODOS</button>
+          <button class="trz-filter-btn" onclick="trzFilter('bitcoin',this)">₿ BITCOIN</button>
+          <button class="trz-filter-btn" onclick="trzFilter('liberdade',this)">LIBERDADE</button>
+          <button class="trz-filter-btn" onclick="trzFilter('entrevista',this)">ENTREVISTAS</button>
+          <input type="text" id="trz-search" class="trz-search" placeholder="Buscar vídeo..." oninput="trzSearch(this.value)">
+          <div class="trz-view-btns">
+            <button class="trz-view-btn active" id="trz-grid-btn" onclick="trzSetView('grid')" title="Grade">⊞</button>
+            <button class="trz-view-btn" id="trz-list-btn" onclick="trzSetView('list')" title="Lista">☰</button>
+          </div>
+        </div>
+        <div class="trz-grid" id="trz-grid"><div class="trz-loading">CARREGANDO VÍDEOS...</div></div>
+        <div class="trz-footer">
+          <span id="trz-count">Carregando...</span>
+          <div style="display:flex;gap:12px;align-items:center;">
+            <span style="color:rgba(200,208,220,.4);font-size:10px;">↺ Auto-atualização: 30min</span>
+            <a href="https://www.youtube.com/@rotinadotrezoitao" target="_blank" style="color:var(--orange);text-decoration:none;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:1px;">▶ VER CANAL →</a>
+          </div>
+        </div>
+      </section>
+      <!-- ========== FIM PAINEL ROTINA DO TREZOITÃO ========== -->
+      <script>
+(function(){
+  var CHANNEL_ID = 'UCC-r6vnXtcwBYq0VxZYhoXg';
+  var RSS = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
+  var PROXIES = [
+    'https://api.allorigins.win/get?url=' + encodeURIComponent(RSS),
+    'https://corsproxy.io/?' + encodeURIComponent(RSS),
+    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(RSS)
+  ];
+  var allVideos = [], currentFilter = 'all', currentView = 'grid', proxyIdx = 0;
+
+  function relDate(d){
+    var diff = Math.floor((Date.now() - new Date(d)) / 86400000);
+    if(diff === 0) return 'Hoje';
+    if(diff === 1) return 'Ontem';
+    if(diff < 7)  return diff + ' dias atrás';
+    if(diff < 30) return Math.floor(diff/7) + ' sem. atrás';
+    if(diff < 365) return Math.floor(diff/30) + ' meses atrás';
+    return Math.floor(diff/365) + ' ano(s) atrás';
+  }
+
+  function parseRSS(xml){
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(xml, 'text/xml');
+    var entries = doc.querySelectorAll('entry');
+    var videos = [];
+    entries.forEach(function(e){
+      var id = (e.querySelector('videoId') || e.querySelector('id')).textContent.replace('yt:video:','');
+      var title = e.querySelector('title').textContent;
+      var published = e.querySelector('published').textContent;
+      videos.push({
+        id: id,
+        title: title,
+        date: published.substring(0,10),
+        thumb: 'https://i.ytimg.com/vi/' + id + '/mqdefault.jpg',
+        isNew: (Date.now() - new Date(published)) < 86400000 * 3
+      });
+    });
+    return videos;
+  }
+
+  function trzRender(){
+    var grid = document.getElementById('trz-grid');
+    if(!grid) return;
+    var q = (document.getElementById('trz-search')||{}).value || '';
+    var filtered = allVideos.filter(function(v){
+      var matchFilter = currentFilter === 'all' ||
+        v.title.toLowerCase().includes(currentFilter === 'bitcoin' ? 'bitcoin' :
+          currentFilter === 'liberdade' ? 'liber' :
+          currentFilter === 'entrevista' ? 'entrev' : currentFilter);
+      var matchSearch = !q || v.title.toLowerCase().includes(q.toLowerCase());
+      return matchFilter && matchSearch;
+    });
+
+    if(!filtered.length){
+      grid.innerHTML = '<div class="trz-error">Nenhum vídeo encontrado.</div>';
+      return;
+    }
+
+    var isList = currentView === 'list';
+    grid.className = 'trz-grid' + (isList ? ' list-mode' : '');
+    grid.innerHTML = filtered.map(function(v, i){
+      return '<a class="trz-card' + (isList ? ' list-card' : '') + '" href="https://www.youtube.com/watch?v=' + v.id + '" target="_blank" rel="noopener">' +
+        '<div class="trz-thumb-wrap">' +
+        '<img src="' + v.thumb + '" alt="' + v.title.replace(/"/g,'') + '" loading="lazy">' +
+        (v.isNew ? '<span class="trz-badge-new">NOVO</span>' : '') +
+        '<div class="trz-play-icon"><span>▶</span></div>' +
+        '</div>' +
+        '<div class="trz-card-body">' +
+        '<div class="trz-card-title">' + v.title + '</div>' +
+        '<div class="trz-card-date">' + relDate(v.date) + '</div>' +
+        '</div></a>';
+    }).join('');
+
+    var countEl = document.getElementById('trz-count');
+    var totalEl = document.getElementById('trz-total');
+    var lastEl  = document.getElementById('trz-last');
+    if(countEl) countEl.textContent = 'Exibindo ' + filtered.length + ' de ' + allVideos.length + ' vídeos';
+    if(totalEl) totalEl.textContent = allVideos.length;
+    if(lastEl && allVideos[0]) lastEl.textContent = relDate(allVideos[0].date);
+  }
+
+  function fetchProxy(idx, force){
+    if(idx >= PROXIES.length){ useFallback(); return; }
+    fetch(PROXIES[idx])
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        var xml = j.contents || j.data || j;
+        var videos = parseRSS(typeof xml === 'string' ? xml : JSON.stringify(xml));
+        if(!videos.length) throw new Error('empty');
+        allVideos = videos;
+        trzRender();
+        var t = document.getElementById('trz-update-time');
+        if(t) t.textContent = 'Atualizado: ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+      })
+      .catch(function(){ fetchProxy(idx + 1, force); });
+  }
+
+  function useFallback(){
+    // Gera cards placeholder com thumbs reais do canal
+    var grid = document.getElementById('trz-grid');
+    if(grid) grid.innerHTML = '<div class="trz-error">Feed offline — <a href="https://www.youtube.com/@rotinadotrezoitao" target="_blank" style="color:#f2a900;">Ver canal no YouTube ▶</a></div>';
+    var countEl = document.getElementById('trz-count');
+    if(countEl) countEl.textContent = 'Feed RSS temporariamente indisponível';
+  }
+
+  window.trzLoadVideos = function(force){
+    var grid = document.getElementById('trz-grid');
+    if(grid && (!allVideos.length || force)) {
+      grid.innerHTML = '<div class="trz-loading">CARREGANDO VÍDEOS...</div>';
+      fetchProxy(0, force);
+    }
+  };
+
+  window.trzFilter = function(f, btn){
+    currentFilter = f;
+    document.querySelectorAll('.trz-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+    if(btn) btn.classList.add('active');
+    trzRender();
+  };
+
+  window.trzSearch = function(q){ trzRender(); };
+
+  window.trzSetView = function(v){
+    currentView = v;
+    document.getElementById('trz-grid-btn').classList.toggle('active', v==='grid');
+    document.getElementById('trz-list-btn').classList.toggle('active', v==='list');
+    trzRender();
+  };
+
+  // Inicializa quando o DOM estiver pronto
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ window.trzLoadVideos(false); });
+  } else {
+    window.trzLoadVideos(false);
+  }
+
+  // Auto-atualiza a cada 30 min
+  setInterval(function(){ window.trzLoadVideos(true); }, 30 * 60 * 1000);
+})();
+      </script>
+
+      <!-- ═══════════════════════════════════════════
+           STACKBIT 1248 — PAINEL BIP39
+           Posição: antes de #biblioteca
+      ═══════════════════════════════════════════ -->
+      <div id="stackbit-1248-panel" class="panel" style="margin-bottom:14px;">
+
+        <!-- Header -->
+        <div class="stk-header-panel">
+          <div class="stk-header-left">
+            <img src="logo_stack.png" alt="Stackbit" class="stk-logo-circle">
+            <div class="stk-title-block">
+              <h2>STACKBIT 1248</h2>
+              <p>PAINEL BIP39 · SEED RECOVERY · METALWALLET INOX 304</p>
+            </div>
+          </div>
+          <div class="stk-header-btns">
+            <a href="https://stackbit.me/produto/stackbit-1248/" target="_blank" class="stk-btn stk-btn-gold">🛒 COMPRAR</a>
+            <a href="https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt" target="_blank" class="stk-btn stk-btn-green">⚡ BIP39</a>
+            <a href="https://stackbit.me/tutorial-stackbit-1248/" target="_blank" class="stk-btn stk-btn-outline">📖 TUTORIAL</a>
+            <button onclick="window.print()" class="stk-btn stk-btn-outline">🖨️ IMPRIMIR</button>
+          </div>
+        </div>
+
+        <!-- Ticker -->
+        <div class="stk-ticker">
+          <div class="stk-ticker-inner">
+            ⚡ STACKBIT 1248 · METALWALLET INOX 304 &nbsp;|&nbsp; 🔒 SEED RECOVERY · 12 OU 24 PALAVRAS &nbsp;|&nbsp; ₿ BIP39 · 2048 PALAVRAS &nbsp;|&nbsp; 🔥 RESISTENTE A FOGO · +1200°C &nbsp;|&nbsp; 💧 À PROVA DE ÁGUA · INOX 304 &nbsp;|&nbsp; 🎯 CODIFICAÇÃO POR PUNÇÃO &nbsp;|&nbsp; 🔐 OPEN SOURCE · SEM CÂMERAS &nbsp;|&nbsp; ⚡ STACKBIT 1248 · METALWALLET INOX 304
+          </div>
+        </div>
+
+        <!-- Como Funciona -->
+        <div class="stk-section-label">⚙️ COMO FUNCIONA O SISTEMA 1248</div>
+        <div class="stk-cards-grid">
+          <div class="stk-card">
+            <div class="stk-card-num">1</div>
+            <h3>Encontre o Número</h3>
+            <p>Anote o número de cada palavra BIP39.<br>Ex.: <code>LOUNGE = 1059</code></p>
+          </div>
+          <div class="stk-card">
+            <div class="stk-card-num">2</div>
+            <h3>Decodifique em 4 Dígitos</h3>
+            <p>Cada palavra vira 4 dígitos: <code>0-2 · 0-9 · 0-9 · 0-9</code><br>1059 → <code>1 · 0 · 5 · 9</code></p>
+          </div>
+          <div class="stk-card">
+            <div class="stk-card-num">3</div>
+            <h3>Marque os Quadros</h3>
+            <p>Cada quadro tem 4 células: <code>1 · 2 · 4 · 8</code><br>Para <code>5</code>, marque <code>1+4</code>.</p>
+          </div>
+          <div class="stk-card">
+            <div class="stk-card-num">4</div>
+            <h3>Punção no Metal</h3>
+            <p>Confira, bata com o punção, queime o adesivo. <code>Sem câmeras!</code></p>
+          </div>
+        </div>
+
+        <!-- Legenda -->
+        <div class="stk-legend">
+          <div>
+            <div class="stk-legend-label">LEGENDA — VALORES POR CÉLULA</div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div class="stk-legend-grid">
+                <div class="stk-legend-cell">1</div>
+                <div class="stk-legend-cell">2</div>
+                <div class="stk-legend-cell">4</div>
+                <div class="stk-legend-cell">8</div>
+              </div>
+              <div style="font-size:10px;color:#8b949e;">1 quadro = 1 dígito</div>
+            </div>
+          </div>
+          <div class="stk-legend-text">
+            <strong>Célula 1</strong> = valor 1 &nbsp;|&nbsp; <strong>Célula 2</strong> = valor 2<br>
+            <strong>Célula 4</strong> = valor 4 &nbsp;|&nbsp; <strong>Célula 8</strong> = valor 8<br>
+            Soma das marcadas = dígito &nbsp;|&nbsp; Nenhuma marcada = <strong>0</strong><br>
+            <span class="stk-legend-sub">Ex: marcar 1+4 = <strong style="color:#f4c430">5</strong> &nbsp;|&nbsp; marcar 2+8 = 10 (impossível — máx. dígito = 9)</span>
+          </div>
+        </div>
+
+        <!-- Abas -->
+        <div class="stk-tabs">
+          <button class="stk-tab-btn active" onclick="stkTab('busca',this)">🔍 BUSCAR PALAVRA BIP39</button>
+          <button class="stk-tab-btn" onclick="stkTab('gabarito',this)">🎯 GABARITO INTERATIVO</button>
+          <button class="stk-tab-btn" onclick="stkTab('lista',this)">📋 LISTA COMPLETA 2048</button>
+        </div>
+
+        <!-- Aba 1: Busca -->
+        <div id="stk-tab-busca" class="stk-tab-pane active">
+          <div class="stk-search-row">
+            <input type="text" id="stk-word" class="stk-input" placeholder="Digite a palavra BIP39... ex: lounge" oninput="stkSearchWord(this.value)">
+            <input type="number" id="stk-num" class="stk-input" placeholder="Nº 1 – 2048" min="1" max="2048" oninput="stkSearchNum(this.value)">
+          </div>
+          <div id="stk-suggestions" class="stk-suggestions"></div>
+          <div id="stk-result" class="stk-result">
+            <div class="stk-result-top">
+              <div class="stk-result-num" id="stk-res-num"></div>
+              <div class="stk-result-word" id="stk-res-word"></div>
+            </div>
+            <div class="stk-result-digits" id="stk-res-digits"></div>
+            <div class="stk-punch-title">GABARITO DE PUNÇÃO — CLIQUE NAS CÉLULAS PARA SIMULAR</div>
+            <div class="stk-punch-grid" id="stk-punch-grid"></div>
+            <div class="stk-punch-summary" id="stk-punch-summary"></div>
+          </div>
+        </div>
+
+        <!-- Aba 2: Gabarito Interativo -->
+        <div id="stk-tab-gabarito" class="stk-tab-pane">
+          <div class="stk-gab-controls">
+            <select id="stk-gab-count" class="stk-select" onchange="stkBuildGab()">
+              <option value="12">12 PALAVRAS</option>
+              <option value="24">24 PALAVRAS</option>
+            </select>
+            <button class="stk-btn stk-btn-outline" onclick="stkClearGab()">🗑️ LIMPAR</button>
+            <button class="stk-btn stk-btn-outline" onclick="window.print()">🖨️ IMPRIMIR</button>
+          </div>
+          <div class="stk-gab-outer">
+            <table class="stk-gab-table" id="stk-gab-table"></table>
+          </div>
+        </div>
+
+        <!-- Aba 3: Lista -->
+        <div id="stk-tab-lista" class="stk-tab-pane">
+          <div class="stk-table-filter">
+            <input type="text" class="stk-input" placeholder="Filtrar palavras..." oninput="stkFilterTable(this.value)" style="max-width:300px;">
+          </div>
+          <div class="stk-table-wrap">
+            <table class="stk-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>PALAVRA</th>
+                  <th>CÓDIGO 1248</th>
+                  <th>DÍGITOS</th>
+                </tr>
+              </thead>
+              <tbody id="stk-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+      <!-- FIM STACKBIT 1248 -->
+
       <!-- MINI WIDGET CARTEIRA (live) -->
       <a href="/carteira.html" id="rb-carteira-widget" style="display:block;text-decoration:none;color:inherit;background:linear-gradient(160deg,#07090d 0%,#0b0e11 100%);border:1px solid rgba(242,169,0,0.25);border-radius:12px;padding:14px;margin:0 0 10px;box-shadow:0 4px 18px -8px rgba(242,169,0,0.3);transition:border-color .2s,transform .15s;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
@@ -4496,382 +4875,7 @@ img{max-width:100%;height:auto;}
 
       </div>
 
-      <!-- ═══════════════════════════════════════════
-           STACKBIT 1248 — PAINEL BIP39
-           Posição: antes de #biblioteca
-      ═══════════════════════════════════════════ -->
-      <div id="stackbit-1248-panel" class="panel" style="margin-bottom:14px;">
 
-        <!-- Header -->
-        <div class="stk-header-panel">
-          <div class="stk-header-left">
-            <img src="logo_stack.png" alt="Stackbit" class="stk-logo-circle">
-            <div class="stk-title-block">
-              <h2>STACKBIT 1248</h2>
-              <p>PAINEL BIP39 · SEED RECOVERY · METALWALLET INOX 304</p>
-            </div>
-          </div>
-          <div class="stk-header-btns">
-            <a href="https://stackbit.me/produto/stackbit-1248/" target="_blank" class="stk-btn stk-btn-gold">🛒 COMPRAR</a>
-            <a href="https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt" target="_blank" class="stk-btn stk-btn-green">⚡ BIP39</a>
-            <a href="https://stackbit.me/tutorial-stackbit-1248/" target="_blank" class="stk-btn stk-btn-outline">📖 TUTORIAL</a>
-            <button onclick="window.print()" class="stk-btn stk-btn-outline">🖨️ IMPRIMIR</button>
-          </div>
-        </div>
-
-        <!-- Ticker -->
-        <div class="stk-ticker">
-          <div class="stk-ticker-inner">
-            ⚡ STACKBIT 1248 · METALWALLET INOX 304 &nbsp;|&nbsp; 🔒 SEED RECOVERY · 12 OU 24 PALAVRAS &nbsp;|&nbsp; ₿ BIP39 · 2048 PALAVRAS &nbsp;|&nbsp; 🔥 RESISTENTE A FOGO · +1200°C &nbsp;|&nbsp; 💧 À PROVA DE ÁGUA · INOX 304 &nbsp;|&nbsp; 🎯 CODIFICAÇÃO POR PUNÇÃO &nbsp;|&nbsp; 🔐 OPEN SOURCE · SEM CÂMERAS &nbsp;|&nbsp; ⚡ STACKBIT 1248 · METALWALLET INOX 304
-          </div>
-        </div>
-
-        <!-- Como Funciona -->
-        <div class="stk-section-label">⚙️ COMO FUNCIONA O SISTEMA 1248</div>
-        <div class="stk-cards-grid">
-          <div class="stk-card">
-            <div class="stk-card-num">1</div>
-            <h3>Encontre o Número</h3>
-            <p>Anote o número de cada palavra BIP39.<br>Ex.: <code>LOUNGE = 1059</code></p>
-          </div>
-          <div class="stk-card">
-            <div class="stk-card-num">2</div>
-            <h3>Decodifique em 4 Dígitos</h3>
-            <p>Cada palavra vira 4 dígitos: <code>0-2 · 0-9 · 0-9 · 0-9</code><br>1059 → <code>1 · 0 · 5 · 9</code></p>
-          </div>
-          <div class="stk-card">
-            <div class="stk-card-num">3</div>
-            <h3>Marque os Quadros</h3>
-            <p>Cada quadro tem 4 células: <code>1 · 2 · 4 · 8</code><br>Para <code>5</code>, marque <code>1+4</code>.</p>
-          </div>
-          <div class="stk-card">
-            <div class="stk-card-num">4</div>
-            <h3>Punção no Metal</h3>
-            <p>Confira, bata com o punção, queime o adesivo. <code>Sem câmeras!</code></p>
-          </div>
-        </div>
-
-        <!-- Legenda -->
-        <div class="stk-legend">
-          <div>
-            <div class="stk-legend-label">LEGENDA — VALORES POR CÉLULA</div>
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div class="stk-legend-grid">
-                <div class="stk-legend-cell">1</div>
-                <div class="stk-legend-cell">2</div>
-                <div class="stk-legend-cell">4</div>
-                <div class="stk-legend-cell">8</div>
-              </div>
-              <div style="font-size:10px;color:#8b949e;">1 quadro = 1 dígito</div>
-            </div>
-          </div>
-          <div class="stk-legend-text">
-            <strong>Célula 1</strong> = valor 1 &nbsp;|&nbsp; <strong>Célula 2</strong> = valor 2<br>
-            <strong>Célula 4</strong> = valor 4 &nbsp;|&nbsp; <strong>Célula 8</strong> = valor 8<br>
-            Soma das marcadas = dígito &nbsp;|&nbsp; Nenhuma marcada = <strong>0</strong><br>
-            <span class="stk-legend-sub">Ex: marcar 1+4 = <strong style="color:#f4c430">5</strong> &nbsp;|&nbsp; marcar 2+8 = 10 (impossível — máx. dígito = 9)</span>
-          </div>
-        </div>
-
-        <!-- Abas -->
-        <div class="stk-tabs">
-          <button class="stk-tab-btn active" onclick="stkTab('busca',this)">🔍 BUSCAR PALAVRA BIP39</button>
-          <button class="stk-tab-btn" onclick="stkTab('gabarito',this)">🎯 GABARITO INTERATIVO</button>
-          <button class="stk-tab-btn" onclick="stkTab('lista',this)">📋 LISTA COMPLETA 2048</button>
-        </div>
-
-        <!-- Aba 1: Busca -->
-        <div id="stk-tab-busca" class="stk-tab-pane active">
-          <div class="stk-search-row">
-            <input type="text" id="stk-word" class="stk-input" placeholder="Digite a palavra BIP39... ex: lounge" oninput="stkSearchWord(this.value)">
-            <input type="number" id="stk-num" class="stk-input" placeholder="Nº 1 – 2048" min="1" max="2048" oninput="stkSearchNum(this.value)">
-          </div>
-          <div id="stk-suggestions" class="stk-suggestions"></div>
-          <div id="stk-result" class="stk-result">
-            <div class="stk-result-top">
-              <div class="stk-result-num" id="stk-res-num"></div>
-              <div class="stk-result-word" id="stk-res-word"></div>
-            </div>
-            <div class="stk-result-digits" id="stk-res-digits"></div>
-            <div class="stk-punch-title">GABARITO DE PUNÇÃO — CLIQUE NAS CÉLULAS PARA SIMULAR</div>
-            <div class="stk-punch-grid" id="stk-punch-grid"></div>
-            <div class="stk-punch-summary" id="stk-punch-summary"></div>
-          </div>
-        </div>
-
-        <!-- Aba 2: Gabarito Interativo -->
-        <div id="stk-tab-gabarito" class="stk-tab-pane">
-          <div class="stk-gab-controls">
-            <select id="stk-gab-count" class="stk-select" onchange="stkBuildGab()">
-              <option value="12">12 PALAVRAS</option>
-              <option value="24">24 PALAVRAS</option>
-            </select>
-            <button class="stk-btn stk-btn-outline" onclick="stkClearGab()">🗑️ LIMPAR</button>
-            <button class="stk-btn stk-btn-outline" onclick="window.print()">🖨️ IMPRIMIR</button>
-          </div>
-          <div class="stk-gab-outer">
-            <table class="stk-gab-table" id="stk-gab-table"></table>
-          </div>
-        </div>
-
-        <!-- Aba 3: Lista -->
-        <div id="stk-tab-lista" class="stk-tab-pane">
-          <div class="stk-table-filter">
-            <input type="text" class="stk-input" placeholder="Filtrar palavras..." oninput="stkFilterTable(this.value)" style="max-width:300px;">
-          </div>
-          <div class="stk-table-wrap">
-            <table class="stk-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>PALAVRA</th>
-                  <th>CÓDIGO 1248</th>
-                  <th>DÍGITOS</th>
-                </tr>
-              </thead>
-              <tbody id="stk-table-body"></tbody>
-            </table>
-          </div>
-        </div>
-
-      </div>
-      <!-- FIM STACKBIT 1248 -->
-
-      <style>
-/* ===== PAINEL ROTINA DO TREZOITÃO — prefixo .trz- ===== */
-#trezoitao{background:#0d1018;border:1px solid rgba(242,169,0,.3);border-radius:8px;overflow:hidden;font-family:'Share Tech Mono',monospace;}
-.trz-header{background:linear-gradient(135deg,#0d1018 0%,#1a1200 50%,#0d1018 100%);border-bottom:1px solid rgba(242,169,0,.4);padding:20px 20px 14px;display:flex;align-items:center;gap:16px;position:relative;flex-wrap:wrap;}
-.trz-header::before{content:'▶ CANAL PARCEIRO · YOUTUBE';position:absolute;top:7px;left:20px;font-size:9px;color:#00ff88;letter-spacing:2px;font-family:'Orbitron',monospace;}
-.trz-logo-container{flex-shrink:0;width:76px;height:76px;border-radius:50%;overflow:hidden;border:2px solid #f2a900;box-shadow:0 0 16px rgba(242,169,0,.4),0 0 32px rgba(242,169,0,.12);margin-top:6px;}
-.trz-logo-container img{width:76px;height:76px;object-fit:cover;display:block;border-radius:50%;}
-.trz-header-info{flex:1;margin-top:8px;}
-.trz-channel-name{font-family:'Orbitron',monospace;font-size:20px;font-weight:900;color:#f2a900;text-shadow:0 0 10px rgba(242,169,0,.5);letter-spacing:1px;line-height:1.1;margin:0 0 3px;}
-.trz-channel-sub{font-family:'Rajdhani',sans-serif;font-size:11px;color:#00f5ff;letter-spacing:2px;text-transform:uppercase;margin:0 0 8px;}
-.trz-stats{display:flex;gap:18px;align-items:center;}
-.trz-stat{text-align:center;}
-.trz-stat-value{font-family:'VT323',monospace;font-size:20px;color:#00ff88;display:block;line-height:1;}
-.trz-stat-label{font-size:8px;color:rgba(200,208,220,.6);text-transform:uppercase;letter-spacing:1px;}
-.trz-header-actions{display:flex;flex-direction:column;gap:6px;margin-left:auto;}
-.trz-btn-subscribe{background:#f2a900;color:#000;border:none;padding:7px 14px;font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1px;cursor:pointer;border-radius:3px;text-decoration:none;display:inline-block;text-align:center;transition:.2s;}
-.trz-btn-subscribe:hover{background:#ff6b00;box-shadow:0 0 10px rgba(242,169,0,.6);}
-.trz-btn-refresh{background:transparent;color:#00f5ff;border:1px solid #00f5ff;padding:6px 14px;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:3px;transition:.2s;}
-.trz-btn-refresh:hover{background:rgba(0,245,255,.1);box-shadow:0 0 8px rgba(0,245,255,.3);}
-.trz-update-time{font-size:9px;color:rgba(200,208,220,.5);text-align:right;margin-top:2px;}
-.trz-toolbar{background:#111622;border-bottom:1px solid rgba(0,245,255,.15);padding:10px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.trz-filter-btn{background:transparent;color:rgba(200,208,220,.7);border:1px solid rgba(200,208,220,.2);padding:4px 10px;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:.2s;}
-.trz-filter-btn:hover,.trz-filter-btn.active{background:rgba(242,169,0,.15);color:#f2a900;border-color:#f2a900;}
-.trz-search{flex:1;min-width:140px;background:#0a0e1a;border:1px solid rgba(0,245,255,.15);color:#c8d0dc;padding:5px 10px;font-family:'Share Tech Mono',monospace;font-size:12px;border-radius:3px;outline:none;}
-.trz-search:focus{border-color:#f2a900;box-shadow:0 0 6px rgba(242,169,0,.2);}
-.trz-view-btns{display:flex;gap:4px;margin-left:auto;}
-.trz-view-btn{background:transparent;color:rgba(200,208,220,.5);border:1px solid rgba(200,208,220,.15);padding:4px 8px;font-size:14px;cursor:pointer;border-radius:3px;transition:.2s;}
-.trz-view-btn.active,.trz-view-btn:hover{color:#f2a900;border-color:#f2a900;}
-.trz-grid{padding:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;}
-.trz-grid.list-mode{grid-template-columns:1fr;}
-.trz-card{background:#111622;border:1px solid rgba(0,245,255,.1);border-radius:6px;overflow:hidden;cursor:pointer;transition:.2s;text-decoration:none;display:block;color:#c8d0dc;}
-.trz-card:hover{border-color:#f2a900;box-shadow:0 0 12px rgba(242,169,0,.2);transform:translateY(-2px);}
-.trz-thumb-wrap{position:relative;width:100%;padding-top:56.25%;background:#000;overflow:hidden;}
-.trz-thumb-wrap img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;transition:transform .3s;}
-.trz-card:hover .trz-thumb-wrap img{transform:scale(1.05);}
-.trz-badge-new{position:absolute;top:6px;left:6px;background:#00ff88;color:#000;font-family:'Orbitron',monospace;font-size:8px;font-weight:700;padding:2px 6px;border-radius:2px;letter-spacing:1px;z-index:2;}
-.trz-play-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;background:rgba(0,0,0,.3);}
-.trz-card:hover .trz-play-icon{opacity:1;}
-.trz-play-icon span{width:40px;height:40px;background:rgba(242,169,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:#000;padding-left:4px;}
-.trz-card-body{padding:8px 10px;}
-.trz-card-title{font-family:'Share Tech Mono',monospace;font-size:11px;color:#c8d0dc;line-height:1.4;margin:0 0 4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.trz-card-date{font-size:10px;color:rgba(200,208,220,.4);}
-.trz-card.list-card{display:flex;align-items:center;gap:12px;}
-.trz-card.list-card .trz-thumb-wrap{width:160px;min-width:160px;padding-top:0;height:90px;flex-shrink:0;}
-.trz-card.list-card .trz-thumb-wrap img{position:static;width:100%;height:100%;}
-.trz-card.list-card .trz-card-title{-webkit-line-clamp:2;font-size:12px;}
-.trz-footer{background:#111622;border-top:1px solid rgba(0,245,255,.1);padding:8px 16px;display:flex;align-items:center;justify-content:space-between;font-size:10px;color:rgba(200,208,220,.4);font-family:'Share Tech Mono',monospace;}
-.trz-loading{text-align:center;padding:40px;color:#f2a900;font-family:'VT323',monospace;font-size:22px;letter-spacing:2px;}
-.trz-error{text-align:center;padding:30px;color:rgba(200,208,220,.5);font-size:12px;font-family:'Share Tech Mono',monospace;}
-@media(max-width:600px){.trz-grid{grid-template-columns:repeat(2,1fr);gap:8px;padding:10px;}.trz-channel-name{font-size:15px;}.trz-header-actions{display:none;}.trz-stats{gap:10px;}}
-/* ===== FIM TREZOITÃO ===== */
-      </style>
-      <!-- ========== PAINEL ROTINA DO TREZOITÃO ========== -->
-      <section id="trezoitao" style="margin:20px 0;">
-        <div class="trz-header">
-          <div class="trz-logo-container">
-            <img src="trz_foto_real.jpg" alt="Rotina do Trezoitão">
-          </div>
-          <div class="trz-header-info">
-            <h2 class="trz-channel-name">ROTINA DO TREZOITÃO</h2>
-            <p class="trz-channel-sub">Liberdade · Escola Austríaca · Bitcoin · Soberania</p>
-            <div class="trz-stats">
-              <div class="trz-stat"><span class="trz-stat-value" id="trz-subs">135K</span><span class="trz-stat-label">Inscritos</span></div>
-              <div class="trz-stat"><span class="trz-stat-value" id="trz-total">—</span><span class="trz-stat-label">Vídeos</span></div>
-              <div class="trz-stat"><span class="trz-stat-value" id="trz-last">—</span><span class="trz-stat-label">Último vídeo</span></div>
-            </div>
-          </div>
-          <div class="trz-header-actions">
-            <a href="https://www.youtube.com/@rotinadotrezoitao?sub_confirmation=1" target="_blank" class="trz-btn-subscribe">▶ INSCREVER-SE</a>
-            <button class="trz-btn-refresh" onclick="trzLoadVideos(true)">↺ ATUALIZAR</button>
-            <div class="trz-update-time" id="trz-update-time">Aguardando...</div>
-          </div>
-        </div>
-        <div class="trz-toolbar">
-          <button class="trz-filter-btn active" onclick="trzFilter('all',this)">TODOS</button>
-          <button class="trz-filter-btn" onclick="trzFilter('bitcoin',this)">₿ BITCOIN</button>
-          <button class="trz-filter-btn" onclick="trzFilter('liberdade',this)">LIBERDADE</button>
-          <button class="trz-filter-btn" onclick="trzFilter('entrevista',this)">ENTREVISTAS</button>
-          <input type="text" id="trz-search" class="trz-search" placeholder="Buscar vídeo..." oninput="trzSearch(this.value)">
-          <div class="trz-view-btns">
-            <button class="trz-view-btn active" id="trz-grid-btn" onclick="trzSetView('grid')" title="Grade">⊞</button>
-            <button class="trz-view-btn" id="trz-list-btn" onclick="trzSetView('list')" title="Lista">☰</button>
-          </div>
-        </div>
-        <div class="trz-grid" id="trz-grid"><div class="trz-loading">CARREGANDO VÍDEOS...</div></div>
-        <div class="trz-footer">
-          <span id="trz-count">Carregando...</span>
-          <div style="display:flex;gap:12px;align-items:center;">
-            <span style="color:rgba(200,208,220,.4);font-size:10px;">↺ Auto-atualização: 30min</span>
-            <a href="https://www.youtube.com/@rotinadotrezoitao" target="_blank" style="color:var(--orange);text-decoration:none;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:1px;">▶ VER CANAL →</a>
-          </div>
-        </div>
-      </section>
-      <!-- ========== FIM PAINEL ROTINA DO TREZOITÃO ========== -->
-      <script>
-(function(){
-  var CHANNEL_ID = 'UCC-r6vnXtcwBYq0VxZYhoXg';
-  var RSS = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
-  var PROXIES = [
-    'https://api.allorigins.win/get?url=' + encodeURIComponent(RSS),
-    'https://corsproxy.io/?' + encodeURIComponent(RSS),
-    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(RSS)
-  ];
-  var allVideos = [], currentFilter = 'all', currentView = 'grid', proxyIdx = 0;
-
-  function relDate(d){
-    var diff = Math.floor((Date.now() - new Date(d)) / 86400000);
-    if(diff === 0) return 'Hoje';
-    if(diff === 1) return 'Ontem';
-    if(diff < 7)  return diff + ' dias atrás';
-    if(diff < 30) return Math.floor(diff/7) + ' sem. atrás';
-    if(diff < 365) return Math.floor(diff/30) + ' meses atrás';
-    return Math.floor(diff/365) + ' ano(s) atrás';
-  }
-
-  function parseRSS(xml){
-    var parser = new DOMParser();
-    var doc = parser.parseFromString(xml, 'text/xml');
-    var entries = doc.querySelectorAll('entry');
-    var videos = [];
-    entries.forEach(function(e){
-      var id = (e.querySelector('videoId') || e.querySelector('id')).textContent.replace('yt:video:','');
-      var title = e.querySelector('title').textContent;
-      var published = e.querySelector('published').textContent;
-      videos.push({
-        id: id,
-        title: title,
-        date: published.substring(0,10),
-        thumb: 'https://i.ytimg.com/vi/' + id + '/mqdefault.jpg',
-        isNew: (Date.now() - new Date(published)) < 86400000 * 3
-      });
-    });
-    return videos;
-  }
-
-  function trzRender(){
-    var grid = document.getElementById('trz-grid');
-    if(!grid) return;
-    var q = (document.getElementById('trz-search')||{}).value || '';
-    var filtered = allVideos.filter(function(v){
-      var matchFilter = currentFilter === 'all' ||
-        v.title.toLowerCase().includes(currentFilter === 'bitcoin' ? 'bitcoin' :
-          currentFilter === 'liberdade' ? 'liber' :
-          currentFilter === 'entrevista' ? 'entrev' : currentFilter);
-      var matchSearch = !q || v.title.toLowerCase().includes(q.toLowerCase());
-      return matchFilter && matchSearch;
-    });
-
-    if(!filtered.length){
-      grid.innerHTML = '<div class="trz-error">Nenhum vídeo encontrado.</div>';
-      return;
-    }
-
-    var isList = currentView === 'list';
-    grid.className = 'trz-grid' + (isList ? ' list-mode' : '');
-    grid.innerHTML = filtered.map(function(v, i){
-      return '<a class="trz-card' + (isList ? ' list-card' : '') + '" href="https://www.youtube.com/watch?v=' + v.id + '" target="_blank" rel="noopener">' +
-        '<div class="trz-thumb-wrap">' +
-        '<img src="' + v.thumb + '" alt="' + v.title.replace(/"/g,'') + '" loading="lazy">' +
-        (v.isNew ? '<span class="trz-badge-new">NOVO</span>' : '') +
-        '<div class="trz-play-icon"><span>▶</span></div>' +
-        '</div>' +
-        '<div class="trz-card-body">' +
-        '<div class="trz-card-title">' + v.title + '</div>' +
-        '<div class="trz-card-date">' + relDate(v.date) + '</div>' +
-        '</div></a>';
-    }).join('');
-
-    var countEl = document.getElementById('trz-count');
-    var totalEl = document.getElementById('trz-total');
-    var lastEl  = document.getElementById('trz-last');
-    if(countEl) countEl.textContent = 'Exibindo ' + filtered.length + ' de ' + allVideos.length + ' vídeos';
-    if(totalEl) totalEl.textContent = allVideos.length;
-    if(lastEl && allVideos[0]) lastEl.textContent = relDate(allVideos[0].date);
-  }
-
-  function fetchProxy(idx, force){
-    if(idx >= PROXIES.length){ useFallback(); return; }
-    fetch(PROXIES[idx])
-      .then(function(r){ return r.json(); })
-      .then(function(j){
-        var xml = j.contents || j.data || j;
-        var videos = parseRSS(typeof xml === 'string' ? xml : JSON.stringify(xml));
-        if(!videos.length) throw new Error('empty');
-        allVideos = videos;
-        trzRender();
-        var t = document.getElementById('trz-update-time');
-        if(t) t.textContent = 'Atualizado: ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-      })
-      .catch(function(){ fetchProxy(idx + 1, force); });
-  }
-
-  function useFallback(){
-    // Gera cards placeholder com thumbs reais do canal
-    var grid = document.getElementById('trz-grid');
-    if(grid) grid.innerHTML = '<div class="trz-error">Feed offline — <a href="https://www.youtube.com/@rotinadotrezoitao" target="_blank" style="color:#f2a900;">Ver canal no YouTube ▶</a></div>';
-    var countEl = document.getElementById('trz-count');
-    if(countEl) countEl.textContent = 'Feed RSS temporariamente indisponível';
-  }
-
-  window.trzLoadVideos = function(force){
-    var grid = document.getElementById('trz-grid');
-    if(grid && (!allVideos.length || force)) {
-      grid.innerHTML = '<div class="trz-loading">CARREGANDO VÍDEOS...</div>';
-      fetchProxy(0, force);
-    }
-  };
-
-  window.trzFilter = function(f, btn){
-    currentFilter = f;
-    document.querySelectorAll('.trz-filter-btn').forEach(function(b){ b.classList.remove('active'); });
-    if(btn) btn.classList.add('active');
-    trzRender();
-  };
-
-  window.trzSearch = function(q){ trzRender(); };
-
-  window.trzSetView = function(v){
-    currentView = v;
-    document.getElementById('trz-grid-btn').classList.toggle('active', v==='grid');
-    document.getElementById('trz-list-btn').classList.toggle('active', v==='list');
-    trzRender();
-  };
-
-  // Inicializa quando o DOM estiver pronto
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', function(){ window.trzLoadVideos(false); });
-  } else {
-    window.trzLoadVideos(false);
-  }
-
-  // Auto-atualiza a cada 30 min
-  setInterval(function(){ window.trzLoadVideos(true); }, 30 * 60 * 1000);
-})();
-      </script>
 
       <!-- BIBLIOTECA -->
       <div class="bib-panel" id="biblioteca">
