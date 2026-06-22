@@ -1,10 +1,12 @@
-const CACHE = 'bitadict-v9';
+const CACHE = 'bitadict-v10';
 const SHELL = [
   '/',
   '/index.html',
-  '/logo-radio.png',
-  '/logo_btc.png',
-  '/manifest.json'
+  '/manifest.json',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/apple-touch-icon.png',
+  '/logo_btc.png'
 ];
 
 self.addEventListener('install', e => {
