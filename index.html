@@ -3636,16 +3636,23 @@ img{max-width:100%;height:auto;}
     const uptimeEl = document.getElementById('l402-uptime');
     const statusEl = document.querySelector('.l402-status');
     function check() {
-      fetch('http://localhost:8402/health', {signal: AbortSignal.timeout(3000)})
-        .then(r => r.json())
-        .then(() => {
-          if(statusEl) statusEl.textContent = 'ENDPOINT ONLINE · PORT 8402';
-          if(uptimeEl) uptimeEl.textContent = '100%';
-        })
-        .catch(() => {
-          if(statusEl) { statusEl.textContent = 'OFFLINE'; statusEl.style.color='#ff4444'; }
+      // Servidor exposto publicamente via cloudflared (l402.radiobitcoin.org).
+      // Localhost como fallback pra quando acessado da própria máquina.
+      const urls = ['https://l402.radiobitcoin.org/health', 'http://localhost:8402/health'];
+      (function tryUrl(i){
+        if(i >= urls.length){
+          if(statusEl){ statusEl.textContent = 'OFFLINE'; statusEl.style.color='#ff4444'; }
           if(uptimeEl) uptimeEl.textContent = '---';
-        });
+          return;
+        }
+        fetch(urls[i], {signal: AbortSignal.timeout(4000)})
+          .then(r => r.json())
+          .then(() => {
+            if(statusEl){ statusEl.textContent = 'ENDPOINT ONLINE · PORT 8402'; statusEl.style.color=''; }
+            if(uptimeEl) uptimeEl.textContent = '100%';
+          })
+          .catch(() => tryUrl(i+1));
+      })(0);
     }
     // Simular contadores crescentes (dados reais viriam do server)
     let sats = 1248, calls = 156;
