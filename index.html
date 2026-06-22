@@ -2134,9 +2134,35 @@ img{max-width:100%;height:auto;}
     if(lastEl && allVideos[0]) lastEl.textContent = relDate(allVideos[0].date);
   }
 
+  // timeout helper — evita travar em "CARREGANDO" se um proxy pendurar
+  function fetchT(url, ms){
+    var ctrl = new AbortController();
+    var tid = setTimeout(function(){ ctrl.abort(); }, ms || 6000);
+    return fetch(url, {signal: ctrl.signal}).then(function(r){ clearTimeout(tid); return r; });
+  }
+
+  // 1ª opção: trezoitao.json estático (gerado no servidor, sem CORS — confiável)
+  function fetchStatic(){
+    return fetchT('./trezoitao.json?t=' + Date.now(), 5000)
+      .then(function(r){ if(!r.ok) throw new Error('http'); return r.json(); })
+      .then(function(j){
+        var videos = (j.videos || []).map(function(v){
+          return { id: v.id, title: v.title, date: v.date,
+                   thumb: 'https://i.ytimg.com/vi/' + v.id + '/mqdefault.jpg',
+                   isNew: (Date.now() - new Date(v.date)) < 86400000 * 3 };
+        });
+        if(!videos.length) throw new Error('empty');
+        allVideos = videos;
+        trzRender();
+        var t = document.getElementById('trz-update-time');
+        if(t) t.textContent = 'Atualizado: ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+        return true;
+      });
+  }
+
   function fetchProxy(idx, force){
     if(idx >= PROXIES.length){ useFallback(); return; }
-    fetch(PROXIES[idx])
+    fetchT(PROXIES[idx], 7000)
       .then(function(r){ return r.json(); })
       .then(function(j){
         var xml = j.contents || j.data || j;
@@ -2162,7 +2188,8 @@ img{max-width:100%;height:auto;}
     var grid = document.getElementById('trz-grid');
     if(grid && (!allVideos.length || force)) {
       grid.innerHTML = '<div class="trz-loading">CARREGANDO VÍDEOS...</div>';
-      fetchProxy(0, force);
+      // Estático primeiro (confiável); se falhar, tenta os proxies CORS
+      fetchStatic().catch(function(){ fetchProxy(0, force); });
     }
   };
 
