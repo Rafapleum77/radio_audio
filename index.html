@@ -2433,8 +2433,10 @@ img{max-width:100%;height:auto;}
         </div>
       </div>
 
+      <div id="rvz-locucao-box" style="display:none;padding:10px 20px;font-family:'Share Tech Mono',monospace;font-size:11px;color:#c8d0dc;line-height:1.5;background:rgba(0,255,136,.04);border-top:1px solid rgba(0,255,136,.2);"></div>
+
       <div class="rvz-footer">
-        <span style="color:var(--orange)">Destaque:</span> Ouvintes têm acesso antecipado às análises do mercado americano (Stock Picks) às 10:30 e 16:30 BRT.
+        <span style="color:var(--orange)">🎙 Clique num locutor para ouvir a locução ao vivo.</span> Ouvintes têm acesso antecipado às análises do mercado americano (Stock Picks) às 10:30 e 16:30 BRT.
       </div>
     </div>
 
@@ -2998,35 +3000,79 @@ img{max-width:100%;height:auto;}
   setInterval(rvzUpdateStatus, 60000);
   rvzUpdateClock();
 
-  // ---------------- CLIQUE NO LOCUTOR → LIGA A RÁDIO ----------------
-  // Os cards de locutor não têm áudio próprio (a rádio toca a playlist musical).
-  // Ao clicar, iniciamos a rádio e damos feedback visual de que está no ar.
-  (function rvzClickToPlay(){
+  // ---------------- CLIQUE NO LOCUTOR → TOCA A LOCUÇÃO FALADA ----------------
+  // Cada locutor tem um MP3 de fala gerado por IA (radiobot + edge-tts) em
+  // /locucoes/<ia>.mp3, atualizado de hora em hora com preço BTC ao vivo.
+  // Ao clicar: pausa a música, toca a locução, mostra o texto, e ao terminar
+  // volta a música automaticamente.
+  (function rvzLocucao(){
     const ids = ['gpt','claude','gemini','grok'];
+    let manifest = {};
+    let locAudio = new Audio();
+    let falando = false;
+
+    // Carrega o manifesto das locuções
+    fetch('locucoes/manifest.json?t=' + Date.now())
+      .then(function(r){ return r.ok ? r.json() : {}; })
+      .then(function(m){ manifest = m || {}; })
+      .catch(function(){});
+
+    function pararMusica(){
+      const a = document.getElementById('audioEl');
+      if (a && !a.paused) { try { if(typeof pauseTrack==='function') pauseTrack(); else a.pause(); } catch(e){} }
+    }
+    function voltarMusica(){
+      try {
+        const a = document.getElementById('audioEl');
+        if (a) { if (typeof playTrack==='function') playTrack(); else a.play().catch(function(){}); }
+      } catch(e){}
+    }
+
+    function mostrarTexto(ia){
+      const info = manifest[ia];
+      let box = document.getElementById('rvz-locucao-box');
+      if (!box) return;
+      if (info && info.texto) {
+        box.innerHTML = '<strong style="color:#00ff88;">🎙 ' + (info.nome||ia) +
+          ' está no ar:</strong><br>' + info.texto;
+        box.style.display = 'block';
+      }
+    }
+
     ids.forEach(function(ia){
       const card = document.getElementById('rvz-card-'+ia);
       if(!card) return;
       card.style.cursor = 'pointer';
-      card.title = 'Clique para ligar a Rádio Bitcoin';
+      card.title = 'Clique para ouvir a locução de ' + ia.toUpperCase();
       card.addEventListener('click', function(){
         try {
-          const a = document.getElementById('audioEl');
-          if (a && (a.paused || !window.isPlaying)) {
-            if (typeof loadTrack === 'function' && (!a.src || a.src === window.location.href)) {
-              loadTrack();
-            }
-            if (typeof playTrack === 'function') {
-              playTrack();
-            } else if (a) {
-              a.play().catch(function(){});
-            }
-          }
           const pp = document.getElementById('player-panel');
           if (pp) pp.scrollIntoView({behavior:'smooth', block:'center'});
           card.style.transition = 'box-shadow .3s';
           card.style.boxShadow = '0 0 24px rgba(0,255,136,.7)';
           setTimeout(function(){ card.style.boxShadow = ''; }, 700);
-        } catch(e) { console.warn('rvz click', e); }
+
+          // Para qualquer locução em andamento
+          if (falando) { locAudio.pause(); falando = false; }
+
+          // Toca a locução falada deste locutor
+          pararMusica();
+          locAudio = new Audio('locucoes/' + ia + '.mp3?t=' + Date.now());
+          locAudio.volume = 1.0;
+          falando = true;
+          mostrarTexto(ia);
+          locAudio.onended = function(){ falando = false; voltarMusica(); };
+          locAudio.onerror = function(){
+            // Sem locução disponível → cai pra música
+            falando = false;
+            const box = document.getElementById('rvz-locucao-box');
+            if (box){ box.innerHTML = '🎵 Locução indisponível — tocando a playlist da rádio.'; box.style.display='block'; }
+            voltarMusica();
+          };
+          locAudio.play().catch(function(){
+            falando = false; voltarMusica();
+          });
+        } catch(e) { console.warn('rvz locucao', e); }
       });
     });
   })();
