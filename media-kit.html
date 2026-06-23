@@ -214,6 +214,42 @@ footer a{color:var(--gold);text-decoration:none;}
 
 <div class="divider"></div>
 
+<!-- MÉTRICAS REAIS (GoatCounter) -->
+<div class="section">
+  <div class="section-label">Dados verificados · ao vivo</div>
+  <h2>NÚMEROS REAIS DE AUDIÊNCIA</h2>
+  <p class="section-desc">Analytics real e auditável via GoatCounter (privacy-first, sem inflar números). Atualizado automaticamente todos os dias.</p>
+  <div id="mk-metricas" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:18px;">
+    <div style="background:rgba(11,14,21,.8);border:1px solid var(--gold3);border-radius:10px;padding:18px;text-align:center;">
+      <div id="mk-visitas" style="font-family:var(--orb,'Orbitron');font-size:30px;font-weight:800;color:var(--gold);">—</div>
+      <div style="font-size:9px;letter-spacing:2px;color:#9ca3af;text-transform:uppercase;margin-top:4px;">Visitas (30 dias)</div>
+    </div>
+    <div style="background:rgba(11,14,21,.8);border:1px solid var(--gold3);border-radius:10px;padding:18px;text-align:center;">
+      <div id="mk-paises" style="font-family:var(--orb,'Orbitron');font-size:30px;font-weight:800;color:var(--cyan,#00d4ff);">—</div>
+      <div style="font-size:9px;letter-spacing:2px;color:#9ca3af;text-transform:uppercase;margin-top:4px;">Países alcançados</div>
+    </div>
+    <div style="background:rgba(11,14,21,.8);border:1px solid var(--gold3);border-radius:10px;padding:18px;text-align:center;">
+      <div id="mk-atualizado" style="font-family:var(--orb,'Orbitron');font-size:15px;font-weight:800;color:#22c55e;margin-top:8px;">—</div>
+      <div style="font-size:9px;letter-spacing:2px;color:#9ca3af;text-transform:uppercase;margin-top:4px;">Última atualização</div>
+    </div>
+  </div>
+  <div id="mk-paises-lista" style="margin-top:14px;font-size:11px;color:#9ca3af;text-align:center;line-height:1.8;"></div>
+  <script>
+  (function(){
+    fetch('metricas.json?t='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(m){
+      if(!m) return;
+      var v=document.getElementById('mk-visitas'); if(v) v.textContent=(m.visitas_30d||0).toLocaleString('pt-BR');
+      var p=document.getElementById('mk-paises'); if(p) p.textContent=m.paises_total||0;
+      var a=document.getElementById('mk-atualizado'); if(a&&m.atualizado_em){ try{ a.textContent=new Date(m.atualizado_em).toLocaleDateString('pt-BR'); }catch(e){} }
+      var lista=document.getElementById('mk-paises-lista');
+      if(lista&&m.top_paises&&m.top_paises.length){
+        lista.innerHTML='🌎 '+m.top_paises.map(function(x){return x.pais;}).filter(Boolean).join(' · ');
+      }
+    }).catch(function(){});
+  })();
+  </script>
+</div>
+
 <!-- AUDIÊNCIA -->
 <div class="section">
   <div class="section-label">Quem nos ouve</div>
