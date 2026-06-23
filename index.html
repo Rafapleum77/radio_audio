@@ -1656,6 +1656,8 @@ img{max-width:100%;height:auto;}
   .rb-stock__chg.up { color:#22c55e; }
   .rb-stock__chg.dn { color:#ef4444; }
   .rb-stocks__foot { font-size:8px; color:var(--text-dim,#7a8290); margin-top:10px; text-align:right; }
+  .rb-stock { position:relative; }
+  .rb-stock__badge { position:absolute; top:6px; right:6px; font-family:ui-monospace,Menlo,monospace; font-size:7px; font-weight:800; letter-spacing:.5px; padding:2px 6px; border-radius:10px; white-space:nowrap; }
 </style>
 <section class="rb-stocks" id="rb-stocks">
   <div class="rb-stocks__header">
@@ -1696,14 +1698,49 @@ img{max-width:100%;height:auto;}
       const r = await fetch('stocks.json?ts=' + Date.now());
       if (!r.ok) throw new Error('http ' + r.status);
       const d = await r.json();
+      const tickers = d.tickers || [];
+
+      // Destaques do dia: maior alta, maior baixa, mais negociada
+      let maxAlta = null, maxBaixa = null;
+      tickers.forEach(t => {
+        if (typeof t.change_pct !== 'number') return;
+        if (!maxAlta  || t.change_pct > maxAlta.change_pct)  maxAlta  = t;
+        if (!maxBaixa || t.change_pct < maxBaixa.change_pct) maxBaixa = t;
+      });
+      // Mais negociada: cruza com carteira.json (que tem volume) pelo símbolo.
+      // Pula quem já é maior alta/baixa pra não sobrepor badges.
+      let maisNegoc = null;
+      try {
+        const cj = await fetch('carteira.json?ts=' + Date.now()).then(x => x.ok ? x.json() : null);
+        if (cj && cj.tickers) {
+          const symsAqui = new Set(tickers.map(t => t.symbol));
+          const jaTem = new Set([maxAlta && maxAlta.change_pct>0 ? maxAlta.symbol : null,
+                                 maxBaixa && maxBaixa.change_pct<0 ? maxBaixa.symbol : null]);
+          const comVol = cj.tickers.filter(t => t.volume && symsAqui.has(t.symbol) && !jaTem.has(t.symbol))
+                                   .sort((a,b) => b.volume - a.volume);
+          if (comVol.length) maisNegoc = comVol[0].symbol;
+        }
+      } catch(e) {}
+
+      function badge(t){
+        if (maxAlta && t.symbol === maxAlta.symbol && maxAlta.change_pct > 0)
+          return '<span class="rb-stock__badge" style="background:rgba(34,197,94,.18);color:#22c55e;">🔼 MAIOR ALTA</span>';
+        if (maxBaixa && t.symbol === maxBaixa.symbol && maxBaixa.change_pct < 0)
+          return '<span class="rb-stock__badge" style="background:rgba(239,68,68,.18);color:#ef4444;">🔽 MAIOR BAIXA</span>';
+        if (maisNegoc && t.symbol === maisNegoc)
+          return '<span class="rb-stock__badge" style="background:rgba(242,169,0,.18);color:#f2a900;">🔥 MAIS NEGOCIADA</span>';
+        return '';
+      }
+
       grid.innerHTML = '';
-      d.tickers.forEach(t => {
+      tickers.forEach(t => {
         const up = t.change_pct >= 0;
         const card = document.createElement('div');
         card.className = 'rb-stock';
         const logoMain = t.logo || ('https://cdn.brandfetch.io/' + t.symbol.toLowerCase() + '.com/w/200/h/200');
         const logoFallback = 'https://financialmodelingprep.com/image-stock/' + t.symbol + '.png';
         card.innerHTML =
+          badge(t) +
           '<div class="rb-stock__head">' +
             '<img class="rb-stock__logo" src="' + logoMain + '" alt="" onerror="this.onerror=null;this.src=\'' + logoFallback + '\'" loading="lazy" />' +
             '<div class="rb-stock__sym">' + t.symbol + '</div>' +
