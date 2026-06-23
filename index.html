@@ -3547,9 +3547,11 @@ img{max-width:100%;height:auto;}
       }
     }
 
+    function bindCards(){
     ids.forEach(function(ia){
       const card = document.getElementById('rvz-card-'+ia);
-      if(!card) return;
+      if(!card || card._rvzBound) return;
+      card._rvzBound = true;
       card.style.cursor = 'pointer';
       card.title = 'Clique para ouvir a locução de ' + ia.toUpperCase();
       card.addEventListener('click', function(){
@@ -3583,6 +3585,16 @@ img{max-width:100%;height:auto;}
         } catch(e) { console.warn('rvz locucao', e); }
       });
     });
+    }
+    // O painel pode carregar DEPOIS deste script (mudou de coluna) —
+    // liga os cliques no DOM pronto e re-tenta por garantia.
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bindCards);
+    } else {
+      bindCards();
+    }
+    setTimeout(bindCards, 1500);
+    setTimeout(bindCards, 4000);
   })();
 
   // ---------------- L402 HEALTH ----------------
