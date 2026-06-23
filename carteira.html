@@ -163,7 +163,7 @@ function render(d) {
     <div class="sumcard sell"><div class="v">${s.sell_signals}</div><div class="k">🔴 Trim / Sell</div></div>
   `;
 
-  document.getElementById('grid').innerHTML = d.tickers.map(t => {
+  document.getElementById('grid').innerHTML = d.tickers.filter(t => typeof t.price !== 'number' || t.price <= 1000).map(t => {
     if (t.error) return `<div class="card SELL"><div class="sym">${t.symbol}</div><div class="err">${t.error}</div></div>`;
     const chgClass = t.change_pct_1d >= 0 ? 'up' : 'dn';
     const arrow = t.change_pct_1d >= 0 ? '▲' : '▼';

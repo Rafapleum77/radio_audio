@@ -1698,7 +1698,9 @@ img{max-width:100%;height:auto;}
       const r = await fetch('stocks.json?ts=' + Date.now());
       if (!r.ok) throw new Error('http ' + r.status);
       const d = await r.json();
-      const tickers = d.tickers || [];
+      // Filtro de sanidade: esconde preço absurdo (fonte glitchando). Nenhuma
+      // ação da lista passa de $1000 legítimo; some sozinho se normalizar.
+      const tickers = (d.tickers || []).filter(t => typeof t.price !== 'number' || t.price <= 1000);
 
       // Destaques do dia: maior alta, maior baixa, mais negociada
       let maxAlta = null, maxBaixa = null;
