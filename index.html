@@ -5262,6 +5262,67 @@ img{max-width:100%;height:auto;}
     <!-- RIGHT -->
     <div id="right">
 
+    <!-- ============ COPA DO MUNDO 2026 ============ -->
+    <div class="panel" id="copa-panel" style="border-color:rgba(0,200,83,0.4);padding:0;overflow:hidden;margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:linear-gradient(135deg,#0a1a0f,#0d2818);border-bottom:1px solid rgba(0,200,83,0.25);">
+        <div style="font-family:'Orbitron',ui-monospace,monospace;font-size:12px;font-weight:700;color:#00c853;letter-spacing:1px;">⚽ COPA DO MUNDO 2026</div>
+        <div style="font-size:8px;color:#6b7280;font-family:ui-monospace,Menlo,monospace;" id="copa-upd">—</div>
+      </div>
+      <!-- tabs -->
+      <div style="display:flex;gap:0;border-bottom:1px solid rgba(0,200,83,0.15);">
+        <button class="copa-tab" data-tab="hoje" onclick="copaTab('hoje',this)" style="flex:1;background:rgba(0,200,83,0.1);border:none;color:#00c853;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:8px;cursor:pointer;">📅 HOJE</button>
+        <button class="copa-tab" data-tab="resultados" onclick="copaTab('resultados',this)" style="flex:1;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:8px;cursor:pointer;">✅ RESULTADOS</button>
+        <button class="copa-tab" data-tab="proximos" onclick="copaTab('proximos',this)" style="flex:1;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:8px;cursor:pointer;">⏭ PRÓXIMOS</button>
+      </div>
+      <div id="copa-lista" style="max-height:340px;overflow-y:auto;padding:8px;">
+        <div style="text-align:center;color:#6b7280;font-size:10px;padding:14px;">carregando jogos…</div>
+      </div>
+      <div style="font-size:7px;color:#4b5563;text-align:center;padding:6px;border-top:1px solid rgba(0,200,83,0.1);">Horários de Brasília · atualizado diariamente · TheSportsDB</div>
+    </div>
+    <script>
+    (function(){
+      var COPA=[]; var aba='hoje';
+      function brtHoje(){ var d=new Date(); return d.toLocaleDateString('en-CA',{timeZone:'America/Sao_Paulo'}); }
+      function flag(n){ return '<span style="color:#9ca3af;">'+n+'</span>'; }
+      function jogoHTML(j){
+        var temPlacar=j.jogado;
+        var hora=(j.datahora_brt||'').slice(11) || '--:--';
+        var placar = temPlacar
+          ? '<span style="font-family:ui-monospace,Menlo,monospace;font-weight:800;color:#fff;font-size:13px;">'+j.placar_casa+' - '+j.placar_fora+'</span>'
+          : '<span style="font-family:ui-monospace,Menlo,monospace;color:#00c853;font-size:11px;">'+hora+'</span>';
+        return '<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 9px;margin-bottom:4px;background:rgba(0,200,83,0.05);border-radius:6px;border-left:2px solid '+(temPlacar?'#00c853':'rgba(0,200,83,0.4)')+';">'
+          +'<div style="flex:1;text-align:right;font-size:11px;color:#fff;">'+j.casa+'</div>'
+          +'<div style="padding:0 10px;min-width:54px;text-align:center;">'+placar+'</div>'
+          +'<div style="flex:1;font-size:11px;color:#fff;">'+j.fora+'</div>'
+          +'</div>'
+          +'<div style="font-size:7px;color:#4b5563;text-align:center;margin:-2px 0 6px;">'+j.rodada+'</div>';
+      }
+      function render(){
+        var el=document.getElementById('copa-lista'); if(!el) return;
+        var hoje=brtHoje(); var lista=[];
+        if(aba==='hoje') lista=COPA.filter(function(j){return (j.datahora_brt||'').slice(0,10)===hoje;});
+        else if(aba==='resultados') lista=COPA.filter(function(j){return j.jogado;}).slice(-30).reverse();
+        else lista=COPA.filter(function(j){return !j.jogado;}).slice(0,30);
+        if(!lista.length){ el.innerHTML='<div style="text-align:center;color:#6b7280;font-size:10px;padding:14px;">'+(aba==='hoje'?'Sem jogos hoje. Veja Resultados ou Próximos.':'Nada por aqui.')+'</div>'; return; }
+        el.innerHTML=lista.map(jogoHTML).join('');
+      }
+      window.copaTab=function(t,btn){
+        aba=t;
+        document.querySelectorAll('.copa-tab').forEach(function(b){ b.style.background='transparent'; b.style.color='#6b7280'; });
+        if(btn){ btn.style.background='rgba(0,200,83,0.1)'; btn.style.color='#00c853'; }
+        render();
+      };
+      fetch('copa2026.json?t='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(d){
+        if(!d){ document.getElementById('copa-lista').innerHTML='<div style="text-align:center;color:#6b7280;font-size:10px;padding:14px;">Jogos indisponíveis agora.</div>'; return; }
+        COPA=d.jogos||[];
+        var u=document.getElementById('copa-upd');
+        if(u&&d.atualizado_em){ try{ u.textContent='⟳ '+new Date(d.atualizado_em).toLocaleDateString('pt-BR'); }catch(e){} }
+        render();
+      }).catch(function(){});
+    })();
+    </script>
+    <!-- ============ FIM COPA DO MUNDO 2026 ============ -->
+
     <!-- ============ DIREITA: LOCUTORES IA 24H ============ -->
     <div class="rb-card rb-locs" id="locutores-ia" style="padding:0;overflow:hidden;">
 
