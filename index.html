@@ -5269,10 +5269,12 @@ img{max-width:100%;height:auto;}
         <div style="font-size:8px;color:#6b7280;font-family:ui-monospace,Menlo,monospace;" id="copa-upd">—</div>
       </div>
       <!-- tabs -->
-      <div style="display:flex;gap:0;border-bottom:1px solid rgba(0,200,83,0.15);">
-        <button class="copa-tab" data-tab="hoje" onclick="copaTab('hoje',this)" style="flex:1;background:rgba(0,200,83,0.1);border:none;color:#00c853;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:8px;cursor:pointer;">📅 HOJE</button>
-        <button class="copa-tab" data-tab="resultados" onclick="copaTab('resultados',this)" style="flex:1;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:8px;cursor:pointer;">✅ RESULTADOS</button>
-        <button class="copa-tab" data-tab="proximos" onclick="copaTab('proximos',this)" style="flex:1;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:8px;cursor:pointer;">⏭ PRÓXIMOS</button>
+      <div style="display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid rgba(0,200,83,0.15);">
+        <button class="copa-tab" data-tab="brasil" onclick="copaTab('brasil',this)" style="flex:1;min-width:33%;background:rgba(0,200,83,0.1);border:none;color:#00c853;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.5px;padding:8px 4px;cursor:pointer;">🇧🇷 BRASIL</button>
+        <button class="copa-tab" data-tab="hoje" onclick="copaTab('hoje',this)" style="flex:1;min-width:33%;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.5px;padding:8px 4px;cursor:pointer;">📅 HOJE</button>
+        <button class="copa-tab" data-tab="grupos" onclick="copaTab('grupos',this)" style="flex:1;min-width:33%;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.5px;padding:8px 4px;cursor:pointer;">🏆 GRUPOS</button>
+        <button class="copa-tab" data-tab="resultados" onclick="copaTab('resultados',this)" style="flex:1;min-width:50%;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.5px;padding:8px 4px;cursor:pointer;border-top:1px solid rgba(0,200,83,0.1);">✅ RESULTADOS</button>
+        <button class="copa-tab" data-tab="proximos" onclick="copaTab('proximos',this)" style="flex:1;min-width:50%;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.5px;padding:8px 4px;cursor:pointer;border-top:1px solid rgba(0,200,83,0.1);">⏭ PRÓXIMOS</button>
       </div>
       <div id="copa-lista" style="max-height:340px;overflow-y:auto;padding:8px;">
         <div style="text-align:center;color:#6b7280;font-size:10px;padding:14px;">carregando jogos…</div>
@@ -5281,7 +5283,7 @@ img{max-width:100%;height:auto;}
     </div>
     <script>
     (function(){
-      var COPA=[]; var aba='hoje';
+      var COPA=[]; var GRUPOS={}; var aba='brasil';
       function brtHoje(){ var d=new Date(); return d.toLocaleDateString('en-CA',{timeZone:'America/Sao_Paulo'}); }
       function flag(n){ return '<span style="color:#9ca3af;">'+n+'</span>'; }
       function jogoHTML(j){
@@ -5297,13 +5299,35 @@ img{max-width:100%;height:auto;}
           +'</div>'
           +'<div style="font-size:7px;color:#4b5563;text-align:center;margin:-2px 0 6px;">'+j.rodada+'</div>';
       }
+      function gruposHTML(){
+        var gs=Object.keys(GRUPOS).sort();
+        if(!gs.length) return '<div style="text-align:center;color:#6b7280;font-size:10px;padding:14px;">Classificação ainda não disponível.</div>';
+        return gs.map(function(g){
+          var rows=GRUPOS[g].map(function(t,i){
+            var classifica=i<2; // 2 primeiros avançam (placeholder)
+            return '<tr style="'+(classifica?'background:rgba(0,200,83,0.06);':'')+'">'
+              +'<td style="padding:3px 4px;color:'+(classifica?'#00c853':'#9ca3af')+';">'+(i+1)+'</td>'
+              +'<td style="padding:3px 4px;color:#fff;text-align:left;">'+(t.time==='Brazil'?'🇧🇷 ':'')+t.time+'</td>'
+              +'<td style="padding:3px 4px;font-weight:800;color:#fff;">'+t.P+'</td>'
+              +'<td style="padding:3px 4px;color:#9ca3af;">'+t.J+'</td>'
+              +'<td style="padding:3px 4px;color:'+(t.SG>=0?'#4ade80':'#ef4444')+';">'+(t.SG>=0?'+':'')+t.SG+'</td></tr>';
+          }).join('');
+          return '<div style="margin-bottom:10px;">'
+            +'<div style="font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#00c853;letter-spacing:1px;margin-bottom:3px;">GRUPO '+g+'</div>'
+            +'<table style="width:100%;border-collapse:collapse;font-size:10px;font-family:ui-monospace,Menlo,monospace;text-align:center;">'
+            +'<tr style="color:#4b5563;font-size:8px;"><td></td><td style="text-align:left;">TIME</td><td>P</td><td>J</td><td>SG</td></tr>'
+            +rows+'</table></div>';
+        }).join('');
+      }
       function render(){
         var el=document.getElementById('copa-lista'); if(!el) return;
+        if(aba==='grupos'){ el.innerHTML=gruposHTML(); return; }
         var hoje=brtHoje(); var lista=[];
-        if(aba==='hoje') lista=COPA.filter(function(j){return (j.datahora_brt||'').slice(0,10)===hoje;});
+        if(aba==='brasil') lista=COPA.filter(function(j){return j.casa==='Brazil'||j.fora==='Brazil';});
+        else if(aba==='hoje') lista=COPA.filter(function(j){return (j.datahora_brt||'').slice(0,10)===hoje;});
         else if(aba==='resultados') lista=COPA.filter(function(j){return j.jogado;}).slice(-30).reverse();
         else lista=COPA.filter(function(j){return !j.jogado;}).slice(0,30);
-        if(!lista.length){ el.innerHTML='<div style="text-align:center;color:#6b7280;font-size:10px;padding:14px;">'+(aba==='hoje'?'Sem jogos hoje. Veja Resultados ou Próximos.':'Nada por aqui.')+'</div>'; return; }
+        if(!lista.length){ el.innerHTML='<div style="text-align:center;color:#6b7280;font-size:10px;padding:14px;">'+(aba==='hoje'?'Sem jogos hoje. Veja Resultados ou Próximos.':(aba==='brasil'?'Jogos do Brasil em breve.':'Nada por aqui.'))+'</div>'; return; }
         el.innerHTML=lista.map(jogoHTML).join('');
       }
       window.copaTab=function(t,btn){
@@ -5314,7 +5338,7 @@ img{max-width:100%;height:auto;}
       };
       fetch('copa2026.json?t='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(d){
         if(!d){ document.getElementById('copa-lista').innerHTML='<div style="text-align:center;color:#6b7280;font-size:10px;padding:14px;">Jogos indisponíveis agora.</div>'; return; }
-        COPA=d.jogos||[];
+        COPA=d.jogos||[]; GRUPOS=d.grupos||{};
         var u=document.getElementById('copa-upd');
         if(u&&d.atualizado_em){ try{ u.textContent='⟳ '+new Date(d.atualizado_em).toLocaleDateString('pt-BR'); }catch(e){} }
         render();
