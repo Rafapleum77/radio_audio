@@ -5347,6 +5347,81 @@ img{max-width:100%;height:auto;}
     </script>
     <!-- ============ FIM COPA DO MUNDO 2026 ============ -->
 
+    <!-- ============ BOLÃO DA COPA EM SATS ============ -->
+    <div class="panel" id="bolao-panel" style="border-color:rgba(242,169,0,0.4);padding:0;overflow:hidden;margin-bottom:10px;">
+      <div style="padding:10px 12px;background:linear-gradient(135deg,#1a1206,#2a1e08);border-bottom:1px solid rgba(242,169,0,0.25);">
+        <div style="font-family:'Orbitron',ui-monospace,monospace;font-size:12px;font-weight:700;color:#f2a900;letter-spacing:1px;">🏆 BOLÃO DA COPA · EM SATS ⚡</div>
+        <div style="font-size:8px;color:#9ca3af;margin-top:2px;">Quem vai ser campeão? Vote e concorra ao pool em Bitcoin.</div>
+      </div>
+      <div id="bolao-votar" style="padding:10px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;" id="bolao-botoes"></div>
+      </div>
+      <div id="bolao-resultado" style="display:none;padding:10px;"></div>
+      <!-- pool em sats -->
+      <div style="padding:10px 12px;background:rgba(242,169,0,0.05);border-top:1px solid rgba(242,169,0,0.15);">
+        <div style="font-size:10px;color:#c8d0dc;line-height:1.5;margin-bottom:8px;">
+          💰 <b style="color:#f2a900;">Pool em sats:</b> <span id="bolao-pool">—</span><br>
+          <span style="font-size:9px;color:#9ca3af;">Quem acertar o campeão divide o pool. Pra entrar, manda sats abaixo e teu palpite no Telegram <b style="color:#f2a900;">/bolao</b> com teu Lightning.</span>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <a href="lightning:texugorecords@walletofsatoshi.com" class="zap-btn" style="flex:1;text-align:center;background:linear-gradient(135deg,rgba(242,169,0,0.25),rgba(242,169,0,0.1));border:1px solid rgba(242,169,0,0.5);color:#f2a900;font-size:10px;font-weight:700;padding:9px;border-radius:7px;text-decoration:none;">⚡ ENTRAR NO POOL</a>
+          <a href="https://t.me/Bitadictbot" target="_blank" rel="noopener" style="text-align:center;background:transparent;border:1px solid rgba(242,169,0,0.4);color:#9ca3af;font-size:10px;font-weight:700;padding:9px 12px;border-radius:7px;text-decoration:none;">📲 /bolao</a>
+        </div>
+      </div>
+      <div style="font-size:7px;color:#4b5563;text-align:center;padding:6px;">Bolão recreativo · prêmio distribuído manualmente pelos organizadores</div>
+    </div>
+    <script>
+    (function(){
+      var API='https://l402.radiobitcoin.org';
+      var TIMES=['Brasil','Argentina','França','Inglaterra','Espanha','Alemanha','Portugal','Holanda','Outra'];
+      var jaVotou=false;
+      try{ jaVotou=localStorage.getItem('bolao_voto_2026')!==null; }catch(e){}
+
+      function renderBotoes(){
+        var el=document.getElementById('bolao-botoes'); if(!el) return;
+        el.innerHTML=TIMES.map(function(t){
+          var br=t==='Brasil';
+          return '<button onclick="bolaoVotar(\''+t+'\')" style="background:'+(br?'rgba(0,200,83,0.12)':'#0d1117')+';border:1px solid '+(br?'rgba(0,200,83,0.4)':'rgba(242,169,0,0.25)')+';color:'+(br?'#00c853':'#c8d0dc')+';font-size:10px;font-weight:700;padding:8px 4px;border-radius:6px;cursor:pointer;">'+(br?'🇧🇷 ':'')+t+'</button>';
+        }).join('');
+      }
+      function renderResultado(votos,total){
+        var el=document.getElementById('bolao-resultado'); if(!el) return;
+        document.getElementById('bolao-votar').style.display='none';
+        el.style.display='block';
+        var arr=Object.keys(votos).map(function(k){return {t:k,n:votos[k]};}).sort(function(a,b){return b.n-a.n;});
+        el.innerHTML='<div style="font-size:9px;color:#9ca3af;margin-bottom:8px;">✅ Voto registrado! '+total+' palpites:</div>'
+          + arr.map(function(x){
+            var pct=total?Math.round(100*x.n/total):0;
+            var br=x.t==='Brasil';
+            return '<div style="margin-bottom:6px;">'
+              +'<div style="display:flex;justify-content:space-between;font-size:10px;color:'+(br?'#00c853':'#c8d0dc')+';margin-bottom:2px;"><span>'+(br?'🇧🇷 ':'')+x.t+'</span><span>'+pct+'% ('+x.n+')</span></div>'
+              +'<div style="height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+(br?'#00c853':'#f2a900')+';border-radius:3px;"></div></div></div>';
+          }).join('');
+      }
+      function carregaStats(){
+        fetch(API+'/bolao/stats',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+          var p=document.getElementById('bolao-pool');
+          if(p) p.textContent=(d.pool_sats||0).toLocaleString('pt-BR')+' sats';
+          if(jaVotou) renderResultado(d.votos||{}, d.total_votos||0);
+        }).catch(function(){});
+      }
+      window.bolaoVotar=function(time){
+        fetch(API+'/bolao/voto',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({time:time})})
+          .then(function(r){return r.json();})
+          .then(function(d){
+            try{ localStorage.setItem('bolao_voto_2026',time); }catch(e){}
+            jaVotou=true;
+            renderResultado(d.votos||{}, d.total_votos||0);
+          }).catch(function(){
+            var v=document.getElementById('bolao-votar');
+            if(v){ var m=document.createElement('div'); m.style.cssText='font-size:9px;color:#ef4444;text-align:center;margin-top:6px;'; m.textContent='Não consegui registrar agora — tenta de novo em instantes.'; v.appendChild(m); setTimeout(function(){m.remove();},3000); }
+          });
+      };
+      renderBotoes(); carregaStats();
+    })();
+    </script>
+    <!-- ============ FIM BOLÃO DA COPA ============ -->
+
     <!-- ============ DIREITA: LOCUTORES IA 24H ============ -->
     <div class="rb-card rb-locs" id="locutores-ia" style="padding:0;overflow:hidden;">
 
