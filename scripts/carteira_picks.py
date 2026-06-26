@@ -93,6 +93,10 @@ def analyze_ticker(symbol):
         price = float(closes.iloc[-1])
         prev  = float(closes.iloc[-2])
         chg_pct = (price / prev - 1) * 100
+        try:
+            volume = int(h["Volume"].iloc[-1])
+        except Exception:
+            volume = 0
 
         sma50  = float(closes.rolling(50).mean().iloc[-1])
         sma200 = float(closes.rolling(200).mean().iloc[-1]) if len(closes) >= 200 else float(closes.rolling(min(50, len(closes))).mean().iloc[-1])
@@ -111,6 +115,7 @@ def analyze_ticker(symbol):
             "symbol": symbol,
             "price": round(price, 2),
             "change_pct_1d": round(chg_pct, 2),
+            "volume": volume,
             "rsi": round(rsi, 1),
             "sma50": round(sma50, 2),
             "sma200": round(sma200, 2),
@@ -135,6 +140,12 @@ def main():
     for sym, meta in TICKERS.items():
         r = analyze_ticker(sym)
         if r:
+            # Filtro de sanidade: esconde preço absurdo (fonte glitchando).
+            # Nenhuma ação da lista passa de $1000 legitimamente; se passar, ignora.
+            p = r.get("price")
+            if isinstance(p, (int, float)) and p > 1000:
+                print(f"  {sym:5s} IGNORADO preço suspeito ${p} (>$1000)", flush=True)
+                continue
             r.update(meta)
             rows.append(r)
             status = "OK" if "error" not in r else "ERRO"
