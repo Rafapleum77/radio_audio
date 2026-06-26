@@ -1336,9 +1336,9 @@ img{max-width:100%;height:auto;}
       </div>
       <div class="sr-hero__title">
         <span class="sr-hero__line1">Complete missoes e ganhe</span>
-        <span class="sr-hero__line2">ATE $30.000</span>
+        <span class="sr-hero__line2">ATE $30</span>
       </div>
-      <div class="sr-hero__bonus">Novo na Bybit? Comece com bonus de ate <b>$30.000 USDT</b> em recompensas</div>
+      <div class="sr-hero__bonus">Novo na Bybit? Comece com bonus de ate <b>$30 USDT</b> em recompensas</div>
       <div class="sr-hero__tasks">
         <span class="sr-hero__task">&#10003; Verificar conta &middot; <b>bonus garantido</b></span>
         <span class="sr-hero__task">&#128176; Primeiro deposito &middot; <b>cash back imediato</b></span>
@@ -5352,6 +5352,7 @@ img{max-width:100%;height:auto;}
       <div style="padding:10px 12px;background:linear-gradient(135deg,#1a1206,#2a1e08);border-bottom:1px solid rgba(242,169,0,0.25);">
         <div style="font-family:'Orbitron',ui-monospace,monospace;font-size:12px;font-weight:700;color:#f2a900;letter-spacing:1px;">🏆 BOLÃO DA COPA · EM SATS ⚡</div>
         <div style="font-size:8px;color:#9ca3af;margin-top:2px;">Quem vai ser campeão? Vote e concorra ao pool em Bitcoin.</div>
+        <div id="bolao-lider" style="display:none;font-size:9px;color:#f2a900;margin-top:5px;font-family:ui-monospace,Menlo,monospace;"></div>
       </div>
       <div id="bolao-votar" style="padding:10px;">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;" id="bolao-botoes"></div>
@@ -5402,7 +5403,16 @@ img{max-width:100%;height:auto;}
         fetch(API+'/bolao/stats',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
           var p=document.getElementById('bolao-pool');
           if(p) p.textContent=(d.pool_sats||0).toLocaleString('pt-BR')+' sats';
-          if(jaVotou) renderResultado(d.votos||{}, d.total_votos||0);
+          // mini-ranking do líder
+          var votos=d.votos||{}, total=d.total_votos||0;
+          var lider=document.getElementById('bolao-lider');
+          if(lider && total>0){
+            var arr=Object.keys(votos).map(function(k){return {t:k,n:votos[k]};}).sort(function(a,b){return b.n-a.n;});
+            var top=arr[0]; var pct=Math.round(100*top.n/total);
+            lider.style.display='block';
+            lider.innerHTML='📊 '+(top.t==='Brasil'?'🇧🇷 ':'')+'<b>'+top.t+'</b> lidera com '+pct+'% · '+total+' palpites';
+          }
+          if(jaVotou) renderResultado(votos, total);
         }).catch(function(){});
       }
       window.bolaoVotar=function(time){
