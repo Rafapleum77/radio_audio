@@ -1342,6 +1342,67 @@ img{max-width:100%;height:auto;}
     </div>
   </section>
 
+  <!-- ===== NÓ BITCOIN AO VIVO (BIT ADICT) ===== -->
+  <style>
+  .btcnode{max-width:1100px;margin:14px auto;padding:16px 20px;background:linear-gradient(135deg,#12100a,#0a0803);border:2px solid rgba(242,169,0,0.55);border-radius:14px;font-family:ui-monospace,Menlo,monospace;box-shadow:0 0 34px -10px rgba(242,169,0,0.4);}
+  .btcnode__head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+  .btcnode__dot{width:10px;height:10px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e;animation:mbPulse 1.6s infinite;}
+  .btcnode__title{font-size:14px;color:#f2a900;font-weight:900;letter-spacing:1.5px;}
+  .btcnode__badge{font-size:8px;background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.4);border-radius:20px;padding:3px 10px;letter-spacing:1px;}
+  .btcnode__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;}
+  .btcnode__cell{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:10px 12px;}
+  .btcnode__k{font-size:8px;color:#7a8290;letter-spacing:1px;text-transform:uppercase;}
+  .btcnode__v{font-size:16px;color:#fff;font-weight:bold;margin-top:3px;}
+  .btcnode__foot{font-size:8px;color:#7a8290;margin-top:10px;text-align:right;}
+  .btcnode__bar{height:6px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-top:6px;}
+  .btcnode__bar>i{display:block;height:100%;background:linear-gradient(90deg,#f2a900,#ffce4d);width:0;transition:width .6s;}
+  </style>
+  <section class="btcnode" id="btcNode">
+    <div class="btcnode__head">
+      <span class="btcnode__dot"></span>
+      <span class="btcnode__title">🟠 NOSSO NÓ BITCOIN — AO VIVO</span>
+      <span class="btcnode__badge" id="bnState">conectando…</span>
+      <div style="flex:1"></div>
+      <span style="font-size:9px;color:#9ca3af;">Não confie. Verifique.</span>
+    </div>
+    <div class="btcnode__grid">
+      <div class="btcnode__cell"><div class="btcnode__k">Sincronização</div><div class="btcnode__v" id="bnProg">—</div><div class="btcnode__bar"><i id="bnBar"></i></div></div>
+      <div class="btcnode__cell"><div class="btcnode__k">Bloco</div><div class="btcnode__v" id="bnBlocks">—</div></div>
+      <div class="btcnode__cell"><div class="btcnode__k">Rede</div><div class="btcnode__v" id="bnChain">mainnet</div></div>
+      <div class="btcnode__cell"><div class="btcnode__k">Tipo</div><div class="btcnode__v" id="bnType">pruned</div></div>
+    </div>
+    <div class="btcnode__foot">Nó Bitcoin Core soberano da Rádio Bitcoin · validando a rede sem intermediários</div>
+  </section>
+  <script>
+  (function(){
+    function fmt(n){try{return Number(n).toLocaleString('pt-BR');}catch(e){return n;}}
+    function upd(){
+      fetch('/node_status.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
+        var prog=(d.verificationprogress||0)*100;
+        var blocks=d.blocks||0, headers=d.headers||0, ibd=d.initialblockdownload;
+        document.getElementById('bnProg').textContent=prog.toFixed(2)+'%';
+        document.getElementById('bnBar').style.width=Math.min(prog,100)+'%';
+        document.getElementById('bnBlocks').textContent=fmt(blocks)+(headers?(' / '+fmt(headers)):'');
+        document.getElementById('bnChain').textContent=(d.chain==='main'?'mainnet':d.chain);
+        document.getElementById('bnType').textContent=d.pruned?'pruned':'completo';
+        document.getElementById('bnState').textContent=ibd?('sincronizando '+prog.toFixed(1)+'%'):'sincronizado ✓';
+      }).catch(function(){document.getElementById('bnState').textContent='offline';});
+    }
+    upd(); setInterval(upd, 60000);
+  })();
+  </script>
+  <!-- ===== FIM NÓ BITCOIN ===== -->
+
+  <!-- ===== BANNER MISSÃO BITCOIN — CIUDAD DEL ESTE 19-20/SET (movido pro topo) ===== -->
+  <section class="mb-cde">
+    <div class="mb-cde__badge">🎟️ Evento Presencial · Vagas Limitadas</div>
+    <div class="mb-cde__title">⚡ MISSÃO <b>BITCOIN</b> — 2ª EDIÇÃO</div>
+    <div class="mb-cde__where">🇵🇾 Ciudad del Este · Paraguai · com <b style="color:#f2a900;">Renato Trezoitão</b></div>
+    <div class="mb-cde__dates">📅 19 E 20 DE SETEMBRO</div>
+    <div class="mb-cde__sub">Workshop de autocustódia + palestras · Autocustódia. Liberdade. Soberania.<br>Desconto para pagamento em BTC.</div>
+    <a class="mb-cde__cta" href="https://missaobitcoin.com.br" target="_blank" rel="noopener">🎟️ GARANTIR MEU INGRESSO »</a>
+  </section>
+
   <!-- ===== BANNER BYBIT STARTER REWARDS ===== -->
   <style>
   .sr-hero{position:relative;overflow:hidden;margin:0 0 16px;border-radius:0 0 16px 16px;
@@ -1486,14 +1547,6 @@ img{max-width:100%;height:auto;}
   .mb-cde__cta:hover{transform:translateY(-2px);}
   @media(max-width:640px){.mb-cde{margin:10px;padding:18px 12px;}.mb-cde__cta{display:block;padding:15px 10px;}}
   </style>
-  <section class="mb-cde">
-    <div class="mb-cde__badge">🎟️ Evento Presencial · Vagas Limitadas</div>
-    <div class="mb-cde__title">⚡ MISSÃO <b>BITCOIN</b> — 2ª EDIÇÃO</div>
-    <div class="mb-cde__where">🇵🇾 Ciudad del Este · Paraguai · com <b style="color:#f2a900;">Renato Trezoitão</b></div>
-    <div class="mb-cde__dates">📅 19 E 20 DE SETEMBRO</div>
-    <div class="mb-cde__sub">Workshop de autocustódia + palestras · Autocustódia. Liberdade. Soberania.<br>Desconto para pagamento em BTC.</div>
-    <a class="mb-cde__cta" href="https://missaobitcoin.com.br" target="_blank" rel="noopener">🎟️ GARANTIR MEU INGRESSO »</a>
-  </section>
 <!-- ===== NEWSLETTER BITCOIN SEMANAL ===== -->
 <style>
 .nl-bar{max-width:1100px;margin:14px auto;padding:18px 20px;background:linear-gradient(135deg,#0d0a04,#1a1200);border:1px solid rgba(242,169,0,0.5);border-radius:12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:space-between;}
