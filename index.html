@@ -1363,7 +1363,8 @@ img{max-width:100%;height:auto;}
       <span class="btcnode__title">🟠 NOSSO NÓ BITCOIN — AO VIVO</span>
       <span class="btcnode__badge" id="bnState">conectando…</span>
       <div style="flex:1"></div>
-      <span style="font-size:9px;color:#9ca3af;">Não confie. Verifique.</span>
+      <span id="bnListeners" style="font-size:12px;color:#22c55e;font-weight:bold;">🎧 —</span>
+      <span style="font-size:9px;color:#9ca3af;margin-left:14px;">Não confie. Verifique.</span>
     </div>
     <div class="btcnode__grid">
       <div class="btcnode__cell"><div class="btcnode__k">Sincronização</div><div class="btcnode__v" id="bnProg">—</div><div class="btcnode__bar"><i id="bnBar"></i></div></div>
@@ -1386,6 +1387,8 @@ img{max-width:100%;height:auto;}
         document.getElementById('bnChain').textContent=(d.chain==='main'?'mainnet':d.chain);
         document.getElementById('bnType').textContent=d.pruned?'pruned':'completo';
         document.getElementById('bnState').textContent=ibd?('sincronizando '+prog.toFixed(1)+'%'):'sincronizado ✓';
+        var L=document.getElementById('bnListeners');
+        if(L){ var n=d.radio_listeners||0; L.textContent='🎧 '+n+' ouvindo agora'; L.style.color=n>0?'#22c55e':'#7a8290'; }
       }).catch(function(){document.getElementById('bnState').textContent='offline';});
     }
     upd(); setInterval(upd, 60000);
