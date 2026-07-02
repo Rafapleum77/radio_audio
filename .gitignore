@@ -2,3 +2,11 @@
 *.tmp
 *.bkp
 .env
+
+# Música comercial (copyright) — nunca versionar/distribuir no site público
+/Faith No More -*.mp3
+/Led Zeppelin -*.mp3
+/Metallica -*.mp3
+/Rush -*.mp3
+/The Cure -*.mp3
+/The Doors -*.mp3
