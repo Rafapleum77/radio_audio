@@ -8012,5 +8012,29 @@ iaRender();
 </script>
 <style>@keyframes livePulse{0%,100%{opacity:1}50%{opacity:.3}}</style>
 
+<script>
+// Gerente global de áudio: só 1 player toca por vez (evita música + notícia/stream juntos).
+// Usa captura (true) porque eventos de mídia não sobem por bubbling.
+(function(){
+  document.addEventListener('play', function(e){
+    var t = e.target;
+    if(!t || t.tagName !== 'AUDIO') return;
+    var musicEl = document.getElementById('audioEl');   // player de música da página (tem auto-resume)
+    document.querySelectorAll('audio').forEach(function(a){
+      if(a !== t && !a.paused){
+        // no player de música chama pauseTrack() p/ zerar isPlaying (senão volta sozinho a cada 5s)
+        if(a === musicEl && typeof window.pauseTrack === 'function'){ try{ window.pauseTrack(); }catch(_){ a.pause(); } }
+        else { try{ a.pause(); }catch(_){} }
+      }
+    });
+    // players criados via new Audio() (locução)
+    ['locAudio'].forEach(function(k){
+      var o = window[k];
+      if(o && o !== t && typeof o.pause === 'function' && !o.paused){ try{ o.pause(); }catch(_){} }
+    });
+  }, true);
+})();
+</script>
+
 </body>
 </html>
