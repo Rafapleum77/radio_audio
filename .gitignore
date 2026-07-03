@@ -10,6 +10,10 @@
 /Rush -*.mp3
 /The Cure -*.mp3
 /The Doors -*.mp3
+/Natiruts -*.mp3
 wavs/
 clipes/
 videos/
+# Render outputs (YT/TikTok) — não servidos pelo site; inchavam o artifact do Pages e faziam o deploy falhar no syncing_files
+shorts/
+clipes_suno/
