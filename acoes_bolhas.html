@@ -216,15 +216,8 @@ let tab = 'all';        // 'all' | 'fav'
 let favorites = JSON.parse(localStorage.getItem('rb_stock_favs')||'[]');
 let modalSym = null, modalRange = '1W', modalChart = null;
 
-// ---- Logos (pré-carrega, fallback pra texto) ----
+// ---- Logos: preenchidos por loadFinnhubLogos() (CDN oficial da Finnhub) ----
 const LOGO_IMG = {};
-SYMBOLS.forEach(sym=>{
-  const url = META[sym].logo; if(!url) return;
-  const img = new Image(); img.crossOrigin='anonymous';
-  img.onload = ()=>{ LOGO_IMG[sym]=img; };
-  img.onerror = ()=>{ /* fallback: desenha símbolo */ };
-  img.src = url;
-});
 
 // ---- Dados DEMO (random walk realista) ----
 function seedDemo(){
@@ -273,12 +266,48 @@ async function fetchOne(sym){
                   mcap:META[sym].mc, sector:META[sym].s, name:META[sym].n, hist:null };
   return true;
 }
-async function fetchReal(){
+// --- Finnhub (fonte PRINCIPAL: CORS direto, chave gratuita) ---
+const FINNHUB_TOKEN='d93tvk1r01qj2ci97b5gd93tvk1r01qj2ci97b60';
+async function finnhubQuote(sym){
+  try{
+    const ac=new AbortController(); const to=setTimeout(()=>ac.abort(),6000);
+    const r=await fetch('https://finnhub.io/api/v1/quote?symbol='+sym+'&token='+FINNHUB_TOKEN,{signal:ac.signal}); clearTimeout(to);
+    if(!r.ok) return false; const j=await r.json();
+    if(j.c==null || j.c===0) return false;
+    const price=j.c, prev=j.pc||price, ch=(j.dp!=null)? j.dp : (prev?((price-prev)/prev*100):0);
+    STOCKS[sym]={symbol:sym,prevClose:prev,price:+price.toFixed(2),change:+ch.toFixed(2),
+      mcap:META[sym].mc,sector:META[sym].s,name:META[sym].n,hist:null};
+    return true;
+  }catch(e){ return false; }
+}
+// logos oficiais via CDN direto da Finnhub (sem gastar chamada de API → não estoura o limite)
+function loadFinnhubLogos(){
+  const OVR={META:'FB'};  // tickers cujo arquivo difere do símbolo
+  const base='https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/';
+  SYMBOLS.forEach(s=>{
+    const url=base+(OVR[s]||s)+'.png';
+    META[s].logo=url;
+    const img=new Image();
+    img.onload=(function(sy){return function(){LOGO_IMG[sy]=img;}})(s);
+    img.src=url;
+  });
+}
+// --- Yahoo (reserva) ---
+async function fetchYahoo(){
   let hits=0; const q=[...SYMBOLS];
   const worker=async()=>{ while(q.length){ const s=q.shift(); try{ if(await fetchOne(s)) hits++; }catch(e){} } };
-  // corrida com teto de 14s pra nunca travar a UI
   const run=Promise.all([worker(),worker(),worker(),worker(),worker(),worker()]);
   await Promise.race([run, new Promise(r=>setTimeout(r,14000))]);
+  return hits;
+}
+async function fetchReal(){
+  // 1) Finnhub primeiro (rápido, CORS direto)
+  let hits=0; const q=[...SYMBOLS];
+  const w=async()=>{ while(q.length){ const s=q.shift(); if(await finnhubQuote(s)) hits++; } };
+  const run=Promise.all([w(),w(),w(),w(),w()]);
+  await Promise.race([run, new Promise(r=>setTimeout(r,12000))]);
+  // 2) reserva: Yahoo via proxy
+  if(hits<5) hits=await fetchYahoo();
   usingReal = hits>=5; return usingReal;
 }
 
@@ -539,7 +568,8 @@ document.getElementById('exportBtn').onclick=()=>{
 // ============================================================
 resize(); seedDemo(); lastUpdate=new Date(); syncBubbles(); renderSectors(); renderStats(); saveFavs(); setTab('all');
 setStatus('Dados Demo',false); loop();
-refresh(false);                         // tenta dados reais
+refresh(false);                         // tenta dados reais (Finnhub → Yahoo → demo)
+loadFinnhubLogos();                     // logos oficiais + market cap real
 setInterval(()=>refresh(false), 60000); // auto-refresh 60s
 setInterval(()=>{ if(!usingReal) stepDemo(); }, 3000); // anima demo entre refreshes
 </script>
