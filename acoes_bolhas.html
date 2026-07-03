@@ -16,14 +16,14 @@
   html,body{height:100%}
   body{
     font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,sans-serif;
-    background:radial-gradient(1200px 800px at 70% -10%, #16204a 0%, var(--bg1) 45%, var(--bg2) 100%);
-    color:var(--text); overflow:hidden;
+    background:#000; color:var(--text); overflow:hidden;
   }
+  .stage{background:#000}
   .wrap{display:flex;flex-direction:column;height:100vh}
   /* ===== HEADER ===== */
   header{
     display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-    padding:12px 18px;background:rgba(10,14,39,.6);backdrop-filter:blur(14px);
+    padding:12px 18px;background:rgba(0,0,0,.6);backdrop-filter:blur(14px);
     border-bottom:1px solid var(--stroke);z-index:5;
   }
   .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.5px}
@@ -45,7 +45,7 @@
   /* ===== CONTROLS ===== */
   .controls{
     display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-    padding:9px 18px;background:rgba(15,18,40,.4);border-bottom:1px solid var(--stroke);z-index:4
+    padding:9px 18px;background:rgba(0,0,0,.4);border-bottom:1px solid var(--stroke);z-index:4
   }
   .controls .sep{width:1px;height:22px;background:var(--stroke);margin:0 4px}
   select.sel{background:var(--bg2);border:1px solid var(--stroke);color:var(--text);padding:6px 10px;border-radius:8px;font-size:12px;cursor:pointer}
@@ -54,7 +54,7 @@
   .chip.on{background:rgba(160,107,255,.18);border-color:var(--purple);color:#d7c4ff}
   .chip b{opacity:.6;font-weight:400;margin-left:4px}
   /* ===== ANALYTICS BAR ===== */
-  .stats{display:flex;gap:10px;flex-wrap:wrap;padding:8px 18px;border-bottom:1px solid var(--stroke);background:rgba(10,14,39,.35);z-index:3}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;padding:8px 18px;border-bottom:1px solid var(--stroke);background:rgba(0,0,0,.35);z-index:3}
   .stat{flex:1;min-width:96px;background:var(--card);border:1px solid var(--stroke);border-radius:10px;padding:7px 12px}
   .stat .k{font-size:10px;color:var(--dim);letter-spacing:1px;text-transform:uppercase}
   .stat .v{font-size:16px;font-weight:700;margin-top:2px}
@@ -386,38 +386,41 @@ function physics(){
   }
 }
 function drawBubble(b){
-  const up = b.data.change>=0; const col = up? '0,224,138':'255,77,109';
-  const glow = 8 + Math.min(18, Math.abs(b.data.change)*2.5);
+  const up = b.data.change>=0; const col = up? '46,204,113':'230,72,72';   // paleta CryptoBubbles
+  const mag = Math.min(1, Math.abs(b.data.change)/8);
+  const r=b.r;
   ctx.save();
-  // glow
-  ctx.shadowColor='rgba('+col+',0.9)'; ctx.shadowBlur=glow;
-  ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,7);
-  const g=ctx.createRadialGradient(b.x,b.y-b.r*.3,b.r*.2,b.x,b.y,b.r);
-  g.addColorStop(0,'rgba('+col+',0.30)'); g.addColorStop(1,'rgba('+col+',0.08)');
-  ctx.fillStyle=g; ctx.fill();
+  // 1) brilho externo suave no anel
+  ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7);
+  ctx.shadowColor='rgba('+col+','+(0.55+mag*0.4)+')'; ctx.shadowBlur=10+mag*24;
+  ctx.fillStyle='rgba('+col+',0.14)'; ctx.fill();
   ctx.shadowBlur=0;
-  // borda neon
-  ctx.lineWidth=2.2; ctx.strokeStyle='rgba('+col+',0.95)'; ctx.stroke();
-  // logo
-  const img=LOGO_IMG[b.symbol];
-  const ls=b.r*0.9;
-  if(img){ ctx.save(); ctx.beginPath(); ctx.arc(b.x,b.y-b.r*0.18,ls*0.5,0,7); ctx.clip();
-    // fundo branco leve pra logos escuros
-    ctx.fillStyle='rgba(255,255,255,0.92)'; ctx.fillRect(b.x-ls*.5,b.y-b.r*0.18-ls*.5,ls,ls);
-    const ratio=Math.min(ls/img.width, ls/img.height); const w=img.width*ratio*0.86,h=img.height*ratio*0.86;
-    ctx.drawImage(img,b.x-w/2,b.y-b.r*0.18-h/2,w,h); ctx.restore();
-  } else {
-    ctx.fillStyle='#fff'; ctx.font='700 '+Math.max(11,b.r*0.34)+'px sans-serif';
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(b.symbol.slice(0,4), b.x, b.y-b.r*0.15);
+  // 2) disco base escuro (quase preto) — centro escuro como no CryptoBubbles
+  ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.fillStyle='rgba(9,10,13,0.94)'; ctx.fill();
+  // 3) brilho colorido concentrado na borda (radial: escuro no centro → cor na borda)
+  const g=ctx.createRadialGradient(b.x,b.y,r*0.30,b.x,b.y,r);
+  g.addColorStop(0,'rgba('+col+',0.02)');
+  g.addColorStop(0.72,'rgba('+col+','+(0.08+mag*0.14)+')');
+  g.addColorStop(1,'rgba('+col+','+(0.34+mag*0.40)+')');
+  ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.fillStyle=g; ctx.fill();
+  // 4) anel fino luminoso
+  ctx.lineWidth=Math.max(1.4, r*0.03); ctx.strokeStyle='rgba('+col+','+(0.75+mag*0.25)+')';
+  ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.stroke();
+  // 5) logo no topo (círculo claro só atrás do logo, p/ contraste)
+  const img=LOGO_IMG[b.symbol]; const ls=r*0.74; const ly=b.y-r*0.44;
+  if(img){ ctx.save(); ctx.beginPath(); ctx.arc(b.x,ly,ls*0.5,0,7); ctx.closePath();
+    ctx.fillStyle='rgba(255,255,255,0.96)'; ctx.fill(); ctx.clip();
+    const ratio=Math.min(ls/img.width, ls/img.height); const w=img.width*ratio*0.80,h=img.height*ratio*0.80;
+    ctx.drawImage(img,b.x-w/2,ly-h/2,w,h); ctx.restore();
   }
-  // símbolo + %
+  // 6) símbolo grande (branco, centro)
   ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.font='700 '+Math.max(9,b.r*0.24)+'px sans-serif';
-  ctx.fillText(b.symbol, b.x, b.y+b.r*0.34);
-  ctx.font='700 '+Math.max(9,b.r*0.26)+'px sans-serif';
-  ctx.fillStyle='rgb('+col+')';
-  ctx.fillText((up?'+':'')+b.data.change.toFixed(2)+'%', b.x, b.y+b.r*0.62);
+  ctx.font='800 '+Math.max(9, r*0.34)+'px -apple-system,sans-serif';
+  ctx.fillText(b.symbol, b.x, b.y+r*0.14);
+  // 7) percentual (branco, embaixo) — 1 casa como no CryptoBubbles
+  ctx.font='700 '+Math.max(8, r*0.25)+'px -apple-system,sans-serif';
+  ctx.fillStyle='rgba(255,255,255,0.92)';
+  ctx.fillText((up?'+':'')+b.data.change.toFixed(1)+'%', b.x, b.y+r*0.50);
   ctx.restore();
 }
 function loop(){ physics(); ctx.clearRect(0,0,W,H); for(const b of bubbles) drawBubble(b); requestAnimationFrame(loop); }
