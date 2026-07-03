@@ -246,30 +246,40 @@ function stepDemo(){
   });
 }
 
-// ---- Dados REAIS (Yahoo via proxy CORS, fallback demo) ----
-const PROXY = u => 'https://api.allorigins.win/raw?url='+encodeURIComponent(u);
+// ---- Dados REAIS (Yahoo v8 chart via cadeia de proxies CORS, fallback demo) ----
+const PROXIES = [
+  u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),
+  u=>'https://corsproxy.io/?url='+encodeURIComponent(u),
+  u=>'https://api.codetabs.com/v1/proxy/?quest='+u,
+];
+const PROXY = PROXIES[0];  // usado pelo gráfico do modal
+async function fetchVia(url){
+  for(const p of PROXIES){
+    try{
+      const ac=new AbortController(); const to=setTimeout(()=>ac.abort(),5000);
+      const r=await fetch(p(url),{cache:'no-store',signal:ac.signal}); clearTimeout(to);
+      if(r.ok){ const t=await r.text(); return JSON.parse(t); }
+    }catch(e){}
+  }
+  return null;
+}
+async function fetchOne(sym){
+  const url='https://query1.finance.yahoo.com/v8/finance/chart/'+sym+'?interval=1d&range=1d';
+  const j=await fetchVia(url); const m=j?.chart?.result?.[0]?.meta;
+  if(!m || m.regularMarketPrice==null) return false;
+  const price=m.regularMarketPrice, prev=m.previousClose||m.chartPreviousClose||price;
+  const ch = prev? ((price-prev)/prev*100):0;
+  STOCKS[sym] = { symbol:sym, prevClose:prev, price:+price.toFixed(2), change:+ch.toFixed(2),
+                  mcap:META[sym].mc, sector:META[sym].s, name:META[sym].n, hist:null };
+  return true;
+}
 async function fetchReal(){
-  try{
-    const url='https://query1.finance.yahoo.com/v7/finance/quote?symbols='+SYMBOLS.join(',');
-    const r = await fetch(PROXY(url),{cache:'no-store'});
-    if(!r.ok) throw 0;
-    const j = await r.json();
-    const arr = j?.quoteResponse?.result||[];
-    if(!arr.length) throw 0;
-    let hit=0;
-    arr.forEach(q=>{
-      const sym=q.symbol; if(!META[sym]) return;
-      const price=q.regularMarketPrice, prev=q.regularMarketPreviousClose||price;
-      if(price==null) return;
-      const ch = prev? ((price-prev)/prev*100):0;
-      STOCKS[sym] = { symbol:sym, prevClose:prev, price:+price.toFixed(2), change:+ch.toFixed(2),
-                      mcap: q.marketCap? Math.round(q.marketCap/1e9): META[sym].mc,
-                      sector:META[sym].s, name:META[sym].n, hist:null };
-      hit++;
-    });
-    if(hit < 5) throw 0;
-    usingReal = true; return true;
-  }catch(e){ usingReal=false; return false; }
+  let hits=0; const q=[...SYMBOLS];
+  const worker=async()=>{ while(q.length){ const s=q.shift(); try{ if(await fetchOne(s)) hits++; }catch(e){} } };
+  // corrida com teto de 14s pra nunca travar a UI
+  const run=Promise.all([worker(),worker(),worker(),worker(),worker(),worker()]);
+  await Promise.race([run, new Promise(r=>setTimeout(r,14000))]);
+  usingReal = hits>=5; return usingReal;
 }
 
 async function refresh(manual){
@@ -527,7 +537,7 @@ document.getElementById('exportBtn').onclick=()=>{
 // ============================================================
 //  BOOT
 // ============================================================
-resize(); seedDemo(); syncBubbles(); renderSectors(); renderStats(); saveFavs(); setTab('all');
+resize(); seedDemo(); lastUpdate=new Date(); syncBubbles(); renderSectors(); renderStats(); saveFavs(); setTab('all');
 setStatus('Dados Demo',false); loop();
 refresh(false);                         // tenta dados reais
 setInterval(()=>refresh(false), 60000); // auto-refresh 60s
