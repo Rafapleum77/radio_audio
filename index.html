@@ -1311,6 +1311,9 @@ img{max-width:100%;height:auto;}
       padding:15px 38px;border-radius:999px;box-shadow:0 8px 30px -6px rgba(247,147,26,.9);transition:transform .15s}
     .hr-play:hover{transform:translateY(-2px)}
     .hr-play .ic{font-size:20px}
+    .hr-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center}
+    .hr-play--econ{background:linear-gradient(90deg,#16c784,#3ddc9a);color:#04140d;box-shadow:0 8px 30px -6px rgba(22,199,132,.8)}
+    .hr-nowplaying{color:#c8ffd4;font-size:12px;font-weight:600;margin-top:12px;min-height:16px;text-shadow:0 2px 8px rgba(0,0,0,.95)}
     .hr-aggs{margin-top:20px}
     .hr-aggs__lbl{color:#8a8a99;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
     .hr-aggs__row{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
@@ -1327,8 +1330,13 @@ img{max-width:100%;height:auto;}
     <div class="hr-live"><i></i> AO VIVO · 24 HORAS</div>
     <div style="flex:1"></div>
     <div class="hr-sub">A voz da revolução Bitcoin · notícias, mercado e liberdade financeira</div>
-    <button class="hr-play" id="hrPlay"><span class="ic">▶</span><span id="hrPlayTxt">OUVIR AO VIVO</span></button>
+    <div class="hr-btns">
+      <button class="hr-play" id="hrPlay"><span class="ic">▶</span><span id="hrPlayTxt">OUVIR AO VIVO</span></button>
+      <button class="hr-play hr-play--econ" id="econPlay"><span class="ic">📊</span><span id="econPlayTxt">SÓ ECONOMIA (IA)</span></button>
+    </div>
+    <div class="hr-nowplaying" id="econNow"></div>
     <audio id="liveAudio" preload="none" src="https://stream.radiobitcoin.org/radio"></audio>
+    <audio id="econAudio" preload="none"></audio>
 
     <div class="hr-aggs">
       <div class="hr-aggs__lbl">Ouça também nos apps de rádio</div>
@@ -8176,6 +8184,53 @@ iaRender();
   if(hb)hb.addEventListener('click',toggle);
   a.addEventListener('playing',function(){sync(true);});
   a.addEventListener('pause',function(){sync(false);});
+})();
+</script>
+<script>
+// Player "Só Economia (IA)" — toca em fila os boletins de economia/mercado/fluxo gerados pelas IAs.
+// Puxa do tracks.json por categoria, então novos boletins entram sozinhos. O gerente global de
+// áudio (mais abaixo) garante que isto pausa o stream ao vivo e vice-versa.
+(function(){
+  var btn=document.getElementById('econPlay'), txt=document.getElementById('econPlayTxt'),
+      ic=btn?btn.querySelector('.ic'):null, now=document.getElementById('econNow'),
+      au=document.getElementById('econAudio');
+  if(!btn||!au) return;
+  var fila=[], idx=0, carregado=false;
+  var CATS=['mercado','fluxo','boletim','economia','austriaca','austríaca','alerta','noticia','notícia'];
+  function ehEcon(cat){ cat=(cat||'').toLowerCase(); return CATS.some(function(c){return cat.indexOf(c)>=0;}); }
+  function setUI(playing){
+    if(ic)ic.textContent=playing?'⏸':'📊';
+    if(txt)txt.textContent=playing?'ECONOMIA TOCANDO':'SÓ ECONOMIA (IA)';
+  }
+  function tocaAtual(){
+    if(!fila.length) return;
+    var t=fila[idx%fila.length];
+    au.src=t.file;
+    au.play().then(function(){ setUI(true); if(now)now.textContent='📊 '+(t.title||t.file); })
+             .catch(function(){ setUI(false); if(now)now.textContent='Não foi possível tocar o boletim.'; });
+  }
+  function carregar(){
+    return fetch('tracks.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(ts){
+      fila=ts.filter(function(t){return t && t.file && ehEcon(t.category);});
+      carregado=true;
+    });
+  }
+  btn.addEventListener('click',function(){
+    if(!au.paused){ au.pause(); return; }
+    if(!carregado){
+      if(now)now.textContent='Carregando boletins de economia…';
+      carregar().then(function(){
+        if(!fila.length){ if(now)now.textContent='Nenhum boletim de economia disponível agora.'; return; }
+        idx=0; tocaAtual();
+      }).catch(function(){ if(now)now.textContent='Erro ao carregar os boletins.'; });
+    } else {
+      if(!fila.length) return;
+      tocaAtual();
+    }
+  });
+  au.addEventListener('ended',function(){ idx=(idx+1)%(fila.length||1); tocaAtual(); });
+  au.addEventListener('playing',function(){ setUI(true); });
+  au.addEventListener('pause',function(){ setUI(false); });
 })();
 </script>
 <style>@keyframes livePulse{0%,100%{opacity:1}50%{opacity:.3}}</style>
