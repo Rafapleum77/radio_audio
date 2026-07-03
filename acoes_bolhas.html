@@ -120,6 +120,14 @@
       <option value="name_asc">Nome (A-Z)</option>
     </select>
     <span class="sep"></span>
+    <span style="font-size:11px;color:var(--dim)">Mostrar:</span>
+    <select class="sel" id="qtySel">
+      <option value="25">Top 25</option>
+      <option value="50">Top 50</option>
+      <option value="100" selected>Top 100</option>
+      <option value="999">Todas</option>
+    </select>
+    <span class="sep"></span>
     <div id="sectorChips" style="display:flex;gap:6px;flex-wrap:wrap"></div>
   </div>
 
@@ -254,6 +262,7 @@ let usingReal = false;
 let lastUpdate = null;
 let activeSector = 'ALL';
 let activeSort = 'change_desc';
+let maxCount = 100;   // quantas bolhas mostrar (top-N por market cap)
 let tab = 'all';        // 'all' | 'fav'
 let favorites = JSON.parse(localStorage.getItem('rb_stock_favs')||'[]');
 let modalSym = null, modalRange = '1W', modalChart = null;
@@ -394,6 +403,7 @@ window.addEventListener('resize',()=>{resize();});
 function visibleList(){
   let list = SYMBOLS.map(s=>STOCKS[s]).filter(Boolean);
   if(tab==='fav') list = list.filter(s=>favorites.includes(s.symbol));
+  else if(maxCount < list.length){ list = [...list].sort((a,b)=>b.mcap-a.mcap).slice(0,maxCount); } // top-N por market cap
   if(activeSector!=='ALL') list = list.filter(s=>s.sector===activeSector);
   const [k,dir] = activeSort.split('_');
   list.sort((a,b)=>{
@@ -608,6 +618,7 @@ function renderStats(){
 function stat(k,v,cls){ return '<div class="stat"><div class="k">'+k+'</div><div class="v '+(cls||'')+'">'+v+'</div></div>'; }
 
 document.getElementById('sortSel').onchange=e=>{activeSort=e.target.value;syncBubbles();};
+document.getElementById('qtySel').onchange=e=>{maxCount=+e.target.value;syncBubbles();renderStats();};
 function setTab(t){ tab=t; document.getElementById('tabAll').classList.toggle('active',t==='all');
   document.getElementById('tabFav').classList.toggle('active',t==='fav'); syncBubbles(); renderStats(); }
 document.getElementById('tabAll').onclick=()=>setTab('all');
