@@ -1561,6 +1561,51 @@ img{max-width:100%;height:auto;}
 <!-- ===== FIM NEWSLETTER ===== -->
   <!-- ===== FIM BANNER MISSÃO BITCOIN CDE ===== -->
 
+  <!-- ===== PAINEL CLIMA & PREPARAÇÃO (mapa de chuva por região + Bitchat) ===== -->
+  <style>
+  .prep{max-width:1100px;margin:16px auto;font-family:ui-sans-serif,system-ui,sans-serif;padding:0 10px;}
+  .prep__grid{display:grid;grid-template-columns:2fr 1fr;gap:14px;}
+  @media(max-width:820px){.prep__grid{grid-template-columns:1fr;}}
+  .prep__card{background:linear-gradient(135deg,#0b1220,#0a0f18);border:1px solid rgba(0,180,255,0.3);border-radius:14px;overflow:hidden;}
+  .prep__head{padding:12px 16px;color:#5cd3ff;font-weight:800;font-size:13px;letter-spacing:1px;border-bottom:1px solid rgba(0,180,255,0.15);}
+  .prep__map{width:100%;height:420px;border:0;display:block;}
+  .prep__loc{font-size:10px;color:#7a8ba0;padding:7px 16px;}
+  .bitchat{background:linear-gradient(135deg,#12100a,#0a0803);border:2px solid rgba(242,169,0,0.5);border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:center;}
+  .bitchat h3{color:#f2a900;font-size:15px;margin:0 0 8px;font-weight:900;}
+  .bitchat p{color:#c8d0dc;font-size:12px;line-height:1.55;margin:0 0 12px;}
+  .bitchat a.cta{display:block;text-align:center;background:#f2a900;color:#000;font-weight:800;font-size:13px;text-decoration:none;padding:11px;border-radius:9px;margin-bottom:8px;}
+  .bitchat a.alt{display:block;text-align:center;color:#9aa4b2;font-size:11px;text-decoration:none;padding:5px;}
+  .bitchat .warn{font-size:10px;color:#f8a37b;margin-top:8px;line-height:1.4;}
+  </style>
+  <section class="prep">
+    <div class="prep__grid">
+      <div class="prep__card">
+        <div class="prep__head">🌦️ CLIMA & CHUVA — SUA REGIÃO (mapa ao vivo)</div>
+        <iframe id="windyMap" class="prep__map" loading="lazy" src="https://embed.windy.com/embed2.html?lat=-15&lon=-47&detailLat=-15&detailLon=-47&zoom=4&level=surface&overlay=rain&menu=&type=map&location=coordinates&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1"></iframe>
+        <div class="prep__loc" id="windyLoc">Mostrando o Brasil. Permita a localização no navegador pra centralizar na sua região.</div>
+      </div>
+      <div class="bitchat">
+        <h3>📡 Quando as redes caem: Bitchat</h3>
+        <p>Chat que funciona <b>sem internet, sem sinal, sem servidor</b> — as mensagens pulam de celular em celular por Bluetooth (rede mesh), até ~300 m. Em enchente, apagão ou colapso de rede, ele continua de pé. Soberania na comunicação, igual o Bitcoin no dinheiro.</p>
+        <a class="cta" href="https://bitchat.free/" target="_blank" rel="noopener">Baixar o Bitchat »</a>
+        <a class="alt" href="https://github.com/permissionlesstech/bitchat" target="_blank" rel="noopener">Código-fonte / Android (GitHub oficial) ↗</a>
+        <div class="warn">⚠️ iOS: busque "Bitchat Mesh" na App Store. Cuidado com apps FALSOS na Google Play — use só as fontes oficiais acima.</div>
+      </div>
+    </div>
+  </section>
+  <script>
+  (function(){
+    if(!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(function(pos){
+      var la=pos.coords.latitude.toFixed(2), lo=pos.coords.longitude.toFixed(2);
+      var f=document.getElementById('windyMap');
+      if(f){ f.src='https://embed.windy.com/embed2.html?lat='+la+'&lon='+lo+'&detailLat='+la+'&detailLon='+lo+'&zoom=7&level=surface&overlay=rain&menu=&type=map&location=coordinates&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1'; }
+      var l=document.getElementById('windyLoc'); if(l){ l.textContent='📍 Centralizado na sua região ('+la+', '+lo+') · chuva ao vivo por Windy'; }
+    }, function(){}, {timeout:8000});
+  })();
+  </script>
+  <!-- ===== FIM CLIMA & PREPARAÇÃO ===== -->
+
   <!-- HEADER -->
   <header id="header">
     <div class="hdr-logo">
