@@ -201,9 +201,51 @@ const META = {
   XOM:{n:'ExxonMobil',s:'Energy',mc:480,p:115,logo:L+'2/25/ExxonMobil_Logo.svg'},
   CVX:{n:'Chevron',s:'Energy',mc:280,p:155,logo:L+'6/6b/Chevron_Logo.svg'},
   DIS:{n:'Disney',s:'Communication',mc:200,p:95,logo:L+'3/3e/Disney%2B_logo.svg'},
+  // --- +78 ações (logos vêm do CDN da Finnhub em loadFinnhubLogos) ---
+  AVGO:{n:'Broadcom',s:'Technology',mc:900,p:175,logo:''}, ORCL:{n:'Oracle',s:'Technology',mc:500,p:185,logo:''},
+  CRM:{n:'Salesforce',s:'Technology',mc:280,p:290,logo:''}, ADBE:{n:'Adobe',s:'Technology',mc:230,p:500,logo:''},
+  CSCO:{n:'Cisco',s:'Technology',mc:250,p:62,logo:''}, QCOM:{n:'Qualcomm',s:'Technology',mc:190,p:170,logo:''},
+  TXN:{n:'Texas Instruments',s:'Technology',mc:170,p:190,logo:''}, AMAT:{n:'Applied Materials',s:'Technology',mc:150,p:180,logo:''},
+  MU:{n:'Micron',s:'Technology',mc:130,p:110,logo:''}, INTU:{n:'Intuit',s:'Technology',mc:190,p:680,logo:''},
+  NOW:{n:'ServiceNow',s:'Technology',mc:200,p:980,logo:''}, PLTR:{n:'Palantir',s:'Technology',mc:300,p:130,logo:''},
+  ANET:{n:'Arista Networks',s:'Technology',mc:140,p:110,logo:''}, PANW:{n:'Palo Alto Networks',s:'Technology',mc:130,p:200,logo:''},
+  MRVL:{n:'Marvell',s:'Technology',mc:90,p:110,logo:''}, LRCX:{n:'Lam Research',s:'Technology',mc:110,p:85,logo:''},
+  KLAC:{n:'KLA Corp',s:'Technology',mc:100,p:800,logo:''}, ADI:{n:'Analog Devices',s:'Technology',mc:110,p:230,logo:''},
+  SNPS:{n:'Synopsys',s:'Technology',mc:85,p:550,logo:''}, CDNS:{n:'Cadence',s:'Technology',mc:80,p:300,logo:''},
+  DELL:{n:'Dell',s:'Technology',mc:90,p:130,logo:''}, MSTR:{n:'MicroStrategy',s:'Technology',mc:90,p:380,logo:''},
+  SHOP:{n:'Shopify',s:'Technology',mc:140,p:110,logo:''}, UBER:{n:'Uber',s:'Technology',mc:160,p:75,logo:''},
+  ABNB:{n:'Airbnb',s:'Technology',mc:90,p:140,logo:''},
+  NFLX:{n:'Netflix',s:'Communication',mc:400,p:900,logo:''}, T:{n:'AT&T',s:'Communication',mc:160,p:22,logo:''},
+  VZ:{n:'Verizon',s:'Communication',mc:180,p:43,logo:''}, CMCSA:{n:'Comcast',s:'Communication',mc:150,p:40,logo:''},
+  TMUS:{n:'T-Mobile',s:'Communication',mc:260,p:220,logo:''},
+  BAC:{n:'Bank of America',s:'Financial',mc:320,p:42,logo:''}, WFC:{n:'Wells Fargo',s:'Financial',mc:240,p:72,logo:''},
+  GS:{n:'Goldman Sachs',s:'Financial',mc:160,p:500,logo:''}, MS:{n:'Morgan Stanley',s:'Financial',mc:170,p:105,logo:''},
+  C:{n:'Citigroup',s:'Financial',mc:130,p:68,logo:''}, AXP:{n:'American Express',s:'Financial',mc:210,p:290,logo:''},
+  BLK:{n:'BlackRock',s:'Financial',mc:150,p:970,logo:''}, SCHW:{n:'Charles Schwab',s:'Financial',mc:130,p:72,logo:''},
+  SPGI:{n:'S&P Global',s:'Financial',mc:150,p:480,logo:''},
+  LLY:{n:'Eli Lilly',s:'Healthcare',mc:800,p:850,logo:''}, ABBV:{n:'AbbVie',s:'Healthcare',mc:450,p:190,logo:''},
+  MRK:{n:'Merck',s:'Healthcare',mc:260,p:100,logo:''}, PFE:{n:'Pfizer',s:'Healthcare',mc:150,p:27,logo:''},
+  TMO:{n:'Thermo Fisher',s:'Healthcare',mc:200,p:520,logo:''}, ABT:{n:'Abbott',s:'Healthcare',mc:200,p:115,logo:''},
+  DHR:{n:'Danaher',s:'Healthcare',mc:180,p:250,logo:''}, BMY:{n:'Bristol Myers',s:'Healthcare',mc:100,p:50,logo:''},
+  AMGN:{n:'Amgen',s:'Healthcare',mc:160,p:300,logo:''}, GILD:{n:'Gilead',s:'Healthcare',mc:110,p:90,logo:''},
+  MDT:{n:'Medtronic',s:'Healthcare',mc:110,p:85,logo:''}, CVS:{n:'CVS Health',s:'Healthcare',mc:80,p:60,logo:''},
+  NKE:{n:'Nike',s:'Consumer Cyclical',mc:120,p:78,logo:''}, SBUX:{n:'Starbucks',s:'Consumer Cyclical',mc:110,p:95,logo:''},
+  LOW:{n:"Lowe's",s:'Consumer Cyclical',mc:140,p:250,logo:''}, TGT:{n:'Target',s:'Consumer Cyclical',mc:70,p:150,logo:''},
+  BKNG:{n:'Booking',s:'Consumer Cyclical',mc:160,p:4800,logo:''}, GM:{n:'General Motors',s:'Consumer Cyclical',mc:55,p:50,logo:''},
+  F:{n:'Ford',s:'Consumer Cyclical',mc:45,p:11,logo:''}, MAR:{n:'Marriott',s:'Consumer Cyclical',mc:75,p:260,logo:''},
+  PEP:{n:'PepsiCo',s:'Consumer Defensive',mc:230,p:170,logo:''}, COST:{n:'Costco',s:'Consumer Defensive',mc:400,p:900,logo:''},
+  MDLZ:{n:'Mondelez',s:'Consumer Defensive',mc:90,p:65,logo:''}, MO:{n:'Altria',s:'Consumer Defensive',mc:90,p:52,logo:''},
+  PM:{n:'Philip Morris',s:'Consumer Defensive',mc:200,p:130,logo:''}, CL:{n:'Colgate',s:'Consumer Defensive',mc:75,p:92,logo:''},
+  HON:{n:'Honeywell',s:'Industrials',mc:140,p:210,logo:''}, GE:{n:'GE Aerospace',s:'Industrials',mc:200,p:180,logo:''},
+  RTX:{n:'RTX',s:'Industrials',mc:140,p:110,logo:''}, LMT:{n:'Lockheed Martin',s:'Industrials',mc:110,p:460,logo:''},
+  UNP:{n:'Union Pacific',s:'Industrials',mc:140,p:230,logo:''}, UPS:{n:'UPS',s:'Industrials',mc:110,p:130,logo:''},
+  DE:{n:'Deere',s:'Industrials',mc:110,p:400,logo:''}, MMM:{n:'3M',s:'Industrials',mc:70,p:130,logo:''},
+  COP:{n:'ConocoPhillips',s:'Energy',mc:130,p:100,logo:''}, SLB:{n:'Schlumberger',s:'Energy',mc:70,p:45,logo:''},
+  LIN:{n:'Linde',s:'Materials',mc:220,p:460,logo:''},
+  AMT:{n:'American Tower',s:'Real Estate',mc:90,p:195,logo:''}, PLD:{n:'Prologis',s:'Real Estate',mc:110,p:120,logo:''},
 };
 const SYMBOLS = Object.keys(META);
-const SECTOR_EMOJI = {Technology:'💻',Financial:'🏦',Healthcare:'🩺','Consumer Cyclical':'🛍️','Consumer Defensive':'🧴',Industrials:'🏭',Energy:'⛽',Communication:'📺'};
+const SECTOR_EMOJI = {Technology:'💻',Financial:'🏦',Healthcare:'🩺','Consumer Cyclical':'🛍️','Consumer Defensive':'🧴',Industrials:'🏭',Energy:'⛽',Communication:'📺',Materials:'🧱','Real Estate':'🏢'};
 
 // ---- Estado ----
 let STOCKS = {};        // symbol -> {price, prevClose, change, ...}
@@ -311,14 +353,25 @@ async function fetchReal(){
   usingReal = hits>=5; return usingReal;
 }
 
-async function refresh(manual){
-  setStatus('atualizando…', usingReal);
-  const ok = await fetchReal();
-  if(!ok){ if(!Object.keys(STOCKS).length) seedDemo(); else stepDemo(); }
-  lastUpdate = new Date();
-  syncBubbles(); renderStats(); renderSectors(); setStatus(usingReal?'Dados Reais':'Dados Demo', usingReal);
-  if(modalSym && modalBg.style.display==='flex') refreshModalHeader();
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+// Atualizador CONTÍNUO com throttle (~54 chamadas/min < limite 60/min do plano grátis).
+// Percorre as ~100 ações em ciclo; cada uma é refrescada a cada ~110s. Preços entram progressivamente.
+async function realtimeLoop(){
+  let i=0, hits=0, yahooTried=false;
+  while(true){
+    const sym=SYMBOLS[i%SYMBOLS.length];
+    try{ if(await finnhubQuote(sym)) hits++; }catch(e){}
+    i++;
+    if(i%8===0){ lastUpdate=new Date(); syncBubbles(); renderStats();
+      if(modalSym && modalBg.style.display==='flex') refreshModalHeader();
+      if(hits>=8){ usingReal=true; setStatus('Dados Reais',true); } }
+    // se o Finnhub falhar geral no 1º ciclo, tenta Yahoo uma vez
+    if(i===SYMBOLS.length && hits<5 && !yahooTried){ yahooTried=true;
+      const yh=await fetchYahoo(); if(yh>=5){ usingReal=true; setStatus('Dados Reais',true); lastUpdate=new Date(); syncBubbles(); renderStats(); } }
+    await sleep(1100);
+  }
 }
+function refresh(){ lastUpdate=new Date(); syncBubbles(); renderStats(); renderSectors(); }
 
 // ---- STATUS UI ----
 function setStatus(txt, real){
@@ -571,11 +624,10 @@ document.getElementById('exportBtn').onclick=()=>{
 //  BOOT
 // ============================================================
 resize(); seedDemo(); lastUpdate=new Date(); syncBubbles(); renderSectors(); renderStats(); saveFavs(); setTab('all');
-setStatus('Dados Demo',false); loop();
-refresh(false);                         // tenta dados reais (Finnhub → Yahoo → demo)
-loadFinnhubLogos();                     // logos oficiais + market cap real
-setInterval(()=>refresh(false), 60000); // auto-refresh 60s
-setInterval(()=>{ if(!usingReal) stepDemo(); }, 3000); // anima demo entre refreshes
+setStatus('carregando ao vivo…',false); loop();
+loadFinnhubLogos();                     // logos oficiais (CDN Finnhub)
+realtimeLoop();                         // atualizador contínuo (Finnhub throttled, respeita 60/min)
+setInterval(()=>{ if(!usingReal) stepDemo(); }, 3000); // anima até dados reais chegarem
 </script>
 </body>
 </html>
