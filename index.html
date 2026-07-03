@@ -2377,7 +2377,12 @@ img{max-width:100%;height:auto;}
   .sr-hero__cta{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,#f7a600,#ffce4d);color:#000;font-weight:900;font-size:16px;letter-spacing:1px;padding:13px 34px;border-radius:10px;text-decoration:none;box-shadow:0 6px 28px -6px rgba(247,166,0,.9);transition:transform .15s;}
   .sr-hero__cta:hover{transform:translateY(-2px);}
   .sr-hero__fine{font-size:9px;color:#4b5563;margin-top:10px;line-height:1.4;}
-  @media(max-width:560px){.sr-hero__inner{padding:14px 12px 16px;}.sr-hero__line2{font-size:clamp(26px,10vw,42px);}.sr-hero__tasks{gap:6px;}.sr-hero__task{font-size:10px;padding:5px 9px;}}
+  .sr-hero__cd{display:flex;justify-content:center;gap:6px;margin:12px 0 4px;}
+  .sr-hero__cd .u{background:rgba(0,0,0,.55);border:1px solid rgba(247,166,0,.35);border-radius:8px;padding:6px 10px;min-width:52px;}
+  .sr-hero__cd .n{display:block;font-size:22px;font-weight:900;color:#f7a600;line-height:1;font-variant-numeric:tabular-nums;}
+  .sr-hero__cd .l{display:block;font-size:9px;letter-spacing:1px;color:#9ca3af;text-transform:uppercase;margin-top:3px;}
+  .sr-hero__deadline{font-size:11px;color:#c8ffd4;letter-spacing:1px;margin-top:6px;}
+  @media(max-width:560px){.sr-hero__inner{padding:14px 12px 16px;}.sr-hero__line2{font-size:clamp(26px,10vw,42px);}.sr-hero__tasks{gap:6px;}.sr-hero__task{font-size:10px;padding:5px 9px;}.sr-hero__cd .u{min-width:44px;padding:5px 7px;}.sr-hero__cd .n{font-size:18px;}}
   </style>
   <section class="sr-hero">
     <div class="sr-hero__particles"></div>
@@ -2385,23 +2390,49 @@ img{max-width:100%;height:auto;}
     <div class="sr-hero__inner">
       <div class="sr-hero__top">
         <span class="sr-hero__bybit">BYB<b>I</b>T</span>
-        <span class="sr-hero__badge">&#9733; Starter Rewards</span>
+        <span class="sr-hero__badge">&#128293; Indicacao Turbinada &middot; so BR</span>
       </div>
       <div class="sr-hero__title">
-        <span class="sr-hero__line1">Complete missoes e ganhe</span>
-        <span class="sr-hero__line2">ATE $30</span>
+        <span class="sr-hero__line1">Indique amigos e ganhe</span>
+        <span class="sr-hero__line2">ATE 225 USDT</span>
       </div>
-      <div class="sr-hero__bonus">Novo na Bybit? Comece com bonus de ate <b>$30 USDT</b> em recompensas</div>
+      <div class="sr-hero__bonus">Entre na Bybit pelo nosso link e ganhe airdrops a cada amigo que indicar &mdash; <b>+ ate 30% de comissao</b></div>
       <div class="sr-hero__tasks">
-        <span class="sr-hero__task">&#10003; Verificar conta &middot; <b>bonus garantido</b></span>
-        <span class="sr-hero__task">&#128176; Primeiro deposito &middot; <b>cash back imediato</b></span>
-        <span class="sr-hero__task">&#128200; Primeiro trade &middot; <b>recompensa extra</b></span>
+        <span class="sr-hero__task">&#128176; Amigo deposita US$100 &middot; <b>+$10</b></span>
+        <span class="sr-hero__task">&#127974; Deposito fiat &middot; <b>+$7</b></span>
+        <span class="sr-hero__task">&#128200; Negocia US$500 &middot; <b>+$15</b></span>
+        <span class="sr-hero__task">&#127873; Negocia US$10 mil &middot; <b>caixas ate $1.000</b></span>
       </div>
-      <a class="sr-hero__cta" href="https://partner.bybit.com/b/aff_43677_161474?utm_source=radiobitcoin&utm_medium=banner&utm_campaign=starter_rewards" target="_blank" rel="noopener">&#9889; RESGATAR BONUS NA BYBIT &raquo;</a>
-      <div class="sr-hero__fine">Bonus sujeito a termos da Bybit. Apos comprar Bitcoin, retire para carteira fria &mdash; <b style="color:#6b7280;">nao sao suas chaves se nao sao seus bitcoins.</b></div>
+      <div class="sr-hero__cd" id="byb-cd">
+        <div class="u"><span class="n" data-d>--</span><span class="l">dias</span></div>
+        <div class="u"><span class="n" data-h>--</span><span class="l">horas</span></div>
+        <div class="u"><span class="n" data-m>--</span><span class="l">min</span></div>
+        <div class="u"><span class="n" data-s>--</span><span class="l">seg</span></div>
+      </div>
+      <div class="sr-hero__deadline" id="byb-deadline">Termina em 22 de julho de 2026</div>
+      <a class="sr-hero__cta" href="https://partner.bybit.com/b/aff_43677_161474?utm_source=radiobitcoin&utm_medium=banner&utm_campaign=indicacao_turbinada" target="_blank" rel="noopener">&#9889; PARTICIPAR NA BYBIT &raquo;</a>
+      <div class="sr-hero__fine">Promocao por tempo limitado (23/jun&ndash;22/jul/2026), valida para novos usuarios do Brasil e sujeita aos termos da Bybit. Depois de comprar Bitcoin, retire para carteira fria &mdash; <b style="color:#6b7280;">nao sao suas chaves se nao sao seus bitcoins.</b></div>
     </div>
   </section>
-  <!-- ===== FIM BANNER BYBIT STARTER REWARDS ===== -->
+  <!-- ===== FIM BANNER BYBIT INDICACAO TURBINADA ===== -->
+  <script>
+  (function(){
+    var end=new Date('2026-07-22T23:59:59-03:00').getTime();
+    var el=document.getElementById('byb-cd');if(!el)return;
+    var d=el.querySelector('[data-d]'),h=el.querySelector('[data-h]'),m=el.querySelector('[data-m]'),s=el.querySelector('[data-s]');
+    var dl=document.getElementById('byb-deadline'),iv;
+    function p(n){return('0'+n).slice(-2);}
+    function tick(){
+      var t=end-Date.now();
+      if(t<=0){t=0;if(dl)dl.textContent='Promocao encerrada';if(iv)clearInterval(iv);}
+      d.textContent=Math.floor(t/86400000);
+      h.textContent=p(Math.floor(t/3600000)%24);
+      m.textContent=p(Math.floor(t/60000)%60);
+      s.textContent=p(Math.floor(t/1000)%60);
+    }
+    tick();iv=setInterval(tick,1000);
+  })();
+  </script>
 
 <!-- ===== BANNER BYBIT CASHBACK (afiliado) ===== -->
 <style>
