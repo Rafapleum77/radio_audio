@@ -354,8 +354,8 @@ function visibleList(){
   });
   return list;
 }
-function radiusFor(s){ const base=Math.sqrt(s.mcap); const min=26,max=64;
-  const lo=Math.sqrt(30), hi=Math.sqrt(3400);
+function radiusFor(s){ const base=Math.pow(s.mcap,0.62); const min=18,max=90;
+  const lo=Math.pow(70,0.62), hi=Math.pow(3500,0.62);
   return min + (max-min)*Math.max(0,Math.min(1,(base-lo)/(hi-lo)));
 }
 function syncBubbles(){
@@ -395,16 +395,17 @@ function drawBubble(b){
   ctx.shadowColor='rgba('+col+','+(0.55+mag*0.4)+')'; ctx.shadowBlur=10+mag*24;
   ctx.fillStyle='rgba('+col+',0.14)'; ctx.fill();
   ctx.shadowBlur=0;
-  // 2) disco base escuro (quase preto) — centro escuro como no CryptoBubbles
-  ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.fillStyle='rgba(9,10,13,0.94)'; ctx.fill();
-  // 3) brilho colorido concentrado na borda (radial: escuro no centro → cor na borda)
-  const g=ctx.createRadialGradient(b.x,b.y,r*0.30,b.x,b.y,r);
-  g.addColorStop(0,'rgba('+col+',0.02)');
-  g.addColorStop(0.72,'rgba('+col+','+(0.08+mag*0.14)+')');
-  g.addColorStop(1,'rgba('+col+','+(0.34+mag*0.40)+')');
+  // 2) disco base quase preto — centro bem escuro como no CryptoBubbles
+  ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.fillStyle='rgba(5,6,8,0.97)'; ctx.fill();
+  // 3) brilho colorido concentrado na borda (radial: preto no centro → cor forte na borda)
+  const g=ctx.createRadialGradient(b.x,b.y,r*0.24,b.x,b.y,r);
+  g.addColorStop(0,'rgba('+col+',0.00)');
+  g.addColorStop(0.62,'rgba('+col+','+(0.06+mag*0.12)+')');
+  g.addColorStop(0.92,'rgba('+col+','+(0.30+mag*0.42)+')');
+  g.addColorStop(1,'rgba('+col+','+(0.55+mag*0.42)+')');
   ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.fillStyle=g; ctx.fill();
   // 4) anel fino luminoso
-  ctx.lineWidth=Math.max(1.4, r*0.03); ctx.strokeStyle='rgba('+col+','+(0.75+mag*0.25)+')';
+  ctx.lineWidth=Math.max(1.4, r*0.028); ctx.strokeStyle='rgba('+col+','+(0.85+mag*0.15)+')';
   ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.stroke();
   // 5) logo no topo (círculo claro só atrás do logo, p/ contraste)
   const img=LOGO_IMG[b.symbol]; const ls=r*0.74; const ly=b.y-r*0.44;
@@ -420,7 +421,7 @@ function drawBubble(b){
   // 7) percentual (branco, embaixo) — 1 casa como no CryptoBubbles
   ctx.font='700 '+Math.max(8, r*0.25)+'px -apple-system,sans-serif';
   ctx.fillStyle='rgba(255,255,255,0.92)';
-  ctx.fillText((up?'+':'')+b.data.change.toFixed(1)+'%', b.x, b.y+r*0.50);
+  ctx.fillText((up?'+':'')+b.data.change.toFixed(1).replace('.',',')+'%', b.x, b.y+r*0.50);
   ctx.restore();
 }
 function loop(){ physics(); ctx.clearRect(0,0,W,H); for(const b of bubbles) drawBubble(b); requestAnimationFrame(loop); }
