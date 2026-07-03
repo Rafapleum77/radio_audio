@@ -1986,8 +1986,8 @@ img{max-width:100%;height:auto;}
   <section class="prep">
     <div class="prep__grid">
       <div class="prep__card">
-        <div class="prep__head">🌦️ CLIMA & CHUVA — SUA REGIÃO (mapa ao vivo)</div>
-        <iframe id="windyMap" class="prep__map" loading="lazy" src="https://embed.windy.com/embed2.html?lat=-15&lon=-47&detailLat=-15&detailLon=-47&zoom=4&level=surface&overlay=rain&menu=&type=map&location=coordinates&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1"></iframe>
+        <div class="prep__head">🌦️ RADAR DE CHUVA — SUA REGIÃO (ao vivo, linha do tempo)</div>
+        <iframe id="windyMap" class="prep__map" loading="lazy" src="https://embed.windy.com/embed2.html?lat=-15&lon=-47&detailLat=-15&detailLon=-47&zoom=4&level=surface&overlay=radar&menu=&type=map&location=coordinates&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1"></iframe>
         <div class="prep__loc" id="windyLoc">Mostrando o Brasil. Permita a localização no navegador pra centralizar na sua região.</div>
       </div>
       <div class="bitchat">
@@ -2005,7 +2005,7 @@ img{max-width:100%;height:auto;}
     navigator.geolocation.getCurrentPosition(function(pos){
       var la=pos.coords.latitude.toFixed(2), lo=pos.coords.longitude.toFixed(2);
       var f=document.getElementById('windyMap');
-      if(f){ f.src='https://embed.windy.com/embed2.html?lat='+la+'&lon='+lo+'&detailLat='+la+'&detailLon='+lo+'&zoom=7&level=surface&overlay=rain&menu=&type=map&location=coordinates&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1'; }
+      if(f){ f.src='https://embed.windy.com/embed2.html?lat='+la+'&lon='+lo+'&detailLat='+la+'&detailLon='+lo+'&zoom=7&level=surface&overlay=radar&menu=&type=map&location=coordinates&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1'; }
       var l=document.getElementById('windyLoc'); if(l){ l.textContent='📍 Centralizado na sua região ('+la+', '+lo+') · chuva ao vivo por Windy'; }
     }, function(){}, {timeout:8000});
   })();
@@ -2249,7 +2249,7 @@ img{max-width:100%;height:auto;}
   <!-- ===== FIM ACOMPANHE A GENTE ===== -->
 
 <!-- ===== MERCADO EM TEMPO REAL (heatmap ações EUA + bolhas) — movido p/ junto das recomendadas ===== -->
-  <section style="margin:0 0 16px;background:#0d1018;border:1px solid rgba(247,147,26,.28);border-radius:12px;overflow:hidden;font-family:ui-sans-serif,system-ui,sans-serif;">
+  <section id="mercado-heatmap" style="margin:0 0 16px;background:#0d1018;border:1px solid rgba(247,147,26,.28);border-radius:12px;overflow:hidden;font-family:ui-sans-serif,system-ui,sans-serif;">
     <div style="padding:16px 18px 8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
       <div>
         <div style="font-size:18px;font-weight:800;color:#fff;">📊 Mercado em Tempo Real</div>
@@ -8165,5 +8165,35 @@ iaRender();
 })();
 </script>
 
+
+<!-- ===== ESTEIRA DE RELEVÂNCIA + CRYPTO BUBBLES ===== -->
+<script>
+(function(){
+  var stocks=document.getElementById('rb-stocks');
+  var heat=document.getElementById('mercado-heatmap');
+  var footer=document.getElementById('footer');
+  // Crypto Bubbles: link no painel de acoes
+  if(stocks){
+    var cb=document.createElement('a');
+    cb.href='https://cryptobubbles.net/'; cb.target='_blank'; cb.rel='noopener';
+    cb.style.cssText='display:block;text-align:center;margin:12px 0 2px;font-size:12px;color:#00d4ff;text-decoration:none;font-weight:700;';
+    cb.innerHTML='\uD83E\uDEE7 Crypto Bubbles \u2014 bolhas do mercado cripto ao vivo \u00BB';
+    stocks.appendChild(cb);
+  }
+  // Relevancia: fim de semana = mercado fechado -> desce acoes/heatmap, destaca radio/bitcoin
+  var day=new Date().getDay();
+  var mercadoFechado=(day===0||day===6);
+  if(mercadoFechado && footer && footer.parentNode){
+    if(heat) footer.parentNode.insertBefore(heat, footer);
+    if(stocks) footer.parentNode.insertBefore(stocks, footer);
+    var note=document.createElement('div');
+    note.style.cssText='max-width:1100px;margin:14px auto 0;padding:9px 14px;font-size:11px;color:#8a94a0;text-align:center;border:1px dashed rgba(0,212,255,.25);border-radius:8px;';
+    note.innerHTML='\uD83D\uDCC5 Fim de semana \u2014 mercado fechado. As a\u00E7\u00F5es desceram; foco na <b style="color:#f2a900;">R\u00E1dio</b> e no <b style="color:#f2a900;">Bitcoin</b> (24/7).';
+    var ref=heat||stocks;
+    if(ref && ref.parentNode) ref.parentNode.insertBefore(note, ref);
+  }
+})();
+</script>
+<!-- ===== FIM ESTEIRA ===== -->
 </body>
 </html>
