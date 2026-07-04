@@ -1389,6 +1389,32 @@ img{max-width:100%;height:auto;}
     </div>
   </section>
 
+<!-- ===== CTA EBOOK GRÁTIS (captura de lead no topo) ===== -->
+<style>
+  .rb-lead{max-width:1100px;margin:14px auto;padding:18px 20px;background:linear-gradient(120deg,#1a1206 0%,#0d0a04 60%,#12100a 100%);border:1px solid rgba(242,169,0,.5);border-radius:14px;box-shadow:0 0 34px -12px rgba(242,169,0,.45)}
+  .rb-lead__inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .rb-lead__tag{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#22c55e;letter-spacing:2px;font-weight:800}
+  .rb-lead__title{font-size:clamp(17px,4.4vw,24px);font-weight:900;color:#fff;line-height:1.15;margin:3px 0}
+  .rb-lead__title b{color:#f2a900}
+  .rb-lead__sub{font-size:12px;color:#c9a86a}
+  .rb-lead__cta{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,#f2a900,#ffce4d);color:#1a1206;font-weight:900;font-size:15px;letter-spacing:.5px;padding:14px 30px;border-radius:999px;text-decoration:none;box-shadow:0 8px 26px -6px rgba(242,169,0,.85);transition:transform .15s;white-space:nowrap}
+  .rb-lead__cta:hover{transform:translateY(-2px)}
+  .rb-lead__more{margin-top:10px;font-size:11px;color:#9ca3af;text-align:center}
+  .rb-lead__more a{color:#f2a900;text-decoration:none;font-weight:700}
+  @media(max-width:560px){.rb-lead__inner{flex-direction:column;text-align:center}.rb-lead__cta{width:100%;justify-content:center}}
+</style>
+<section class="rb-lead">
+  <div class="rb-lead__inner">
+    <div>
+      <div class="rb-lead__tag">🎁 GRÁTIS PRA VOCÊ</div>
+      <div class="rb-lead__title">Os <b>10 erros</b> de quem perde Bitcoin</div>
+      <div class="rb-lead__sub">eBook em PDF · 28 páginas · proteja suas moedas hoje mesmo</div>
+    </div>
+    <a class="rb-lead__cta" href="/ebook.html">📥 Baixar grátis</a>
+  </div>
+  <div class="rb-lead__more">Quer o pacote completo? <a href="#produtos">Ver todos os produtos BIT ADICT →</a></div>
+</section>
+
 <!-- ===== RADAR & CLIMA DO BRASIL AO VIVO (mapa interativo) ===== -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <style>
@@ -4177,7 +4203,7 @@ img{max-width:100%;height:auto;}
   .rb-produtos__badge-free { display:inline-block; background:#22c55e; color:#000; padding:2px 8px; border-radius:12px; font-size:9px; font-weight:bold; letter-spacing:1px; }
   .rb-produtos__badge-new { display:inline-block; background:#f2a900; color:#000; padding:2px 8px; border-radius:12px; font-size:9px; font-weight:bold; letter-spacing:1px; }
 </style>
-<section class="rb-produtos">
+<section class="rb-produtos" id="produtos">
   <div class="rb-produtos__head">
     <div class="rb-produtos__tag">▣▣▣ ECOSSISTEMA BIT ADICT ▣▣▣</div>
     <h2 class="rb-produtos__title">DA INICIAÇÃO À <b>SOBERANIA</b></h2>
