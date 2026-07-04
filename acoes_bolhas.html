@@ -35,12 +35,12 @@
   .led.real{background:var(--green);box-shadow:0 0 10px var(--green)}
   .led.demo{background:#ffcc44;box-shadow:0 0 10px #ffcc44}
   .clock{font-size:11px;color:var(--dim)}
-  button.btn{
+  .btn{
     background:var(--card);border:1px solid var(--stroke);color:var(--text);
     padding:7px 13px;border-radius:20px;cursor:pointer;font-size:12px;transition:.15s;display:flex;align-items:center;gap:6px
   }
-  button.btn:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 14px rgba(0,229,255,.25)}
-  button.btn.active{background:rgba(0,229,255,.15);border-color:var(--cyan);color:var(--cyan)}
+  .btn:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 14px rgba(0,229,255,.25)}
+  .btn.active{background:rgba(0,229,255,.15);border-color:var(--cyan);color:var(--cyan)}
   .fav-count{background:var(--purple);color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700}
   /* ===== CONTROLS ===== */
   .controls{
@@ -69,7 +69,7 @@
   #tip .row{display:flex;justify-content:space-between;gap:16px;font-size:11px;margin-top:2px}
   /* ===== MODAL ===== */
   .modal-bg{position:fixed;inset:0;background:rgba(4,6,18,.72);backdrop-filter:blur(6px);z-index:30;display:none;align-items:center;justify-content:center;padding:16px}
-  .modal{width:min(680px,96vw);max-height:92vh;overflow:auto;background:linear-gradient(160deg,#111633,#0b0f24);border:1px solid var(--stroke);border-radius:18px;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+  .modal{width:min(880px,96vw);max-height:92vh;overflow:auto;background:linear-gradient(160deg,#111633,#0b0f24);border:1px solid var(--stroke);border-radius:18px;box-shadow:0 30px 90px rgba(0,0,0,.6)}
   .modal-h{display:flex;align-items:center;gap:14px;padding:18px 20px;border-bottom:1px solid var(--stroke);position:sticky;top:0;background:linear-gradient(160deg,#111633,#0b0f24);z-index:2}
   .modal-h .logo{width:46px;height:46px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:800;color:#111}
   .modal-h .logo img{width:80%;height:80%;object-fit:contain}
@@ -78,16 +78,30 @@
   .modal-h .px .p{font-size:22px;font-weight:800} .modal-h .px .c{font-size:13px;font-weight:700}
   .x{position:absolute;top:14px;right:16px;font-size:22px;color:var(--dim);cursor:pointer;background:none;border:none}
   .modal-b{padding:16px 20px}
-  .periods{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+  .mgrid{display:flex;gap:16px;align-items:flex-start}
+  .mleft{flex:0 0 33%;display:flex;flex-direction:column;gap:11px}
+  .mright{flex:1;min-width:0}
+  .mbig{font-size:30px;font-weight:900;line-height:1.05;color:#fff}
+  .mbig .c{font-size:13px;font-weight:800;margin-top:4px}
+  .mvar-lbl{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:-4px}
+  .mvar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .mvar{background:var(--card);border:1px solid var(--stroke);border-radius:8px;padding:6px 3px;text-align:center;cursor:pointer;transition:.15s}
+  .mvar:hover{border-color:var(--cyan)}
+  .mvar.on{border-color:var(--cyan);background:rgba(0,229,255,.12)}
+  .mvar .p{font-size:10px;color:var(--dim);letter-spacing:.5px;font-weight:700}
+  .mvar .d{font-size:12px;font-weight:800;margin-top:2px}
+  .minfo{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .minfo .i{background:var(--card);border:1px solid var(--stroke);border-radius:8px;padding:7px 9px}
+  .minfo .k{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px}
+  .minfo .v{font-size:13px;font-weight:700;margin-top:2px}
+  .periods{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
   .periods .chip.on{background:rgba(0,229,255,.16);border-color:var(--cyan);color:var(--cyan)}
-  .chart-box{position:relative;height:220px;background:rgba(0,0,0,.2);border-radius:12px;padding:8px}
-  .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:16px}
-  .info{background:var(--card);border:1px solid var(--stroke);border-radius:10px;padding:10px 12px}
-  .info .k{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
-  .info .v{font-size:15px;font-weight:700;margin-top:3px}
-  .modal-foot{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-  .btn-fav{flex:1;min-width:160px;justify-content:center;padding:11px;font-size:13px}
+  .chart-box{position:relative;height:300px;background:rgba(0,0,0,.2);border-radius:12px;padding:8px}
+  .modal-foot{display:flex;gap:8px;margin-top:8px;flex-direction:column}
+  .btn-fav{justify-content:center;padding:11px;font-size:13px}
   .btn-fav.on{background:linear-gradient(90deg,#a06bff,#ff4d6d);border-color:transparent;color:#fff}
+  .btn-ext{justify-content:center;padding:10px;font-size:12px;text-decoration:none;color:var(--cyan);border-color:var(--cyan)}
+  @media(max-width:720px){.mgrid{flex-direction:column}.mleft{flex:1;width:100%}.chart-box{height:240px}}
   footer{padding:6px 18px;font-size:10px;color:var(--dim);text-align:center;border-top:1px solid var(--stroke);background:rgba(10,14,39,.4)}
   @media(max-width:640px){
     .stats{overflow-x:auto} .stat{min-width:120px} .brand small{display:none}
@@ -99,6 +113,7 @@
 <div class="wrap">
   <!-- HEADER -->
   <header>
+    <a class="btn" id="backBtn" href="index.html" target="_top" title="Voltar para a Rádio" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-weight:700">&larr; Rádio</a>
     <div class="brand"><span class="dot"></span>BOLHAS DE AÇÕES <small>· Rádio Bitcoin</small></div>
     <div class="spacer"></div>
     <div class="status"><span class="led demo" id="led"></span><span id="statusTxt">iniciando…</span></div>
@@ -156,20 +171,39 @@
       <button class="x" id="mClose">✕</button>
     </div>
     <div class="modal-b">
-      <div class="periods" id="periods">
-        <span class="chip" data-r="1D">1D</span><span class="chip on" data-r="1W">1W</span>
-        <span class="chip" data-r="1M">1M</span><span class="chip" data-r="3M">3M</span>
-        <span class="chip" data-r="6M">6M</span><span class="chip" data-r="1Y">1Y</span>
-      </div>
-      <div class="chart-box"><canvas id="modalChart"></canvas></div>
-      <div class="info-grid">
-        <div class="info"><div class="k">Setor</div><div class="v" id="mSector"></div></div>
-        <div class="info"><div class="k">Market Cap</div><div class="v" id="mMcap"></div></div>
-        <div class="info"><div class="k">RSI (14)</div><div class="v" id="mRsi"></div></div>
-        <div class="info"><div class="k">Tendência</div><div class="v" id="mTrend"></div></div>
-      </div>
-      <div class="modal-foot">
-        <button class="btn btn-fav" id="mFav">★ Adicionar aos favoritos</button>
+      <div class="mgrid">
+        <div class="mleft">
+          <div class="mbig">$<span id="mPriceBig">0.00</span><div class="c" id="mChangeBig"></div></div>
+          <div class="mvar-lbl">Variação por período</div>
+          <div class="mvar-grid" id="mVarGrid">
+            <div class="mvar" data-r="1H"><div class="p">1H</div><div class="d" id="var-1H">—</div></div>
+            <div class="mvar" data-r="4H"><div class="p">4H</div><div class="d" id="var-4H">—</div></div>
+            <div class="mvar on" data-r="1D"><div class="p">1D</div><div class="d" id="var-1D">—</div></div>
+            <div class="mvar" data-r="1W"><div class="p">1W</div><div class="d" id="var-1W">—</div></div>
+            <div class="mvar" data-r="1M"><div class="p">1M</div><div class="d" id="var-1M">—</div></div>
+            <div class="mvar" data-r="1Y"><div class="p">1Y</div><div class="d" id="var-1Y">—</div></div>
+          </div>
+          <div class="minfo">
+            <div class="i"><div class="k">Setor</div><div class="v" id="mSector">—</div></div>
+            <div class="i"><div class="k">Market Cap</div><div class="v" id="mMcap">—</div></div>
+            <div class="i"><div class="k">Volume</div><div class="v" id="mVol">—</div></div>
+            <div class="i"><div class="k">Fech. anterior</div><div class="v" id="mPrev">—</div></div>
+            <div class="i"><div class="k">RSI (14)</div><div class="v" id="mRsi">—</div></div>
+            <div class="i"><div class="k">Tendência</div><div class="v" id="mTrend">—</div></div>
+          </div>
+          <div class="modal-foot">
+            <button class="btn btn-fav" id="mFav">★ Adicionar aos favoritos</button>
+            <a class="btn btn-ext" id="mExt" href="#" target="_blank" rel="noopener">📊 Ver no Yahoo Finance ↗</a>
+          </div>
+        </div>
+        <div class="mright">
+          <div class="periods" id="periods">
+            <span class="chip" data-r="1H">1H</span><span class="chip" data-r="4H">4H</span>
+            <span class="chip on" data-r="1D">1D</span><span class="chip" data-r="1W">1W</span>
+            <span class="chip" data-r="1M">1M</span><span class="chip" data-r="1Y">1Y</span>
+          </div>
+          <div class="chart-box"><canvas id="modalChart"></canvas></div>
+        </div>
       </div>
     </div>
   </div>
@@ -515,69 +549,120 @@ cv.addEventListener('click',e=>{ const r=cv.getBoundingClientRect(); const b=bub
 // ============================================================
 const modalBg=document.getElementById('modalBg');
 function synthSeries(sym,range){
-  const pts={'1D':24,'1W':7*8,'1M':30,'3M':90,'6M':120,'1Y':160}[range]||60;
-  const s=STOCKS[sym]; const end=s.price; let arr=[]; let v=end*(0.85+Math.random()*0.1);
-  const labels=[];
-  for(let i=0;i<pts;i++){ v=v*(1+(Math.random()*0.04-0.019)); arr.push(+v.toFixed(2)); labels.push(''); }
+  const pts={'1H':30,'4H':48,'1D':78,'1W':60,'1M':30,'1Y':160}[range]||60;
+  const s=STOCKS[sym]; const end=s.price; let arr=[]; let v=end*(0.9+Math.random()*0.08);
+  for(let i=0;i<pts;i++){ v=v*(1+(Math.random()*0.03-0.014)); arr.push(+v.toFixed(2)); }
   arr[arr.length-1]=end;
-  return {labels,data:arr};
+  return {t:arr.map(()=>0),c:arr};
 }
-async function realSeries(sym,range){
-  const map={'1D':['5m','1d'],'1W':['30m','5d'],'1M':['1d','1mo'],'3M':['1d','3mo'],'6M':['1d','6mo'],'1Y':['1wk','1y']};
-  const [interval,rng]=map[range]||['1d','1mo'];
-  try{
-    const url='https://query1.finance.yahoo.com/v8/finance/chart/'+sym+'?interval='+interval+'&range='+rng;
-    const r=await fetch(PROXY(url),{cache:'no-store'}); if(!r.ok)throw 0;
-    const j=await r.json(); const res=j?.chart?.result?.[0]; const q=res?.indicators?.quote?.[0]?.close;
-    if(!q||!q.length)throw 0; const data=q.filter(x=>x!=null).map(x=>+x.toFixed(2));
-    return {labels:data.map(()=>''),data};
-  }catch(e){ return null; }
-}
-function rsi(data){ if(data.length<15) return null; let g=0,l=0;
+function rsi(data){ if(!data||data.length<15) return null; let g=0,l=0;
   for(let i=data.length-14;i<data.length;i++){ const d=data[i]-data[i-1]; if(d>=0)g+=d;else l-=d; }
   if(l===0) return 100; const rs=(g/14)/(l/14); return Math.round(100-100/(1+rs)); }
+function fmtVol(n){ if(!n)return '—'; if(n>=1e9)return (n/1e9).toFixed(1)+'B'; if(n>=1e6)return (n/1e6).toFixed(1)+'M'; if(n>=1e3)return (n/1e3).toFixed(1)+'K'; return ''+n; }
 
+// Busca 2 séries-base do Yahoo (intraday + diária) e deriva todos os períodos delas.
+let modalData=null;
+async function fetchYahooRange(sym,interval,rng){
+  const url='https://query1.finance.yahoo.com/v8/finance/chart/'+sym+'?interval='+interval+'&range='+rng;
+  const r=await fetch(PROXY(url),{cache:'no-store'}); if(!r.ok)throw 0;
+  const j=await r.json(); const res=j?.chart?.result?.[0]; if(!res)throw 0;
+  const ts=res.timestamp||[]; const cl=res?.indicators?.quote?.[0]?.close||[];
+  const t=[],c=[]; for(let i=0;i<ts.length;i++){ if(cl[i]!=null){ t.push(ts[i]); c.push(+cl[i].toFixed(2)); } }
+  return {t,c,meta:res.meta||{}};
+}
+async function loadModalData(sym){
+  if(modalData && modalData.sym===sym) return modalData;
+  let intraday=null, daily=null;
+  try{ intraday=await fetchYahooRange(sym,'5m','5d'); }catch(e){}
+  try{ daily=await fetchYahooRange(sym,'1d','1y'); }catch(e){}
+  modalData={sym,intraday,daily};
+  return modalData;
+}
+function sliceRange(md,range){
+  const id=md&&md.intraday, dl=md&&md.daily;
+  function secs(src,s){ if(!src||!src.t.length)return null; const end=src.t[src.t.length-1],from=end-s; const t=[],c=[];
+    for(let i=0;i<src.t.length;i++){ if(src.t[i]>=from){t.push(src.t[i]);c.push(src.c[i]);} } return c.length>1?{t,c}:null; }
+  function lastN(src,n){ if(!src||!src.c.length)return null; return {t:src.t.slice(-n),c:src.c.slice(-n)}; }
+  switch(range){
+    case '1H': return secs(id,3600)||lastN(id,12);
+    case '4H': return secs(id,14400)||lastN(id,48);
+    case '1D': return secs(id,86400)||lastN(id,78);
+    case '1W': return id||lastN(dl,5);
+    case '1M': return lastN(dl,22);
+    case '1Y': return dl;
+    default: return dl;
+  }
+}
+function pctChange(seg){ if(!seg||!seg.c||seg.c.length<2)return null; const a=seg.c[0],b=seg.c[seg.c.length-1]; return a?(b-a)/a*100:null; }
+function fillVarGrid(md){
+  ['1H','4H','1D','1W','1M','1Y'].forEach(function(rg){
+    const el=document.getElementById('var-'+rg); if(!el)return;
+    const p=pctChange(sliceRange(md,rg));
+    if(p==null){ el.textContent='—'; el.style.color='var(--dim)'; return; }
+    const up=p>=0; el.textContent=(up?'▲':'▼')+Math.abs(p).toFixed(2)+'%'; el.style.color=up?'var(--green)':'var(--red)';
+  });
+}
+function setActivePeriod(r){
+  modalRange=r;
+  document.querySelectorAll('#periods .chip').forEach(x=>x.classList.toggle('on',x.dataset.r===r));
+  document.querySelectorAll('#mVarGrid .mvar').forEach(x=>x.classList.toggle('on',x.dataset.r===r));
+}
 async function openModal(sym){
-  modalSym=sym; const s=STOCKS[sym]; const m=META[sym];
+  modalSym=sym; modalRange='1D'; const s=STOCKS[sym];
   modalBg.style.display='flex';
   refreshModalHeader();
   document.getElementById('mSector').textContent=(SECTOR_EMOJI[s.sector]||'')+' '+s.sector;
   document.getElementById('mMcap').textContent='$'+s.mcap+'B';
-  // logo
+  document.getElementById('mVol').textContent='…'; document.getElementById('mPrev').textContent='…';
+  const ext=document.getElementById('mExt'); if(ext) ext.href='https://finance.yahoo.com/quote/'+encodeURIComponent(sym);
   const lg=document.getElementById('mLogo'); lg.innerHTML='';
-  if(META[sym].logo){ const im=document.createElement('img'); im.src=META[sym].logo;
+  if(META[sym]&&META[sym].logo){ const im=document.createElement('img'); im.src=META[sym].logo;
     im.onerror=()=>{lg.textContent=sym.slice(0,2)}; lg.appendChild(im);} else lg.textContent=sym.slice(0,2);
-  updateFavBtn();
-  drawModalChart(sym, modalRange);
+  updateFavBtn(); setActivePeriod('1D');
+  ['1H','4H','1D','1W','1M','1Y'].forEach(r=>{const e=document.getElementById('var-'+r);if(e){e.textContent='…';e.style.color='var(--dim)';}});
+  drawFromData(synthSeries(sym,'1D'));   // gráfico provisório enquanto carrega
+  const md=await loadModalData(sym);
+  if(modalSym!==sym) return;             // usuário abriu outra ação nesse meio-tempo
+  const meta=(md.intraday&&md.intraday.meta)||(md.daily&&md.daily.meta)||{};
+  document.getElementById('mVol').textContent=fmtVol(meta.regularMarketVolume);
+  const prev=meta.chartPreviousClose||meta.previousClose;
+  document.getElementById('mPrev').textContent=prev?('$'+(+prev).toFixed(2)):'—';
+  fillVarGrid(md);
+  drawModalChart(md,modalRange);
 }
 function refreshModalHeader(){ const s=STOCKS[modalSym]; if(!s)return; const up=s.change>=0;
+  const ch=(up?'▲ +':'▼ ')+s.change.toFixed(2)+'%'; const col=up?'var(--green)':'var(--red)';
   document.getElementById('mSym').textContent=s.symbol;
   document.getElementById('mName').textContent=s.name;
-  document.getElementById('mPrice').textContent='$'+s.price.toFixed(2);
-  const c=document.getElementById('mChange'); c.textContent=(up?'▲ +':'▼ ')+s.change.toFixed(2)+'%';
-  c.style.color=up?'var(--green)':'var(--red)';
+  const mp=document.getElementById('mPrice'); if(mp)mp.textContent='$'+s.price.toFixed(2);
+  const mc=document.getElementById('mChange'); if(mc){mc.textContent=ch;mc.style.color=col;}
+  const pb=document.getElementById('mPriceBig'); if(pb)pb.textContent=s.price.toFixed(2);
+  const cb=document.getElementById('mChangeBig'); if(cb){cb.textContent=ch;cb.style.color=col;}
 }
-async function drawModalChart(sym,range){
-  let ser = usingReal? await realSeries(sym,range):null;
-  if(!ser) ser = synthSeries(sym,range);
-  const up = ser.data[ser.data.length-1]>=ser.data[0];
-  const col = up? '#00e08a':'#ff4d6d';
-  document.getElementById('mRsi').textContent = rsi(ser.data)??'—';
-  document.getElementById('mTrend').textContent = up? '📈 Alta':'📉 Baixa';
-  const cx=document.getElementById('modalChart');
-  if(modalChart) modalChart.destroy();
-  const grad=cx.getContext('2d').createLinearGradient(0,0,0,200);
-  grad.addColorStop(0, up?'rgba(0,224,138,.35)':'rgba(255,77,109,.35)'); grad.addColorStop(1,'rgba(0,0,0,0)');
-  modalChart=new Chart(cx,{type:'line',data:{labels:ser.labels,datasets:[{data:ser.data,borderColor:col,
+function drawFromData(seg){
+  const data=(seg&&seg.c)?seg.c:[]; if(data.length<2)return;
+  const up=data[data.length-1]>=data[0]; const col=up?'#00e08a':'#ff4d6d';
+  document.getElementById('mRsi').textContent=rsi(data)??'—';
+  document.getElementById('mTrend').textContent=up?'📈 Alta':'📉 Baixa';
+  const cx=document.getElementById('modalChart'); if(modalChart)modalChart.destroy();
+  const grad=cx.getContext('2d').createLinearGradient(0,0,0,300);
+  grad.addColorStop(0,up?'rgba(0,224,138,.32)':'rgba(255,77,109,.32)'); grad.addColorStop(1,'rgba(0,0,0,0)');
+  modalChart=new Chart(cx,{type:'line',data:{labels:data.map(()=>''),datasets:[{data,borderColor:col,
     backgroundColor:grad,fill:true,tension:.25,pointRadius:0,borderWidth:2}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+    options:{responsive:true,maintainAspectRatio:false,animation:{duration:400},plugins:{legend:{display:false},
       tooltip:{callbacks:{label:c=>'$'+c.parsed.y}}},
       scales:{x:{display:false},y:{ticks:{color:'#8b93a7',callback:v=>'$'+v},grid:{color:'rgba(255,255,255,.05)'}}}}});
 }
+function drawModalChart(md,range){
+  md=md||modalData; let seg=md?sliceRange(md,range):null;
+  if(!seg||!seg.c||seg.c.length<2) seg=synthSeries(modalSym,range);
+  drawFromData(seg);
+}
 document.getElementById('periods').addEventListener('click',e=>{
-  const c=e.target.closest('.chip'); if(!c)return;
-  document.querySelectorAll('#periods .chip').forEach(x=>x.classList.remove('on')); c.classList.add('on');
-  modalRange=c.dataset.r; drawModalChart(modalSym,modalRange);
+  const c=e.target.closest('.chip'); if(!c)return; setActivePeriod(c.dataset.r); drawModalChart(modalData,modalRange);
+});
+document.getElementById('mVarGrid').addEventListener('click',e=>{
+  const c=e.target.closest('.mvar'); if(!c)return; setActivePeriod(c.dataset.r); drawModalChart(modalData,modalRange);
 });
 document.getElementById('mClose').onclick=()=>{modalBg.style.display='none'};
 modalBg.addEventListener('click',e=>{if(e.target===modalBg)modalBg.style.display='none'});
