@@ -1548,7 +1548,99 @@ img{max-width:100%;height:auto;}
 })();
 </script>
 
-  <!-- ===== NÓ BITCOIN AO VIVO (BIT ADICT) ===== -->
+  <!-- ===== VOTAÇÃO LOCUTORES IA ===== -->
+<style>
+  .vlc{max-width:1100px;margin:18px auto;padding:18px 16px 14px;background:linear-gradient(160deg,#120c1e,#0a0710);border:1px solid rgba(160,107,255,.35);border-radius:16px;box-shadow:0 0 40px -14px rgba(160,107,255,.4)}
+  .vlc__head{text-align:center;margin-bottom:6px}
+  .vlc__title{font-size:clamp(16px,4.4vw,22px);font-weight:900;color:#fff}
+  .vlc__title b{color:#c9a6ff}
+  .vlc__sub{font-size:12px;color:#9a8ac0;margin:4px 0 14px;text-align:center}
+  .vlc__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+  .vlc__card{background:rgba(255,255,255,.03);border:1px solid #2a2140;border-radius:12px;padding:14px}
+  .vlc__top{display:flex;align-items:center;gap:11px;margin-bottom:10px}
+  .vlc__av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex:0 0 auto;font-weight:900;color:#fff}
+  .vlc__nm{font-size:15px;font-weight:800;color:#fff}
+  .vlc__tag{font-size:10px;color:#9a8ac0}
+  .vlc__barwrap{height:8px;background:rgba(255,255,255,.07);border-radius:5px;overflow:hidden;margin:8px 0 4px}
+  .vlc__bar{height:100%;border-radius:5px;width:0;transition:width .7s ease}
+  .vlc__row{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:10px}
+  .vlc__pct{font-weight:900;font-family:ui-monospace,Menlo,monospace}
+  .vlc__votes{color:#9a8ac0}
+  .vlc__btn{width:100%;padding:10px;border:0;border-radius:9px;font-weight:800;font-size:13px;cursor:pointer;color:#fff;transition:filter .15s}
+  .vlc__btn:hover{filter:brightness(1.12)}
+  .vlc__btn:disabled{opacity:.55;cursor:default}
+  .vlc__btn.voted{background:rgba(255,255,255,.1)!important;border:1px solid #4ade80;color:#4ade80}
+  .vlc__foot{text-align:center;color:#6b5a86;font-size:11px;margin-top:12px}
+  .vlc__live{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:1.5px;color:#16c784}
+  .vlc__live i{width:8px;height:8px;border-radius:50%;background:#ea3943;animation:clmPulse 1.2s infinite}
+</style>
+<section class="vlc">
+  <div class="vlc__head">
+    <div class="vlc__title">🎙️ Vote no melhor <b>locutor IA</b> da Rádio</div>
+    <div class="vlc__sub">4 inteligências se revezam na locução ao vivo · <span class="vlc__live"><i></i> AO VIVO</span> · seu voto vale 1x por dia</div>
+  </div>
+  <div class="vlc__grid" id="vlcGrid"></div>
+  <div class="vlc__foot" id="vlcFoot">Carregando placar…</div>
+</section>
+<script>
+(function(){
+  var API='https://radio.radiobitcoin.org';
+  var LOCS=[
+    {id:'claude', nome:'Claude', cor:'#d97757', emoji:'🟠'},
+    {id:'gemini', nome:'Gemini', cor:'#4b8bf5', emoji:'🔵'},
+    {id:'gpt',    nome:'GPT',    cor:'#10a37f', emoji:'🟢'},
+    {id:'manus',  nome:'Manus',  cor:'#a06bff', emoji:'🟣'},
+  ];
+  var grid=document.getElementById('vlcGrid'), foot=document.getElementById('vlcFoot');
+  var meuVoto=null; try{ meuVoto=localStorage.getItem('rb_voto_locutor'); }catch(e){}
+  function build(){
+    grid.innerHTML='';
+    LOCS.forEach(function(l){
+      grid.insertAdjacentHTML('beforeend',
+        '<div class="vlc__card"><div class="vlc__top">'+
+          '<div class="vlc__av" style="background:'+l.cor+'">'+l.nome.charAt(0)+'</div>'+
+          '<div><div class="vlc__nm">'+l.nome+'</div><div class="vlc__tag">Locutor IA</div></div></div>'+
+        '<div class="vlc__barwrap"><div class="vlc__bar" id="vbar-'+l.id+'" style="background:'+l.cor+'"></div></div>'+
+        '<div class="vlc__row"><span class="vlc__pct" id="vpct-'+l.id+'" style="color:'+l.cor+'">—</span>'+
+          '<span class="vlc__votes" id="vv-'+l.id+'"></span></div>'+
+        '<button class="vlc__btn" id="vbtn-'+l.id+'" style="background:'+l.cor+'" data-id="'+l.id+'">Votar no '+l.nome+'</button></div>');
+    });
+    LOCS.forEach(function(l){ document.getElementById('vbtn-'+l.id).addEventListener('click',function(){ votar(l.id); }); });
+  }
+  function pintar(votos){
+    var total=LOCS.reduce(function(s,l){return s+(votos[l.id]||0);},0)||1;
+    LOCS.forEach(function(l){
+      var n=votos[l.id]||0, pct=Math.round(100*n/total);
+      var bar=document.getElementById('vbar-'+l.id); if(bar)bar.style.width=pct+'%';
+      var p=document.getElementById('vpct-'+l.id); if(p)p.textContent=pct+'%';
+      var v=document.getElementById('vv-'+l.id); if(v)v.textContent=n+(n===1?' voto':' votos');
+      var b=document.getElementById('vbtn-'+l.id);
+      if(b){ if(meuVoto===l.id){ b.classList.add('voted'); b.textContent='✓ Seu voto'; }
+             b.disabled = !!meuVoto; }
+    });
+    foot.textContent='Total: '+total+' votos · fonte ao vivo';
+  }
+  function carregar(){
+    fetch(API+'/placar',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){ pintar(d.votos||{}); })
+      .catch(function(){ foot.textContent='Placar indisponível no momento.'; });
+  }
+  function votar(id){
+    if(meuVoto){ return; }
+    var b=document.getElementById('vbtn-'+id); if(b){b.disabled=true;b.textContent='Registrando…';}
+    fetch(API+'/votar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({locutor:id})})
+      .then(function(r){ return r.json().then(function(j){return {ok:r.ok,j:j};}); })
+      .then(function(res){
+        if(res.ok && res.j.ok){ meuVoto=id; try{localStorage.setItem('rb_voto_locutor',id);}catch(e){} carregar(); }
+        else { foot.textContent = res.j.erro || 'Não foi possível votar agora.'; if(b){b.disabled=false;b.textContent='Votar';} }
+      })
+      .catch(function(){ foot.textContent='Erro de conexão ao votar.'; if(b){b.disabled=false;b.textContent='Votar';} });
+  }
+  build(); carregar(); setInterval(carregar, 30000);
+})();
+</script>
+<!-- ===== FIM VOTAÇÃO LOCUTORES ===== -->
+
+<!-- ===== NÓ BITCOIN AO VIVO (BIT ADICT) ===== -->
   <style>
   .btcnode{max-width:1100px;margin:14px auto;padding:16px 20px;background:linear-gradient(135deg,#12100a,#0a0803);border:2px solid rgba(242,169,0,0.55);border-radius:14px;font-family:ui-monospace,Menlo,monospace;box-shadow:0 0 34px -10px rgba(242,169,0,0.4);}
   .btcnode__head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
