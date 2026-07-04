@@ -1335,6 +1335,45 @@ img{max-width:100%;height:auto;}
       <button class="hr-play hr-play--econ" id="econPlay"><span class="ic">📊</span><span id="econPlayTxt">SÓ ECONOMIA (IA)</span></button>
     </div>
     <div class="hr-nowplaying" id="econNow"></div>
+    <style>
+    .hr-share-wrap{position:relative;margin-top:14px}
+    .hr-share{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;background:linear-gradient(90deg,#a06bff,#ff4d6d);color:#fff;font-weight:900;font-size:14px;letter-spacing:.5px;padding:12px 26px;border-radius:999px;box-shadow:0 6px 24px -6px rgba(160,107,255,.85);transition:transform .15s}
+    .hr-share:hover{transform:translateY(-2px)}
+    .hr-share-menu{display:none;position:absolute;left:50%;transform:translateX(-50%);top:calc(100% + 8px);background:#12121c;border:1px solid #2c2c3a;border-radius:12px;padding:6px;z-index:20;min-width:190px;box-shadow:0 14px 44px rgba(0,0,0,.65)}
+    .hr-share-menu.on{display:block}
+    .hr-sh{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:10px 12px;border-radius:8px;color:#fff;background:none;border:0;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;font-family:inherit}
+    .hr-sh:hover{background:rgba(255,255,255,.08)}
+    </style>
+    <div class="hr-share-wrap">
+      <button class="hr-share" id="hrShare">📢 COMPARTILHE A RÁDIO</button>
+      <div class="hr-share-menu" id="hrShareMenu">
+        <a class="hr-sh" data-net="wa" target="_blank" rel="noopener">💬 WhatsApp</a>
+        <a class="hr-sh" data-net="tg" target="_blank" rel="noopener">✈️ Telegram</a>
+        <a class="hr-sh" data-net="x" target="_blank" rel="noopener">✖️ Twitter / X</a>
+        <button class="hr-sh" id="hrShCopy">🔗 Copiar link</button>
+      </div>
+    </div>
+    <script>
+    (function(){
+      var b=document.getElementById('hrShare'); if(!b)return;
+      var URL='https://radiobitcoin.org', TXT='📻 Rádio Bitcoin — 24h de notícias, mercado e música Bitcoin, sem KYC. Ouça ao vivo:';
+      var menu=document.getElementById('hrShareMenu'), enc=encodeURIComponent;
+      menu.querySelector('[data-net=wa]').href='https://wa.me/?text='+enc(TXT+' '+URL);
+      menu.querySelector('[data-net=tg]').href='https://t.me/share/url?url='+enc(URL)+'&text='+enc(TXT);
+      menu.querySelector('[data-net=x]').href='https://twitter.com/intent/tweet?text='+enc(TXT)+'&url='+enc(URL);
+      b.addEventListener('click',function(e){
+        e.stopPropagation();
+        if(navigator.share){ navigator.share({title:'Rádio Bitcoin',text:TXT,url:URL}).catch(function(){}); }
+        else { menu.classList.toggle('on'); }
+      });
+      document.getElementById('hrShCopy').addEventListener('click',function(e){
+        e.stopPropagation(); var self=this;
+        if(navigator.clipboard){ navigator.clipboard.writeText(URL).then(function(){ self.textContent='✓ Link copiado!'; setTimeout(function(){self.textContent='🔗 Copiar link';menu.classList.remove('on');},1400); }); }
+        else { menu.classList.remove('on'); }
+      });
+      document.addEventListener('click',function(){ menu.classList.remove('on'); });
+    })();
+    </script>
     <audio id="liveAudio" preload="none" src="https://stream.radiobitcoin.org/radio"></audio>
     <audio id="econAudio" preload="none"></audio>
 
