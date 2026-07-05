@@ -6,10 +6,34 @@
   "category": "Bitcoin"
  },
  {
-  "title": "Plantão Bitcoin: US$ 63.241",
+  "title": "Alerta & Sobrevivência — Mar de Marataízes",
+  "file": "alerta_sobrevivencia.mp3",
+  "dur": "",
+  "category": "Alerta & Sobrevivência"
+ },
+ {
+  "title": "Boletim de Notícias Bitcoin",
+  "file": "boletim_noticias.mp3",
+  "dur": "",
+  "category": "Boletim"
+ },
+ {
+  "title": "Plantão Bitcoin: US$ 63.285",
   "file": "alerta_preco.mp3",
   "dur": "",
   "category": "Alerta"
+ },
+ {
+  "title": "Siga o Dinheiro — Fluxo do dia",
+  "file": "fluxo_dinheiro.mp3",
+  "dur": "",
+  "category": "Fluxo do Dinheiro"
+ },
+ {
+  "title": "Mercado · Panorama 16h30 (Grok)",
+  "file": "mercado_panorama.mp3",
+  "dur": "",
+  "category": "Mercado"
  },
  {
   "title": "Escola Austríaca: A origem do dinheiro (Menger)",
@@ -26,30 +50,6 @@
  {
   "title": "Mercado · Abertura (Grok)",
   "file": "mercado_abertura.mp3",
-  "dur": "",
-  "category": "Mercado"
- },
- {
-  "title": "Boletim de Notícias Bitcoin",
-  "file": "boletim_noticias.mp3",
-  "dur": "",
-  "category": "Boletim"
- },
- {
-  "title": "Alerta & Sobrevivência — Mar de Marataízes",
-  "file": "alerta_sobrevivencia.mp3",
-  "dur": "",
-  "category": "Alerta & Sobrevivência"
- },
- {
-  "title": "Siga o Dinheiro — Fluxo do dia",
-  "file": "fluxo_dinheiro.mp3",
-  "dur": "",
-  "category": "Fluxo do Dinheiro"
- },
- {
-  "title": "Mercado · Panorama 16h30 (Claude)",
-  "file": "mercado_panorama.mp3",
   "dur": "",
   "category": "Mercado"
  },
@@ -198,8 +198,8 @@
   "category": "Reggae"
  },
  {
-  "title": "🎙️ Locutor Manus — vote no melhor locutor!",
-  "file": "spots_locutores/spot_manus.mp3",
+  "title": "🎙️ Locutor Grok — vote no melhor locutor!",
+  "file": "spots_locutores/spot_grok.mp3",
   "dur": "",
   "category": "Locutores IA"
  },

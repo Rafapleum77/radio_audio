@@ -1558,7 +1558,7 @@ img{max-width:100%;height:auto;}
   .vlc__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
   .vlc__card{background:rgba(255,255,255,.03);border:1px solid #2a2140;border-radius:12px;padding:14px}
   .vlc__top{display:flex;align-items:center;gap:11px;margin-bottom:10px}
-  .vlc__av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex:0 0 auto;font-weight:900;color:#fff}
+  .vlc__av{width:48px;height:48px;border-radius:50%;flex:0 0 auto;object-fit:cover;background:#0a0710}
   .vlc__nm{font-size:15px;font-weight:800;color:#fff}
   .vlc__tag{font-size:10px;color:#9a8ac0}
   .vlc__barwrap{height:8px;background:rgba(255,255,255,.07);border-radius:5px;overflow:hidden;margin:8px 0 4px}
@@ -1586,10 +1586,10 @@ img{max-width:100%;height:auto;}
 (function(){
   var API='https://radio.radiobitcoin.org';
   var LOCS=[
-    {id:'claude', nome:'Claude', cor:'#d97757', emoji:'🟠'},
-    {id:'gemini', nome:'Gemini', cor:'#4b8bf5', emoji:'🔵'},
-    {id:'gpt',    nome:'GPT',    cor:'#10a37f', emoji:'🟢'},
-    {id:'manus',  nome:'Manus',  cor:'#a06bff', emoji:'🟣'},
+    {id:'claude', nome:'Claude', cor:'#f2a900', img:'locutor_claude.png'},
+    {id:'gemini', nome:'Gemini', cor:'#4b8bf5', img:'locutor_gemini.png'},
+    {id:'gpt',    nome:'GPT',    cor:'#10a37f', img:'locutor_gpt4o.png'},
+    {id:'grok',   nome:'Grok',   cor:'#9fb2c8', img:'locutor_grok.png'},
   ];
   var grid=document.getElementById('vlcGrid'), foot=document.getElementById('vlcFoot');
   var meuVoto=null; try{ meuVoto=localStorage.getItem('rb_voto_locutor'); }catch(e){}
@@ -1598,7 +1598,7 @@ img{max-width:100%;height:auto;}
     LOCS.forEach(function(l){
       grid.insertAdjacentHTML('beforeend',
         '<div class="vlc__card"><div class="vlc__top">'+
-          '<div class="vlc__av" style="background:'+l.cor+'">'+l.nome.charAt(0)+'</div>'+
+          '<img class="vlc__av" src="'+l.img+'" alt="'+l.nome+'" style="border:2px solid '+l.cor+'">'+
           '<div><div class="vlc__nm">'+l.nome+'</div><div class="vlc__tag">Locutor IA</div></div></div>'+
         '<div class="vlc__barwrap"><div class="vlc__bar" id="vbar-'+l.id+'" style="background:'+l.cor+'"></div></div>'+
         '<div class="vlc__row"><span class="vlc__pct" id="vpct-'+l.id+'" style="color:'+l.cor+'">—</span>'+
