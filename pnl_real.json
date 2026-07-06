@@ -1,15 +1,22 @@
 {
- "atualizado": "06/07/2026 12:37",
+ "atualizado": "06/07/2026 13:08",
  "wallets": [
   {
-   "trades": 453,
-   "wins": 279,
+   "trades": 454,
+   "wins": 280,
    "losses": 174,
    "winrate": 62,
-   "pnl_total": -64.02,
-   "pnl_hoje": 2.5,
-   "trades_hoje": 1,
+   "pnl_total": -61.77,
+   "pnl_hoje": 4.75,
+   "trades_hoje": 2,
    "ultimos": [
+    {
+     "quando": "06/07 12:31",
+     "titulo": "XRP Up or Down - July 6, 11:15AM-11:30AM ET",
+     "preco": 0.55,
+     "resultado": "WIN",
+     "pnl": 2.25
+    },
     {
      "quando": "06/07 00:46",
      "titulo": "XRP Up or Down - July 5, 11:30PM-11:45PM ET",
@@ -86,13 +93,6 @@
      "preco": 0.52,
      "resultado": "WIN",
      "pnl": 2.41
-    },
-    {
-     "quando": "30/06 23:14",
-     "titulo": "XRP Up or Down - June 30, 10:00PM-10:15PM ET",
-     "preco": 0.69,
-     "resultado": "LOSS",
-     "pnl": -3.45
     }
    ],
    "nome": "Rádio (Rafael)",
