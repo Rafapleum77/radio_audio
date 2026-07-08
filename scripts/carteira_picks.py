@@ -166,16 +166,30 @@ def main():
     OUT_JSON.write_text(json.dumps(out, indent=2, ensure_ascii=False))
     print(f"\nSAIDA: {OUT_JSON} ({len(rows)} tickers)", flush=True)
 
-    # commit + push (idempotente — so altera se houver mudanca)
+    # commit + push com AUTO-CURA (nunca deixa o repo preso em rebase -> deploy nao congela)
     try:
+        # 0) destrava qualquer rebase preso de uma execucao anterior (bug recorrente jun/2026)
+        subprocess.run(["git", "-C", str(RADIO), "rebase", "--abort"],
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
+        subprocess.run(["git", "-C", str(RADIO), "checkout", "main"],
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
         subprocess.run(["git", "-C", str(RADIO), "add", "carteira.json",
                         "mission_dashboard.html", "bots_status.json", "ticker_data.json"], check=True)
         r = subprocess.run(["git", "-C", str(RADIO), "diff", "--cached", "--quiet"])
         if r.returncode != 0:  # ha mudancas
             subprocess.run(["git", "-C", str(RADIO), "commit", "-m", "carteira: update auto"], check=True)
-            subprocess.run(["git", "-C", str(RADIO), "pull", "--rebase", "--autostash"], check=False)
-            subprocess.run(["git", "-C", str(RADIO), "push"], check=False)
-            print("commit + push OK")
+            pull = subprocess.run(["git", "-C", str(RADIO), "pull", "--rebase", "--autostash",
+                                   "origin", "main"], check=False)
+            if pull.returncode != 0:
+                # rebase conflitou -> ABORTA (nunca deixa preso) e ressincroniza com o remoto
+                subprocess.run(["git", "-C", str(RADIO), "rebase", "--abort"],
+                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
+                subprocess.run(["git", "-C", str(RADIO), "reset", "--hard", "origin/main"],
+                               stdout=subprocess.DEVNULL, check=False)
+                print("auto-cura: rebase conflitou, ressincronizado (dados regeneram no proximo ciclo)")
+            else:
+                subprocess.run(["git", "-C", str(RADIO), "push", "origin", "main"], check=False)
+                print("commit + push OK")
         else:
             print("sem mudancas")
     except Exception as e:
