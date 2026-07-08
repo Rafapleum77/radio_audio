@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-06-28 17:29:13",
-  "atualizado_ts": 1782678553,
+  "atualizado_em": "2026-07-07 22:45:50",
+  "atualizado_ts": 1783475150,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,36 +93,36 @@
     }
   },
   "radio_panel": {
-    "hora": "17:29:14",
-    "ts": 1782678554,
-    "pnl_total": -34.46,
+    "hora": "22:45:51",
+    "ts": 1783475151,
+    "pnl_total": -31.73,
     "bots": [
       {
         "nome": "XRP",
         "modo": "LIVE",
         "ativo": true,
-        "pnl": 12.549,
-        "trades": 34,
-        "ganhos": 27,
-        "banca": 120.0,
-        "ultima": "17:28:58"
+        "pnl": 5.124,
+        "trades": 6,
+        "ganhos": 6,
+        "banca": 35.0,
+        "ultima": "22:45:49"
       },
       {
         "nome": "ARBITRAGE",
-        "modo": "LIVE",
+        "modo": "PAPER",
         "ativo": true,
-        "pnl": 0.0,
-        "win": 0.0,
-        "ultima": "17:28:57",
-        "uptime": "176h35m"
+        "pnl": 2.89,
+        "win": 100.0,
+        "ultima": "22:45:51",
+        "uptime": "177h02m"
       },
       {
         "nome": "DIRECIONAL",
         "modo": "PAPER",
         "ativo": true,
-        "pnl": -7.27,
+        "pnl": 0.0,
         "win": 0.0,
-        "ultima": "17:29:01"
+        "ultima": "22:45:47"
       },
       {
         "nome": "GAEL LENOVO",
@@ -138,10 +138,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 44.7,
-        "ram_pct": 99.4,
-        "disk_pct": 2.0,
-        "uptime": "7 days,  8:40"
+        "cpu": 80.6,
+        "ram_pct": 93.3,
+        "disk_pct": 3.0,
+        "uptime": "16 days, 13:56"
       },
       {
         "nome": "INTEL",
@@ -156,10 +156,10 @@
         "nome": "NITRO",
         "papel": "Win11 - banners",
         "online": true,
-        "cpu": 1,
-        "ram_pct": 70.7,
-        "disk_pct": 76.3,
-        "uptime": "149h"
+        "cpu": 10,
+        "ram_pct": 53.1,
+        "disk_pct": 66.8,
+        "uptime": "47h"
       },
       {
         "nome": "LENOVO",
