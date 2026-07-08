@@ -6884,12 +6884,7 @@ function autoStartRadio() {
     if (vv) vv.textContent = '25%';
   }
   loadTrack();
-  playTrack();              // tenta autoplay já
-  const kick = () => {
-    if (!isPlaying) { try { playTrack(); } catch(e) {} }
-    if (isPlaying) ['pointerdown','keydown','touchstart','scroll'].forEach(ev => window.removeEventListener(ev, kick));
-  };
-  ['pointerdown','keydown','touchstart','scroll'].forEach(ev => window.addEventListener(ev, kick, { passive: true }));
+  // autoplay desativado: musica so toca quando o usuario clicar no play
 }
 
 async function carregarPedidos() {
