@@ -1377,6 +1377,60 @@ img{max-width:100%;height:auto;}
     <audio id="liveAudio" preload="none" src="https://stream.radiobitcoin.org/radio"></audio>
     <audio id="econAudio" preload="none"></audio>
 
+    <!-- ===== ALÔ DOÇURA — caixa de sugestões em coração ===== -->
+    <style>
+      .alodoc{margin:16px auto 4px;text-align:center}
+      .alodoc__btn{position:relative;display:inline-block;width:128px;height:118px;border:0;background:transparent;cursor:pointer;filter:drop-shadow(0 7px 20px rgba(255,45,85,.5));transition:transform .18s}
+      .alodoc__btn:hover{transform:scale(1.07)}
+      .alodoc__btn svg{width:100%;height:100%;display:block;animation:aloBeat 1.7s ease-in-out infinite;transform-origin:center}
+      @keyframes aloBeat{0%,100%{transform:scale(1)}12%{transform:scale(1.09)}24%{transform:scale(1)}36%{transform:scale(1.05)}48%{transform:scale(1)}}
+      .alodoc__txt{position:absolute;left:0;right:0;top:34%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;pointer-events:none;color:#fff;text-shadow:0 1px 5px rgba(120,0,20,.6)}
+      .alodoc__txt b{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:800;letter-spacing:.4px;line-height:1}
+      .alodoc__txt small{font-size:8.5px;opacity:.95;margin-top:3px;letter-spacing:.4px}
+      .alodoc__ov{position:fixed;inset:0;background:rgba(4,6,12,.8);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:99999;padding:16px}
+      .alodoc__ov.open{display:flex}
+      .alodoc__box{width:100%;max-width:420px;background:linear-gradient(160deg,#1c0f15,#0e0a10);border:1px solid rgba(255,77,109,.45);border-radius:18px;box-shadow:0 22px 64px -12px rgba(255,45,85,.55);padding:22px 20px;text-align:left}
+      .alodoc__box h3{font-family:'Orbitron',sans-serif;color:#ff6b88;font-size:18px;margin:0 0 3px}
+      .alodoc__box p{color:#cba3ac;font-size:12px;margin:0 0 14px}
+      .alodoc__box input,.alodoc__box textarea{width:100%;box-sizing:border-box;background:#0a0710;border:1px solid rgba(255,77,109,.32);border-radius:10px;color:#fff;padding:11px 13px;font-size:14px;font-family:inherit;margin-bottom:10px}
+      .alodoc__box textarea{min-height:92px;resize:vertical}
+      .alodoc__box input:focus,.alodoc__box textarea:focus{outline:none;border-color:#ff4d6d}
+      .alodoc__send{width:100%;background:linear-gradient(90deg,#ff4d6d,#ff9aad);color:#2a0710;font-weight:900;font-size:15px;border:0;border-radius:999px;padding:13px;cursor:pointer;letter-spacing:.4px;box-shadow:0 8px 22px -6px rgba(255,77,109,.85);transition:transform .15s}
+      .alodoc__send:hover{transform:translateY(-2px)}
+      .alodoc__x{float:right;background:none;border:0;color:#9a7078;font-size:24px;cursor:pointer;line-height:1;margin-top:-6px}
+    </style>
+    <div class="alodoc">
+      <button class="alodoc__btn" onclick="document.getElementById('aloDocOv').classList.add('open')" aria-label="Alô Doçura — deixe sua dica ou sugestão">
+        <svg viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><linearGradient id="aloG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b88"/><stop offset="1" stop-color="#d61a4a"/></linearGradient></defs>
+          <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" fill="url(#aloG)"/>
+        </svg>
+        <span class="alodoc__txt"><b>Alô Doçura</b><small>deixe sua dica 💌</small></span>
+      </button>
+    </div>
+    <div class="alodoc__ov" id="aloDocOv">
+      <div class="alodoc__box">
+        <button class="alodoc__x" onclick="document.getElementById('aloDocOv').classList.remove('open')" aria-label="Fechar">&times;</button>
+        <h3>💗 Alô Doçura</h3>
+        <p>Manda sua dica, sugestão ou recado pra rádio. A gente lê tudo!</p>
+        <input id="aloNome" type="text" placeholder="Seu nome (opcional)" maxlength="60">
+        <textarea id="aloMsg" placeholder="Escreva sua dica ou sugestão aqui..." maxlength="600"></textarea>
+        <button class="alodoc__send" onclick="aloEnviar()">💌 Enviar dica</button>
+      </div>
+    </div>
+    <script>
+      function aloEnviar(){
+        var m=document.getElementById('aloMsg').value.trim();
+        if(!m){document.getElementById('aloMsg').focus();return;}
+        var n=document.getElementById('aloNome').value.trim();
+        var corpo=m+(n?('\n\n— '+n):'')+'\n\n(via Alô Doçura · radiobitcoin.org)';
+        window.location.href='mailto:radiobitcoin.org@gmail.com?subject='+encodeURIComponent('Alô Doçura — dica de '+(n||'um ouvinte'))+'&body='+encodeURIComponent(corpo);
+        document.getElementById('aloDocOv').classList.remove('open');
+        document.getElementById('aloMsg').value='';document.getElementById('aloNome').value='';
+      }
+      document.getElementById('aloDocOv').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+    </script>
+
     <div class="hr-aggs">
       <div class="hr-aggs__lbl">Ouça também nos apps de rádio</div>
       <div class="hr-aggs__row">
