@@ -2311,6 +2311,80 @@ img{max-width:100%;height:auto;}
   </script>
   <!-- ===== FIM CLIMA & PREPARAÇÃO ===== -->
 
+    <!-- ===== BOLETIM DE CONDIÇÕES CLIMÁTICAS ===== -->
+    <style>
+      .bolt{max-width:1100px;margin:16px auto;background:linear-gradient(160deg,#0b1220,#0a0f18);border:1px solid rgba(56,189,248,.25);border-radius:16px;padding:16px 18px;box-shadow:0 0 34px -14px rgba(56,189,248,.45)}
+      .bolt__head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+      .bolt__title{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:800;color:#7dd3fc;letter-spacing:.5px}
+      .bolt__live{font-size:9px;color:#22c55e;letter-spacing:1px;display:flex;align-items:center;gap:5px}
+      .bolt__live i{width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;animation:boltBlink 2s infinite;display:inline-block}
+      @keyframes boltBlink{50%{opacity:.3}}
+      .bolt__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+      .bolt__city{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:11px;padding:9px 11px}
+      .bolt__ico{font-size:24px;line-height:1}
+      .bolt__info{min-width:0}
+      .bolt__name{font-size:12px;color:#cbd5e1;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .bolt__temp{font-size:17px;font-weight:900;color:#fff;line-height:1.1}
+      .bolt__desc{font-size:10px;color:#94a3b8}
+      .bolt__foot{margin-top:10px;font-size:10px;color:#64748b;text-align:center}
+    </style>
+    <section class="bolt" aria-label="Boletim de condições climáticas">
+      <div class="bolt__head">
+        <span class="bolt__title">🌤️ Boletim do Tempo — Brasil</span>
+        <span class="bolt__live"><i></i> AO VIVO · <span id="boltUpd">atualizando…</span></span>
+      </div>
+      <div class="bolt__grid" id="boltGrid"><div style="color:#64748b;font-size:12px;padding:10px">Carregando condições…</div></div>
+      <div class="bolt__foot">Dados: Open-Meteo · atualiza a cada 15 min</div>
+    </section>
+    <script>
+    (function(){
+      var cidades=[
+        {n:'São Paulo',la:-23.55,lo:-46.63},{n:'Rio de Janeiro',la:-22.91,lo:-43.17},
+        {n:'Brasília',la:-15.79,lo:-47.88},{n:'Belo Horizonte',la:-19.92,lo:-43.94},
+        {n:'Salvador',la:-12.97,lo:-38.51},{n:'Recife',la:-8.05,lo:-34.88},
+        {n:'Porto Alegre',la:-30.03,lo:-51.23},{n:'Manaus',la:-3.12,lo:-60.02},
+        {n:'Marataízes',la:-21.04,lo:-40.82}
+      ];
+      function wmo(c){
+        if(c===0)return['☀️','Céu limpo'];
+        if(c===1||c===2)return['🌤️','Poucas nuvens'];
+        if(c===3)return['☁️','Nublado'];
+        if(c===45||c===48)return['🌫️','Névoa'];
+        if(c>=51&&c<=57)return['🌦️','Garoa'];
+        if(c>=61&&c<=67)return['🌧️','Chuva'];
+        if(c>=71&&c<=77)return['🌨️','Neve'];
+        if(c>=80&&c<=82)return['🌧️','Pancadas'];
+        if(c>=85&&c<=86)return['🌨️','Neve'];
+        if(c>=95)return['⛈️','Trovoada'];
+        return['🌡️','—'];
+      }
+      function pad(n){return('0'+n).slice(-2);}
+      function carregar(){
+        var la=cidades.map(function(c){return c.la;}).join(',');
+        var lo=cidades.map(function(c){return c.lo;}).join(',');
+        fetch('https://api.open-meteo.com/v1/forecast?latitude='+la+'&longitude='+lo+'&current=temperature_2m,weather_code,wind_speed_10m&timezone=America%2FSao_Paulo')
+          .then(function(r){return r.json();})
+          .then(function(d){
+            var arr=Array.isArray(d)?d:[d];
+            var html=arr.map(function(o,i){
+              var cur=o.current||{}; var w=wmo(cur.weather_code);
+              var t=Math.round(cur.temperature_2m); var v=Math.round(cur.wind_speed_10m);
+              return '<div class="bolt__city"><div class="bolt__ico">'+w[0]+'</div><div class="bolt__info"><div class="bolt__name">'+cidades[i].n+'</div><div class="bolt__temp">'+t+'°C</div><div class="bolt__desc">'+w[1]+' · 💨 '+v+' km/h</div></div></div>';
+            }).join('');
+            document.getElementById('boltGrid').innerHTML=html;
+            var now=new Date();
+            document.getElementById('boltUpd').textContent=pad(now.getHours())+':'+pad(now.getMinutes());
+          })
+          .catch(function(){
+            document.getElementById('boltGrid').innerHTML='<div style="color:#f87171;font-size:12px;padding:10px">Não consegui carregar o clima agora. Recarregue a página.</div>';
+          });
+      }
+      carregar(); setInterval(carregar, 900000);
+    })();
+    </script>
+    <!-- ===== FIM BOLETIM CLIMÁTICO ===== -->
+
+
   <!-- ===== PAINEL DO SOBREVIVENTE ===== -->
   <style>
   .surv{max-width:1100px;margin:16px auto;padding:0 10px;font-family:ui-sans-serif,system-ui,sans-serif;}
