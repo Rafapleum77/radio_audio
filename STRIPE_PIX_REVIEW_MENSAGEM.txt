@@ -1,0 +1,56 @@
+═══════════════════════════════════════════════════════════
+COPIA TUDO ABAIXO E COLA EM:
+https://support.stripe.com → Help → Contact → "Payment methods" → "Activate a payment method"
+═══════════════════════════════════════════════════════════
+
+Subject: Early Pix activation request — strong business case
+
+Hi Stripe team,
+
+I would like to formally request early activation of Pix for my account, currently below the standard 60-day requirement.
+
+ACCOUNT DETAILS
+- Account ID: acct_1TZHEEFFXuHAgLP2
+- Business: RADIOBITCOIN.ORG (alegriaitacare@gmail.com)
+- Country: Brazil
+- Status: charges_enabled = true, payouts_enabled = true
+- Default currency: BRL
+
+WHY EARLY PIX IS CRITICAL FOR THIS BUSINESS
+
+1. **Production already live.** My site (https://radiobitcoin.org) runs 21 active Payment Links across 7 products (Recovery Kits, Pacotes BIT ADICT, VIP subscription, Soberania Digital course) — all processing real customer traffic.
+
+2. **Brazil is the primary market.** Without Pix, I lose 70-80% of Brazilian checkout. Boleto doesn't fill the gap — BR customers expect Pix as the default payment method since 2021. Cards alone are insufficient (credit penetration is low in target audience).
+
+3. **I had to integrate Mercado Pago as workaround.** I built a full MP Checkout Pro integration in parallel (7 preferences in BRL) just to offer Pix. This adds operational complexity (two dashboards, two reconciliations) that Stripe should be solving. I would consolidate everything back to Stripe immediately upon Pix approval.
+
+4. **Established audience predates Stripe account:**
+   - Instagram @radiobitcoinbr — 967 active followers
+   - YouTube channel in continuous production
+   - Private WhatsApp customer community for Recovery Kit buyers
+   - Historical sales records available on request
+
+5. **Time-sensitive context.** I'm traveling to Portugal between May 27 and June 10 for in-person product distribution. During this period I'll continue selling to Brazilian customers remotely via the site. Pix availability in this window directly impacts conversion.
+
+DOCUMENTATION AVAILABLE ON REQUEST
+- CNPJ/CPF and identity documents
+- Historical sales screenshots from prior platforms (Hotmart, PayPal, manual transfers)
+- Bank statements showing related revenue patterns
+- Contracts with corporate clients
+- Anything else useful for risk assessment
+
+I'm happy to provide additional information or schedule a call. Pix is mission-critical for my business model.
+
+Thank you for considering an exception.
+
+Best regards,
+Rafael Rios Crosara
+RADIOBITCOIN.ORG / BIT ADICT
+
+═══════════════════════════════════════════════════════════
+DICAS PRA AUMENTAR CHANCE DE APROVAÇÃO:
+• Manda em inglês mesmo (Stripe Brasil escala suporte global)
+• Anexa 1-2 prints de vendas reais via MP/Stripe atuais (mostra que tem operação)
+• Se eles pedirem mais info, responde em até 24h (não deixa esfriar)
+• Se demorar mais de 5 dias úteis sem resposta, manda follow-up educado
+═══════════════════════════════════════════════════════════

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA TRIO — Claude · Gemini · Manus</title>
+<style>
+:root{--g:#00ff41;--gold:#f7c948;--red:#ff4444;--blue:#00d4ff;--purple:#a855f7;--panel:rgba(0,8,2,.97);--border:rgba(0,255,65,.2);--text:#c8ffcd;--dim:#6a9b6e;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#000;font-family:'Courier New',monospace;color:var(--g);min-height:100vh;padding:24px;background-image:radial-gradient(ellipse at 20% 50%,rgba(0,255,65,.03) 0%,transparent 60%);}
+h1{font-size:20px;letter-spacing:5px;color:#fff;text-shadow:0 0 20px var(--g);margin-bottom:4px;}
+.sub{font-size:9px;color:var(--dim);letter-spacing:2px;margin-bottom:24px;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1000px;margin-bottom:20px;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s;}
+.card:hover{border-color:var(--ia-color,var(--g));box-shadow:0 0 20px rgba(var(--ia-glow,0,255,65),.12);}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ia-color,var(--g)),transparent);}
+.ia-icon{font-size:36px;margin-bottom:10px;display:block;}
+.ia-name{font-size:16px;font-weight:bold;color:#fff;letter-spacing:2px;margin-bottom:4px;}
+.ia-badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:8px;letter-spacing:1px;font-weight:bold;margin-bottom:12px;border:1px solid currentColor;}
+.ia-desc{font-size:10px;color:var(--text);line-height:1.6;margin-bottom:16px;min-height:60px;}
+.ia-strengths{margin-bottom:16px;}
+.ia-strengths div{font-size:9px;color:var(--dim);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.ia-strengths div::before{content:'▸ ';color:var(--ia-color,var(--g));}
+.btn{display:block;width:100%;padding:10px;border-radius:6px;font-size:10px;letter-spacing:2px;cursor:pointer;text-decoration:none;font-family:inherit;border:none;font-weight:bold;text-align:center;transition:opacity .2s,transform .1s;}
+.btn:hover{opacity:.85;transform:translateY(-1px);}
+.btn:active{transform:translateY(0);}
+
+/* Claude */
+.claude{--ia-color:#d97706;--ia-glow:217,119,6;}
+.claude .ia-badge{color:#d97706;background:rgba(217,119,6,.12);}
+.claude .btn{background:#d97706;color:#000;}
+
+/* Gemini */
+.gemini{--ia-color:#4285F4;--ia-glow:66,133,244;}
+.gemini .ia-badge{color:#4285F4;background:rgba(66,133,244,.12);}
+.gemini .btn{background:linear-gradient(135deg,#4285F4,#34a853,#fbbc05,#ea4335);color:#fff;}
+
+/* Manus */
+.manus{--ia-color:#a855f7;--ia-glow:168,85,247;}
+.manus .ia-badge{color:#a855f7;background:rgba(168,85,247,.12);}
+.manus .btn{background:#a855f7;color:#fff;}
+
+/* Prompt broadcaster */
+.broadcast{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;max-width:1000px;}
+.broadcast::before{content:'';display:block;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin-bottom:16px;margin-top:-20px;margin-left:-20px;width:calc(100% + 40px);}
+.broadcast-title{font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+textarea{width:100%;background:rgba(0,255,65,.04);border:1px solid rgba(0,255,65,.2);border-radius:6px;color:var(--text);font-family:'Courier New',monospace;font-size:11px;padding:12px;resize:vertical;min-height:90px;outline:none;transition:border-color .2s;}
+textarea:focus{border-color:var(--g);}
+.btn-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.btn-sm{padding:8px 16px;border-radius:4px;font-size:9px;letter-spacing:1.5px;cursor:pointer;font-family:inherit;border:none;font-weight:bold;transition:opacity .2s;}
+.btn-sm:hover{opacity:.8;}
+.toast{position:fixed;bottom:24px;right:24px;background:#111;border:1px solid var(--g);color:var(--g);padding:10px 18px;border-radius:6px;font-size:10px;letter-spacing:1px;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<h1>◉ IA TRIO</h1>
+<div class="sub">CLAUDE · GEMINI · MANUS — ACESSO RÁPIDO E COLABORAÇÃO · <span id="dt"></span></div>
+
+<div class="grid">
+
+  <!-- CLAUDE -->
+  <div class="card claude">
+    <span class="ia-icon">🤖</span>
+    <div class="ia-name">CLAUDE</div>
+    <span class="ia-badge">Anthropic</span>
+    <div class="ia-desc">IA da Anthropic. Excelente para código, análise técnica, raciocínio longo e tarefas de engenharia. Usado via Claude Code no terminal.</div>
+    <div class="ia-strengths">
+      <div>Código e debug avançado</div>
+      <div>Raciocínio técnico longo</div>
+      <div>Análise de arquivos e projetos</div>
+      <div>Claude Code CLI integrado</div>
+    </div>
+    <a class="btn" href="https://claude.ai" target="_blank">⚡ ABRIR CLAUDE</a>
+  </div>
+
+  <!-- GEMINI -->
+  <div class="card gemini">
+    <span class="ia-icon">✨</span>
+    <div class="ia-name">GEMINI</div>
+    <span class="ia-badge">Google</span>
+    <div class="ia-desc">IA multimodal do Google. Ideal para criação de imagens, pesquisa na web em tempo real, integração com Drive/Docs e geração visual.</div>
+    <div class="ia-strengths">
+      <div>Geração de imagens (Imagen)</div>
+      <div>Pesquisa web em tempo real</div>
+      <div>Integração Google Workspace</div>
+      <div>Multimodal: texto + imagem + vídeo</div>
+    </div>
+    <a class="btn" href="https://gemini.google.com" target="_blank">✨ ABRIR GEMINI</a>
+  </div>
+
+  <!-- MANUS -->
+  <div class="card manus">
+    <span class="ia-icon">🦾</span>
+    <div class="ia-name">MANUS</div>
+    <span class="ia-badge">Manus AI</span>
+    <div class="ia-desc">Agente autônomo com capacidade de navegar na web, executar código e completar tarefas complexas de forma independente.</div>
+    <div class="ia-strengths">
+      <div>Agente autônomo completo</div>
+      <div>Navega e interage com sites</div>
+      <div>Pesquisa e compila relatórios</div>
+      <div>Executa tarefas multi-etapa</div>
+    </div>
+    <a class="btn" href="https://manus.im" target="_blank">🦾 ABRIR MANUS</a>
+  </div>
+
+</div>
+
+<!-- PROMPT BROADCASTER -->
+<div class="broadcast">
+  <div class="broadcast-title">⚡ ENVIAR MESMO PROMPT PARA AS TRÊS IAs</div>
+  <textarea id="promptTxt" placeholder="Digite aqui seu prompt para enviar para Claude, Gemini e Manus ao mesmo tempo..."></textarea>
+  <div class="btn-row">
+    <button class="btn-sm" style="background:#d97706;color:#000;" onclick="abrirIA('claude')">🤖 Copiar → Claude</button>
+    <button class="btn-sm" style="background:#4285F4;color:#fff;" onclick="abrirIA('gemini')">✨ Copiar → Gemini</button>
+    <button class="btn-sm" style="background:#a855f7;color:#fff;" onclick="abrirIA('manus')">🦾 Copiar → Manus</button>
+    <button class="btn-sm" style="background:var(--g);color:#000;" onclick="abrirTodas()">🚀 ABRIR AS 3 + COPIAR</button>
+    <button class="btn-sm" style="background:#222;color:var(--dim);border:1px solid var(--border);margin-left:auto;" onclick="limpar()">✕ limpar</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+document.getElementById('dt').textContent = new Date().toLocaleString('pt-BR');
+
+var urls = {
+  claude: 'https://claude.ai',
+  gemini: 'https://gemini.google.com',
+  manus:  'https://manus.im'
+};
+
+function getPrompt(){
+  return document.getElementById('promptTxt').value.trim();
+}
+
+function copiarClipboard(txt){
+  navigator.clipboard.writeText(txt).catch(function(){
+    var t = document.createElement('textarea');
+    t.value = txt; document.body.appendChild(t);
+    t.select(); document.execCommand('copy');
+    document.body.removeChild(t);
+  });
+}
+
+function toast(msg){
+  var el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(function(){ el.classList.remove('show'); }, 2200);
+}
+
+function abrirIA(ia){
+  var p = getPrompt();
+  if(!p){ toast('⚠ Digite um prompt primeiro'); return; }
+  copiarClipboard(p);
+  window.open(urls[ia], '_blank');
+  toast('✓ Copiado! Cole no ' + ia.charAt(0).toUpperCase() + ia.slice(1));
+}
+
+function abrirTodas(){
+  var p = getPrompt();
+  if(!p){ toast('⚠ Digite um prompt primeiro'); return; }
+  copiarClipboard(p);
+  window.open(urls.claude, '_blank');
+  setTimeout(function(){ window.open(urls.gemini, '_blank'); }, 300);
+  setTimeout(function(){ window.open(urls.manus, '_blank'); }, 600);
+  toast('✓ 3 abas abertas! Prompt copiado — cole em cada uma');
+}
+
+function limpar(){
+  document.getElementById('promptTxt').value = '';
+}
+
+// Atalho: Ctrl+Enter para abrir as 3
+document.getElementById('promptTxt').addEventListener('keydown', function(e){
+  if(e.ctrlKey && e.key === 'Enter'){ abrirTodas(); }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CÉREBRO — Mac Mini 192.168.1.64</title>
+<style>
+:root{--g:#00ff41;--gold:#f7c948;--red:#ff4444;--blue:#00d4ff;--panel:rgba(0,8,2,.97);--border:rgba(0,255,65,.2);--text:#c8ffcd;--dim:#6a9b6e;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#000;font-family:'Courier New',monospace;color:var(--g);min-height:100vh;padding:20px;background-image:radial-gradient(ellipse at 50% 0%,rgba(0,255,65,.04) 0%,transparent 60%);}
+h1{font-size:20px;letter-spacing:5px;color:#fff;text-shadow:0 0 20px var(--g);}
+.sub{font-size:9px;color:var(--dim);letter-spacing:2px;margin-bottom:20px;margin-top:3px;}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;max-width:1100px;}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ia-accent,var(--g)),transparent);}
+.card.gold{--ia-accent:var(--gold);}
+.card.blue{--ia-accent:var(--blue);}
+.card.red{--ia-accent:var(--red);}
+.card.full{grid-column:1/-1;}
+.card.two{grid-column:span 2;}
+.card-title{font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.metric{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(0,255,65,.06);font-size:11px;}
+.ml{color:var(--dim);font-size:9px;letter-spacing:1px;}
+.mv{color:#fff;font-weight:bold;}
+.mv.green{color:var(--g);}
+.mv.red{color:var(--red);}
+.mv.gold{color:var(--gold);}
+.mv.blue{color:var(--blue);}
+.badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:9px;font-weight:bold;letter-spacing:1px;}
+.badge.on{background:rgba(0,255,65,.15);color:var(--g);border:1px solid rgba(0,255,65,.3);}
+.badge.off{background:rgba(255,68,68,.15);color:var(--red);border:1px solid rgba(255,68,68,.3);}
+.badge.warn{background:rgba(247,201,72,.15);color:var(--gold);border:1px solid rgba(247,201,72,.3);}
+.gauge-wrap{margin:10px 0 4px;}
+.gauge-bar{height:6px;background:rgba(0,255,65,.1);border-radius:3px;overflow:hidden;}
+.gauge-fill{height:100%;border-radius:3px;transition:width .6s ease;background:var(--g);}
+.gauge-fill.warn{background:var(--gold);}
+.gauge-fill.crit{background:var(--red);}
+.gauge-label{display:flex;justify-content:space-between;font-size:8px;color:var(--dim);margin-top:3px;}
+.btn-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.btn{padding:8px 14px;border-radius:4px;font-size:9px;letter-spacing:1.5px;cursor:pointer;font-family:inherit;border:none;font-weight:bold;transition:opacity .2s;}
+.btn:hover{opacity:.8;}
+.btn:disabled{opacity:.3;cursor:not-allowed;}
+.btn-g{background:var(--g);color:#000;}
+.btn-red{background:var(--red);color:#fff;}
+.btn-gold{background:var(--gold);color:#000;}
+.btn-blue{background:var(--blue);color:#000;}
+.btn-dim{background:#111;color:var(--dim);border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-size:10px;}
+th{font-size:8px;color:var(--dim);letter-spacing:1px;padding:5px 6px;text-align:left;border-bottom:1px solid rgba(0,255,65,.12);}
+td{padding:6px 6px;border-bottom:1px solid rgba(0,255,65,.05);color:var(--text);vertical-align:middle;}
+.pulse{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;background:var(--g);box-shadow:0 0 6px var(--g);animation:pulse 2s infinite;}
+.pulse.off{background:var(--red);box-shadow:0 0 6px var(--red);animation:none;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+#status-bar{font-size:8px;color:var(--dim);margin-top:14px;letter-spacing:1px;}
+.spinner{display:inline-block;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<h1>◉ CÉREBRO — MAC MINI</h1>
+<div class="sub">PAINEL REMOTO · 192.168.1.64:8765 · Atualiza a cada 5s · <span id="dt">—</span></div>
+
+<div class="grid">
+
+  <!-- BOT STATUS -->
+  <div class="card gold">
+    <div class="card-title">🤖 Bot XRP v3.2</div>
+    <div class="metric"><span class="ml">STATUS</span><span class="mv" id="bot-status">—</span></div>
+    <div class="metric"><span class="ml">PID</span><span class="mv" id="bot-pid">—</span></div>
+    <div class="metric"><span class="ml">BANCA</span><span class="mv gold" id="bot-banca">—</span></div>
+    <div class="metric"><span class="ml">XRP PRICE</span><span class="mv blue" id="bot-price">—</span></div>
+    <div class="metric"><span class="ml">RSI</span><span class="mv" id="bot-rsi">—</span></div>
+    <div class="metric"><span class="ml">TENDÊNCIA EMA</span><span class="mv" id="bot-ema">—</span></div>
+    <div class="metric"><span class="ml">TRADES HOJE</span><span class="mv" id="bot-trades-hoje">—</span></div>
+    <div class="metric"><span class="ml">P&L DIA</span><span class="mv" id="bot-lucro">—</span></div>
+    <div class="btn-row">
+      <button class="btn btn-g" id="btn-start" onclick="botAction('start')">▶ INICIAR BOT</button>
+      <button class="btn btn-red" id="btn-stop" onclick="botAction('stop')">■ PARAR BOT</button>
+    </div>
+  </div>
+
+  <!-- STATS GERAIS -->
+  <div class="card blue">
+    <div class="card-title">📊 Resultados Acumulados</div>
+    <div class="metric"><span class="ml">TOTAL TRADES</span><span class="mv" id="st-total">—</span></div>
+    <div class="metric"><span class="ml">TAXA ACERTO</span><span class="mv green" id="st-wr">—</span></div>
+    <div class="metric"><span class="ml">SENTIMENTO</span><span class="mv" id="st-sent">—</span></div>
+    <div class="metric"><span class="ml">SENTIMENTO VALOR</span><span class="mv" id="st-sentv">—</span></div>
+    <div style="margin-top:12px;">
+      <div style="font-size:8px;color:var(--dim);letter-spacing:1px;margin-bottom:6px;">SENTIMENTO MERCADO</div>
+      <div class="gauge-wrap">
+        <div class="gauge-bar"><div class="gauge-fill" id="g-sent" style="width:0%"></div></div>
+        <div class="gauge-label"><span>Fear</span><span>Greed</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-blue" href="https://radiobitcoin.bitadict.com" target="_blank">📻 ABRIR RÁDIO</a>
+      <a class="btn btn-gold" href="https://polymarket.com" target="_blank">📈 POLYMARKET</a>
+    </div>
+  </div>
+
+  <!-- SISTEMA MAC MINI -->
+  <div class="card">
+    <div class="card-title">🖥 Sistema Mac Mini</div>
+    <div class="metric"><span class="ml">CPU</span><span class="mv" id="sys-cpu">—</span></div>
+    <div class="gauge-wrap">
+      <div class="gauge-bar"><div class="gauge-fill" id="g-cpu" style="width:0%"></div></div>
+      <div class="gauge-label"><span>0%</span><span id="g-cpu-lbl">—</span></div>
+    </div>
+    <div class="metric" style="margin-top:8px;"><span class="ml">RAM</span><span class="mv" id="sys-ram">—</span></div>
+    <div class="gauge-wrap">
+      <div class="gauge-bar"><div class="gauge-fill" id="g-ram" style="width:0%"></div></div>
+      <div class="gauge-label"><span>0%</span><span id="g-ram-lbl">—</span></div>
+    </div>
+    <div class="metric" style="margin-top:8px;"><span class="ml">DISCO</span><span class="mv" id="sys-disk">—</span></div>
+    <div class="gauge-wrap">
+      <div class="gauge-bar"><div class="gauge-fill" id="g-disk" style="width:0%"></div></div>
+      <div class="gauge-label"><span>0%</span><span id="g-disk-lbl">—</span></div>
+    </div>
+    <div class="metric" style="margin-top:8px;"><span class="ml">UPTIME</span><span class="mv green" id="sys-uptime">—</span></div>
+    <div class="btn-row">
+      <a class="btn btn-dim" href="http://192.168.1.64:8080" target="_blank">📊 Dashboard Bot</a>
+      <a class="btn btn-dim" href="http://192.168.1.254" target="_blank">📡 Roteador</a>
+    </div>
+  </div>
+
+  <!-- ÚLTIMOS TRADES -->
+  <div class="card two">
+    <div class="card-title">📋 Últimos Trades</div>
+    <table>
+      <thead><tr><th>DATA</th><th>PAR</th><th>DIREÇÃO</th><th>RESULTADO</th><th>P&L</th><th>CONFIANÇA</th></tr></thead>
+      <tbody id="trades-tbody"><tr><td colspan="6" style="color:var(--dim);text-align:center;padding:12px;">carregando...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- ATALHOS -->
+  <div class="card">
+    <div class="card-title">⚡ Atalhos Rápidos</div>
+    <div class="btn-row" style="flex-direction:column;">
+      <a class="btn btn-gold" style="width:100%;text-align:center;" href="http://192.168.1.254" target="_blank">🔧 Painel Roteador Nokia</a>
+      <a class="btn btn-blue" style="width:100%;text-align:center;" href="https://radiobitcoin.bitadict.com" target="_blank">📻 Rádio Bitcoin</a>
+      <a class="btn btn-dim" style="width:100%;text-align:center;" href="https://github.com/rafapleum77/radio_audio" target="_blank">⌥ GitHub Rádio</a>
+      <a class="btn btn-g" style="width:100%;text-align:center;" href="https://polymarket.com" target="_blank">📈 Polymarket</a>
+    </div>
+  </div>
+
+</div>
+
+<div id="status-bar">⏳ Conectando ao Mac Mini...</div>
+
+<script>
+var API = 'http://192.168.1.64:8765/api';
+var lastTs = null;
+
+function fmt(v){ return v !== null && v !== undefined ? v : '—'; }
+function fmtPnl(v){
+  if(v===null||v===undefined) return '—';
+  var s = parseFloat(v);
+  return (s>=0?'+':'')+s.toFixed(2)+' USD';
+}
+function setGauge(id, pct, lblId, lbl){
+  var el = document.getElementById(id);
+  el.style.width = Math.min(pct,100)+'%';
+  el.className = 'gauge-fill' + (pct>85?' crit':pct>60?' warn':'');
+  if(lblId) document.getElementById(lblId).textContent = lbl||pct+'%';
+}
+
+function renderTrades(trades){
+  var tb = document.getElementById('trades-tbody');
+  if(!trades||!trades.length){
+    tb.innerHTML='<tr><td colspan="6" style="color:var(--dim);text-align:center;padding:10px;">sem trades registrados</td></tr>';
+    return;
+  }
+  tb.innerHTML = trades.slice().reverse().map(function(t){
+    var win = (t.resultado||'').toLowerCase().includes('win')||(t.pnl>0);
+    var color = win ? 'var(--g)' : 'var(--red)';
+    return '<tr>' +
+      '<td style="color:var(--dim);font-size:9px;">'+(t.data||t.timestamp||'—')+'</td>' +
+      '<td><strong>'+(t.par||t.moeda||'XRP')+'</strong></td>' +
+      '<td style="color:var(--blue);">'+(t.direcao||t.side||'—')+'</td>' +
+      '<td style="color:'+color+';font-weight:bold;">'+(t.resultado||'—')+'</td>' +
+      '<td style="color:'+color+';">'+(t.pnl!==undefined?(t.pnl>=0?'+':'')+parseFloat(t.pnl).toFixed(2)+' USD':'—')+'</td>' +
+      '<td style="color:var(--dim);">'+(t.confianca!==undefined?t.confianca+'%':'—')+'</td>' +
+      '</tr>';
+  }).join('');
+}
+
+function update(){
+  document.getElementById('dt').textContent = new Date().toLocaleString('pt-BR');
+  fetch(API, {cache:'no-store'})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      // Bot
+      var bot = d.bot||{};
+      var running = bot.running;
+      document.getElementById('bot-status').innerHTML =
+        '<span class="pulse'+(running?'':' off')+'"></span>' +
+        (running ? '<span class="badge on">● ONLINE</span>' : '<span class="badge off">● OFFLINE</span>');
+      document.getElementById('bot-pid').textContent = fmt(bot.pid);
+      document.getElementById('bot-banca').textContent = bot.banca ? '$'+parseFloat(bot.banca).toFixed(2) : '—';
+      document.getElementById('bot-price').textContent = bot.xrp_price ? '$'+parseFloat(bot.xrp_price).toFixed(4) : '—';
+      var rsi = bot.rsi;
+      var rsiEl = document.getElementById('bot-rsi');
+      rsiEl.textContent = rsi ? parseFloat(rsi).toFixed(1) : '—';
+      rsiEl.className = 'mv' + (rsi>70?' red':rsi<30?' green':'');
+      var ema = (bot.ema_trend||'').toUpperCase();
+      var emaEl = document.getElementById('bot-ema');
+      emaEl.textContent = ema||'—';
+      emaEl.className = 'mv' + (ema==='BULL'?' green':ema==='BEAR'?' red':'');
+      document.getElementById('bot-trades-hoje').textContent = fmt(bot.trades_hoje);
+      var lucro = bot.lucro_dia;
+      var lucroEl = document.getElementById('bot-lucro');
+      lucroEl.textContent = fmtPnl(lucro);
+      lucroEl.className = 'mv' + (lucro>0?' green':lucro<0?' red':'');
+
+      // Stats
+      document.getElementById('st-total').textContent = fmt(bot.total_trades);
+      var wr = bot.taxa_acerto;
+      var wrEl = document.getElementById('st-wr');
+      wrEl.textContent = wr ? parseFloat(wr).toFixed(1)+'%' : '—';
+      wrEl.className = 'mv' + (wr>=55?' green':wr>=45?'':' red');
+      document.getElementById('st-sent').textContent = fmt(bot.sentimento_label);
+      document.getElementById('st-sentv').textContent = bot.sentimento_valor !== undefined ? bot.sentimento_valor : '—';
+      var sv = bot.sentimento_valor||50;
+      setGauge('g-sent', sv, null, null);
+
+      // System
+      var sys = d.sys||{};
+      var cpu = sys.cpu;
+      document.getElementById('sys-cpu').textContent = cpu !== null && cpu !== undefined ? cpu+'%' : '—';
+      setGauge('g-cpu', cpu||0, 'g-cpu-lbl', (cpu||0)+'%');
+      var ramPct = sys.ram_pct||0;
+      document.getElementById('sys-ram').textContent = sys.ram_used_mb ? Math.round(sys.ram_used_mb/1024*10)/10+'GB / '+Math.round(sys.ram_total_mb/1024*10)/10+'GB' : '—';
+      setGauge('g-ram', ramPct, 'g-ram-lbl', ramPct+'%');
+      var diskPct = sys.disk_pct ? parseInt(sys.disk_pct) : 0;
+      document.getElementById('sys-disk').textContent = sys.disk_used ? sys.disk_used+' / '+sys.disk_total : '—';
+      setGauge('g-disk', diskPct, 'g-disk-lbl', diskPct+'%');
+      document.getElementById('sys-uptime').textContent = fmt(sys.uptime);
+
+      // Trades
+      renderTrades(d.trades_recentes);
+
+      document.getElementById('status-bar').innerHTML =
+        '<span style="color:var(--g)">● Conectado · último update: '+d.ts+'</span>';
+    })
+    .catch(function(e){
+      document.getElementById('status-bar').innerHTML =
+        '<span style="color:var(--red)">✖ Sem conexão com Mac Mini (192.168.1.64:8765) — '+e.message+'</span>';
+    });
+}
+
+function botAction(action){
+  var s = document.getElementById('status-bar');
+  s.innerHTML = '<span class="spinner">◌</span> Enviando comando ao Mac Mini...';
+  document.getElementById('btn-start').disabled = true;
+  document.getElementById('btn-stop').disabled = true;
+  fetch('http://192.168.1.64:8765/api/bot/'+action, {method:'POST', cache:'no-store'})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      s.innerHTML = (d.ok ? '<span style="color:var(--g)">✓ ' : '<span style="color:var(--red)">✖ ') + d.msg+'</span>';
+      setTimeout(function(){
+        document.getElementById('btn-start').disabled = false;
+        document.getElementById('btn-stop').disabled = false;
+        update();
+      }, 2000);
+    })
+    .catch(function(){
+      s.innerHTML='<span style="color:var(--red)">✖ Erro de conexão</span>';
+      document.getElementById('btn-start').disabled = false;
+      document.getElementById('btn-stop').disabled = false;
+    });
+}
+
+update();
+setInterval(update, 5000);
+</script>
+</body>
+</html>
