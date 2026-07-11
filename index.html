@@ -1472,29 +1472,29 @@ img{max-width:100%;height:auto;}
 <!-- ===== RADAR & CLIMA DO BRASIL AO VIVO (mapa interativo) ===== -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <style>
-.clm-wrap{max-width:1100px;margin:18px auto;padding:16px 16px 12px;background:linear-gradient(160deg,#0a0f1e,#070a14);border:1px solid rgba(56,132,222,.35);border-radius:16px;box-shadow:0 0 40px -14px rgba(56,132,222,.4)}
+.clm-wrap{max-width:1100px;margin:18px auto;padding:16px 16px 12px;background:linear-gradient(160deg,#eafaf0,#d8f3e2);border:1px solid rgba(22,199,132,.45);border-radius:16px;box-shadow:0 0 40px -14px rgba(22,199,132,.45)}
 .clm-head{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:4px}
-.clm-title{font-weight:900;font-size:clamp(16px,4vw,22px);color:#fff;letter-spacing:.3px}
-.clm-live{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:1.5px;color:#16c784}
+.clm-title{font-weight:900;font-size:clamp(16px,4vw,22px);color:#0f3d24;letter-spacing:.3px}
+.clm-live{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:1.5px;color:#0a8f4d}
 .clm-live i{width:8px;height:8px;border-radius:50%;background:#ea3943;animation:clmPulse 1.2s infinite}
-.clm-sub{text-align:center;color:#8aa0c0;font-size:11px;margin-bottom:10px}
+.clm-sub{text-align:center;color:#3d6b52;font-size:11px;margin-bottom:10px}
 .clm-tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.clm-tab{font-size:12px;font-weight:700;color:#b8c6da;background:rgba(255,255,255,.05);border:1px solid #253352;border-radius:20px;padding:6px 14px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px}
-.clm-tab.on{background:rgba(56,132,222,.22);border-color:#3884de;color:#cfe4ff}
-.clm-mapbox{position:relative;border-radius:12px;overflow:hidden;border:1px solid #1f2c48}
-#clmMap{width:100%;height:clamp(360px,60vw,520px);background:#0a0f1e;z-index:1}
-.clm-bar{position:absolute;left:10px;right:10px;bottom:10px;z-index:500;display:flex;align-items:center;gap:10px;background:rgba(6,10,20,.82);backdrop-filter:blur(8px);border:1px solid #253352;border-radius:12px;padding:8px 12px}
-.clm-play{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:0;background:linear-gradient(90deg,#3884de,#5aa2f0);color:#fff;font-size:15px;cursor:pointer}
-.clm-slider{flex:1;accent-color:#3884de;cursor:pointer}
-.clm-time{flex:0 0 auto;min-width:78px;text-align:right;font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:800;color:#cfe4ff}
-.clm-time.now{color:#16c784}
-.clm-legend{position:absolute;right:10px;top:10px;z-index:500;background:rgba(6,10,20,.82);border:1px solid #253352;border-radius:10px;padding:7px 10px;font-size:10px;color:#b8c6da;display:flex;flex-direction:column;gap:3px}
+.clm-tab{font-size:12px;font-weight:700;color:#2f6b4c;background:rgba(255,255,255,.6);border:1px solid #b6e3c8;border-radius:20px;padding:6px 14px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px}
+.clm-tab.on{background:rgba(22,199,132,.22);border-color:#16c784;color:#0f5c37}
+.clm-mapbox{position:relative;border-radius:12px;overflow:hidden;border:1px solid #a9dcbf}
+#clmMap{width:100%;height:clamp(360px,60vw,520px);background:#e8f7ee;z-index:1}
+.clm-bar{position:absolute;left:10px;right:10px;bottom:10px;z-index:500;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.86);backdrop-filter:blur(8px);border:1px solid #b6e3c8;border-radius:12px;padding:8px 12px}
+.clm-play{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:0;background:linear-gradient(90deg,#16c784,#48d69b);color:#fff;font-size:15px;cursor:pointer}
+.clm-slider{flex:1;accent-color:#16c784;cursor:pointer}
+.clm-time{flex:0 0 auto;min-width:78px;text-align:right;font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:800;color:#0f5c37}
+.clm-time.now{color:#0a8f4d}
+.clm-legend{position:absolute;right:10px;top:10px;z-index:500;background:rgba(255,255,255,.86);border:1px solid #b6e3c8;border-radius:10px;padding:7px 10px;font-size:10px;color:#2f6b4c;display:flex;flex-direction:column;gap:3px}
 .clm-legend .row{display:flex;align-items:center;gap:5px}
 .clm-legend b{width:11px;height:8px;border-radius:2px;display:inline-block}
-.clm-fs{position:absolute;left:10px;top:10px;z-index:500;width:32px;height:32px;border-radius:8px;border:1px solid #253352;background:rgba(6,10,20,.82);color:#cfe4ff;cursor:pointer;font-size:14px}
-.clm-src{text-align:center;color:#5a6a86;font-size:10px;margin-top:9px}
-.leaflet-container{background:#0a0f1e}
-.clm-pin{background:#334;border:2px solid #0a0f1e;border-radius:50%;color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.6);font-family:ui-monospace,Menlo,monospace}
+.clm-fs{position:absolute;left:10px;top:10px;z-index:500;width:32px;height:32px;border-radius:8px;border:1px solid #b6e3c8;background:rgba(255,255,255,.86);color:#0f5c37;cursor:pointer;font-size:14px}
+.clm-src{text-align:center;color:#6f9a82;font-size:10px;margin-top:9px}
+.leaflet-container{background:#e8f7ee}
+.clm-pin{background:#16c784;border:2px solid #fff;border-radius:50%;color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.35);font-family:ui-monospace,Menlo,monospace}
 @keyframes clmPulse{0%,100%{opacity:1}50%{opacity:.25}}
 .clm-wrap:fullscreen{display:flex;flex-direction:column;justify-content:center;padding:20px}
 .clm-wrap:fullscreen #clmMap{height:82vh}
@@ -1531,7 +1531,7 @@ img{max-width:100%;height:auto;}
   function init(){
     if(typeof L==='undefined'){ if(tries++<40){setTimeout(init,300);} return; }
     var map=L.map('clmMap',{zoomControl:true,attributionControl:false,minZoom:3,maxZoom:11}).setView([-15.5,-52],4);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
     // ---- Radar RainViewer ----
     var host='', frames=[], layers={}, idx=0, lastPast=0, timer=null, rainOn=true, COLOR=4;
     var slider=document.getElementById('clmSlider'), lbl=document.getElementById('clmTime'), btnPlay=document.getElementById('clmPlay');
@@ -1595,6 +1595,16 @@ img{max-width:100%;height:auto;}
       setTimeout(function(){ map.invalidateSize(); },300);
     });
     setTimeout(function(){ map.invalidateSize(); },200);
+    // move o mapa mais pra baixo na página (abaixo do player / barra de notícias)
+    try{
+      var _wrap=document.getElementById('clmWrap');
+      var _anchor=document.getElementById('newsBar')||document.getElementById('playlist');
+      var _host=_anchor&&(_anchor.closest('section')||_anchor.parentElement);
+      if(_wrap&&_host&&_host.parentNode&&_host!==_wrap){
+        _host.parentNode.insertBefore(_wrap,_host.nextSibling);
+        setTimeout(function(){ map.invalidateSize(); },350);
+      }
+    }catch(e){}
     loadRadar(); loadTemps();
     setInterval(loadRadar, 10*60*1000); setInterval(loadTemps, 15*60*1000);
   }
@@ -6998,7 +7008,15 @@ function renderPlaylist() {
   });
   const catIcons = {
     'IA': '🤖',
-    'Rock Internacional Anos 80': '🎸'
+    'Rock Internacional Anos 80': '🎸',
+    'Sobrevivencialismo & Clima': '🌦️',
+    'Alerta & Sobrevivência': '🌦️',
+    'Boletim': '📰',
+    'Mercado': '📈',
+    'Fluxo do Dinheiro': '💰',
+    'Escola Austríaca': '🏛️',
+    'Alerta': '🚨',
+    'Missão Bitcoin': '🎯'
   };
   Object.entries(cats).forEach(([cat, items]) => {
     const header = document.createElement('div');
