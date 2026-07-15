@@ -1734,7 +1734,7 @@ img{max-width:100%;height:auto;}
       <div class="btcnode__cell"><div class="btcnode__k">Sincronização</div><div class="btcnode__v" id="bnProg">—</div><div class="btcnode__bar"><i id="bnBar"></i></div></div>
       <div class="btcnode__cell"><div class="btcnode__k">Bloco</div><div class="btcnode__v" id="bnBlocks">—</div></div>
       <div class="btcnode__cell"><div class="btcnode__k">Rede</div><div class="btcnode__v" id="bnChain">mainnet</div></div>
-      <div class="btcnode__cell"><div class="btcnode__k">Tipo</div><div class="btcnode__v" id="bnType">pruned</div></div>
+      <div class="btcnode__cell" title="Nó 'pruned' (podado): valida 100% das regras da rede com autonomia total, mas guarda só os blocos mais recentes pra economizar espaço em disco — a mesma segurança de um nó completo, sem precisar de 600+ GB."><div class="btcnode__k">Tipo <span style="font-size:9px;color:#6b7280;cursor:help;">ⓘ</span></div><div class="btcnode__v" id="bnType">pruned</div></div>
     </div>
     <div class="btcnode__foot">Nó Bitcoin Core soberano da Rádio Bitcoin · validando a rede sem intermediários</div>
   </section>
@@ -1768,9 +1768,14 @@ img{max-width:100%;height:auto;}
     <div class="mb-cde__dates">📅 19 E 20 DE SETEMBRO</div>
     <div class="mb-cde__sub">Workshop de autocustódia + palestras · Autocustódia. Liberdade. Soberania.<br>Desconto para pagamento em BTC.</div>
     <!-- ===== CUPOM PROMOCIONAL RADIOBITCOIN.ORG (15% OFF) ===== -->
-    <div class="mb-cde__coupon" style="margin:16px auto 4px;max-width:520px;background:linear-gradient(135deg,#f2a900 0%,#ffcb45 50%,#f2a900 100%);border:2px dashed #000;border-radius:12px;padding:14px 18px;box-shadow:0 0 24px -6px rgba(242,169,0,.55);position:relative;overflow:hidden;">
-      <div style="font-family:'Orbitron',ui-monospace,monospace;font-size:10px;font-weight:900;letter-spacing:2px;color:#000;text-transform:uppercase;opacity:.75;margin-bottom:4px;">🔥 Oferta Antecipada · Ouvinte da Rádio</div>
-      <div style="font-family:'Rajdhani','Orbitron',sans-serif;font-size:clamp(15px,4vw,20px);font-weight:900;color:#000;line-height:1.25;">Use o cupom <span style="display:inline-block;background:#000;color:#f2a900;font-family:ui-monospace,Menlo,monospace;padding:2px 10px;border-radius:6px;letter-spacing:1px;">radiobitcoin.org</span><br>e ganhe <b style="font-size:1.25em;">15% de desconto</b> no curso!</div>
+    <style>
+      @keyframes cupomGlow{0%,100%{box-shadow:0 0 24px -4px rgba(242,169,0,.6),0 0 0 0 rgba(242,169,0,.55);}50%{box-shadow:0 0 46px 3px rgba(242,169,0,.9),0 0 0 10px rgba(242,169,0,0);}}
+      .mb-cde__coupon{animation:cupomGlow 2s ease-in-out infinite;}
+      .mb-cde__coupon-code{display:inline-block;background:#000;color:#f2a900;font-family:ui-monospace,Menlo,monospace;padding:3px 13px;border-radius:7px;letter-spacing:1px;box-shadow:0 2px 8px rgba(0,0,0,.35);}
+    </style>
+    <div class="mb-cde__coupon" style="margin:20px auto 8px;max-width:620px;background:linear-gradient(135deg,#f2a900 0%,#ffd566 50%,#f2a900 100%);border:3px dashed #000;border-radius:16px;padding:20px 24px;position:relative;overflow:hidden;">
+      <div style="font-family:'Orbitron',ui-monospace,monospace;font-size:11px;font-weight:900;letter-spacing:2.5px;color:#000;text-transform:uppercase;margin-bottom:8px;">🎟️ OFERTA EXCLUSIVA · OUVINTE DA RÁDIO</div>
+      <div style="font-family:'Rajdhani','Orbitron',sans-serif;font-size:clamp(18px,4.8vw,26px);font-weight:900;color:#000;line-height:1.3;">Use o cupom <span class="mb-cde__coupon-code">radiobitcoin.org</span><br>e ganhe <b style="font-size:1.45em;">15% DE DESCONTO</b> no curso!</div>
     </div>
     <a class="mb-cde__cta" href="https://missaobitcoin.com.br" target="_blank" rel="noopener">🎟️ GARANTIR MEU INGRESSO »</a>
   </section>
@@ -2217,7 +2222,7 @@ img{max-width:100%;height:auto;}
     <div class="nl-bar__icon">📬</div>
     <div>
       <div class="nl-bar__title">Newsletter Bitcoin Semanal — Grátis</div>
-      <div class="nl-bar__sub">Resumo do mercado, novidades da rádio e <b>alertas de oportunidade</b> toda semana.</div>
+      <div class="nl-bar__sub">Junte-se a <b style="color:#f2a900;">milhares de ouvintes soberanos</b> — resumo do mercado, novidades da rádio e <b>alertas de oportunidade</b> toda semana.</div>
     </div>
   </div>
   <form class="nl-bar__form" action="https://formspree.io/f/xrevnpde" method="POST" target="_blank">
@@ -5945,11 +5950,11 @@ img{max-width:100%;height:auto;}
       </div>
       <!-- tabs -->
       <div style="display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid rgba(0,200,83,0.15);">
-        <button class="copa-tab" data-tab="brasil" onclick="copaTab('brasil',this)" style="flex:1;min-width:33%;background:rgba(0,200,83,0.1);border:none;color:#00c853;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.5px;padding:8px 4px;cursor:pointer;">🇧🇷 BRASIL</button>
+        <button class="copa-tab" data-tab="brasil" onclick="copaTab('brasil',this)" style="flex:1;min-width:33%;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.5px;padding:8px 4px;cursor:pointer;">🇧🇷 BRASIL</button>
         <button class="copa-tab" data-tab="hoje" onclick="copaTab('hoje',this)" style="flex:1;min-width:33%;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.5px;padding:8px 4px;cursor:pointer;">📅 HOJE</button>
         <button class="copa-tab" data-tab="grupos" onclick="copaTab('grupos',this)" style="flex:1;min-width:33%;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.5px;padding:8px 4px;cursor:pointer;">🏆 GRUPOS</button>
         <button class="copa-tab" data-tab="resultados" onclick="copaTab('resultados',this)" style="flex:1;min-width:50%;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.5px;padding:8px 4px;cursor:pointer;border-top:1px solid rgba(0,200,83,0.1);">✅ RESULTADOS</button>
-        <button class="copa-tab" data-tab="proximos" onclick="copaTab('proximos',this)" style="flex:1;min-width:50%;background:transparent;border:none;color:#6b7280;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.5px;padding:8px 4px;cursor:pointer;border-top:1px solid rgba(0,200,83,0.1);">⏭ PRÓXIMOS</button>
+        <button class="copa-tab" data-tab="proximos" onclick="copaTab('proximos',this)" style="flex:1;min-width:50%;background:rgba(0,200,83,0.1);border:none;color:#00c853;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.5px;padding:8px 4px;cursor:pointer;border-top:1px solid rgba(0,200,83,0.1);">⏭ PRÓXIMOS</button>
       </div>
       <div id="copa-lista" style="max-height:340px;overflow-y:auto;padding:8px;">
         <div style="text-align:center;color:#6b7280;font-size:10px;padding:14px;">carregando jogos…</div>
@@ -5958,7 +5963,7 @@ img{max-width:100%;height:auto;}
     </div>
     <script>
     (function(){
-      var COPA=[]; var GRUPOS={}; var aba='brasil';
+      var COPA=[]; var GRUPOS={}; var aba='proximos';
       function brtHoje(){ var d=new Date(); return d.toLocaleDateString('en-CA',{timeZone:'America/Sao_Paulo'}); }
       function flag(n){ return '<span style="color:#9ca3af;">'+n+'</span>'; }
       function jogoHTML(j){
@@ -6026,7 +6031,7 @@ img{max-width:100%;height:auto;}
     <div class="panel" id="bolao-panel" style="border-color:rgba(242,169,0,0.4);padding:0;overflow:hidden;margin-bottom:10px;">
       <div style="padding:10px 12px;background:linear-gradient(135deg,#1a1206,#2a1e08);border-bottom:1px solid rgba(242,169,0,0.25);">
         <div style="font-family:'Orbitron',ui-monospace,monospace;font-size:12px;font-weight:700;color:#f2a900;letter-spacing:1px;">🏆 BOLÃO DA COPA · EM SATS ⚡</div>
-        <div style="font-size:8px;color:#9ca3af;margin-top:2px;">Quem vai ser campeão? Vote e concorra ao pool em Bitcoin.</div>
+        <div style="font-size:9px;color:#e5e7eb;margin-top:3px;line-height:1.4;">🔥 <b style="color:#f2a900;">Palpite grátis!</b> Acerte o campeão e leve o pool em <b style="color:#f2a900;">Bitcoin real (sats)</b>. Participe agora 👇</div>
         <div id="bolao-lider" style="display:none;font-size:9px;color:#f2a900;margin-top:5px;font-family:ui-monospace,Menlo,monospace;"></div>
       </div>
       <div id="bolao-votar" style="padding:10px;">
@@ -6040,7 +6045,7 @@ img{max-width:100%;height:auto;}
           <span style="font-size:9px;color:#9ca3af;">Quem acertar o campeão divide o pool. Pra entrar, manda sats abaixo e teu palpite no Telegram <b style="color:#f2a900;">/bolao</b> com teu Lightning.</span>
         </div>
         <div style="display:flex;gap:6px;">
-          <a href="lightning:texugorecords@walletofsatoshi.com" class="zap-btn" style="flex:1;text-align:center;background:linear-gradient(135deg,rgba(242,169,0,0.25),rgba(242,169,0,0.1));border:1px solid rgba(242,169,0,0.5);color:#f2a900;font-size:10px;font-weight:700;padding:9px;border-radius:7px;text-decoration:none;">⚡ ENTRAR NO POOL</a>
+          <a href="lightning:texugorecords@walletofsatoshi.com" class="zap-btn" style="flex:1;text-align:center;background:linear-gradient(135deg,rgba(242,169,0,0.4),rgba(242,169,0,0.15));border:1px solid rgba(242,169,0,0.7);color:#f2a900;font-size:11px;font-weight:800;padding:11px;border-radius:7px;text-decoration:none;animation:cupomGlow 2.4s ease-in-out infinite;">⚡ ENTRAR NO POOL</a>
           <a href="https://t.me/Bitadictbot" target="_blank" rel="noopener" style="text-align:center;background:transparent;border:1px solid rgba(242,169,0,0.4);color:#9ca3af;font-size:10px;font-weight:700;padding:9px 12px;border-radius:7px;text-decoration:none;">📲 /bolao</a>
         </div>
       </div>
