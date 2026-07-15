@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-07-15 12:58:43",
-  "atualizado_ts": 1784131123,
+  "atualizado_em": "2026-07-15 13:30:03",
+  "atualizado_ts": 1784133003,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,19 +93,19 @@
     }
   },
   "radio_panel": {
-    "hora": "12:58:43",
-    "ts": 1784131123,
-    "pnl_total": -33.26,
+    "hora": "13:30:03",
+    "ts": 1784133003,
+    "pnl_total": -30.33,
     "bots": [
       {
         "nome": "XRP",
         "modo": "LIVE",
         "ativo": true,
-        "pnl": 2.19,
-        "trades": 3,
-        "ganhos": 2,
-        "banca": 99.78,
-        "ultima": "12:58:39"
+        "pnl": 5.124,
+        "trades": 6,
+        "ganhos": 6,
+        "banca": 35.0,
+        "ultima": "13:29:52"
       },
       {
         "nome": "ARBITRAGE",
@@ -113,8 +113,8 @@
         "ativo": true,
         "pnl": 4.29,
         "win": 100.0,
-        "ultima": "12:58:29",
-        "uptime": "359h14m"
+        "ultima": "13:29:28",
+        "uptime": "359h45m"
       },
       {
         "nome": "DIRECIONAL",
@@ -122,7 +122,7 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "12:58:37"
+        "ultima": "13:29:47"
       },
       {
         "nome": "GAEL LENOVO",
@@ -138,10 +138,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 54.3,
-        "ram_pct": 88.2,
+        "cpu": 59.5,
+        "ram_pct": 88.3,
         "disk_pct": 3.0,
-        "uptime": "24 days,  4:09"
+        "uptime": "24 days,  4:40"
       },
       {
         "nome": "INTEL",
@@ -156,8 +156,8 @@
         "nome": "NITRO",
         "papel": "Win11 - banners",
         "online": true,
-        "cpu": 8,
-        "ram_pct": 70.7,
+        "cpu": 2,
+        "ram_pct": 70.4,
         "disk_pct": 65.8,
         "uptime": "230h"
       },
