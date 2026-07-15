@@ -1752,7 +1752,7 @@ img{max-width:100%;height:auto;}
         document.getElementById('bnType').textContent=d.pruned?'pruned':'completo';
         document.getElementById('bnState').textContent=ibd?('sincronizando '+prog.toFixed(1)+'%'):'sincronizado ✓';
         var L=document.getElementById('bnListeners');
-        if(L){ var n=d.radio_listeners||0; L.textContent='🎧 '+n+' ouvindo agora'; L.style.color=n>0?'#22c55e':'#7a8290'; }
+        if(L && typeof d.radio_listeners==='number'){ var n=d.radio_listeners; L.textContent='🎧 '+n+' ouvindo agora'; L.style.color=n>0?'#22c55e':'#7a8290'; }
       }).catch(function(){document.getElementById('bnState').textContent='offline';});
     }
     upd(); setInterval(upd, 60000);
@@ -2909,7 +2909,7 @@ img{max-width:100%;height:auto;}
   <!-- TICKER -->
   <div id="ticker">
     <div class="ticker-inner" id="tickerInner">
-      <div class="tick-item"><span class="tick-sym">BTC</span><span class="tick-val" id="t-btc">$--</span><span class="tick-chg" id="tc-btc">--%</span></div>
+      <div class="tick-item" style="background:rgba(242,169,0,0.12);border:1px solid rgba(242,169,0,0.5);border-radius:6px;padding:1px 9px;"><span class="tick-sym" style="color:#f2a900;font-weight:900;">₿ BTC</span><span class="tick-val" id="t-btc" style="color:#fff;font-weight:800;">$--</span><span class="tick-chg" id="tc-btc">--%</span></div>
       <div class="tick-item"><span class="tick-sym">ETH</span><span class="tick-val" id="t-eth">$--</span><span class="tick-chg" id="tc-eth">--%</span></div>
       <div class="tick-item"><span class="tick-sym">SOL</span><span class="tick-val" id="t-sol">$--</span><span class="tick-chg" id="tc-sol">--%</span></div>
       <div class="tick-item"><span class="tick-sym">BNB</span><span class="tick-val" id="t-bnb">$--</span><span class="tick-chg" id="tc-bnb">--%</span></div>
@@ -3268,8 +3268,8 @@ img{max-width:100%;height:auto;}
           <div class="v" id="sMcap">--T</div>
           <div class="sub" style="color:var(--text-dim)">total crypto</div>
         </div>
-        <div class="stat-card">
-          <div class="k">MEDO & GANÂNCIA</div>
+        <div class="stat-card" id="fearCard" style="transition:border-color .4s,box-shadow .4s;">
+          <div class="k">MEDO &amp; GANÂNCIA</div>
           <div class="v" id="sFear">--</div>
           <div class="sub" id="sFearLbl" style="color:var(--text-dim)">--</div>
         </div>
@@ -7538,8 +7538,19 @@ async function fetchFear() {
     if (d && d.data && d.data[0]) {
       const val = d.data[0].value;
       const lbl = d.data[0].value_classification;
-      document.getElementById('sFear').textContent = val;
-      document.getElementById('sFearLbl').textContent = lbl;
+      // cor dinâmica por sentimento (0=medo extremo → 100=ganância extrema)
+      const nv = parseInt(val,10) || 0;
+      const cor = nv<25 ? '#ef4444' : nv<45 ? '#f59e0b' : nv<55 ? '#eab308' : nv<75 ? '#84cc16' : '#22c55e';
+      const sFearEl = document.getElementById('sFear');
+      const sFearLblEl = document.getElementById('sFearLbl');
+      const fearCard = document.getElementById('fearCard');
+      sFearEl.textContent = val;
+      sFearEl.style.color = cor;
+      sFearEl.style.textShadow = '0 0 12px ' + cor + '66';
+      sFearLblEl.textContent = lbl;
+      sFearLblEl.style.color = cor;
+      sFearLblEl.style.fontWeight = '700';
+      if (fearCard) { fearCard.style.borderColor = cor + '99'; fearCard.style.boxShadow = '0 0 18px -6px ' + cor + '88'; }
       document.getElementById('t-fear').textContent = val;
       document.getElementById('tc-fear').textContent = lbl;
       document.getElementById('t-fear2').textContent = val;
