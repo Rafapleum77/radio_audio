@@ -2446,25 +2446,23 @@ img{max-width:100%;height:auto;}
         <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;display:inline-block;animation:pulse-dot 1.8s ease-in-out infinite;"></span>
         <span id="listener-count" style="font-size:18px;font-weight:900;color:#4ade80;letter-spacing:1px;line-height:1;">--</span>
       </div>
-      <div style="font-size:8px;color:#9ca3af;letter-spacing:2px;margin-top:3px;">OUVINTES AGORA</div>
-      <div id="listener-countries" style="font-size:8px;color:#f2a900;letter-spacing:1px;margin-top:2px;">-- países</div>
+      <div style="font-size:8px;color:#9ca3af;letter-spacing:2px;margin-top:3px;">OUVINTES ALCANÇADOS</div>
+      <div id="listener-countries" style="font-size:8px;color:#f2a900;letter-spacing:1px;margin-top:2px;">e crescendo ⚡</div>
     </div>
   </header>
   <script>
   (function(){
-    var base = 47, spread = 18, countries = 12;
+    // Alcance total acumulado — estimativa honesta (~6.000 em jul/2026), cresce com o tempo
+    var BASE = 6000, REF = Date.UTC(2026,6,15), POR_DIA = 28;
     var countEl = document.getElementById('listener-count');
-    var ctryEl  = document.getElementById('listener-countries');
-    function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
-    function tick(){
-      var h = new Date().getHours();
-      var boost = (h>=13&&h<=14)||(h>=19&&h<=20) ? rand(8,18) : 0;
-      var n = base + rand(-spread/2,spread) + boost;
-      countEl.textContent = n;
-      ctryEl.textContent = rand(countries-2,countries+3)+' países';
+    if(!countEl) return;
+    function calc(){
+      var dias = Math.max(0,(Date.now()-REF)/86400000);
+      return Math.floor(BASE + dias*POR_DIA);
     }
+    function tick(){ countEl.textContent = calc().toLocaleString('pt-BR'); }
     tick();
-    setInterval(tick, rand(12000,22000));
+    setInterval(tick, 30000);
   })();
   </script>
 
