@@ -5439,6 +5439,58 @@ img{max-width:100%;height:auto;}
         </script>
       </div>
 
+      <!-- ===== RANKING TRIBUTÁRIO — BITCOIN & AÇÕES POR PAÍS (Soberania Fiscal) ===== -->
+      <div class="panel" id="ranking-fiscal" style="background:linear-gradient(180deg,#0a0806 0%,#07090d 100%);border-color:rgba(242,169,0,0.28);">
+        <div class="pt" style="color:#f2a900;letter-spacing:3px;">⚖️ RANKING TRIBUTÁRIO — BITCOIN &amp; AÇÕES POR PAÍS</div>
+        <div style="font-size:10px;color:#9ca3af;margin:2px 0 12px;line-height:1.5;">Ganho de capital sobre Bitcoin e ações, do país mais leve ao mais pesado. <b style="color:#f2a900;">Soberania fiscal = escolher onde ser residente.</b></div>
+        <style>
+          .rf-table{width:100%;border-collapse:collapse;font-family:ui-monospace,Menlo,monospace;font-size:11px;}
+          .rf-table th{color:#6b7280;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;text-align:left;padding:6px 8px;border-bottom:1px solid rgba(242,169,0,0.18);}
+          .rf-table td{padding:8px;border-bottom:1px solid rgba(255,255,255,0.05);color:#c8d0dc;vertical-align:top;}
+          .rf-row:hover{background:rgba(242,169,0,0.04);}
+          .rf-flag{font-size:16px;margin-right:6px;}
+          .rf-country{font-weight:700;color:#fff;white-space:nowrap;}
+          .rf-tag{display:inline-block;font-size:8px;font-weight:800;letter-spacing:.5px;padding:1px 6px;border-radius:10px;margin-left:5px;vertical-align:middle;}
+          .rf-0{color:#22c55e;font-weight:800;}
+          .rf-mid{color:#f2a900;font-weight:700;}
+          .rf-high{color:#ef4444;font-weight:700;}
+          .rf-note{font-size:9px;color:#7a8290;margin-top:2px;line-height:1.4;}
+          @media(max-width:560px){.rf-hidecol{display:none;}}
+        </style>
+        <div style="overflow-x:auto;">
+        <table class="rf-table">
+          <thead><tr><th>País</th><th>Bitcoin</th><th class="rf-hidecol">Ações</th><th>Observação</th></tr></thead>
+          <tbody id="rf-body"></tbody>
+        </table>
+        </div>
+        <div style="font-size:8.5px;color:#4b5563;text-align:center;margin-top:12px;line-height:1.6;border-top:1px solid rgba(255,255,255,0.05);padding-top:8px;">
+          📌 Estimativas 2026 · <b style="color:#6b7280;">planejamento LEGAL (elisão), não evasão fiscal</b> · conteúdo educativo, <b style="color:#6b7280;">não é consultoria jurídica/tributária</b> — procure um profissional.
+        </div>
+        <script>
+        (function(){
+          var PAISES=[
+            {f:'🇸🇻',n:'El Salvador',btc:'0%',btcC:'rf-0',acoes:'—',ac:'',nota:'Bitcoin é moeda de curso legal — zero imposto sobre ganho em BTC.',tag:'',tagc:'',star:false},
+            {f:'🇦🇪',n:'Emirados (Dubai)',btc:'0%',btcC:'rf-0',acoes:'0%',ac:'rf-0',nota:'Sem imposto de renda nem ganho de capital para pessoa física.',tag:'',tagc:'',star:false},
+            {f:'🇵🇾',n:'Paraguai',btc:'Territorial',btcC:'rf-0',acoes:'Territorial',ac:'rf-0',nota:'Renda de fora não é taxada. Residência fácil e cidadania acessível — a porta de entrada latina.',tag:'DESTAQUE',tagc:'background:#f2a900;color:#000;',star:true},
+            {f:'🇨🇭',n:'Suíça',btc:'Isento*',btcC:'rf-0',acoes:'Isento*',ac:'rf-0',nota:'Ganho de capital privado isento (*se não for trader profissional).',tag:'',tagc:'',star:false},
+            {f:'🇩🇪',n:'Alemanha',btc:'Isento >1 ano',btcC:'rf-0',acoes:'~26%',ac:'rf-mid',nota:'Segurou o BTC por mais de 1 ano? Ganho isento.',tag:'',tagc:'',star:false},
+            {f:'🇵🇹',n:'Portugal',btc:'Isento >1 ano / 28%',btcC:'rf-mid',acoes:'28%',ac:'rf-mid',nota:'Cripto de longo prazo (>365 dias) isenta; curto prazo 28%.',tag:'',tagc:'',star:false},
+            {f:'🇺🇸',n:'EUA',btc:'0–20%',btcC:'rf-mid',acoes:'0–20%',ac:'rf-mid',nota:'Longo prazo 0–20%; curto prazo tributado como renda comum.',tag:'',tagc:'',star:false},
+            {f:'🇧🇷',n:'Brasil',btc:'15–22,5%',btcC:'rf-high',acoes:'15% (20% day)',ac:'rf-high',nota:'Isento se vender até R$35 mil/mês em cripto; acima disso, alíquota progressiva.',tag:'',tagc:'',star:false}
+          ];
+          var b=document.getElementById('rf-body'); if(!b) return;
+          b.innerHTML=PAISES.map(function(p){
+            return '<tr class="rf-row"'+(p.star?' style="background:rgba(242,169,0,0.06);"':'')+'>'
+              +'<td><span class="rf-flag">'+p.f+'</span><span class="rf-country">'+p.n+'</span>'+(p.tag?'<span class="rf-tag" style="'+p.tagc+'">'+p.tag+'</span>':'')+'</td>'
+              +'<td class="'+p.btcC+'">'+p.btc+'</td>'
+              +'<td class="rf-hidecol '+p.ac+'">'+p.acoes+'</td>'
+              +'<td><div class="rf-note">'+p.nota+'</div></td>'
+              +'</tr>';
+          }).join('');
+        })();
+        </script>
+      </div>
+
       <!-- PAÍSES BITCOIN-FRIENDLY -->
       <div class="panel" id="paises" style="background:linear-gradient(180deg,#060810 0%,#07090d 100%);border-color:rgba(0,220,255,0.2);">
         <div class="pt" style="color:#00dcff;letter-spacing:3px;">🌍 PAÍSES BITCOIN-FRIENDLY — GUIA 2026</div>
