@@ -105,7 +105,26 @@
       "description": "Rádio online 24/7 sobre Bitcoin: música, notícias do mercado crypto e educação em soberania digital.",
       "genre": ["Bitcoin", "Criptomoedas", "Música", "Notícias"],
       "inLanguage": "pt-BR",
-      "parentOrganization": { "@id": "https://radiobitcoin.org/#org" }
+      "parentOrganization": { "@id": "https://radiobitcoin.org/#org" },
+      "potentialAction": {
+        "@type": "ListenAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://stream.radiobitcoin.org/radio",
+          "contentType": "audio/mpeg",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform",
+            "http://schema.org/AndroidPlatform",
+            "http://schema.org/IOSPlatform"
+          ]
+        },
+        "expectsAcceptanceOf": {
+          "@type": "Offer",
+          "category": "free",
+          "eligibleRegion": { "@type": "Country", "name": "Worldwide" }
+        }
+      }
     },
     {
       "@type": "WebSite",
