@@ -1350,7 +1350,7 @@ img{max-width:100%;height:auto;}
     <div style="flex:1"></div>
     <div class="hr-sub">A voz da revolução Bitcoin · notícias, mercado e liberdade financeira</div>
     <div class="hr-btns">
-      <button class="hr-play" id="hrPlay"><span class="ic">▶</span><span id="hrPlayTxt">OUVIR AO VIVO</span></button>
+      <button class="hr-play hr-pulsa" id="hrPlay"><span class="ic">▶</span><span id="hrPlayTxt">OUVIR AO VIVO</span></button>
       <button class="hr-play hr-play--econ" id="econPlay"><span class="ic">📊</span><span id="econPlayTxt">SÓ ECONOMIA (IA)</span></button>
     </div>
     <div class="hr-nowplaying" id="econNow"></div>
@@ -2358,14 +2358,14 @@ img{max-width:100%;height:auto;}
       function carregar(){
         var la=cidades.map(function(c){return c.la;}).join(',');
         var lo=cidades.map(function(c){return c.lo;}).join(',');
-        fetch('https://api.open-meteo.com/v1/forecast?latitude='+la+'&longitude='+lo+'&current=temperature_2m,weather_code,wind_speed_10m&timezone=America%2FSao_Paulo')
+        fetch('https://api.open-meteo.com/v1/forecast?latitude='+la+'&longitude='+lo+'&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=America%2FSao_Paulo')
           .then(function(r){return r.json();})
           .then(function(d){
             var arr=Array.isArray(d)?d:[d];
             var html=arr.map(function(o,i){
               var cur=o.current||{}; var w=wmo(cur.weather_code);
-              var t=Math.round(cur.temperature_2m); var v=Math.round(cur.wind_speed_10m);
-              return '<div class="bolt__city"><div class="bolt__ico">'+w[0]+'</div><div class="bolt__info"><div class="bolt__name">'+cidades[i].n+'</div><div class="bolt__temp">'+t+'°C</div><div class="bolt__desc">'+w[1]+' · 💨 '+v+' km/h</div></div></div>';
+              var t=Math.round(cur.temperature_2m); var v=Math.round(cur.wind_speed_10m); var h=Math.round(cur.relative_humidity_2m); var st=Math.round(cur.apparent_temperature);
+              return '<div class="bolt__city"><div class="bolt__ico">'+w[0]+'</div><div class="bolt__info"><div class="bolt__name">'+cidades[i].n+'</div><div class="bolt__temp">'+t+'°C</div><div class="bolt__desc">'+w[1]+' · sens '+st+'°</div><div class="bolt__desc">💧 '+h+'% · 💨 '+v+' km/h</div></div></div>';
             }).join('');
             document.getElementById('boltGrid').innerHTML=html;
             var now=new Date();
@@ -8737,6 +8737,7 @@ iaRender();
     if(fd){fd.style.background=playing?'#16c784':'#ea3943';fd.style.animation=playing?'livePulse 1.2s infinite':'none';}
     if(hb){hb.querySelector('.ic').textContent=playing?'⏸':'▶';}
     if(ht){ht.textContent=playing?'TOCANDO AO VIVO':'OUVIR AO VIVO';}
+    if(hb){hb.classList.toggle('hr-pulsa', !playing);}
   }
   function toggle(){
     if(a.paused){ a.load(); a.play().then(function(){sync(true);}).catch(function(){sync(false);}); }
