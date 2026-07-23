@@ -4281,9 +4281,11 @@ img{max-width:100%;height:auto;}
 
     function pararMusica(){
       const a = document.getElementById('audioEl');
-      if (a && !a.paused) { try { if(typeof pauseTrack==='function') pauseTrack(); else a.pause(); } catch(e){} }
+      window._musWasPlaying = !!(a && !a.paused);
+      if (window._musWasPlaying) { try { if(typeof pauseTrack==='function') pauseTrack(); else a.pause(); } catch(e){} }
     }
     function voltarMusica(){
+      if(!window._musWasPlaying) return;
       try {
         const a = document.getElementById('audioEl');
         if (a) { if (typeof playTrack==='function') playTrack(); else a.play().catch(function(){}); }
