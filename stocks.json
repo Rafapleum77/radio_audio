@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-23T20:11:26.957489+00:00",
+  "updated_at": "2026-07-23T21:28:43.279631+00:00",
   "tickers": [
     {
       "symbol": "MSTR",
@@ -14,10 +14,10 @@
     },
     {
       "symbol": "STRK",
-      "price": 61.52,
+      "price": 61.11,
       "previous_close": 62.77,
-      "change_abs": -1.25,
-      "change_pct": -1.98,
+      "change_abs": -1.66,
+      "change_pct": -2.64,
       "currency": "USD",
       "market_state": "UNKNOWN",
       "name": "Strategy Pref 8%",
@@ -36,10 +36,10 @@
     },
     {
       "symbol": "FBTC",
-      "price": 56.36,
+      "price": 56.39,
       "previous_close": 57.83,
-      "change_abs": -1.47,
-      "change_pct": -2.54,
+      "change_abs": -1.44,
+      "change_pct": -2.49,
       "currency": "USD",
       "market_state": "UNKNOWN",
       "name": "Fidelity BTC ETF",
@@ -146,10 +146,10 @@
     },
     {
       "symbol": "TSM",
-      "price": 415.49,
+      "price": 415.58,
       "previous_close": 424.61,
-      "change_abs": -9.12,
-      "change_pct": -2.15,
+      "change_abs": -9.03,
+      "change_pct": -2.13,
       "currency": "USD",
       "market_state": "UNKNOWN",
       "name": "Taiwan Semi",
