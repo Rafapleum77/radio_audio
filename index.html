@@ -1415,7 +1415,6 @@ img{max-width:100%;height:auto;}
     @media(prefers-reduced-motion:reduce){.qpx *{animation-duration:.001s!important}}
     </style>
     <div class="qpx" id="qpx">
-      <div class="qpx-badge" id="qpxBadge"><span class="qpx-dot"></span><span id="qpxBadgeTxt">STANDBY</span></div>
       <div class="qpx-dial" id="qpxDial">
         <svg class="qpx-rings" viewBox="0 0 300 300" aria-hidden="true">
           <g class="qpx-rg qpx-r1"><circle cx="150" cy="150" r="142" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".28" stroke-dasharray="3 10"/></g>
@@ -1427,19 +1426,28 @@ img{max-width:100%;height:auto;}
         </svg>
         <button class="qpx-btn" id="qpxBtn" aria-label="Tocar ou pausar"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
       </div>
-      <div class="qpx-eq" id="qpxEq"></div>
-      <div class="qpx-sub" id="qpxSub">Clique para <b>ouvir ao vivo</b></div>
-      <div class="qpx-modes" role="group" aria-label="Modo de transmissão">
-        <button id="qpxMLive" aria-pressed="true">● AO VIVO</button>
-        <button id="qpxMEcon" aria-pressed="false">◆ ECONOMIA</button>
-        <button id="qpxMSurv" aria-pressed="false">▲ SOBREVIVÊNCIA</button>
+      <div class="qpx-main">
+        <div class="qpx-badge" id="qpxBadge"><span class="qpx-dot"></span><span id="qpxBadgeTxt">STANDBY</span></div>
+        <div class="qpx-eq" id="qpxEq"></div>
+        <div class="qpx-sub" id="qpxSub">Clique para <b>ouvir ao vivo</b></div>
+        <div class="hr-nowplaying" id="econNow"></div>
+        <div class="qpx-ctrls">
+          <div class="qpx-modes" role="group" aria-label="Modo de transmissão">
+            <button id="qpxMLive" aria-pressed="true">● AO VIVO</button>
+            <button id="qpxMEcon" aria-pressed="false">◆ ECONOMIA</button>
+            <button id="qpxMSurv" aria-pressed="false">▲ SOBREVIVÊNCIA</button>
+          </div>
+          <div class="qpx-vol">
+            <span class="qpx-volic" id="qpxVolIc" aria-hidden="true">🔊</span>
+            <input type="range" id="qpxVol" min="0" max="100" value="90" aria-label="Volume">
+          </div>
+        </div>
+        <div class="qpx-tele">
+          <div class="qpx-read"><span class="k">BTC / USD</span><span class="v" id="qpxBtc">—</span></div>
+          <div class="qpx-read"><span class="k">BLOCO</span><span class="v" id="qpxBlk">—</span></div>
+          <div class="qpx-read"><span class="k">NO AR</span><span class="v" id="qpxSince">--:--</span></div>
+        </div>
       </div>
-      <div class="qpx-tele">
-        <div class="qpx-read"><span class="k">BTC / USD</span><span class="v" id="qpxBtc">—</span></div>
-        <div class="qpx-read"><span class="k">BLOCO</span><span class="v" id="qpxBlk">—</span></div>
-        <div class="qpx-read"><span class="k">NO AR</span><span class="v" id="qpxSince">--:--</span></div>
-      </div>
-      <div class="hr-nowplaying" id="econNow"></div>
     </div>
     <style>
     .hr-share-wrap{position:relative;margin-top:14px}
