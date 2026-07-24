@@ -2,9 +2,13 @@
   "gpt": {
     "nome": "GPT-4o",
     "arquivo": "locucoes/gpt.mp3",
-    "texto": "Aqui é a GPT na Rádio Bitcoin. O preço do Bitcoin está atualmente em US$ 28 mil e 500 dólares. No mercado de ações, as maiores altas hoje foram registradas pelo United States Oil com um aumento de 5,9%, enquanto o Micron também teve uma alta de 3,2%. Por outro lado, Tesla sofreu uma queda de 14,5% e iShares Silver caiu 3,5%. As ações mais negociadas hoje foram da Tesla e Intel. O mercado está em constante movimento, é hora de ficar atento às suas investidas! Visite radiobitcoin.org para mais informações e atualizações em tempo real!",
-    "btc": null,
-    "gerado_em": "2026-07-24T03:07:04.917780-03:00"
+    "texto": "Aqui é a GPT na Rádio Bitcoin.\n\nHoje o Bitcoin está em 65.460 dólares, caindo 0,4% nas últimas 24 horas. No mercado de ações, as maiores altas são do United States Oil com 5,9%, e do Micron com 3,2%. Já as maiores baixas estão no Tesla com 14,5%, e no iShares Silver com 3,5%. O Tesla é também o ativo mais negociado hoje.\n\nNão perca tempo, acompanhe a análise técnica e os movimentos do mercado em radiobitcoin.org.",
+    "btc": {
+      "usd": 65460,
+      "brl": 332715,
+      "chg": -0.4
+    },
+    "gerado_em": "2026-07-24T04:07:03.063485-03:00"
   },
   "claude": {
     "nome": "Claude",
