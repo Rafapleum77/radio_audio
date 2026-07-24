@@ -8997,6 +8997,22 @@ iaRender();
   }
   setInterval(function(){ if(SINCE&&elSince){ elSince.textContent=String(SINCE.getHours()).padStart(2,'0')+':'+String(SINCE.getMinutes()).padStart(2,'0'); } },1000);
 
+  // ---- volume (aplica nos dois áudios + persiste) ----
+  var vol=document.getElementById('qpxVol'), volic=document.getElementById('qpxVolIc');
+  function aplicarVol(v){
+    v=Math.max(0,Math.min(1,v));
+    liveAudio.volume=v; econAudio.volume=v;
+    if(vol){ vol.value=Math.round(v*100); vol.style.background='linear-gradient(90deg,var(--accent) '+(v*100)+'%,rgba(135,152,189,.28) '+(v*100)+'%)'; }
+    if(volic) volic.textContent = v===0?'🔇':(v<0.5?'🔉':'🔊');
+  }
+  if(vol){
+    var salvo=parseFloat(localStorage.getItem('qpxVol'));
+    aplicarVol(isNaN(salvo)?0.9:salvo);
+    vol.addEventListener('input',function(){ var v=vol.value/100; aplicarVol(v); try{localStorage.setItem('qpxVol',v);}catch(_){}} );
+    if(volic) volic.style.cursor='pointer';
+    if(volic) volic.addEventListener('click',function(){ var v=liveAudio.volume>0?0:(parseFloat(localStorage.getItem('qpxVol'))||0.9); aplicarVol(v); });
+  }
+
   // ---- boot ----
   accent(); render(); telem(); setInterval(telem,30000);
 })();
