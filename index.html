@@ -8841,6 +8841,143 @@ iaRender();
 })();
 </script>
 <script>
+// ===== QUANTUM PULSE — Core Control (player principal do hero) =====
+// 3 modos: AO VIVO (stream 24/7), ECONOMIA e SOBREVIVÊNCIA (boletins IA do tracks.json por categoria).
+// Reaproveita #liveAudio (stream) e #econAudio (boletins). O "gerente global de áudio" cuida do
+// cross-pause entre elementos; o mini-player flutuante segue sincronizado pelo seu próprio controlador.
+(function(){
+  var qpx=document.getElementById('qpx'); if(!qpx) return;
+  var liveAudio=document.getElementById('liveAudio'), econAudio=document.getElementById('econAudio');
+  if(!liveAudio||!econAudio) return;
+  var badge=document.getElementById('qpxBadge'), sub=document.getElementById('qpxSub'),
+      btn=document.getElementById('qpxBtn'), now=document.getElementById('econNow'),
+      elBtc=document.getElementById('qpxBtc'), elBlk=document.getElementById('qpxBlk'), elSince=document.getElementById('qpxSince');
+  try{ liveAudio.crossOrigin='anonymous'; }catch(_){}
+  var LIVE_URL='https://stream.radiobitcoin.org/radio';
+
+  var MODES={
+    live:{accent:'#00d4ff',soft:'rgba(0,212,255,.16)',label:'AO VIVO',el:liveAudio,isLive:true},
+    econ:{accent:'#f59e0b',soft:'rgba(245,158,11,.18)',label:'ECONOMIA',el:econAudio,
+          cats:['mercado','fluxo','boletim','economia','austriaca','austríaca','alerta','noticia','notícia']},
+    surv:{accent:'#22c55e',soft:'rgba(34,197,94,.18)',label:'SOBREVIVÊNCIA',el:econAudio,
+          cats:['sobreviv','clima','prepper','surviv','tempo']}
+  };
+  var mode='live', state='idle', SINCE=null;
+  var PLAY='<path d="M8 5v14l11-7z"/>', PAUSE='<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+  function cfg(){return MODES[mode];}
+  function el(){return cfg().el;}
+  function accent(){var c=cfg();qpx.style.setProperty('--accent',c.accent);qpx.style.setProperty('--accent-soft',c.soft);}
+
+  // ---- espectro (Web Audio real; fallback sintético honesto) ----
+  var eqEl=document.getElementById('qpxEq'), BARS=40, bars=[], vals=new Array(BARS).fill(0);
+  for(var i=0;i<BARS;i++){var bb=document.createElement('i');eqEl.appendChild(bb);bars.push(bb);}
+  var actx=null, graphs=new Map();
+  function ensureGraph(a){
+    try{
+      if(!actx){var C=window.AudioContext||window.webkitAudioContext; if(!C) return null; actx=new C();}
+      if(actx.state==='suspended') actx.resume();
+      if(!graphs.has(a)){var s=actx.createMediaElementSource(a),an=actx.createAnalyser();an.fftSize=128;var fr=new Uint8Array(an.frequencyBinCount);s.connect(an);an.connect(actx.destination);graphs.set(a,{an:an,fr:fr});}
+      return graphs.get(a);
+    }catch(e){ graphs.set(a,null); return null; }
+  }
+
+  // ---- badge / render ----
+  function setBadge(t,cls){badge.className='qpx-badge'+(cls?(' '+cls):'');badge.innerHTML='<span class="qpx-dot"></span>';var s=document.createElement('span');s.textContent=t;badge.appendChild(s);}
+  function render(){
+    qpx.className='qpx is-'+state;
+    var c=cfg(), live=!!c.isLive;
+    if(state==='connecting'){ btn.innerHTML='<div class="qpx-spin"></div>'; }
+    else{ var pz=(state==='playing'||state==='buffering'); btn.innerHTML='<svg viewBox="0 0 24 24">'+(pz?PAUSE:PLAY)+'</svg>'; }
+    if(state==='idle'){ setBadge('STANDBY'); sub.innerHTML='Clique para <b>'+(live?'ouvir ao vivo':'ouvir os boletins')+'</b>'; }
+    else if(state==='connecting'){ setBadge('CONECTANDO…'); sub.innerHTML='Sintonizando o sinal…'; }
+    else if(state==='playing'){ setBadge(c.label,live?'qpx-livebadge':''); sub.innerHTML=live?'<b>Transmissão ao vivo</b> · 24 horas':'<b>'+c.label+' · IA</b> · em curso'; }
+    else if(state==='buffering'){ setBadge('BUFFERING…'); sub.innerHTML='Reconectando o sinal…'; }
+    else if(state==='paused'){ setBadge('PAUSADO'); sub.innerHTML='Pausado · clique para retomar'; }
+    else if(state==='error'){ setBadge('FORA DO AR','qpx-errbadge'); sub.innerHTML='Sinal indisponível · <b>tentar de novo</b>'; }
+  }
+  function to(s){ state=s; if(s==='playing'&&!SINCE) SINCE=new Date(); render(); }
+
+  // ---- eventos de mídia (só reage ao elemento ativo) ----
+  function bind(a){
+    a.addEventListener('playing',function(){ if(a===el()) to('playing'); });
+    a.addEventListener('pause',  function(){ if(a===el()&&state!=='error'&&state!=='connecting') to('paused'); });
+    a.addEventListener('waiting',function(){ if(a===el()&&state==='playing') to('buffering'); });
+    a.addEventListener('stalled',function(){ if(a===el()&&state==='playing') to('buffering'); });
+    a.addEventListener('error',  function(){ if(a===el()) to('error'); });
+  }
+  bind(liveAudio); bind(econAudio);
+
+  // ---- boletins temáticos (econ/surv), puxados do tracks.json por categoria ----
+  var tracks=null, queues={econ:null,surv:null}, qidx={econ:0,surv:0};
+  function matches(cat,list){cat=(cat||'').toLowerCase();return list.some(function(c){return cat.indexOf(c)>=0;});}
+  function loadTracks(){ if(tracks) return Promise.resolve(tracks);
+    return fetch('tracks.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(ts){tracks=ts||[];return tracks;}); }
+  function buildQueue(m){var c=MODES[m];return (tracks||[]).filter(function(t){return t&&t.file&&matches(t.category,c.cats);});}
+  function playBoletim(){
+    var q=queues[mode];
+    if(!q||!q.length){ if(now)now.textContent='Nenhum boletim de '+cfg().label.toLowerCase()+' disponível agora.'; to('idle'); return; }
+    var t=q[qidx[mode]%q.length];
+    ensureGraph(econAudio);
+    econAudio.src=t.file; to('connecting'); econAudio.load();
+    econAudio.play().then(function(){ if(now)now.textContent='▶ '+(t.title||t.file); }).catch(function(){ to('error'); });
+    setTimeout(function(){ if(state==='connecting'&&el()===econAudio) to('error'); }, 12000);
+  }
+  econAudio.addEventListener('ended',function(){ if(el()!==econAudio) return; var q=queues[mode]; if(!q||!q.length) return; qidx[mode]=(qidx[mode]+1)%q.length; playBoletim(); });
+
+  // ---- play / pause ----
+  function playLive(){ ensureGraph(liveAudio); if(liveAudio.src!==LIVE_URL) liveAudio.src=LIVE_URL; to('connecting'); liveAudio.load(); liveAudio.play().catch(function(){ to('error'); }); setTimeout(function(){ if(state==='connecting'&&el()===liveAudio) to('error'); }, 12000); }
+  function startThemed(){ if(now)now.textContent='Carregando boletins…'; loadTracks().then(function(){ if(!queues[mode]) queues[mode]=buildQueue(mode); playBoletim(); }).catch(function(){ if(now)now.textContent='Erro ao carregar os boletins.'; to('error'); }); }
+  function play(){ if(cfg().isLive) playLive(); else startThemed(); }
+  function pause(){ el().pause(); }
+  function toggle(){ if(state==='playing'||state==='buffering') pause(); else play(); }
+  btn.addEventListener('click',toggle);
+
+  // ---- switch de modos ----
+  var mL=document.getElementById('qpxMLive'), mE=document.getElementById('qpxMEcon'), mS=document.getElementById('qpxMSurv');
+  function setMode(m){
+    if(m===mode) return;
+    var wasPlaying=(state==='playing'||state==='buffering'||state==='connecting');
+    try{ el().pause(); }catch(_){}
+    mode=m; accent();
+    mL.setAttribute('aria-pressed',m==='live'); mE.setAttribute('aria-pressed',m==='econ'); mS.setAttribute('aria-pressed',m==='surv');
+    if(now) now.textContent='';
+    if(wasPlaying) play(); else to('idle');
+  }
+  mL.onclick=function(){setMode('live');}; mE.onclick=function(){setMode('econ');}; mS.onclick=function(){setMode('surv');};
+
+  // ---- loop do espectro ----
+  function frame(){
+    var playing=(state==='playing'||state==='buffering');
+    var g=playing?graphs.get(el()):null, real=false;
+    if(g){ g.an.getByteFrequencyData(g.fr); var sum=0; for(var k=0;k<g.fr.length;k++) sum+=g.fr[k]; if(sum>0) real=true; }
+    for(var i2=0;i2<BARS;i2++){
+      var t;
+      if(!playing){ t=0.03; }
+      else if(real){ t=g.fr[i2%g.fr.length]/255; }
+      else { var base=Math.sin((Date.now()/380)+(i2*0.5))*0.5+0.5, n=Math.random()*0.5;
+        t=Math.min(1,(base*0.6+n*0.5)*(0.5+0.5*Math.sin(Date.now()/900+i2))); if(state==='buffering') t*=(Math.random()>0.5?0.3:1); }
+      vals[i2]+=(t-vals[i2])*0.35;
+      bars[i2].style.height=(4+vals[i2]*30)+'px';
+      bars[i2].style.opacity=(0.35+vals[i2]*0.65);
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // ---- telemetria (BTC + altura do bloco) ----
+  function flash(e){ if(!e) return; e.classList.remove('flash'); void e.offsetWidth; e.classList.add('flash'); }
+  function num(n){ return n==null?'—':Number(n).toLocaleString('pt-BR'); }
+  function telem(){
+    fetch('node_status.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){ if(d&&d.blocks&&elBlk){ elBlk.textContent=num(d.blocks); flash(elBlk); } }).catch(function(){});
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd').then(function(r){return r.json();}).then(function(d){ if(d&&d.bitcoin&&elBtc){ elBtc.textContent='$'+num(Math.round(d.bitcoin.usd)); flash(elBtc); } }).catch(function(){});
+  }
+  setInterval(function(){ if(SINCE&&elSince){ elSince.textContent=String(SINCE.getHours()).padStart(2,'0')+':'+String(SINCE.getMinutes()).padStart(2,'0'); } },1000);
+
+  // ---- boot ----
+  accent(); render(); telem(); setInterval(telem,30000);
+})();
+</script>
+<script>
 // Player "Só Economia (IA)" — toca em fila os boletins de economia/mercado/fluxo gerados pelas IAs.
 // Puxa do tracks.json por categoria, então novos boletins entram sozinhos. O gerente global de
 // áudio (mais abaixo) garante que isto pausa o stream ao vivo e vice-versa.
