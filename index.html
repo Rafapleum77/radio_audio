@@ -8719,13 +8719,29 @@ iaRender();
 </script>
 
 <!-- ===== PLAYER AO VIVO (stream Icecast 24/7) ===== -->
-<div id="liveRadio" style="position:fixed;left:16px;bottom:16px;z-index:99999;display:flex;align-items:center;gap:10px;background:#111;border:1px solid #f7931a;border-radius:999px;padding:8px 14px 8px 12px;box-shadow:0 6px 24px rgba(0,0,0,.5);font-family:ui-sans-serif,system-ui,sans-serif">
-  <button id="liveBtn" aria-label="Ouvir ao vivo" style="border:0;background:#f7931a;color:#111;width:38px;height:38px;border-radius:50%;font-size:16px;cursor:pointer;font-weight:900;display:flex;align-items:center;justify-content:center">▶</button>
-  <div style="line-height:1.1">
-    <div style="color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px">
-      <span id="liveDot" style="width:8px;height:8px;border-radius:50%;background:#ea3943;display:inline-block"></span>AO VIVO
-    </div>
-    <div style="color:#9a9aab;font-size:10px;letter-spacing:.5px">RÁDIO BITCOIN 24h</div>
+<style>
+  #liveRadio{position:fixed;left:16px;bottom:16px;z-index:99999;display:flex;align-items:center;gap:11px;background:linear-gradient(160deg,#0d1424,#0a0e1a);border:1px solid rgba(0,212,255,.45);border-radius:999px;padding:8px 16px 8px 9px;box-shadow:0 8px 30px -8px rgba(0,212,255,.55);font-family:'Share Tech Mono',ui-monospace,monospace}
+  #liveRadio .qp-bw{position:relative;width:42px;height:42px;flex:0 0 auto}
+  #liveRadio .qp-ring{position:absolute;inset:-3px;border-radius:50%;border:1.5px solid rgba(0,212,255,.5);pointer-events:none}
+  #liveRadio.qp-playing .qp-ring{animation:qpMiniBeat 1.5s ease-in-out infinite}
+  @keyframes qpMiniBeat{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.14);opacity:.3}}
+  #liveBtn{position:relative;z-index:1;border:1.5px solid #00d4ff;background:radial-gradient(circle at 50% 40%,rgba(0,212,255,.25),#0a0e1a 70%);color:#00d4ff;width:42px;height:42px;border-radius:50%;font-size:15px;cursor:pointer;font-weight:900;display:flex;align-items:center;justify-content:center}
+  #liveRadio:not(.qp-playing) #liveBtn{animation:qpMiniInvite 1.9s ease-in-out infinite}
+  @keyframes qpMiniInvite{0%,100%{box-shadow:0 0 0 0 rgba(0,212,255,.35)}50%{box-shadow:0 0 0 7px rgba(0,212,255,.06)}}
+  #liveRadio .qp-name{color:#00d4ff;font-size:12px;font-weight:800;letter-spacing:1px;display:flex;align-items:center;gap:6px}
+  #liveRadio.qp-playing .qp-name{color:#fff}
+  #liveDot{width:8px;height:8px;border-radius:50%;background:#ef4444;display:inline-block}
+  #liveRadio.qp-playing #liveDot{box-shadow:0 0 9px #ef4444;animation:qpMiniBlink 1s steps(2) infinite}
+  @keyframes qpMiniBlink{50%{opacity:.2}}
+  #liveRadio .qp-sub{color:#7f92b5;font-size:9px;letter-spacing:1.5px}
+</style>
+<div id="liveRadio">
+  <div class="qp-bw"><span class="qp-ring"></span>
+    <button id="liveBtn" aria-label="Ouvir ao vivo">▶</button>
+  </div>
+  <div style="line-height:1.15">
+    <div class="qp-name"><span id="liveDot"></span><span id="liveTxt">OUVIR AO VIVO</span></div>
+    <div class="qp-sub">RÁDIO BITCOIN · 24H</div>
   </div>
 </div>
 <script>
@@ -8736,7 +8752,9 @@ iaRender();
   var hb=document.getElementById('hrPlay'),ht=document.getElementById('hrPlayTxt');
   function sync(playing){
     if(fb){fb.textContent=playing?'⏸':'▶';}
-    if(fd){fd.style.background=playing?'#16c784':'#ea3943';fd.style.animation=playing?'livePulse 1.2s infinite':'none';}
+    if(fd){fd.style.background='#ef4444';fd.style.animation='none';}
+    var _lr=document.getElementById('liveRadio'); if(_lr)_lr.classList.toggle('qp-playing',playing);
+    var _lt=document.getElementById('liveTxt'); if(_lt)_lt.textContent=playing?'AO VIVO':'OUVIR AO VIVO';
     if(hb){hb.querySelector('.ic').textContent=playing?'⏸':'▶';}
     if(ht){ht.textContent=playing?'TOCANDO AO VIVO':'OUVIR AO VIVO';}
     if(hb){hb.classList.toggle('hr-pulsa', !playing);}
