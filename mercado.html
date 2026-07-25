@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mercado ao Vivo — Rádio Bitcoin</title>
+<meta name="description" content="Painel de mercado da Rádio Bitcoin: heatmap cripto TradingView, bolhas de 25 ações US ao vivo e Crypto Bubbles.">
+<link rel="icon" type="image/png" href="/icon-192.png">
+<link rel="canonical" href="https://radiobitcoin.org/mercado.html">
+<style>
+:root{--gold:#f2a900;--blue:#00d4ff;--text-dim:#7a8290;}
+*{box-sizing:border-box;}
+body{margin:0;background:#07090d;color:#dfe9ec;font-family:ui-sans-serif,system-ui,sans-serif;}
+.wrap{max-width:1100px;margin:0 auto;padding:16px;}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;}
+.topbar a{color:var(--blue);text-decoration:none;font-size:13px;font-weight:700;}
+.topbar h1{font-family:ui-monospace,Menlo,monospace;font-size:15px;letter-spacing:3px;color:var(--gold);margin:0;text-transform:uppercase;}
+.cb-link{display:block;text-align:center;margin:16px 0;font-size:13px;color:var(--blue);text-decoration:none;font-weight:700;}
+footer{text-align:center;font-size:10px;color:var(--text-dim);padding:20px 0 26px;}
+footer a{color:var(--gold);text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a href="/">← Rádio Bitcoin</a>
+    <h1>📈 Mercado ao Vivo</h1>
+    <a href="/" style="visibility:hidden;">.</a>
+  </div>
+<section id="mercado-heatmap" style="margin:0 0 16px;background:#0d1018;border:1px solid rgba(247,147,26,.28);border-radius:12px;overflow:hidden;font-family:ui-sans-serif,system-ui,sans-serif;">
+    <div style="padding:16px 18px 8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div style="font-size:18px;font-weight:800;color:#fff;">📊 Mercado em Tempo Real</div>
+        <div style="font-size:12px;color:#9a9aab;">Ações americanas · tamanho = valor de mercado · cor = desempenho do dia</div>
+      </div>
+      <a href="https://finviz.com/bubbles" target="_blank" rel="noopener" style="background:#f7931a;color:#1a1206;font-weight:800;font-size:12px;text-decoration:none;padding:10px 15px;border-radius:8px;white-space:nowrap;">🫧 Ver em bolhas →</a>
+    </div>
+    <div style="padding:0 8px 10px;">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+        {"dataSource":"SPX500","blockSize":"market_cap_basic","blockColor":"change","grouping":"sector","locale":"br","symbolUrl":"","colorTheme":"dark","hasTopBar":false,"isDataSetEnabled":false,"isZoomEnabled":true,"hasSymbolTooltip":true,"isMonoSize":false,"width":"100%","height":"460"}
+        </script>
+      </div>
+    </div>
+  </section>
+
+<section class="rb-stocks" id="rb-stocks">
+  <div class="rb-stocks__header">
+    <h2 class="rb-stocks__title">💰 INVISTA AQUI · ANÁLISE POR IA</h2>
+    <div class="rb-stocks__sub" id="rb-stocks-updated">carregando…</div>
+  </div>
+  <div class="rb-stocks__grid" id="rb-stocks-grid"></div>
+  <div style="margin-top:12px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <span style="font-size:12px;color:var(--blue,#00d4ff);font-weight:700;letter-spacing:1px;">🫧 BOLHAS DE AÇÕES · AO VIVO</span>
+      <a href="acoes_bolhas.html" target="_blank" style="font-size:10px;color:#00e08a;text-decoration:none;border:1px solid rgba(0,224,138,.4);border-radius:14px;padding:3px 10px;">⛶ tela cheia</a>
+    </div>
+    <iframe src="acoes_bolhas.html" title="Bolhas de Ações ao vivo" loading="lazy" style="width:100%;height:600px;border:1px solid rgba(0,212,255,0.25);border-radius:12px;background:#0a0e27;"></iframe>
+  </div>
+  <div class="rb-stocks__foot">Dados Yahoo Finance · atualizado a cada 15 min · NÃO É RECOMENDAÇÃO DE INVESTIMENTO</div>
+
+  <!-- ===== BANNER AFILIADO NOMAD (amarelo da marca) ===== -->
+  <div style="margin-top:14px;background:#FFCB05;border-radius:10px;padding:14px;color:#111;box-shadow:0 4px 16px -6px rgba(255,203,5,0.5);">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+      <img loading="lazy" decoding="async" src="logo_nomad.png" alt="Nomad" style="height:26px;display:block;" />
+    </div>
+    <div style="font-size:12px;color:#1a1a1a;line-height:1.5;margin-bottom:9px;font-weight:600;">
+      Conta internacional em dólar pra investir nas ações americanas, viajar e receber do exterior.
+    </div>
+    <div style="background:rgba(0,0,0,0.09);border-radius:7px;padding:9px 11px;margin-bottom:11px;font-size:11px;color:#111;line-height:1.5;font-weight:600;">
+      ✨ <b>Taxa de conversão ZERADA</b> na 1ª conversão de até US$ 1.000 + <b>1 GB de internet</b> no Nomad Chip (eSIM).
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <a href="https://nomad.onelink.me/wIQT/Account?code=FRAB6Q5UNE%26n=Mr%20Pleum" target="_blank" rel="noopener"
+         style="flex:1;min-width:160px;text-align:center;background:#111;color:#FFCB05;font-family:'Orbitron',ui-monospace,monospace;font-size:11px;font-weight:800;letter-spacing:.5px;text-decoration:none;padding:12px;border-radius:8px;">ABRIR CONTA NA NOMAD →</a>
+      <div onclick="navigator.clipboard.writeText('FRAB6Q5UNE').then(()=>{this.querySelector('b').textContent='✅ COPIADO';setTimeout(()=>{this.querySelector('b').textContent='FRAB6Q5UNE'},1500)})"
+           style="cursor:pointer;background:rgba(0,0,0,0.06);border:1px dashed rgba(0,0,0,0.4);border-radius:8px;padding:10px 12px;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#333;" title="Clique para copiar o código">
+        cupom <b style="color:#111;">FRAB6Q5UNE</b>
+      </div>
+    </div>
+  </div>
+  <!-- ===== FIM BANNER NOMAD ===== -->
+</section>
+
+  <a class="cb-link" href="https://cryptobubbles.net/" target="_blank" rel="noopener">🫧 Crypto Bubbles — bolhas do mercado cripto ao vivo »</a>
+  <footer>Rádio Bitcoin · <a href="/">radiobitcoin.org</a> — a voz da revolução Bitcoin, 24h</footer>
+</div>
+<script>
+(function(){
+  const grid = document.getElementById('rb-stocks-grid');
+  const updated = document.getElementById('rb-stocks-updated');
+  async function load(){
+    try {
+      const r = await fetch('stocks.json?ts=' + Date.now());
+      if (!r.ok) throw new Error('http ' + r.status);
+      const d = await r.json();
+      // Filtro de sanidade: esconde preço absurdo (fonte glitchando). Nenhuma
+      // ação da lista passa de $1000 legítimo; some sozinho se normalizar.
+      const tickers = (d.tickers || []).filter(t => typeof t.price !== 'number' || t.price <= 1000);
+
+      // Destaques do dia: maior alta, maior baixa, mais negociada
+      let maxAlta = null, maxBaixa = null;
+      tickers.forEach(t => {
+        if (typeof t.change_pct !== 'number') return;
+        if (!maxAlta  || t.change_pct > maxAlta.change_pct)  maxAlta  = t;
+        if (!maxBaixa || t.change_pct < maxBaixa.change_pct) maxBaixa = t;
+      });
+      // Mais negociada: cruza com carteira.json (que tem volume) pelo símbolo.
+      // Pula quem já é maior alta/baixa pra não sobrepor badges.
+      let maisNegoc = null;
+      try {
+        const cj = await fetch('carteira.json?ts=' + Date.now()).then(x => x.ok ? x.json() : null);
+        if (cj && cj.tickers) {
+          const symsAqui = new Set(tickers.map(t => t.symbol));
+          const jaTem = new Set([maxAlta && maxAlta.change_pct>0 ? maxAlta.symbol : null,
+                                 maxBaixa && maxBaixa.change_pct<0 ? maxBaixa.symbol : null]);
+          const comVol = cj.tickers.filter(t => t.volume && symsAqui.has(t.symbol) && !jaTem.has(t.symbol))
+                                   .sort((a,b) => b.volume - a.volume);
+          if (comVol.length) maisNegoc = comVol[0].symbol;
+        }
+      } catch(e) {}
+
+      function badge(t){
+        if (maxAlta && t.symbol === maxAlta.symbol && maxAlta.change_pct > 0)
+          return '<span class="rb-stock__badge" style="background:rgba(34,197,94,.18);color:#22c55e;">🔼 MAIOR ALTA</span>';
+        if (maxBaixa && t.symbol === maxBaixa.symbol && maxBaixa.change_pct < 0)
+          return '<span class="rb-stock__badge" style="background:rgba(239,68,68,.18);color:#ef4444;">🔽 MAIOR BAIXA</span>';
+        if (maisNegoc && t.symbol === maisNegoc)
+          return '<span class="rb-stock__badge" style="background:rgba(242,169,0,.18);color:#f2a900;">🔥 MAIS NEGOCIADA</span>';
+        return '';
+      }
+
+      grid.innerHTML = '';
+      tickers.forEach(t => {
+        const up = t.change_pct >= 0;
+        const card = document.createElement('div');
+        card.className = 'rb-stock';
+        const logoMain = t.logo || ('https://cdn.brandfetch.io/' + t.symbol.toLowerCase() + '.com/w/200/h/200');
+        const logoFallback = 'https://financialmodelingprep.com/image-stock/' + t.symbol + '.png';
+        card.innerHTML =
+          badge(t) +
+          '<div class="rb-stock__head">' +
+            '<img class="rb-stock__logo" src="' + logoMain + '" alt="" onerror="this.onerror=null;this.src=\'' + logoFallback + '\'" loading="lazy" />' +
+            '<div class="rb-stock__sym">' + t.symbol + '</div>' +
+          '</div>' +
+          '<div class="rb-stock__name">' + (t.name || '') + '</div>' +
+          '<div class="rb-stock__price">$' + t.price.toFixed(2) + '</div>' +
+          '<div class="rb-stock__chg ' + (up?'up':'dn') + '">' + (up?'▲':'▼') + ' ' + Math.abs(t.change_pct).toFixed(2) + '%</div>';
+        grid.appendChild(card);
+      });
+      const dt = new Date(d.updated_at);
+      updated.textContent = 'atualizado ' + dt.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+    } catch(e) {
+      updated.textContent = 'erro: ' + e.message;
+    }
+  }
+  load();
+  setInterval(load, 60000);
+})();
+</script>
+
+</body>
+</html>
