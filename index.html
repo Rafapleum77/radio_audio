@@ -8970,6 +8970,19 @@ iaRender();
   function toggle(){ if(state==='playing'||state==='buffering') pause(); else play(); }
   btn.addEventListener('click',toggle);
 
+  // ---- vinheta de índice: botão-guia que apresenta a rádio (click-to-play, fade-in) ----
+  var iBtn=document.getElementById('qpxIndice'), iAu=document.getElementById('indiceAudio');
+  if(iBtn&&iAu){
+    function iSync(p){ iBtn.classList.toggle('on',p); var ic=iBtn.querySelector('.qpx-iic'); if(ic) ic.textContent=p?'⏸':'📻'; }
+    iBtn.addEventListener('click',function(){
+      if(iAu.paused){ var tv=(liveAudio.volume>0?liveAudio.volume:0.9); iAu.volume=0; iAu.play().then(function(){ fadeIn(iAu,2600,tv); }).catch(function(){}); }
+      else { iAu.pause(); }
+    });
+    iAu.addEventListener('play', function(){ iSync(true); });
+    iAu.addEventListener('pause',function(){ iSync(false); });
+    iAu.addEventListener('ended',function(){ iSync(false); });
+  }
+
   // ---- switch de modos ----
   var mL=document.getElementById('qpxMLive'), mE=document.getElementById('qpxMEcon'), mS=document.getElementById('qpxMSurv');
   function setMode(m){
