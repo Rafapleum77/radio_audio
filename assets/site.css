@@ -1712,3 +1712,6 @@ img{max-width:100%;height:auto;}
     .rvz-grade-grid { grid-template-columns:repeat(2,1fr); }
     .rvz-grade-slot.special { grid-column:span 2; }
   }
+
+/* ═══ fundo cockpit nave (hero player) ═══ */
+.qp-hero{background:linear-gradient(rgba(4,7,16,.78),rgba(4,7,16,.82)),url('../cockpit_nave.webp') center/cover no-repeat!important}
