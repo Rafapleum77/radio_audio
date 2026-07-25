@@ -1542,7 +1542,12 @@ img{max-width:100%;height:auto;}
       <div class="qp-foot"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span class="mono">Sem KYC &middot; Sem censura &middot; Soberano</span></div>
     </div>
     <style>
-    .hr-share-wrap{position:relative;margin-top:14px}
+    .hr-share-wrap{position:relative;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
+    .hr-share-inner{position:relative}
+    .hr-manus{display:inline-flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;padding:16px 22px;border-radius:18px;background:linear-gradient(160deg,rgba(168,85,247,.16),rgba(0,212,255,.10));border:1px solid rgba(168,85,247,.45);transition:transform .18s,box-shadow .2s,border-color .2s}
+    .hr-manus:hover{transform:translateY(-3px);box-shadow:0 12px 30px -8px rgba(168,85,247,.6);border-color:rgba(168,85,247,.8)}
+    .hr-manus img{width:54px;height:54px;border-radius:13px;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+    .hr-manus span{font-size:12px;font-weight:800;letter-spacing:.05em;color:#eef4ff;text-align:center;line-height:1.2;text-transform:uppercase}
     .hr-share{display:inline-block;border:0;padding:0;cursor:pointer;background:none;box-shadow:none;line-height:0;border-radius:18px;transition:transform .18s,filter .25s}
     .hr-share:hover{transform:translateY(-3px) scale(1.02);filter:drop-shadow(0 10px 22px rgba(255,140,60,.45))}
     .hr-share-img{display:block;width:min(80vw,258px);height:auto;border-radius:15px}
