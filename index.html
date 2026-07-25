@@ -8962,7 +8962,7 @@ iaRender();
   econAudio.addEventListener('ended',function(){ if(el()!==econAudio) return; var q=queues[mode]; if(!q||!q.length) return; qidx[mode]=(qidx[mode]+1)%q.length; playBoletim(); });
 
   // ---- play / pause ----
-  function playLive(){ ensureGraph(liveAudio); if(liveAudio.src!==LIVE_URL) liveAudio.src=LIVE_URL; to('connecting'); liveAudio.load(); liveAudio.play().catch(function(){ to('error'); }); setTimeout(function(){ if(state==='connecting'&&el()===liveAudio) to('error'); }, 12000); }
+  function playLive(){ ensureGraph(liveAudio); if(liveAudio.src!==LIVE_URL) liveAudio.src=LIVE_URL; var tvL=liveAudio.volume; if(tvL>0){ liveAudio.volume=0; pendingFade=tvL; } to('connecting'); liveAudio.load(); liveAudio.play().catch(function(){ to('error'); }); setTimeout(function(){ if(state==='connecting'&&el()===liveAudio) to('error'); }, 12000); }
   function startThemed(){ if(now)now.textContent='Carregando boletins…'; loadTracks().then(function(){ if(!queues[mode]) queues[mode]=buildQueue(mode); playBoletim(); }).catch(function(){ if(now)now.textContent='Erro ao carregar os boletins.'; to('error'); }); }
   function play(){ if(cfg().isLive) playLive(); else startThemed(); }
   function pause(){ el().pause(); }
