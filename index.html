@@ -8936,7 +8936,7 @@ iaRender();
 
   // ---- eventos de mídia (só reage ao elemento ativo) ----
   function bind(a){
-    a.addEventListener('playing',function(){ if(a===el()) to('playing'); });
+    a.addEventListener('playing',function(){ if(a===el()){ to('playing'); if(pendingFade){ fadeIn(a,2600,pendingFade); pendingFade=0; } } });
     a.addEventListener('pause',  function(){ if(a===el()&&state!=='error'&&state!=='connecting') to('paused'); });
     a.addEventListener('waiting',function(){ if(a===el()&&state==='playing') to('buffering'); });
     a.addEventListener('stalled',function(){ if(a===el()&&state==='playing') to('buffering'); });
