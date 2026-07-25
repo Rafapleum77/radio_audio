@@ -8889,6 +8889,18 @@ iaRender();
   };
   var mode='live', state='idle', SINCE=null;
   var PLAY='<path d="M8 5v14l11-7z"/>', PAUSE='<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+  // fade-in suave: rampa de 0 até o volume-alvo do usuário (respeita mute). pendingFade guarda o alvo.
+  var fadeIv=null, pendingFade=0;
+  function fadeIn(a, ms, target){
+    if(fadeIv){ clearInterval(fadeIv); fadeIv=null; }
+    if(!(target>0)) return;                 // mudo -> não força áudio
+    var steps=44, k=0;
+    fadeIv=setInterval(function(){
+      k++; var v=target*(k/steps);
+      try{ a.volume=(v>=target?target:v); }catch(_){ clearInterval(fadeIv); fadeIv=null; return; }
+      if(k>=steps){ clearInterval(fadeIv); fadeIv=null; }
+    }, ms/steps);
+  }
   function cfg(){return MODES[mode];}
   function el(){return cfg().el;}
   function accent(){var c=cfg();qpx.style.setProperty('--accent',c.accent);qpx.style.setProperty('--accent-soft',c.soft);}
