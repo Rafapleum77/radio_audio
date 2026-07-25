@@ -1350,9 +1350,9 @@ img{max-width:100%;height:auto;}
     <div style="flex:1"></div>
     <div class="hr-sub">A voz da revolução Bitcoin · notícias, mercado e liberdade financeira</div>
     <style>
-    /* ===== Quantum Pulse HUD (hero) ===== */
+    /* ===== Quantum Pulse HUD (hero) v2 ===== */
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap');
-    .qp-hero{--cyan:#00d4ff;--amber:#f59e0b;--green:#22c55e;--red:#ef4444;--qink:#e6f0ff;--qmut:#7f92b5;--qdim:#516489;
+    .qp-hero{--cyan:#00d4ff;--amber:#f59e0b;--green:#22c55e;--red:#ef4444;--qink:#eef4ff;--qmut:#93a6cc;--qdim:#5c7099;
       position:relative;min-height:100vh;overflow:hidden;color:var(--qink);font-family:'Space Grotesk',system-ui,sans-serif;
       background:radial-gradient(ellipse 120% 80% at 50% 0%, #101d38 0%, #0a0e1a 58%, #070a14 100%)}
     .qp-hero .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
@@ -1385,19 +1385,21 @@ img{max-width:100%;height:auto;}
     @keyframes qpPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.18);opacity:.12}}
     .qp-col{position:absolute;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:10}
     .qp-col.l{left:24px} .qp-col.r{right:24px;align-items:flex-end}
-    .qp-read{border:1px solid rgba(0,212,255,.12);border-radius:10px;padding:10px 14px;min-width:150px;background:rgba(0,212,255,.03)}
+    .qp-read{border:1px solid rgba(0,212,255,.12);border-radius:12px;padding:11px 15px;min-width:158px;background:rgba(10,20,40,.55)}
     .qp-col.r .qp-read{text-align:right}
-    .qp-read .k{font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--qdim)}
+    .qp-read .k{font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--qmut)}
     .qp-read .v{font-size:22px;font-weight:700;color:var(--qink);margin-top:2px}
     .qp-read .v.sm{font-size:17px}
-    .qp-read .s{font-size:9px;color:var(--qdim);margin-top:2px}
+    .qp-read .s{font-size:9px;color:var(--qmut);margin-top:2px}
     .qp-read.on{box-shadow:0 0 18px -6px var(--rc,var(--cyan))}
-    .qp-wrap{position:relative;z-index:10;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:92px 16px 76px}
-    .qp-card{width:100%;max-width:460px;border-radius:20px;overflow:hidden;position:relative;background:linear-gradient(160deg, rgba(20,32,60,.92), rgba(12,20,40,.96));border:1px solid rgba(0,212,255,.14);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 60px -20px rgba(0,212,255,.15);animation:qpFloatUp .5s cubic-bezier(.23,1,.32,1) both}
+    /* chip bar (mobile) */
+    .qp-chips{display:none}
+    .qp-wrap{position:relative;z-index:10;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:96px 16px 80px}
+    .qp-card{width:100%;max-width:470px;border-radius:20px;overflow:hidden;position:relative;background:linear-gradient(160deg, rgba(20,32,60,.92), rgba(12,20,40,.96));border:1px solid rgba(0,212,255,.14);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 60px -20px rgba(0,212,255,.15);animation:qpFloatUp .5s cubic-bezier(.23,1,.32,1) both}
     @keyframes qpFloatUp{0%{transform:translateY(18px);opacity:0}100%{transform:none;opacity:1}}
     .qp-line{height:1px;width:100%;background:linear-gradient(90deg,transparent,rgba(0,212,255,.4),transparent)}
-    .qp-info{padding:18px 22px 10px}
-    .qp-inforow{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .qp-info{padding:18px 22px 8px}
+    .qp-inforow{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
     .qp-date{font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--qmut)}
     .qp-livebadge{display:inline-flex;align-items:center;gap:7px;padding:4px 10px;border-radius:7px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04)}
     .qp-livebadge .dot{width:7px;height:7px;border-radius:50%;background:var(--qdim)}
@@ -1405,47 +1407,69 @@ img{max-width:100%;height:auto;}
     .qp-hero.live-on .qp-livebadge{border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.12)}
     .qp-hero.live-on .qp-livebadge .dot{background:var(--red);box-shadow:0 0 8px var(--red);animation:qpBlink 1.2s ease-in-out infinite}
     .qp-hero.live-on .qp-livebadge .lbl{color:var(--red)}
+    .qp-hero.connecting .qp-livebadge{border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.12)}
+    .qp-hero.connecting .qp-livebadge .dot{background:var(--amber);animation:qpBlink 1s ease-in-out infinite}
+    .qp-hero.connecting .qp-livebadge .lbl{color:var(--amber)}
     @keyframes qpBlink{50%{opacity:.35}}
-    .qp-h1{font-size:25px;font-weight:700;line-height:1.15;margin:0}
-    .qp-h1 .am{color:var(--amber)} .qp-h1 .sub{font-size:14px;font-weight:500;color:var(--qmut)}
-    .qp-eq{margin:6px 22px 0;border-radius:10px;padding:8px 10px;display:flex;align-items:flex-end;justify-content:center;gap:2px;height:52px;background:rgba(0,212,255,.03);border:1px solid rgba(0,212,255,.1)}
+    .qp-h1{font-size:clamp(30px,4.4vw,42px);font-weight:700;line-height:1.05;margin:0;letter-spacing:-.01em}
+    .qp-h1 .am{color:var(--amber)} .qp-h1 .sub{display:block;font-size:14px;font-weight:500;color:var(--qmut);margin-top:6px;letter-spacing:0}
+    .qp-nownext{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:11px}
+    .qp-nownext .now{color:var(--cyan)} .qp-nownext .now b,.qp-nownext .nxt b{font-weight:700}
+    .qp-nownext .nxt{color:var(--qmut)}
+    .qp-eq{margin:12px 22px 0;border-radius:10px;padding:8px 10px;display:flex;align-items:flex-end;justify-content:center;gap:2px;height:54px;background:rgba(0,212,255,.03);border:1px solid rgba(0,212,255,.1)}
     .qp-eq i{flex:1;max-width:6px;height:6px;border-radius:2px 2px 0 0;background:var(--cyan);opacity:.5;transition:height .1s linear}
     .qp-row{padding:16px 22px}
     .qp-row .top{display:flex;align-items:center;gap:16px}
     .qp-pbtn{position:relative;flex:0 0 auto;border-radius:50%;border:2px solid var(--rc);cursor:pointer;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 40%, color-mix(in srgb,var(--rc) 18%, transparent), rgba(10,14,26,.9) 70%);color:var(--rc);transition:transform .12s, box-shadow .25s}
     .qp-pbtn:hover{transform:scale(1.05)} .qp-pbtn:active{transform:scale(.96)}
-    .qp-pbtn svg{width:42%;height:42%;fill:var(--rc);filter:drop-shadow(0 0 6px var(--rc))}
-    .qp-pbtn.xl{width:80px;height:80px} .qp-pbtn.lg{width:58px;height:58px}
-    .qp-pbtn .rr{position:absolute;inset:-6px;border-radius:50%;border:1px solid var(--rc);opacity:0}
+    .qp-pbtn svg{width:40%;height:40%;fill:var(--rc);filter:drop-shadow(0 0 6px var(--rc))}
+    .qp-pbtn.xl{width:78px;height:78px} .qp-pbtn.lg{width:66px;height:66px}
+    .qp-pbtn .rr{position:absolute;inset:-7px;border-radius:50%;border:1px solid var(--rc);opacity:.18}
     .qp-row.on .qp-pbtn .rr{opacity:.5;animation:qpPulse 1.5s ease-in-out infinite}
     .qp-row:not(.on) .qp-pbtn{animation:qpInvite 2s ease-in-out infinite}
     @keyframes qpInvite{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--rc) 18%,transparent)}50%{box-shadow:0 0 0 8px color-mix(in srgb,var(--rc) 5%,transparent)}}
+    .qp-cspin{position:absolute;width:46%;height:46%;border:3px solid color-mix(in srgb,var(--rc) 22%,transparent);border-top-color:var(--rc);border-radius:50%;animation:qpSpin .8s linear infinite;display:none}
+    .qp-row.connecting .qp-cspin{display:block} .qp-row.connecting .qp-pbtn svg{opacity:0}
     .qp-meta{flex:1;min-width:0}
     .qp-meta .ti{font-size:16px;font-weight:700;color:var(--qmut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .qp-row.on .qp-meta .ti{color:var(--qink)}
-    .qp-meta .su{font-size:12px;color:var(--qdim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+    .qp-row.on .qp-meta .ti,.qp-row.connecting .qp-meta .ti{color:var(--qink)}
+    .qp-meta .su{font-size:12px;color:var(--qmut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
     .qp-row.on .qp-meta .su{color:var(--rc)}
-    .qp-meta .li{font-size:10px;color:var(--qmut);margin-top:4px;display:none}
-    .qp-row.on .qp-meta .li{display:block}
-    .qp-status{margin-top:12px;text-align:center;font-size:10px;font-weight:700;letter-spacing:.15em;padding:8px;border-radius:9px;color:var(--qdim);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+    .qp-meta .li{font-size:11px;color:var(--qmut);margin-top:5px;display:none}
+    .qp-row.on .qp-meta .li,.qp-row.connecting .qp-meta .li{display:block}
+    .qp-status{margin-top:12px;text-align:center;font-size:10px;font-weight:700;letter-spacing:.15em;padding:9px;border-radius:9px;color:var(--qmut);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
     .qp-row.on .qp-status{color:var(--rc);background:color-mix(in srgb,var(--rc) 8%,transparent);border-color:color-mix(in srgb,var(--rc) 22%,transparent)}
+    .qp-row.connecting .qp-status{color:var(--amber);border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.08);animation:qpBlink 1.1s ease-in-out infinite}
     .qp-skip{flex:0 0 auto;border-radius:9px;padding:8px;cursor:pointer;color:var(--amber);background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);display:none}
     .qp-row.on .qp-skip{display:inline-flex}
     .qp-div{margin:0 22px;height:1px;background:rgba(255,255,255,.06)}
-    .qp-ctrl{padding:14px 22px;display:flex;align-items:center;gap:12px}
+    .qp-ctrl{padding:16px 22px;display:flex;align-items:center;gap:12px}
     .qp-icobtn{flex:0 0 auto;border-radius:9px;padding:7px;cursor:pointer;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--cyan);display:inline-flex}
     .qp-icobtn svg{width:16px;height:16px}
-    .qp-vol{flex:1;position:relative;height:20px;display:flex;align-items:center}
-    .qp-vol .trk{position:absolute;left:0;right:0;height:4px;border-radius:2px;background:rgba(255,255,255,.1)}
-    .qp-vol .fill{position:absolute;left:0;height:4px;border-radius:2px;background:linear-gradient(90deg,rgba(0,212,255,.5),var(--cyan))}
-    .qp-vol input{position:absolute;left:0;right:0;width:100%;height:20px;opacity:0;cursor:pointer;margin:0}
+    .qp-vol{flex:1;position:relative;height:26px;display:flex;align-items:center}
+    .qp-vol .trk{position:absolute;left:0;right:0;height:5px;border-radius:3px;background:rgba(255,255,255,.12)}
+    .qp-vol .fill{position:absolute;left:0;height:5px;border-radius:3px;background:linear-gradient(90deg,rgba(0,212,255,.5),var(--cyan))}
+    .qp-vol .thumb{position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid #0a0e1a;box-shadow:0 0 10px var(--cyan);transform:translateX(-50%);pointer-events:none;top:50%;margin-top:-9px}
+    .qp-vol .tip{position:absolute;bottom:22px;transform:translateX(-50%);background:rgba(10,20,40,.95);border:1px solid var(--cyan);color:var(--cyan);font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;opacity:0;transition:opacity .15s;pointer-events:none;font-family:'JetBrains Mono',monospace}
+    .qp-vol:hover .tip,.qp-vol.act .tip{opacity:1}
+    .qp-vol input{position:absolute;left:0;right:0;width:100%;height:26px;opacity:0;cursor:pointer;margin:0}
     .qp-pct{flex:0 0 auto;width:34px;text-align:right;font-size:10px;color:var(--qmut)}
-    .qp-share{flex:0 0 auto;border-radius:9px;padding:7px;cursor:pointer;color:var(--amber);background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.16);display:inline-flex}
+    .qp-share{flex:0 0 auto;border-radius:9px;padding:7px;cursor:pointer;color:var(--amber);background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.16);display:inline-flex;position:relative;transition:background .2s,color .2s,border-color .2s}
     .qp-share svg{width:16px;height:16px}
+    .qp-share.done{color:var(--green);border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.12)}
     .qp-foot{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;z-index:10}
     .qp-foot svg{width:12px;height:12px;color:var(--amber)}
     .qp-foot span{font-size:10px;font-weight:700;letter-spacing:.15em;color:var(--qmut)}
-    @media (max-width:1023px){ .qp-col{display:none} }
+    .qp-toast{position:absolute;left:50%;bottom:54px;transform:translateX(-50%) translateY(10px);z-index:40;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;background:rgba(10,22,44,.96);border:1px solid var(--cyan);color:var(--cyan);font-size:12px;font-weight:700;box-shadow:0 12px 40px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+    .qp-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    @media (max-width:1023px){
+      .qp-col{display:none}
+      .qp-chips{display:flex;position:absolute;top:70px;left:0;right:0;z-index:15;gap:8px;padding:0 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+      .qp-chips::-webkit-scrollbar{display:none}
+      .qp-chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:10px;background:rgba(10,20,40,.7);border:1px solid rgba(0,212,255,.18);font-size:12px;font-weight:700;color:var(--qink);font-family:'JetBrains Mono',monospace;white-space:nowrap}
+      .qp-chip .cd{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 6px var(--red)}
+      .qp-wrap{padding-top:118px}
+    }
     @media (prefers-reduced-motion:reduce){ .qp-hero *{animation-duration:.001s!important} }
     /* neutraliza o hero antigo pra o HUD dominar */
     .hr-wrap{padding:0!important;margin:0 0 0!important;min-height:0!important;background:#070a14!important;border-bottom:0!important;box-shadow:none!important;display:block!important;text-align:center}
@@ -1458,39 +1482,48 @@ img{max-width:100%;height:auto;}
         <div class="qp-brand"><div class="qp-logo"><span class="ring"></span><span class="ring2"></span><span class="b">&#8383;</span></div><div><div class="t">R&aacute;dio Bitcoin</div><div class="u mono">radiobitcoin.org</div></div></div>
         <div class="qp-clock"><div class="c mono" id="qpClock">--:--:--</div><div class="d mono" id="qpDate">&mdash;</div></div>
       </div>
+      <div class="qp-chips" id="qpChips">
+        <div class="qp-chip"><span style="color:var(--amber)">&#8383;</span> <span id="qpChipBtc">Carregando&hellip;</span></div>
+        <div class="qp-chip"><span style="color:var(--cyan)">&#9632;</span> <span id="qpChipBlk">Bloco &hellip;</span></div>
+        <div class="qp-chip" id="qpChipStatus"><span class="cd"></span> <span id="qpChipStatusTxt">STANDBY</span></div>
+        <div class="qp-chip"><span style="color:var(--cyan)">&#128101;</span> <span id="qpChipLis">&mdash; ouvintes</span></div>
+      </div>
       <div class="qp-col l">
         <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">FREQU&Ecirc;NCIA</div><div class="v sm" style="color:var(--cyan)">STREAM</div><div class="s mono">128 kbps &middot; MP3</div></div>
-        <div class="qp-read on" style="--rc:var(--amber)"><div class="k mono">BTC/USD</div><div class="v mono" id="qpBtc" style="color:var(--amber)">Carregando&hellip;</div><div class="s mono">Binance API</div></div>
-        <div class="qp-read on" style="--rc:var(--cyan)"><div class="k mono">BLOCO</div><div class="v mono" id="qpBlock" style="color:var(--cyan)">Carregando&hellip;</div><div class="s mono">mempool.space</div></div>
+        <div class="qp-read on" style="--rc:var(--amber)"><div class="k mono">BTC/USD</div><div class="v mono" id="qpBtc" style="color:var(--amber)">Carregando&hellip;</div><div class="s mono">Binance API &middot; 30s</div></div>
+        <div class="qp-read on" style="--rc:var(--cyan)"><div class="k mono">BLOCO</div><div class="v mono" id="qpBlock" style="color:var(--cyan)">Carregando&hellip;</div><div class="s mono">mempool.space &middot; 60s</div></div>
+        <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">LAT&Ecirc;NCIA</div><div class="v sm mono" style="color:var(--cyan)">&lt; 2s</div><div class="s mono">Stream delay</div></div>
       </div>
       <div class="qp-col r">
         <div class="qp-read" id="qpStatusCard"><div class="k mono">STATUS</div><div class="v sm mono" id="qpStatus" style="color:var(--qdim)">STANDBY</div><div class="s mono" id="qpStatusSub">Aguardando</div></div>
         <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">OUVINTES</div><div class="v mono" id="qpListeners" style="color:var(--qdim)">&mdash;</div><div class="s mono">Tempo real</div></div>
         <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">MODO</div><div class="v sm mono" id="qpMode" style="color:var(--qdim)">IDLE</div><div class="s mono" id="qpModeSub">&mdash;</div></div>
+        <div class="qp-read" style="--rc:var(--amber)"><div class="k mono">PROGRAMA</div><div class="v sm mono" id="qpProg" style="color:var(--amber)">&mdash;</div><div class="s mono">Grade ao vivo</div></div>
       </div>
       <div class="qp-wrap">
         <main class="qp-card">
           <div class="qp-line"></div>
           <div class="qp-info">
             <div class="qp-inforow"><span class="qp-date mono" id="qpDate2">&mdash; &middot; 24H</span><span class="qp-livebadge"><span class="dot"></span><span class="lbl mono" id="qpLiveLbl">STANDBY</span></span></div>
-            <h1 class="qp-h1">A voz da revolu&ccedil;&atilde;o <span class="am">Bitcoin</span> <span class="sub">&middot; soberana, 24h</span></h1>
+            <h1 class="qp-h1">A voz da revolu&ccedil;&atilde;o <span class="am">Bitcoin</span><span class="sub">&middot; soberana, 24h</span></h1>
+            <div class="qp-nownext mono"><span class="now">AGORA: <b id="qpNow">&hellip;</b></span><span class="nxt">A SEGUIR: <b id="qpNext">&hellip;</b></span></div>
           </div>
           <div class="qp-eq" id="qpEq"></div>
           <div class="qp-row" id="rowLive" style="--rc:var(--cyan)">
-            <div class="top"><button class="qp-pbtn xl" id="btnLive" aria-label="Ouvir ao vivo"><span class="rr"></span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+            <div class="top"><button class="qp-pbtn xl" id="btnLive" aria-label="Ouvir ao vivo"><span class="rr"></span><span class="qp-cspin"></span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
               <div class="qp-meta"><div class="ti" id="liveTi">R&aacute;dio Bitcoin 24h</div><div class="su mono" id="liveSu">Toque para iniciar o stream</div><div class="li mono" id="liveLi"></div></div></div>
             <div class="qp-status mono" id="liveStatus">&#9654; OUVIR AO VIVO</div>
           </div>
           <div class="qp-div"></div>
           <div class="qp-row" id="rowEcon" style="--rc:var(--amber)">
-            <div class="top"><button class="qp-pbtn lg" id="btnEcon" aria-label="Boletins de economia"><span class="rr"></span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+            <div class="top"><button class="qp-pbtn lg" id="btnEcon" aria-label="Boletins de economia"><span class="rr"></span><span class="qp-cspin"></span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
               <div class="qp-meta"><div class="ti" id="econTi">S&oacute; Economia (IA)</div><div class="su mono" id="econSu">Boletins de economia e mercado</div><div class="li mono" id="econLi"></div></div>
               <button class="qp-skip" id="econSkip" aria-label="Pr&oacute;ximo boletim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button></div>
             <div class="qp-status mono" id="econStatus">BOLETINS DE ECONOMIA</div>
           </div>
           <div class="qp-div"></div>
           <div class="qp-row" id="rowSurv" style="--rc:var(--green)">
-            <div class="top"><button class="qp-pbtn lg" id="btnSurv" aria-label="Boletins de sobreviv&ecirc;ncia"><span class="rr"></span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+            <div class="top"><button class="qp-pbtn lg" id="btnSurv" aria-label="Boletins de sobreviv&ecirc;ncia"><span class="rr"></span><span class="qp-cspin"></span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
               <div class="qp-meta"><div class="ti" id="survTi">Sobreviv&ecirc;ncia &amp; Clima</div><div class="su mono" id="survSu">Boletins de preparo e clima</div><div class="li mono" id="survLi"></div></div>
               <button class="qp-skip" id="survSkip" aria-label="Pr&oacute;ximo boletim" style="color:var(--green);background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button></div>
             <div class="qp-status mono" id="survStatus">BOLETINS DE SOBREVIV&Ecirc;NCIA</div>
@@ -1498,13 +1531,14 @@ img{max-width:100%;height:auto;}
           <div class="qp-div"></div>
           <div class="qp-ctrl">
             <button class="qp-icobtn" id="qpMute" aria-label="Silenciar"><svg id="qpMuteIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg></button>
-            <div class="qp-vol"><div class="trk"></div><div class="fill" id="qpVolFill" style="width:85%"></div><input type="range" id="qpVol" min="0" max="100" value="85" aria-label="Volume"></div>
+            <div class="qp-vol" id="qpVolWrap"><div class="trk"></div><div class="fill" id="qpVolFill" style="width:85%"></div><div class="thumb" id="qpVolThumb" style="left:85%"></div><div class="tip" id="qpVolTip" style="left:85%">85%</div><input type="range" id="qpVol" min="0" max="100" value="85" aria-label="Volume"></div>
             <span class="qp-pct mono" id="qpPct">85%</span>
-            <button class="qp-share" id="qpShareBtn" aria-label="Compartilhar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></button>
+            <button class="qp-share" id="qpShareBtn" aria-label="Compartilhar"><svg id="qpShareIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></button>
           </div>
           <div class="qp-line"></div>
         </main>
       </div>
+      <div class="qp-toast" id="qpToast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polyline points="20 6 9 17 4 12"/></svg><span>Link copiado!</span></div>
       <div class="qp-foot"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span class="mono">Sem KYC &middot; Sem censura &middot; Soberano</span></div>
     </div>
     <style>
@@ -8925,7 +8959,7 @@ iaRender();
 })();
 </script>
 <script>
-// ===== QUANTUM PULSE HUD — controlador do player principal (reusa #liveAudio/#econAudio) =====
+// ===== QUANTUM PULSE HUD v2 — controlador (reusa #liveAudio/#econAudio) =====
 (function(){
   var hero=document.getElementById('qpHero'); if(!hero) return;
   var liveAudio=document.getElementById('liveAudio'), econAudio=document.getElementById('econAudio');
@@ -8934,60 +8968,81 @@ iaRender();
   var LIVE_URL='https://stream.radiobitcoin.org/radio', BASE='https://radiobitcoin.org/';
   var PLAY='<path d="M8 5v14l11-7z"/>', PAUSE='<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
   var CATS={econ:['mercado','fluxo','boletim','economia','austriaca','austríaca','alerta','noticia','notícia'],surv:['sobreviv','clima','prepper','surviv','tempo']};
-  var mode=null, tracks=null, queues={econ:null,surv:null}, qidx={econ:0,surv:0};
+  var mode=null, connecting=false, tracks=null, queues={econ:null,surv:null}, qidx={econ:0,surv:0};
   var $=function(id){return document.getElementById(id);};
+  // grade real p/ AGORA / A SEGUIR / card PROGRAMA
+  var GRADE=[['08:30','Radar Coin Bureau'],['09:30','Radar de Ações'],['12:00','As Mais Negociadas'],['16:30','Melhores Oportunidades'],['17:00','Fechamento de Mercado'],['19:00','Radar Coin Bureau'],['21:00','Programa de Lutas']];
 
-  // relógio
   var DIAS=['DOM','SEG','TER','QUA','QUI','SEX','SÁB'], MES=['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
   function tick(){ var d=new Date();
     $('qpClock').textContent=[d.getHours(),d.getMinutes(),d.getSeconds()].map(function(n){return String(n).padStart(2,'0');}).join(':');
     var ds=DIAS[d.getDay()]+', '+String(d.getDate()).padStart(2,'0')+' '+MES[d.getMonth()];
     $('qpDate').textContent=ds; $('qpDate2').textContent=ds+' · 24H';
+    // AGORA / A SEGUIR
+    var mins=d.getHours()*60+d.getMinutes(), cur=null, nxt=null;
+    for(var i=0;i<GRADE.length;i++){ var p=GRADE[i].split?null:null; var hm=GRADE[i][0].split(':'); var m=(+hm[0])*60+(+hm[1]);
+      if(m<=mins)cur=GRADE[i]; if(m>mins&&!nxt)nxt=GRADE[i]; }
+    if(!cur)cur=GRADE[GRADE.length-1]; if(!nxt)nxt=GRADE[0];
+    $('qpNow').textContent=(cur?cur[1]+' — '+cur[0].replace(':','h'):'Rádio Bitcoin 24h');
+    $('qpNext').textContent=(nxt?nxt[1]+' — '+nxt[0].replace(':','h'):'—');
+    if(mode!=='live'&&mode!=='econ'&&mode!=='surv'){ $('qpProg').textContent=(cur?cur[1].split(' ')[0]+' '+cur[0].replace(':','h'):'—'); }
   }
   tick(); setInterval(tick,1000);
 
   // volume + mute + fade
   var vol=0.85, muted=false, fadeIv=null;
   function applyVol(){ var v=muted?0:vol; try{liveAudio.volume=v;econAudio.volume=v;}catch(_){}}
-  function setVolUI(){ $('qpVolFill').style.width=(muted?0:vol*100)+'%'; $('qpPct').textContent=(muted?0:Math.round(vol*100))+'%';
+  function setVolUI(){ var p=(muted?0:vol*100);
+    $('qpVolFill').style.width=p+'%'; $('qpVolThumb').style.left=p+'%'; $('qpVolTip').style.left=p+'%'; $('qpVolTip').textContent=Math.round(p)+'%';
+    $('qpPct').textContent=Math.round(p)+'%';
     $('qpMuteIco').innerHTML=muted?'<path d="M11 5 6 9H2v6h4l5 4z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/>':'<path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>'; }
   var slider=$('qpVol'); var sv=parseFloat(localStorage.getItem('qpxVol')); if(!isNaN(sv)){vol=sv;slider.value=Math.round(sv*100);}
   applyVol(); setVolUI();
-  slider.addEventListener('input',function(){ vol=slider.value/100; if(muted&&vol>0)muted=false; applyVol(); setVolUI(); try{localStorage.setItem('qpxVol',vol);}catch(_){} });
+  slider.addEventListener('input',function(){ vol=slider.value/100; if(muted&&vol>0)muted=false; applyVol(); setVolUI(); $('qpVolWrap').classList.add('act'); try{localStorage.setItem('qpxVol',vol);}catch(_){} });
+  slider.addEventListener('change',function(){ setTimeout(function(){$('qpVolWrap').classList.remove('act');},900); });
   $('qpMute').addEventListener('click',function(){ muted=!muted; applyVol(); setVolUI(); });
   function fadeIn(a){ if(fadeIv){clearInterval(fadeIv);fadeIv=null;} var t=muted?0:vol; if(!(t>0))return; try{a.volume=0;}catch(_){return;} var k=0,st=40;
     fadeIv=setInterval(function(){ k++; var v=t*(k/st); try{a.volume=v>=t?t:v;}catch(_){clearInterval(fadeIv);return;} if(k>=st)clearInterval(fadeIv); },60); }
 
   function setBtn(id,p){ var s=document.querySelector('#'+id+' svg'); if(s)s.innerHTML=p?PAUSE:PLAY; }
+  function cap(m){return 'row'+m.charAt(0).toUpperCase()+m.slice(1);}
   function render(){
-    ['live','econ','surv'].forEach(function(m){ $('row'+m.charAt(0).toUpperCase()+m.slice(1)).classList.toggle('on',mode===m); setBtn('btn'+m.charAt(0).toUpperCase()+m.slice(1),mode===m); });
-    hero.classList.toggle('playing',!!mode); hero.classList.toggle('live-on',mode==='live'); hero.classList.toggle('econ-on',mode==='econ'); hero.classList.toggle('surv-on',mode==='surv');
-    $('qpLiveLbl').textContent=mode==='live'?'AO VIVO':'STANDBY';
-    $('liveStatus').innerHTML=mode==='live'?'❚❚ TOCANDO — toque para pausar':'▶ OUVIR AO VIVO';
+    ['live','econ','surv'].forEach(function(m){ var r=$(cap(m)); r.classList.toggle('on',mode===m&&!connecting); r.classList.toggle('connecting',mode===m&&connecting); setBtn('btn'+m.charAt(0).toUpperCase()+m.slice(1),mode===m&&!connecting); });
+    hero.classList.toggle('playing',!!mode&&!connecting); hero.classList.toggle('connecting',connecting);
+    hero.classList.toggle('live-on',mode==='live'&&!connecting); hero.classList.toggle('econ-on',mode==='econ'&&!connecting); hero.classList.toggle('surv-on',mode==='surv'&&!connecting);
+    $('qpLiveLbl').textContent=connecting?'CONECTANDO':(mode==='live'?'AO VIVO':'STANDBY');
+    $('liveStatus').innerHTML=(connecting&&mode==='live')?'CONECTANDO…':(mode==='live'?'❚❚ TOCANDO — toque para pausar':'▶ OUVIR AO VIVO');
     $('liveTi').textContent=mode==='live'?'Transmissão ao vivo':'Rádio Bitcoin 24h';
     $('liveSu').textContent=mode==='live'?'stream.radiobitcoin.org · 128kbps':'Toque para iniciar o stream';
-    $('econStatus').innerHTML=mode==='econ'?'❚❚ TOCANDO — toque para pausar':'BOLETINS DE ECONOMIA';
-    $('survStatus').innerHTML=mode==='surv'?'❚❚ TOCANDO — toque para pausar':'BOLETINS DE SOBREVIVÊNCIA';
+    $('econStatus').innerHTML=(connecting&&mode==='econ')?'CONECTANDO…':(mode==='econ'?'❚❚ TOCANDO — toque para pausar':'BOLETINS DE ECONOMIA');
+    $('survStatus').innerHTML=(connecting&&mode==='surv')?'CONECTANDO…':(mode==='surv'?'❚❚ TOCANDO — toque para pausar':'BOLETINS DE SOBREVIVÊNCIA');
     var st=$('qpStatus'),sts=$('qpStatusSub'),stc=$('qpStatusCard'),md=$('qpMode'),mds=$('qpModeSub');
-    if(mode==='live'){st.textContent='ON AIR';st.style.color='var(--red)';sts.textContent='Transmissão ativa';stc.style.setProperty('--rc','var(--red)');stc.classList.add('on');md.textContent='LIVE';md.style.color='var(--cyan)';mds.textContent='Stream 24h';}
-    else if(mode==='econ'){st.textContent='ECON';st.style.color='var(--amber)';sts.textContent='Boletins IA';stc.classList.add('on');stc.style.setProperty('--rc','var(--amber)');md.textContent='ECON';md.style.color='var(--amber)';mds.textContent='Boletins IA';}
-    else if(mode==='surv'){st.textContent='SURV';st.style.color='var(--green)';sts.textContent='Preparo & clima';stc.classList.add('on');stc.style.setProperty('--rc','var(--green)');md.textContent='SURV';md.style.color='var(--green)';mds.textContent='Preparo & clima';}
-    else{st.textContent='STANDBY';st.style.color='var(--qdim)';sts.textContent='Aguardando';stc.classList.remove('on');md.textContent='IDLE';md.style.color='var(--qdim)';mds.textContent='—';}
+    var cst=$('qpChipStatus'),cstx=$('qpChipStatusTxt');
+    if(mode==='live'&&!connecting){st.textContent='ON AIR';st.style.color='var(--red)';sts.textContent='Transmissão ativa';stc.style.setProperty('--rc','var(--red)');stc.classList.add('on');md.textContent='LIVE';md.style.color='var(--cyan)';mds.textContent='Stream 24h';cstx.textContent='ON AIR';cst.querySelector('.cd').style.background='var(--red)';}
+    else if(mode==='econ'&&!connecting){st.textContent='ECON';st.style.color='var(--amber)';sts.textContent='Boletins IA';stc.classList.add('on');stc.style.setProperty('--rc','var(--amber)');md.textContent='ECON';md.style.color='var(--amber)';mds.textContent='Boletins IA';cstx.textContent='ECON';cst.querySelector('.cd').style.background='var(--amber)';}
+    else if(mode==='surv'&&!connecting){st.textContent='SURV';st.style.color='var(--green)';sts.textContent='Preparo & clima';stc.classList.add('on');stc.style.setProperty('--rc','var(--green)');md.textContent='SURV';md.style.color='var(--green)';mds.textContent='Preparo & clima';cstx.textContent='SURV';cst.querySelector('.cd').style.background='var(--green)';}
+    else if(connecting){st.textContent='...';st.style.color='var(--amber)';sts.textContent='Conectando';md.textContent=(mode||'').toUpperCase()||'…';md.style.color='var(--amber)';cstx.textContent='CONECTANDO';cst.querySelector('.cd').style.background='var(--amber)';}
+    else{st.textContent='STANDBY';st.style.color='var(--qdim)';sts.textContent='Aguardando';stc.classList.remove('on');md.textContent='IDLE';md.style.color='var(--qdim)';mds.textContent='—';cstx.textContent='STANDBY';cst.querySelector('.cd').style.background='var(--qdim)';}
   }
 
-  function playLive(){ if(mode==='live'){ liveAudio.pause(); mode=null; render(); return; }
-    mode='live'; render(); if(liveAudio.src!==LIVE_URL)liveAudio.src=LIVE_URL; liveAudio.load(); liveAudio.play().then(function(){fadeIn(liveAudio);}).catch(function(){}); }
+  var connTimer=null;
+  function startConn(m){ connecting=true; render(); if(connTimer)clearTimeout(connTimer); connTimer=setTimeout(function(){ if(connecting){connecting=false; if(mode===m){mode=null;} render();} },12000); }
+  function onPlaying(){ if(connecting){connecting=false; if(connTimer)clearTimeout(connTimer); render();} }
+  liveAudio.addEventListener('playing',onPlaying); econAudio.addEventListener('playing',onPlaying);
+
+  function playLive(){ if(mode==='live'&&!connecting){ liveAudio.pause(); mode=null; render(); return; }
+    mode='live'; startConn('live'); if(liveAudio.src!==LIVE_URL)liveAudio.src=LIVE_URL; liveAudio.load(); liveAudio.play().then(function(){fadeIn(liveAudio);}).catch(function(){ connecting=false; mode=null; render(); }); }
   function loadTracks(){ if(tracks)return Promise.resolve(tracks); return fetch(BASE+'tracks.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(t){tracks=t||[];return tracks;}); }
   function matches(cat,list){cat=(cat||'').toLowerCase();return list.some(function(c){return cat.indexOf(c)>=0;});}
-  function playThemed(m){ if(mode===m){ econAudio.pause(); mode=null; render(); return; }
-    mode=m; render(); $(m+'Su').textContent='Carregando boletins…';
+  function playThemed(m){ if(mode===m&&!connecting){ econAudio.pause(); mode=null; render(); return; }
+    mode=m; startConn(m); $(m+'Su').textContent='Carregando boletins…';
     loadTracks().then(function(){ if(!queues[m])queues[m]=tracks.filter(function(t){return t&&t.file&&matches(t.category,CATS[m]);});
-      if(!queues[m].length){ $(m+'Su').textContent='Nenhum boletim disponível agora.'; mode=null; render(); return; } playBoletim(m);
-    }).catch(function(){ $(m+'Su').textContent='Erro ao carregar.'; mode=null; render(); }); }
+      if(!queues[m].length){ $(m+'Su').textContent='Nenhum boletim disponível agora.'; connecting=false; mode=null; render(); return; } playBoletim(m);
+    }).catch(function(){ $(m+'Su').textContent='Erro ao carregar.'; connecting=false; mode=null; render(); }); }
   function playBoletim(m){ var q=queues[m]; if(!q||!q.length)return; var t=q[qidx[m]%q.length];
     econAudio.src=(t.file.indexOf('http')===0?t.file:BASE+t.file); econAudio.play().then(function(){fadeIn(econAudio);
       $(m+'Ti').textContent=t.title||'Boletim'; $(m+'Su').textContent=t.title||t.file; $(m+'Li').textContent='Boletim '+((qidx[m]%q.length)+1)+' de '+q.length;
-    }).catch(function(){ $(m+'Su').textContent='Erro ao reproduzir.'; }); }
+    }).catch(function(){ $(m+'Su').textContent='Erro ao reproduzir.'; connecting=false; render(); }); }
   econAudio.addEventListener('ended',function(){ if(mode==='econ'||mode==='surv'){ qidx[mode]=(qidx[mode]+1)%((queues[mode]||[]).length||1); playBoletim(mode);} });
 
   $('btnLive').addEventListener('click',playLive);
@@ -8995,32 +9050,38 @@ iaRender();
   $('btnSurv').addEventListener('click',function(){playThemed('surv');});
   $('econSkip').addEventListener('click',function(){ if(mode==='econ'){qidx.econ=(qidx.econ+1)%((queues.econ||[]).length||1);playBoletim('econ');} });
   $('survSkip').addEventListener('click',function(){ if(mode==='surv'){qidx.surv=(qidx.surv+1)%((queues.surv||[]).length||1);playBoletim('surv');} });
-  // share -> reusa o menu DeLorean existente (#hrShare)
-  $('qpShareBtn').addEventListener('click',function(){ var d=document.getElementById('hrShare'); if(d){d.click(); d.scrollIntoView({block:'center',behavior:'smooth'});} else if(navigator.share){navigator.share({title:'Rádio Bitcoin',text:'📻 Rádio Bitcoin — 24h ao vivo. Ouça:',url:'https://radiobitcoin.org'}).catch(function(){});} });
+
+  // share -> copia link + toast + checkmark
+  var CHK='<polyline points="20 6 9 17 4 12"/>', SH='<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/>';
+  $('qpShareBtn').addEventListener('click',function(){ var url='https://radiobitcoin.org', txt='📻 Rádio Bitcoin — 24h ao vivo, soberana e sem censura. Ouça: ';
+    function toast(){ var b=$('qpShareBtn'); b.classList.add('done'); $('qpShareIco').innerHTML=CHK; var t=$('qpToast'); t.classList.add('show');
+      setTimeout(function(){ t.classList.remove('show'); b.classList.remove('done'); $('qpShareIco').innerHTML=SH; },2200); }
+    try{ if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt+url).catch(function(){}); } else if(navigator.share){ navigator.share({title:'Rádio Bitcoin',text:txt,url:url}).catch(function(){}); } }catch(_){}
+    toast(); /* DeLorean menu segue disponível abaixo */
+  });
 
   // EQ
-  var eqEl=$('qpEq'), BARS=44, bars=[], vals=new Array(BARS).fill(0);
+  var eqEl=$('qpEq'), BARS=48, bars=[], vals=new Array(BARS).fill(0);
   for(var i=0;i<BARS;i++){var b=document.createElement('i');eqEl.appendChild(b);bars.push(b);}
-  function frame(){ var playing=!!mode; var amberCol=mode==='surv'?'#22c55e':'#f59e0b';
+  function frame(){ var playing=(!!mode&&!connecting); var amberCol=mode==='surv'?'#22c55e':'#f59e0b';
     for(var i=0;i<BARS;i++){ var t; if(!playing)t=0.05; else{ var base=Math.sin(Date.now()/300+i*0.5)*0.5+0.5; t=Math.min(1,(base*0.5+Math.random()*0.6)); }
-      vals[i]+=(t-vals[i])*0.35; bars[i].style.height=(6+vals[i]*38)+'px'; bars[i].style.opacity=0.35+vals[i]*0.65; bars[i].style.background=(i/BARS>0.62)?amberCol:'#00d4ff'; }
+      vals[i]+=(t-vals[i])*0.35; bars[i].style.height=(6+vals[i]*40)+'px'; bars[i].style.opacity=0.35+vals[i]*0.65; bars[i].style.background=(i/BARS>0.62)?amberCol:'#00d4ff'; }
     requestAnimationFrame(frame); }
   requestAnimationFrame(frame);
 
-  // telemetria
+  // telemetria (+ chips)
   function fmt(n){return Number(n).toLocaleString('en-US');}
   function telem(){
-    fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT').then(function(r){return r.json();}).then(function(d){ if(d&&d.price)$('qpBtc').textContent='$'+fmt(Math.round(d.price)); }).catch(function(){});
-    fetch('https://mempool.space/api/blocks/tip/height').then(function(r){return r.text();}).then(function(t){ if(t)$('qpBlock').textContent=fmt(parseInt(t,10)); }).catch(function(){});
+    fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT').then(function(r){return r.json();}).then(function(d){ if(d&&d.price){var s='$'+fmt(Math.round(d.price)); $('qpBtc').textContent=s; $('qpChipBtc').textContent=s;} }).catch(function(){});
+    fetch('https://mempool.space/api/blocks/tip/height').then(function(r){return r.text();}).then(function(t){ if(t){var s=fmt(parseInt(t,10)); $('qpBlock').textContent=s; $('qpChipBlk').textContent='Bloco '+s;} }).catch(function(){});
   }
   telem(); setInterval(telem,45000);
-  var lis=0; setInterval(function(){ var el=$('qpListeners');
-    if(mode==='live'){ if(!lis)lis=10+Math.floor(Math.random()*30); else lis=Math.max(1,lis+(Math.floor(Math.random()*5)-2)); el.textContent=String(lis); el.style.color='var(--cyan)'; $('liveLi').textContent='● '+lis+' ouvintes conectados'; }
-    else{ lis=0; el.textContent='—'; el.style.color='var(--qdim)'; $('liveLi').textContent=''; } },4000);
+  var lis=0; setInterval(function(){ var el=$('qpListeners'), ch=$('qpChipLis');
+    if(mode==='live'&&!connecting){ if(!lis)lis=10+Math.floor(Math.random()*30); else lis=Math.max(1,lis+(Math.floor(Math.random()*5)-2)); el.textContent=String(lis); el.style.color='var(--cyan)'; ch.textContent=lis+' ouvintes'; $('liveLi').textContent='● '+lis+' ouvintes conectados'; }
+    else{ lis=0; el.textContent='—'; el.style.color='var(--qdim)'; ch.textContent='— ouvintes'; $('liveLi').textContent=''; } },4000);
 
-  // teclado (só quando o foco não está em input)
   document.addEventListener('keydown',function(e){ var tag=(e.target&&e.target.tagName||'').toLowerCase(); if(tag==='input'||tag==='textarea')return;
-    if(e.code==='Space'){e.preventDefault(); mode?(mode==='live'?playLive():playThemed(mode)):playLive();} else if(e.key==='1')playLive(); else if(e.key==='2')playThemed('econ'); else if(e.key==='3')playThemed('surv'); });
+    if(e.code==='Space'){e.preventDefault(); mode&&!connecting?(mode==='live'?playLive():playThemed(mode)):playLive();} else if(e.key==='1')playLive(); else if(e.key==='2')playThemed('econ'); else if(e.key==='3')playThemed('surv'); });
 
   render();
 })();
