@@ -8955,6 +8955,7 @@ iaRender();
     if(!q||!q.length){ if(now)now.textContent='Nenhum boletim de '+cfg().label.toLowerCase()+' disponível agora.'; to('idle'); return; }
     var t=q[qidx[mode]%q.length];
     ensureGraph(econAudio);
+    var tvE=econAudio.volume; if(tvE>0){ econAudio.volume=0; pendingFade=tvE; }
     econAudio.src=t.file; to('connecting'); econAudio.load();
     econAudio.play().then(function(){ if(now)now.textContent='▶ '+(t.title||t.file); }).catch(function(){ to('error'); });
     setTimeout(function(){ if(state==='connecting'&&el()===econAudio) to('error'); }, 12000);
