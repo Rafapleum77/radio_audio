@@ -74,5 +74,6 @@ fetch('pnl_real.json?t='+Date.now()).then(function(r){return r.json();}).then(re
   .catch(function(){ document.getElementById('foot').textContent='Não foi possível carregar os dados agora.'; });
 setInterval(function(){ fetch('pnl_real.json?t='+Date.now()).then(function(r){return r.json();}).then(render).catch(function(){}); }, 5*60*1000);
 </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ebcbf230a8794cd0a783cbc9bb447fe8"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
