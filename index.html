@@ -146,6 +146,70 @@
 
 </head>
 <body>
+<!-- ===== NAV FLUTUANTE (reforma #2/#7 review Manus) ===== -->
+<style>
+#rbMenuBtn{position:fixed;top:12px;right:12px;z-index:9999;width:46px;height:46px;border-radius:12px;
+  background:linear-gradient(160deg,#0d1220,#0a0e18);border:1px solid rgba(0,212,255,.5);color:#00d4ff;
+  font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 20px -6px rgba(0,212,255,.5);backdrop-filter:blur(6px)}
+#rbMenuBtn:hover{border-color:#00d4ff;transform:translateY(-1px)}
+#rbNavOverlay{position:fixed;inset:0;background:rgba(2,6,14,.72);backdrop-filter:blur(3px);z-index:9998;
+  opacity:0;pointer-events:none;transition:opacity .25s}
+#rbNavOverlay.on{opacity:1;pointer-events:auto}
+#rbNavDrawer{position:fixed;top:0;right:0;height:100%;width:min(84vw,320px);z-index:9999;
+  background:linear-gradient(160deg,#0a0e18 0%,#0b1020 100%);border-left:1px solid rgba(0,212,255,.28);
+  box-shadow:-14px 0 40px -10px rgba(0,0,0,.7);transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+  overflow-y:auto;padding:18px 0 40px}
+#rbNavDrawer.on{transform:translateX(0)}
+.rbnav-h{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:3px;color:#00d4ff;
+  text-transform:uppercase;padding:6px 22px;opacity:.7;margin-top:14px}
+.rbnav-a{display:flex;align-items:center;gap:12px;padding:12px 22px;color:#dfe9ec;text-decoration:none;
+  font-size:15px;font-weight:600;border-left:3px solid transparent;transition:background .15s,border-color .15s}
+.rbnav-a:hover{background:rgba(0,212,255,.08);border-left-color:#00d4ff}
+.rbnav-close{display:flex;align-items:center;justify-content:space-between;padding:4px 18px 14px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:6px}
+.rbnav-close b{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#f2a900;letter-spacing:2px}
+.rbnav-close button{background:none;border:0;color:#9ca3af;font-size:26px;cursor:pointer;line-height:1}
+</style>
+<button id="rbMenuBtn" aria-label="Menu">&#9776;</button>
+<div id="rbNavOverlay"></div>
+<nav id="rbNavDrawer" aria-label="Navegação">
+  <div class="rbnav-close"><b>&#9889; RÁDIO BITCOIN</b><button id="rbNavX" aria-label="Fechar">&times;</button></div>
+  <div class="rbnav-h">Ouvir &amp; Descobrir</div>
+  <a class="rbnav-a" href="#topo">📻 Rádio ao vivo</a>
+  <a class="rbnav-a" href="#locutores">🤖 Locutores IA &middot; votação</a>
+  <a class="rbnav-a" href="#trezoitao">📺 Trezoitão</a>
+  <a class="rbnav-a" href="#biblioteca">📚 Biblioteca Austríaca</a>
+  <div class="rbnav-h">Mercado &amp; Bitcoin</div>
+  <a class="rbnav-a" href="/mercado.html">📈 Mercado ao vivo</a>
+  <a class="rbnav-a" href="#btcNode">🟠 Nosso Nó Bitcoin</a>
+  <a class="rbnav-a" href="#sobrevivencia">🌊 Sobrevivência &amp; Clima</a>
+  <div class="rbnav-h">Produtos &amp; Ferramentas</div>
+  <a class="rbnav-a" href="#stackbit">🔑 Stackbit &middot; BIP39</a>
+  <a class="rbnav-a" href="#produtos">🛒 Produtos &amp; Curso</a>
+  <a class="rbnav-a" href="#parceiros">🤝 Parceiros</a>
+  <a class="rbnav-a" href="/recovery.html">🛡️ Recovery Kit</a>
+  <div class="rbnav-h">Painéis</div>
+  <a class="rbnav-a" href="/carteira.html">📊 Carteira ao vivo</a>
+  <a class="rbnav-a" href="/painel.html">🤖 Painel dos bots</a>
+  <a class="rbnav-a" href="/campeonato-ia.html">⚔️ Campeonato IA</a>
+</nav>
+<script>
+(function(){
+  var b=document.getElementById('rbMenuBtn'),o=document.getElementById('rbNavOverlay'),
+      d=document.getElementById('rbNavDrawer'),x=document.getElementById('rbNavX');
+  function open(){o.classList.add('on');d.classList.add('on');}
+  function close(){o.classList.remove('on');d.classList.remove('on');}
+  b.addEventListener('click',open); x.addEventListener('click',close); o.addEventListener('click',close);
+  d.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();close();setTimeout(function(){t.scrollIntoView({behavior:'smooth',block:'start'});},180);}
+    });
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
+</script>
+
 
 <div id="space"></div>
 <div id="earth"></div>
@@ -185,7 +249,7 @@
     .hr-agg .tag{font-size:8px;background:#33333f;color:#9a9aab;border-radius:5px;padding:1px 5px;letter-spacing:.5px}
     @keyframes hrPulse{0%,100%{opacity:1}50%{opacity:.25}}
   </style>
-  <section class="hr-wrap">
+  <section class="hr-wrap" id="topo">
     <h1 class="hr-seo">Rádio Bitcoin — a voz da revolução Bitcoin, ao vivo 24 horas</h1>
     <div class="hr-live" style="display:none"><i></i> AO VIVO · 24 HORAS</div>
     <div style="flex:1"></div>
@@ -981,7 +1045,7 @@
            STACKBIT 1248 — PAINEL BIP39
            Posição: antes de #biblioteca
       ═══════════════════════════════════════════ -->
-      <div id="stackbit-1248-panel" class="panel" style="margin-bottom:14px;">
+      <div id="stackbit" class="panel" style="margin-bottom:14px;">
 
         <!-- Header -->
         <div class="stk-header-panel">
@@ -1343,7 +1407,7 @@
       </div>
 </div>
 
-<section class="vlc">
+<section class="vlc" id="locutores">
   <div class="vlc__head">
     <div class="vlc__title">🎙️ Vote no melhor <b>locutor IA</b> da Rádio</div>
     <div class="vlc__sub">4 inteligências se revezam na locução ao vivo · <span class="vlc__live"><i></i> AO VIVO</span> · seu voto vale 1x por dia</div>
@@ -1513,7 +1577,7 @@
   .surv__c a{color:#f2a900;text-decoration:none;font-weight:700;}
   .surv__c .off{display:inline-block;font-size:8px;font-weight:800;letter-spacing:1px;background:rgba(123,224,106,.15);color:#7be06a;border:1px solid rgba(123,224,106,.4);border-radius:20px;padding:2px 8px;margin-left:6px;vertical-align:middle;}
   </style>
-  <section class="surv">
+  <section class="surv" id="sobrevivencia">
     <div class="surv__title">🎒 PAINEL DO SOBREVIVENTE</div>
     <div class="surv__sub">Preparação = soberania. Quem tem reserva própria não fica refém quando o sistema falha. &nbsp;<a href="/sobrevivencia.html" style="color:#7be06a;font-weight:800;text-decoration:none;">→ Abrir página completa (radar + tudo)</a></div>
     <div class="surv__grid">
