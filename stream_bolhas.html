@@ -751,7 +751,7 @@ document.getElementById('exportBtn').onclick=()=>{
 // ============================================================
 //  BOOT
 // ============================================================
-resize(); seedDemo(); lastUpdate=new Date(); syncBubbles(); renderSectors(); renderStats(); saveFavs(); setTab('all');
+setTimeout(resize,120); resize(); seedDemo(); lastUpdate=new Date(); syncBubbles(); renderSectors(); renderStats(); saveFavs(); setTab('all');
 setStatus('carregando ao vivo…',false); loop();
 loadFinnhubLogos();                     // logos oficiais (CDN Finnhub)
 realtimeLoop();                         // atualizador contínuo (Finnhub throttled, respeita 60/min)
@@ -770,8 +770,12 @@ body.stream #streamBrand{top:14px;left:22px}
   background:linear-gradient(rgba(4,7,16,.55),rgba(4,7,16,.62)),url('cockpit_nave.webp') center/cover no-repeat}
 body.stream{background:#04070f!important}
 body.stream canvas{position:relative;z-index:1;background:transparent!important}
+body.stream .stage{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;max-width:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important}
+body.stream canvas#bubbles{width:100vw!important;height:100vh!important}
+
 </style>
 <div id="streamBg"></div>
 <div id="streamBrand"><b>📻 RÁDIO BITCOIN</b><span>AÇÕES &amp; CRIPTO · AO VIVO · radiobitcoin.org</span></div>
+<script>window.__streamFill=setTimeout(function(){try{resize();if(window.syncBubbles)syncBubbles();}catch(e){}},1200);</script>
 </body>
 </html>
