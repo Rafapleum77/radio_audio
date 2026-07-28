@@ -973,7 +973,7 @@
   }
 
   // Auto-atualiza a cada 30 min
-  setInterval(function(){ window.trzLoadVideos(true); }, 30 * 60 * 1000);
+  setInterval(function(){ window.trzLoadVideos(true); }, 10 * 60 * 1000); // auto 10min
 })();
       </script>
 
@@ -5435,6 +5435,11 @@ async function fetchBTC() {
 
     // Header
     document.getElementById('hdrPrice').textContent = fmt(price);
+    // HUD lateral (Quantum Pulse) — estavam eternamente "Carregando…"
+    var _qb=document.getElementById('qpBtc'); if(_qb)_qb.textContent=fmt(price);
+    var _qc=document.getElementById('qpChipBtc'); if(_qc)_qc.textContent=fmt(price);
+    try{localStorage.setItem('rb_btc_cache',fmt(price));}catch(e){}
+
     const chgEl = document.getElementById('hdrChange');
     chgEl.textContent = fmtChg(chg);
     chgEl.className = 'btc-change ' + cls(chg);
@@ -5550,6 +5555,9 @@ async function fetchBlock() {
     const h = r.ok ? await r.json() : null;
     if (h) {
       document.getElementById('t-block').textContent = h.toLocaleString();
+      var _qbl=document.getElementById('qpBlock'); if(_qbl)_qbl.textContent=h.toLocaleString();
+      try{localStorage.setItem('rb_block_cache',h.toLocaleString());}catch(e){}
+
       document.getElementById('t-block2').textContent = h.toLocaleString();
       document.getElementById('footerBlock').textContent = 'BLOCO: ' + h.toLocaleString();
       // Halving a cada 210000 blocos — próximo
@@ -6468,7 +6476,12 @@ iaRender();
   #liveRadio .qp-ring{position:absolute;inset:-3px;border-radius:50%;border:1.5px solid rgba(0,212,255,.5);pointer-events:none}
   #liveRadio.qp-playing .qp-ring{animation:qpMiniBeat 1.5s ease-in-out infinite}
   @keyframes qpMiniBeat{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.14);opacity:.3}}
-  #liveBtn{position:relative;z-index:1;border:1.5px solid #00d4ff;background:radial-gradient(circle at 50% 40%,rgba(0,212,255,.25),#0a0e1a 70%);color:#00d4ff;width:42px;height:42px;border-radius:50%;font-size:15px;cursor:pointer;font-weight:900;display:flex;align-items:center;justify-content:center}
+  #liveRadio .qp-wave{display:none;align-items:flex-end;gap:2px;height:16px;margin-left:6px}
+#liveRadio.qp-playing .qp-wave{display:inline-flex}
+#liveRadio .qp-wave i{width:3px;background:#00d4ff;border-radius:2px;animation:qpWave .9s ease-in-out infinite}
+#liveRadio .qp-wave i:nth-child(2){animation-delay:.15s}#liveRadio .qp-wave i:nth-child(3){animation-delay:.3s}#liveRadio .qp-wave i:nth-child(4){animation-delay:.45s}
+@keyframes qpWave{0%,100%{height:4px}50%{height:16px}}
+#liveBtn{position:relative;z-index:1;border:1.5px solid #00d4ff;background:radial-gradient(circle at 50% 40%,rgba(0,212,255,.25),#0a0e1a 70%);color:#00d4ff;width:56px;height:56px;border-radius:50%;font-size:20px;cursor:pointer;font-weight:900;display:flex;align-items:center;justify-content:center}
   #liveRadio:not(.qp-playing) #liveBtn{animation:qpMiniInvite 1.9s ease-in-out infinite}
   @keyframes qpMiniInvite{0%,100%{box-shadow:0 0 0 0 rgba(0,212,255,.35)}50%{box-shadow:0 0 0 7px rgba(0,212,255,.06)}}
   #liveRadio .qp-name{color:#00d4ff;font-size:12px;font-weight:800;letter-spacing:1px;display:flex;align-items:center;gap:6px}
@@ -6483,7 +6496,7 @@ iaRender();
     <button id="liveBtn" aria-label="Ouvir ao vivo">▶</button>
   </div>
   <div style="line-height:1.15">
-    <div class="qp-name"><span id="liveDot"></span><span id="liveTxt">OUVIR AO VIVO</span></div>
+    <div class="qp-name"><span id="liveDot"></span><span id="liveTxt">OUVIR AO VIVO</span><span class="qp-wave"><i></i><i></i><i></i><i></i></span></div>
     <div class="qp-sub">RÁDIO BITCOIN · 24H</div>
   </div>
 </div>
@@ -6598,5 +6611,13 @@ iaRender();
 <script src="assets/site.js" defer></script>
 <script src="assets/site.js" defer></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ebcbf230a8794cd0a783cbc9bb447fe8"}'></script><!-- End Cloudflare Web Analytics -->
+<script>
+(function(){try{
+  var b=localStorage.getItem('rb_btc_cache'), bl=localStorage.getItem('rb_block_cache');
+  function set(id,v){var e=document.getElementById(id); if(e&&v)e.textContent=v;}
+  if(b){set('qpBtc',b);set('qpChipBtc',b);}
+  if(bl)set('qpBlock',bl);
+}catch(e){}})();
+</script>
 </body>
 </html>
