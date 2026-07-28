@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-28T20:21:15.208526+00:00",
+  "updated_at": "2026-07-28T21:37:41.263763+00:00",
   "tickers": [
     {
       "symbol": "MSTR",
@@ -15,9 +15,9 @@
     {
       "symbol": "STRK",
       "price": 62.46,
-      "previous_close": 62.15,
-      "change_abs": 0.31,
-      "change_pct": 0.5,
+      "previous_close": 60.56,
+      "change_abs": 1.9,
+      "change_pct": 3.14,
       "currency": "USD",
       "market_state": "UNKNOWN",
       "name": "Strategy Pref 8%",
@@ -37,9 +37,9 @@
     {
       "symbol": "FBTC",
       "price": 55.54,
-      "previous_close": 56.51,
-      "change_abs": -0.97,
-      "change_pct": -1.72,
+      "previous_close": 55.83,
+      "change_abs": -0.29,
+      "change_pct": -0.52,
       "currency": "USD",
       "market_state": "UNKNOWN",
       "name": "Fidelity BTC ETF",
