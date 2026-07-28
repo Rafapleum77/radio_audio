@@ -323,9 +323,7 @@
       <div class="hr-aggs__row">
         <a class="hr-agg" href="https://www.radio-browser.info/search?name=Radio%20Bitcoin" target="_blank" rel="noopener">📻 Radio-Browser</a>
         <a class="hr-agg" id="aggTunein" href="https://tunein.com/radio/Radio-Bitcoin-s358551/" target="_blank" rel="noopener">🎧 TuneIn</a>
-        <a class="hr-agg hr-agg--soon" id="aggRadionet">📡 Radios.net <span class="tag">EM BREVE</span></a>
         <a class="hr-agg" id="aggSimple" href="https://streema.com/radios/Radio_Bitcoin" target="_blank" rel="noopener">🔊 Simple Radio</a>
-        <a class="hr-agg hr-agg--soon" id="aggGarden">🌍 Radio Garden <span class="tag">EM BREVE</span></a>
       </div>
     </div>
   </section>
@@ -6495,14 +6493,22 @@ iaRender();
   var a=document.getElementById('liveAudio');
   var fb=document.getElementById('liveBtn'),fd=document.getElementById('liveDot');
   var hb=document.getElementById('hrPlay'),ht=document.getElementById('hrPlayTxt');
+  function set(id,txt,cor){var e=document.getElementById(id); if(e){e.textContent=txt; if(cor)e.style.color=cor;}}
   function sync(playing){
     if(fb){fb.textContent=playing?'⏸':'▶';}
-    if(fd){fd.style.background='#ef4444';fd.style.animation='none';}
+    if(fd){fd.style.background=playing?'#ef4444':'#6b7280';fd.style.animation=playing?'qpPulseDot 1.1s infinite':'none';}
     var _lr=document.getElementById('liveRadio'); if(_lr)_lr.classList.toggle('qp-playing',playing);
     var _lt=document.getElementById('liveTxt'); if(_lt)_lt.textContent=playing?'AO VIVO':'OUVIR AO VIVO';
     if(hb){hb.querySelector('.ic').textContent=playing?'⏸':'▶';}
     if(ht){ht.textContent=playing?'TOCANDO AO VIVO':'OUVIR AO VIVO';}
     if(hb){hb.classList.toggle('hr-pulsa', !playing);}
+    // HUD: estados inequívocos (resolve STANDBY/IDLE eterno)
+    set('qpChipStatusTxt', playing?'● AO VIVO':'TOQUE PARA OUVIR', playing?'#ef4444':'');
+    set('qpStatus', playing?'AO VIVO':'PARADO', playing?'#22c55e':'var(--qdim)');
+    set('qpStatusSub', playing?'Transmitindo agora':'Toque para ouvir');
+    set('qpMode', playing?'LIVE':'IDLE', playing?'#00d4ff':'var(--qdim)');
+    set('qpModeSub', playing?'Stream 24h':'\u2014');
+    set('qpLiveLbl', playing?'AO VIVO':'STANDBY', playing?'#ef4444':'');
   }
   function toggle(){
     if(a.paused){ a.load(); a.play().then(function(){sync(true);}).catch(function(){sync(false);}); }
