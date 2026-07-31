@@ -4,8 +4,12 @@ import json
 import sys
 import time
 from datetime import datetime, timezone
-import urllib.request
-import urllib.error
+
+try:
+    import yfinance as yf
+except ImportError:
+    print("yfinance nao instalado — instale com: pip install yfinance", file=sys.stderr)
+    sys.exit(1)
 
 TICKERS = [
     ("MSTR", "Strategy (Saylor)", "strategy.com"),
@@ -25,29 +29,30 @@ TICKERS = [
     ("INOD", "Innodata", "innodata.com"),
 ]
 
-UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15"
-
 def fetch(symbol: str) -> dict:
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?interval=1d&range=2d"
-    req = urllib.request.Request(url, headers={"User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=10) as r:
-        data = json.loads(r.read())
-    result = data["chart"]["result"][0]
-    meta = result["meta"]
-    price = meta.get("regularMarketPrice")
-    prev = meta.get("chartPreviousClose") or meta.get("previousClose")
+    t = yf.Ticker(symbol)
+    info = t.fast_info
+    price = getattr(info, "last_price", None)
+    prev  = getattr(info, "previous_close", None)
     if price is None or prev is None:
         raise ValueError(f"sem dados pra {symbol}")
     change_abs = price - prev
     change_pct = (change_abs / prev) * 100
+    currency   = getattr(info, "currency", "USD") or "USD"
+    market_state = "UNKNOWN"
+    try:
+        full = t.info
+        market_state = full.get("marketState", "UNKNOWN")
+    except Exception:
+        pass
     return {
-        "symbol": symbol,
-        "price": round(price, 2),
+        "symbol":         symbol,
+        "price":          round(price, 2),
         "previous_close": round(prev, 2),
-        "change_abs": round(change_abs, 2),
-        "change_pct": round(change_pct, 2),
-        "currency": meta.get("currency", "USD"),
-        "market_state": meta.get("marketState", "UNKNOWN"),
+        "change_abs":     round(change_abs, 2),
+        "change_pct":     round(change_pct, 2),
+        "currency":       currency,
+        "market_state":   market_state,
     }
 
 def main():
@@ -56,11 +61,11 @@ def main():
     for sym, name, domain in TICKERS:
         try:
             d = fetch(sym)
-            d["name"] = name
-            d["logo"] = f"https://cdn.brandfetch.io/{domain}/w/200/h/200"
+            d["name"]  = name
+            d["logo"]  = f"https://cdn.brandfetch.io/{domain}/w/200/h/200"
             out["tickers"].append(d)
             print(f"OK {sym}: {d['price']} {d['currency']} ({d['change_pct']:+.2f}%)")
-            time.sleep(0.3)
+            time.sleep(0.2)
         except Exception as e:
             erros.append(f"{sym}: {e}")
             print(f"ERRO {sym}: {e}", file=sys.stderr)
