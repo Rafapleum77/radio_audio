@@ -402,7 +402,7 @@
             el.textContent = '🔊 Falando com a sua Alexa…';
             var volta = function(){ el.textContent = orig; };
             try {
-              if (!audio) audio = new Audio('/alexa_comando.mp3');
+              if (!audio) audio = new Audio('/alexa_comando.mp3?v=2');
               audio.volume = 1.0;
               audio.currentTime = 0;
               audio.onended = volta;
