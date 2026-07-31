@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Instalar dependencias
+        run: pip install yfinance
+
       - name: Atualizar stocks.json
         run: python scripts/update_stocks.py
 
