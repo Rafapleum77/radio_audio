@@ -389,7 +389,28 @@
         <a class="hr-agg" id="aggTunein" href="https://tunein.com/radio/Radio-Bitcoin-s358551/" target="_blank" rel="noopener">🎧 TuneIn</a>
         <a class="hr-agg" id="aggSimple" href="https://streema.com/radios/Radio_Bitcoin" target="_blank" rel="noopener">🔊 Simple Radio</a>
         <a class="hr-agg" id="aggMytuner" href="https://mytuner-radio.com/?utm_source=widget&amp;utm_medium=button&amp;utm_campaign=64x64" target="_blank" rel="noopener">📱 myTuner</a>
-        <span class="hr-agg" style="cursor:default;border-color:#31c4f3;color:#31c4f3" title="Testado e funcionando na Amazon Alexa">🗣️ Diga: “Alexa, toca Rádio Bitcoin”</span>
+        <span class="hr-agg" id="alexaSay" style="cursor:pointer;border-color:#31c4f3;color:#31c4f3" title="Clica que EU falo com a sua Alexa 😉">🗣️ Diga: “Alexa, toca Rádio Bitcoin”</span>
+        <script>
+        // clicou -> o navegador FALA o comando em voz alta e a Alexa da sala obedece
+        (function(){
+          var el = document.getElementById('alexaSay');
+          if (!el || !('speechSynthesis' in window)) return;
+          el.addEventListener('click', function(){
+            var orig = el.textContent;
+            try {
+              speechSynthesis.cancel();
+              var u = new SpeechSynthesisUtterance('Alexa! Tocar Rádio Bitcoin.');
+              u.lang = 'pt-BR'; u.volume = 1; u.rate = 0.85;
+              var voz = (speechSynthesis.getVoices() || []).find(function(v){ return v.lang && v.lang.indexOf('pt') === 0; });
+              if (voz) u.voice = voz;
+              el.textContent = '🔊 Falando com a sua Alexa…';
+              u.onend = function(){ el.textContent = orig; };
+              speechSynthesis.speak(u);
+              setTimeout(function(){ el.textContent = orig; }, 7000);
+            } catch(e) { el.textContent = orig; }
+          });
+        })();
+        </script>
       </div>
     </div>
   </section>
