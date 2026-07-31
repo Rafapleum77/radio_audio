@@ -573,6 +573,9 @@ img{max-width:100%;height:auto;}
   #main{grid-template-columns:1fr;gap:6px;}
   #right{display:flex;}
 
+  /* Nav horizontal já existe no drawer — esconde no mobile */
+  #hdr-nav{display:none;}
+
   /* Header empilhado e centralizado */
   #header{
     flex-direction:column;align-items:center;
