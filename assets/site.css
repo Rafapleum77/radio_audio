@@ -576,6 +576,10 @@ img{max-width:100%;height:auto;}
   /* Nav horizontal já existe no drawer — esconde no mobile */
   #hdr-nav{display:none;}
 
+  /* Chips do Quantum Pulse: wrap em 2×2 em vez de scroll cortado */
+  .qp-chips{flex-wrap:wrap!important;overflow-x:visible!important;justify-content:center;gap:6px!important;top:60px!important;}
+  .qp-chip{font-size:11px!important;padding:5px 10px!important;}
+
   /* Header empilhado e centralizado */
   #header{
     flex-direction:column;align-items:center;
