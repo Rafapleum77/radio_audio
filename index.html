@@ -391,23 +391,32 @@
         <a class="hr-agg" id="aggMytuner" href="https://mytuner-radio.com/?utm_source=widget&amp;utm_medium=button&amp;utm_campaign=64x64" target="_blank" rel="noopener">📱 myTuner</a>
         <span class="hr-agg" id="alexaSay" style="cursor:pointer;border-color:#31c4f3;color:#31c4f3" title="Clica que EU falo com a sua Alexa 😉">🗣️ Diga: “Alexa, toca Rádio Bitcoin”</span>
         <script>
-        // clicou -> o navegador FALA o comando em voz alta e a Alexa da sala obedece
+        // clicou -> toca um audio de voz NEURAL (diccao perfeita) e a Alexa da sala obedece.
+        // (a voz sintetica do navegador enrolava e a Alexa entendia "radio byte")
         (function(){
           var el = document.getElementById('alexaSay');
-          if (!el || !('speechSynthesis' in window)) return;
+          if (!el) return;
+          var audio = null;
           el.addEventListener('click', function(){
             var orig = el.textContent;
+            el.textContent = '🔊 Falando com a sua Alexa…';
+            var volta = function(){ el.textContent = orig; };
             try {
-              speechSynthesis.cancel();
-              var u = new SpeechSynthesisUtterance('Alexa! Tocar Rádio Bitcoin.');
-              u.lang = 'pt-BR'; u.volume = 1; u.rate = 0.85;
-              var voz = (speechSynthesis.getVoices() || []).find(function(v){ return v.lang && v.lang.indexOf('pt') === 0; });
-              if (voz) u.voice = voz;
-              el.textContent = '🔊 Falando com a sua Alexa…';
-              u.onend = function(){ el.textContent = orig; };
-              speechSynthesis.speak(u);
-              setTimeout(function(){ el.textContent = orig; }, 7000);
-            } catch(e) { el.textContent = orig; }
+              if (!audio) audio = new Audio('/alexa_comando.mp3');
+              audio.volume = 1.0;
+              audio.currentTime = 0;
+              audio.onended = volta;
+              audio.play().catch(function(){
+                // fallback: voz do navegador
+                try {
+                  var u = new SpeechSynthesisUtterance('Alexa! Tocar, Rádio Bitcoin.');
+                  u.lang = 'pt-BR'; u.volume = 1; u.rate = 0.8;
+                  u.onend = volta;
+                  speechSynthesis.speak(u);
+                } catch(e) { volta(); }
+              });
+              setTimeout(volta, 8000);
+            } catch(e) { volta(); }
           });
         })();
         </script>
