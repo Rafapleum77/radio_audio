@@ -1,13 +1,46 @@
 {
   "fonte": "GoatCounter (analytics real, privacy-first)",
-  "atualizado_em": "2026-08-03",
-  "visitas_30d": 611,
-  "paises_total": 0,
-  "top_paises": [],
+  "atualizado_em": "2026-08-04",
+  "visitas_30d": 608,
+  "paises_total": 8,
+  "top_paises": [
+    {
+      "pais": "Brazil",
+      "count": 503
+    },
+    {
+      "pais": "United States",
+      "count": 48
+    },
+    {
+      "pais": "Paraguay",
+      "count": 27
+    },
+    {
+      "pais": "Portugal",
+      "count": 14
+    },
+    {
+      "pais": "Argentina",
+      "count": 5
+    },
+    {
+      "pais": "Ireland",
+      "count": 3
+    },
+    {
+      "pais": "Germany",
+      "count": 2
+    },
+    {
+      "pais": "France",
+      "count": 2
+    }
+  ],
   "top_paginas": [
     {
       "path": "/",
-      "count": 576
+      "count": 572
     },
     {
       "path": "/ebook.html",
@@ -22,8 +55,8 @@
       "count": 2
     },
     {
-      "path": "/painel.html",
-      "count": 1
+      "path": "/carteira.html",
+      "count": 2
     }
   ]
 }
