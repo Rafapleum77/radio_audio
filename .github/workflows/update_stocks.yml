@@ -1,9 +1,6 @@
 name: Atualizar cotacoes de stocks
 
 on:
-  schedule:
-    # roda a cada 15 min em horario de mercado (14:30-21:00 UTC seg-sex)
-    - cron: '*/15 14-21 * * 1-5'
   workflow_dispatch:
 
 permissions:
