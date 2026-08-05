@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://radiobitcoin.org/programacao.html">
+<link rel="icon" type="image/png" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Grade de programação da Rádio Bitcoin: Radar Pré-Mercado, As Mais Negociadas, Melhores Oportunidades e Fechamento. Análise de mercado ao vivo, 24h no ar.">
+<meta property="og:title" content="Programação Diária — Rádio Bitcoin">
+<meta property="og:description" content="Grade de programação da Rádio Bitcoin: análise de mercado ao vivo com blocos temáticos, música autoral Bitcoin e educação financeira. 24h no ar.">
+<meta property="og:url" content="https://radiobitcoin.org/programacao.html">
+<meta property="og:image" content="https://radiobitcoin.org/banner_programas_radio_bitcoin.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Rádio Bitcoin">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Programação Diária — Rádio Bitcoin">
+<meta name="twitter:description" content="Grade de programação da Rádio Bitcoin: análise de mercado ao vivo, música autoral Bitcoin e educação financeira.">
+<meta name="twitter:image" content="https://radiobitcoin.org/banner_programas_radio_bitcoin.png">
+<title>Programação Diária — Rádio Bitcoin</title>
+<style>
+  /* ── RESET ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── VARIABLES ── */
+  :root {
+    --bg: #0a0c10;
+    --bg2: #0d1117;
+    --bg3: #111827;
+    --cyan: #00e5ff;
+    --cyan-dim: rgba(0,229,255,0.15);
+    --cyan-glow: rgba(0,229,255,0.5);
+    --amber: #f2a900;
+    --amber-dim: rgba(242,169,0,0.15);
+    --amber-glow: rgba(242,169,0,0.5);
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,0.15);
+    --green-glow: rgba(34,197,94,0.5);
+    --red: #ef4444;
+    --red-dim: rgba(239,68,68,0.15);
+    --red-glow: rgba(239,68,68,0.5);
+    --text: #cbd5e1;
+    --text-dim: #64748b;
+    --border: rgba(0,229,255,0.18);
+    --scan-line: rgba(0,0,0,0.06);
+    --font-mono: 'Courier New', 'Lucida Console', monospace;
+  }
+
+  /* ── BASE ── */
+  html, body {
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg);
+    font-family: var(--font-mono);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── SCANLINES EFFECT ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      var(--scan-line) 2px,
+      var(--scan-line) 4px
+    );
+  }
+
+  /* ── STARFIELD BG ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(1px 1px at 10% 8%, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1px 1px at 28% 14%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 45% 6%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1px 1px at 62% 20%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 78% 10%, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1px 1px at 90% 5%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 15% 40%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 55% 35%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 84% 42%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(2px 2px at 35% 22%, rgba(0,229,255,0.25), transparent),
+      radial-gradient(2px 2px at 70% 28%, rgba(242,169,0,0.2), transparent);
+  }
+
+  /* ── WRAPPER ── */
+  .wrapper {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 16px 40px;
+  }
+
+  /* ── BACK LINK ── */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--cyan); }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: rgba(13, 17, 23, 0.92);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 28px;
+    margin-bottom: 8px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--amber), var(--cyan), var(--amber), transparent);
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,229,255,0.3), transparent);
+  }
+
+  .logo-text {
+    font-size: clamp(20px, 5vw, 38px);
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow:
+      0 0 18px var(--cyan-glow),
+      0 0 40px rgba(0,229,255,0.3);
+    line-height: 1;
+  }
+
+  .logo-sub {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--text-dim);
+    margin-top: 4px;
+    text-transform: lowercase;
+  }
+
+  .dot {
+    color: var(--amber);
+    text-shadow: 0 0 8px var(--amber-glow);
+  }
+
+  /* ── HERO BANNER ── */
+  .hero-banner {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid rgba(0,229,255,0.2);
+    margin: 20px 0;
+    display: block;
+    box-shadow: 0 0 30px rgba(0,229,255,0.1);
+  }
+
+  /* ── PAGE TITLE ── */
+  .page-title {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .page-title h1 {
+    font-size: clamp(16px, 3.5vw, 26px);
+    letter-spacing: 5px;
+    color: var(--cyan);
+    text-shadow: 0 0 14px var(--cyan-glow);
+    text-transform: uppercase;
+  }
+  .page-title .subtitle {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+
+  /* ── PROGRAM CARDS ── */
+  .programs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 600px) {
+    .programs-grid { grid-template-columns: 1fr; }
+  }
+
+  .program-card {
+    background: var(--bg2);
+    border-radius: 10px;
+    padding: 22px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .program-card:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Color variants */
+  .card-amber {
+    border: 1px solid rgba(242,169,0,0.35);
+    box-shadow: 0 0 20px rgba(242,169,0,0.08);
+  }
+  .card-amber::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+  }
+  .card-amber:hover {
+    box-shadow: 0 4px 30px rgba(242,169,0,0.2);
+  }
+
+  .card-cyan {
+    border: 1px solid rgba(0,229,255,0.3);
+    box-shadow: 0 0 20px rgba(0,229,255,0.08);
+  }
+  .card-cyan::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  }
+  .card-cyan:hover {
+    box-shadow: 0 4px 30px rgba(0,229,255,0.2);
+  }
+
+  .card-green {
+    border: 1px solid rgba(34,197,94,0.3);
+    box-shadow: 0 0 20px rgba(34,197,94,0.08);
+  }
+  .card-green::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green), transparent);
+  }
+  .card-green:hover {
+    box-shadow: 0 4px 30px rgba(34,197,94,0.2);
+  }
+
+  .card-red {
+    border: 1px solid rgba(239,68,68,0.3);
+    box-shadow: 0 0 20px rgba(239,68,68,0.08);
+  }
+  .card-red::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+  }
+  .card-red:hover {
+    box-shadow: 0 4px 30px rgba(239,68,68,0.2);
+  }
+
+  .card-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: block;
+    line-height: 1;
+  }
+
+  .card-time {
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .card-amber .card-time { color: var(--amber); }
+  .card-cyan .card-time  { color: var(--cyan); }
+  .card-green .card-time { color: var(--green); }
+  .card-red .card-time   { color: var(--red); }
+
+  .card-name {
+    font-size: clamp(13px, 2.5vw, 16px);
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  .card-desc {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .card-badge {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-top: 12px;
+  }
+  .card-amber .card-badge { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(242,169,0,0.3); }
+  .card-cyan .card-badge  { background: var(--cyan-dim);  color: var(--cyan);  border: 1px solid rgba(0,229,255,0.3); }
+  .card-green .card-badge { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+  .card-red .card-badge   { background: var(--red-dim);   color: var(--red);   border: 1px solid rgba(239,68,68,0.3); }
+
+  /* ── 24H SECTION ── */
+  .always-on {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .always-on::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--amber), var(--cyan), transparent);
+  }
+
+  .always-on-title {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    text-shadow: 0 0 10px var(--cyan-glow);
+  }
+  .always-on-title span {
+    color: var(--amber);
+    text-shadow: 0 0 10px var(--amber-glow);
+  }
+
+  .pillars {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .pillar {
+    background: rgba(0,229,255,0.06);
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 8px;
+    padding: 14px 20px;
+    flex: 1;
+    min-width: 160px;
+    max-width: 220px;
+  }
+
+  .pillar-icon { font-size: 22px; margin-bottom: 8px; }
+
+  .pillar-name {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+
+  .pillar-desc {
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+  }
+
+  /* ── CTA BUTTON ── */
+  .cta-wrap {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .btn-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(0,229,255,0.08));
+    border: 2px solid var(--cyan);
+    border-radius: 8px;
+    padding: 16px 36px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    color: var(--cyan);
+    text-decoration: none;
+    text-transform: uppercase;
+    text-shadow: 0 0 12px var(--cyan-glow);
+    box-shadow: 0 0 24px rgba(0,229,255,0.2), inset 0 0 16px rgba(0,229,255,0.05);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .btn-live:hover {
+    background: linear-gradient(135deg, rgba(0,229,255,0.25), rgba(0,229,255,0.12));
+    box-shadow: 0 0 40px rgba(0,229,255,0.4), inset 0 0 20px rgba(0,229,255,0.1);
+    transform: translateY(-1px);
+  }
+
+  .live-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 8px var(--red-glow);
+    animation: blink 1.2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0,229,255,0.1);
+  }
+
+  .footer-text {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .footer-text .sep { color: rgba(0,229,255,0.3); margin: 0 6px; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,229,255,0.2), transparent);
+    margin: 28px 0;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::before {
+    content: '▸';
+    color: var(--amber);
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- BACK LINK -->
+  <a href="/" class="back-link">← Voltar ao site</a>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="logo-text">RÁDIO <span class="dot">BITCOIN</span></div>
+    <div class="logo-sub">radiobitcoin.org</div>
+  </header>
+
+  <!-- HERO BANNER -->
+  <img
+    src="/banner_programas_radio_bitcoin.png"
+    alt="Programas da Rádio Bitcoin — análise de mercado ao vivo"
+    class="hero-banner"
+    onerror="this.style.display='none'"
+  >
+
+  <!-- PAGE TITLE -->
+  <div class="page-title">
+    <h1>Programação Diária</h1>
+    <div class="subtitle">Blocos ao vivo · Análise de mercado · Segunda a Sexta</div>
+  </div>
+
+  <!-- PROGRAM CARDS -->
+  <div class="section-label">Blocos de Mercado</div>
+  <div class="programs-grid">
+
+    <!-- 09h30 -->
+    <div class="program-card card-amber">
+      <span class="card-icon">📈</span>
+      <div class="card-time">09h30</div>
+      <div class="card-name">Radar Pré-Mercado</div>
+      <div class="card-desc">O que preparar pra abertura — fluxo do smart money, futuros, crypto overnight</div>
+      <div class="card-badge">Abertura NY</div>
+    </div>
+
+    <!-- 12h00 -->
+    <div class="program-card card-cyan">
+      <span class="card-icon">📊</span>
+      <div class="card-time">12h00</div>
+      <div class="card-name">As Mais Negociadas</div>
+      <div class="card-desc">Smart Money &amp; Volume — onde o dinheiro grande está entrando</div>
+      <div class="card-badge">Meio-dia</div>
+    </div>
+
+    <!-- 16h30 -->
+    <div class="program-card card-green">
+      <span class="card-icon">🎯</span>
+      <div class="card-time">16h30</div>
+      <div class="card-name">Melhores Oportunidades</div>
+      <div class="card-desc">Altas e Baixas do dia — onde entrar pra amanhã</div>
+      <div class="card-badge">Pré-fechamento</div>
+    </div>
+
+    <!-- 17h00 -->
+    <div class="program-card card-red">
+      <span class="card-icon">🕐</span>
+      <div class="card-time">17h00</div>
+      <div class="card-name">Fechamento</div>
+      <div class="card-desc">Resumo do dia + posicionamento pra amanhã</div>
+      <div class="card-badge">Balanço diário</div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 24H SECTION -->
+  <section class="always-on">
+    <div class="always-on-title">24h <span>no ar</span> — entre os blocos</div>
+    <div class="pillars">
+
+      <div class="pillar">
+        <div class="pillar-icon">🎵</div>
+        <div class="pillar-name">Música Autoral Bitcoin</div>
+        <div class="pillar-desc">Composições originais da cena Bitcoin — sem copyright de terceiros</div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-icon">📡</div>
+        <div class="pillar-name">Notícias Cripto</div>
+        <div class="pillar-desc">Feed ao vivo com locutores de IA — mercado, regulação e adoção</div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-icon">📚</div>
+        <div class="pillar-name">Educação Financeira</div>
+        <div class="pillar-desc">Soberania digital, autocustódia e escola austríaca</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <a href="https://stream.radiobitcoin.org/radio" target="_blank" rel="noopener" class="btn-live">
+      <span class="live-dot"></span>
+      OUVIR AO VIVO
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-text">
+      radiobitcoin.org
+      <span class="sep">·</span>
+      Stream 24/7
+      <span class="sep">·</span>
+      128 kbps MP3
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
