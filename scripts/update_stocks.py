@@ -5,11 +5,7 @@ import sys
 import time
 from datetime import datetime, timezone
 
-try:
-    import yfinance as yf
-except ImportError:
-    print("yfinance nao instalado — instale com: pip install yfinance", file=sys.stderr)
-    sys.exit(1)
+import yfinance as yf
 
 TICKERS = [
     ("MSTR", "Strategy (Saylor)", "strategy.com"),
@@ -29,31 +25,32 @@ TICKERS = [
     ("INOD", "Innodata", "innodata.com"),
 ]
 
+
 def fetch(symbol: str) -> dict:
     t = yf.Ticker(symbol)
     info = t.fast_info
     price = getattr(info, "last_price", None)
-    prev  = getattr(info, "previous_close", None)
+    prev = getattr(info, "previous_close", None)
+    currency = getattr(info, "currency", "USD")
     if price is None or prev is None:
         raise ValueError(f"sem dados pra {symbol}")
     change_abs = price - prev
     change_pct = (change_abs / prev) * 100
-    currency   = getattr(info, "currency", "USD") or "USD"
-    market_state = "UNKNOWN"
+    # market state via info dict (pode falhar silenciosamente, tudo bem)
     try:
-        full = t.info
-        market_state = full.get("marketState", "UNKNOWN")
+        market_state = t.info.get("marketState", "UNKNOWN")
     except Exception:
-        pass
+        market_state = "UNKNOWN"
     return {
-        "symbol":         symbol,
-        "price":          round(price, 2),
+        "symbol": symbol,
+        "price": round(price, 2),
         "previous_close": round(prev, 2),
-        "change_abs":     round(change_abs, 2),
-        "change_pct":     round(change_pct, 2),
-        "currency":       currency,
-        "market_state":   market_state,
+        "change_abs": round(change_abs, 2),
+        "change_pct": round(change_pct, 2),
+        "currency": currency or "USD",
+        "market_state": market_state,
     }
+
 
 def main():
     out = {"updated_at": datetime.now(timezone.utc).isoformat(), "tickers": []}
@@ -61,8 +58,8 @@ def main():
     for sym, name, domain in TICKERS:
         try:
             d = fetch(sym)
-            d["name"]  = name
-            d["logo"]  = f"https://cdn.brandfetch.io/{domain}/w/200/h/200"
+            d["name"] = name
+            d["logo"] = f"https://cdn.brandfetch.io/{domain}/w/200/h/200"
             out["tickers"].append(d)
             print(f"OK {sym}: {d['price']} {d['currency']} ({d['change_pct']:+.2f}%)")
             time.sleep(0.2)
@@ -75,6 +72,7 @@ def main():
         json.dump(out, f, indent=2)
     print(f"Saved stocks.json — {len(out['tickers'])}/{len(TICKERS)} OK")
     return 0 if out["tickers"] else 1
+
 
 if __name__ == "__main__":
     sys.exit(main())
