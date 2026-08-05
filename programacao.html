@@ -214,14 +214,14 @@
 
   .program-card {
     background: var(--bg2);
-    border-radius: 10px;
-    padding: 22px 20px;
+    border-radius: 12px;
+    padding: 24px 22px;
     position: relative;
     overflow: hidden;
     transition: transform 0.2s, box-shadow 0.2s;
   }
   .program-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
   }
 
   /* Color variants */
@@ -286,10 +286,36 @@
   }
 
   .card-icon {
-    font-size: 28px;
-    margin-bottom: 10px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
     display: block;
-    line-height: 1;
+  }
+
+  .card-icon-wrap {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .card-amber .card-icon-wrap {
+    background: rgba(242,169,0,0.12);
+    box-shadow: 0 0 20px rgba(242,169,0,0.2);
+  }
+  .card-cyan .card-icon-wrap {
+    background: rgba(0,229,255,0.10);
+    box-shadow: 0 0 20px rgba(0,229,255,0.2);
+  }
+  .card-green .card-icon-wrap {
+    background: rgba(34,197,94,0.10);
+    box-shadow: 0 0 20px rgba(34,197,94,0.2);
+  }
+  .card-red .card-icon-wrap {
+    background: rgba(239,68,68,0.10);
+    box-shadow: 0 0 20px rgba(239,68,68,0.2);
   }
 
   .card-time {
@@ -518,7 +544,22 @@
 
     <!-- 09h30 -->
     <div class="program-card card-amber">
-      <span class="card-icon">📈</span>
+      <div class="card-icon-wrap">
+        <svg class="card-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Candlestick chart with upward arrow -->
+          <rect x="10" y="36" width="8" height="16" rx="1.5" fill="#f2a900" opacity="0.9"/>
+          <line x1="14" y1="28" x2="14" y2="36" stroke="#f2a900" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="14" y1="52" x2="14" y2="56" stroke="#f2a900" stroke-width="2.5" stroke-linecap="round"/>
+          <rect x="28" y="26" width="8" height="20" rx="1.5" fill="#f2a900" opacity="0.7"/>
+          <line x1="32" y1="18" x2="32" y2="26" stroke="#f2a900" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="32" y1="46" x2="32" y2="50" stroke="#f2a900" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Arrow up right -->
+          <polyline points="38,18 54,8" stroke="#f2a900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="44,8 54,8 54,18" stroke="#f2a900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Glow dot at tip -->
+          <circle cx="54" cy="8" r="3" fill="#f2a900"/>
+        </svg>
+      </div>
       <div class="card-time">09h30</div>
       <div class="card-name">Radar Pré-Mercado</div>
       <div class="card-desc">O que preparar pra abertura — fluxo do smart money, futuros, crypto overnight</div>
@@ -527,7 +568,18 @@
 
     <!-- 12h00 -->
     <div class="program-card card-cyan">
-      <span class="card-icon">📊</span>
+      <div class="card-icon-wrap">
+        <svg class="card-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Bar chart ascending -->
+          <rect x="6"  y="44" width="10" height="14" rx="2" fill="#00e5ff" opacity="0.5"/>
+          <rect x="20" y="34" width="10" height="24" rx="2" fill="#00e5ff" opacity="0.7"/>
+          <rect x="34" y="22" width="10" height="36" rx="2" fill="#00e5ff" opacity="0.85"/>
+          <rect x="48" y="10" width="10" height="48" rx="2" fill="#00e5ff"/>
+          <!-- Volume pulse line on top bar -->
+          <line x1="48" y1="10" x2="58" y2="10" stroke="#00e5ff" stroke-width="2.5"/>
+          <circle cx="53" cy="10" r="3" fill="#00e5ff" opacity="0.9"/>
+        </svg>
+      </div>
       <div class="card-time">12h00</div>
       <div class="card-name">As Mais Negociadas</div>
       <div class="card-desc">Smart Money &amp; Volume — onde o dinheiro grande está entrando</div>
@@ -536,7 +588,20 @@
 
     <!-- 16h30 -->
     <div class="program-card card-green">
-      <span class="card-icon">🎯</span>
+      <div class="card-icon-wrap">
+        <svg class="card-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Target / bullseye -->
+          <circle cx="32" cy="32" r="28" stroke="#22c55e" stroke-width="2.5" opacity="0.35"/>
+          <circle cx="32" cy="32" r="20" stroke="#22c55e" stroke-width="2.5" opacity="0.55"/>
+          <circle cx="32" cy="32" r="12" stroke="#22c55e" stroke-width="2.5" opacity="0.75"/>
+          <circle cx="32" cy="32" r="5"  fill="#22c55e"/>
+          <!-- Crosshair lines -->
+          <line x1="4"  y1="32" x2="18" y2="32" stroke="#22c55e" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+          <line x1="46" y1="32" x2="60" y2="32" stroke="#22c55e" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+          <line x1="32" y1="4"  x2="32" y2="18" stroke="#22c55e" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+          <line x1="32" y1="46" x2="32" y2="60" stroke="#22c55e" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+        </svg>
+      </div>
       <div class="card-time">16h30</div>
       <div class="card-name">Melhores Oportunidades</div>
       <div class="card-desc">Altas e Baixas do dia — onde entrar pra amanhã</div>
@@ -545,7 +610,21 @@
 
     <!-- 17h00 -->
     <div class="program-card card-red">
-      <span class="card-icon">🕐</span>
+      <div class="card-icon-wrap">
+        <svg class="card-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Clock -->
+          <circle cx="32" cy="32" r="26" stroke="#ef4444" stroke-width="2.5" opacity="0.9"/>
+          <circle cx="32" cy="32" r="3" fill="#ef4444"/>
+          <!-- Clock hands -->
+          <line x1="32" y1="32" x2="32" y2="12" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+          <line x1="32" y1="32" x2="46" y2="38" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+          <!-- Hour ticks -->
+          <line x1="32" y1="7"  x2="32" y2="11" stroke="#ef4444" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+          <line x1="32" y1="53" x2="32" y2="57" stroke="#ef4444" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+          <line x1="7"  y1="32" x2="11" y2="32" stroke="#ef4444" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+          <line x1="53" y1="32" x2="57" y2="32" stroke="#ef4444" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        </svg>
+      </div>
       <div class="card-time">17h00</div>
       <div class="card-name">Fechamento</div>
       <div class="card-desc">Resumo do dia + posicionamento pra amanhã</div>
