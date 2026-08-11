@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-08-11 19:54:47",
-  "atualizado_ts": 1786488887,
+  "atualizado_em": "2026-08-11 19:56:09",
+  "atualizado_ts": 1786488969,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,8 +93,8 @@
     }
   },
   "radio_panel": {
-    "hora": "19:54:47",
-    "ts": 1786488887,
+    "hora": "19:56:10",
+    "ts": 1786488970,
     "pnl_total": 2.19,
     "bots": [
       {
@@ -126,8 +126,8 @@
       },
       {
         "nome": "GAEL LENOVO",
-        "modo": "LIVE",
-        "ativo": true,
+        "modo": "?",
+        "ativo": false,
         "pnl": 0.0,
         "win": 0.0,
         "ultima": null
@@ -138,10 +138,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 54.0,
+        "cpu": 57.7,
         "ram_pct": 90.3,
         "disk_pct": 2.0,
-        "uptime": "2:22"
+        "uptime": "2:24"
       },
       {
         "nome": "INTEL",
