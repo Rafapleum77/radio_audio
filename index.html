@@ -6748,7 +6748,35 @@ iaRender();
 
 
 <script src="assets/site.js" defer></script>
-<script src="assets/site.js" defer></script>
+<script>
+(function(){
+  function fetchListeners(){
+    fetch('https://stream.radiobitcoin.org/status-json.xsl')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var src = d.icestats && d.icestats.source;
+        if(Array.isArray(src)) src = src[0];
+        var n = (src && typeof src.listeners === 'number') ? src.listeners : null;
+        if(n === null) return;
+        var lisEl  = document.getElementById('qpListeners');
+        var chipEl = document.getElementById('qpChipLis');
+        if(lisEl){
+          lisEl.textContent = n;
+          lisEl.style.color = n > 0 ? '#22d3ee' : '#7a8290';
+          var sub = lisEl.parentElement && lisEl.parentElement.querySelector('.s');
+          if(sub) sub.textContent = n > 0 ? 'ao vivo agora' : 'nenhum agora';
+        }
+        if(chipEl){
+          chipEl.textContent = n + ' ouvinte' + (n !== 1 ? 's' : '') + ' ao vivo';
+          chipEl.style.color = n > 0 ? '#22d3ee' : '#7a8290';
+        }
+      })
+      .catch(function(){});
+  }
+  fetchListeners();
+  setInterval(fetchListeners, 60000);
+})();
+</script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ebcbf230a8794cd0a783cbc9bb447fe8"}'></script><!-- End Cloudflare Web Analytics -->
 <script>
 (function(){try{
