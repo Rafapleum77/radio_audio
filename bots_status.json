@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-08-16 12:22:54",
-  "atualizado_ts": 1786893774,
+  "atualizado_em": "2026-08-16 12:24:14",
+  "atualizado_ts": 1786893854,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,8 +93,8 @@
     }
   },
   "radio_panel": {
-    "hora": "12:22:55",
-    "ts": 1786893775,
+    "hora": "12:24:15",
+    "ts": 1786893855,
     "pnl_total": 2.19,
     "bots": [
       {
@@ -138,10 +138,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 54.7,
+        "cpu": 55.8,
         "ram_pct": 90.1,
         "disk_pct": 3.0,
-        "uptime": "4 days, 18:50"
+        "uptime": "4 days, 18:52"
       },
       {
         "nome": "INTEL",
@@ -155,11 +155,11 @@
       {
         "nome": "NITRO",
         "papel": "Win11 - banners",
-        "online": true,
-        "cpu": 94,
-        "ram_pct": 81.8,
-        "disk_pct": 83.8,
-        "uptime": "27h"
+        "online": false,
+        "cpu": null,
+        "ram_pct": null,
+        "disk_pct": null,
+        "uptime": null
       },
       {
         "nome": "LENOVO",
