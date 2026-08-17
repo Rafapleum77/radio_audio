@@ -177,7 +177,7 @@ def main():
                         "mission_dashboard.html", "bots_status.json", "ticker_data.json"], check=True)
         r = subprocess.run(["git", "-C", str(RADIO), "diff", "--cached", "--quiet"])
         if r.returncode != 0:  # ha mudancas
-            subprocess.run(["git", "-C", str(RADIO), "commit", "-m", "carteira: update auto"], check=True)
+            subprocess.run(["git", "-C", str(RADIO), "commit", "-m", "carteira: update auto [skip ci]"], check=True)
             pull = subprocess.run(["git", "-C", str(RADIO), "pull", "--rebase", "--autostash",
                                    "origin", "main"], check=False)
             if pull.returncode != 0:
