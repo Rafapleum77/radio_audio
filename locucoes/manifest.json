@@ -2,9 +2,13 @@
   "gpt": {
     "nome": "GPT-4o",
     "arquivo": "locucoes/gpt.mp3",
-    "texto": "Aqui é a GPT na Rádio Bitcoin. O preço do Bitcoin está em 28.500 dólares, com uma tendência de alta recente. No mercado de ações, os principais ganhadores hoje foram o iShares Silver e o United States Oil, ambos com aumento de 2%. Já as maiores perdas foram registradas pela Qualcomm e a Tesla, com queda de 2,4% e 0,9%, respectivamente. As ações mais negociadas hoje são da Intel e da Nvidia. O mercado está em constante movimento, é fundamental acompanhar os dados e análises para tomar decisões informadas. Visite radiobitcoin.org para mais informações e insights sobre o mercado de criptomoedas.",
-    "btc": null,
-    "gerado_em": "2026-08-17T15:05:49.084508-03:00"
+    "texto": "Aqui é a GPT na Rádio Bitcoin. O preço do Bitcoin está em 64.289 dólares, subindo 1,9% nas últimas 24 horas. No mercado de ações, as maiores altas hoje foram USO com 2,7%, seguido por SLV com 1,8%. Já as maiores baixas foram QCOM e TSLA, mas não se preocupe, esses movimentos são normais. Vamos continuar monitorando os dados ao vivo em radiobitcoin.org!",
+    "btc": {
+      "usd": 64289,
+      "brl": 334299,
+      "chg": 1.9
+    },
+    "gerado_em": "2026-08-17T16:05:38.958248-03:00"
   },
   "claude": {
     "nome": "Claude",
