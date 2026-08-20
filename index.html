@@ -398,39 +398,90 @@
 </script>
 <!-- ===== FIM AGENDA GLOBAL BITCOIN ===== -->
 
-<!-- ===== COMECE POR AQUI (onboarding novos visitantes) ===== -->
+<!-- ===== TOP ROTATOR: Novo por aqui ↔ Votação Satoshi ===== -->
 <style>
-.cpq{max-width:1100px;margin:12px auto 0;padding:0 14px}
-.cpq__inner{background:linear-gradient(135deg,#06080f,#0d1525 50%,#06080f);border:1px solid rgba(0,212,255,.22);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.cpq__emoji{font-size:28px;flex-shrink:0}
-.cpq__text{flex:1;min-width:180px}
-.cpq__title{font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:800;letter-spacing:3px;color:#00d4ff;text-transform:uppercase;margin-bottom:4px}
-.cpq__sub{font-size:13px;color:#8a9ab0}
-.cpq__btns{display:flex;gap:9px;flex-wrap:wrap;flex-shrink:0}
-.cpq__btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9px;font-size:13px;font-weight:700;text-decoration:none;transition:.15s;white-space:nowrap}
-.cpq__btn--pri{background:linear-gradient(90deg,#f7931a,#ffce4d);color:#1a0e00;box-shadow:0 4px 16px -4px rgba(247,147,26,.6)}
-.cpq__btn--pri:hover{transform:translateY(-1px)}
-.cpq__btn--sec{background:transparent;color:#00d4ff;border:1px solid rgba(0,212,255,.4)}
-.cpq__btn--sec:hover{background:rgba(0,212,255,.08);border-color:#00d4ff}
-.cpq__btn--ter{background:transparent;color:#f2a900;border:1px solid rgba(242,169,0,.35)}
-.cpq__btn--ter:hover{background:rgba(242,169,0,.08);border-color:#f2a900}
-@media(max-width:600px){.cpq__btns{width:100%}.cpq__btn{flex:1;justify-content:center}}
+@keyframes satoshi-pulse{0%,100%{opacity:1}50%{opacity:.82}}
+.tpr{max-width:1100px;margin:12px auto 0;padding:0 14px}
+.tpr__wrap{position:relative}
+.tpr__slide{width:100%;opacity:0;transform:translateY(10px);transition:opacity .42s,transform .42s;position:absolute;top:0;left:0;pointer-events:none}
+.tpr__slide.tpr-on{opacity:1;transform:translateY(0);position:relative;pointer-events:auto}
+.tpr__nav{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:8px}
+.tpr__dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;border:none;padding:0;transition:.2s}
+.tpr__dot.tpr-on{background:#f7931a;transform:scale(1.35)}
+.tpr__arr{background:none;border:none;color:rgba(255,255,255,.3);font-size:18px;cursor:pointer;padding:0 4px;line-height:1;transition:.18s}
+.tpr__arr:hover{color:#f7931a}
+@media(max-width:600px){.tpr-cpq-btns{flex-direction:column}.tpr-cpq-btn{justify-content:center}}
 </style>
-<div class="cpq">
-  <div class="cpq__inner">
-    <div class="cpq__emoji">👋</div>
-    <div class="cpq__text">
-      <div class="cpq__title">Novo por aqui?</div>
-      <div class="cpq__sub">Escolha como quer começar:</div>
+<div class="tpr">
+  <div class="tpr__wrap" id="tprWrap">
+
+    <!-- SLIDE 0 — Novo por aqui -->
+    <div class="tpr__slide tpr-on" id="tprS0">
+      <div style="background:linear-gradient(135deg,#06080f,#0d1525 50%,#06080f);border:1px solid rgba(0,212,255,.22);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <div style="font-size:28px;flex-shrink:0">👋</div>
+        <div style="flex:1;min-width:180px">
+          <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:800;letter-spacing:3px;color:#00d4ff;text-transform:uppercase;margin-bottom:4px">Novo por aqui?</div>
+          <div style="font-size:13px;color:#8a9ab0">Escolha como quer começar:</div>
+        </div>
+        <div class="tpr-cpq-btns" style="display:flex;gap:9px;flex-wrap:wrap;flex-shrink:0">
+          <a class="tpr-cpq-btn" style="display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9px;font-size:13px;font-weight:700;text-decoration:none;background:linear-gradient(90deg,#f7931a,#ffce4d);color:#1a0e00;box-shadow:0 4px 16px -4px rgba(247,147,26,.6)" href="#topo">📻 Ouvir ao vivo</a>
+          <a class="tpr-cpq-btn" style="display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9px;font-size:13px;font-weight:700;text-decoration:none;background:transparent;color:#00d4ff;border:1px solid rgba(0,212,255,.4)" href="https://t.me/Bitadictbot" target="_blank" rel="noopener">📬 Receber boletim</a>
+          <a class="tpr-cpq-btn" style="display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9px;font-size:13px;font-weight:700;text-decoration:none;background:transparent;color:#f2a900;border:1px solid rgba(242,169,0,.35)" href="agenda.html">📅 Ver agenda</a>
+        </div>
+      </div>
     </div>
-    <div class="cpq__btns">
-      <a class="cpq__btn cpq__btn--pri" href="#topo">📻 Ouvir ao vivo</a>
-      <a class="cpq__btn cpq__btn--sec" href="https://t.me/Bitadictbot" target="_blank" rel="noopener">📬 Receber boletim</a>
-      <a class="cpq__btn cpq__btn--ter" href="agenda.html">📅 Ver agenda</a>
+
+    <!-- SLIDE 1 — Votação: Quem é Satoshi? -->
+    <div class="tpr__slide" id="tprS1">
+      <div style="border:1px solid rgba(242,169,0,0.6);border-radius:14px;padding:0;overflow:hidden;box-shadow:0 0 20px rgba(242,169,0,0.2);background:#06080f">
+        <img loading="lazy" decoding="async" src="banner_satoshi_vote.jpg" alt="Quem é Satoshi Nakamoto?" style="width:100%;display:block;border-radius:6px 6px 0 0;max-height:110px;object-fit:cover;object-position:center 30%">
+        <div style="background:linear-gradient(90deg,#f2a900,#ffcc00,#f2a900);padding:7px 14px;text-align:center;animation:satoshi-pulse 1.8s ease-in-out infinite">
+          <div style="font-size:17px;font-weight:900;color:#000;letter-spacing:3px;text-transform:uppercase;line-height:1.1">🗳️ VOTE AQUI!</div>
+          <div style="font-size:9px;color:#3b2800;font-weight:700;letter-spacing:1px;margin-top:1px">QUEM CRIOU O BITCOIN?</div>
+        </div>
+        <div style="padding:12px">
+          <div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#f2a900;text-transform:uppercase;margin-bottom:4px">🗳️ Quem é Satoshi Nakamoto?</div>
+          <div style="font-size:8px;color:#6b7280;margin-bottom:8px">Vote em quem você acredita ser o criador do Bitcoin</div>
+          <div id="svPlacar" style="margin-bottom:10px"></div>
+          <div class="satoshi-vote-grid" id="satoshiGrid"></div>
+          <div id="svMyVote" class="sv-my-vote" style="display:none"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+            <div class="sv-total" id="svTotal">0 votos</div>
+            <button class="sv-reset" onclick="satoshiReset()">↺ resetar meu voto</button>
+          </div>
+        </div>
+      </div>
     </div>
+
+  </div><!-- /tpr__wrap -->
+  <div class="tpr__nav">
+    <button class="tpr__arr" id="tprPrev">‹</button>
+    <button class="tpr__dot tpr-on" data-i="0"></button>
+    <button class="tpr__dot" data-i="1"></button>
+    <button class="tpr__arr" id="tprNext">›</button>
   </div>
 </div>
-<!-- ===== FIM COMECE POR AQUI ===== -->
+<script>
+(function(){
+  var slides=Array.from(document.querySelectorAll('.tpr__slide'));
+  var dots=Array.from(document.querySelectorAll('.tpr__dot'));
+  var cur=0,n=slides.length,timer;
+  function show(i){
+    slides[cur].classList.remove('tpr-on');
+    dots[cur].classList.remove('tpr-on');
+    cur=(i+n)%n;
+    slides[cur].classList.add('tpr-on');
+    dots[cur].classList.add('tpr-on');
+  }
+  function go(){timer=setInterval(function(){show(cur+1);},8000);}
+  function reset(){clearInterval(timer);go();}
+  dots.forEach(function(d){d.addEventListener('click',function(){show(+d.dataset.i);reset();});});
+  document.getElementById('tprPrev').addEventListener('click',function(){show(cur-1);reset();});
+  document.getElementById('tprNext').addEventListener('click',function(){show(cur+1);reset();});
+  go();
+})();
+</script>
+<!-- ===== FIM TOP ROTATOR ===== -->
 
   <section class="hr-wrap" id="topo">
     <h1 class="hr-seo">Rádio Bitcoin — a voz da revolução Bitcoin, ao vivo 24 horas</h1>
@@ -3327,36 +3378,6 @@
   </div>
 </section>
 <!-- ===== FIM BANNER BIT ADICT RECOVERY KIT ===== -->
-      <!-- VOTAÇÃO: QUEM É SATOSHI? -->
-      <div class="panel" style="border-color:rgba(242,169,0,0.6);padding:0;overflow:hidden;box-shadow:0 0 20px rgba(242,169,0,0.2);">
-        <img loading="lazy" decoding="async" src="banner_satoshi_vote.jpg" alt="Quem é Satoshi Nakamoto?" style="width:100%;display:block;border-radius:6px 6px 0 0;">
-        <!-- CTA VOTE AQUI -->
-        <div style="background:linear-gradient(90deg,#f2a900,#ffcc00,#f2a900);padding:10px 14px;text-align:center;animation:satoshi-pulse 1.8s ease-in-out infinite;">
-          <div style="font-size:22px;font-weight:900;color:#000;letter-spacing:3px;text-transform:uppercase;line-height:1.1;">🗳️ VOTE AQUI!</div>
-          <div style="font-size:10px;color:#3b2800;font-weight:700;letter-spacing:1px;margin-top:2px;">QUEM CRIOU O BITCOIN?</div>
-        </div>
-        <style>
-          @keyframes satoshi-pulse {
-            0%,100% { opacity:1; }
-            50% { opacity:0.82; }
-          }
-        </style>
-        <div style="padding:12px;">
-        <div class="pt" style="color:var(--gold)">🗳️ QUEM É SATOSHI NAKAMOTO?</div>
-        <div style="font-size:8px;color:var(--text-dim);margin-bottom:8px;">Vote em quem você acredita ser o criador do Bitcoin</div>
-
-        <!-- PLACAR -->
-        <div id="svPlacar" style="margin-bottom:10px;"></div>
-
-        <div class="satoshi-vote-grid" id="satoshiGrid"></div>
-        <div id="svMyVote" class="sv-my-vote" style="display:none"></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
-          <div class="sv-total" id="svTotal">0 votos</div>
-          <button class="sv-reset" onclick="satoshiReset()">↺ resetar meu voto</button>
-        </div>
-        </div><!-- /padding -->
-      </div>
-
       <!-- LENDAS DO BITCOIN -->
       <div class="panel" style="background:linear-gradient(180deg,#060810 0%,#07090d 100%);border-color:rgba(0,220,255,0.2);box-shadow:0 0 30px rgba(0,220,255,0.06);">
         <div class="pt" style="display:flex;align-items:center;gap:8px;font-size:13px;color:#00dcff;letter-spacing:3px;">
