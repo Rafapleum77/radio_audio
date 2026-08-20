@@ -706,6 +706,49 @@
 .lc-card__meta{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#4a5060;margin-top:2px}
 .lc-empty{color:#555;font-size:13px;padding:12px 0;font-family:ui-monospace,Menlo,monospace}
 </style>
+<!-- ===== NOVAS CAPAS — COLEÇÃO LIBERDADE DIGITAL ===== -->
+<style>
+.nc{max-width:1100px;margin:20px auto 0;padding:0 14px}
+.nc__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.nc__title{font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:800;letter-spacing:3px;color:#00d4ff;text-transform:uppercase}
+.nc__badge{background:rgba(247,147,26,.15);color:#f7931a;border:1px solid rgba(247,147,26,.4);border-radius:20px;font-size:9px;font-weight:800;letter-spacing:2px;padding:3px 12px;text-transform:uppercase}
+.nc__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.nc__card{border-radius:12px;overflow:hidden;background:#08090f;border:1px solid rgba(255,255,255,.07);transition:.18s;cursor:default;position:relative}
+.nc__card:hover{border-color:rgba(0,212,255,.4);transform:translateY(-2px)}
+.nc__card img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.nc__info{padding:10px 12px}
+.nc__name{font-size:12px;font-weight:700;color:#dde3f0;line-height:1.3}
+.nc__col{font-size:10px;color:#4a5060;letter-spacing:1px;margin-top:3px;font-family:ui-monospace,Menlo,monospace;text-transform:uppercase}
+.nc__new{position:absolute;top:8px;left:8px;background:#f7931a;color:#000;font-size:8px;font-weight:900;letter-spacing:1.5px;padding:3px 8px;border-radius:5px}
+</style>
+<div class="nc">
+  <div class="nc__head">
+    <div class="nc__title">🎨 Novas Capas</div>
+    <div class="nc__badge">★ Coleção Liberdade Digital · Ago 2026</div>
+  </div>
+  <div class="nc__grid" id="ncGrid"></div>
+</div>
+<script>
+(function(){
+  var capas=[
+    {title:"A Voz Não Se Apaga",img:"/capa_01_a_voz_nao_se_apaga.png",alt:"Capa A Voz Não Se Apaga — Bitcoin rompendo censura digital",col:"Liberdade Digital",isNew:true},
+    {title:"Firewall da Liberdade",img:"/capa_02_firewall_da_liberdade.png",alt:"Capa Firewall da Liberdade — escudo de código aberto",col:"Liberdade Digital",isNew:true},
+    {title:"Código Livre",img:"/capa_03_codigo_livre.png",alt:"Capa Código Livre — rede descentralizada de código aberto",col:"Liberdade Digital",isNew:true},
+    {title:"Sinal Fora do Controle",img:"/capa_04_sinal_fora_do_controle.png",alt:"Capa Sinal Fora do Controle — ondas de rádio livres",col:"Liberdade Digital",isNew:false},
+    {title:"Resistência Descentralizada",img:"/capa_05_resistencia_descentralizada.png",alt:"Capa Resistência Descentralizada — nós Bitcoin em malha global",col:"Liberdade Digital",isNew:false}
+  ];
+  var g=document.getElementById('ncGrid');if(!g)return;
+  capas.forEach(function(c){
+    var d=document.createElement('div');d.className='nc__card';
+    d.innerHTML=(c.isNew?'<span class="nc__new">NOVO</span>':'')
+      +'<img src="'+c.img+'" alt="'+c.alt+'" loading="lazy" width="300" height="300">'
+      +'<div class="nc__info"><div class="nc__name">'+c.title+'</div><div class="nc__col">'+c.col+'</div></div>';
+    g.appendChild(d);
+  });
+})();
+</script>
+<!-- ===== FIM NOVAS CAPAS ===== -->
+
 <section class="lc-section">
   <div class="lc-header">
     <div class="lc-logo">
