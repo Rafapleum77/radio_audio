@@ -279,35 +279,67 @@
     .hr-agg .tag{font-size:8px;background:#33333f;color:#9a9aab;border-radius:5px;padding:1px 5px;letter-spacing:.5px}
     @keyframes hrPulse{0%,100%{opacity:1}50%{opacity:.25}}
   </style>
-<!-- ===== CALENDÁRIO DE EVENTOS BITCOIN ===== -->
+<!-- ===== AGENDA GLOBAL BITCOIN ===== -->
 <style>
-.ev-strip{width:100%;background:linear-gradient(90deg,#09060f,#0d0820,#09060f);border-bottom:1px solid rgba(242,169,0,.25);overflow:hidden}
-.ev-strip__inner{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;align-items:stretch}
-.ev-strip__inner::-webkit-scrollbar{display:none}
-.ev-strip__label{flex:0 0 auto;display:flex;align-items:center;gap:6px;font-family:ui-monospace,Menlo,monospace;font-size:10px;font-weight:800;letter-spacing:2px;color:#f2a900;text-transform:uppercase;padding-right:10px;border-right:1px solid rgba(242,169,0,.3);margin-right:2px}
-.ev-card{flex:0 0 auto;display:flex;flex-direction:column;gap:3px;padding:9px 14px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);min-width:175px;cursor:default;transition:border-color .2s,background .2s;position:relative;overflow:hidden}
-.ev-card:hover{background:rgba(242,169,0,.07);border-color:rgba(242,169,0,.4)}
-.ev-card.featured{background:linear-gradient(135deg,rgba(242,169,0,.12),rgba(242,169,0,.04));border-color:rgba(242,169,0,.6);box-shadow:0 0 18px -6px rgba(242,169,0,.5)}
-.ev-card.featured::before{content:'★ DESTAQUE';position:absolute;top:5px;right:8px;font-size:8px;font-family:ui-monospace,Menlo,monospace;letter-spacing:1.5px;color:#f2a900;font-weight:800}
-.ev-card__date{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#f2a900;font-weight:700;letter-spacing:.5px}
-.ev-card__name{font-size:13px;font-weight:800;color:#f0f4ff;line-height:1.2;max-width:200px}
-.ev-card__loc{font-size:11px;color:#8a8fa8;margin-top:1px}
-.ev-card__days{font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:700;margin-top:4px}
-.ev-card__days.soon{color:#22c55e}
-.ev-card__days.near{color:#f2a900}
-.ev-card__days.future{color:#6b7280}
+.agb{max-width:1100px;margin:18px auto 0;padding:0 14px}
+.agb__head{background:linear-gradient(135deg,#06080f 0%,#0d1122 50%,#06080f 100%);border:1px solid rgba(242,169,0,.4);border-bottom:none;border-radius:14px 14px 0 0;padding:18px 24px 14px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.agb__logo{width:54px;height:54px;flex-shrink:0}
+.agb__titles{flex:1;min-width:160px}
+.agb__title{font-size:clamp(18px,5vw,28px);font-weight:900;color:#f2a900;letter-spacing:1px;font-family:ui-monospace,Menlo,monospace;line-height:1}
+.agb__sub{font-size:11px;color:#8a8fa0;letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+.agb__yr{border:2px solid #f2a900;border-radius:8px;padding:6px 18px;font-family:ui-monospace,Menlo,monospace;font-size:16px;font-weight:800;color:#f2a900;white-space:nowrap}
+.agb__table{width:100%;border-collapse:collapse;background:#08090f;border:1px solid rgba(242,169,0,.3);border-radius:0 0 14px 14px;overflow:hidden}
+.agb__table thead tr{background:rgba(242,169,0,.15)}
+.agb__table thead th{padding:10px 16px;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:2px;color:#f2a900;text-align:left;font-weight:800;text-transform:uppercase}
+.agb__table thead th:first-child{width:42px;text-align:center}
+.agb__table thead th:last-child{text-align:right}
+.agb__row{border-top:1px solid rgba(255,255,255,.06);cursor:default;transition:background .15s}
+.agb__row:hover{background:rgba(242,169,0,.05)}
+.agb__row.clickable{cursor:pointer}
+.agb__row.featured{background:linear-gradient(90deg,rgba(180,110,0,.25),rgba(242,169,0,.15),rgba(180,110,0,.25));border-top:1px solid rgba(242,169,0,.4)}
+.agb__row.featured td{color:#f2d060;font-weight:800}
+.agb__row.past td{opacity:.4}
+.agb__row.next{background:rgba(34,197,94,.07)}
+.agb__num{text-align:center;font-family:ui-monospace,Menlo,monospace;font-size:13px;font-weight:700;color:#555;padding:12px 10px}
+.agb__row.featured .agb__num{color:#f2a900}
+.agb__name{padding:12px 16px;font-size:14px;font-weight:700;color:#dde3f0}
+.agb__name a{color:inherit;text-decoration:none}
+.agb__name a:hover{color:#f2a900}
+.agb__loc{padding:12px 16px;font-size:13px;color:#7a8090}
+.agb__date{padding:12px 16px;font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#aab0c0;text-align:right;white-space:nowrap}
+.agb__row.featured .agb__date{color:#f2d060}
+.agb__badge{display:inline-block;font-size:9px;letter-spacing:1.5px;padding:2px 7px;border-radius:5px;margin-left:7px;font-family:ui-monospace,Menlo,monospace;vertical-align:middle}
+.agb__badge.star{background:rgba(242,169,0,.2);color:#f2a900;border:1px solid rgba(242,169,0,.5)}
+.agb__badge.next{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.4)}
+.agb__footer{text-align:center;padding:10px 16px 14px;background:#08090f;border:1px solid rgba(242,169,0,.3);border-top:1px solid rgba(242,169,0,.15);border-radius:0 0 14px 14px;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:2px;color:#f2a900;text-transform:uppercase;margin-top:-1px}
+@media(max-width:540px){.agb__loc{display:none}.agb__yr{display:none}.agb__head{gap:10px}}
 </style>
-<div class="ev-strip">
-  <div class="ev-strip__inner">
-    <div class="ev-strip__label">📅 Eventos Bitcoin</div>
-    <div id="evCards"></div>
+<div class="agb">
+  <div class="agb__head">
+    <svg class="agb__logo" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="27" cy="27" r="26" stroke="#f2a900" stroke-width="1.5" fill="#06080f"/>
+      <circle cx="27" cy="27" r="20" stroke="rgba(242,169,0,.35)" stroke-width="1"/>
+      <text x="27" y="34" text-anchor="middle" font-size="22" font-weight="900" fill="#f2a900" font-family="monospace">₿</text>
+    </svg>
+    <div class="agb__titles">
+      <div class="agb__title">AGENDA GLOBAL BITCOIN</div>
+      <div class="agb__sub">Eventos que estão movendo a liberdade financeira</div>
+    </div>
+    <div class="agb__yr">2026 — 2027</div>
   </div>
+  <table class="agb__table">
+    <thead><tr>
+      <th>#</th><th>EVENTO</th><th>LOCAL</th><th>DATA</th>
+    </tr></thead>
+    <tbody id="agbBody"></tbody>
+  </table>
+  <div class="agb__footer">Rádio Bitcoin &nbsp;·&nbsp; Conexões Globais &nbsp;·&nbsp; Liberdade Financeira</div>
 </div>
 <script>
 (function(){
   var EVENTS=[
     {name:"Bitcoin Asia",loc:"🇭🇰 Hong Kong",date:"2026-08-27",url:"https://bitcoin.com/conferences"},
-    {name:"Missão Bitcoin · 2ª Ed.",loc:"🇵🇾 Ciudad del Este, PY",date:"2026-09-19",url:""},
+    {name:"Missão Bitcoin · 2ª Ed.",loc:"🇵🇾 Ciudad del Este, PY",date:"2026-09-19",url:"https://radiobitcoin.org/agenda.html"},
     {name:"Baltic Honeybadger",loc:"🇱🇻 Riga, Letônia",date:"2026-09-20",url:"https://baltichoneybadger.com"},
     {name:"Plan ₿ Forum Lugano",loc:"🇨🇭 Lugano, Suíça",date:"2026-10-23",url:"https://planb.lugano.ch"},
     {name:"Bitcoin Amsterdam",loc:"🇳🇱 Amsterdam",date:"2026-11-05",url:"https://b.tc/conference/amsterdam"},
@@ -318,27 +350,33 @@
     {name:"Adopting Bitcoin 2027",loc:"🇿🇦 Cape Town, África do Sul",date:"2027-02-26",url:"https://za27.adoptingbitcoin.org"},
     {name:"Bitcoin 2027",loc:"🇺🇸 Nashville, EUA",date:"2027-07-15",url:"https://conference.b.tc"},
   ];
-  var wrap=document.getElementById("evCards");
-  if(!wrap)return;
+  var body=document.getElementById("agbBody");
+  if(!body)return;
   var today=new Date(); today.setHours(0,0,0,0);
-  EVENTS.forEach(function(ev){
+  var nextFound=false;
+  EVENTS.forEach(function(ev,i){
     var d=new Date(ev.date+"T12:00:00"); d.setHours(0,0,0,0);
     var diff=Math.round((d-today)/(864e5));
-    if(diff<-7)return; // já passou há mais de 7 dias
-    var daysStr=diff<0?"Aconteceu!":diff===0?"HOJE!":diff===1?"Amanhã":diff+"d";
-    var cls=diff<=3?"soon":diff<=30?"near":"future";
-    var c=document.createElement("div");
-    c.className="ev-card"+(ev.featured?" featured":"");
-    c.innerHTML='<div class="ev-card__date">'+ev.date.slice(5).replace("-","/")+"/"+ev.date.slice(0,4)+'</div>'
-      +'<div class="ev-card__name">'+ev.name+'</div>'
-      +'<div class="ev-card__loc">'+ev.loc+'</div>'
-      +'<div class="ev-card__days '+cls+'">'+daysStr+'</div>';
-    if(ev.url){c.style.cursor="pointer";c.onclick=function(){window.open(ev.url,"_blank")};}
-    wrap.appendChild(c);
+    var isPast=diff<-1;
+    var isNext=!nextFound&&!isPast; if(isNext)nextFound=true;
+    var dateStr=ev.date.slice(8)+"/"+ev.date.slice(5,7)+"/"+ev.date.slice(0,4);
+    var cls="agb__row"+(ev.featured?" featured":"")+(isPast?" past":"")+(isNext&&!ev.featured?" next":"");
+    var badge=ev.featured?'<span class="agb__badge star">★ DESTAQUE</span>':(isNext?'<span class="agb__badge next">PRÓXIMO</span>':'');
+    var nameCell=ev.url
+      ?'<a href="'+ev.url+'" target="_blank" rel="noopener">'+ev.name+'</a>'+badge
+      :ev.name+badge;
+    var tr=document.createElement("tr");
+    tr.className=cls+(ev.url?" clickable":"");
+    if(ev.url){tr.onclick=function(u){return function(){window.open(u,"_blank")}}(ev.url);}
+    tr.innerHTML='<td class="agb__num">'+(i+1)+'</td>'
+      +'<td class="agb__name">'+nameCell+'</td>'
+      +'<td class="agb__loc">'+ev.loc+'</td>'
+      +'<td class="agb__date">'+dateStr+'</td>';
+    body.appendChild(tr);
   });
 })();
 </script>
-<!-- ===== FIM CALENDÁRIO ===== -->
+<!-- ===== FIM AGENDA GLOBAL BITCOIN ===== -->
 
   <section class="hr-wrap" id="topo">
     <h1 class="hr-seo">Rádio Bitcoin — a voz da revolução Bitcoin, ao vivo 24 horas</h1>
