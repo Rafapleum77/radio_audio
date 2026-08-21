@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ouvinte Fundador — Rádio Bitcoin</title>
+<meta name="description" content="Clube Ouvinte Fundador da Rádio Bitcoin — apoie com sats recorrentes e mantenha a rádio Bitcoin no ar 24 horas.">
+<meta property="og:title" content="Ouvinte Fundador — Rádio Bitcoin">
+<meta property="og:description" content="Apoie a única rádio Bitcoin 24h em português com contribuição recorrente em sats. Sem cartão, sem cadastro, sem banco.">
+<meta property="og:image" content="https://radiobitcoin.org/og-image.png">
+<meta property="og:url" content="https://radiobitcoin.org/ouvinte-fundador.html">
+<link rel="icon" href="/favicon.ico">
+<script data-goatcounter="https://radiobitcoinorg.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#050709;--surface:#090c12;--border:rgba(255,255,255,.08);--gold:#f7931a;--cyan:#00d4ff;--text:#dde3f0;--dim:#6b7280}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;min-height:100vh}
+
+/* NAV */
+nav{max-width:1100px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nav-logo{font-family:ui-monospace,Menlo,monospace;font-size:13px;font-weight:800;letter-spacing:2px;color:var(--gold);text-decoration:none}
+.nav-back{font-size:12px;color:var(--dim);text-decoration:none;border:1px solid var(--border);border-radius:7px;padding:6px 12px;transition:.15s}
+.nav-back:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* HERO */
+.hero{max-width:760px;margin:0 auto;padding:60px 20px 40px;text-align:center}
+.hero__badge{display:inline-block;background:rgba(247,147,26,.12);color:var(--gold);border:1px solid rgba(247,147,26,.35);border-radius:20px;font-size:10px;font-weight:800;letter-spacing:2.5px;padding:5px 16px;text-transform:uppercase;margin-bottom:20px}
+.hero__title{font-size:clamp(32px,5vw,52px);font-weight:900;line-height:1.15;letter-spacing:-1px;margin-bottom:16px}
+.hero__title span{color:var(--gold)}
+.hero__sub{font-size:16px;color:var(--dim);max-width:540px;margin:0 auto 32px}
+.hero__stats{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.hero__stat{text-align:center}
+.hero__stat-n{font-size:26px;font-weight:900;color:var(--cyan);font-family:ui-monospace,Menlo,monospace}
+.hero__stat-l{font-size:10px;color:var(--dim);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+
+/* MANIFESTO */
+.manifesto{max-width:700px;margin:0 auto 60px;padding:0 20px}
+.manifesto__block{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin-bottom:16px;font-size:14px;color:var(--dim);line-height:1.7}
+.manifesto__block b{color:var(--text)}
+
+/* PLANOS */
+.planos{max-width:1000px;margin:0 auto 60px;padding:0 20px}
+.planos__title{font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:800;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;text-align:center;margin-bottom:32px}
+.planos__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.plano{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 24px;position:relative;transition:.2s}
+.plano:hover{border-color:rgba(247,147,26,.4);transform:translateY(-2px)}
+.plano--destaque{border-color:var(--gold);box-shadow:0 0 40px -10px rgba(247,147,26,.4)}
+.plano__badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:9px;font-weight:900;letter-spacing:2px;padding:4px 14px;border-radius:20px;white-space:nowrap}
+.plano__nome{font-size:13px;font-weight:800;letter-spacing:2px;color:var(--dim);text-transform:uppercase;margin-bottom:8px}
+.plano__valor{font-size:32px;font-weight:900;color:var(--text);margin-bottom:4px}
+.plano__valor span{font-size:14px;color:var(--dim);font-weight:400}
+.plano__equiv{font-size:11px;color:var(--gold);margin-bottom:20px;font-family:ui-monospace,Menlo,monospace}
+.plano__items{list-style:none;margin-bottom:24px}
+.plano__items li{font-size:13px;color:var(--dim);padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:8px}
+.plano__items li::before{content:'✓';color:var(--gold);font-weight:900;flex-shrink:0;margin-top:1px}
+.plano__cta{display:block;text-align:center;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:800;text-decoration:none;letter-spacing:.5px;transition:.15s}
+.plano__cta--pri{background:linear-gradient(90deg,var(--gold),#ffce4d);color:#000;box-shadow:0 4px 20px -4px rgba(247,147,26,.6)}
+.plano__cta--sec{background:transparent;color:var(--cyan);border:1px solid rgba(0,212,255,.35)}
+.plano__cta--sec:hover{background:rgba(0,212,255,.08)}
+.plano__cta--ter{background:transparent;color:var(--dim);border:1px solid var(--border)}
+.plano__cta--ter:hover{border-color:var(--border);color:var(--text)}
+
+/* VALUE FOR VALUE */
+.v4v{max-width:700px;margin:0 auto 60px;padding:0 20px}
+.v4v__card{background:linear-gradient(135deg,#06080f,#0d1520);border:1px solid rgba(0,212,255,.2);border-radius:16px;padding:28px 28px 24px}
+.v4v__title{font-size:16px;font-weight:800;color:var(--cyan);margin-bottom:8px}
+.v4v__sub{font-size:13px;color:var(--dim);margin-bottom:20px;line-height:1.6}
+.v4v__addr{background:#0a0c14;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px 16px;font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--gold);cursor:pointer;word-break:break-all;transition:.15s;margin-bottom:12px}
+.v4v__addr:hover{border-color:var(--gold)}
+.v4v__apps{font-size:11px;color:var(--dim);line-height:1.6}
+.v4v__apps b{color:var(--text)}
+
+/* FAQ */
+.faq{max-width:700px;margin:0 auto 80px;padding:0 20px}
+.faq__title{font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:800;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:24px;text-align:center}
+.faq__item{border-bottom:1px solid var(--border);padding:16px 0}
+.faq__q{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px}
+.faq__a{font-size:13px;color:var(--dim);line-height:1.7}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;font-size:11px;color:var(--dim)}
+footer a{color:var(--dim);text-decoration:none}
+footer a:hover{color:var(--gold)}
+
+@media(max-width:600px){.planos__grid{grid-template-columns:1fr}.hero__stats{gap:20px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">⚡ RÁDIO BITCOIN</a>
+  <a class="nav-back" href="/">← Voltar à rádio</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__badge">★ Clube de Apoiadores</div>
+  <h1 class="hero__title">Ouvinte<br><span>Fundador</span></h1>
+  <p class="hero__sub">A única rádio Bitcoin 24h em português existe porque pessoas como você decidem manter o sinal no ar. Sem banco no meio. Sem cadastro. Só sats.</p>
+  <div class="hero__stats">
+    <div class="hero__stat">
+      <div class="hero__stat-n">24h</div>
+      <div class="hero__stat-l">No ar</div>
+    </div>
+    <div class="hero__stat">
+      <div class="hero__stat-n">+10k</div>
+      <div class="hero__stat-l">Ouvintes/mês</div>
+    </div>
+    <div class="hero__stat">
+      <div class="hero__stat-n">4</div>
+      <div class="hero__stat-l">Locutores IA</div>
+    </div>
+    <div class="hero__stat">
+      <div class="hero__stat-n">100%</div>
+      <div class="hero__stat-l">Independente</div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<div class="manifesto">
+  <div class="manifesto__block">
+    <b>A Rádio Bitcoin não tem dono corporativo.</b> Não tem investidor-anjo com agenda. Não tem patrocinador que dita pauta. O que temos é infraestrutura real — servidores, locutores de IA, pipeline de conteúdo — que custa dinheiro para existir todos os dias.
+  </div>
+  <div class="manifesto__block">
+    <b>O clube Ouvinte Fundador é a forma mais direta de manter isso no ar.</b> Cada sat que chega pela Lightning vai direto para cobrir custos operacionais e expandir o alcance da rádio. Sem intermediário, sem taxa de cartão, sem PayPal.
+  </div>
+  <div class="manifesto__block">
+    <b>Você não recebe produto financeiro, não garantimos retorno, não fazemos promessa de crescimento.</b> O que prometemos: a rádio segue no ar, o conteúdo segue independente, e seu nome entra nos créditos de fundador enquanto o clube existir.
+  </div>
+</div>
+
+<!-- PLANOS -->
+<section class="planos">
+  <div class="planos__title">⚡ Escolha seu nível de apoio</div>
+  <div class="planos__grid">
+
+    <!-- SINAL -->
+    <div class="plano">
+      <div class="plano__nome">Sinal</div>
+      <div class="plano__valor">10.000 <span>sats/mês</span></div>
+      <div class="plano__equiv">≈ R$ 30–50/mês · varia com BTC</div>
+      <ul class="plano__items">
+        <li>Nome nos créditos de fundador</li>
+        <li>Acesso ao grupo Telegram exclusivo</li>
+        <li>Boletim mensal de bastidores</li>
+        <li>Badge ⚡ Fundador no grupo</li>
+      </ul>
+      <a class="plano__cta plano__cta--ter" href="https://t.me/Bitadictbot" target="_blank" rel="noopener">Entrar no Sinal →</a>
+    </div>
+
+    <!-- BLOCO — DESTAQUE -->
+    <div class="plano plano--destaque">
+      <div class="plano__badge">★ MAIS POPULAR</div>
+      <div class="plano__nome">Bloco</div>
+      <div class="plano__valor">50.000 <span>sats/mês</span></div>
+      <div class="plano__equiv">≈ R$ 150–250/mês · varia com BTC</div>
+      <ul class="plano__items">
+        <li>Tudo do Sinal</li>
+        <li>Episódios da Coleção com 48h de antecedência</li>
+        <li>Acesso a bastidores de produção (vídeos)</li>
+        <li>Voto em pautas do próximo mês</li>
+        <li>Menção especial em 1 episódio por trimestre</li>
+      </ul>
+      <a class="plano__cta plano__cta--pri" href="https://t.me/Bitadictbot" target="_blank" rel="noopener">Entrar no Bloco →</a>
+    </div>
+
+    <!-- TEMPORADA -->
+    <div class="plano">
+      <div class="plano__nome">Temporada</div>
+      <div class="plano__valor">200.000 <span>sats/mês</span></div>
+      <div class="plano__equiv">≈ R$ 600–1.000/mês · varia com BTC</div>
+      <ul class="plano__items">
+        <li>Tudo do Bloco</li>
+        <li>Crédito de produtor associado por temporada</li>
+        <li>Conversa mensal 1:1 por áudio (15 min)</li>
+        <li>Co-pauta de 1 episódio por temporada</li>
+        <li>Relatório de audiência mensal</li>
+      </ul>
+      <a class="plano__cta plano__cta--sec" href="https://t.me/Bitadictbot" target="_blank" rel="noopener">Entrar na Temporada →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- VALUE FOR VALUE -->
+<section class="v4v">
+  <div class="v4v__card">
+    <div class="v4v__title">⚡ Value for Value — qualquer valor, na hora</div>
+    <div class="v4v__sub">Prefere contribuir sem compromisso mensal? Envie qualquer valor em sats direto pela Lightning. Chega na hora, sem intermediário.</div>
+    <div class="v4v__addr" onclick="navigator.clipboard.writeText('texugorecords@walletofsatoshi.com').then(()=>{this.textContent='✅ COPIADO! Cole no seu app Lightning';setTimeout(()=>{this.textContent='texugorecords@walletofsatoshi.com'},2500)})">texugorecords@walletofsatoshi.com</div>
+    <div class="v4v__apps"><b>Apps compatíveis:</b> Wallet of Satoshi, Phoenix, Breez, Zeus, Muun e qualquer carteira Lightning com suporte a Lightning Address. No Fountain, a rádio aparece como podcast em breve.</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq__title">Perguntas frequentes</div>
+
+  <div class="faq__item">
+    <div class="faq__q">Como funciona o pagamento recorrente em sats?</div>
+    <div class="faq__a">Você configura um pagamento mensal recorrente no seu app Lightning (ex: Wallet of Satoshi, CoinCorner) para o endereço <b>texugorecords@walletofsatoshi.com</b>. A rádio recebe automaticamente todo mês. Não há débito automático em cartão — você controla tudo.</div>
+  </div>
+
+  <div class="faq__item">
+    <div class="faq__q">Posso cancelar quando quiser?</div>
+    <div class="faq__a">Sim. Como o pagamento é configurado no seu próprio app Lightning, basta cancelar a recorrência pelo próprio app. Sem contrato, sem multa, sem burocracia.</div>
+  </div>
+
+  <div class="faq__item">
+    <div class="faq__q">O que é "co-pauta de episódio"?</div>
+    <div class="faq__a">Membros Temporada podem sugerir um tema específico para um episódio por temporada. A Rádio Bitcoin mantém controle editorial total — pode adaptar, reformatar ou recusar se o tema conflitar com a linha da rádio. Não é publicidade nem venda de opinião.</div>
+  </div>
+
+  <div class="faq__item">
+    <div class="faq__q">A contribuição tem algum benefício fiscal?</div>
+    <div class="faq__a">Não. A Rádio Bitcoin é um projeto independente, não uma organização sem fins lucrativos registrada. A contribuição é uma forma de apoio voluntário, não uma doação com dedução fiscal.</div>
+  </div>
+
+  <div class="faq__item">
+    <div class="faq__q">Como acesso os benefícios após contribuir?</div>
+    <div class="faq__a">Após entrar em contato pelo Telegram <b>@Bitadictbot</b> e confirmar a contribuição, você recebe acesso ao grupo exclusivo de fundadores onde os benefícios são entregues.</div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Rádio Bitcoin · <a href="/">radiobitcoin.org</a> · <a href="/anuncie.html">Anuncie</a> · <a href="/agenda.html">Agenda</a></p>
+  <p style="margin-top:6px">Esta página não é oferta de investimento. Contribuições são voluntárias e não garantem retorno financeiro.</p>
+</footer>
+
+</body>
+</html>
