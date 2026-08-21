@@ -2,8 +2,41 @@
   "fonte": "GoatCounter (analytics real, privacy-first)",
   "atualizado_em": "2026-08-21",
   "visitas_30d": 555,
-  "paises_total": 0,
-  "top_paises": [],
+  "paises_total": 8,
+  "top_paises": [
+    {
+      "pais": "Brazil",
+      "count": 460
+    },
+    {
+      "pais": "United States",
+      "count": 51
+    },
+    {
+      "pais": "Portugal",
+      "count": 12
+    },
+    {
+      "pais": "Ireland",
+      "count": 4
+    },
+    {
+      "pais": "Argentina",
+      "count": 3
+    },
+    {
+      "pais": "Canada",
+      "count": 2
+    },
+    {
+      "pais": "Germany",
+      "count": 2
+    },
+    {
+      "pais": "Spain",
+      "count": 2
+    }
+  ],
   "top_paginas": [
     {
       "path": "/",
