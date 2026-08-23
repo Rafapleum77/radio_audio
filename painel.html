@@ -98,6 +98,20 @@
 
   .ft { text-align:center; margin-top:30px; color:var(--txt-dim); font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; }
   .ft a { color:var(--btc); text-decoration:none; }
+
+/* Painel atualiza sem refazer a tela. Antes ele apagava os 12 cards e
+   recriava os 12 a cada 30s, mesmo os identicos — por isso a pagina pulava
+   embaixo do olho de quem estava lendo. Agora so o card que mudou e tocado,
+   e este destaque mostra QUAL mudou, em vez de piscar tudo junto. */
+.card { overflow-anchor: none; }
+#grid-direcionais, #grid-radio-bots, #grid-machines, #grid-ops { overflow-anchor: none; }
+@keyframes destaque-mudou {
+  0%   { box-shadow: 0 0 0 0 rgba(242,169,0,0.55); }
+  100% { box-shadow: 0 0 0 6px rgba(242,169,0,0); }
+}
+.card.mudou { animation: destaque-mudou 1.4s ease-out; }
+@media (prefers-reduced-motion: reduce) { .card.mudou { animation: none; } }
+.pausado-aviso { text-align:center; font-size:10px; letter-spacing:1px; color:var(--txt-dim); padding:6px 0; }
 </style>
 </head>
 <body>
@@ -143,18 +157,73 @@
 </div>
 
 <script>
+// ---------------------------------------------------------------------------
+// Reconciliacao: atualizar no lugar em vez de reconstruir.
+//
+// O painel antigo fazia grid.innerHTML='' e recriava todo card a cada ciclo.
+// Quando um card entrava ou saia, a altura da pagina mudava e o navegador
+// empurrava o conteudo — era isso que fazia "a tela subir" enquanto se olhava
+// outra coisa. Aumentar o intervalo so espacava o problema; a causa era a
+// reconstrucao.
+//
+// Aqui cada card tem uma chave estavel. Se o HTML dele nao mudou, o DOM nao e
+// tocado: nada reflui, nada pisca, a rolagem nao se move. Se mudou, so aquele
+// card e reescrito e ganha um destaque de 1,4s para o olho achar a novidade.
+// ---------------------------------------------------------------------------
+function sincronizar(grid, itens) {
+  const vistos = new Set();
+  itens.forEach((it, i) => {
+    vistos.add(it.chave);
+    let card = grid.querySelector('[data-chave="' + it.chave.replace(/"/g, '\\"') + '"]');
+    const novo = !card;
+    if (novo) {
+      card = document.createElement('div');
+      card.dataset.chave = it.chave;
+    }
+    if (card.className !== it.classe) card.className = it.classe;
+    // Comparar contra o HTML que NOS geramos. Ler card.innerHTML devolve a
+    // versao normalizada pelo navegador, que quase nunca bate string a string.
+    if (card.__html !== it.html) {
+      card.innerHTML = it.html;
+      card.__html = it.html;
+      if (!novo) {
+        card.classList.remove('mudou');
+        void card.offsetWidth;          // reinicia a animacao
+        card.classList.add('mudou');
+        // tira a classe quando o brilho acaba, senao ela fica pendurada ate o
+        // proximo ciclo e suja a comparacao de className
+        card.addEventListener('animationend', function limpar() {
+          card.classList.remove('mudou');
+          card.removeEventListener('animationend', limpar);
+        });
+      }
+    }
+    if (grid.children[i] !== card) grid.insertBefore(card, grid.children[i] || null);
+  });
+  Array.from(grid.children).forEach(c => {
+    if (!vistos.has(c.dataset.chave)) c.remove();
+  });
+}
+
+function mostrarErro(msg) {
+  const g = document.getElementById('grid-direcionais');
+  sincronizar(g, [{ chave: '__erro', classe: 'empty-state err', html: 'Erro: ' + msg }]);
+}
+
 async function carregar() {
   try {
     const r = await fetch('bots_status.json?t=' + Date.now());
     if (!r.ok) throw new Error('sem dados');
     const d = await r.json();
-    document.getElementById('atualizado').textContent = d.atualizado_em || '--';
+    const el = document.getElementById('atualizado');
+    const novo = d.atualizado_em || '--';
+    if (el.textContent !== novo) el.textContent = novo;
     renderDirecionais(d);
     renderRadioBots(d);
     renderMachines(d);
     renderOps(d);
   } catch (e) {
-    document.getElementById('grid-direcionais').innerHTML = '<div class="empty-state err">Erro: ' + e.message + '</div>';
+    mostrarErro(e.message);
   }
 }
 
@@ -170,8 +239,11 @@ function renderDirecionais(d) {
     bots.push({...d.polymarket_bots.bot_aniversario, _src:'api'});
   }
 
-  grid.innerHTML = '';
-  if (bots.length === 0) { grid.innerHTML = '<div class="empty-state">sem bots</div>'; return; }
+  const itens = [];
+  if (bots.length === 0) {
+    sincronizar(grid, [{ chave:'__vazio', classe:'empty-state', html:'sem bots' }]);
+    return;
+  }
 
   for (const b of bots) {
     const ativo = b.ativo;
@@ -225,9 +297,10 @@ function renderDirecionais(d) {
       </div>`;
     }
 
-    const card = document.createElement('div');
-    card.className = 'card ' + (ativo ? 'on' : 'off');
-    card.innerHTML = `
+    itens.push({
+      chave: 'dir-' + (b.nome || 'bot'),
+      classe: 'card ' + (ativo ? 'on' : 'off'),
+      html: `
       <div class="c-head">
         <div>
           <div class="c-nome">${nomeBot}</div>
@@ -243,21 +316,23 @@ function renderDirecionais(d) {
       </div>
       ${liveBlock}
       <div class="trades-mini">${tradesHtml}</div>
-    `;
-    grid.appendChild(card);
+    ` });
   }
+  sincronizar(grid, itens);
 }
 
 function renderRadioBots(d) {
   const grid = document.getElementById('grid-radio-bots');
-  grid.innerHTML = '';
   if (!d.radio_panel || !d.radio_panel.bots) { grid.style.display='none'; return; }
+  grid.style.display = '';
+  const itens = [];
   for (const b of d.radio_panel.bots) {
     if (b.nome === 'DIRECIONAL') continue;
-    const card = document.createElement('div');
-    card.className = 'card card-mini ' + (b.ativo ? 'on' : 'off');
     const pnlClass = (b.pnl||0) >= 0 ? 'g' : 'r';
-    card.innerHTML = `
+    itens.push({
+      chave: 'radiobot-' + b.nome,
+      classe: 'card card-mini ' + (b.ativo ? 'on' : 'off'),
+      html: `
       <div class="mini-head">
         <span class="mini-nome">${b.nome}</span>
         <span class="led ${b.ativo?'on':'off'}">${b.ativo?(b.modo||'ON').toUpperCase():'OFF'}</span>
@@ -266,23 +341,24 @@ function renderRadioBots(d) {
       <div class="mini-row"><span class="mini-k">Trades</span><span class="mini-v">${b.trades||0}</span></div>
       <div class="mini-row"><span class="mini-k">Win</span><span class="mini-v">${b.win||0}%</span></div>
       ${b.ultima ? `<div class="mini-row"><span class="mini-k">Última</span><span class="mini-v" style="font-size:10px;color:var(--txt-dim);">${b.ultima}</span></div>` : ''}
-    `;
-    grid.appendChild(card);
+    ` });
   }
+  sincronizar(grid, itens);
 }
 
 function renderMachines(d) {
   const grid = document.getElementById('grid-machines');
-  grid.innerHTML = '';
+  const itens = [];
   const maquinas = (d.radio_panel && d.radio_panel.maquinas) || [];
   for (const m of maquinas) {
     const cpu = m.cpu || 0, ram = m.ram_pct || 0;
     let cls = 'on';
     if (!m.online) cls = 'off';
     else if (cpu > 80 || ram > 80) cls = 'warn';
-    const card = document.createElement('div');
-    card.className = 'card card-mini ' + cls;
-    card.innerHTML = `
+    itens.push({
+      chave: 'maq-' + m.nome,
+      classe: 'card card-mini ' + cls,
+      html: `
       <div class="machine">
         <div class="machine-nome">${m.nome}</div>
         ${m.online ? `
@@ -293,53 +369,47 @@ function renderMachines(d) {
           ${m.uptime ? `<div style="font-size:9px;color:var(--txt-dim);margin-top:4px;">up: ${m.uptime}</div>` : ''}
         ` : '<div class="err">offline</div>'}
       </div>
-    `;
-    grid.appendChild(card);
+    ` });
   }
-  // Adiciona Lenovo (PC novo) como máquina extra
-  const lenovoCard = document.createElement('div');
-  lenovoCard.className = 'card card-mini on';
-  lenovoCard.innerHTML = `
+  // Lenovo (PC do Gael) entra como maquina fixa, sem vir do JSON
+  itens.push({
+    chave: 'maq-lenovo',
+    classe: 'card card-mini on',
+    html: `
     <div class="machine">
       <div class="machine-nome">LENOVO GAEL</div>
       <div style="font-size:10px;color:var(--txt-dim);">i5-7200U · 20GB · SSD 689GB</div>
       <div style="font-size:9px;color:var(--green);margin-top:6px;">⚡ Bot ANIVERSÁRIO ativo</div>
       <div style="font-size:9px;color:var(--txt-dim);margin-top:2px;">Windows 11 · Ethernet</div>
     </div>
-  `;
-  grid.appendChild(lenovoCard);
+  ` });
+  sincronizar(grid, itens);
 }
 
 function renderOps(d) {
   const grid = document.getElementById('grid-ops');
-  grid.innerHTML = '';
+  const itens = [];
   if (!d.radio_panel) return;
 
   // Radio
   const r = d.radio_panel.radio;
   if (r) {
-    const card = document.createElement('div');
-    card.className = 'card card-mini on';
-    card.innerHTML = `
+    itens.push({ chave:'ops-radio', classe:'card card-mini on', html: `
       <div class="mini-head"><span class="mini-nome">📻 RÁDIO</span><span class="led on">ATIVO</span></div>
       <div class="mini-row"><span class="mini-k">Música</span><span class="mini-v" style="font-size:10px;">${(r.atual||'').substring(0,30)}</span></div>
       <div class="mini-row"><span class="mini-k">Próxima</span><span class="mini-v" style="font-size:10px;">${(r.proxima||'').substring(0,30)}</span></div>
-    `;
-    grid.appendChild(card);
+    ` });
   }
 
   // Locutores
   const loc = d.radio_panel.locutores;
   if (loc) {
     const noar = (loc.lista || []).find(l => l.no_ar) || {};
-    const card = document.createElement('div');
-    card.className = 'card card-mini on';
-    card.innerHTML = `
+    itens.push({ chave:'ops-locutores', classe:'card card-mini on', html: `
       <div class="mini-head"><span class="mini-nome">🎙️ LOCUTORES IA</span><span class="led on">ON</span></div>
       <div class="mini-row"><span class="mini-k">No ar</span><span class="mini-v" style="color:var(--purple)">${noar.nome || '—'}</span></div>
       <div class="mini-row"><span class="mini-k">Total</span><span class="mini-v">${(loc.lista||[]).length}</span></div>
-    `;
-    grid.appendChild(card);
+    ` });
   }
 
   // Redes sociais
@@ -347,32 +417,45 @@ function renderOps(d) {
   if (rs && rs.redes) {
     const totalPosted = rs.redes.reduce((s, r) => s + (r.videos_postados || 0), 0);
     const conf = rs.redes.filter(r => r.configurada).length;
-    const card = document.createElement('div');
-    card.className = 'card card-mini on';
-    card.innerHTML = `
+    itens.push({ chave:'ops-redes', classe:'card card-mini on', html: `
       <div class="mini-head"><span class="mini-nome">📡 REDES SOCIAIS</span><span class="led on">${conf}/${rs.redes.length}</span></div>
       <div class="mini-row"><span class="mini-k">Vídeos postados</span><span class="mini-v btc">${totalPosted}</span></div>
       <div class="mini-row"><span class="mini-k">Agendador</span><span class="mini-v" style="color:${rs.agendador_rodando?'var(--green)':'var(--red)'}">${rs.agendador_rodando?'rodando':'parado'}</span></div>
-    `;
-    grid.appendChild(card);
+    ` });
   }
 
   // Satoshi votação
   const sat = d.radio_panel.satoshi;
   if (sat) {
-    const card = document.createElement('div');
-    card.className = 'card card-mini on';
-    card.innerHTML = `
+    itens.push({ chave:'ops-satoshi', classe:'card card-mini on', html: `
       <div class="mini-head"><span class="mini-nome">🟠 VOTAÇÃO SATOSHI</span><span class="led on">ON</span></div>
       <div class="mini-row"><span class="mini-k">Sats</span><span class="mini-v btc">${sat.total_sats||0}</span></div>
       <div class="mini-row"><span class="mini-k">Votos</span><span class="mini-v">${sat.total_votos||0}</span></div>
-    `;
-    grid.appendChild(card);
+    ` });
   }
+  sincronizar(grid, itens);
 }
 
-carregar();
-setInterval(carregar, 30000);
+// Nao redesenhar aba que ninguem esta vendo. Alem de economizar, evita o
+// efeito de voltar pra aba e levar um tranco de varias mudancas acumuladas:
+// ao voltar, busca uma vez e segue no ritmo normal.
+const INTERVALO = 30000;
+let relogio = null;
+
+function iniciarCiclo() {
+  pararCiclo();
+  carregar();
+  relogio = setInterval(carregar, INTERVALO);
+}
+function pararCiclo() {
+  if (relogio) { clearInterval(relogio); relogio = null; }
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) pararCiclo(); else iniciarCiclo();
+});
+
+iniciarCiclo();
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ebcbf230a8794cd0a783cbc9bb447fe8"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
