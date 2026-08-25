@@ -699,27 +699,18 @@
   <div class="trz-banner">
     <div class="trz-banner__top">
       <span class="trz-banner__badge">&#128250; Trezoitão News · Em Alta</span>
-      <span class="trz-banner__badge2">&#128269; Investigação · Fauci</span>
+      <span class="trz-banner__badge2" id="trz-dest-badge">&#128250; Mais recente</span>
       <span class="trz-banner__live">&#9679; Em destaque</span>
     </div>
     <div class="trz-banner__inner">
       <div class="trz-banner__video">
-        <iframe src="https://www.youtube.com/embed/LYQxgnT-hgw?rel=0&modestbranding=1&color=white" allowfullscreen loading="lazy" title="Anthony Fauci: as anotações que reacenderam a polêmica | Rotina do Trezoitão"></iframe>
+        <iframe id="trz-dest-iframe" src="https://www.youtube.com/embed/LYQxgnT-hgw?rel=0&modestbranding=1&color=white" allowfullscreen loading="lazy" title="Anthony Fauci: as anotações que reacenderam a polêmica | Rotina do Trezoitão"></iframe>
       </div>
       <div class="trz-banner__content">
         <div class="trz-banner__tag">&#128293; Trezoitão News</div>
-        <div class="trz-banner__title">
-          <span>Anthony Fauci:</span><br>
-          as anotações que <span>reacenderam a polêmica</span>
-        </div>
-        <div class="trz-banner__desc">
-          O <b>Dr. Pandemonium</b> está de volta às manchetes.<br>
-          <b>Trezoitão</b> analisa os documentos que reabriram<br>
-          o debate sobre a origem da pandemia.
-          <br><br>
-          <b>🎙️ Rádio Bitcoin é parceira oficial dos eventos Missão Bitcoin.</b>
-        </div>
-        <a class="trz-banner__cta" href="https://www.youtube.com/watch?v=LYQxgnT-hgw" target="_blank" rel="noopener">
+        <div class="trz-banner__title" id="trz-dest-titulo"><span>Rotina do Trezoit&atilde;o</span><br>o v&iacute;deo <span>mais recente</span></div>
+        <div class="trz-banner__desc" id="trz-dest-desc">Canal parceiro da R&aacute;dio Bitcoin. Aqui entra sempre a &uacute;ltima publica&ccedil;&atilde;o do canal.<br><br><b>&#127897;&#65039; R&aacute;dio Bitcoin &eacute; parceira oficial dos eventos Miss&atilde;o Bitcoin.</b></div>
+        <a class="trz-banner__cta" id="trz-dest-cta" href="https://www.youtube.com/watch?v=LYQxgnT-hgw" target="_blank" rel="noopener">
           &#9654; ASSISTIR AGORA &raquo;
         </a>
         <div class="trz-banner__meta">Canal: Rotina do Trezoitão &middot; 134k inscritos</div>
@@ -727,6 +718,37 @@
     </div>
   </div>
   <!-- ===== FIM BANNER TREZOITÃO ===== -->
+<script>
+/* Destaque do Trezoitao: sempre o video mais recente.
+   Antes o banner tinha o ID do video, o titulo e a descricao chumbados no HTML
+   — ficou meses no ar mostrando um video antigo do Fauci enquanto o canal
+   publicava toda semana. O trezoitao.json ja e atualizado diariamente pelo
+   robo que alimenta a grade; o destaque so nao o usava.
+   Se o JSON falhar, o HTML original permanece — nunca fica vazio. */
+(function trzBannerAtualiza(){
+  function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+  fetch('./trezoitao.json?t=' + Date.now(), {cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(j){
+      var v = (j.videos || [])[0];
+      if(!v || !v.id) return;
+      var f = document.getElementById('trz-dest-iframe');
+      if(f) f.src = 'https://www.youtube.com/embed/' + v.id + '?rel=0&modestbranding=1&color=white';
+      var a = document.getElementById('trz-dest-cta');
+      if(a) a.href = 'https://www.youtube.com/watch?v=' + v.id;
+      var tt = document.getElementById('trz-dest-titulo');
+      if(tt && v.title) tt.innerHTML = esc(v.title);
+      var b = document.getElementById('trz-dest-badge');
+      if(b && v.date){
+        var dias = Math.floor((Date.now() - new Date(v.published || v.date)) / 86400000);
+        b.innerHTML = dias <= 0 ? '\u{1F4FA} Publicado hoje'
+                    : (dias === 1 ? '\u{1F4FA} Ontem' : '\u{1F4FA} H\u00e1 ' + dias + ' dias');
+      }
+    })
+    .catch(function(){ /* mantem o que esta no HTML */ });
+})();
+</script>
+
 
 <!-- ===== BANNER MISSÃO BITCOIN — CIUDAD DEL ESTE 19-20/SET (movido pro topo) ===== -->
   <style>
@@ -2870,7 +2892,7 @@
               <img loading="lazy" decoding="async" src="logo_missao_bitcoin.webp" alt="Missao Bitcoin" style="height:38px;width:100px;object-fit:contain;">
               <div style="font-size:7px;color:#f4c430;font-weight:900;letter-spacing:1px;">EDUCAÇÃO BITCOIN</div>
             </a>
-            <a href="https://www.youtube.com/@rotinodotrezoitao" target="_blank" rel="noopener" style="display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;padding:12px 18px;background:rgba(244,196,48,.04);border:2px solid rgba(244,196,48,.45);border-radius:10px;box-shadow:0 0 20px rgba(244,196,48,.15);position:relative;transition:.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+            <a href="https://www.youtube.com/@rotinadotrezoitao" target="_blank" rel="noopener" style="display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;padding:12px 18px;background:rgba(244,196,48,.04);border:2px solid rgba(244,196,48,.45);border-radius:10px;box-shadow:0 0 20px rgba(244,196,48,.15);position:relative;transition:.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
               <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#f4c430;color:#000;font-size:7px;font-weight:900;letter-spacing:1.5px;padding:2px 9px;border-radius:99px;white-space:nowrap;">★ GOLD</div>
               <img loading="lazy" decoding="async" src="trz_foto_real.jpg" alt="Rotina do Trezoitão" style="height:44px;width:44px;object-fit:cover;border-radius:50%;border:2px solid rgba(244,196,48,.4);">
               <div style="font-size:7px;color:#f4c430;font-weight:900;letter-spacing:1px;">ROTINA DO TREZOITÃO</div>
