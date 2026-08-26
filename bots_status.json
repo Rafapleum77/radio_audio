@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-08-26 14:50:59",
-  "atualizado_ts": 1787766659,
+  "atualizado_em": "2026-08-26 14:52:14",
+  "atualizado_ts": 1787766734,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,8 +93,8 @@
     }
   },
   "radio_panel": {
-    "hora": "14:51:00",
-    "ts": 1787766660,
+    "hora": "14:52:15",
+    "ts": 1787766735,
     "pnl_total": 2.19,
     "bots": [
       {
@@ -130,7 +130,7 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "14:50:59"
+        "ultima": "14:52:02"
       }
     ],
     "maquinas": [
@@ -138,10 +138,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 19.6,
-        "ram_pct": 90.1,
+        "cpu": 23.7,
+        "ram_pct": 90.2,
         "disk_pct": 3.0,
-        "uptime": "4 days, 22:06"
+        "uptime": "4 days, 22:07"
       },
       {
         "nome": "INTEL",
