@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-08-27 03:18:15",
-  "atualizado_ts": 1787811495,
+  "atualizado_em": "2026-08-27 03:19:37",
+  "atualizado_ts": 1787811577,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -52,23 +52,49 @@
       "moeda": "BTC",
       "janela": "5min",
       "local": "Lenovo PC novo",
-      "ativo": false,
+      "ativo": true,
       "via": "polymarket_api",
       "status": null,
       "wins": 0,
-      "losses": 0,
-      "trades_total": 0,
+      "losses": 30,
+      "trades_total": 30,
       "win_rate": 0.0,
-      "trades_recentes": [],
-      "pnl_total": 0,
+      "trades_recentes": [
+        {
+          "dir": "UP",
+          "preco": "1.0",
+          "valor": "10.00"
+        },
+        {
+          "dir": "UP",
+          "preco": "55.0",
+          "valor": "4.00"
+        },
+        {
+          "dir": "DOWN",
+          "preco": "56.0",
+          "valor": "4.00"
+        },
+        {
+          "dir": "UP",
+          "preco": "56.0",
+          "valor": "4.00"
+        },
+        {
+          "dir": "UP",
+          "preco": "56.5",
+          "valor": "3.99"
+        }
+      ],
+      "pnl_total": -111.11,
       "posicoes_abertas": 0,
       "funder": "0x0CAc24471777064974fF9Cb768C5C146B4733742",
       "profile_url": "https://polymarket.com/profile/0x0CAc24471777064974fF9Cb768C5C146B4733742"
     }
   },
   "radio_panel": {
-    "hora": "03:18:15",
-    "ts": 1787811495,
+    "hora": "03:19:37",
+    "ts": 1787811577,
     "pnl_total": 2.19,
     "bots": [
       {
@@ -104,7 +130,7 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "03:18:05"
+        "ultima": "03:19:17"
       }
     ],
     "maquinas": [
@@ -112,10 +138,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 39.5,
-        "ram_pct": 95.1,
+        "cpu": 14.3,
+        "ram_pct": 95.7,
         "disk_pct": 3.0,
-        "uptime": "5 days, 10:33"
+        "uptime": "5 days, 10:34"
       },
       {
         "nome": "INTEL",
@@ -130,8 +156,8 @@
         "nome": "NITRO",
         "papel": "Win11 - banners",
         "online": true,
-        "cpu": 6,
-        "ram_pct": 64.3,
+        "cpu": 8,
+        "ram_pct": 65.5,
         "disk_pct": 90.8,
         "uptime": "64h"
       },
