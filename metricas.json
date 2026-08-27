@@ -1,20 +1,20 @@
 {
   "fonte": "GoatCounter (analytics real, privacy-first)",
-  "atualizado_em": "2026-08-25",
-  "visitas_30d": 304,
+  "atualizado_em": "2026-08-27",
+  "visitas_30d": 282,
   "paises_total": 8,
   "top_paises": [
     {
       "pais": "Brazil",
-      "count": 251
+      "count": 225
     },
     {
       "pais": "United States",
-      "count": 49
+      "count": 48
     },
     {
       "pais": "Ireland",
-      "count": 4
+      "count": 3
     },
     {
       "pais": "Argentina",
@@ -37,5 +37,26 @@
       "count": 2
     }
   ],
-  "top_paginas": []
+  "top_paginas": [
+    {
+      "path": "/",
+      "count": 262
+    },
+    {
+      "path": "/carteira.html",
+      "count": 7
+    },
+    {
+      "path": "/ebook.html",
+      "count": 6
+    },
+    {
+      "path": "ebook-download",
+      "count": 4
+    },
+    {
+      "path": "/recovery.html",
+      "count": 2
+    }
+  ]
 }
