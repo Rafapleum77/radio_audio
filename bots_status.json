@@ -1,6 +1,6 @@
 {
-  "atualizado_em": "2026-08-27 19:24:12",
-  "atualizado_ts": 1787869452,
+  "atualizado_em": "2026-08-27 19:26:03",
+  "atualizado_ts": 1787869563,
   "polymarket_bots": {
     "petlendas_bsb": {
       "nome": "PETLENDAS BSB",
@@ -93,8 +93,8 @@
     }
   },
   "radio_panel": {
-    "hora": "19:24:14",
-    "ts": 1787869454,
+    "hora": "19:26:04",
+    "ts": 1787869564,
     "pnl_total": 2.19,
     "bots": [
       {
@@ -130,7 +130,7 @@
         "ativo": true,
         "pnl": 0.0,
         "win": 0.0,
-        "ultima": "19:17:24"
+        "ultima": "19:25:53"
       }
     ],
     "maquinas": [
@@ -138,10 +138,10 @@
         "nome": "MAC MINI",
         "papel": "M2 - bots + locutores",
         "online": true,
-        "cpu": 100.0,
-        "ram_pct": 79.8,
+        "cpu": 94.1,
+        "ram_pct": 99.3,
         "disk_pct": 3.0,
-        "uptime": "2 mins"
+        "uptime": "4 mins"
       },
       {
         "nome": "INTEL",
@@ -155,11 +155,11 @@
       {
         "nome": "NITRO",
         "papel": "Win11 - banners",
-        "online": false,
-        "cpu": null,
-        "ram_pct": null,
-        "disk_pct": null,
-        "uptime": null
+        "online": true,
+        "cpu": 9,
+        "ram_pct": 83.6,
+        "disk_pct": 91.2,
+        "uptime": "80h"
       },
       {
         "nome": "LENOVO",
@@ -171,6 +171,59 @@
         "uptime": null
       }
     ],
-    "satoshi": null
+    "satoshi": {
+      "total_votos": 1,
+      "total_sats": 21.0,
+      "categorias": [
+        {
+          "id": "narracao",
+          "nome": "Narração / Locução",
+          "icone": "🎙️",
+          "lider": {
+            "id": "claude",
+            "nome": "Claude",
+            "cor": "#f7931a",
+            "votos": 0,
+            "sats": 0.0
+          }
+        },
+        {
+          "id": "musica",
+          "nome": "Música IA",
+          "icone": "🎵",
+          "lider": {
+            "id": "suno",
+            "nome": "Suno",
+            "cor": "#ff6b35",
+            "votos": 1,
+            "sats": 21.0
+          }
+        },
+        {
+          "id": "video",
+          "nome": "Vídeo IA",
+          "icone": "🎬",
+          "lider": {
+            "id": "sora",
+            "nome": "Sora",
+            "cor": "#10a37f",
+            "votos": 0,
+            "sats": 0.0
+          }
+        },
+        {
+          "id": "imagem",
+          "nome": "Imagem IA",
+          "icone": "🎨",
+          "lider": {
+            "id": "dalle",
+            "nome": "DALL-E 3",
+            "cor": "#10a37f",
+            "votos": 0,
+            "sats": 0.0
+          }
+        }
+      ]
+    }
   }
 }
