@@ -6,28 +6,10 @@
     "category": "Música"
   },
   {
-    "title": "Programa de Lutas · UFC (Gemini)",
+    "title": "Programa de Lutas · UFC (Manus)",
     "file": "programa_lutas.mp3",
     "dur": "",
     "category": "Combate"
-  },
-  {
-    "title": "Radar Coin Bureau (Gemini)",
-    "file": "radar_coinbureau.mp3",
-    "dur": "",
-    "category": "Notícia"
-  },
-  {
-    "title": "Fechamento de Mercado · 17h (Manus)",
-    "file": "mercado_fechamento.mp3",
-    "dur": "",
-    "category": "Mercado"
-  },
-  {
-    "title": "Melhores Oportunidades · 16h30 (Manus)",
-    "file": "mercado_oportunidades.mp3",
-    "dur": "",
-    "category": "Mercado"
   },
   {
     "title": "🎯 Missão Bitcoin — Ciudad del Este",
@@ -36,34 +18,22 @@
     "category": "Missão Bitcoin"
   },
   {
-    "title": "Plantão Bitcoin: US$ 80.181",
-    "file": "alerta_preco.mp3",
-    "dur": "",
-    "category": "Alerta"
-  },
-  {
-    "title": "Escola Austríaca: A guerra do Estado contra o dinheiro do povo",
+    "title": "Escola Austríaca: Empreendedorismo e destruição criativa",
     "file": "escola_austriaca.mp3",
     "dur": "",
     "category": "Escola Austríaca"
-  },
-  {
-    "title": "As Mais Negociadas · Meio-dia (Manus)",
-    "file": "mercado_negociadas.mp3",
-    "dur": "",
-    "category": "Mercado"
-  },
-  {
-    "title": "Radar de Ações · Abertura (Manus)",
-    "file": "mercado_radar.mp3",
-    "dur": "",
-    "category": "Mercado"
   },
   {
     "title": "Siga o Dinheiro — Fluxo do dia",
     "file": "fluxo_dinheiro.mp3",
     "dur": "",
     "category": "Fluxo do Dinheiro"
+  },
+  {
+    "title": "Radar Coin Bureau (Gemini)",
+    "file": "radar_coinbureau.mp3",
+    "dur": "",
+    "category": "Notícia"
   },
   {
     "title": "Boletim de Notícias Bitcoin",
@@ -76,6 +46,36 @@
     "file": "alerta_sobrevivencia.mp3",
     "dur": "",
     "category": "Sobrevivencialismo & Clima"
+  },
+  {
+    "title": "Fechamento de Mercado · 17h (GPT)",
+    "file": "mercado_fechamento.mp3",
+    "dur": "",
+    "category": "Mercado"
+  },
+  {
+    "title": "Melhores Oportunidades · 16h30 (GPT)",
+    "file": "mercado_oportunidades.mp3",
+    "dur": "",
+    "category": "Mercado"
+  },
+  {
+    "title": "As Mais Negociadas · Meio-dia (GPT)",
+    "file": "mercado_negociadas.mp3",
+    "dur": "",
+    "category": "Mercado"
+  },
+  {
+    "title": "Radar de Ações · Abertura (GPT)",
+    "file": "mercado_radar.mp3",
+    "dur": "",
+    "category": "Mercado"
+  },
+  {
+    "title": "Plantão Bitcoin: US$ 78.121",
+    "file": "alerta_preco.mp3",
+    "dur": "",
+    "category": "Alerta"
   },
   {
     "title": "Bitcointrap",
@@ -321,6 +321,12 @@
     "title": "Bitcoin e Salvação",
     "file": "Bitcoin e Salvação.mp3",
     "dur": "2:54",
+    "category": "Bitcoin"
+  },
+  {
+    "title": "Autocustódia",
+    "file": "Autocustódia.mp3",
+    "dur": "2:37",
     "category": "Bitcoin"
   },
   {

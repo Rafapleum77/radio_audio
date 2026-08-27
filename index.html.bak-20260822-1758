@@ -76,7 +76,7 @@
       "@type": "Product",
       "@id": "https://radiobitcoin.org/#pacote-completo",
       "name": "Pacote Completo BIT ADICT",
-      "description": "Pen drive USB com código completo de bots educacionais de estudo de estratégias estatísticas em (XRP v3.2, SOL_XRP v4, Arbitrage v4.1, Direcional v2) + Bitadict Security Recovery Kit + Cartão Lightning 50.000 sats + moeda Bitcoin física + barrinha de ouro + sacolinha de juta. Bots vêm com Circuit Breaker, watchdog e painel ao vivo. Material educacional — não é consultoria de investimento.",
+      "description": "Pen drive USB com código completo de 4 bots educacionais que operam estratégias estatísticas em Polymarket (XRP v3.2, SOL_XRP v4, Arbitrage v4.1, Direcional v2) + Bitadict Security Recovery Kit + Cartão Lightning 50.000 sats + moeda Bitcoin física + barrinha de ouro + sacolinha de juta. Bots vêm com Circuit Breaker, watchdog e painel ao vivo. Material educacional — não é consultoria de investimento.",
       "image": "https://radiobitcoin.org/img/bitadict/campanha/01_hero_recovery_kit.webp",
       "brand": { "@type": "Brand", "name": "BIT ADICT" },
       "category": "Crypto Trading Bot",
@@ -417,7 +417,7 @@
   <div class="tpr__wrap" id="tprWrap">
 
     <!-- SLIDE 0 — Novo por aqui -->
-    <div class="tpr__slide" id="tprS0">
+    <div class="tpr__slide tpr-on" id="tprS0">
       <div style="background:linear-gradient(135deg,#06080f,#0d1525 50%,#06080f);border:1px solid rgba(0,212,255,.22);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
         <div style="font-size:28px;flex-shrink:0">👋</div>
         <div style="flex:1;min-width:180px">
@@ -433,7 +433,7 @@
     </div>
 
     <!-- SLIDE 1 — Votação: Quem é Satoshi? -->
-    <div class="tpr__slide tpr-on" id="tprS1">
+    <div class="tpr__slide" id="tprS1">
       <div style="border:1px solid rgba(242,169,0,0.6);border-radius:14px;padding:0;overflow:hidden;box-shadow:0 0 20px rgba(242,169,0,0.2);background:#06080f">
         <img loading="lazy" decoding="async" src="banner_satoshi_vote.jpg" alt="Quem é Satoshi Nakamoto?" style="width:100%;display:block;border-radius:6px 6px 0 0;max-height:110px;object-fit:cover;object-position:center 30%">
         <div style="background:linear-gradient(90deg,#f2a900,#ffcc00,#f2a900);padding:7px 14px;text-align:center;animation:satoshi-pulse 1.8s ease-in-out infinite">
@@ -466,7 +466,7 @@
 (function(){
   var slides=Array.from(document.querySelectorAll('.tpr__slide'));
   var dots=Array.from(document.querySelectorAll('.tpr__dot'));
-  var cur=1,n=slides.length,timer;
+  var cur=0,n=slides.length,timer;
   function show(i){
     slides[cur].classList.remove('tpr-on');
     dots[cur].classList.remove('tpr-on');
@@ -474,37 +474,14 @@
     slides[cur].classList.add('tpr-on');
     dots[cur].classList.add('tpr-on');
   }
-  // Sem rodizio automatico. Os dois blocos tem alturas muito diferentes — o
-  // da votacao tem banner, placar e 8 candidatos; o outro e um cartao baixo.
-  // Trocar sozinho a cada 8s fazia a pagina inteira pular sob o dedo de quem
-  // estava navegando, e atropelava o player. Agora so troca se a pessoa clicar.
-  function go(){}
-  function reset(){}
+  function go(){timer=setInterval(function(){show(cur+1);},8000);}
+  function reset(){clearInterval(timer);go();}
   dots.forEach(function(d){d.addEventListener('click',function(){show(+d.dataset.i);reset();});});
   document.getElementById('tprPrev').addEventListener('click',function(){show(cur-1);reset();});
   document.getElementById('tprNext').addEventListener('click',function(){show(cur+1);reset();});
   go();
 })();
 </script>
-
-<style id="tpr-fixo">
-/* Votacao do Satoshi: painel fixo, fotos menores.
-   O banner era 1080x618 em largura total e as fotos dos candidatos eram
-   quadradas em 2 colunas — 8 candidatos viravam 4 fileiras altas. Somado ao
-   rodizio de 8s, a pagina pulava e cobria o player. */
-#tprS1 img[alt*="Satoshi"]{
-  max-height:150px;
-  object-fit:cover;
-  aspect-ratio:1080/618;   /* reserva o espaco antes de carregar */
-}
-.satoshi-vote-grid{grid-template-columns:repeat(4,1fr);gap:6px}
-@media(max-width:620px){.satoshi-vote-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:380px){.satoshi-vote-grid{grid-template-columns:repeat(2,1fr)}}
-.sv-photo{aspect-ratio:4/3;max-height:92px}
-.sv-body{padding:5px 6px 6px}
-/* a rolagem nao se ancora nesta secao quando algo muda de altura */
-.tpr,.tpr__wrap,.tpr__slide{overflow-anchor:none}
-</style>
 <!-- ===== FIM TOP ROTATOR ===== -->
 
   <section class="hr-wrap" id="topo">
@@ -722,18 +699,27 @@
   <div class="trz-banner">
     <div class="trz-banner__top">
       <span class="trz-banner__badge">&#128250; Trezoitão News · Em Alta</span>
-      <span class="trz-banner__badge2" id="trz-dest-badge">&#128250; Mais recente</span>
+      <span class="trz-banner__badge2">&#128269; Investigação · Fauci</span>
       <span class="trz-banner__live">&#9679; Em destaque</span>
     </div>
     <div class="trz-banner__inner">
       <div class="trz-banner__video">
-        <iframe id="trz-dest-iframe" src="https://www.youtube.com/embed/LYQxgnT-hgw?rel=0&modestbranding=1&color=white" allowfullscreen loading="lazy" title="Anthony Fauci: as anotações que reacenderam a polêmica | Rotina do Trezoitão"></iframe>
+        <iframe src="https://www.youtube.com/embed/LYQxgnT-hgw?rel=0&modestbranding=1&color=white" allowfullscreen loading="lazy" title="Anthony Fauci: as anotações que reacenderam a polêmica | Rotina do Trezoitão"></iframe>
       </div>
       <div class="trz-banner__content">
         <div class="trz-banner__tag">&#128293; Trezoitão News</div>
-        <div class="trz-banner__title" id="trz-dest-titulo"><span>Rotina do Trezoit&atilde;o</span><br>o v&iacute;deo <span>mais recente</span></div>
-        <div class="trz-banner__desc" id="trz-dest-desc">Canal parceiro da R&aacute;dio Bitcoin. Aqui entra sempre a &uacute;ltima publica&ccedil;&atilde;o do canal.<br><br><b>&#127897;&#65039; R&aacute;dio Bitcoin &eacute; parceira oficial dos eventos Miss&atilde;o Bitcoin.</b></div>
-        <a class="trz-banner__cta" id="trz-dest-cta" href="https://www.youtube.com/watch?v=LYQxgnT-hgw" target="_blank" rel="noopener">
+        <div class="trz-banner__title">
+          <span>Anthony Fauci:</span><br>
+          as anotações que <span>reacenderam a polêmica</span>
+        </div>
+        <div class="trz-banner__desc">
+          O <b>Dr. Pandemonium</b> está de volta às manchetes.<br>
+          <b>Trezoitão</b> analisa os documentos que reabriram<br>
+          o debate sobre a origem da pandemia.
+          <br><br>
+          <b>🎙️ Rádio Bitcoin é parceira oficial dos eventos Missão Bitcoin.</b>
+        </div>
+        <a class="trz-banner__cta" href="https://www.youtube.com/watch?v=LYQxgnT-hgw" target="_blank" rel="noopener">
           &#9654; ASSISTIR AGORA &raquo;
         </a>
         <div class="trz-banner__meta">Canal: Rotina do Trezoitão &middot; 134k inscritos</div>
@@ -741,37 +727,6 @@
     </div>
   </div>
   <!-- ===== FIM BANNER TREZOITÃO ===== -->
-<script>
-/* Destaque do Trezoitao: sempre o video mais recente.
-   Antes o banner tinha o ID do video, o titulo e a descricao chumbados no HTML
-   — ficou meses no ar mostrando um video antigo do Fauci enquanto o canal
-   publicava toda semana. O trezoitao.json ja e atualizado diariamente pelo
-   robo que alimenta a grade; o destaque so nao o usava.
-   Se o JSON falhar, o HTML original permanece — nunca fica vazio. */
-(function trzBannerAtualiza(){
-  function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
-  fetch('./trezoitao.json?t=' + Date.now(), {cache:'no-store'})
-    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-    .then(function(j){
-      var v = (j.videos || [])[0];
-      if(!v || !v.id) return;
-      var f = document.getElementById('trz-dest-iframe');
-      if(f) f.src = 'https://www.youtube.com/embed/' + v.id + '?rel=0&modestbranding=1&color=white';
-      var a = document.getElementById('trz-dest-cta');
-      if(a) a.href = 'https://www.youtube.com/watch?v=' + v.id;
-      var tt = document.getElementById('trz-dest-titulo');
-      if(tt && v.title) tt.innerHTML = esc(v.title);
-      var b = document.getElementById('trz-dest-badge');
-      if(b && v.date){
-        var dias = Math.floor((Date.now() - new Date(v.published || v.date)) / 86400000);
-        b.innerHTML = dias <= 0 ? '\u{1F4FA} Publicado hoje'
-                    : (dias === 1 ? '\u{1F4FA} Ontem' : '\u{1F4FA} H\u00e1 ' + dias + ' dias');
-      }
-    })
-    .catch(function(){ /* mantem o que esta no HTML */ });
-})();
-</script>
-
 
 <!-- ===== BANNER MISSÃO BITCOIN — CIUDAD DEL ESTE 19-20/SET (movido pro topo) ===== -->
   <style>
@@ -792,9 +747,7 @@
 .lc-section{max-width:1100px;margin:18px auto 4px;padding:0 14px}
 .lc-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
 .lc-logo{display:flex;align-items:center;gap:8px;font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:800;letter-spacing:2px;color:#f2a900;text-transform:uppercase}
-.lc-logo{text-decoration:none;transition:opacity .2s}
-.lc-logo:hover{opacity:.75}
-.lc-logo img{width:22px;height:22px;border-radius:50%;flex-shrink:0;background:#fff;object-fit:cover}
+.lc-logo svg{width:20px;height:20px;fill:#f2a900;flex-shrink:0}
 .lc-badge{font-family:ui-monospace,Menlo,monospace;font-size:9px;background:rgba(242,169,0,.15);color:#f2a900;border:1px solid rgba(242,169,0,.4);border-radius:6px;padding:2px 8px;letter-spacing:1px}
 .lc-updated{font-size:10px;color:#555;margin-left:auto;font-family:ui-monospace,Menlo,monospace}
 .lc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
@@ -850,11 +803,10 @@
 
 <section class="lc-section">
   <div class="lc-header">
-    <a class="lc-logo" href="https://livecoins.com.br/" target="_blank" rel="noopener"
-       title="Ir para o site da Livecoins">
-      <img src="logo_livecoins.png" alt="Livecoins" width="22" height="22">
+    <div class="lc-logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
       LiveCoins
-    </a>
+    </div>
     <div class="lc-badge">PARCEIRO · NOTÍCIAS</div>
     <div class="lc-updated" id="lcUpdated"></div>
   </div>
@@ -2103,7 +2055,7 @@
   <nav id="hdr-nav" style="display:flex;justify-content:center;gap:0;padding:6px 12px;background:linear-gradient(180deg,#07090d 0%,#0b0e11 100%);border-bottom:1px solid rgba(242,169,0,0.18);flex-wrap:wrap;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;">
     <a href="/" style="color:#f2a900;text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Home">⚡ RÁDIO</a>
     <a href="/carteira.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Carteira ao vivo">📊 CARTEIRA</a>
-    <a href="/painel.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Painel dos 2 bots ao vivo">🤖 PAINEL</a>
+    <a href="/painel.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Painel dos 2 bots Polymarket ao vivo">🤖 PAINEL</a>
     <a href="/recovery.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="BIT ADICT Security Recovery Kit">🛡️ RECOVERY</a>
     <a href="/vip.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Sinais em tempo real $20/mês">📡 VIP</a>
     <a href="/curso.html" style="color:var(--text,#c8d0d8);text-decoration:none;padding:6px 14px;border-right:1px solid rgba(242,169,0,0.15);" title="Curso completo BIT ADICT">🎓 CURSO</a>
@@ -2550,7 +2502,7 @@
       <div id="rb-ticker" style="background:linear-gradient(90deg,#07090d 0%,#0b0e11 50%,#07090d 100%);border:1px solid rgba(34,197,94,0.25);border-radius:10px;padding:10px 0;margin:0 0 14px;overflow:hidden;position:relative;">
         <div style="display:flex;align-items:center;gap:10px;padding:0 14px 8px;border-bottom:1px solid rgba(255,255,255,0.05);">
           <span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;animation:rb-pulse 1.4s infinite;"></span>
-          <span style="font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#22c55e;letter-spacing:2px;text-transform:uppercase;">AO VIVO · TRADES REAIS DOS BOTS </span>
+          <span style="font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#22c55e;letter-spacing:2px;text-transform:uppercase;">AO VIVO · TRADES REAIS DOS BOTS POLYMARKET</span>
           <span style="font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#9ca3af;margin-left:auto;" id="rb-ticker-ts">—</span>
         </div>
         <div id="rb-ticker-track" style="display:flex;gap:24px;padding:10px 14px;white-space:nowrap;animation:rb-marquee 60s linear infinite;font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#c8d0d8;">
@@ -2595,7 +2547,7 @@
           <div style="position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(0,0,0,0.95),transparent);"></div>
           <div style="position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:5px;background:rgba(242,169,0,0.9);border:1px solid #f2a900;color:#000;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:20px;backdrop-filter:blur(4px);">⚡ Pacote BIT ADICT</div>
           <div style="position:absolute;bottom:14px;left:0;right:0;text-align:center;">
-            <div style="font-size:11px;font-weight:900;color:#fff;letter-spacing:1px;text-transform:uppercase;text-shadow:0 0 12px rgba(242,169,0,0.8);">4 BOTS + RECOVERY KIT</div>
+            <div style="font-size:11px;font-weight:900;color:#fff;letter-spacing:1px;text-transform:uppercase;text-shadow:0 0 12px rgba(242,169,0,0.8);">4 BOTS POLYMARKET + RECOVERY KIT</div>
           </div>
         </div>
         <div style="background:linear-gradient(160deg,#07090d 0%,#0b0e11 100%);padding:10px 14px 8px;text-align:center;border-top:1px solid rgba(242,169,0,0.25);">
@@ -2874,6 +2826,48 @@
         </div>
       </div>
 
+      <!-- POLYMARKET -->
+      <div class="panel">
+        <div class="pt" style="justify-content:space-between">
+          <span>🎯 POLYMARKET — PREVISÕES BTC</span>
+          <a href="https://polymarket.com" target="_blank" style="display:inline-flex;align-items:center;gap:5px;text-decoration:none;">
+            <img loading="lazy" decoding="async" src="https://polymarket.com/favicon-32x32.png" alt="Polymarket" width="16" height="16" style="border-radius:3px;" onerror="this.style.display='none'">
+            <span style="font-size:8px;color:#6366f1;letter-spacing:1px;font-family:'Orbitron',monospace;font-weight:700;">POLY</span>
+          </a>
+        </div>
+        <div id="poly-list">
+          <div class="poly-item">
+            <div class="poly-q">Bitcoin acima de $150k antes de Dezembro 2026?</div>
+            <div class="poly-bars">
+              <div class="poly-side">
+                <div class="poly-label">SIM</div>
+                <div class="poly-bar-bg"><div class="poly-bar-up" style="width:58%"></div></div>
+                <div class="poly-pct up">58%</div>
+              </div>
+              <div class="poly-side">
+                <div class="poly-label">NÃO</div>
+                <div class="poly-bar-bg"><div class="poly-bar-dn" style="width:42%"></div></div>
+                <div class="poly-pct dn">42%</div>
+              </div>
+            </div>
+          </div>
+          <div class="poly-item">
+            <div class="poly-q">BTC UP or DOWN — 5min slot ao vivo</div>
+            <div class="poly-bars">
+              <div class="poly-side">
+                <div class="poly-label">UP</div>
+                <div class="poly-bar-bg"><div class="poly-bar-up" id="polyUpBar" style="width:50%"></div></div>
+                <div class="poly-pct up" id="polyUpPct">50%</div>
+              </div>
+              <div class="poly-side">
+                <div class="poly-label">DOWN</div>
+                <div class="poly-bar-bg"><div class="poly-bar-dn" id="polyDnBar" style="width:50%"></div></div>
+                <div class="poly-pct dn" id="polyDnPct">50%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- CHAT -->
       <div class="panel">
@@ -2915,7 +2909,7 @@
               <img loading="lazy" decoding="async" src="logo_missao_bitcoin.webp" alt="Missao Bitcoin" style="height:38px;width:100px;object-fit:contain;">
               <div style="font-size:7px;color:#f4c430;font-weight:900;letter-spacing:1px;">EDUCAÇÃO BITCOIN</div>
             </a>
-            <a href="https://www.youtube.com/@rotinadotrezoitao" target="_blank" rel="noopener" style="display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;padding:12px 18px;background:rgba(244,196,48,.04);border:2px solid rgba(244,196,48,.45);border-radius:10px;box-shadow:0 0 20px rgba(244,196,48,.15);position:relative;transition:.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+            <a href="https://www.youtube.com/@rotinodotrezoitao" target="_blank" rel="noopener" style="display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;padding:12px 18px;background:rgba(244,196,48,.04);border:2px solid rgba(244,196,48,.45);border-radius:10px;box-shadow:0 0 20px rgba(244,196,48,.15);position:relative;transition:.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
               <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#f4c430;color:#000;font-size:7px;font-weight:900;letter-spacing:1.5px;padding:2px 9px;border-radius:99px;white-space:nowrap;">★ GOLD</div>
               <img loading="lazy" decoding="async" src="trz_foto_real.jpg" alt="Rotina do Trezoitão" style="height:44px;width:44px;object-fit:cover;border-radius:50%;border:2px solid rgba(244,196,48,.4);">
               <div style="font-size:7px;color:#f4c430;font-weight:900;letter-spacing:1px;">ROTINA DO TREZOITÃO</div>
@@ -3016,6 +3010,22 @@
 
   <div class="rb-dash__grid">
 
+    <!-- ============ ESQUERDA: POLYMARKET ============ -->
+    <div class="rb-card rb-poly">
+      <div class="rb-card__head">
+        <svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+          <rect width="32" height="32" rx="8" fill="#0d1117"/>
+          <path d="M6 22L13 10l5 8 3-4 5 8" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="26" cy="22" r="2" fill="#39ff14"/>
+        </svg>
+        <span>POLYMARKET</span>
+        <span class="rb-card__sub">PREVISÕES BTC EM TEMPO REAL</span>
+        <span class="rb-poly-live-dot" title="Dados ao vivo"></span>
+      </div>
+      <div id="rb-poly-list" class="rb-poly__list">
+        <div class="rb-loading">Carregando mercados…</div>
+      </div>
+    </div>
 
     <!-- ============ L402: MONETIZAÇÃO DE AGENTES IA ============ -->
     <div class="rb-card" id="l402-panel" style="padding:0;overflow:hidden;grid-column:1/-1;">
@@ -3065,6 +3075,7 @@
             <div class="l402-ep-calls">42</div>
           </div>
           <div class="l402-ep-row">
+            <div class="l402-ep-path">/api/polymarket</div>
             <div class="l402-ep-desc">Previsões e Odds ao vivo</div>
             <div class="l402-ep-price">5 sats</div>
             <div class="l402-ep-calls">18</div>
@@ -3079,176 +3090,56 @@
       </div>
     </div>
 
-      <!-- ══════════════════════════════════════════════════════════════════
-           PAINEL DO CAMPEONATO DE IA — Rádio Bitcoin
-           Bloco único: cole onde estava o painel antigo. Não precisa de
-           arquivo de CSS separado nem de imagem.
+      <!-- TESTE DE INTELIGÊNCIA — IAs -->
+      <div class="panel" style="border-color:rgba(168,85,247,0.35);padding:10px 12px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+          <div style="font-size:15px;">🧠</div>
+          <div style="font-family:ui-monospace,Menlo,monospace;font-size:10px;font-weight:900;color:#d8b4fe;letter-spacing:2px;text-transform:uppercase;">TESTE DE INTELIGÊNCIA</div>
+        </div>
+        <div style="font-size:8px;color:#6b7280;margin-bottom:10px;line-height:1.4;">As IAs mais poderosas do mundo. Teste e vote no Campeonato:</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
 
-           Todo seletor começa com "rbc-" e nada toca em body/html, então
-           não conflita com o resto do site nem muda a fonte da página.
-           ══════════════════════════════════════════════════════════════════ -->
-      <section class="rbc">
-        <a class="rbc-moldura" href="/campeonato-ia.html">
-          <div class="rbc-vidro">
+          <!-- MANUS -->
+          <a href="https://manus.im/invitation/ARFHDOBL051OH5H?utm_source=invitation&utm_medium=social&utm_campaign=copy_link" target="_blank" rel="noopener"
+             style="display:flex;flex-direction:column;align-items:center;gap:5px;background:#0d1117;border:1px solid rgba(168,85,247,0.25);border-radius:8px;padding:9px 6px;text-decoration:none;transition:border-color .2s;"
+             onmouseover="this.style.borderColor='rgba(168,85,247,0.6)'" onmouseout="this.style.borderColor='rgba(168,85,247,0.25)'">
+            <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#a855f7);display:flex;align-items:center;justify-content:center;font-size:16px;">🤖</div>
+            <div style="font-size:8px;font-weight:900;color:#d8b4fe;letter-spacing:1px;font-family:ui-monospace,Menlo,monospace;">MANUS</div>
+            <div style="font-size:7px;color:#4b5563;text-align:center;">IA agente<br>autônoma</div>
+          </a>
 
-            <span class="rbc-selo">⚔️ Temporada 1 · 2026</span>
-            <h2 class="rbc-titulo">Campeonato de IA</h2>
-            <p class="rbc-sub">
-              Quatro inteligências artificiais na arena. Cada rodada, um desafio
-              Bitcoin. <strong>Quem decide é você.</strong>
-            </p>
+          <!-- CLAUDE -->
+          <a href="https://claude.ai" target="_blank" rel="noopener"
+             style="display:flex;flex-direction:column;align-items:center;gap:5px;background:#0d1117;border:1px solid rgba(204,120,92,0.25);border-radius:8px;padding:9px 6px;text-decoration:none;transition:border-color .2s;"
+             onmouseover="this.style.borderColor='rgba(204,120,92,0.6)'" onmouseout="this.style.borderColor='rgba(204,120,92,0.25)'">
+            <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#cc785c,#e8956d);display:flex;align-items:center;justify-content:center;font-size:16px;">✦</div>
+            <div style="font-size:8px;font-weight:900;color:#e8956d;letter-spacing:1px;font-family:ui-monospace,Menlo,monospace;">CLAUDE</div>
+            <div style="font-size:7px;color:#4b5563;text-align:center;">Anthropic<br>mais honesta</div>
+          </a>
 
-            <ul class="rbc-grade">
-              <li class="rbc-ia" style="--c:#cc785c">
-                <span class="rbc-casa">Anthropic</span>
-                <span class="rbc-nome">Claude</span>
-              </li>
-              <li class="rbc-ia" style="--c:#4285F4">
-                <span class="rbc-casa">Google</span>
-                <span class="rbc-nome">Gemini</span>
-              </li>
-              <li class="rbc-ia" style="--c:#10a37f">
-                <span class="rbc-casa">OpenAI</span>
-                <span class="rbc-nome">GPT-4o</span>
-              </li>
-              <li class="rbc-ia" style="--c:#a855f7">
-                <span class="rbc-casa">agente autônomo</span>
-                <span class="rbc-nome">Manus</span>
-              </li>
-            </ul>
+          <!-- GEMINI -->
+          <a href="https://gemini.google.com" target="_blank" rel="noopener"
+             style="display:flex;flex-direction:column;align-items:center;gap:5px;background:#0d1117;border:1px solid rgba(66,133,244,0.25);border-radius:8px;padding:9px 6px;text-decoration:none;transition:border-color .2s;"
+             onmouseover="this.style.borderColor='rgba(66,133,244,0.6)'" onmouseout="this.style.borderColor='rgba(66,133,244,0.25)'">
+            <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#4285F4,#34a853,#fbbc05,#ea4335);display:flex;align-items:center;justify-content:center;font-size:16px;">✦</div>
+            <div style="font-size:8px;font-weight:900;color:#60a5fa;letter-spacing:1px;font-family:ui-monospace,Menlo,monospace;">GEMINI</div>
+            <div style="font-size:7px;color:#4b5563;text-align:center;">Google AI<br>multimodal</div>
+          </a>
 
-            <div class="rbc-placar" id="rbcPlacar" hidden>
-              <span class="rbc-placar-rotulo">Placar geral</span>
-              <div class="rbc-barras" id="rbcBarras"></div>
-              <span class="rbc-placar-total" id="rbcTotal"></span>
-            </div>
+          <!-- GROK -->
+          <a href="https://grok.x.ai" target="_blank" rel="noopener"
+             style="display:flex;flex-direction:column;align-items:center;gap:5px;background:#0d1117;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px 6px;text-decoration:none;transition:border-color .2s;"
+             onmouseover="this.style.borderColor='rgba(255,255,255,0.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
+            <div style="width:32px;height:32px;border-radius:8px;background:#000;border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#fff;font-family:ui-monospace,Menlo,monospace;">𝕏</div>
+            <div style="font-size:8px;font-weight:900;color:#e5e7eb;letter-spacing:1px;font-family:ui-monospace,Menlo,monospace;">GROK</div>
+            <div style="font-size:7px;color:#4b5563;text-align:center;">xAI · Musk<br>sem censura</div>
+          </a>
 
-            <div class="rbc-botao">
-              <span class="rbc-pulso"></span>
-              Rodada 1 ao vivo — votar agora
-              <span class="rbc-seta">→</span>
-            </div>
-
-          </div>
-        </a>
-      </section>
-
-      <style>
-      /* --- moldura dourada, no espírito do painel que você gostou --- */
-      /* ocupa a largura do container onde for colado, como os outros paineis */
-      .rbc{width:100%;margin:0 0 10px;padding:0}
-      .rbc-moldura{
-        display:block;text-decoration:none;padding:4px;border-radius:20px;
-        background:linear-gradient(135deg,#f2a900 0%,#8a6320 28%,#f7d488 50%,#8a6320 72%,#f2a900 100%);
-        box-shadow:0 0 34px rgba(242,169,0,.22), 0 20px 46px rgba(0,0,0,.5);
-        transition:box-shadow .3s, transform .3s;
-      }
-      .rbc-moldura:hover{transform:translateY(-3px);
-        box-shadow:0 0 46px rgba(242,169,0,.38), 0 26px 56px rgba(0,0,0,.6)}
-
-      /* --- vidro sobre mármore escuro --- */
-      .rbc-vidro{
-        border-radius:17px;padding:30px 26px 24px;text-align:center;
-        background:
-          radial-gradient(130% 100% at 50% -10%, rgba(242,169,0,.13) 0%, transparent 58%),
-          repeating-linear-gradient(48deg, rgba(255,255,255,.014) 0 3px, transparent 3px 9px),
-          linear-gradient(158deg,#141a24 0%,#0a0d12 100%);
-        border:1px solid rgba(242,169,0,.16);
-      }
-
-      .rbc-selo{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.18em;
-        text-transform:uppercase;color:#f2a900;border:1px solid rgba(242,169,0,.4);
-        border-radius:999px;padding:5px 13px}
-      .rbc-titulo{margin:15px 0 8px;font-size:clamp(27px,6.4vw,40px);line-height:1.03;
-        font-weight:900;letter-spacing:-.022em;
-        background:linear-gradient(180deg,#fff5dd 0%,#f2a900 100%);
-        -webkit-background-clip:text;background-clip:text;color:transparent}
-      .rbc-sub{margin:0 auto 22px;max-width:52ch;font-size:14.5px;line-height:1.55;color:#98a2b0}
-      .rbc-sub strong{color:#d5dde6}
-
-      .rbc-grade{list-style:none;margin:0 auto 22px;padding:0;max-width:820px;
-        display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-      .rbc-ia{position:relative;padding:12px 14px 13px 17px;border-radius:13px;text-align:left;
-        background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);overflow:hidden}
-      .rbc-ia::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
-        background:var(--c);box-shadow:0 0 12px var(--c)}
-      .rbc-casa{display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
-        color:#6b7683;font-style:italic}
-      .rbc-nome{display:block;margin-top:3px;font-size:17px;font-weight:800;
-        color:var(--c);letter-spacing:-.012em}
-
-      .rbc-placar{margin:0 auto 20px;max-width:520px;padding:15px 16px 13px;border-radius:14px;text-align:left;
-        background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.06)}
-      .rbc-placar-rotulo{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-        color:#f2a900;font-weight:800;margin-bottom:11px}
-      .rbc-barras{display:grid;gap:8px}
-      .rbc-barra{display:grid;grid-template-columns:62px 1fr 34px;align-items:center;gap:9px}
-      .rbc-barra-nome{font-size:12px;font-weight:700;color:var(--c)}
-      .rbc-barra-trilho{height:7px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
-      .rbc-barra-preenche{height:100%;border-radius:99px;background:var(--c);
-        box-shadow:0 0 10px var(--c);width:0;transition:width .8s cubic-bezier(.2,.7,.3,1)}
-      .rbc-barra-num{font-size:12px;font-weight:700;color:#8b95a3;text-align:right;
-        font-variant-numeric:tabular-nums}
-      .rbc-placar-total{display:block;margin-top:11px;font-size:11px;color:#6b7683}
-
-      .rbc-botao{display:inline-flex;align-items:center;justify-content:center;gap:9px;
-        padding:13px 26px;border-radius:999px;font-size:14.5px;font-weight:800;color:#120d02;
-        background:linear-gradient(135deg,#f7d488 0%,#f2a900 55%,#c98c00 100%);
-        box-shadow:0 6px 18px rgba(242,169,0,.3)}
-      .rbc-moldura:hover .rbc-botao{box-shadow:0 9px 24px rgba(242,169,0,.45)}
-      .rbc-seta{font-size:16px}
-      .rbc-pulso{width:8px;height:8px;border-radius:50%;background:#0f7a2e;
-        box-shadow:0 0 0 0 rgba(15,122,46,.65);animation:rbcPulso 2s infinite}
-      @keyframes rbcPulso{70%{box-shadow:0 0 0 9px rgba(15,122,46,0)}
-        100%{box-shadow:0 0 0 0 rgba(15,122,46,0)}}
-
-      @media (max-width:760px){.rbc-grade{grid-template-columns:repeat(2,1fr)}}
-      @media (max-width:430px){.rbc-grade{grid-template-columns:1fr}
-        .rbc-botao{width:100%;padding:13px 16px;font-size:13.5px}}
-      @media (prefers-reduced-motion:reduce){
-        .rbc-pulso{animation:none}.rbc-moldura{transition:none}}
-      </style>
-
-      <script>
-      (function () {
-        // Placar de verdade, somado entre todos os visitantes.
-        // Antes cada navegador guardava o proprio numero no localStorage e a
-        // pagina ja abria com valores inventados — ninguem tinha votado neles.
-        var API = "https://stream2.radiobitcoin.org/api/votos";
-        var CORES = { claude: "#cc785c", gemini: "#4285F4", gpt: "#10a37f", manus: "#a855f7" };
-        var NOMES = { claude: "Claude", gemini: "Gemini", gpt: "GPT-4o", manus: "Manus" };
-
-        function desenhar(dados) {
-          var geral = dados.geral || {};
-          var total = dados.total_geral || 0;
-          if (!total) return;                     // sem voto ainda: nao mostra placar vazio
-
-          var ordem = Object.keys(geral).sort(function (a, b) { return geral[b] - geral[a]; });
-          var maior = geral[ordem[0]] || 1;
-
-          document.getElementById("rbcBarras").innerHTML = ordem.map(function (id) {
-            var n = geral[id] || 0;
-            var pct = Math.round((n / maior) * 100);
-            return '<div class="rbc-barra" style="--c:' + CORES[id] + '">' +
-                   '<span class="rbc-barra-nome">' + NOMES[id] + "</span>" +
-                   '<span class="rbc-barra-trilho"><span class="rbc-barra-preenche" style="width:' +
-                   pct + '%"></span></span>' +
-                   '<span class="rbc-barra-num">' + n + "</span></div>";
-          }).join("");
-
-          document.getElementById("rbcTotal").textContent =
-            total + (total === 1 ? " voto computado" : " votos computados");
-          document.getElementById("rbcPlacar").hidden = false;
-        }
-
-        // Se a API estiver fora do ar, o painel simplesmente nao mostra placar.
-        // Melhor faltar o numero do que mostrar numero errado.
-        fetch(API, { cache: "no-store" })
-          .then(function (r) { return r.ok ? r.json() : null; })
-          .then(function (d) { if (d) desenhar(d); })
-          .catch(function () {});
-      })();
-      </script>
+        </div>
+        <div style="margin-top:8px;padding:6px 8px;background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.15);border-radius:6px;text-align:center;">
+          <a href="/campeonato-ia.html" style="font-size:8px;color:#a855f7;text-decoration:none;font-family:ui-monospace,Menlo,monospace;letter-spacing:1px;">⚔️ VER CAMPEONATO DE IA →</a>
+        </div>
+      </div>
 
   </div>
 </section>
@@ -4933,6 +4824,7 @@
           <button class="vid-tab" onclick="switchVidCat('ufc',this)">🥊 UFC</button>
           <button class="vid-tab" onclick="switchVidCat('surf',this)">🏄 SURF</button>
           <button class="vid-tab" onclick="switchVidCat('btc',this)">₿ BTC NEWS</button>
+          <button class="vid-tab" onclick="switchVidCat('poly',this)">🎯 POLYMARKET</button>
           <button class="vid-tab" onclick="switchVidCat('tut',this)">📚 TUTORIAIS</button>
         </div>
         <div class="vid-frame-wrap">
@@ -5133,6 +5025,7 @@ const VID_CATS = {
   },
   poly: {
     src: 'https://www.youtube.com/embed/8tljDDGmoM8?rel=0&modestbranding=1',
+    desc: 'Polymarket — mercados de previsão'
   },
   trez: {
     // Playlist de uploads do canal (UU…) — sempre abre no vídeo mais recente
@@ -6089,6 +5982,31 @@ setInterval(fetchGlobal, 300000); // CoinGecko — só de 5 em 5 min para evitar
 setInterval(fetchFear, 300000);
 setInterval(fetchBlock, 60000);
 
+// Polymarket 5min
+async function fetchPolymarket() {
+  try {
+    const now = Math.floor(Date.now()/1000);
+    const slot = now - (now % 300);
+    const slug = `btc-updown-5m-${slot}`;
+    const r = await fetch(`https://gamma-api.polymarket.com/markets?slug=${slug}`);
+    const d = r.ok ? await r.json() : null;
+    if (d && d[0] && d[0].tokens) {
+      const tokens = d[0].tokens;
+      const up = tokens.find(t => t.outcome?.toUpperCase() === 'UP');
+      const dn = tokens.find(t => t.outcome?.toUpperCase() === 'DOWN');
+      if (up && dn) {
+        const upP = Math.round(parseFloat(up.price) * 100);
+        const dnP = Math.round(parseFloat(dn.price) * 100);
+        document.getElementById('polyUpBar').style.width = upP + '%';
+        document.getElementById('polyDnBar').style.width = dnP + '%';
+        document.getElementById('polyUpPct').textContent = upP + '%';
+        document.getElementById('polyDnPct').textContent = dnP + '%';
+      }
+    }
+  } catch(e) {}
+}
+fetchPolymarket();
+setInterval(fetchPolymarket, 20000);
 
 // ══════════════════════════════════════════════
 // TRADINGVIEW CHART

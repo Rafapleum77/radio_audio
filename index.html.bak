@@ -417,7 +417,7 @@
   <div class="tpr__wrap" id="tprWrap">
 
     <!-- SLIDE 0 — Novo por aqui -->
-    <div class="tpr__slide" id="tprS0">
+    <div class="tpr__slide tpr-on" id="tprS0">
       <div style="background:linear-gradient(135deg,#06080f,#0d1525 50%,#06080f);border:1px solid rgba(0,212,255,.22);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
         <div style="font-size:28px;flex-shrink:0">👋</div>
         <div style="flex:1;min-width:180px">
@@ -433,7 +433,7 @@
     </div>
 
     <!-- SLIDE 1 — Votação: Quem é Satoshi? -->
-    <div class="tpr__slide tpr-on" id="tprS1">
+    <div class="tpr__slide" id="tprS1">
       <div style="border:1px solid rgba(242,169,0,0.6);border-radius:14px;padding:0;overflow:hidden;box-shadow:0 0 20px rgba(242,169,0,0.2);background:#06080f">
         <img loading="lazy" decoding="async" src="banner_satoshi_vote.jpg" alt="Quem é Satoshi Nakamoto?" style="width:100%;display:block;border-radius:6px 6px 0 0;max-height:110px;object-fit:cover;object-position:center 30%">
         <div style="background:linear-gradient(90deg,#f2a900,#ffcc00,#f2a900);padding:7px 14px;text-align:center;animation:satoshi-pulse 1.8s ease-in-out infinite">
@@ -466,7 +466,7 @@
 (function(){
   var slides=Array.from(document.querySelectorAll('.tpr__slide'));
   var dots=Array.from(document.querySelectorAll('.tpr__dot'));
-  var cur=1,n=slides.length,timer;
+  var cur=0,n=slides.length,timer;
   function show(i){
     slides[cur].classList.remove('tpr-on');
     dots[cur].classList.remove('tpr-on');
@@ -474,37 +474,14 @@
     slides[cur].classList.add('tpr-on');
     dots[cur].classList.add('tpr-on');
   }
-  // Sem rodizio automatico. Os dois blocos tem alturas muito diferentes — o
-  // da votacao tem banner, placar e 8 candidatos; o outro e um cartao baixo.
-  // Trocar sozinho a cada 8s fazia a pagina inteira pular sob o dedo de quem
-  // estava navegando, e atropelava o player. Agora so troca se a pessoa clicar.
-  function go(){}
-  function reset(){}
+  function go(){timer=setInterval(function(){show(cur+1);},8000);}
+  function reset(){clearInterval(timer);go();}
   dots.forEach(function(d){d.addEventListener('click',function(){show(+d.dataset.i);reset();});});
   document.getElementById('tprPrev').addEventListener('click',function(){show(cur-1);reset();});
   document.getElementById('tprNext').addEventListener('click',function(){show(cur+1);reset();});
   go();
 })();
 </script>
-
-<style id="tpr-fixo">
-/* Votacao do Satoshi: painel fixo, fotos menores.
-   O banner era 1080x618 em largura total e as fotos dos candidatos eram
-   quadradas em 2 colunas — 8 candidatos viravam 4 fileiras altas. Somado ao
-   rodizio de 8s, a pagina pulava e cobria o player. */
-#tprS1 img[alt*="Satoshi"]{
-  max-height:150px;
-  object-fit:cover;
-  aspect-ratio:1080/618;   /* reserva o espaco antes de carregar */
-}
-.satoshi-vote-grid{grid-template-columns:repeat(4,1fr);gap:6px}
-@media(max-width:620px){.satoshi-vote-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:380px){.satoshi-vote-grid{grid-template-columns:repeat(2,1fr)}}
-.sv-photo{aspect-ratio:4/3;max-height:92px}
-.sv-body{padding:5px 6px 6px}
-/* a rolagem nao se ancora nesta secao quando algo muda de altura */
-.tpr,.tpr__wrap,.tpr__slide{overflow-anchor:none}
-</style>
 <!-- ===== FIM TOP ROTATOR ===== -->
 
   <section class="hr-wrap" id="topo">
@@ -722,18 +699,27 @@
   <div class="trz-banner">
     <div class="trz-banner__top">
       <span class="trz-banner__badge">&#128250; Trezoitão News · Em Alta</span>
-      <span class="trz-banner__badge2" id="trz-dest-badge">&#128250; Mais recente</span>
+      <span class="trz-banner__badge2">&#128269; Investigação · Fauci</span>
       <span class="trz-banner__live">&#9679; Em destaque</span>
     </div>
     <div class="trz-banner__inner">
       <div class="trz-banner__video">
-        <iframe id="trz-dest-iframe" src="https://www.youtube.com/embed/LYQxgnT-hgw?rel=0&modestbranding=1&color=white" allowfullscreen loading="lazy" title="Anthony Fauci: as anotações que reacenderam a polêmica | Rotina do Trezoitão"></iframe>
+        <iframe src="https://www.youtube.com/embed/LYQxgnT-hgw?rel=0&modestbranding=1&color=white" allowfullscreen loading="lazy" title="Anthony Fauci: as anotações que reacenderam a polêmica | Rotina do Trezoitão"></iframe>
       </div>
       <div class="trz-banner__content">
         <div class="trz-banner__tag">&#128293; Trezoitão News</div>
-        <div class="trz-banner__title" id="trz-dest-titulo"><span>Rotina do Trezoit&atilde;o</span><br>o v&iacute;deo <span>mais recente</span></div>
-        <div class="trz-banner__desc" id="trz-dest-desc">Canal parceiro da R&aacute;dio Bitcoin. Aqui entra sempre a &uacute;ltima publica&ccedil;&atilde;o do canal.<br><br><b>&#127897;&#65039; R&aacute;dio Bitcoin &eacute; parceira oficial dos eventos Miss&atilde;o Bitcoin.</b></div>
-        <a class="trz-banner__cta" id="trz-dest-cta" href="https://www.youtube.com/watch?v=LYQxgnT-hgw" target="_blank" rel="noopener">
+        <div class="trz-banner__title">
+          <span>Anthony Fauci:</span><br>
+          as anotações que <span>reacenderam a polêmica</span>
+        </div>
+        <div class="trz-banner__desc">
+          O <b>Dr. Pandemonium</b> está de volta às manchetes.<br>
+          <b>Trezoitão</b> analisa os documentos que reabriram<br>
+          o debate sobre a origem da pandemia.
+          <br><br>
+          <b>🎙️ Rádio Bitcoin é parceira oficial dos eventos Missão Bitcoin.</b>
+        </div>
+        <a class="trz-banner__cta" href="https://www.youtube.com/watch?v=LYQxgnT-hgw" target="_blank" rel="noopener">
           &#9654; ASSISTIR AGORA &raquo;
         </a>
         <div class="trz-banner__meta">Canal: Rotina do Trezoitão &middot; 134k inscritos</div>
@@ -741,37 +727,6 @@
     </div>
   </div>
   <!-- ===== FIM BANNER TREZOITÃO ===== -->
-<script>
-/* Destaque do Trezoitao: sempre o video mais recente.
-   Antes o banner tinha o ID do video, o titulo e a descricao chumbados no HTML
-   — ficou meses no ar mostrando um video antigo do Fauci enquanto o canal
-   publicava toda semana. O trezoitao.json ja e atualizado diariamente pelo
-   robo que alimenta a grade; o destaque so nao o usava.
-   Se o JSON falhar, o HTML original permanece — nunca fica vazio. */
-(function trzBannerAtualiza(){
-  function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
-  fetch('./trezoitao.json?t=' + Date.now(), {cache:'no-store'})
-    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-    .then(function(j){
-      var v = (j.videos || [])[0];
-      if(!v || !v.id) return;
-      var f = document.getElementById('trz-dest-iframe');
-      if(f) f.src = 'https://www.youtube.com/embed/' + v.id + '?rel=0&modestbranding=1&color=white';
-      var a = document.getElementById('trz-dest-cta');
-      if(a) a.href = 'https://www.youtube.com/watch?v=' + v.id;
-      var tt = document.getElementById('trz-dest-titulo');
-      if(tt && v.title) tt.innerHTML = esc(v.title);
-      var b = document.getElementById('trz-dest-badge');
-      if(b && v.date){
-        var dias = Math.floor((Date.now() - new Date(v.published || v.date)) / 86400000);
-        b.innerHTML = dias <= 0 ? '\u{1F4FA} Publicado hoje'
-                    : (dias === 1 ? '\u{1F4FA} Ontem' : '\u{1F4FA} H\u00e1 ' + dias + ' dias');
-      }
-    })
-    .catch(function(){ /* mantem o que esta no HTML */ });
-})();
-</script>
-
 
 <!-- ===== BANNER MISSÃO BITCOIN — CIUDAD DEL ESTE 19-20/SET (movido pro topo) ===== -->
   <style>
@@ -2915,7 +2870,7 @@
               <img loading="lazy" decoding="async" src="logo_missao_bitcoin.webp" alt="Missao Bitcoin" style="height:38px;width:100px;object-fit:contain;">
               <div style="font-size:7px;color:#f4c430;font-weight:900;letter-spacing:1px;">EDUCAÇÃO BITCOIN</div>
             </a>
-            <a href="https://www.youtube.com/@rotinadotrezoitao" target="_blank" rel="noopener" style="display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;padding:12px 18px;background:rgba(244,196,48,.04);border:2px solid rgba(244,196,48,.45);border-radius:10px;box-shadow:0 0 20px rgba(244,196,48,.15);position:relative;transition:.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+            <a href="https://www.youtube.com/@rotinodotrezoitao" target="_blank" rel="noopener" style="display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;padding:12px 18px;background:rgba(244,196,48,.04);border:2px solid rgba(244,196,48,.45);border-radius:10px;box-shadow:0 0 20px rgba(244,196,48,.15);position:relative;transition:.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
               <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#f4c430;color:#000;font-size:7px;font-weight:900;letter-spacing:1.5px;padding:2px 9px;border-radius:99px;white-space:nowrap;">★ GOLD</div>
               <img loading="lazy" decoding="async" src="trz_foto_real.jpg" alt="Rotina do Trezoitão" style="height:44px;width:44px;object-fit:cover;border-radius:50%;border:2px solid rgba(244,196,48,.4);">
               <div style="font-size:7px;color:#f4c430;font-weight:900;letter-spacing:1px;">ROTINA DO TREZOITÃO</div>
