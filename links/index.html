@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rádio Bitcoin · onde ouvir</title>
+<meta name="description" content="Todos os endereços da Rádio Bitcoin: app, TuneIn, Alexa, Twitch e redes. 24 horas por dia.">
+<link rel="canonical" href="https://radiobitcoin.org/links/">
+<meta property="og:title" content="Rádio Bitcoin · onde ouvir">
+<meta property="og:description" content="Música, notícias, economia, Bitcoin e mercados. 24 horas por dia, em qualquer aparelho.">
+<meta property="og:url" content="https://radiobitcoin.org/links/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap">
+<style>
+  :root{
+    --fundo:#0a0a0b;
+    --painel:#131316;
+    --painel2:#1a1a1f;
+    --linha:#26262c;
+    --txt:#ece7de;
+    --dim:#8b8578;
+    --ouro:#f2a900;
+    --sinal:#00ff88;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--fundo);color:var(--txt);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    padding:28px 18px 56px;
+  }
+  .tudo{max-width:520px;margin:0 auto}
+
+  /* ---- topo: frente de um receptor ---- */
+  header{
+    border:1px solid var(--linha);border-radius:14px;background:var(--painel);
+    padding:26px 22px;text-align:center;margin-bottom:26px;
+  }
+  .marca{
+    font-family:Orbitron,"Helvetica Neue",sans-serif;font-weight:900;
+    font-size:clamp(23px,7vw,31px);letter-spacing:.02em;line-height:1.1;
+    margin:0;color:var(--ouro);text-transform:uppercase;
+  }
+  .tagline{color:var(--dim);font-size:14.5px;margin:9px 0 0}
+  .noar{
+    display:inline-flex;align-items:center;gap:8px;margin-top:16px;
+    font-family:"Share Tech Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--sinal);
+    border:1px solid rgba(0,255,136,.35);border-radius:999px;padding:5px 13px;
+  }
+  .ponto{width:7px;height:7px;border-radius:50%;background:var(--sinal);
+    animation:pisca 2.4s ease-in-out infinite}
+  @keyframes pisca{0%,100%{opacity:1}50%{opacity:.35}}
+  @media (prefers-reduced-motion:reduce){.ponto{animation:none}}
+
+  /* ---- bancadas de botões ---- */
+  h2{
+    font-family:"Share Tech Mono",monospace;font-size:11.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--dim);margin:0 0 11px 3px;font-weight:400;
+  }
+  section{margin-bottom:26px}
+  .banco{display:flex;flex-direction:column;gap:9px}
+  a.plate{
+    display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--txt);
+    background:var(--painel);border:1px solid var(--linha);border-radius:11px;
+    padding:15px 17px;transition:border-color .16s,background .16s,transform .16s;
+  }
+  a.plate:hover,a.plate:focus-visible{
+    border-color:var(--ouro);background:var(--painel2);transform:translateY(-1px);
+  }
+  a.plate:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
+  .marcador{
+    flex:none;width:34px;height:34px;border-radius:8px;display:grid;place-items:center;
+    background:var(--painel2);border:1px solid var(--linha);
+    font-family:"Share Tech Mono",monospace;font-size:13px;color:var(--ouro);
+  }
+  .rotulos{min-width:0;flex:1}
+  .nome{display:block;font-weight:600;font-size:16px;letter-spacing:-.005em}
+  .nota{display:block;color:var(--dim);font-size:13.5px;margin-top:1px}
+  .seta{flex:none;color:var(--dim);font-size:18px;line-height:1}
+  a.plate:hover .seta{color:var(--ouro)}
+  .destaque{border-color:rgba(242,169,0,.4)}
+  .destaque .marcador{background:rgba(242,169,0,.1);border-color:rgba(242,169,0,.35)}
+
+  /* ---- caixa do endereço bruto ---- */
+  .cru{
+    background:var(--painel);border:1px solid var(--linha);border-radius:11px;
+    padding:15px 17px;
+  }
+  .cru p{margin:0 0 10px;color:var(--dim);font-size:13.5px}
+  .campo{display:flex;gap:8px;align-items:stretch}
+  .campo code{
+    flex:1;min-width:0;background:#050506;border:1px solid var(--linha);border-radius:7px;
+    padding:10px 12px;font-family:"Share Tech Mono",monospace;font-size:12.5px;
+    color:var(--ouro);overflow-x:auto;white-space:nowrap;
+  }
+  .campo button{
+    flex:none;border:1px solid var(--linha);background:var(--painel2);color:var(--txt);
+    border-radius:7px;padding:0 15px;font-size:13px;cursor:pointer;
+    font-family:"Share Tech Mono",monospace;letter-spacing:.06em;
+  }
+  .campo button:hover{border-color:var(--ouro);color:var(--ouro)}
+  .campo button:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
+
+  footer{
+    text-align:center;color:var(--dim);font-size:13px;margin-top:34px;
+    padding-top:20px;border-top:1px solid var(--linha);
+  }
+  footer a{color:var(--ouro);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="tudo">
+
+  <header>
+    <h1 class="marca">Rádio Bitcoin</h1>
+    <p class="tagline">Música, notícias, economia, Bitcoin, IA, mercados e commodities.<br>24 horas por dia.</p>
+    <span class="noar"><span class="ponto"></span>no ar agora</span>
+  </header>
+
+  <section>
+    <h2>Ouvir</h2>
+    <div class="banco">
+
+      <a class="plate destaque" href="https://apps.apple.com/br/app/radio-bitcoin/id6796562495" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">iOS</span>
+        <span class="rotulos">
+          <span class="nome">App para iPhone e iPad</span>
+          <span class="nota">Grátis na App Store</span>
+        </span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+
+      <a class="plate" href="https://radiobitcoin.org/" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">▶</span>
+        <span class="rotulos">
+          <span class="nome">Tocar direto no navegador</span>
+          <span class="nota">Sem instalar nada, no computador ou no celular</span>
+        </span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+
+      <a class="plate" href="https://tunein.com/radio/Radio-Bitcoin-s358551/" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">TI</span>
+        <span class="rotulos">
+          <span class="nome">TuneIn</span>
+          <span class="nota">No app do TuneIn, no carro e na TV</span>
+        </span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+
+      <a class="plate" href="https://www.twitch.tv/radiobitcoin" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">TV</span>
+        <span class="rotulos">
+          <span class="nome">Twitch</span>
+          <span class="nota">Transmissão ao vivo com vídeo, 24/7</span>
+        </span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Na caixinha de som</h2>
+    <div class="cru">
+      <p><strong style="color:var(--txt)">Alexa:</strong> diga <em>“Alexa, tocar Radio Bitcoin no TuneIn”</em>. Funciona em qualquer Echo, sem instalar skill.</p>
+      <p style="margin-bottom:0"><strong style="color:var(--txt)">Sonos, VLC, Winamp, rádio de carro:</strong> cole o endereço abaixo em “adicionar estação por URL”.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Endereço do sinal</h2>
+    <div class="cru">
+      <div class="campo">
+        <code id="url">https://stream.radiobitcoin.org/radio</code>
+        <button id="copiar" type="button">copiar</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Seguir</h2>
+    <div class="banco">
+
+      <a class="plate" href="https://www.instagram.com/radiobitcoinbr" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">IG</span>
+        <span class="rotulos"><span class="nome">Instagram</span><span class="nota">@radiobitcoinbr</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+
+      <a class="plate" href="https://x.com/bitadict" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">X</span>
+        <span class="rotulos"><span class="nome">X</span><span class="nota">@bitadict</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+
+      <a class="plate" href="https://www.youtube.com/channel/UCgWTd-3UWDxLIgghsp8xD4Q" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">YT</span>
+        <span class="rotulos"><span class="nome">YouTube</span><span class="nota">Programas, clipes e transmissão</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+
+      <a class="plate" href="https://njump.me/npub1paqf0rwntldy09svmk3rgk7ppguuemxxcqpyph03pfsxwespg6jsz83k9n" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">N</span>
+        <span class="rotulos"><span class="nome">Nostr</span><span class="nota">Sem plataforma no meio</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+
+      <a class="plate" href="https://open.spotify.com/playlist/4LRkYPbx8fkKRGcDJweLeI" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">SP</span>
+        <span class="rotulos"><span class="nome">Spotify</span><span class="nota">As músicas autorais da rádio</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <a href="https://radiobitcoin.org/">radiobitcoin.org</a>
+  </footer>
+
+</div>
+<script>
+(function () {
+  var b = document.getElementById("copiar");
+  var u = document.getElementById("url").textContent.trim();
+  b.addEventListener("click", function () {
+    navigator.clipboard.writeText(u).then(function () {
+      b.textContent = "copiado";
+      setTimeout(function () { b.textContent = "copiar"; }, 1800);
+    }).catch(function () { b.textContent = "selecione e copie"; });
+  });
+})();
+</script>
+</body>
+</html>
