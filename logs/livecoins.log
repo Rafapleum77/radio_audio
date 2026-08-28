@@ -1129,3 +1129,97 @@ See git-pull(1) for details.
     git pull <remote> <branch>
 
 
+[20:13] Buscando LiveCoins RSS...
+  8 artigos salvos em livecoins.json
+  Push feito.
+[21:13] Buscando LiveCoins RSS...
+  8 artigos salvos em livecoins.json
+  Push feito.
+[22:14] Buscando LiveCoins RSS...
+  8 artigos salvos em livecoins.json
+  Git: warning: fetch updated the current branch head.
+fast-forwarding your working tree from
+commit aa289345fdcb1236d96d3c7b4f3f9654533df913.
+error: Your local changes to the following files would be overwritten by merge:
+	bots_status.json
+	commodities.json
+	ticker_data.json
+Please commit your changes or stash them before you merge.
+Aborting
+fatal: Cannot fast-forward your working tree.
+After making sure that you saved anything precious from
+$ git diff aa289345fdcb1236d96d3c7b4f3f9654533df913
+output, run
+$ git reset --hard
+to recover.
+
+[00:14] Buscando LiveCoins RSS...
+  8 artigos salvos em livecoins.json
+  Git: From github.com:Rafapleum77/radio_audio
+   27e22559c..b9d537f41  main       -> origin/main
+fatal: It seems that there is already a rebase-merge directory, and
+I wonder if you are in the middle of another rebase.  If that is the
+case, please try
+	git rebase (--continue | --abort | --skip)
+If that is not the case, please
+	rm -fr ".git/rebase-merge"
+and run me again.  I am stopping in case you still have something
+valuable there.
+
+
+[01:14] Buscando LiveCoins RSS...
+  8 artigos salvos em livecoins.json
+  Git: From github.com:Rafapleum77/radio_audio
+   ae910ab7a..a73c340c0  main       -> origin/main
+fatal: It seems that there is already a rebase-merge directory, and
+I wonder if you are in the middle of another rebase.  If that is the
+case, please try
+	git rebase (--continue | --abort | --skip)
+If that is not the case, please
+	rm -fr ".git/rebase-merge"
+and run me again.  I am stopping in case you still have something
+valuable there.
+
+
+[02:14] Buscando LiveCoins RSS...
+  8 artigos salvos em livecoins.json
+  Git: From github.com:Rafapleum77/radio_audio
+   3fcc279b8..ad65a4028  main       -> origin/main
+fatal: It seems that there is already a rebase-merge directory, and
+I wonder if you are in the middle of another rebase.  If that is the
+case, please try
+	git rebase (--continue | --abort | --skip)
+If that is not the case, please
+	rm -fr ".git/rebase-merge"
+and run me again.  I am stopping in case you still have something
+valuable there.
+
+
+[03:14] Buscando LiveCoins RSS...
+  8 artigos salvos em livecoins.json
+  Git: From github.com:Rafapleum77/radio_audio
+   6851c8423..33c7ae495  main       -> origin/main
+fatal: It seems that there is already a rebase-merge directory, and
+I wonder if you are in the middle of another rebase.  If that is the
+case, please try
+	git rebase (--continue | --abort | --skip)
+If that is not the case, please
+	rm -fr ".git/rebase-merge"
+and run me again.  I am stopping in case you still have something
+valuable there.
+
+
+[04:14] Buscando LiveCoins RSS...
+  8 artigos salvos em livecoins.json
+  Git: From github.com:Rafapleum77/radio_audio
+   afa062cc0..801b62e7d  main       -> origin/main
+fatal: It seems that there is already a rebase-merge directory, and
+I wonder if you are in the middle of another rebase.  If that is the
+case, please try
+	git rebase (--continue | --abort | --skip)
+If that is not the case, please
+	rm -fr ".git/rebase-merge"
+and run me again.  I am stopping in case you still have something
+valuable there.
+
+
