@@ -854,12 +854,12 @@
 
 <section class="lc-section">
   <div class="lc-header">
-    <a class="lc-logo" href="https://livecoins.com.br/" target="_blank" rel="noopener"
-       title="Ir para o site da Livecoins">
-      <img src="logo_livecoins.png" alt="Livecoins" width="22" height="22">
-      LiveCoins
+    <a class="lc-logo" id="lcFonte" href="https://livecoins.com.br/" target="_blank" rel="noopener"
+       title="Ir para o site da fonte">
+      <img id="lcFonteLogo" src="logo_livecoins.png" alt="LiveCoins" width="22" height="22">
+      <span id="lcFonteNome">LiveCoins</span>
     </a>
-    <div class="lc-badge">PARCEIRO · NOTÍCIAS</div>
+    <div class="lc-badge" id="lcBadge">PARCEIRO · NOTÍCIAS</div>
     <div class="lc-updated" id="lcUpdated"></div>
   </div>
   <div class="lc-grid" id="lcGrid"><div class="lc-empty">Carregando notícias...</div></div>
@@ -879,6 +879,28 @@
       if(!grid)return;
       if(upd&&data.updated) upd.textContent='atualizado '+fmtDate(data.updated);
       var arts=data.articles||[];
+      // A fonte nem sempre e a LiveCoins: desde 31/08/2026 o site deles devolve
+      // 403 e o buscador cai pra outra automaticamente. Mostrar o logo e o selo
+      // de PARCEIRO da LiveCoins em cima de materia de concorrente representa
+      // mal os dois -- entao o cabecalho segue quem de fato respondeu, e o selo
+      // de parceiro so aparece quando a materia e mesmo deles.
+      var FONTES={
+        'LiveCoins':{url:'https://livecoins.com.br/',logo:'logo_livecoins.png',parceiro:true},
+        'CriptoFacil':{url:'https://www.criptofacil.com/'},
+        'Portal do Bitcoin':{url:'https://portaldobitcoin.uol.com.br/'},
+        'Cointelegraph BR':{url:'https://br.cointelegraph.com/'}
+      };
+      var nomeFonte=(arts[0]&&arts[0].fonte)||'LiveCoins';
+      var f=FONTES[nomeFonte]||{url:'#'};
+      var elo=document.getElementById('lcFonte'),
+          img=document.getElementById('lcFonteLogo'),
+          nom=document.getElementById('lcFonteNome'),
+          bdg=document.getElementById('lcBadge');
+      if(elo){elo.href=f.url; elo.title='Ir para o site da '+nomeFonte;}
+      if(nom){nom.textContent=nomeFonte;}
+      if(img){ if(f.logo){img.src=f.logo; img.alt=nomeFonte; img.style.display='';}
+               else {img.style.display='none';} }
+      if(bdg){bdg.textContent = f.parceiro ? 'PARCEIRO · NOTÍCIAS' : 'NOTÍCIAS';}
       if(!arts.length){grid.innerHTML='<div class="lc-empty">Sem artigos.</div>';return;}
       grid.innerHTML='';
       arts.forEach(function(a){
