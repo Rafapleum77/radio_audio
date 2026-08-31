@@ -17,3 +17,7 @@ videos/
 # Render outputs (YT/TikTok) — não servidos pelo site; inchavam o artifact do Pages e faziam o deploy falhar no syncing_files
 shorts/
 clipes_suno/
+*.bak
+*.bak-*
+estado_shorts.json
+logs/*.log

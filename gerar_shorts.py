@@ -6,6 +6,7 @@ Uso: python3.11 gerar_shorts.py
 """
 import subprocess, json, time
 from pathlib import Path
+from datetime import datetime
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 import googleapiclient.discovery
@@ -83,14 +84,17 @@ def main():
     state = json.loads(UPLOADED.read_text()) if UPLOADED.exists() else {}
     yt = get_youtube()
     print(f"Gerando {len(SHORTS)} Shorts...\n")
+    pub = pul = falt = err = 0
 
     for nome, dados in SHORTS.items():
         if nome in state:
             print(f"PULADO {nome} (já subido)")
+            pul += 1
             continue
         src = CLIPES / nome
         if not src.exists():
             print(f"FALTANDO {nome}")
+            falt += 1
             continue
 
         out = OUT / nome
@@ -100,6 +104,7 @@ def main():
             print("  convertendo para vertical...")
             if not converter_short(src, dados["titulo"], out):
                 print("  ERRO ffmpeg")
+                err += 1
                 continue
 
         print("  subindo para YouTube Shorts...")
@@ -108,12 +113,33 @@ def main():
             state[nome] = vid_id
             UPLOADED.write_text(json.dumps(state, indent=2))
             print(f"  ✓ https://youtu.be/{vid_id}")
+            pub += 1
         except Exception as e:
             print(f"  ERRO upload: {e}")
+            err += 1
 
         time.sleep(5)
 
-    print("\n✅ Shorts concluídos!")
+    # Antes daqui saia sempre "Shorts concluidos!", mesmo quando a esteira
+    # publicava ZERO -- e ela vinha publicando zero havia dias, porque todos os
+    # itens de SHORTS ja estavam no uploaded_shorts.json. Olhando o log atras de
+    # erro nao se achava nada: o sinal honesto e quanto SUBIU, nao se rodou.
+    print(f"\nRESULTADO: {pub} publicado(s) | {pul} ja no ar | {falt} faltando | {err} com erro")
+    if pub == 0 and err == 0:
+        print("NADA NOVO -- a esteira rodou sem publicar. Precisa de material novo em SHORTS.")
+    elif pub == 0:
+        print("NAO PUBLICOU NADA e houve erro -- ver acima.")
+    else:
+        print("✅ Shorts concluídos!")
+
+    # deixa o desfecho legivel por outro processo (vigia/painel), nao so por gente
+    try:
+        (Path.home() / "radio_audio/estado_shorts.json").write_text(json.dumps({
+            "quando": datetime.now().isoformat(timespec="seconds"),
+            "publicados": pub, "ja_no_ar": pul, "faltando": falt, "erros": err,
+        }, indent=2))
+    except Exception as e:
+        print(f"  (nao consegui gravar estado_shorts.json: {e})")
 
 if __name__ == "__main__":
     main()
