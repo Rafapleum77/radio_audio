@@ -933,6 +933,67 @@
   <div class="rb-lead__more">Quer o pacote completo? <a href="#produtos">Ver todos os produtos BIT ADICT →</a></div>
 </section>
 
+<!-- ===== DESTAQUE: BITCOIN PARA CRIANCAS (livros do Sucateiro Cripto) ===== -->
+<style>
+  .rbkids{max-width:1100px;margin:14px auto;padding:20px 22px;background:radial-gradient(120% 140% at 12% 0%,#2a1a08 0%,transparent 58%),linear-gradient(120deg,#181206 0%,#0d0a04 62%,#12100a 100%);border:1px solid rgba(242,169,0,.45);border-radius:14px;box-shadow:0 0 34px -12px rgba(242,169,0,.4)}
+  .rbkids__topo{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .rbkids__badge{font-family:ui-monospace,Menlo,monospace;font-size:9px;background:rgba(242,169,0,.15);color:#f2a900;border:1px solid rgba(242,169,0,.4);border-radius:6px;padding:2px 8px;letter-spacing:1px}
+  .rbkids__tag{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:2px;color:#ff7847;font-weight:800;text-transform:uppercase}
+  .rbkids__titulo{font-family:Orbitron,sans-serif;font-weight:900;font-size:clamp(21px,5vw,31px);color:#fff;line-height:1.1;margin:0 0 6px}
+  .rbkids__titulo b{color:#f2a900}
+  .rbkids__sub{font-size:14px;color:#d8c9a6;margin:0 0 4px;max-width:64ch}
+  .rbkids__autor{font-size:13px;color:#8b8578;margin:0 0 16px}
+  .rbkids__autor b{color:#f2a900;font-weight:700}
+  .rbkids__estante{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 12px}
+  .rbkids__livro{flex:0 0 108px;text-decoration:none;display:block;transition:transform .16s ease}
+  .rbkids__livro:hover,.rbkids__livro:focus-visible{transform:translateY(-4px)}
+  .rbkids__livro:focus-visible{outline:2px solid #f2a900;outline-offset:3px;border-radius:8px}
+  .rbkids__capa{width:108px;aspect-ratio:3/4;border-radius:8px;display:block;object-fit:cover;border:1px solid rgba(242,169,0,.3);background:linear-gradient(150deg,#241a0a,#0f0c06)}
+  .rbkids__nome{display:block;font-size:10.5px;line-height:1.35;color:#8b8578;margin-top:6px;text-align:center}
+  .rbkids__pe{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:6px}
+  .rbkids__cta{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,#f2a900,#ffce4d);color:#1a1206;font-weight:900;font-size:15px;letter-spacing:.4px;padding:13px 28px;border-radius:999px;text-decoration:none;box-shadow:0 8px 24px -8px rgba(242,169,0,.85);transition:transform .15s ease}
+  .rbkids__cta:hover,.rbkids__cta:focus-visible{transform:translateY(-2px)}
+  .rbkids__cta:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  .rbkids__nota{font-size:12px;color:#8b8578}
+  @media(max-width:620px){.rbkids__pe{flex-direction:column;align-items:stretch}.rbkids__cta{justify-content:center}.rbkids__nota{text-align:center}}
+  @media(prefers-reduced-motion:reduce){.rbkids__livro,.rbkids__cta{transition:none}.rbkids__livro:hover,.rbkids__cta:hover{transform:none}}
+</style>
+<section class="rbkids" id="livros-criancas">
+  <div class="rbkids__topo">
+    <span class="rbkids__tag">🧡 Destaque da semana</span>
+    <span class="rbkids__badge">PARCEIRO · LIVROS INFANTIS</span>
+  </div>
+  <h2 class="rbkids__titulo">Bitcoin para <b>Crianças</b></h2>
+  <p class="rbkids__sub">Seis livros infantis que explicam Bitcoin e dinheiro para os pequenos — histórias, bichos, heróis e até um de colorir.</p>
+  <p class="rbkids__autor">Escritos por <b>Bruno Oliveira</b>, o Sucateiro Cripto — quem transforma latas em satoshis.</p>
+  <div class="rbkids__estante">
+    <a class="rbkids__livro" href="/livros/#o-sucateiro-e-o-touro-satoshi-na-era-digital">
+      <img class="rbkids__capa" src="/livros/capas/o-sucateiro-e-o-touro-satoshi-na-era-digital.jpg" alt="Capa de O Sucateiro e o Touro Satoshi na Era Digital" loading="lazy" width="108" height="144">
+      <span class="rbkids__nome">O Sucateiro e o Touro Satoshi</span></a>
+    <a class="rbkids__livro" href="/livros/#o-mundo-m-gico-dos-satoshis">
+      <img class="rbkids__capa" src="/livros/capas/o-mundo-m-gico-dos-satoshis.jpg" alt="Capa de O Mundo Mágico dos Satoshis" loading="lazy" width="108" height="144">
+      <span class="rbkids__nome">O Mundo Mágico dos Satoshis</span></a>
+    <a class="rbkids__livro" href="/livros/#uma-aventura-dos-her-is-da-blockchain">
+      <img class="rbkids__capa" src="/livros/capas/uma-aventura-dos-her-is-da-blockchain.jpg" alt="Capa de Uma Aventura dos Heróis da Blockchain" loading="lazy" width="108" height="144">
+      <span class="rbkids__nome">Heróis da Blockchain</span></a>
+    <a class="rbkids__livro" href="/livros/#bitcoin-no-mundo-animal-floresta-do-algoritmo">
+      <img class="rbkids__capa" src="/livros/capas/bitcoin-no-mundo-animal-floresta-do-algoritmo.jpg" alt="Capa de Bitcoin no Mundo Animal" loading="lazy" width="108" height="144">
+      <span class="rbkids__nome">Bitcoin no Mundo Animal</span></a>
+    <a class="rbkids__livro" href="/livros/#a-hist-ria-do-bitcoin-em-imagens-de-colorir">
+      <img class="rbkids__capa" src="/livros/capas/a-hist-ria-do-bitcoin-em-imagens-de-colorir.jpg" alt="Capa de A História do Bitcoin em Imagens de Colorir" loading="lazy" width="108" height="144">
+      <span class="rbkids__nome">Bitcoin em Imagens de Colorir</span></a>
+    <a class="rbkids__livro" href="/livros/#mem-ria-hold">
+      <img class="rbkids__capa" src="/livros/capas/mem-ria-hold.jpg" alt="Capa de Memória Hold" loading="lazy" width="108" height="144">
+      <span class="rbkids__nome">Memória Hold</span></a>
+  </div>
+  <div class="rbkids__pe">
+    <a class="rbkids__cta" href="/livros/">📚 Abrir a estante</a>
+    <span class="rbkids__nota">Seis PDFs para baixar ou ler online. Nenhum cadastro, nenhum e-mail.</span>
+  </div>
+</section>
+<!-- ===== FIM DESTAQUE BITCOIN PARA CRIANCAS ===== -->
+
+
 <!-- ===== RADAR & CLIMA DO BRASIL AO VIVO (mapa interativo) ===== -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <style>
@@ -2402,6 +2463,10 @@
     <a class="rb-parc__card" href="https://missaobitcoin.com.br" target="_blank" rel="noopener">
       <span class="rb-parc__logo rb-parc__logo--dark"><img src="logo_missao_bitcoin.webp" alt="Missão Bitcoin"></span>
       <span class="rb-parc__name">Missão Bitcoin<span class="rb-parc__tag">Parceiro oficial de eventos</span></span>
+    </a>
+    <a class="rb-parc__card" href="https://sucateirocripto.com" target="_blank" rel="noopener">
+      <span class="rb-parc__logo rb-parc__logo--dark"><img src="logo_bitcan.webp" alt="Bitcan"></span>
+      <span class="rb-parc__name">Bitcan<span class="rb-parc__tag">App de Bitcoin</span></span>
     </a>
     <a class="rb-parc__card" href="https://livecoins.com.br" target="_blank" rel="noopener">
       <span class="rb-parc__logo rb-parc__logo--dark"><img src="logo_livecoins.png" alt="Livecoins"></span>
