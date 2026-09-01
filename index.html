@@ -272,6 +272,219 @@
 <div id="zapFlash"></div>
 <div id="app">
 
+  <!-- 31/08/2026: a radio subiu pro topo. Medido antes no celular: a
+       secao da radio comecava na TELA 3,7 — o visitante rolava quase quatro
+       telas de agenda de eventos e onboarding antes de chegar no que o site
+       e. Logo abaixo dela vem o bloco de apoio, que estava na tela 27,9. -->
+<section class="hr-wrap" id="topo">
+    <h1 class="hr-seo">Rádio Bitcoin — a voz da revolução Bitcoin, ao vivo 24 horas</h1>
+    <div class="hr-live" style="display:none"><i></i> AO VIVO · 24 HORAS</div>
+    <div style="flex:1"></div>
+    <div class="hr-sub">A voz da revolução Bitcoin · notícias, mercado e liberdade financeira</div>
+    
+    <div class="qp-hero" id="qpHero">
+      <div class="qp-grid"></div><div class="qp-radar"></div><div class="qp-glow"></div><div class="qp-glow-amber"></div>
+      <div class="qp-frame"><b class="tl"></b><b class="tr"></b><b class="bl"></b><b class="br"></b></div>
+      <div class="qp-head">
+        <div class="qp-brand"><div class="qp-logo"><span class="ring"></span><span class="ring2"></span><span class="b">&#8383;</span></div><div><div class="t">R&aacute;dio Bitcoin</div><div class="u mono">radiobitcoin.org</div></div></div>
+        <div class="qp-clock"><div class="c mono" id="qpClock">--:--:--</div><div class="d mono" id="qpDate">&mdash;</div></div>
+      </div>
+      <div class="qp-chips" id="qpChips">
+        <div class="qp-chip"><span style="color:var(--amber)">&#8383;</span> <span id="qpChipBtc">Carregando&hellip;</span></div>
+        <div class="qp-chip"><span style="color:var(--cyan)">&#9632;</span> <span id="qpChipBlk">Bloco &hellip;</span></div>
+        <div class="qp-chip" id="qpChipStatus"><span class="cd"></span> <span id="qpChipStatusTxt">Toque ▶ para ouvir</span></div>
+        <div class="qp-chip"><span style="color:var(--cyan)">&#128101;</span> <span id="qpChipLis">&mdash; ouvintes</span></div>
+      </div>
+      <div class="qp-col l">
+        <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">FREQU&Ecirc;NCIA</div><div class="v sm" style="color:var(--cyan)">STREAM</div><div class="s mono">128 kbps &middot; MP3</div></div>
+        <div class="qp-read on" style="--rc:var(--amber)"><div class="k mono">BTC/USD</div><div class="v mono" id="qpBtc" style="color:var(--amber)">Carregando&hellip;</div><div class="s mono">Binance API &middot; 30s</div></div>
+        <div class="qp-read on" style="--rc:var(--cyan)"><div class="k mono">BLOCO</div><div class="v mono" id="qpBlock" style="color:var(--cyan)">Carregando&hellip;</div><div class="s mono">mempool.space &middot; 60s</div></div>
+        <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">LAT&Ecirc;NCIA</div><div class="v sm mono" style="color:var(--cyan)">&lt; 2s</div><div class="s mono">Stream delay</div></div>
+      </div>
+      <div class="qp-col r">
+        <div class="qp-read" id="qpStatusCard"><div class="k mono">STATUS</div><div class="v sm mono" id="qpStatus" style="color:var(--qdim)">PRONTO</div><div class="s mono" id="qpStatusSub">Toque ▶ para iniciar</div></div>
+        <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">OUVINTES</div><div class="v mono" id="qpListeners" style="color:var(--qdim)">&mdash;</div><div class="s mono">Tempo real</div></div>
+        <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">MODO</div><div class="v sm mono" id="qpMode" style="color:var(--qdim)">24H</div><div class="s mono" id="qpModeSub">Sempre ao vivo</div></div>
+        <div class="qp-read" style="--rc:var(--amber)"><div class="k mono">PROGRAMA</div><div class="v sm mono" id="qpProg" style="color:var(--amber)">&mdash;</div><div class="s mono">Grade ao vivo</div></div>
+      </div>
+      <div class="qp-wrap">
+        <main class="qp-card">
+          <div class="qp-line"></div>
+          <div class="qp-info">
+            <div class="qp-inforow"><span class="qp-date mono" id="qpDate2">&mdash; &middot; 24H</span><span class="qp-livebadge"><span class="dot"></span><span class="lbl mono" id="qpLiveLbl">AO VIVO</span></span></div>
+            <h1 class="qp-h1">A voz da revolu&ccedil;&atilde;o <span class="am">Bitcoin</span><span class="sub">&middot; soberana, 24h</span></h1>
+            <div class="qp-nownext mono"><span class="now">AGORA: <b id="qpNow">&hellip;</b></span><span class="nxt">A SEGUIR: <b id="qpNext">&hellip;</b></span></div>
+          </div>
+          <div class="qp-eq" id="qpEq"></div>
+          <div class="qp-row" id="rowLive" style="--rc:var(--cyan)">
+            <div class="top"><button class="qp-pbtn xl" id="btnLive" aria-label="Ouvir ao vivo"><span class="rr"></span><span class="qp-cspin"></span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+              <div class="qp-meta"><div class="ti" id="liveTi">R&aacute;dio Bitcoin 24h</div><div class="su mono" id="liveSu">Toque para iniciar o stream</div><div class="li mono" id="liveLi"></div></div></div>
+            <div class="qp-status mono" id="liveStatus">&#9654; OUVIR AO VIVO</div>
+          </div>
+          <div class="qp-div"></div>
+          <div class="qp-row" id="rowEcon" style="--rc:var(--amber)">
+            <div class="top"><button class="qp-pbtn lg" id="btnEcon" aria-label="Boletins de economia"><span class="rr"></span><span class="qp-cspin"></span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+              <div class="qp-meta"><div class="ti" id="econTi">S&oacute; Economia (IA)</div><div class="su mono" id="econSu">Boletins de economia e mercado</div><div class="li mono" id="econLi"></div></div>
+              <button class="qp-skip" id="econSkip" aria-label="Pr&oacute;ximo boletim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button></div>
+            <div class="qp-status mono" id="econStatus">BOLETINS DE ECONOMIA</div>
+          </div>
+          <div class="qp-div"></div>
+          <div class="qp-row" id="rowSurv" style="--rc:var(--green)">
+            <div class="top"><button class="qp-pbtn lg" id="btnSurv" aria-label="Boletins de sobreviv&ecirc;ncia"><span class="rr"></span><span class="qp-cspin"></span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+              <div class="qp-meta"><div class="ti" id="survTi">Sobreviv&ecirc;ncia &amp; Clima</div><div class="su mono" id="survSu">Boletins de preparo e clima</div><div class="li mono" id="survLi"></div></div>
+              <button class="qp-skip" id="survSkip" aria-label="Pr&oacute;ximo boletim" style="color:var(--green);background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button></div>
+            <div class="qp-status mono" id="survStatus">BOLETINS DE SOBREVIV&Ecirc;NCIA</div>
+          </div>
+          <div class="qp-div"></div>
+          <div class="qp-ctrl">
+            <button class="qp-icobtn" id="qpMute" aria-label="Silenciar"><svg id="qpMuteIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg></button>
+            <div class="qp-vol" id="qpVolWrap"><div class="trk"></div><div class="fill" id="qpVolFill" style="width:85%"></div><div class="thumb" id="qpVolThumb" style="left:85%"></div><div class="tip" id="qpVolTip" style="left:85%">85%</div><input type="range" id="qpVol" min="0" max="100" value="85" aria-label="Volume"></div>
+            <span class="qp-pct mono" id="qpPct">85%</span>
+            <button class="qp-share" id="qpShareBtn" aria-label="Compartilhar"><svg id="qpShareIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></button>
+          </div>
+          <div class="qp-line"></div>
+        </main>
+      </div>
+      <div class="qp-toast" id="qpToast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polyline points="20 6 9 17 4 12"/></svg><span>Link copiado!</span></div>
+      <div class="qp-foot"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span class="mono">Sem KYC &middot; Sem censura &middot; Soberano</span></div>
+    </div>
+    <style>
+    .hr-share-wrap{position:relative;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
+    .hr-share-inner{position:relative}
+    .hr-manus{display:inline-flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;padding:16px 22px;border-radius:18px;background:linear-gradient(160deg,rgba(168,85,247,.16),rgba(0,212,255,.10));border:1px solid rgba(168,85,247,.45);transition:transform .18s,box-shadow .2s,border-color .2s}
+    .hr-manus:hover{transform:translateY(-3px);box-shadow:0 12px 30px -8px rgba(168,85,247,.6);border-color:rgba(168,85,247,.8)}
+    .hr-manus img{width:54px;height:54px;border-radius:13px;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+    .hr-manus span{font-size:12px;font-weight:800;letter-spacing:.05em;color:#eef4ff;text-align:center;line-height:1.2;text-transform:uppercase}
+    .hr-ai{--aic:#a855f7;display:inline-flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;padding:15px 18px;border-radius:18px;background:linear-gradient(160deg,color-mix(in srgb,var(--aic) 15%,transparent),rgba(8,14,26,.6));border:1px solid color-mix(in srgb,var(--aic) 50%,transparent);transition:transform .18s,box-shadow .2s,border-color .2s;min-width:112px}
+    .hr-ai:hover{transform:translateY(-3px);box-shadow:0 12px 30px -8px var(--aic);border-color:var(--aic)}
+    .hr-ai img{width:50px;height:50px;border-radius:12px}
+    .hr-ai span{font-size:11px;font-weight:800;letter-spacing:.04em;color:#eef4ff;text-align:center;line-height:1.2;text-transform:uppercase}
+    .hr-share{--aic:#ff8c3c;display:inline-flex;flex-direction:column;align-items:center;gap:9px;cursor:pointer;padding:15px 18px;border-radius:18px;background:linear-gradient(160deg,color-mix(in srgb,var(--aic) 15%,transparent),rgba(8,14,26,.6));border:1px solid color-mix(in srgb,var(--aic) 50%,transparent);transition:transform .18s,box-shadow .2s,border-color .2s;min-width:112px;font-family:inherit}
+    .hr-share:hover{transform:translateY(-3px);box-shadow:0 12px 30px -8px var(--aic);border-color:var(--aic)}
+    .hr-share-img{display:block;width:50px;height:50px;object-fit:cover;border-radius:12px}
+    .hr-share span{font-size:11px;font-weight:800;letter-spacing:.04em;color:#eef4ff;text-align:center;line-height:1.2;text-transform:uppercase}
+    .hr-share-menu{display:none;position:absolute;left:50%;transform:translateX(-50%);top:calc(100% + 8px);background:#12121c;border:1px solid #2c2c3a;border-radius:12px;padding:6px;z-index:20;min-width:190px;box-shadow:0 14px 44px rgba(0,0,0,.65)}
+    .hr-share-menu.on{display:block}
+    .hr-sh{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:10px 12px;border-radius:8px;color:#fff;background:none;border:0;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;font-family:inherit}
+    .hr-sh:hover{background:rgba(255,255,255,.08)}
+    </style>
+    <div class="hr-share-wrap">
+      <div class="hr-share-inner">
+      <button class="hr-share" id="hrShare" aria-label="Compartilhe a Rádio"><img class="hr-share-img" src="compartilhe_delorean.png" alt="Compartilhe a Rádio" width="50" height="50"><span>Compartilhe<br>a Rádio</span></button>
+      <div class="hr-share-menu" id="hrShareMenu">
+        <a class="hr-sh" data-net="wa" target="_blank" rel="noopener">💬 Telegram</a>
+        <a class="hr-sh" data-net="tg" target="_blank" rel="noopener">✈️ Telegram</a>
+        <a class="hr-sh" data-net="x" target="_blank" rel="noopener">✖️ Twitter / X</a>
+        <button class="hr-sh" id="hrShCopy">🔗 Copiar link</button>
+      </div>
+      </div>
+      <a class="hr-ai" style="--aic:#a855f7" href="https://manus.im/invitation/ARFHDOBL051OH5H?utm_source=invitation&utm_medium=social&utm_campaign=copy_link" target="_blank" rel="noopener" aria-label="Teste o Manus"><img src="manus_logo.svg" alt="Manus AI" width="50" height="50"><span>Teste o<br>Manus</span></a>
+      <a class="hr-ai" style="--aic:#d97757" href="https://claude.ai" target="_blank" rel="noopener" aria-label="Teste o Claude"><img src="claude_logo.svg" alt="Claude" width="50" height="50"><span>Teste o<br>Claude</span></a>
+      <a class="hr-ai" style="--aic:#4491ff" href="https://gemini.google.com" target="_blank" rel="noopener" aria-label="Teste o Gemini"><img src="gemini_logo.svg" alt="Gemini" width="50" height="50"><span>Teste o<br>Gemini</span></a>
+      <a class="hr-ai" style="--aic:#c9d4e6" href="https://grok.com" target="_blank" rel="noopener" aria-label="Teste o Grok"><img src="grok_logo.png" alt="Grok" width="50" height="50"><span>Teste o<br>Grok</span></a>
+      <a class="hr-ai" style="--aic:#74aa9c" href="https://chatgpt.com" target="_blank" rel="noopener" aria-label="Teste o GPT"><img src="gpt_logo.svg" alt="GPT ChatGPT" width="50" height="50"><span>Teste o<br>GPT</span></a>
+    </div>
+    <script>
+    (function(){
+      var b=document.getElementById('hrShare'); if(!b)return;
+      var URL='https://radiobitcoin.org', TXT='📻 Rádio Bitcoin — 24h de notícias, mercado e música Bitcoin, sem KYC. Ouça ao vivo:';
+      var menu=document.getElementById('hrShareMenu'), enc=encodeURIComponent;
+      menu.querySelector('[data-net=wa]').href='https://wa.me/?text='+enc(TXT+' '+URL);
+      menu.querySelector('[data-net=tg]').href='https://t.me/share/url?url='+enc(URL)+'&text='+enc(TXT);
+      menu.querySelector('[data-net=x]').href='https://twitter.com/intent/tweet?text='+enc(TXT)+'&url='+enc(URL);
+      b.addEventListener('click',function(e){
+        e.stopPropagation();
+        if(navigator.share){ navigator.share({title:'Rádio Bitcoin',text:TXT,url:URL}).catch(function(){}); }
+        else { menu.classList.toggle('on'); }
+      });
+      document.getElementById('hrShCopy').addEventListener('click',function(e){
+        e.stopPropagation(); var self=this;
+        if(navigator.clipboard){ navigator.clipboard.writeText(URL).then(function(){ self.textContent='✓ Link copiado!'; setTimeout(function(){self.textContent='🔗 Copiar link';menu.classList.remove('on');},1400); }); }
+        else { menu.classList.remove('on'); }
+      });
+      document.addEventListener('click',function(){ menu.classList.remove('on'); });
+    })();
+    </script>
+    <audio id="liveAudio" preload="none" src="https://stream.radiobitcoin.org/radio"></audio>
+    <audio id="econAudio" preload="none"></audio>
+    <audio id="indiceAudio" preload="none" src="de_volta_pro_futuro.mp3"></audio>
+
+    <div class="hr-aggs">
+      <div class="hr-aggs__lbl">Ouça também nos apps de rádio</div>
+      <div class="hr-aggs__row">
+        <a class="hr-agg" href="https://www.radio-browser.info/search?name=Radio%20Bitcoin" target="_blank" rel="noopener">📻 Radio-Browser</a>
+        <a class="hr-agg" id="aggTunein" href="https://tunein.com/radio/Radio-Bitcoin-s358551/" target="_blank" rel="noopener">🎧 TuneIn</a>
+        <a class="hr-agg" id="aggSimple" href="https://streema.com/radios/Radio_Bitcoin" target="_blank" rel="noopener">🔊 Simple Radio</a>
+        <a class="hr-agg" id="aggMytuner" href="https://mytuner-radio.com/radio/radio-bitcoin-520524/" target="_blank" rel="noopener">📱 myTuner</a>
+        <a class="hr-agg" id="aggRadiosnet" href="https://www.radios.com.br/lista/busca?q=Radio%20Bitcoin" target="_blank" rel="noopener">🎙️ RadiosNet</a>
+        <span class="hr-agg" id="alexaSay" style="cursor:pointer;border-color:#31c4f3;color:#31c4f3" title="Clica que EU falo com a sua Alexa 😉">🗣️ Diga: “Alexa, toca Rádio Bitcoin”</span>
+        <script>
+        // clicou -> toca um audio de voz NEURAL (diccao perfeita) e a Alexa da sala obedece.
+        // (a voz sintetica do navegador enrolava e a Alexa entendia "radio byte")
+        (function(){
+          var el = document.getElementById('alexaSay');
+          if (!el) return;
+          var audio = null;
+          el.addEventListener('click', function(){
+            var orig = el.textContent;
+            el.textContent = '🔊 Falando com a sua Alexa…';
+            var volta = function(){ el.textContent = orig; };
+            try {
+              if (!audio) audio = new Audio('/alexa_comando.mp3?v=2');
+              audio.volume = 1.0;
+              audio.currentTime = 0;
+              audio.onended = volta;
+              audio.play().catch(function(){
+                // fallback: voz do navegador
+                try {
+                  var u = new SpeechSynthesisUtterance('Alexa! Tocar, Rádio Bitcoin.');
+                  u.lang = 'pt-BR'; u.volume = 1; u.rate = 0.8;
+                  u.onend = volta;
+                  speechSynthesis.speak(u);
+                } catch(e) { volta(); }
+              });
+              setTimeout(volta, 8000);
+            } catch(e) { volta(); }
+          });
+        })();
+        </script>
+      </div>
+    </div>
+  </section>
+
+<!-- APOIO — inserido 31/08/2026 -->
+        <!-- Medido antes: o primeiro CTA de dinheiro do corpo da pagina estava na
+             TELA 24 de 51 no celular. Os links do topo eram do menu ☰, escondido.
+             Quem quisesse apoiar tinha que rolar 24 telas ou abrir o menu. Este
+             bloco fica logo abaixo do player, que e onde a pessoa ja esta. -->
+        <div class="panel" id="apoio-radio" style="border-color:rgba(242,169,0,0.45);margin-top:14px">
+          <div class="pt" style="color:#f2a900">⚡ MANTENHA A RÁDIO NO AR</div>
+          <div style="font-size:10px;color:#c8d0dc;line-height:1.6;margin-top:7px">
+            24h por dia, 21 programas, sem patrocinador e sem ninguém mandando na pauta.
+            <b style="color:#fff">Custa R$&nbsp;656 por mês pra existir</b> — 35 pessoas com
+            R$&nbsp;19 cobrem tudo.
+          </div>
+          <div style="display:grid;gap:6px;margin-top:10px">
+            <a href="/ouvinte-fundador.html"
+               style="display:block;text-align:center;background:#f2a900;color:#0a0a0b;font-weight:700;
+                      font-size:12px;padding:11px;border-radius:6px;text-decoration:none;letter-spacing:.3px">
+              Apoiar com R$ 19/mês &nbsp;·&nbsp; PIX ou cartão
+            </a>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+              <a href="/ouvinte-fundador.html#v4v"
+                 style="text-align:center;border:1px solid rgba(242,169,0,.4);color:#f2a900;font-size:10px;
+                        padding:9px 6px;border-radius:6px;text-decoration:none">⚡ Mandar sats</a>
+              <a href="/recovery.html"
+                 style="text-align:center;border:1px solid rgba(0,212,255,.35);color:#00d4ff;font-size:10px;
+                        padding:9px 6px;border-radius:6px;text-decoration:none">🛡️ Recovery Kit</a>
+            </div>
+          </div>
+          <div style="font-size:8px;color:var(--text-dim);margin-top:8px;line-height:1.5">
+            Não é produto financeiro, não há promessa de retorno. É a rádio seguir existindo.
+          </div>
+        </div>
+
+
   <!-- ===== HERO PLAYER AO VIVO (rádio no topo, acima da dobra) ===== -->
   <style>
     .hr-wrap{position:relative;margin:0 0 16px;padding:20px 18px 26px;text-align:center;border-radius:0 0 18px 18px;
@@ -511,181 +724,7 @@
 </style>
 <!-- ===== FIM TOP ROTATOR ===== -->
 
-  <section class="hr-wrap" id="topo">
-    <h1 class="hr-seo">Rádio Bitcoin — a voz da revolução Bitcoin, ao vivo 24 horas</h1>
-    <div class="hr-live" style="display:none"><i></i> AO VIVO · 24 HORAS</div>
-    <div style="flex:1"></div>
-    <div class="hr-sub">A voz da revolução Bitcoin · notícias, mercado e liberdade financeira</div>
-    
-    <div class="qp-hero" id="qpHero">
-      <div class="qp-grid"></div><div class="qp-radar"></div><div class="qp-glow"></div><div class="qp-glow-amber"></div>
-      <div class="qp-frame"><b class="tl"></b><b class="tr"></b><b class="bl"></b><b class="br"></b></div>
-      <div class="qp-head">
-        <div class="qp-brand"><div class="qp-logo"><span class="ring"></span><span class="ring2"></span><span class="b">&#8383;</span></div><div><div class="t">R&aacute;dio Bitcoin</div><div class="u mono">radiobitcoin.org</div></div></div>
-        <div class="qp-clock"><div class="c mono" id="qpClock">--:--:--</div><div class="d mono" id="qpDate">&mdash;</div></div>
-      </div>
-      <div class="qp-chips" id="qpChips">
-        <div class="qp-chip"><span style="color:var(--amber)">&#8383;</span> <span id="qpChipBtc">Carregando&hellip;</span></div>
-        <div class="qp-chip"><span style="color:var(--cyan)">&#9632;</span> <span id="qpChipBlk">Bloco &hellip;</span></div>
-        <div class="qp-chip" id="qpChipStatus"><span class="cd"></span> <span id="qpChipStatusTxt">Toque ▶ para ouvir</span></div>
-        <div class="qp-chip"><span style="color:var(--cyan)">&#128101;</span> <span id="qpChipLis">&mdash; ouvintes</span></div>
-      </div>
-      <div class="qp-col l">
-        <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">FREQU&Ecirc;NCIA</div><div class="v sm" style="color:var(--cyan)">STREAM</div><div class="s mono">128 kbps &middot; MP3</div></div>
-        <div class="qp-read on" style="--rc:var(--amber)"><div class="k mono">BTC/USD</div><div class="v mono" id="qpBtc" style="color:var(--amber)">Carregando&hellip;</div><div class="s mono">Binance API &middot; 30s</div></div>
-        <div class="qp-read on" style="--rc:var(--cyan)"><div class="k mono">BLOCO</div><div class="v mono" id="qpBlock" style="color:var(--cyan)">Carregando&hellip;</div><div class="s mono">mempool.space &middot; 60s</div></div>
-        <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">LAT&Ecirc;NCIA</div><div class="v sm mono" style="color:var(--cyan)">&lt; 2s</div><div class="s mono">Stream delay</div></div>
-      </div>
-      <div class="qp-col r">
-        <div class="qp-read" id="qpStatusCard"><div class="k mono">STATUS</div><div class="v sm mono" id="qpStatus" style="color:var(--qdim)">PRONTO</div><div class="s mono" id="qpStatusSub">Toque ▶ para iniciar</div></div>
-        <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">OUVINTES</div><div class="v mono" id="qpListeners" style="color:var(--qdim)">&mdash;</div><div class="s mono">Tempo real</div></div>
-        <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">MODO</div><div class="v sm mono" id="qpMode" style="color:var(--qdim)">24H</div><div class="s mono" id="qpModeSub">Sempre ao vivo</div></div>
-        <div class="qp-read" style="--rc:var(--amber)"><div class="k mono">PROGRAMA</div><div class="v sm mono" id="qpProg" style="color:var(--amber)">&mdash;</div><div class="s mono">Grade ao vivo</div></div>
-      </div>
-      <div class="qp-wrap">
-        <main class="qp-card">
-          <div class="qp-line"></div>
-          <div class="qp-info">
-            <div class="qp-inforow"><span class="qp-date mono" id="qpDate2">&mdash; &middot; 24H</span><span class="qp-livebadge"><span class="dot"></span><span class="lbl mono" id="qpLiveLbl">AO VIVO</span></span></div>
-            <h1 class="qp-h1">A voz da revolu&ccedil;&atilde;o <span class="am">Bitcoin</span><span class="sub">&middot; soberana, 24h</span></h1>
-            <div class="qp-nownext mono"><span class="now">AGORA: <b id="qpNow">&hellip;</b></span><span class="nxt">A SEGUIR: <b id="qpNext">&hellip;</b></span></div>
-          </div>
-          <div class="qp-eq" id="qpEq"></div>
-          <div class="qp-row" id="rowLive" style="--rc:var(--cyan)">
-            <div class="top"><button class="qp-pbtn xl" id="btnLive" aria-label="Ouvir ao vivo"><span class="rr"></span><span class="qp-cspin"></span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-              <div class="qp-meta"><div class="ti" id="liveTi">R&aacute;dio Bitcoin 24h</div><div class="su mono" id="liveSu">Toque para iniciar o stream</div><div class="li mono" id="liveLi"></div></div></div>
-            <div class="qp-status mono" id="liveStatus">&#9654; OUVIR AO VIVO</div>
-          </div>
-          <div class="qp-div"></div>
-          <div class="qp-row" id="rowEcon" style="--rc:var(--amber)">
-            <div class="top"><button class="qp-pbtn lg" id="btnEcon" aria-label="Boletins de economia"><span class="rr"></span><span class="qp-cspin"></span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-              <div class="qp-meta"><div class="ti" id="econTi">S&oacute; Economia (IA)</div><div class="su mono" id="econSu">Boletins de economia e mercado</div><div class="li mono" id="econLi"></div></div>
-              <button class="qp-skip" id="econSkip" aria-label="Pr&oacute;ximo boletim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button></div>
-            <div class="qp-status mono" id="econStatus">BOLETINS DE ECONOMIA</div>
-          </div>
-          <div class="qp-div"></div>
-          <div class="qp-row" id="rowSurv" style="--rc:var(--green)">
-            <div class="top"><button class="qp-pbtn lg" id="btnSurv" aria-label="Boletins de sobreviv&ecirc;ncia"><span class="rr"></span><span class="qp-cspin"></span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-              <div class="qp-meta"><div class="ti" id="survTi">Sobreviv&ecirc;ncia &amp; Clima</div><div class="su mono" id="survSu">Boletins de preparo e clima</div><div class="li mono" id="survLi"></div></div>
-              <button class="qp-skip" id="survSkip" aria-label="Pr&oacute;ximo boletim" style="color:var(--green);background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button></div>
-            <div class="qp-status mono" id="survStatus">BOLETINS DE SOBREVIV&Ecirc;NCIA</div>
-          </div>
-          <div class="qp-div"></div>
-          <div class="qp-ctrl">
-            <button class="qp-icobtn" id="qpMute" aria-label="Silenciar"><svg id="qpMuteIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg></button>
-            <div class="qp-vol" id="qpVolWrap"><div class="trk"></div><div class="fill" id="qpVolFill" style="width:85%"></div><div class="thumb" id="qpVolThumb" style="left:85%"></div><div class="tip" id="qpVolTip" style="left:85%">85%</div><input type="range" id="qpVol" min="0" max="100" value="85" aria-label="Volume"></div>
-            <span class="qp-pct mono" id="qpPct">85%</span>
-            <button class="qp-share" id="qpShareBtn" aria-label="Compartilhar"><svg id="qpShareIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></button>
-          </div>
-          <div class="qp-line"></div>
-        </main>
-      </div>
-      <div class="qp-toast" id="qpToast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polyline points="20 6 9 17 4 12"/></svg><span>Link copiado!</span></div>
-      <div class="qp-foot"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span class="mono">Sem KYC &middot; Sem censura &middot; Soberano</span></div>
-    </div>
-    <style>
-    .hr-share-wrap{position:relative;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
-    .hr-share-inner{position:relative}
-    .hr-manus{display:inline-flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;padding:16px 22px;border-radius:18px;background:linear-gradient(160deg,rgba(168,85,247,.16),rgba(0,212,255,.10));border:1px solid rgba(168,85,247,.45);transition:transform .18s,box-shadow .2s,border-color .2s}
-    .hr-manus:hover{transform:translateY(-3px);box-shadow:0 12px 30px -8px rgba(168,85,247,.6);border-color:rgba(168,85,247,.8)}
-    .hr-manus img{width:54px;height:54px;border-radius:13px;box-shadow:0 4px 14px rgba(0,0,0,.45)}
-    .hr-manus span{font-size:12px;font-weight:800;letter-spacing:.05em;color:#eef4ff;text-align:center;line-height:1.2;text-transform:uppercase}
-    .hr-ai{--aic:#a855f7;display:inline-flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;padding:15px 18px;border-radius:18px;background:linear-gradient(160deg,color-mix(in srgb,var(--aic) 15%,transparent),rgba(8,14,26,.6));border:1px solid color-mix(in srgb,var(--aic) 50%,transparent);transition:transform .18s,box-shadow .2s,border-color .2s;min-width:112px}
-    .hr-ai:hover{transform:translateY(-3px);box-shadow:0 12px 30px -8px var(--aic);border-color:var(--aic)}
-    .hr-ai img{width:50px;height:50px;border-radius:12px}
-    .hr-ai span{font-size:11px;font-weight:800;letter-spacing:.04em;color:#eef4ff;text-align:center;line-height:1.2;text-transform:uppercase}
-    .hr-share{--aic:#ff8c3c;display:inline-flex;flex-direction:column;align-items:center;gap:9px;cursor:pointer;padding:15px 18px;border-radius:18px;background:linear-gradient(160deg,color-mix(in srgb,var(--aic) 15%,transparent),rgba(8,14,26,.6));border:1px solid color-mix(in srgb,var(--aic) 50%,transparent);transition:transform .18s,box-shadow .2s,border-color .2s;min-width:112px;font-family:inherit}
-    .hr-share:hover{transform:translateY(-3px);box-shadow:0 12px 30px -8px var(--aic);border-color:var(--aic)}
-    .hr-share-img{display:block;width:50px;height:50px;object-fit:cover;border-radius:12px}
-    .hr-share span{font-size:11px;font-weight:800;letter-spacing:.04em;color:#eef4ff;text-align:center;line-height:1.2;text-transform:uppercase}
-    .hr-share-menu{display:none;position:absolute;left:50%;transform:translateX(-50%);top:calc(100% + 8px);background:#12121c;border:1px solid #2c2c3a;border-radius:12px;padding:6px;z-index:20;min-width:190px;box-shadow:0 14px 44px rgba(0,0,0,.65)}
-    .hr-share-menu.on{display:block}
-    .hr-sh{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:10px 12px;border-radius:8px;color:#fff;background:none;border:0;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;font-family:inherit}
-    .hr-sh:hover{background:rgba(255,255,255,.08)}
-    </style>
-    <div class="hr-share-wrap">
-      <div class="hr-share-inner">
-      <button class="hr-share" id="hrShare" aria-label="Compartilhe a Rádio"><img class="hr-share-img" src="compartilhe_delorean.png" alt="Compartilhe a Rádio" width="50" height="50"><span>Compartilhe<br>a Rádio</span></button>
-      <div class="hr-share-menu" id="hrShareMenu">
-        <a class="hr-sh" data-net="wa" target="_blank" rel="noopener">💬 Telegram</a>
-        <a class="hr-sh" data-net="tg" target="_blank" rel="noopener">✈️ Telegram</a>
-        <a class="hr-sh" data-net="x" target="_blank" rel="noopener">✖️ Twitter / X</a>
-        <button class="hr-sh" id="hrShCopy">🔗 Copiar link</button>
-      </div>
-      </div>
-      <a class="hr-ai" style="--aic:#a855f7" href="https://manus.im/invitation/ARFHDOBL051OH5H?utm_source=invitation&utm_medium=social&utm_campaign=copy_link" target="_blank" rel="noopener" aria-label="Teste o Manus"><img src="manus_logo.svg" alt="Manus AI" width="50" height="50"><span>Teste o<br>Manus</span></a>
-      <a class="hr-ai" style="--aic:#d97757" href="https://claude.ai" target="_blank" rel="noopener" aria-label="Teste o Claude"><img src="claude_logo.svg" alt="Claude" width="50" height="50"><span>Teste o<br>Claude</span></a>
-      <a class="hr-ai" style="--aic:#4491ff" href="https://gemini.google.com" target="_blank" rel="noopener" aria-label="Teste o Gemini"><img src="gemini_logo.svg" alt="Gemini" width="50" height="50"><span>Teste o<br>Gemini</span></a>
-      <a class="hr-ai" style="--aic:#c9d4e6" href="https://grok.com" target="_blank" rel="noopener" aria-label="Teste o Grok"><img src="grok_logo.png" alt="Grok" width="50" height="50"><span>Teste o<br>Grok</span></a>
-      <a class="hr-ai" style="--aic:#74aa9c" href="https://chatgpt.com" target="_blank" rel="noopener" aria-label="Teste o GPT"><img src="gpt_logo.svg" alt="GPT ChatGPT" width="50" height="50"><span>Teste o<br>GPT</span></a>
-    </div>
-    <script>
-    (function(){
-      var b=document.getElementById('hrShare'); if(!b)return;
-      var URL='https://radiobitcoin.org', TXT='📻 Rádio Bitcoin — 24h de notícias, mercado e música Bitcoin, sem KYC. Ouça ao vivo:';
-      var menu=document.getElementById('hrShareMenu'), enc=encodeURIComponent;
-      menu.querySelector('[data-net=wa]').href='https://wa.me/?text='+enc(TXT+' '+URL);
-      menu.querySelector('[data-net=tg]').href='https://t.me/share/url?url='+enc(URL)+'&text='+enc(TXT);
-      menu.querySelector('[data-net=x]').href='https://twitter.com/intent/tweet?text='+enc(TXT)+'&url='+enc(URL);
-      b.addEventListener('click',function(e){
-        e.stopPropagation();
-        if(navigator.share){ navigator.share({title:'Rádio Bitcoin',text:TXT,url:URL}).catch(function(){}); }
-        else { menu.classList.toggle('on'); }
-      });
-      document.getElementById('hrShCopy').addEventListener('click',function(e){
-        e.stopPropagation(); var self=this;
-        if(navigator.clipboard){ navigator.clipboard.writeText(URL).then(function(){ self.textContent='✓ Link copiado!'; setTimeout(function(){self.textContent='🔗 Copiar link';menu.classList.remove('on');},1400); }); }
-        else { menu.classList.remove('on'); }
-      });
-      document.addEventListener('click',function(){ menu.classList.remove('on'); });
-    })();
-    </script>
-    <audio id="liveAudio" preload="none" src="https://stream.radiobitcoin.org/radio"></audio>
-    <audio id="econAudio" preload="none"></audio>
-    <audio id="indiceAudio" preload="none" src="de_volta_pro_futuro.mp3"></audio>
-
-    <div class="hr-aggs">
-      <div class="hr-aggs__lbl">Ouça também nos apps de rádio</div>
-      <div class="hr-aggs__row">
-        <a class="hr-agg" href="https://www.radio-browser.info/search?name=Radio%20Bitcoin" target="_blank" rel="noopener">📻 Radio-Browser</a>
-        <a class="hr-agg" id="aggTunein" href="https://tunein.com/radio/Radio-Bitcoin-s358551/" target="_blank" rel="noopener">🎧 TuneIn</a>
-        <a class="hr-agg" id="aggSimple" href="https://streema.com/radios/Radio_Bitcoin" target="_blank" rel="noopener">🔊 Simple Radio</a>
-        <a class="hr-agg" id="aggMytuner" href="https://mytuner-radio.com/radio/radio-bitcoin-520524/" target="_blank" rel="noopener">📱 myTuner</a>
-        <a class="hr-agg" id="aggRadiosnet" href="https://www.radios.com.br/lista/busca?q=Radio%20Bitcoin" target="_blank" rel="noopener">🎙️ RadiosNet</a>
-        <span class="hr-agg" id="alexaSay" style="cursor:pointer;border-color:#31c4f3;color:#31c4f3" title="Clica que EU falo com a sua Alexa 😉">🗣️ Diga: “Alexa, toca Rádio Bitcoin”</span>
-        <script>
-        // clicou -> toca um audio de voz NEURAL (diccao perfeita) e a Alexa da sala obedece.
-        // (a voz sintetica do navegador enrolava e a Alexa entendia "radio byte")
-        (function(){
-          var el = document.getElementById('alexaSay');
-          if (!el) return;
-          var audio = null;
-          el.addEventListener('click', function(){
-            var orig = el.textContent;
-            el.textContent = '🔊 Falando com a sua Alexa…';
-            var volta = function(){ el.textContent = orig; };
-            try {
-              if (!audio) audio = new Audio('/alexa_comando.mp3?v=2');
-              audio.volume = 1.0;
-              audio.currentTime = 0;
-              audio.onended = volta;
-              audio.play().catch(function(){
-                // fallback: voz do navegador
-                try {
-                  var u = new SpeechSynthesisUtterance('Alexa! Tocar, Rádio Bitcoin.');
-                  u.lang = 'pt-BR'; u.volume = 1; u.rate = 0.8;
-                  u.onend = volta;
-                  speechSynthesis.speak(u);
-                } catch(e) { volta(); }
-              });
-              setTimeout(volta, 8000);
-            } catch(e) { volta(); }
-          });
-        })();
-        </script>
-      </div>
-    </div>
-  </section>
+  
 
   <!-- ===== BANNER PROGRAMAÇÃO DIÁRIA ===== -->
   <section style="max-width:600px;margin:18px auto 8px;padding:0 12px;text-align:center;">
@@ -2610,38 +2649,6 @@
         <div id="pedidos-list" style="padding:2px 0"></div>
         <div style="font-size:8px;color:var(--text-dim);margin-top:4px">
           Telegram: <span style="color:var(--g)">/pedir Nome da Música</span>
-        </div>
-
-        <!-- APOIO — inserido 31/08/2026 -->
-        <!-- Medido antes: o primeiro CTA de dinheiro do corpo da pagina estava na
-             TELA 24 de 51 no celular. Os links do topo eram do menu ☰, escondido.
-             Quem quisesse apoiar tinha que rolar 24 telas ou abrir o menu. Este
-             bloco fica logo abaixo do player, que e onde a pessoa ja esta. -->
-        <div class="panel" id="apoio-radio" style="border-color:rgba(242,169,0,0.45);margin-top:14px">
-          <div class="pt" style="color:#f2a900">⚡ MANTENHA A RÁDIO NO AR</div>
-          <div style="font-size:10px;color:#c8d0dc;line-height:1.6;margin-top:7px">
-            24h por dia, 21 programas, sem patrocinador e sem ninguém mandando na pauta.
-            <b style="color:#fff">Custa R$&nbsp;656 por mês pra existir</b> — 35 pessoas com
-            R$&nbsp;19 cobrem tudo.
-          </div>
-          <div style="display:grid;gap:6px;margin-top:10px">
-            <a href="/ouvinte-fundador.html"
-               style="display:block;text-align:center;background:#f2a900;color:#0a0a0b;font-weight:700;
-                      font-size:12px;padding:11px;border-radius:6px;text-decoration:none;letter-spacing:.3px">
-              Apoiar com R$ 19/mês &nbsp;·&nbsp; PIX ou cartão
-            </a>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-              <a href="/ouvinte-fundador.html#v4v"
-                 style="text-align:center;border:1px solid rgba(242,169,0,.4);color:#f2a900;font-size:10px;
-                        padding:9px 6px;border-radius:6px;text-decoration:none">⚡ Mandar sats</a>
-              <a href="/recovery.html"
-                 style="text-align:center;border:1px solid rgba(0,212,255,.35);color:#00d4ff;font-size:10px;
-                        padding:9px 6px;border-radius:6px;text-decoration:none">🛡️ Recovery Kit</a>
-            </div>
-          </div>
-          <div style="font-size:8px;color:var(--text-dim);margin-top:8px;line-height:1.5">
-            Não é produto financeiro, não há promessa de retorno. É a rádio seguir existindo.
-          </div>
         </div>
 
         <!-- SUGESTÕES DE MÚSICAS BITCOINHEIRAS -->
