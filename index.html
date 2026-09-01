@@ -2912,41 +2912,36 @@
         <div style="font-size:7px;color:var(--text-dim);margin-top:5px;text-align:right" id="cUpdated">Yahoo Finance · --</div>
       </div>
 
-      <!-- BOT BITADICT -->
-      <div class="panel" id="bot-panel" style="border-color:rgba(0,212,255,0.35)">
-        <div class="pt" style="color:var(--blue)">🤖 BOT BITADICT — XRP/USDT 15m</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px">
-          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
-            <div class="k">STATUS</div>
-            <div class="v" id="bStatus" style="font-size:13px">--</div>
+      <!-- BOT BITADICT — encerrado em 31/08/2026 -->
+      <div class="panel" id="bot-panel" style="border-color:rgba(242,169,0,0.35)">
+        <div class="pt" style="color:var(--amber)">🤖 BOT BITADICT — encerrado</div>
+        <div style="margin-top:10px;font-size:11px;line-height:1.65;color:#c8d0dc">
+          Os bots de Polymarket foram <b style="color:#fff">aposentados em 31 de agosto de 2026</b>.
+          Não porque quebraram, mas porque foram medidos e não tinham vantagem.
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px">
+          <div class="stat-card" style="border-color:rgba(242,169,0,0.25)">
+            <div class="k">TRADES REAIS</div>
+            <div class="v" style="font-size:13px;color:#f2a900">893</div>
           </div>
-          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
-            <div class="k">BANCA ATUAL</div>
-            <div class="v" id="bBanca" style="font-size:13px">--</div>
+          <div class="stat-card" style="border-color:rgba(242,169,0,0.25)">
+            <div class="k">RESULTADO</div>
+            <div class="v" style="font-size:13px;color:#ff4444">−US$ 674</div>
           </div>
-          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
-            <div class="k">P&amp;L DIA</div>
-            <div class="v" id="bPnl" style="font-size:13px">--</div>
-          </div>
-          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
-            <div class="k">TRADES</div>
-            <div class="v" id="bTrades" style="font-size:13px">--</div>
-          </div>
-          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
-            <div class="k">WIN RATE</div>
-            <div class="v" id="bWin" style="font-size:13px">--</div>
-          </div>
-          <div class="stat-card" style="border-color:rgba(0,212,255,0.25)">
-            <div class="k">SENTIMENTO</div>
-            <div class="v" id="bFng" style="font-size:11px">--</div>
+          <div class="stat-card" style="border-color:rgba(242,169,0,0.25)">
+            <div class="k">PRECISAVA ACERTAR</div>
+            <div class="v" style="font-size:13px;color:#00d4ff">58,2%</div>
           </div>
         </div>
-        <div style="margin-top:8px;font-size:8px;color:var(--text-dim);line-height:1.4;background:rgba(0,212,255,0.04);border-left:2px solid rgba(0,212,255,0.3);padding:6px 8px;border-radius:4px;">
-          ℹ️ <b style="color:#9ca3af;">Transparência:</b> bots reais têm drawdown. Estratégias de hedge podem ter win rate abaixo de 50% e ainda assim P&amp;L positivo no longo prazo. Resultados passados não garantem retornos futuros.
+        <div style="margin-top:10px;font-size:9px;color:var(--text-dim);line-height:1.5;background:rgba(242,169,0,0.05);border-left:2px solid rgba(242,169,0,0.3);padding:7px 9px">
+          O preço médio de entrada era 0,58 — logo, era preciso acertar 58,2% só para empatar.
+          O sinal entregava perto de 51%. Três medições independentes chegaram ao mesmo lugar:
+          backtest de 45 dias, uma busca com 22 estratégias novas, e os 893 trades de verdade.
+          <b style="color:#9ca3af">Publicar o resultado que desmente o próprio produto é raro — e é
+          por isso que está aqui.</b>
         </div>
-        <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center;">
-          <div style="font-size:8px;color:var(--text-dim)" id="bUpdated">última atualização: --</div>
-          <a href="/mission_dashboard.html" target="_blank" style="font-size:9px;color:var(--blue);border:1px solid rgba(0,212,255,0.35);padding:4px 10px;border-radius:4px;text-decoration:none;letter-spacing:1px;" onmouseover="this.style.background='rgba(0,212,255,0.1)'" onmouseout="this.style.background='transparent'" title="Mission Control — espelho público">↗ DASHBOARD</a>
+        <div style="margin-top:9px;text-align:right">
+          <a href="/vip.html" style="font-size:9px;color:var(--amber);border:1px solid rgba(242,169,0,0.35);padding:4px 10px;border-radius:4px;text-decoration:none;letter-spacing:1px">↗ A HISTÓRIA COMPLETA</a>
         </div>
       </div>
 
@@ -6651,15 +6646,10 @@ async function fetchBotStats() {
     return;
   } catch(e) {}
 
-  // 2) tenta stats_radio.json no GitHub Pages (HTTPS, atualizado pelo bot)
-  try {
-    const r = await fetch('./stats_radio.json?t=' + Date.now());
-    if (r && r.ok) {
-      const s = await r.json();
-      _botRenderStats(s);
-      return;
-    }
-  } catch(e) {}
+  // 31/08/2026: aqui buscava stats_radio.json a cada visita. O arquivo estava
+  // PARADO desde 15/05 e a home pintava "▶ ATIVO · $120.00" — bot aposentado
+  // aparecendo como se estivesse operando. O painel virou o aviso de
+  // encerramento, com os numeros reais; esta busca nao serve mais a ninguem.
 
   // 3) localStorage cache
   try {
