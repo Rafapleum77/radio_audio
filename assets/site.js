@@ -700,7 +700,7 @@
     ['live','econ','surv'].forEach(function(m){ var r=$(cap(m)); r.classList.toggle('on',mode===m&&!connecting); r.classList.toggle('connecting',mode===m&&connecting); setBtn('btn'+m.charAt(0).toUpperCase()+m.slice(1),mode===m&&!connecting); });
     hero.classList.toggle('playing',!!mode&&!connecting); hero.classList.toggle('connecting',connecting);
     hero.classList.toggle('live-on',mode==='live'&&!connecting); hero.classList.toggle('econ-on',mode==='econ'&&!connecting); hero.classList.toggle('surv-on',mode==='surv'&&!connecting);
-    $('qpLiveLbl').textContent=connecting?'CONECTANDO':(mode==='live'?'AO VIVO':'STANDBY');
+    $('qpLiveLbl').textContent=connecting?'CONECTANDO':(mode==='live'?'AO VIVO':'24H NO AR');
     $('liveStatus').innerHTML=(connecting&&mode==='live')?'CONECTANDO…':(mode==='live'?'❚❚ TOCANDO — toque para pausar':'▶ OUVIR AO VIVO');
     $('liveTi').textContent=mode==='live'?'Transmissão ao vivo':'Rádio Bitcoin 24h';
     $('liveSu').textContent=mode==='live'?'stream.radiobitcoin.org · 128kbps':'Toque para iniciar o stream';
@@ -712,7 +712,7 @@
     else if(mode==='econ'&&!connecting){st.textContent='ECON';st.style.color='var(--amber)';sts.textContent='Boletins IA';stc.classList.add('on');stc.style.setProperty('--rc','var(--amber)');md.textContent='ECON';md.style.color='var(--amber)';mds.textContent='Boletins IA';cstx.textContent='ECON';cst.querySelector('.cd').style.background='var(--amber)';}
     else if(mode==='surv'&&!connecting){st.textContent='SURV';st.style.color='var(--green)';sts.textContent='Preparo & clima';stc.classList.add('on');stc.style.setProperty('--rc','var(--green)');md.textContent='SURV';md.style.color='var(--green)';mds.textContent='Preparo & clima';cstx.textContent='SURV';cst.querySelector('.cd').style.background='var(--green)';}
     else if(connecting){st.textContent='...';st.style.color='var(--amber)';sts.textContent='Conectando';md.textContent=(mode||'').toUpperCase()||'…';md.style.color='var(--amber)';cstx.textContent='CONECTANDO';cst.querySelector('.cd').style.background='var(--amber)';}
-    else{st.textContent='STANDBY';st.style.color='var(--qdim)';sts.textContent='Aguardando';stc.classList.remove('on');md.textContent='IDLE';md.style.color='var(--qdim)';mds.textContent='—';cstx.textContent='STANDBY';cst.querySelector('.cd').style.background='var(--qdim)';}
+    else{st.textContent='NO AR';st.style.color='var(--green)';sts.textContent='Toque para ouvir';stc.classList.remove('on');md.textContent='IDLE';md.style.color='var(--qdim)';mds.textContent='—';cstx.textContent='STANDBY';cst.querySelector('.cd').style.background='var(--qdim)';}
   }
 
   var connTimer=null;
