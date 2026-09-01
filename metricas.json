@@ -1,13 +1,46 @@
 {
   "fonte": "GoatCounter (analytics real, privacy-first)",
-  "atualizado_em": "2026-08-31",
-  "visitas_30d": 259,
-  "paises_total": 0,
-  "top_paises": [],
+  "atualizado_em": "2026-09-01",
+  "visitas_30d": 265,
+  "paises_total": 8,
+  "top_paises": [
+    {
+      "pais": "Brazil",
+      "count": 192
+    },
+    {
+      "pais": "United States",
+      "count": 53
+    },
+    {
+      "pais": "Argentina",
+      "count": 2
+    },
+    {
+      "pais": "Canada",
+      "count": 2
+    },
+    {
+      "pais": "Germany",
+      "count": 2
+    },
+    {
+      "pais": "United Kingdom",
+      "count": 2
+    },
+    {
+      "pais": "Ireland",
+      "count": 2
+    },
+    {
+      "pais": "Republic of Lithuania",
+      "count": 2
+    }
+  ],
   "top_paginas": [
     {
       "path": "/",
-      "count": 237
+      "count": 243
     },
     {
       "path": "/recovery.html",
