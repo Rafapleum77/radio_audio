@@ -773,5 +773,57 @@ body.stream canvas{position:relative;z-index:1;background:transparent!important}
 </style>
 <div id="streamBg"></div>
 <div id="streamBrand"><b>📻 RÁDIO BITCOIN</b><span>AÇÕES &amp; CRIPTO · AO VIVO · radiobitcoin.org</span></div>
+
+<!-- ═══ Painel do stream: tocando agora + letreiro rotativo (só no modo stream) ═══ -->
+<style>
+  #streamTicker{display:none}
+  body.stream #streamTicker{
+    display:block;position:fixed;left:50%;bottom:26px;transform:translateX(-50%);
+    z-index:99;pointer-events:none;text-align:center;
+    font-family:ui-monospace,Menlo,monospace;
+    background:rgba(4,7,15,.72);border:1px solid rgba(242,169,0,.35);
+    border-radius:12px;padding:10px 22px;max-width:86vw;
+    box-shadow:0 4px 24px rgba(0,0,0,.55);
+  }
+  #stNow{color:#f2a900;font-size:15px;font-weight:800;letter-spacing:1px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:80vw}
+  #stCta{color:#00d4ff;font-size:12.5px;letter-spacing:2px;margin-top:4px;
+    transition:opacity .8s ease;opacity:1}
+</style>
+<div id="streamTicker">
+  <div id="stNow">♪ RÁDIO BITCOIN · AO VIVO 24H</div>
+  <div id="stCta">🎧 OUÇA EM QUALQUER LUGAR · radiobitcoin.org</div>
+</div>
+<script>
+(function(){
+  if(!document.body.classList.contains('stream')) return;
+  var CTAS=[
+    '🎧 OUÇA EM QUALQUER LUGAR · radiobitcoin.org',
+    '📱 BAIXE O APP: busque RADIO BITCOIN na App Store',
+    '💬 COMENTA NO CHAT: de onde você está ouvindo?',
+    '🎵 SIGA NO SPOTIFY: RadioBitcoin.org',
+    '📡 TAMBÉM NO TUNEIN E EM +20 RÁDIOS ONLINE',
+    '👍 DEIXE O LIKE E INSCREVA-SE — isso empurra a rádio pro mundo',
+    '₿ MÚSICA AUTORAL 24H · A VOZ DA REVOLUÇÃO BITCOIN'
+  ];
+  var i=0, cta=document.getElementById('stCta'), now=document.getElementById('stNow');
+  setInterval(function(){
+    i=(i+1)%CTAS.length;
+    cta.style.opacity=0;
+    setTimeout(function(){cta.textContent=CTAS[i];cta.style.opacity=1;},800);
+  },12000);
+  function puxaTitulo(){
+    fetch('https://stream.radiobitcoin.org/status-json.xsl',{cache:'no-store'})
+      .then(function(r){return r.json()})
+      .then(function(d){
+        var s=d&&d.icestats&&d.icestats.source; if(!s)return;
+        if(!Array.isArray(s))s=[s];
+        var t=''; s.forEach(function(x){if(x&&x.title)t=x.title;});
+        if(t) now.textContent='♪ TOCANDO AGORA: '+t.replace(/\s*·\s*Rádio Bitcoin\s*$/i,'');
+      }).catch(function(){});
+  }
+  puxaTitulo(); setInterval(puxaTitulo,30000);
+})();
+</script>
 </body>
 </html>
