@@ -1,41 +1,29 @@
 {
   "fonte": "GoatCounter (analytics real, privacy-first)",
-  "atualizado_em": "2026-09-03",
+  "atualizado_em": "2026-09-04",
   "visitas_30d": 263,
-  "paises_total": 8,
-  "top_paises": [
+  "paises_total": 0,
+  "top_paises": [],
+  "top_paginas": [
     {
-      "pais": "Brazil",
-      "count": 191
+      "path": "/",
+      "count": 234
     },
     {
-      "pais": "United States",
-      "count": 56
+      "path": "/recovery.html",
+      "count": 17
     },
     {
-      "pais": "Argentina",
-      "count": 2
+      "path": "/carteira.html",
+      "count": 5
     },
     {
-      "pais": "Canada",
-      "count": 2
+      "path": "/ouvinte-fundador.html",
+      "count": 3
     },
     {
-      "pais": "Spain",
-      "count": 2
-    },
-    {
-      "pais": "United Kingdom",
-      "count": 2
-    },
-    {
-      "pais": "Mexico",
-      "count": 2
-    },
-    {
-      "pais": "Portugal",
-      "count": 2
+      "path": "/ebook.html",
+      "count": 3
     }
-  ],
-  "top_paginas": []
+  ]
 }
