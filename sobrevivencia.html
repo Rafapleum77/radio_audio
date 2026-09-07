@@ -77,14 +77,25 @@
 
 <script>
 (function(){
-  if(!navigator.geolocation) return;
-  navigator.geolocation.getCurrentPosition(function(pos){
+  // A localizacao so e pedida se a pessoa clicar. Sem popup ao abrir a pagina.
+  var alvo=document.getElementById('loc1');
+  if(!alvo || !navigator.geolocation) return;
+  var b=document.createElement('button');
+  b.type='button';
+  b.textContent='📍 Centralizar na minha região';
+  b.style.cssText='margin-left:8px;padding:4px 10px;border-radius:8px;border:1px solid rgba(56,189,248,.5);background:transparent;color:#7fd1ff;font:inherit;cursor:pointer';
+  alvo.appendChild(b);
+  b.addEventListener('click', function(){
+    var rotulo=b.textContent;
+    b.disabled=true; b.textContent='Procurando…';
+    navigator.geolocation.getCurrentPosition(function(pos){
     var la=pos.coords.latitude.toFixed(2), lo=pos.coords.longitude.toFixed(2);
     var r=document.getElementById('radarMap'), a=document.getElementById('rainMap');
     if(r) r.src='https://embed.windy.com/embed2.html?lat='+la+'&lon='+lo+'&detailLat='+la+'&detailLon='+lo+'&zoom=8&level=surface&overlay=radar&menu=&type=map&location=coordinates&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1';
     if(a) a.src='https://embed.windy.com/embed2.html?lat='+la+'&lon='+lo+'&detailLat='+la+'&detailLon='+lo+'&zoom=7&level=surface&overlay=rainAccu&menu=&type=map&location=coordinates&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1';
     var l1=document.getElementById('loc1'); if(l1) l1.textContent='📍 Sua região ('+la+', '+lo+') · radar ao vivo';
-  }, function(){}, {timeout:8000});
+    }, function(){ b.disabled=false; b.textContent=rotulo; }, {timeout:8000});
+  });
 })();
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ebcbf230a8794cd0a783cbc9bb447fe8"}'></script><!-- End Cloudflare Web Analytics -->
