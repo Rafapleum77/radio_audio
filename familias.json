@@ -1,0 +1,125 @@
+{
+  "_como_usar": "Agrupa versões da mesma música (idiomas, remixes) para a rotação nunca tocar duas irmãs perto — mínimo de 12 faixas entre elas. Chave = nome livre da família; valores = títulos ou nomes de arquivo, escritos como quiser: o start_stream.sh compara em forma canônica (minúscula, sem acento, só letras e números), então 'A força que não existe', 'a_forca_que_nao_existe' e 'A Forca Que Nao Existe' são a mesma coisa. Sufixos _pt/_es/_en continuam funcionando sozinhos, sem precisar entrar aqui.",
+  "familias": {
+    "forca_que_nao_existe": [
+      "A força que não existe",
+      "La fuerza que no existe",
+      "The power that doesn't exist"
+    ],
+    "realidade_ilusao": [
+      "A realidade é a ilusão",
+      "La realidad es la ilusión",
+      "The reality is the illusion"
+    ],
+    "voz_nao_se_apaga": [
+      "A voz não se apaga",
+      "La voz no se apaga",
+      "The voice doesn't fade",
+      "A voz da Revolucao",
+      "A voz da revolução"
+    ],
+    "sobre_o_amanha": [
+      "Sobre o amanhã",
+      "Sobre el mañana",
+      "About tomorrow"
+    ],
+    "codigo_livre": [
+      "Código Livre",
+      "Código Libre",
+      "Code Libre",
+      "Free Code"
+    ],
+    "alem_do_sistema": [
+      "Além do sistema",
+      "Más allá del sistema",
+      "Beyond the system"
+    ],
+    "mentes_livres": [
+      "Mentes Livres",
+      "Mentes Libres",
+      "Free Minds"
+    ],
+    "guerra_silenciosa": [
+      "A guerra silenciosa",
+      "La guerra silenciosa",
+      "The silent war"
+    ],
+    "novo_despertar": [
+      "O novo despertar",
+      "El nuevo despertar",
+      "The new awakening"
+    ],
+    "dono_do_futuro": [
+      "Ninguém é dono do futuro",
+      "Nadie es dueño del futuro",
+      "No one owns the future"
+    ],
+    "for_everyone": [
+      "the_future_for_everyone",
+      "The future is for everyone",
+      "Bitcoin For Everyone",
+      "Bitcoin para todos"
+    ],
+    "block_found": [
+      "Block Found",
+      "Bloco Encontrado"
+    ],
+    "raiz_de_jesse": [
+      "raiz_de_jesse",
+      "root_of_jesse",
+      "Raiz de Jessé",
+      "Root of Jesse"
+    ],
+    "onze_setembro": [
+      "11_setembro_btc",
+      "september11_btc_warned"
+    ],
+    "dexter": [
+      "dexter_brasileiro",
+      "brazilian_dexter"
+    ],
+    "bitcoin_gol": [
+      "Bitcoin no Gol",
+      "bitcoin_in_goal"
+    ],
+    "disco_radio": [
+      "disco_radio_bitcoin",
+      "Radio Dance Disco"
+    ],
+    "luz": [
+      "difunde_tu_luz",
+      "Spread Its Light",
+      "El Día de la Luz"
+    ],
+    "salvacao": [
+      "Bitcoin Salvação",
+      "Bitcoin Salvação-2",
+      "Bitcoin e Salvação"
+    ],
+    "hit_tropical": [
+      "hit_tropical_btc",
+      "hit_tropical_btc_remix"
+    ],
+    "regua_nao_estica": [
+      "regua_nao_estica_pt",
+      "regua_nao_estica_es",
+      "regua_nao_estica_en",
+      "A régua que não estica",
+      "La regla que no se estira",
+      "The Ruler That Doesn't Stretch"
+    ],
+    "bencao_de_deus": [
+      "A Bênção De Deus",
+      "La Bendicion DE DIOS",
+      "The Blessing OF GOD"
+    ],
+    "marco_12984": [
+      "marco_luciana",
+      "marco_reed"
+    ],
+    "sete_setembro": [
+      "sete_setembro_antonio",
+      "sete_setembro_thalita"
+    ]
+  }
+}
