@@ -33,5 +33,3 @@ locucoes/*.mp3
 # Estado que muda a cada musica — versionar so gera commit sem conteudo
 nowplaying.json
 
-# Arquivo morto do expira_sazonais.sh — fica no disco, nao no git
-sazonais_fora_de_epoca/
