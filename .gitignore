@@ -23,3 +23,15 @@ estado_shorts.json
 logs/*.log
 stats_radio.json
 podcast/
+
+# Locucoes dos locutores IA: regravadas de hora em hora e regravadas de novo.
+# Nao sao servidas pelo site (nenhum html referencia locucoes/) — vao para a
+# radio, pelo disco. Versionadas, geraram 315 MB de historico morto. O
+# manifest.json continua versionado: e texto, e e o registro do que foi falado.
+locucoes/*.mp3
+
+# Estado que muda a cada musica — versionar so gera commit sem conteudo
+nowplaying.json
+
+# Arquivo morto do expira_sazonais.sh — fica no disco, nao no git
+sazonais_fora_de_epoca/
