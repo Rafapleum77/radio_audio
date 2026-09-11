@@ -28,7 +28,37 @@
   <itunes:type>episodic</itunes:type>
   <podcast:locked owner="alegriaitacare@gmail.com">no</podcast:locked>
   <podcast:funding url="lightning:texugorecords@walletofsatoshi.com">Apoie a rádio com sats</podcast:funding>
-  <lastBuildDate>Fri, 11 Sep 2026 10:05:05 -0300</lastBuildDate>
+  <lastBuildDate>Fri, 11 Sep 2026 13:05:05 -0300</lastBuildDate>
+  <item>
+    <title>Siga o Dinheiro — 11/09/2026 13:05</title>
+    <description>O fluxo do dinheiro do dia, explicado.</description>
+    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-09-11_1305_fluxo_dinheiro.mp3" length="1222155" type="audio/mpeg"/>
+    <guid isPermaLink="false">4e111f1fe2e51cfef3bb346de762574b</guid>
+    <pubDate>Fri, 11 Sep 2026 13:05:05 -0300</pubDate>
+    <itunes:duration>00:01:16</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Plantão Bitcoin — 11/09/2026 13:05</title>
+    <description>Alerta de preço: o que aconteceu e por quê.</description>
+    <itunes:summary>Alerta de preço: o que aconteceu e por quê.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-09-11_1305_alerta_preco.mp3" length="675465" type="audio/mpeg"/>
+    <guid isPermaLink="false">d80cb978a6693479158e7a25bf83b200</guid>
+    <pubDate>Fri, 11 Sep 2026 13:05:05 -0300</pubDate>
+    <itunes:duration>00:00:42</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Missão Bitcoin — 11/09/2026 13:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-09-11_1305_missao_bitcoin_cde.mp3" length="274224" type="audio/mpeg"/>
+    <guid isPermaLink="false">3ba2fca27080ac0b5f276187b87ab6ee</guid>
+    <pubDate>Fri, 11 Sep 2026 13:05:05 -0300</pubDate>
+    <itunes:duration>00:00:17</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Boletim de Notícias Bitcoin — 11/09/2026 10:05</title>
     <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
