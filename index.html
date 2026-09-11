@@ -461,19 +461,18 @@
           <div class="pt" style="color:#f2a900">⚡ MANTENHA A RÁDIO NO AR</div>
           <div style="font-size:10px;color:#c8d0dc;line-height:1.6;margin-top:7px">
             24h por dia, 21 programas, sem patrocinador e sem ninguém mandando na pauta.
-            <b style="color:#fff">Custa R$&nbsp;656 por mês pra existir</b> — 35 pessoas com
-            R$&nbsp;19 cobrem tudo.
+            <b style="color:#fff">Custa R$&nbsp;656 por mês pra existir</b> — um punhado de sats de cada ouvinte mantém o sinal no ar. Prefere cartão? R$&nbsp;19/mês também cobre.
           </div>
           <div style="display:grid;gap:6px;margin-top:10px">
             <a href="/ouvinte-fundador.html"
                style="display:block;text-align:center;background:#f2a900;color:#0a0a0b;font-weight:700;
                       font-size:12px;padding:11px;border-radius:6px;text-decoration:none;letter-spacing:.3px">
-              Apoiar com R$ 19/mês &nbsp;·&nbsp; PIX ou cartão
+              ⚡ Apoiar com sats/mês
             </a>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-              <a href="/ouvinte-fundador.html#v4v"
+              <a href="/ouvinte-fundador.html"
                  style="text-align:center;border:1px solid rgba(242,169,0,.4);color:#f2a900;font-size:10px;
-                        padding:9px 6px;border-radius:6px;text-decoration:none">⚡ Mandar sats</a>
+                        padding:9px 6px;border-radius:6px;text-decoration:none">R$ 19 · PIX/cartão</a>
               <a href="https://apps.apple.com/br/app/radio-bitcoin/id6796562495" target="_blank" rel="noopener"
                  style="text-align:center;border:1px solid rgba(0,212,255,.35);color:#00d4ff;font-size:10px;
                         padding:9px 6px;border-radius:6px;text-decoration:none">📱 App iPhone</a>
@@ -7241,6 +7240,152 @@ iaRender();
   if(b){set('qpBtc',b);set('qpChipBtc',b);}
   if(bl)set('qpBlock',bl);
 }catch(e){}})();
+</script>
+<!-- ===== 🥚 CACADA AO OVO DE SATOSHI · motor completo (3 chaves + ovo) ===== -->
+<script>
+(function(){
+  var CODE="21NODEZERO";                       // 21 + NODE + ZERO
+  var IG="instagram.com/radiobitcoinbr";
+  function has(k){ try{return localStorage.getItem(k)==='1'}catch(_){return false} }
+  function set(k){ try{localStorage.setItem(k,'1')}catch(_){} }
+  function norm(s){ return (s||'').toUpperCase().replace(/[^A-Z0-9]/g,''); }
+
+  // ---- migalha no console (tambem e a Chave de Jade) ----
+  try{
+    var big="font:700 15px ui-monospace,monospace;color:#f2a900";
+    console.log("%c🥚 A CACADA AO OVO DE SATOSHI","font:800 20px monospace;color:#f2a900;text-shadow:0 0 8px #f2a900");
+    console.log("%c3 chaves escondidas. 3 fragmentos. 1 ovo: 21.000 sats na Lightning.",big);
+    console.log("%c🥈 CHAVE DE JADE — voce abriu o console, entao merece: fragmento = %cNODE","color:#7fe0a0;font:600 13px monospace","color:#fff;font:800 15px monospace");
+    console.log("%c   Falta a Chave de Cristal. Dizem que ela desperta quando alguem digita o nome do criador na propria pagina.","color:#9fb8a0;font:12px monospace");
+    console.log("%c   (Chave de Cobre: o codigo dos deuses dos videogames. ↑↑↓↓←→←→BA)","color:#8a7a5a;font:11px monospace");
+    set('rb_jade');
+  }catch(_){}
+
+  // ---- estilos dos portais ----
+  var css=document.createElement('style');
+  css.textContent=""
+   +"#rb-oasis{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 30%,rgba(20,14,0,.94),rgba(0,0,0,.985));animation:rbfade .5s ease;font-family:ui-monospace,Menlo,Consolas,monospace}"
+   +"@keyframes rbfade{from{opacity:0}to{opacity:1}}"
+   +"#rb-oasis .cx{max-width:520px;width:88%;padding:28px 24px;border:1px solid rgba(242,169,0,.55);border-radius:14px;background:linear-gradient(180deg,rgba(30,22,4,.92),rgba(10,8,2,.96));box-shadow:0 0 60px rgba(242,169,0,.28),inset 0 0 30px rgba(242,169,0,.06);color:#f6d488;text-align:center}"
+   +"#rb-oasis .k{font-size:44px;filter:drop-shadow(0 0 14px rgba(242,169,0,.7));animation:rbsw 6s ease-in-out infinite}"
+   +"@keyframes rbsw{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}"
+   +"#rb-oasis h2{margin:12px 0 2px;color:#f2a900;letter-spacing:2px;font-size:17px;text-shadow:0 0 12px rgba(242,169,0,.6)}"
+   +"#rb-oasis .sub{font-size:11px;color:#b98;letter-spacing:1px;margin-bottom:14px}"
+   +"#rb-oasis p{font-size:12.5px;line-height:1.7;color:#e8cfa0;margin:9px 0}"
+   +"#rb-oasis .frag{margin:15px auto;padding:11px;border:1px dashed rgba(242,169,0,.5);border-radius:8px;background:rgba(242,169,0,.06);font-size:12px;color:#fff}"
+   +"#rb-oasis .frag b{color:#f2a900;font-size:20px;letter-spacing:5px}"
+   +"#rb-oasis .clue{font-size:11.5px;color:#9fb8a0;border-left:2px solid rgba(60,200,120,.5);padding-left:10px;text-align:left;margin:13px 0}"
+   +"#rb-oasis input{width:100%;box-sizing:border-box;margin:12px 0 4px;padding:11px;border-radius:8px;border:1px solid rgba(242,169,0,.5);background:#0a0a0b;color:#f2a900;font:700 15px monospace;text-align:center;letter-spacing:3px}"
+   +"#rb-oasis button{margin-top:14px;background:#f2a900;color:#0a0a0b;border:0;font-weight:800;font-size:12px;padding:10px 20px;border-radius:7px;cursor:pointer;letter-spacing:.5px}"
+   +"#rb-oasis .cw{font-size:9px;color:#6a5a3a;margin-top:12px;letter-spacing:1px}"
+   +"#rb-oasis .win{color:#7fe0a0;font-size:14px;font-weight:800;text-shadow:0 0 12px rgba(60,200,120,.5)}";
+  (document.head||document.documentElement).appendChild(css);
+
+  function portal(html){
+    if(document.getElementById('rb-oasis')) return;
+    var o=document.createElement('div'); o.id='rb-oasis';
+    o.innerHTML="<div class='cx'>"+html+"</div>";
+    o.addEventListener('click',function(e){ if(e.target===o) o.remove(); });
+    document.body.appendChild(o);
+    return o;
+  }
+  function fechar(){ var o=document.getElementById('rb-oasis'); if(o)o.remove(); }
+  window.__rbFechar=fechar;
+
+  // ---- CHAVE DE COBRE (konami) ----
+  var seq=[38,38,40,40,37,39,37,39,66,65], kp=0, buf="";
+  document.addEventListener('keydown',function(e){
+    var k=e.keyCode;
+    if(k===seq[kp]){ kp++; if(kp===seq.length){ kp=0; cobre(); } } else { kp=(k===seq[0])?1:0; }
+    // buffer de letras pra Cristal ("satoshi") e Ovo ("ovo")
+    if(e.key && e.key.length===1){ buf=(buf+e.key.toLowerCase()).slice(-8);
+      if(buf.indexOf('satoshi')>=0){ buf=""; cristal(); }
+      else if(buf.slice(-3)==='ovo'){ buf=""; ovo(); }
+    }
+  });
+
+  function cobre(){ set('rb_cobre'); portal(
+     "<div class='k'>&#129689;</div><h2>CHAVE DE COBRE</h2><div class='sub'>&#127793; A CACADA AO OVO DE SATOSHI</div>"
+    +"<p>Voce achou a primeira das tres chaves. Alguem escondeu algo aqui &mdash; para quem procura de verdade.</p>"
+    +"<div class='frag'>Fragmento 1 de 3:<br><b>21</b></div>"
+    +"<div class='clue'>&#128273; CHAVE DE JADE &mdash; os segredos moram onde os programadores olham. Abra o <b>console do navegador</b> (F12) e leia.</div>"
+    +"<button onclick='__rbFechar()'>CONTINUAR</button><div class='cw'>3 chaves &middot; 3 fragmentos &middot; 21.000 sats</div>"); }
+
+  function cristal(){ set('rb_cristal'); portal(
+     "<div class='k'>&#128142;</div><h2>CHAVE DE CRISTAL</h2><div class='sub'>voce invocou o nome do criador</div>"
+    +"<p>A terceira chave e sua. Agora voce tem os tres fragmentos.</p>"
+    +"<div class='frag'>Fragmento 3 de 3:<br><b>ZERO</b></div>"
+    +"<div class='clue'>&#129370; O OVO &mdash; junte os tres fragmentos na ordem das chaves (Cobre &middot; Jade &middot; Cristal) e digite o codigo. Ou simplesmente digite <b>ovo</b> a qualquer momento.</div>"
+    +"<button onclick='__rbFechar()'>ABRIR O OVO</button><div class='cw'>21 &middot; NODE &middot; ZERO</div>"); }
+
+  function ovo(){ var o=portal(
+     "<div class='k'>&#129370;</div><h2>O OVO DE SATOSHI</h2><div class='sub'>digite o codigo dos tres fragmentos</div>"
+    +"<input id='rb-egg' placeholder='_ _ _ _ _ _ _ _' autocomplete='off'>"
+    +"<div id='rb-egg-msg' style='font-size:11px;color:#b98;min-height:14px'></div>"
+    +"<button onclick='__rbEgg()'>DECIFRAR</button><div class='cw'>21.000 sats para o primeiro que provar</div>");
+    var inp=document.getElementById('rb-egg'); if(inp) inp.focus();
+  }
+  window.__rbEgg=function(){
+    var inp=document.getElementById('rb-egg'), msg=document.getElementById('rb-egg-msg');
+    if(!inp) return;
+    if(norm(inp.value)===CODE){
+      set('rb_ovo');
+      portal(
+        "<div class='k'>&#129370;&#10024;</div><h2 class='win'>VOCE ACHOU O OVO DE SATOSHI</h2>"
+       +"<p class='win'>21.000 sats sao seus.</p>"
+       +"<p>Para receber, mande o codigo <b style='color:#f2a900'>"+CODE+"</b> no direct do Instagram <b>@radiobitcoinbr</b> (ou e-mail radiobitcoin.org@gmail.com).</p>"
+       +"<p style='color:#f2a900'>&#9889; O PRIMEIRO a provar leva os 21.000 sats na Lightning.</p>"
+       +"<div class='clue'>Halliday escondeu o Ovo porque queria que alguem olhasse o OASIS de verdade. Aqui foi igual: obrigado por procurar. &mdash; Radio Bitcoin</div>"
+       +"<button onclick='__rbFechar()'>&#9889; IR RECEBER</button>");
+    } else {
+      if(msg){ msg.textContent="codigo errado. faltam fragmentos? (Cobre &middot; Jade &middot; Cristal)"; msg.style.color="#e58"; }
+      inp.style.borderColor="#e55";
+    }
+  };
+})();
+</script>
+
+<!-- ===== 🥚 CACADA · teaser visivel (skin OASIS) ===== -->
+<script>
+(function(){
+  function dismissed(){ try{return localStorage.getItem('rb_teaser_x')==='1'}catch(_){return false} }
+  if(dismissed()) return;
+  var css=document.createElement('style');
+  css.textContent=""
+   +"#rb-teaser{position:fixed;left:12px;bottom:12px;z-index:99990;display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:999px;background:linear-gradient(180deg,rgba(30,22,4,.95),rgba(10,8,2,.97));border:1px solid rgba(242,169,0,.6);box-shadow:0 0 22px rgba(242,169,0,.35);cursor:pointer;font-family:ui-monospace,Menlo,monospace;color:#f6d488;font-size:11px;letter-spacing:.5px;animation:rbpulse 2.6s ease-in-out infinite,rbin .6s ease}"
+   +"@keyframes rbin{from{transform:translateY(20px);opacity:0}to{transform:none;opacity:1}}"
+   +"@keyframes rbpulse{0%,100%{box-shadow:0 0 18px rgba(242,169,0,.3)}50%{box-shadow:0 0 30px rgba(242,169,0,.55)}}"
+   +"#rb-teaser .egg{font-size:16px;animation:rbfloat 3s ease-in-out infinite}"
+   +"@keyframes rbfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}"
+   +"#rb-teaser b{color:#f2a900}"
+   +"#rb-teaser .x{margin-left:2px;color:#8a7a5a;font-weight:800;padding:0 4px}"
+   +"@media(max-width:520px){#rb-teaser{font-size:10px;padding:8px 10px}}";
+  document.head.appendChild(css);
+  var t=document.createElement('div'); t.id='rb-teaser';
+  t.innerHTML="<span class='egg'>&#129370;</span><span><b>21.000 sats</b> escondidos aqui</span><span class='x' title='fechar'>&times;</span>";
+  t.addEventListener('click',function(e){
+    if(e.target.className==='x'){ try{localStorage.setItem('rb_teaser_x','1')}catch(_){}; t.remove(); return; }
+    regras();
+  });
+  function regras(){
+    if(document.getElementById('rb-oasis')) return;
+    var o=document.createElement('div'); o.id='rb-oasis';
+    o.setAttribute('style','position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 30%,rgba(20,14,0,.94),rgba(0,0,0,.985));font-family:ui-monospace,Menlo,monospace');
+    o.innerHTML="<div style='max-width:520px;width:88%;padding:28px 24px;border:1px solid rgba(242,169,0,.55);border-radius:14px;background:linear-gradient(180deg,rgba(30,22,4,.92),rgba(10,8,2,.96));box-shadow:0 0 60px rgba(242,169,0,.28);color:#f6d488;text-align:center'>"
+     +"<div style='font-size:42px'>&#129370;</div>"
+     +"<h2 style='color:#f2a900;letter-spacing:2px;font-size:18px;margin:10px 0 2px;text-shadow:0 0 12px rgba(242,169,0,.6)'>A CACADA AO OVO DE SATOSHI</h2>"
+     +"<div style='font-size:11px;color:#b98;margin-bottom:14px'>uma homenagem ao OASIS, feita de Bitcoin</div>"
+     +"<p style='font-size:12.5px;line-height:1.7;color:#e8cfa0'>Escondi <b style='color:#f2a900'>3 chaves</b> nesta p&aacute;gina. Ache as tr&ecirc;s, junte os fragmentos, abra o Ovo.</p>"
+     +"<p style='font-size:12.5px;line-height:1.7;color:#e8cfa0'>O <b style='color:#f2a900'>primeiro</b> que decifrar leva <b style='color:#f2a900'>21.000 sats</b> na Lightning.</p>"
+     +"<div style='font-size:11.5px;color:#9fb8a0;border-left:2px solid rgba(60,200,120,.5);padding-left:10px;text-align:left;margin:14px 0'>As pistas est&atilde;o &agrave; vista de quem procura de verdade: teclas secretas, o console dos programadores, o nome do criador. Comece explorando. Nada aqui &eacute; por acaso.</div>"
+     +"<button onclick=\"document.getElementById('rb-oasis').remove()\" style='margin-top:8px;background:#f2a900;color:#0a0a0b;border:0;font-weight:800;font-size:12px;padding:10px 22px;border-radius:7px;cursor:pointer;letter-spacing:.5px'>&#9889; COME&Ccedil;AR A CACAR</button>"
+     +"</div>";
+    o.addEventListener('click',function(e){ if(e.target===o) o.remove(); });
+    document.body.appendChild(o);
+  }
+  document.addEventListener('DOMContentLoaded',function(){ document.body.appendChild(t); });
+  if(document.body) document.body.appendChild(t);
+})();
 </script>
 </body>
 </html>
