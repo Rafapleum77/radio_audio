@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Capela da Rádio Bitcoin · orações e curiosidades da Bíblia</title>
+<meta name="description" content="Um lugar quieto dentro da Rádio Bitcoin: versículo do dia, velas acesas com uma intenção, orações clássicas e curiosidades sobre a Bíblia.">
+<link rel="canonical" href="https://radiobitcoin.org/capela/">
+<meta property="og:title" content="Capela da Rádio Bitcoin">
+<meta property="og:description" content="Versículo do dia, velas, orações e curiosidades da Bíblia. Entre, sente, respire.">
+<meta property="og:url" content="https://radiobitcoin.org/capela/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap">
+<style>
+  :root{
+    --fundo:#08070a;
+    --painel:#131015;
+    --painel2:#1a161d;
+    --linha:#2a2430;
+    --txt:#ece7de;
+    --dim:#9a9184;
+    --ouro:#f2a900;
+    --chama:#ffb347;
+    --azul:#7fb3ff;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--fundo);color:var(--txt);
+    font:18px/1.6 "Cormorant Garamond",Georgia,"Times New Roman",serif;
+    padding:0 0 64px;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 50% 0%,rgba(242,169,0,.10),transparent 70%),
+      radial-gradient(ellipse 40% 30% at 50% 100%,rgba(255,179,71,.06),transparent 70%);
+  }
+  a{color:var(--ouro)}
+  .tudo{max-width:680px;margin:0 auto;padding:0 18px}
+
+  /* ---- topo ---- */
+  .voltar{
+    display:inline-flex;align-items:center;gap:8px;margin:18px 0 0;
+    font-family:"Share Tech Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--dim);text-decoration:none;
+  }
+  .voltar:hover{color:var(--ouro)}
+  header{text-align:center;padding:34px 0 26px}
+  .selo{
+    font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--ouro);opacity:.85;margin:0 0 14px;
+  }
+  h1{
+    font-weight:600;font-size:clamp(34px,8vw,52px);line-height:1.05;margin:0;
+    letter-spacing:.01em;color:#fff6e3;
+  }
+  .sub{color:var(--dim);font-style:italic;font-size:20px;margin:12px 0 0}
+
+  /* ---- arco / janela ---- */
+  .janela{
+    margin:26px auto 0;width:min(100%,420px);aspect-ratio:1/1.15;
+    border-radius:210px 210px 14px 14px;
+    border:1px solid rgba(242,169,0,.35);
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 35%,rgba(242,169,0,.22),transparent 70%),
+      linear-gradient(180deg,#151119 0%,#0c0a0e 100%);
+    position:relative;overflow:hidden;
+    box-shadow:0 0 60px rgba(242,169,0,.08),inset 0 0 40px rgba(0,0,0,.6);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:40px 28px 28px;text-align:center;
+  }
+  .janela::before{
+    content:"";position:absolute;inset:10px;border-radius:200px 200px 8px 8px;
+    border:1px solid rgba(242,169,0,.14);pointer-events:none;
+  }
+  .cruz{
+    font-size:34px;color:var(--ouro);opacity:.9;line-height:1;margin-bottom:14px;
+    text-shadow:0 0 18px rgba(242,169,0,.6);
+  }
+  .versiculo{font-size:clamp(20px,4.6vw,26px);line-height:1.35;margin:0;font-style:italic;color:#fff6e3}
+  .ref{
+    font-family:"Share Tech Mono",monospace;font-size:12px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--ouro);margin:16px 0 0;
+  }
+  .dia{font-family:"Share Tech Mono",monospace;font-size:10.5px;letter-spacing:.18em;color:var(--dim);margin-top:8px;text-transform:uppercase}
+
+  /* ---- seções ---- */
+  section{margin-top:44px}
+  h2{
+    font-family:"Share Tech Mono",monospace;font-size:11.5px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--ouro);margin:0 0 6px;
+  }
+  .intro{color:var(--dim);margin:0 0 18px;font-size:17px}
+  .card{
+    border:1px solid var(--linha);border-radius:14px;background:var(--painel);
+    padding:22px 22px;margin-bottom:12px;
+  }
+
+  /* ---- velas ---- */
+  .altar{
+    display:flex;flex-wrap:wrap;gap:22px 18px;justify-content:center;
+    min-height:120px;padding:26px 10px 8px;
+    border-radius:14px;background:linear-gradient(180deg,rgba(255,179,71,.05),transparent);
+  }
+  .vela{display:flex;flex-direction:column;align-items:center;width:78px;position:relative}
+  .chama{
+    width:14px;height:26px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+    background:radial-gradient(ellipse at 50% 70%,#fff4c2 0%,#ffb347 45%,rgba(255,120,0,.0) 75%);
+    box-shadow:0 0 18px 6px rgba(255,179,71,.35),0 0 40px 12px rgba(255,140,0,.12);
+    transform-origin:50% 100%;animation:tremula 1.6s ease-in-out infinite;
+  }
+  .vela:nth-child(2n) .chama{animation-duration:1.9s}
+  .vela:nth-child(3n) .chama{animation-duration:1.4s}
+  @keyframes tremula{
+    0%,100%{transform:scaleX(1) scaleY(1) rotate(0)}
+    30%{transform:scaleX(.92) scaleY(1.06) rotate(-2deg)}
+    60%{transform:scaleX(1.05) scaleY(.96) rotate(2deg)}
+  }
+  @media (prefers-reduced-motion:reduce){.chama{animation:none}}
+  .pavio{width:2px;height:6px;background:#3a2a1a;margin-top:-2px}
+  .cera{
+    width:22px;height:54px;border-radius:4px 4px 3px 3px;
+    background:linear-gradient(90deg,#f1e2c0,#fff6df 40%,#d9c69f);
+    box-shadow:0 8px 14px rgba(0,0,0,.5);
+  }
+  .intencao{
+    margin-top:8px;font-size:13.5px;line-height:1.25;color:var(--dim);text-align:center;
+    font-style:italic;max-width:90px;word-wrap:break-word;
+  }
+  .acender{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+  .acender input{
+    flex:1 1 200px;min-width:0;background:var(--painel2);border:1px solid var(--linha);
+    border-radius:10px;color:var(--txt);padding:12px 14px;font:inherit;font-size:17px;
+  }
+  .acender input::placeholder{color:#6f675c}
+  .acender button,.btn{
+    background:var(--ouro);color:#1a1200;border:0;border-radius:10px;padding:12px 18px;
+    font-family:"Share Tech Mono",monospace;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;cursor:pointer;
+  }
+  .btn.ghost{background:transparent;color:var(--ouro);border:1px solid rgba(242,169,0,.45)}
+  .nota{font-size:14px;color:var(--dim);margin:12px 0 0;font-family:"Share Tech Mono",monospace;letter-spacing:.02em;line-height:1.5}
+  .vazio{color:var(--dim);font-style:italic;text-align:center;width:100%;padding:14px 0}
+
+  /* ---- orações ---- */
+  details{
+    border:1px solid var(--linha);border-radius:14px;background:var(--painel);
+    margin-bottom:10px;overflow:hidden;
+  }
+  summary{
+    cursor:pointer;list-style:none;padding:16px 20px;font-size:21px;font-weight:600;
+    display:flex;justify-content:space-between;align-items:center;gap:12px;color:#fff6e3;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--ouro);font-family:"Share Tech Mono",monospace;font-size:18px}
+  details[open] summary::after{content:"–"}
+  .oracao{padding:0 20px 20px;white-space:pre-line;font-size:19px;line-height:1.55;color:var(--txt)}
+  .oracao small{display:block;margin-top:10px;font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);white-space:normal}
+
+  /* ---- curiosidades ---- */
+  .curio{
+    border:1px solid rgba(127,179,255,.25);border-radius:14px;background:var(--painel);
+    padding:22px 22px;position:relative;
+  }
+  .curio .tag{font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--azul);margin:0 0 10px}
+  .curio p{margin:0;font-size:20px;line-height:1.5}
+  .curio .fonte{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--dim);margin-top:12px;letter-spacing:.1em}
+  .curio-acoes{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+  .contador{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--dim);letter-spacing:.14em;align-self:center;margin-left:auto}
+
+  /* ---- rodapé ---- */
+  footer{margin-top:54px;text-align:center;color:var(--dim);font-size:15px}
+  footer .m{font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:10px}
+  /* ---- corretoras parceiras (rodapé) ---- */
+  .parc{margin-top:40px;padding-top:26px;border-top:1px solid var(--linha)}
+  .parc-h{font-family:"Share Tech Mono",monospace;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
+  .parc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;text-align:left}
+  .parc-card{
+    display:flex;align-items:center;gap:10px;padding:10px 12px;
+    border:1px solid var(--linha);border-radius:12px;background:var(--painel);
+    text-decoration:none;color:var(--txt);transition:border-color .2s;
+  }
+  .parc-card:hover{border-color:rgba(242,169,0,.5)}
+  .parc-logo{
+    flex:0 0 40px;width:40px;height:40px;border-radius:9px;background:#fff;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+  }
+  .parc-logo.escuro{background:#15131a}
+  .parc-logo img{max-width:80%;max-height:80%;object-fit:contain}
+  .parc-nome{font-size:17px;font-weight:600;line-height:1.15;color:#fff6e3}
+  .parc-nome small{display:block;font-family:"Share Tech Mono",monospace;font-size:10px;letter-spacing:.06em;color:var(--dim);margin-top:3px;font-weight:400}
+  .parc-fine{font-size:14px;color:var(--dim);font-style:italic;margin-top:12px}
+  .ouvir{
+    display:inline-flex;align-items:center;gap:10px;margin-top:18px;
+    border:1px solid rgba(242,169,0,.4);border-radius:999px;padding:10px 18px;
+    font-family:"Share Tech Mono",monospace;font-size:11.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ouro);text-decoration:none;
+  }
+</style>
+</head>
+<body>
+<div class="tudo">
+  <a class="voltar" href="/">← Rádio Bitcoin</a>
+
+  <header>
+    <p class="selo">✦ um lugar quieto no meio do mercado ✦</p>
+    <h1>Capela da Rádio Bitcoin</h1>
+    <p class="sub">Entre, sente, respire. Aqui ninguém está correndo.</p>
+
+    <div class="janela" id="janela">
+      <div class="cruz">✝</div>
+      <p class="versiculo" id="versoTexto">O Senhor é o meu pastor; nada me faltará.</p>
+      <p class="ref" id="versoRef">Salmo 23:1</p>
+      <p class="dia" id="versoDia">versículo do dia</p>
+    </div>
+  </header>
+
+  <!-- ===== VELAS ===== -->
+  <section id="velas">
+    <h2>🕯 Acenda uma vela</h2>
+    <p class="intro">Escreva uma intenção, um nome, um agradecimento. A vela fica acesa neste aparelho, e a intenção fica entre você e Deus.</p>
+    <div class="card">
+      <div class="altar" id="altar"><div class="vazio">Nenhuma vela acesa ainda. Seja o primeiro.</div></div>
+      <form class="acender" id="formVela" autocomplete="off">
+        <input id="intencao" maxlength="60" placeholder="Pela minha família…" aria-label="Intenção da vela">
+        <button type="submit">Acender</button>
+      </form>
+      <p class="nota" id="notaVelas">As velas ficam guardadas só no seu navegador. Elas se apagam sozinhas depois de 7 dias.</p>
+    </div>
+  </section>
+
+  <!-- ===== ORAÇÕES ===== -->
+  <section id="oracoes">
+    <h2>🙏 Orações</h2>
+    <p class="intro">As clássicas, para rezar em voz baixa enquanto a rádio toca.</p>
+
+    <details open>
+      <summary>Pai Nosso</summary>
+      <div class="oracao">Pai nosso que estais nos céus,
+santificado seja o vosso nome;
+venha a nós o vosso reino;
+seja feita a vossa vontade,
+assim na terra como no céu.
+O pão nosso de cada dia nos dai hoje;
+perdoai-nos as nossas ofensas,
+assim como nós perdoamos a quem nos tem ofendido;
+e não nos deixeis cair em tentação,
+mas livrai-nos do mal. Amém.<small>Mateus 6:9-13</small></div>
+    </details>
+
+    <details>
+      <summary>Salmo 23</summary>
+      <div class="oracao">O Senhor é o meu pastor; nada me faltará.
+Deitar-me faz em verdes pastos, guia-me mansamente a águas tranquilas.
+Refrigera a minha alma; guia-me pelas veredas da justiça, por amor do seu nome.
+Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo; a tua vara e o teu cajado me consolam.
+Preparas uma mesa perante mim na presença dos meus inimigos, unges a minha cabeça com óleo, o meu cálice transborda.
+Certamente que a bondade e a misericórdia me seguirão todos os dias da minha vida; e habitarei na casa do Senhor por longos dias.<small>Salmo de Davi</small></div>
+    </details>
+
+    <details>
+      <summary>Ave Maria</summary>
+      <div class="oracao">Ave Maria, cheia de graça, o Senhor é convosco;
+bendita sois vós entre as mulheres,
+e bendito é o fruto do vosso ventre, Jesus.
+Santa Maria, Mãe de Deus,
+rogai por nós, pecadores,
+agora e na hora da nossa morte. Amém.<small>Lucas 1:28 e 1:42</small></div>
+    </details>
+
+    <details>
+      <summary>Oração de São Francisco</summary>
+      <div class="oracao">Senhor, fazei-me instrumento de vossa paz.
+Onde houver ódio, que eu leve o amor;
+onde houver ofensa, que eu leve o perdão;
+onde houver discórdia, que eu leve a união;
+onde houver dúvida, que eu leve a fé;
+onde houver erro, que eu leve a verdade;
+onde houver desespero, que eu leve a esperança;
+onde houver tristeza, que eu leve a alegria;
+onde houver trevas, que eu leve a luz.
+Ó Mestre, fazei que eu procure mais
+consolar, que ser consolado;
+compreender, que ser compreendido;
+amar, que ser amado.
+Pois é dando que se recebe,
+é perdoando que se é perdoado,
+e é morrendo que se vive para a vida eterna.</div>
+    </details>
+
+    <details>
+      <summary>Oração da Serenidade</summary>
+      <div class="oracao">Concedei-me, Senhor, a serenidade necessária
+para aceitar as coisas que não posso modificar,
+coragem para modificar aquelas que posso,
+e sabedoria para distinguir umas das outras.</div>
+    </details>
+
+    <details>
+      <summary>Salmo 91 (início)</summary>
+      <div class="oracao">Aquele que habita no esconderijo do Altíssimo, à sombra do Onipotente descansará.
+Direi do Senhor: Ele é o meu Deus, o meu refúgio, a minha fortaleza, e nele confiarei.
+Porque ele te livrará do laço do passarinheiro e da peste perniciosa.
+Ele te cobrirá com as suas penas, e debaixo das suas asas te confiarás; a sua verdade será o teu escudo e broquel.
+Não terás medo do terror de noite, nem da seta que voa de dia.<small>Salmo 91:1-5</small></div>
+    </details>
+
+    <details>
+      <summary>Oração da manhã, antes do trabalho</summary>
+      <div class="oracao">Senhor, o dia começa e eu não sei o que ele traz.
+Dá-me mãos firmes para o trabalho e coração leve para as pessoas.
+Que eu ganhe o pão com honestidade e não deseje o que não é meu.
+Que eu tenha paciência com quem é lento, humildade com quem sabe mais, e coragem quando for preciso dizer não.
+Guarda a minha casa enquanto estou fora, e me traz de volta em paz. Amém.<small>Oração da casa · Rádio Bitcoin</small></div>
+    </details>
+
+    <details>
+      <summary>Oração da noite</summary>
+      <div class="oracao">Senhor, o dia acabou. O que fiz de bom, guarda. O que fiz de errado, perdoa. O que ficou por fazer, entrego a ti.
+Abençoa quem dorme nesta casa e quem está longe dela.
+Dá descanso ao corpo e silêncio à mente.
+Amanhã eu recomeço. Amém.<small>Oração da casa · Rádio Bitcoin</small></div>
+    </details>
+  </section>
+
+  <!-- ===== CURIOSIDADES ===== -->
+  <section id="curiosidades">
+    <h2>📖 Você sabia?</h2>
+    <p class="intro">Curiosidades sobre a Bíblia, uma de cada vez.</p>
+    <div class="curio">
+      <p class="tag" id="curioTag">Curiosidade</p>
+      <p id="curioTexto"></p>
+      <p class="fonte" id="curioFonte"></p>
+      <div class="curio-acoes">
+        <button class="btn ghost" id="outraCurio" type="button">Outra</button>
+        <span class="contador" id="curioN"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PEDIDOS ===== -->
+  <section id="pedidos">
+    <h2>💬 Pedido de oração</h2>
+    <div class="card">
+      <p style="margin:0 0 6px">Quer que outras pessoas rezem com você? Deixe seu pedido no grupo da rádio. Sem nome, se preferir.</p>
+      <a class="btn" style="display:inline-block;margin-top:12px;text-decoration:none" href="https://t.me/bitadict" target="_blank" rel="noopener">Deixar pedido no Telegram</a>
+    </div>
+  </section>
+
+  <footer>
+    <div>A Rádio Bitcoin toca 24 horas. A capela fica aberta o tempo todo.</div>
+    <a class="ouvir" href="/">▶ Ouvir a rádio enquanto reza</a>
+
+    <div class="parc">
+      <div class="parc-h">Corretoras parceiras da rádio</div>
+      <div class="parc-grid">
+        <a class="parc-card" href="https://partner.bybit.com/b/aff_43677_161474?utm_source=radiobitcoin&utm_medium=capela&utm_campaign=partners" target="_blank" rel="noopener sponsored">
+          <span class="parc-logo"><img src="/logo_bybit.webp" alt="Bybit" loading="lazy"></span>
+          <span class="parc-nome">Bybit<small>Exchange parceira · cash back</small></span>
+        </a>
+        <a class="parc-card" href="https://bipa.app/convite/BOECXA" target="_blank" rel="noopener sponsored">
+          <span class="parc-logo escuro"><img src="/logo_bipa.png" alt="Bipa" loading="lazy"></span>
+          <span class="parc-nome">Bipa<small>Bitcoin &amp; Pix</small></span>
+        </a>
+        <a class="parc-card" href="https://stackbit.me" target="_blank" rel="noopener sponsored">
+          <span class="parc-logo"><img src="/logo_stack_oficial.png" alt="Stackbit" loading="lazy"></span>
+          <span class="parc-nome">Stackbit<small>Poupança em sats</small></span>
+        </a>
+        <a class="parc-card" href="https://sucateirocripto.com" target="_blank" rel="noopener sponsored">
+          <span class="parc-logo escuro"><img src="/logo_bitcan.webp" alt="Bitcan" loading="lazy"></span>
+          <span class="parc-nome">Bitcan<small>App de Bitcoin</small></span>
+        </a>
+      </div>
+      <div class="parc-fine">Comprou? Tira da corretora e guarda em carteira própria. Não é seu se a chave não é sua.</div>
+    </div>
+
+    <div class="m">radiobitcoin.org · Marataízes, ES</div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  /* ---------- versículo do dia (muda pelo dia do ano) ---------- */
+  var VERSOS=[
+    ["O Senhor é o meu pastor; nada me faltará.","Salmo 23:1"],
+    ["Aquietai-vos e sabei que eu sou Deus.","Salmo 46:10"],
+    ["Tudo posso naquele que me fortalece.","Filipenses 4:13"],
+    ["Lâmpada para os meus pés é tua palavra e luz para o meu caminho.","Salmo 119:105"],
+    ["Não temas, porque eu sou contigo.","Isaías 41:10"],
+    ["Entrega o teu caminho ao Senhor; confia nele, e ele tudo fará.","Salmo 37:5"],
+    ["Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei.","Mateus 11:28"],
+    ["O amor é sofredor, é benigno; o amor não é invejoso.","1 Coríntios 13:4"],
+    ["Buscai primeiro o reino de Deus e a sua justiça, e todas estas coisas vos serão acrescentadas.","Mateus 6:33"],
+    ["Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento.","Provérbios 3:5"],
+    ["A riqueza de procedência vã diminuirá, mas quem a ajunta pelo trabalho terá aumento.","Provérbios 13:11"],
+    ["Eu sou o caminho, e a verdade, e a vida.","João 14:6"],
+    ["Sede fortes e corajosos; não temais.","Deuteronômio 31:6"],
+    ["Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo.","Salmo 23:4"],
+    ["Porque para Deus nada é impossível.","Lucas 1:37"],
+    ["Este é o dia que fez o Senhor; regozijemo-nos e alegremo-nos nele.","Salmo 118:24"],
+    ["Lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós.","1 Pedro 5:7"],
+    ["Bem-aventurados os pacificadores, porque eles serão chamados filhos de Deus.","Mateus 5:9"],
+    ["O Senhor te abençoe e te guarde.","Números 6:24"],
+    ["Tudo tem o seu tempo determinado, e há tempo para todo propósito debaixo do céu.","Eclesiastes 3:1"],
+    ["Não vos inquieteis, pois, pelo dia de amanhã.","Mateus 6:34"],
+    ["Melhor é o pouco com justiça do que a abundância de bens com injustiça.","Provérbios 16:8"],
+    ["Aquele que habita no esconderijo do Altíssimo, à sombra do Onipotente descansará.","Salmo 91:1"],
+    ["Ensina-nos a contar os nossos dias, de tal maneira que alcancemos corações sábios.","Salmo 90:12"],
+    ["Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia.","Salmo 46:1"],
+    ["O que semeia pouco também ceifará pouco, e o que semeia em abundância também ceifará em abundância.","2 Coríntios 9:6"],
+    ["Alegrai-vos na esperança, sede pacientes na tribulação, perseverai na oração.","Romanos 12:12"],
+    ["Mais bem-aventurada coisa é dar do que receber.","Atos 20:35"],
+    ["Vigiai e orai, para que não entreis em tentação.","Mateus 26:41"],
+    ["Sede vós, pois, perfeitos, como é perfeito o vosso Pai que está nos céus.","Mateus 5:48"],
+    ["O temor do Senhor é o princípio da sabedoria.","Provérbios 9:10"]
+  ];
+  var hoje=new Date();
+  var inicio=new Date(hoje.getFullYear(),0,0);
+  var diaAno=Math.floor((hoje-inicio)/86400000);
+  var v=VERSOS[diaAno%VERSOS.length];
+  document.getElementById("versoTexto").textContent=v[0];
+  document.getElementById("versoRef").textContent=v[1];
+  document.getElementById("versoDia").textContent="versículo de "+hoje.toLocaleDateString("pt-BR",{day:"2-digit",month:"long"});
+
+  /* ---------- velas (localStorage, 7 dias) ---------- */
+  var CHAVE="capela_velas_v1", SETE_DIAS=7*86400000;
+  function ler(){try{var a=JSON.parse(localStorage.getItem(CHAVE)||"[]");var ag=Date.now();return a.filter(function(x){return x&&x.t&&ag-x.t<SETE_DIAS});}catch(e){return []}}
+  function gravar(a){try{localStorage.setItem(CHAVE,JSON.stringify(a))}catch(e){}}
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  function desenhar(){
+    var velas=ler(), altar=document.getElementById("altar");
+    if(!velas.length){altar.innerHTML='<div class="vazio">Nenhuma vela acesa ainda. Seja o primeiro.</div>';return}
+    altar.innerHTML=velas.slice(-24).map(function(x){
+      return '<div class="vela" title="'+esc(x.i||"")+'"><div class="chama"></div><div class="pavio"></div><div class="cera"></div><div class="intencao">'+esc(x.i||"")+'</div></div>';
+    }).join("");
+    var n=document.getElementById("notaVelas");
+    n.textContent=velas.length+(velas.length===1?" vela acesa":" velas acesas")+" neste aparelho. Elas se apagam sozinhas depois de 7 dias.";
+  }
+  document.getElementById("formVela").addEventListener("submit",function(e){
+    e.preventDefault();
+    var campo=document.getElementById("intencao");
+    var i=(campo.value||"").trim().slice(0,60);
+    if(!i){i="🙏"}
+    var velas=ler(); velas.push({i:i,t:Date.now()}); gravar(velas);
+    campo.value=""; desenhar();
+    document.getElementById("altar").scrollIntoView({behavior:"smooth",block:"nearest"});
+  });
+  desenhar();
+
+  /* ---------- curiosidades ---------- */
+  var CURIO=[
+    ["A palavra \"Bíblia\" vem do grego biblía, que quer dizer simplesmente \"os livros\". É uma biblioteca, não um livro só.","origem da palavra"],
+    ["A Bíblia foi escrita ao longo de cerca de 1.500 anos, por dezenas de autores diferentes: reis, pescadores, um médico, um cobrador de impostos, pastores de ovelhas.","autores"],
+    ["O menor versículo da Bíblia tem duas palavras: \"Jesus chorou\", em João 11:35.","João 11:35"],
+    ["O capítulo mais curto da Bíblia é o Salmo 117, com só dois versículos. O mais longo é o Salmo 119, com 176.","Salmos 117 e 119"],
+    ["A divisão em capítulos só apareceu no século XIII, feita por Stephen Langton. Os versículos numerados vieram em 1551, com o impressor Robert Estienne. Antes disso, era texto corrido.","capítulos e versículos"],
+    ["O primeiro livro impresso com tipos móveis no Ocidente foi uma Bíblia: a de Gutenberg, por volta de 1455. Cerca de 180 cópias foram feitas e menos de 50 sobrevivem.","Gutenberg"],
+    ["A Bíblia é o livro mais traduzido da história. A Bíblia completa já existe em mais de 700 línguas, e partes dela em mais de 3.500.","traduções"],
+    ["A primeira tradução completa da Bíblia para o português foi feita por João Ferreira de Almeida. O Novo Testamento dele saiu em 1681, quando Almeida tinha pouco mais de 50 anos.","Almeida"],
+    ["O livro de Ester é o único da Bíblia em que o nome de Deus não aparece nenhuma vez. Mesmo assim, a história inteira é sobre livramento.","Ester"],
+    ["Matusalém é a pessoa mais velha citada na Bíblia: 969 anos, segundo Gênesis 5:27.","Gênesis 5:27"],
+    ["O número 40 volta o tempo todo: 40 dias de dilúvio, 40 anos no deserto, 40 dias de Moisés no monte, 40 dias de jejum de Jesus. Na Bíblia, 40 costuma marcar um tempo de prova.","o número 40"],
+    ["Os Manuscritos do Mar Morto foram achados em 1947 por um pastor beduíno procurando uma cabra perdida numa caverna em Qumran. Eles são mil anos mais antigos que os manuscritos hebraicos que se conhecia até então.","Mar Morto, 1947"],
+    ["Lucas, autor do evangelho e de Atos, era médico. Paulo o chama de \"o médico amado\" em Colossenses 4:14.","Colossenses 4:14"],
+    ["O livro de Jó é considerado por muitos estudiosos o mais antigo da Bíblia, possivelmente anterior a Moisés.","Jó"],
+    ["Jesus contou cerca de 40 parábolas. A mais curta cabe num versículo: a do fermento, em Mateus 13:33.","parábolas"],
+    ["\"Amém\" é uma palavra hebraica que passou quase intacta para centenas de línguas. Quer dizer \"assim seja\", \"é firme\", \"é verdade\".","Amém"],
+    ["Jerônimo levou mais de 20 anos, entre 382 e 405, para traduzir a Bíblia para o latim. A tradução dele, a Vulgata, foi a Bíblia da Europa por mil anos.","Vulgata"],
+    ["A Bíblia católica tem 73 livros e a protestante, 66. A diferença são os sete livros chamados deuterocanônicos, como Tobias, Judite e Macabeus.","73 ou 66"],
+    ["O Cântico dos Cânticos é um poema de amor entre um homem e uma mulher, e não menciona Deus diretamente. Entrou na Bíblia lido como retrato do amor entre Deus e seu povo.","Cântico dos Cânticos"],
+    ["Paulo escreveu 13 das 27 cartas e livros do Novo Testamento, muitas delas ditadas a um escriba enquanto estava preso.","Paulo"],
+    ["Provérbios 13:11 diz que riqueza ganha às pressas diminui, e que quem junta pouco a pouco, pelo trabalho, vê crescer. Uma lição de 3 mil anos sobre constância.","Provérbios 13:11"],
+    ["Gênesis quer dizer \"origem\". É também o nome do primeiro bloco da rede Bitcoin, minerado em 3 de janeiro de 2009: o bloco gênesis.","Gênesis"],
+    ["Os Salmos eram cantados. O próprio título hebraico do livro, Tehilim, quer dizer \"louvores\". Vários trazem instruções para o mestre de música e o instrumento a usar.","Salmos"],
+    ["A palavra \"Evangelho\" vem do grego euangélion: boa notícia. Era o termo usado para anunciar uma vitória ou o nascimento de um rei.","Evangelho"],
+    ["Mateus, que escreveu o primeiro evangelho, era cobrador de impostos. Uma das profissões mais odiadas do seu tempo.","Mateus"],
+    ["A palavra \"pastor\" aparece na Bíblia para reis, para Deus e para Jesus. Davi, o maior rei de Israel, começou cuidando de ovelhas.","pastor"],
+    ["O livro de Apocalipse, o último da Bíblia, foi escrito por João no exílio, na ilha de Patmos, no mar Egeu. A palavra quer dizer \"revelação\", não \"fim do mundo\".","Apocalipse"],
+    ["O Sermão da Montanha, em Mateus 5 a 7, tem o Pai Nosso, as bem-aventuranças e a regra de ouro. Cabe em três capítulos e mudou o Ocidente.","Mateus 5 a 7"]
+  ];
+  var ordem=CURIO.map(function(_,i){return i}).sort(function(){return Math.random()-.5}), pos=0;
+  function mostrarCurio(){
+    var c=CURIO[ordem[pos%ordem.length]];
+    document.getElementById("curioTexto").textContent=c[0];
+    document.getElementById("curioFonte").textContent="· "+c[1];
+    document.getElementById("curioN").textContent=((pos%ordem.length)+1)+" / "+CURIO.length;
+  }
+  document.getElementById("outraCurio").addEventListener("click",function(){pos++;mostrarCurio()});
+  mostrarCurio();
+})();
+</script>
+</body>
+</html>
