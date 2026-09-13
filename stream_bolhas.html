@@ -383,12 +383,11 @@ async function fetchOne(sym){
                   mcap:META[sym].mc, sector:META[sym].s, name:META[sym].n, hist:null };
   return true;
 }
-// --- Finnhub (fonte PRINCIPAL: CORS direto, chave gratuita) ---
-const FINNHUB_TOKEN='d93tvk1r01qj2ci97b5gd93tvk1r01qj2ci97b60';
+// --- Finnhub (fonte PRINCIPAL) via proxy no Mini: o token fica em api.radiobitcoin.org, não no site ---
 async function finnhubQuote(sym){
   try{
     const ac=new AbortController(); const to=setTimeout(()=>ac.abort(),6000);
-    const r=await fetch('https://finnhub.io/api/v1/quote?symbol='+sym+'&token='+FINNHUB_TOKEN,{signal:ac.signal}); clearTimeout(to);
+    const r=await fetch('https://api.radiobitcoin.org/finnhub/quote?symbol='+sym,{signal:ac.signal}); clearTimeout(to);
     if(!r.ok) return false; const j=await r.json();
     if(j.c==null || j.c===0) return false;
     const price=j.c, prev=j.pc||price, ch=(j.dp!=null)? j.dp : (prev?((price-prev)/prev*100):0);
