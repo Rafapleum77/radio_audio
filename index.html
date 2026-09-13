@@ -7027,7 +7027,7 @@ function iaRender() {
         </div>
         <div style="font-size:8px;color:#888;margin-bottom:8px;">${c.desc}</div>
         <div style="display:flex;align-items:center;justify-content:space-between;">
-          <button onclick="${voted?'':\"iaVote('\"+ c.id +\"')\"}" style="background:${isVoted?c.color:'transparent'};color:${isVoted?'#000':c.color};border:1px solid ${c.color};border-radius:4px;padding:5px 12px;font-size:9px;cursor:${voted?'default':'pointer'};letter-spacing:1px;font-weight:bold;transition:all 0.2s;">
+          <button onclick="${voted?'':'iaVote(\''+c.id+'\')'}" style="background:${isVoted?c.color:'transparent'};color:${isVoted?'#000':c.color};border:1px solid ${c.color};border-radius:4px;padding:5px 12px;font-size:9px;cursor:${voted?'default':'pointer'};letter-spacing:1px;font-weight:bold;transition:all 0.2s;">
             ${isVoted?'✅ SEU VOTO':'👍 VOTAR'}
           </button>
           <span style="font-size:9px;color:#ccc;">${v} voto${v!==1?'s':''}</span>
