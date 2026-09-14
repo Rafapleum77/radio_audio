@@ -1,13 +1,46 @@
 {
   "fonte": "GoatCounter (analytics real, privacy-first)",
-  "atualizado_em": "2026-09-12",
-  "visitas_30d": 311,
-  "paises_total": 0,
-  "top_paises": [],
+  "atualizado_em": "2026-09-14",
+  "visitas_30d": 341,
+  "paises_total": 8,
+  "top_paises": [
+    {
+      "pais": "Brazil",
+      "count": 253
+    },
+    {
+      "pais": "United States",
+      "count": 71
+    },
+    {
+      "pais": "Portugal",
+      "count": 3
+    },
+    {
+      "pais": "Spain",
+      "count": 2
+    },
+    {
+      "pais": "United Kingdom",
+      "count": 2
+    },
+    {
+      "pais": "Argentina",
+      "count": 1
+    },
+    {
+      "pais": "Switzerland",
+      "count": 1
+    },
+    {
+      "pais": "India",
+      "count": 1
+    }
+  ],
   "top_paginas": [
     {
       "path": "/",
-      "count": 282
+      "count": 311
     },
     {
       "path": "/recovery.html",
@@ -15,7 +48,7 @@
     },
     {
       "path": "/carteira.html",
-      "count": 5
+      "count": 6
     },
     {
       "path": "/ouvinte-fundador.html",
