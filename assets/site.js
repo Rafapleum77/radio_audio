@@ -247,13 +247,10 @@
           .catch(() => tryUrl(i+1));
       })(0);
     }
-    // Simular contadores crescentes (dados reais viriam do server)
-    let sats = 1248, calls = 156;
+    // Sem contador real no servidor ainda: mostra traco em vez de numero inventado
     function tickCounters() {
-      sats += Math.floor(Math.random() * 3);
-      calls += Math.floor(Math.random() * 2);
-      if(satsEl) satsEl.textContent = sats.toLocaleString('pt-BR');
-      if(agentsEl) agentsEl.textContent = calls;
+      if(satsEl) satsEl.textContent = '—';
+      if(agentsEl) agentsEl.textContent = '—';
     }
     check();
     tickCounters();
@@ -766,9 +763,21 @@
     fetch('https://mempool.space/api/blocks/tip/height').then(function(r){return r.text();}).then(function(t){ if(t){var s=fmt(parseInt(t,10)); $('qpBlock').textContent=s; $('qpChipBlk').textContent='Bloco '+s;} }).catch(function(){});
   }
   telem(); setInterval(telem,45000);
-  var lis=0; setInterval(function(){ var el=$('qpListeners'), ch=$('qpChipLis');
-    if(mode==='live'&&!connecting){ if(!lis)lis=10+Math.floor(Math.random()*30); else lis=Math.max(1,lis+(Math.floor(Math.random()*5)-2)); el.textContent=String(lis); el.style.color='var(--cyan)'; ch.textContent=lis+' ouvintes'; $('liveLi').textContent='● '+lis+' ouvintes conectados'; }
-    else{ lis=0; el.textContent='—'; el.style.color='var(--qdim)'; ch.textContent='— ouvintes'; $('liveLi').textContent=''; } },4000);
+  // ouvintes: numero REAL do Icecast (antes era sorteado e chegou a mostrar 82 com 5 conectados)
+  var lis=null;
+  function lerOuvintes(){
+    fetch('https://stream.radiobitcoin.org/status-json.xsl').then(function(r){return r.json();}).then(function(d){
+      var src=d.icestats&&d.icestats.source; if(Array.isArray(src))src=src[0];
+      lis=(src&&typeof src.listeners==='number')?src.listeners:null; pintarOuvintes();
+    }).catch(function(){});
+  }
+  function pintarOuvintes(){ var el=$('qpListeners'), ch=$('qpChipLis'), li=$('liveLi');
+    if(lis===null){ return; }
+    var txt=lis+' ouvinte'+(lis!==1?'s':'');
+    el.textContent=String(lis); el.style.color=lis>0?'var(--cyan)':'var(--qdim)'; ch.textContent=txt+' ao vivo';
+    if(li) li.textContent=(mode==='live'&&!connecting)?('● '+txt+' conectado'+(lis!==1?'s':'')):'';
+  }
+  lerOuvintes(); setInterval(lerOuvintes,30000); setInterval(pintarOuvintes,4000);
 
   document.addEventListener('keydown',function(e){ var tag=(e.target&&e.target.tagName||'').toLowerCase(); if(tag==='input'||tag==='textarea')return;
     if(e.code==='Space'){e.preventDefault(); mode&&!connecting?(mode==='live'?playLive():playThemed(mode)):playLive();} else if(e.key==='1')playLive(); else if(e.key==='2')playThemed('econ'); else if(e.key==='3')playThemed('surv'); });
