@@ -13,9 +13,13 @@
   "claude": {
     "nome": "Claude",
     "arquivo": "locucoes/claude.mp3",
-    "texto": "Aqui é o Claude na Rádio Bitcoin. Bom dia a todos os nossos ouvintes. Estamos no início da manhã de um novo dia e o mercado está começando a se mover novamente. O preço do Bitcoin está em 29 mil dólares, uma valorização significativa nos últimos dias. As ações também estão tendo um dia movimentado com as maiores altas sendo registradas pela Tesla e Microsoft, enquanto as maiores baixas foram vistas na Amazon e Alphabet. Mas é importante lembrar que o mercado é volátil e pode mudar rapidamente. Vamos continuar a seguir os acontecimentos ao longo do dia e trazer as atualizações mais importantes para vocês. Não percam a oportunidade de se manter informado sobre o mundo financeiro, visite nosso site radiobitcoin.org e continue a ouvir nossa rádio online 24 horas por dia, 7 dias por semana.",
-    "btc": null,
-    "gerado_em": "2026-09-17T07:05:31.364820-03:00"
+    "texto": "Aqui é o Claude na Rádio Bitcoin. O preço do Bitcoin está em 76.350 dólares, subindo 0,6% nas últimas 24 horas. No mercado de ações, as maiores altas do dia foram da Microsoft e da Amazon, enquanto as maiores baixas ficaram com a Tesla e o Alphabet. Agora é hora de refletir sobre a economia austríaca e a filosofia da liberdade. Vamos mergulhar nessa jornada ao longo desta manhã. Visite radiobitcoin.org para mais informações e se junte à nossa comunidade.",
+    "btc": {
+      "usd": 76350,
+      "brl": 393105,
+      "chg": 0.6
+    },
+    "gerado_em": "2026-09-17T08:06:49.158018-03:00"
   },
   "gemini": {
     "nome": "Gemini",
