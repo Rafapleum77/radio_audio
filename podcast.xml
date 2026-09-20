@@ -28,7 +28,27 @@
   <itunes:type>episodic</itunes:type>
   <podcast:locked owner="alegriaitacare@gmail.com">no</podcast:locked>
   <podcast:funding url="lightning:texugorecords@walletofsatoshi.com">Apoie a rádio com sats</podcast:funding>
-  <lastBuildDate>Sun, 20 Sep 2026 10:05:04 -0300</lastBuildDate>
+  <lastBuildDate>Sun, 20 Sep 2026 13:05:02 -0300</lastBuildDate>
+  <item>
+    <title>Siga o Dinheiro — 20/09/2026 13:05</title>
+    <description>O fluxo do dinheiro do dia, explicado.</description>
+    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-09-20_1305_fluxo_dinheiro.mp3" length="1298224" type="audio/mpeg"/>
+    <guid isPermaLink="false">935aeb81cd65c6cb7ce2781baf90cfd0</guid>
+    <pubDate>Sun, 20 Sep 2026 13:05:02 -0300</pubDate>
+    <itunes:duration>00:01:21</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Missão Bitcoin — 20/09/2026 13:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-09-20_1305_missao_bitcoin_cde.mp3" length="288434" type="audio/mpeg"/>
+    <guid isPermaLink="false">7a106b31130b594397ae926081799b52</guid>
+    <pubDate>Sun, 20 Sep 2026 13:05:02 -0300</pubDate>
+    <itunes:duration>00:00:18</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Boletim de Notícias Bitcoin — 20/09/2026 10:05</title>
     <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
