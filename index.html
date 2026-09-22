@@ -479,6 +479,60 @@
     </div>
   </section>
 
+  <!-- ===== TREZOITÃO FC AO VIVO (destaque principal, logo abaixo do player, 22/09/2026) ===== -->
+  <style>
+  .trzfc{max-width:1100px;margin:16px auto;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#061a0c 0%,#0b0d10 55%,#1a1206 100%);border:2px solid #22c55e;box-shadow:0 0 60px -6px rgba(34,197,94,.55);font-family:ui-sans-serif,system-ui,sans-serif;animation:trzfcGlow 2.4s ease-in-out infinite;}
+  @keyframes trzfcGlow{0%,100%{box-shadow:0 0 40px -8px rgba(34,197,94,.45)}50%{box-shadow:0 0 70px -4px rgba(34,197,94,.8)}}
+  .trzfc__top{display:flex;align-items:center;gap:10px;padding:12px 20px 0;flex-wrap:wrap;}
+  .trzfc__badge{background:#22c55e;color:#000;font-weight:900;font-size:10px;letter-spacing:2px;padding:5px 14px;border-radius:20px;text-transform:uppercase;white-space:nowrap;animation:trzPulse 1.4s ease-in-out infinite;}
+  .trzfc__badge2{background:rgba(242,169,0,.15);color:#f2a900;font-size:9px;letter-spacing:1.5px;padding:4px 12px;border-radius:20px;border:1px solid rgba(242,169,0,.45);white-space:nowrap;}
+  .trzfc__inner{display:grid;grid-template-columns:1fr 1fr;align-items:center;}
+  @media(max-width:700px){.trzfc__inner{grid-template-columns:1fr;}}
+  .trzfc__video{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;}
+  .trzfc__video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+  .trzfc__content{padding:22px 24px;display:flex;flex-direction:column;justify-content:center;gap:12px;}
+  .trzfc__tag{font-size:9px;letter-spacing:3px;color:#22c55e;text-transform:uppercase;}
+  .trzfc__title{font-size:clamp(18px,3vw,28px);font-weight:900;color:#fff;line-height:1.2;}
+  .trzfc__title span{color:#22c55e;}
+  .trzfc__when{display:inline-block;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.5);border-radius:8px;padding:8px 16px;font-size:clamp(14px,3.6vw,18px);color:#22c55e;font-weight:900;letter-spacing:1.5px;}
+  .trzfc__desc{font-size:12px;color:#9ca3af;line-height:1.6;}
+  .trzfc__desc b{color:#e5e7eb;}
+  .trzfc__cta{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,#22c55e,#4ade80);color:#000;font-weight:900;font-size:15px;letter-spacing:1px;padding:14px 28px;border-radius:10px;text-decoration:none;box-shadow:0 4px 24px -4px rgba(34,197,94,.7);width:fit-content;}
+  .trzfc__cta:hover{transform:translateY(-2px);}
+  @media(max-width:700px){.trzfc__content{padding:16px 14px;}.trzfc__cta{width:100%;justify-content:center;}}
+  </style>
+  <div class="trzfc" id="trzfc">
+    <div class="trzfc__top">
+      <span class="trzfc__badge" id="trzfc-badge">&#9679; AO VIVO HOJE</span>
+      <span class="trzfc__badge2">&#9917; Rotina do Trezoitão · o principal da semana</span>
+    </div>
+    <div class="trzfc__inner">
+      <div class="trzfc__video">
+        <iframe src="https://www.youtube.com/embed/8fiJNE2oyrM?rel=0&modestbranding=1&color=white" allowfullscreen loading="lazy" title="AO VIVO: TREZOITÃO FC está de volta! Futebol raiz no Paraguai"></iframe>
+      </div>
+      <div class="trzfc__content">
+        <div class="trzfc__tag">&#9917; Futebol raiz no Paraguai</div>
+        <div class="trzfc__title"><span>TREZOITÃO FC</span> está de volta!<br>Futebol raiz ao vivo</div>
+        <div class="trzfc__when" id="trzfc-when">&#128197; HOJE, TERÇA 22/09 · 19H (Brasília)</div>
+        <div class="trzfc__desc"><b>Renato Trezoitão</b> entra em campo em Ciudad del Este e transmite tudo ao vivo no canal Rotina do Trezoitão. A Rádio Bitcoin é parceira oficial.</div>
+        <a class="trzfc__cta" href="https://www.youtube.com/watch?v=8fiJNE2oyrM" target="_blank" rel="noopener" id="trzfc-cta">&#9654; ASSISTIR AO VIVO NO YOUTUBE »</a>
+      </div>
+    </div>
+  </div>
+  <script>
+  /* Muda o texto conforme a hora: antes = "hoje as 19h", durante = "ao vivo agora",
+     depois = "assista a gravacao" (o embed vira o VOD sozinho). Some 5 dias depois. */
+  (function(){
+    var inicio=new Date('2026-09-22T19:00:00-03:00'), fim=new Date(inicio.getTime()+3*3600e3), agora=new Date();
+    var b=document.getElementById('trzfc-badge'), w=document.getElementById('trzfc-when'), c=document.getElementById('trzfc-cta'), box=document.getElementById('trzfc');
+    if(agora>new Date(inicio.getTime()+5*86400e3)){box.style.display='none';return;}
+    if(agora>=inicio&&agora<=fim){b.innerHTML='&#9679; AO VIVO AGORA';w.innerHTML='&#9917; ROLANDO AGORA · ENTRA AÍ';}
+    else if(agora>fim){b.innerHTML='&#9654; GRAVAÇÃO';w.innerHTML='&#128197; FOI TERÇA 22/09 · ASSISTA À GRAVAÇÃO';c.innerHTML='&#9654; VER A GRAVAÇÃO NO YOUTUBE »';}
+    else if(agora.toDateString()!==inicio.toDateString()){b.innerHTML='&#9679; AO VIVO TERÇA';w.innerHTML='&#128197; TERÇA 22/09 · 19H (Brasília)';}
+  })();
+  </script>
+  <!-- ===== FIM TREZOITÃO FC ===== -->
+
 <!-- APOIO — inserido 31/08/2026 -->
         <!-- Medido antes: o primeiro CTA de dinheiro do corpo da pagina estava na
              TELA 24 de 51 no celular. Os links do topo eram do menu ☰, escondido.
@@ -761,59 +815,6 @@
   </section>
   <!-- ===== FIM BANNER PROGRAMAÇÃO DIÁRIA ===== -->
 
-  <!-- ===== TREZOITÃO FC AO VIVO (destaque principal, 22/09/2026) ===== -->
-  <style>
-  .trzfc{max-width:1100px;margin:16px auto;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#061a0c 0%,#0b0d10 55%,#1a1206 100%);border:2px solid #22c55e;box-shadow:0 0 60px -6px rgba(34,197,94,.55);font-family:ui-sans-serif,system-ui,sans-serif;animation:trzfcGlow 2.4s ease-in-out infinite;}
-  @keyframes trzfcGlow{0%,100%{box-shadow:0 0 40px -8px rgba(34,197,94,.45)}50%{box-shadow:0 0 70px -4px rgba(34,197,94,.8)}}
-  .trzfc__top{display:flex;align-items:center;gap:10px;padding:12px 20px 0;flex-wrap:wrap;}
-  .trzfc__badge{background:#22c55e;color:#000;font-weight:900;font-size:10px;letter-spacing:2px;padding:5px 14px;border-radius:20px;text-transform:uppercase;white-space:nowrap;animation:trzPulse 1.4s ease-in-out infinite;}
-  .trzfc__badge2{background:rgba(242,169,0,.15);color:#f2a900;font-size:9px;letter-spacing:1.5px;padding:4px 12px;border-radius:20px;border:1px solid rgba(242,169,0,.45);white-space:nowrap;}
-  .trzfc__inner{display:grid;grid-template-columns:1fr 1fr;align-items:center;}
-  @media(max-width:700px){.trzfc__inner{grid-template-columns:1fr;}}
-  .trzfc__video{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;}
-  .trzfc__video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
-  .trzfc__content{padding:22px 24px;display:flex;flex-direction:column;justify-content:center;gap:12px;}
-  .trzfc__tag{font-size:9px;letter-spacing:3px;color:#22c55e;text-transform:uppercase;}
-  .trzfc__title{font-size:clamp(18px,3vw,28px);font-weight:900;color:#fff;line-height:1.2;}
-  .trzfc__title span{color:#22c55e;}
-  .trzfc__when{display:inline-block;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.5);border-radius:8px;padding:8px 16px;font-size:clamp(14px,3.6vw,18px);color:#22c55e;font-weight:900;letter-spacing:1.5px;}
-  .trzfc__desc{font-size:12px;color:#9ca3af;line-height:1.6;}
-  .trzfc__desc b{color:#e5e7eb;}
-  .trzfc__cta{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,#22c55e,#4ade80);color:#000;font-weight:900;font-size:15px;letter-spacing:1px;padding:14px 28px;border-radius:10px;text-decoration:none;box-shadow:0 4px 24px -4px rgba(34,197,94,.7);width:fit-content;}
-  .trzfc__cta:hover{transform:translateY(-2px);}
-  @media(max-width:700px){.trzfc__content{padding:16px 14px;}.trzfc__cta{width:100%;justify-content:center;}}
-  </style>
-  <div class="trzfc" id="trzfc">
-    <div class="trzfc__top">
-      <span class="trzfc__badge" id="trzfc-badge">&#9679; AO VIVO HOJE</span>
-      <span class="trzfc__badge2">&#9917; Rotina do Trezoitão · o principal da semana</span>
-    </div>
-    <div class="trzfc__inner">
-      <div class="trzfc__video">
-        <iframe src="https://www.youtube.com/embed/8fiJNE2oyrM?rel=0&modestbranding=1&color=white" allowfullscreen loading="lazy" title="AO VIVO: TREZOITÃO FC está de volta! Futebol raiz no Paraguai"></iframe>
-      </div>
-      <div class="trzfc__content">
-        <div class="trzfc__tag">&#9917; Futebol raiz no Paraguai</div>
-        <div class="trzfc__title"><span>TREZOITÃO FC</span> está de volta!<br>Futebol raiz ao vivo</div>
-        <div class="trzfc__when" id="trzfc-when">&#128197; HOJE, TERÇA 22/09 · 19H (Brasília)</div>
-        <div class="trzfc__desc"><b>Renato Trezoitão</b> entra em campo em Ciudad del Este e transmite tudo ao vivo no canal Rotina do Trezoitão. A Rádio Bitcoin é parceira oficial.</div>
-        <a class="trzfc__cta" href="https://www.youtube.com/watch?v=8fiJNE2oyrM" target="_blank" rel="noopener" id="trzfc-cta">&#9654; ASSISTIR AO VIVO NO YOUTUBE »</a>
-      </div>
-    </div>
-  </div>
-  <script>
-  /* Muda o texto conforme a hora: antes = "hoje as 19h", durante = "ao vivo agora",
-     depois = "assista a gravacao" (o embed vira o VOD sozinho). Some 5 dias depois. */
-  (function(){
-    var inicio=new Date('2026-09-22T19:00:00-03:00'), fim=new Date(inicio.getTime()+3*3600e3), agora=new Date();
-    var b=document.getElementById('trzfc-badge'), w=document.getElementById('trzfc-when'), c=document.getElementById('trzfc-cta'), box=document.getElementById('trzfc');
-    if(agora>new Date(inicio.getTime()+5*86400e3)){box.style.display='none';return;}
-    if(agora>=inicio&&agora<=fim){b.innerHTML='&#9679; AO VIVO AGORA';w.innerHTML='&#9917; ROLANDO AGORA · ENTRA AÍ';}
-    else if(agora>fim){b.innerHTML='&#9654; GRAVAÇÃO';w.innerHTML='&#128197; FOI TERÇA 22/09 · ASSISTA À GRAVAÇÃO';c.innerHTML='&#9654; VER A GRAVAÇÃO NO YOUTUBE »';}
-    else if(agora.toDateString()!==inicio.toDateString()){b.innerHTML='&#9679; AO VIVO TERÇA';w.innerHTML='&#128197; TERÇA 22/09 · 19H (Brasília)';}
-  })();
-  </script>
-  <!-- ===== FIM TREZOITÃO FC ===== -->
 
   <!-- ===== VÍDEO DESTAQUE (movido pro topo, logo abaixo do player) ===== -->
   <!-- ===== BANNER TREZOITÃO × RÁDIO BITCOIN — VÍDEO DESTAQUE ===== -->
