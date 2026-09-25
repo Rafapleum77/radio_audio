@@ -198,6 +198,7 @@
   p.addEventListener("click", function () {
     if (a.paused) {
       a.src = "https://stream.radiobitcoin.org/radio?t=" + Date.now();  // siempre en vivo, sin buffer viejo
+      t1.textContent = "Conectando…"; t2.textContent = "Unos segundos y suena.";   // tarda ~5 s en arrancar
       a.play().then(function(){
         p.classList.add("tocando"); p.setAttribute("aria-pressed","true");
         ico.textContent = "❚❚"; t1.textContent = "Sonando en vivo"; t2.textContent = "Tocá para pausar";
