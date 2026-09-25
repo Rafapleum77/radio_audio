@@ -302,6 +302,31 @@
 })();
 </script>
 <!-- ===== FIM FAIXA TESTADORES ANDROID ===== -->
+
+<!-- ===== FAIXA EM ESPANHOL (25/09/2026) =====
+     O adesivo distribuido no Paraguai traz so "radiobitcoin.org", entao quem
+     chega dele cai aqui, num site todo em portugues. Se o navegador esta em
+     espanhol, mostra uma faixa no topo levando pra /py/ (versao em espanhol,
+     com play de um toque). Conta como evento home-es no GoatCounter. -->
+<style>
+  #rbFaixaEs{display:none;max-width:1100px;margin:10px auto 0;padding:11px 16px;border-radius:12px;background:linear-gradient(90deg,#1a1206,#0d0a04);border:1px solid rgba(242,169,0,.55);color:#f6d488;font-size:14px;line-height:1.4;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;text-align:center}
+  #rbFaixaEs a{display:inline-block;background:linear-gradient(90deg,#f2a900,#ffce4d);color:#1a1206;font-weight:900;padding:8px 16px;border-radius:999px;text-decoration:none;white-space:nowrap}
+  @media(max-width:640px){#rbFaixaEs{margin:8px 10px 0}}
+</style>
+<div id="rbFaixaEs" role="region" aria-label="Radio Bitcoin en español">
+  <span>🇵🇾 ¿Hablás español? Radio Bitcoin también está en tu idioma, con play de un toque.</span>
+  <a href="/py/?ref=home-es">▶ Escuchar en español</a>
+</div>
+<script>
+(function(){
+  var l=(navigator.languages||[navigator.language||'']).join(',').toLowerCase();
+  if(!/(^|,)es\b/.test(l)) return;
+  var f=document.getElementById('rbFaixaEs'); if(!f) return;
+  f.style.display='flex';
+  try{ window.goatcounter && window.goatcounter.count({path:'home-es',title:'home-es',event:true}); }catch(e){}
+})();
+</script>
+<!-- ===== FIM FAIXA EM ESPANHOL ===== -->
 <section class="hr-wrap" id="topo">
     <h1 class="hr-seo">Rádio Bitcoin — a voz da revolução Bitcoin, ao vivo 24 horas</h1>
     <div class="hr-live" style="display:none"><i></i> AO VIVO · 24 HORAS</div>

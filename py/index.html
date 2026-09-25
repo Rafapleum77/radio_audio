@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="es-PY">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Radio Bitcoin · en español</title>
+<meta name="description" content="Radio Bitcoin en español: música propia, noticias, mercados y libertad financiera, 24 horas. Escuchá en el navegador, en la app o en TuneIn. Socios de Misión Bitcoin en Ciudad del Este.">
+<link rel="canonical" href="https://radiobitcoin.org/py/">
+<link rel="alternate" hreflang="pt-BR" href="https://radiobitcoin.org/">
+<link rel="alternate" hreflang="es" href="https://radiobitcoin.org/py/">
+<meta property="og:title" content="Radio Bitcoin · 24 h en vivo · en español">
+<meta property="og:description" content="La radio de la revolución Bitcoin. Música propia, noticias y mercados, 24 horas. Socios oficiales de Misión Bitcoin en Paraguay.">
+<meta property="og:url" content="https://radiobitcoin.org/py/">
+<meta property="og:image" content="https://radiobitcoin.org/img/og/og_home.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap">
+<script data-goatcounter="https://radiobitcoinorg.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+  :root{--fundo:#0a0a0b;--painel:#131316;--painel2:#1a1a1f;--linha:#26262c;--txt:#ece7de;--dim:#8b8578;--ouro:#f2a900;--sinal:#00ff88;--verde:#22c55e}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--fundo);color:var(--txt);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:22px 16px 56px}
+  .tudo{max-width:520px;margin:0 auto}
+  header{border:1px solid var(--linha);border-radius:14px;background:var(--painel);padding:24px 20px 22px;text-align:center;margin-bottom:18px}
+  .bandeiras{font-size:22px;letter-spacing:6px;margin-bottom:6px}
+  .marca{font-family:Orbitron,"Helvetica Neue",sans-serif;font-weight:900;font-size:clamp(23px,7vw,31px);letter-spacing:.02em;line-height:1.1;margin:0;color:var(--ouro);text-transform:uppercase}
+  .tagline{color:var(--dim);font-size:14.5px;margin:9px 0 0}
+  .noar{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-family:"Share Tech Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--sinal);border:1px solid rgba(0,255,136,.35);border-radius:999px;padding:5px 13px}
+  .ponto{width:7px;height:7px;border-radius:50%;background:var(--sinal);animation:pisca 2.4s ease-in-out infinite}
+  @keyframes pisca{0%,100%{opacity:1}50%{opacity:.35}}
+  @media (prefers-reduced-motion:reduce){.ponto{animation:none}}
+
+  /* ---- el botón grande ---- */
+  .play{display:flex;align-items:center;gap:16px;width:100%;margin-top:18px;padding:16px 18px;border-radius:14px;border:2px solid var(--ouro);background:linear-gradient(90deg,#f2a900,#ffce4d);color:#1a1206;cursor:pointer;text-align:left;font:inherit;box-shadow:0 6px 28px -8px rgba(242,169,0,.8)}
+  .play:active{transform:translateY(1px)}
+  .play .ico{flex:none;width:52px;height:52px;border-radius:50%;background:#1a1206;color:var(--ouro);display:grid;place-items:center;font-size:22px}
+  .play .t1{display:block;font-weight:900;font-size:19px;letter-spacing:.3px}
+  .play .t2{display:block;font-size:13px;opacity:.85;margin-top:1px}
+  .play.tocando{background:var(--painel2);color:var(--txt);border-color:var(--verde);box-shadow:0 0 28px -8px rgba(34,197,94,.7)}
+  .play.tocando .ico{background:var(--verde);color:#000}
+  .agora{margin-top:10px;font-family:"Share Tech Mono",monospace;font-size:12px;color:var(--dim);min-height:18px}
+  .agora b{color:var(--txt);font-weight:600}
+
+  h2{font-family:"Share Tech Mono",monospace;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin:0 0 11px 3px;font-weight:400}
+  section{margin-bottom:24px}
+  .banco{display:flex;flex-direction:column;gap:9px}
+  a.plate{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--txt);background:var(--painel);border:1px solid var(--linha);border-radius:11px;padding:15px 17px;transition:border-color .16s,background .16s,transform .16s}
+  a.plate:hover,a.plate:focus-visible{border-color:var(--ouro);background:var(--painel2);transform:translateY(-1px)}
+  a.plate:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
+  .marcador{flex:none;width:34px;height:34px;border-radius:8px;display:grid;place-items:center;background:var(--painel2);border:1px solid var(--linha);font-family:"Share Tech Mono",monospace;font-size:13px;color:var(--ouro)}
+  .rotulos{min-width:0;flex:1}
+  .nome{display:block;font-weight:600;font-size:16px;letter-spacing:-.005em}
+  .nota{display:block;color:var(--dim);font-size:13.5px;margin-top:1px}
+  .seta{flex:none;color:var(--dim);font-size:18px;line-height:1}
+  a.plate:hover .seta{color:var(--ouro)}
+  .destaque{border-color:rgba(242,169,0,.4)}
+  .destaque .marcador{background:rgba(242,169,0,.1);border-color:rgba(242,169,0,.35)}
+  .evento{border-color:rgba(34,197,94,.5);background:linear-gradient(135deg,#061a0c,#131316)}
+  .evento .marcador{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.4);color:var(--verde)}
+
+  .cru{background:var(--painel);border:1px solid var(--linha);border-radius:11px;padding:15px 17px}
+  .cru p{margin:0 0 10px;color:var(--dim);font-size:13.5px}
+  .cru p:last-child{margin-bottom:0}
+  .campo{display:flex;gap:8px;align-items:stretch}
+  .campo code{flex:1;min-width:0;background:#050506;border:1px solid var(--linha);border-radius:7px;padding:10px 12px;font-family:"Share Tech Mono",monospace;font-size:12.5px;color:var(--ouro);overflow-x:auto;white-space:nowrap}
+  .campo button{flex:none;border:1px solid var(--linha);background:var(--painel2);color:var(--txt);border-radius:7px;padding:0 15px;font-size:13px;cursor:pointer;font-family:"Share Tech Mono",monospace;letter-spacing:.06em}
+  .campo button:hover{border-color:var(--ouro);color:var(--ouro)}
+
+  footer{text-align:center;color:var(--dim);font-size:13px;margin-top:30px;padding-top:20px;border-top:1px solid var(--linha)}
+  footer a{color:var(--ouro);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="tudo">
+
+  <header>
+    <div class="bandeiras" aria-hidden="true">🇵🇾🇧🇷</div>
+    <h1 class="marca">Radio Bitcoin</h1>
+    <p class="tagline">La radio de la revolución Bitcoin. Música propia, noticias, mercados y libertad financiera.<br>24 horas, desde Brasil para Paraguay.</p>
+    <span class="noar"><span class="ponto"></span>en vivo ahora</span>
+
+    <button class="play" id="play" type="button" aria-pressed="false">
+      <span class="ico" aria-hidden="true">▶</span>
+      <span>
+        <span class="t1">Escuchar ahora</span>
+        <span class="t2">Un toque y suena. Sin instalar nada.</span>
+      </span>
+    </button>
+    <div class="agora" id="agora"></div>
+    <audio id="radio" preload="none" src="https://stream.radiobitcoin.org/radio"></audio>
+  </header>
+
+  <section>
+    <h2>Llevala en el celular</h2>
+    <div class="banco">
+      <a class="plate destaque" href="https://apps.apple.com/app/id6796562495" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">iOS</span>
+        <span class="rotulos"><span class="nome">App para iPhone y iPad</span><span class="nota">Gratis en la App Store</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+      <a class="plate" href="/app/" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">AND</span>
+        <span class="rotulos"><span class="nome">Android</span><span class="nota">Cómo instalar y probar la app</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+      <a class="plate" href="https://tunein.com/radio/Radio-Bitcoin-s358551/" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">TI</span>
+        <span class="rotulos"><span class="nome">TuneIn</span><span class="nota">En el auto, en la TV y en Alexa: “Alexa, poné Radio Bitcoin en TuneIn”</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Ahora en Paraguay</h2>
+    <div class="banco">
+      <a class="plate evento" href="https://missaobitcoin.com.br" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">₿</span>
+        <span class="rotulos"><span class="nome">Misión Bitcoin · 3ª edición</span><span class="nota">21 y 22 de noviembre · Ciudad del Este · en pleno Black Friday. La 2ª juntó más de 1.000 personas.</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+      <a class="plate" href="https://www.youtube.com/@rotinadotrezoitao" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">YT</span>
+        <span class="rotulos"><span class="nome">Rotina do Trezoitão</span><span class="nota">Canal socio de la radio. Trezoitão FC: fútbol en vivo desde Ciudad del Este.</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>¿Encontraste nuestro sticker?</h2>
+    <div class="cru">
+      <p>Sacale una foto, subila a tu historia y etiquetá <strong style="color:var(--txt)">@radiobitcoinbr</strong>. Las mejores fotos salen en la radio.</p>
+      <p>Y si querés poner la radio en un parlante, VLC o radio del auto, pegá esta dirección en “agregar emisora por URL”:</p>
+      <div class="campo">
+        <code id="url">https://stream.radiobitcoin.org/radio</code>
+        <button id="copiar" type="button">copiar</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Seguinos</h2>
+    <div class="banco">
+      <a class="plate" href="https://www.instagram.com/radiobitcoinbr" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">IG</span>
+        <span class="rotulos"><span class="nome">Instagram</span><span class="nota">@radiobitcoinbr</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+      <a class="plate" href="https://www.youtube.com/channel/UCgWTd-3UWDxLIgghsp8xD4Q" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">YT</span>
+        <span class="rotulos"><span class="nome">YouTube</span><span class="nota">Programas, clips y transmisión en vivo</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+      <a class="plate" href="https://x.com/bitadict" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">X</span>
+        <span class="rotulos"><span class="nome">X</span><span class="nota">@bitadict</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+      <a class="plate" href="https://open.spotify.com/playlist/4LRkYPbx8fkKRGcDJweLeI" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">SP</span>
+        <span class="rotulos"><span class="nome">Spotify</span><span class="nota">Las canciones propias de la radio</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+      <a class="plate" href="https://njump.me/npub1paqf0rwntldy09svmk3rgk7ppguuemxxcqpyph03pfsxwespg6jsz83k9n" target="_blank" rel="noopener">
+        <span class="marcador" aria-hidden="true">N</span>
+        <span class="rotulos"><span class="nome">Nostr</span><span class="nota">Sin plataforma en el medio</span></span>
+        <span class="seta" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <a href="https://radiobitcoin.org/">radiobitcoin.org</a> · sitio completo en portugués
+  </footer>
+
+</div>
+<script>
+(function () {
+  var b = document.getElementById("copiar"), u = document.getElementById("url").textContent.trim();
+  b.addEventListener("click", function () {
+    navigator.clipboard.writeText(u).then(function () {
+      b.textContent = "copiado"; setTimeout(function () { b.textContent = "copiar"; }, 1800);
+    }).catch(function () { b.textContent = "seleccioná y copiá"; });
+  });
+
+  // Player: un toque. Cada play cuenta como evento en GoatCounter (py-play),
+  // así se sabe cuántos de los que llegan por el sticker realmente escuchan.
+  var a = document.getElementById("radio"), p = document.getElementById("play");
+  var t1 = p.querySelector(".t1"), t2 = p.querySelector(".t2"), ico = p.querySelector(".ico");
+  var contado = false;
+  function conta(nome){ try{ window.goatcounter && window.goatcounter.count({path: nome, title: nome, event: true}); }catch(e){} }
+  p.addEventListener("click", function () {
+    if (a.paused) {
+      a.src = "https://stream.radiobitcoin.org/radio?t=" + Date.now();  // siempre en vivo, sin buffer viejo
+      a.play().then(function(){
+        p.classList.add("tocando"); p.setAttribute("aria-pressed","true");
+        ico.textContent = "❚❚"; t1.textContent = "Sonando en vivo"; t2.textContent = "Tocá para pausar";
+        if (!contado) { contado = true; conta("py-play"); }
+      }).catch(function(){ t2.textContent = "No se pudo reproducir. Probá con la app o TuneIn."; });
+    } else {
+      a.pause(); a.removeAttribute("src"); a.load();
+      p.classList.remove("tocando"); p.setAttribute("aria-pressed","false");
+      ico.textContent = "▶"; t1.textContent = "Escuchar ahora"; t2.textContent = "Un toque y suena. Sin instalar nada.";
+    }
+  });
+
+  // Qué está sonando (cada 30 s)
+  var ag = document.getElementById("agora");
+  function agora(){
+    fetch("https://stream.radiobitcoin.org/status-json.xsl", {cache:"no-store"}).then(function(r){return r.json()}).then(function(j){
+      var s = j.icestats && j.icestats.source; if (Array.isArray(s)) s = s[0];
+      if (s && s.title) ag.innerHTML = "♪ ahora: <b></b>", ag.querySelector("b").textContent = s.title;
+    }).catch(function(){});
+  }
+  agora(); setInterval(agora, 30000);
+})();
+</script>
+</body>
+</html>
