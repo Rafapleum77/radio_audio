@@ -28,7 +28,27 @@
   <itunes:type>episodic</itunes:type>
   <podcast:locked owner="alegriaitacare@gmail.com">no</podcast:locked>
   <podcast:funding url="lightning:texugorecords@walletofsatoshi.com">Apoie a rádio com sats</podcast:funding>
-  <lastBuildDate>Mon, 28 Sep 2026 10:05:00 -0300</lastBuildDate>
+  <lastBuildDate>Mon, 28 Sep 2026 13:05:04 -0300</lastBuildDate>
+  <item>
+    <title>Siga o Dinheiro — 28/09/2026 13:05</title>
+    <description>O fluxo do dinheiro do dia, explicado.</description>
+    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-09-28_1305_fluxo_dinheiro.mp3" length="1407729" type="audio/mpeg"/>
+    <guid isPermaLink="false">fb11df40aedf7ec4ad5ae749422a8e31</guid>
+    <pubDate>Mon, 28 Sep 2026 13:05:04 -0300</pubDate>
+    <itunes:duration>00:01:27</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Missão Bitcoin — 28/09/2026 13:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-09-28_1305_missao_bitcoin_cde.mp3" length="397940" type="audio/mpeg"/>
+    <guid isPermaLink="false">a6f5519ea10e1af020e5dade33f99853</guid>
+    <pubDate>Mon, 28 Sep 2026 13:05:04 -0300</pubDate>
+    <itunes:duration>00:00:24</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Boletim de Notícias Bitcoin — 28/09/2026 10:05</title>
     <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
@@ -3007,26 +3027,6 @@
     <guid isPermaLink="false">f058bb6765138d4b8a418d08e8ac62a2</guid>
     <pubDate>Sat, 05 Sep 2026 23:55:14 -0300</pubDate>
     <itunes:duration>00:01:15</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Plantão das IAs — 05/09/2026 23:55</title>
-    <description>O que a inteligência artificial aprontou hoje.</description>
-    <itunes:summary>O que a inteligência artificial aprontou hoje.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-05_2355_plantao_ia.mp3" length="1475438" type="audio/mpeg"/>
-    <guid isPermaLink="false">fe684757c04079a85aaf672c1d0d3713</guid>
-    <pubDate>Sat, 05 Sep 2026 23:55:14 -0300</pubDate>
-    <itunes:duration>00:01:32</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Plantão Bitcoin — 05/09/2026 23:55</title>
-    <description>Alerta de preço: o que aconteceu e por quê.</description>
-    <itunes:summary>Alerta de preço: o que aconteceu e por quê.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-05_2355_alerta_preco.mp3" length="567631" type="audio/mpeg"/>
-    <guid isPermaLink="false">d6b63985a2860bb9b2cec983aa767e70</guid>
-    <pubDate>Sat, 05 Sep 2026 23:55:14 -0300</pubDate>
-    <itunes:duration>00:00:35</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
