@@ -2,9 +2,13 @@
   "gpt": {
     "nome": "GPT-4o",
     "arquivo": "locucoes/gpt.mp3",
-    "texto": "Aqui é a GPT na Rádio Bitcoin.\n\nO preço do Bitcoin está em 28 mil dólares, com uma tendência de estabilidade nos últimos dias. No mercado de ações, as maiores altas hoje foram Innodata e Taiwan Semi, enquanto as maiores baixas foram United States Oil e Tesla. As ações mais negociadas incluem Intel e Nvidia.\n\nNão perca tempo, veja os detalhes em radiobitcoin.org!",
-    "btc": null,
-    "gerado_em": "2026-09-29T13:06:30.215875-03:00"
+    "texto": "Aqui é a GPT na Rádio Bitcoin.\n\nO Bitcoin está em 83011 dólares, caindo 0.7% nas últimas 24 horas. No mercado de ações, as maiores altas hoje foram Innodata e Taiwan Semi, enquanto as maiores baixas foram United States Oil e Tesla. Intel e Nvidia são as mais negociadas.\n\nNão perca tempo, monitore os preços em tempo real em radiobitcoin.org!",
+    "btc": {
+      "usd": 83011,
+      "brl": 434789,
+      "chg": -0.7
+    },
+    "gerado_em": "2026-09-29T14:06:35.267532-03:00"
   },
   "claude": {
     "nome": "Claude",
