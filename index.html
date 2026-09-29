@@ -5130,6 +5130,44 @@
       </a>
       <!-- ===== FIM BANNER NOVO ÁLBUM ===== -->
 
+      <!-- SHORTS DA RÁDIO (29/09/2026): lê shorts.json (gerado de hora em hora pelo feed do canal) -->
+      <style>
+        #rbShorts .sh-row{display:flex;gap:10px;overflow-x:auto;padding:12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+        #rbShorts .sh-row::-webkit-scrollbar{height:6px}#rbShorts .sh-row::-webkit-scrollbar-thumb{background:rgba(242,169,0,.5);border-radius:3px}
+        #rbShorts .sh{flex:0 0 150px;scroll-snap-align:start;position:relative;aspect-ratio:9/16;border-radius:10px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.08);cursor:pointer}
+        #rbShorts .sh.clipe{flex-basis:230px;aspect-ratio:16/9}
+        #rbShorts .sh img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+        #rbShorts .sh:hover img{transform:scale(1.04)}
+        #rbShorts .sh .pl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:34px;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.9);background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.75))}
+        #rbShorts .sh .tt{position:absolute;left:8px;right:8px;bottom:8px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;line-height:1.2;color:#fff;text-shadow:0 1px 4px #000}
+        #rbShorts .sh iframe{width:100%;height:100%;border:0;display:block}
+        #rbShorts .sh-lbl{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:1px;color:#f2a900;padding:8px 12px 0}
+      </style>
+      <div class="panel" id="rbShorts" style="padding:0;overflow:hidden;border-color:rgba(242,169,0,0.45);">
+        <div class="pt" style="justify-content:space-between;color:#f2a900;padding:10px 12px;border-bottom:1px solid rgba(242,169,0,0.25);">
+          <span>🎬 SHORTS DA RÁDIO</span>
+          <a href="https://www.youtube.com/@radiobitcoinorg/shorts" target="_blank" rel="noopener" style="font-size:9px;color:#f2a900;letter-spacing:1px;text-decoration:none">VER TODOS ▸</a>
+        </div>
+        <div class="sh-lbl">SHORTS</div><div class="sh-row" id="shRowS"></div>
+        <div class="sh-lbl">CLIPES OFICIAIS</div><div class="sh-row" id="shRowC"></div>
+      </div>
+      <script>
+      (function(){
+        function card(v){var d=document.createElement('div');d.className='sh '+v.tipo;d.setAttribute('data-id',v.id);
+          d.innerHTML='<img loading="lazy" alt="'+v.t.replace(/"/g,'&quot;')+'" src="https://i.ytimg.com/vi/'+v.id+'/'+(v.tipo==='short'?'oar2.jpg':'mqdefault.jpg')+'" onerror="this.src=\'https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg\'"><div class="pl">▶</div><div class="tt">'+v.t+'</div>';
+          d.addEventListener('click',function(){ try{goatcounter.count({path:'short-play-'+v.id,title:'short:'+v.t,event:true})}catch(e){}
+            d.innerHTML='<iframe src="https://www.youtube.com/embed/'+v.id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="'+v.t.replace(/"/g,'&quot;')+'"></iframe>';
+            var a=document.getElementById('liveAudio'); if(a&&!a.paused){ try{a.pause();}catch(e){} } });
+          return d;}
+        fetch('shorts.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+          var S=d.videos.filter(function(v){return v.tipo==='short'}).slice(0,24), C=d.videos.filter(function(v){return v.tipo==='clipe'}).slice(0,12);
+          var rs=document.getElementById('shRowS'), rc=document.getElementById('shRowC');
+          S.forEach(function(v){rs.appendChild(card(v))}); C.forEach(function(v){rc.appendChild(card(v))});
+          if(!C.length){ rc.previousElementSibling.hidden=true; rc.hidden=true; }
+        }).catch(function(){ document.getElementById('rbShorts').hidden=true; });
+      })();
+      </script>
+
       <!-- APPLE MUSIC (funil, 29/09/2026) -->
       <div class="panel" style="padding:0;overflow:hidden;border-color:rgba(252,60,68,0.45);">
         <div class="pt" style="color:#fc3c44;padding:10px 12px;border-bottom:1px solid rgba(252,60,68,0.25);"> OUÇA NO APPLE MUSIC</div>
