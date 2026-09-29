@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
+<script id="rb-standalone-redirect">
+// 29/09/2026: quem salvou esta página como ícone na tela inicial quer OUVIR a rádio, não ver a vitrine do app.
+// Em modo "app" (standalone) pula direto pro player. Aberta no navegador normal, a vitrine continua igual.
+(function(){try{ if(navigator.standalone===true || (window.matchMedia&&matchMedia('(display-mode: standalone)').matches)){ location.replace('/?ref=icone-app'); } }catch(e){}})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>App Radio Bitcoin — rádio Bitcoin ao vivo 24h no iPhone | App Store</title>
