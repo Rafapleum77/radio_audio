@@ -461,6 +461,17 @@
     <audio id="econAudio" preload="none"></audio>
     <audio id="indiceAudio" preload="none" src="de_volta_pro_futuro.mp3"></audio>
 
+    <!-- TOCANDO AGORA → lojas (funil Apple Music, 29/09/2026) -->
+    <div class="hr-np" id="hrNp" style="display:none">
+      <div class="hr-aggs__lbl">🎵 Tocando agora</div>
+      <div class="hr-np__row">
+        <span class="hr-np__t" id="hrNpTitulo"></span>
+        <a class="hr-np__btn hr-np__apple" id="hrNpApple" href="https://music.apple.com/br/artist/radiobitcoin-org/6782166870" target="_blank" rel="noopener"> Ouvir no Apple Music</a>
+        <a class="hr-np__btn hr-np__spot" id="hrNpSpot" href="https://open.spotify.com/artist/51GlYd3jeRqqg1l8ozptbT" target="_blank" rel="noopener">Spotify</a>
+      </div>
+      <div class="hr-np__hint">Ouvir nas lojas paga o artista. Na rádio é de graça; lá cada play sustenta a Rádio Bitcoin.</div>
+    </div>
+
     <div class="hr-aggs">
       <div class="hr-aggs__lbl">Ouça também nos apps de rádio</div>
       <div class="hr-aggs__row">
@@ -604,6 +615,14 @@
     .hr-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center}
     .hr-play--econ{background:linear-gradient(90deg,#16c784,#3ddc9a);color:#04140d;box-shadow:0 8px 30px -6px rgba(22,199,132,.8)}
     .hr-nowplaying{color:#c8ffd4;font-size:12px;font-weight:600;margin-top:12px;min-height:16px;text-shadow:0 2px 8px rgba(0,0,0,.95)}
+    .hr-np{margin-top:18px;padding:12px 14px;border:1px solid rgba(252,60,80,.35);border-radius:12px;background:linear-gradient(135deg,rgba(252,60,80,.10),rgba(0,0,0,.25))}
+    .hr-np__row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .hr-np__t{color:#fff;font-weight:800;font-size:15px;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+    .hr-np__btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.3px;text-decoration:none;transition:.15s}
+    .hr-np__apple{background:linear-gradient(90deg,#fc3c44,#ff7a85);color:#000}
+    .hr-np__apple:hover{filter:brightness(1.1)}
+    .hr-np__spot{border:1px solid rgba(30,215,96,.6);color:#1DB954}
+    .hr-np__hint{color:#c8ffd4;font-size:11px;margin-top:8px;opacity:.9}
     .hr-aggs{margin-top:20px}
     .hr-aggs__lbl{color:#8a8a99;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
     .hr-aggs__row{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
@@ -5128,6 +5147,22 @@
       </a>
       <!-- ===== FIM BANNER NOVO ÁLBUM ===== -->
 
+      <!-- APPLE MUSIC (funil, 29/09/2026) -->
+      <div class="panel" style="padding:0;overflow:hidden;border-color:rgba(252,60,68,0.45);">
+        <div class="pt" style="color:#fc3c44;padding:10px 12px;border-bottom:1px solid rgba(252,60,68,0.25);"> OUÇA NO APPLE MUSIC</div>
+        <div style="padding:11px 13px;background:rgba(252,60,68,0.05);">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#c8d0dc;line-height:1.5;margin-bottom:9px;">
+            🍎 <strong style="color:#fc3c44;">É no Apple Music que a rádio recebe de verdade.</strong> Toda música que você ouve aqui está lá: siga o artista, salve na biblioteca e deixe tocando. Cada play vira royalty que mantém a Rádio Bitcoin no ar.
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+            <a href="https://music.apple.com/br/artist/radiobitcoin-org/6782166870" target="_blank" rel="noopener" onclick="try{goatcounter.count({path:'apple-artista',title:'apple-artista',event:true})}catch(e){}"
+               style="display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;background:linear-gradient(90deg,#fc3c44,#ff7a85);color:#000;font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:.5px;text-decoration:none;border-radius:6px;">▶ ABRIR & SEGUIR</a>
+            <a href="https://music.apple.com/br/album/autor-da-nossa-paz/6816847392?i=6816847394" id="appleUltima" target="_blank" rel="noopener" onclick="try{goatcounter.count({path:'apple-ultima',title:'apple-ultima',event:true})}catch(e){}"
+               style="display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;background:transparent;color:#fc3c44;border:1px solid rgba(252,60,68,0.5);font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:.5px;text-decoration:none;border-radius:6px;">✨ LANÇAMENTO NOVO</a>
+          </div>
+        </div>
+      </div>
+
       <!-- SPOTIFY PLAYLIST -->
       <div class="panel" style="padding:0;overflow:hidden;border-color:rgba(30,215,96,0.4);">
         <div class="pt" style="color:#1DB954;padding:10px 12px;border-bottom:1px solid rgba(30,215,96,0.2);">
@@ -7394,6 +7429,33 @@ iaRender();
   }
   fetchListeners();
   setInterval(fetchListeners, 60000);
+})();
+</script>
+<script>
+// TOCANDO AGORA → Apple Music / Spotify da faixa da vez (funil de monetização, 29/09/2026).
+// Título vem do Icecast (nowplaying.py empurra "<faixa> · Rádio Bitcoin"); lojas.json casa por nome canônico.
+(function(){
+  var LOJAS=null, ult='';
+  function canon(s){ s=(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); s=s.replace(/\(.*?\)|!|\?|'/g,''); return s.replace(/[^a-z0-9]/g,''); }
+  fetch('lojas.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){ LOJAS=d; tick(); }).catch(function(){});
+  function tick(){
+    fetch('https://stream.radiobitcoin.org/status-json.xsl',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+      var src=d.icestats&&d.icestats.source; if(Array.isArray(src)) src=src[0];
+      var t=(src&&src.title)||''; t=t.replace(/\s*[·\-]\s*R[áa]dio Bitcoin\s*$/i,'').trim();
+      if(!t||t===ult) return; ult=t;
+      var box=document.getElementById('hrNp'), tt=document.getElementById('hrNpTitulo'), a=document.getElementById('hrNpApple'), sp=document.getElementById('hrNpSpot');
+      if(!box) return;
+      var f=LOJAS&&LOJAS.faixas&&LOJAS.faixas[canon(t)];
+      tt.textContent=t;
+      if(f){ a.href=f.apple||LOJAS.artista.apple; sp.href=f.spotify||LOJAS.artista.spotify; a.textContent=' Ouvir no Apple Music'; sp.style.display='';
+             a.onclick=function(){try{goatcounter.count({path:'apple-np-'+canon(t).slice(0,40),title:'apple:'+t,event:true})}catch(e){}};
+             sp.onclick=function(){try{goatcounter.count({path:'spotify-np-'+canon(t).slice(0,40),title:'spotify:'+t,event:true})}catch(e){}}; }
+      else { a.href=(LOJAS&&LOJAS.artista.apple)||a.href; a.textContent=' Nossas músicas no Apple Music'; sp.style.display='none'; a.onclick=function(){try{goatcounter.count({path:'apple-artista-np',event:true})}catch(e){}}; }
+      box.style.display='';
+      var sub=document.querySelector('#liveRadio .qp-sub'); if(sub) sub.textContent='♪ '+t.toUpperCase().slice(0,34);
+    }).catch(function(){});
+  }
+  setInterval(tick, 20000);
 })();
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ebcbf230a8794cd0a783cbc9bb447fe8"}'></script><!-- End Cloudflare Web Analytics -->
