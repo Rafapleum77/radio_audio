@@ -281,27 +281,8 @@
        secao da radio comecava na TELA 3,7 — o visitante rolava quase quatro
        telas de agenda de eventos e onboarding antes de chegar no que o site
        e. Logo abaixo dela vem o bloco de apoio, que estava na tela 27,9. -->
-<!-- ===== FAIXA TESTADORES ANDROID (so aparece no Android, fecha e some por 7 dias) ===== -->
-<div id="rbTestarAndroid" hidden style="margin:10px auto 0;max-width:1100px;padding:12px 44px 12px 16px;position:relative;
-  background:linear-gradient(135deg,#062a1a,#0b3d26);border:1px solid rgba(61,220,132,.55);border-radius:12px;
-  color:#e8fff1;font-family:-apple-system,'Segoe UI',sans-serif;font-size:14.5px;line-height:1.45;text-align:center">
-  <b style="color:#3ddc84">🤖 Tem Android?</b> Ajude a lançar os apps da Rádio na Play Store:
-  vire testador em 2 minutos.
-  <a href="/testar.html" style="display:inline-block;margin-left:6px;background:#3ddc84;color:#032013;font-weight:800;
-     padding:6px 14px;border-radius:9px;text-decoration:none;white-space:nowrap">Quero testar</a>
-  <button type="button" aria-label="Fechar" onclick="try{localStorage.setItem('rbTestarFechado',Date.now())}catch(e){};this.parentNode.hidden=true"
-     style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;color:#9fdcb8;font-size:20px;cursor:pointer">×</button>
-</div>
-<script>
-(function(){ try{
-  if(!/Android/i.test(navigator.userAgent)) return;
-  var f=+localStorage.getItem('rbTestarFechado')||0;
-  if(Date.now()-f < 7*24*3600*1000) return;
-}catch(e){}
-  var el=document.getElementById('rbTestarAndroid'); if(el) el.hidden=false;
-})();
-</script>
-<!-- ===== FIM FAIXA TESTADORES ANDROID ===== -->
+<!-- 29/09/2026: o cartão 'Tem Android? vire testador' saiu do topo (empurrava o player pra fora da tela no celular).
+     Virou um chip discreto na fileira 'Ouça também nos apps de rádio', dentro do hero. -->
 
 <!-- ===== FAIXA EM ESPANHOL (25/09/2026) =====
      O adesivo distribuido no Paraguai traz so "radiobitcoin.org", entao quem
@@ -480,6 +461,8 @@
         <a class="hr-agg" id="aggSimple" href="https://streema.com/radios/Radio_Bitcoin" target="_blank" rel="noopener">🔊 Simple Radio</a>
         <a class="hr-agg" id="aggMytuner" href="https://mytuner-radio.com/radio/radio-bitcoin-520524/" target="_blank" rel="noopener">📱 myTuner</a>
         <a class="hr-agg" id="aggRadiosnet" href="https://www.radios.com.br/lista/busca?q=Radio%20Bitcoin" target="_blank" rel="noopener">🎙️ RadiosNet</a>
+        <a class="hr-agg" id="aggTestarAndroid" href="/testar.html" hidden style="border-color:#3ddc84;color:#3ddc84" title="Ajude a lançar o app na Play Store">🤖 Testar o app Android</a>
+        <script>(function(){try{ if(/Android/i.test(navigator.userAgent)){var e=document.getElementById('aggTestarAndroid'); if(e) e.hidden=false;} }catch(_){}})();</script>
         <span class="hr-agg" id="alexaSay" style="cursor:pointer;border-color:#31c4f3;color:#31c4f3" title="Clica que EU falo com a sua Alexa 😉">🗣️ Diga: “Alexa, toca Rádio Bitcoin”</span>
         <script>
         // clicou -> toca um audio de voz NEURAL (diccao perfeita) e a Alexa da sala obedece.
