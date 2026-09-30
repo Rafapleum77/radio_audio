@@ -497,6 +497,73 @@
       </div>
     </div>
   </section>
+  <!-- ===== DESTAQUE: SHORTS + APPLE MUSIC (29/09/2026, pedido do Rafael: "lá em cima em destaque; Apple Music é quem paga as contas") ===== -->
+  <style>
+    #rbDestaque{max-width:1100px;margin:14px auto 0;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:14px;padding:0 10px}
+    #rbDestaque>.panel,#rbDestaque .rb-dest__apple>.panel{margin:0;min-width:0}
+    #rbDestaque .rb-dest__big{display:block;text-align:center;margin:10px 13px 4px;padding:14px 16px;border-radius:12px;background:linear-gradient(90deg,#f2a900,#ffce4d);color:#000;font-family:'Orbitron',monospace;font-weight:900;font-size:15px;letter-spacing:.5px;text-decoration:none;box-shadow:0 0 26px rgba(242,169,0,.45)}
+    @media(max-width:900px){#rbDestaque{grid-template-columns:1fr}}
+  </style>
+  <div id="rbDestaque">
+      <!-- SHORTS DA RÁDIO (29/09/2026): lê shorts.json (gerado de hora em hora pelo feed do canal) -->
+      <style>
+        #rbShorts .sh-row{display:flex;gap:10px;overflow-x:auto;padding:12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+        #rbShorts .sh-row::-webkit-scrollbar{height:6px}#rbShorts .sh-row::-webkit-scrollbar-thumb{background:rgba(242,169,0,.5);border-radius:3px}
+        #rbShorts .sh{flex:0 0 190px;scroll-snap-align:start;position:relative;aspect-ratio:9/16;border-radius:10px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.08);cursor:pointer}
+        #rbShorts .sh.clipe{flex-basis:300px;aspect-ratio:16/9}
+        #rbShorts .sh img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+        #rbShorts .sh:hover img{transform:scale(1.04)}
+        #rbShorts .sh .pl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:34px;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.9);background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.75))}
+        #rbShorts .sh .tt{position:absolute;left:8px;right:8px;bottom:8px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;line-height:1.2;color:#fff;text-shadow:0 1px 4px #000}
+        #rbShorts .sh iframe{width:100%;height:100%;border:0;display:block}
+        #rbShorts .sh-lbl{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:1px;color:#f2a900;padding:8px 12px 0}
+      </style>
+      <div class="panel" id="rbShorts" style="padding:0;overflow:hidden;border-color:rgba(242,169,0,0.45);">
+        <div class="pt" style="justify-content:space-between;color:#f2a900;padding:10px 12px;border-bottom:1px solid rgba(242,169,0,0.25);">
+          <span>🎬 SHORTS DA RÁDIO</span>
+          <a href="https://www.youtube.com/@radiobitcoinorg/shorts" target="_blank" rel="noopener" style="font-size:9px;color:#f2a900;letter-spacing:1px;text-decoration:none">VER TODOS ▸</a>
+        </div>
+        <div class="sh-lbl">SHORTS</div><div class="sh-row" id="shRowS"></div>
+        <div class="sh-lbl">CLIPES OFICIAIS</div><div class="sh-row" id="shRowC"></div>
+      </div>
+      <script>
+      (function(){
+        function card(v){var d=document.createElement('div');d.className='sh '+v.tipo;d.setAttribute('data-id',v.id);
+          d.innerHTML='<img loading="lazy" alt="'+v.t.replace(/"/g,'&quot;')+'" src="https://i.ytimg.com/vi/'+v.id+'/'+(v.tipo==='short'?'oar2.jpg':'mqdefault.jpg')+'" onerror="this.src=\'https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg\'"><div class="pl">▶</div><div class="tt">'+v.t+'</div>';
+          d.addEventListener('click',function(){ try{goatcounter.count({path:'short-play-'+v.id,title:'short:'+v.t,event:true})}catch(e){}
+            d.innerHTML='<iframe src="https://www.youtube.com/embed/'+v.id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="'+v.t.replace(/"/g,'&quot;')+'"></iframe>';
+            var a=document.getElementById('liveAudio'); if(a&&!a.paused){ try{a.pause();}catch(e){} } });
+          return d;}
+        fetch('shorts.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+          var S=d.videos.filter(function(v){return v.tipo==='short'}).slice(0,24), C=d.videos.filter(function(v){return v.tipo==='clipe'}).slice(0,12);
+          var rs=document.getElementById('shRowS'), rc=document.getElementById('shRowC');
+          S.forEach(function(v){rs.appendChild(card(v))}); C.forEach(function(v){rc.appendChild(card(v))});
+          if(!C.length){ rc.previousElementSibling.hidden=true; rc.hidden=true; }
+        }).catch(function(){ document.getElementById('rbShorts').hidden=true; });
+      })();
+      </script>
+
+    <div class="rb-dest__apple" style="display:contents">
+      <!-- APPLE MUSIC (funil, 29/09/2026) -->
+      <div class="panel" style="padding:0;overflow:hidden;box-shadow:0 0 30px rgba(242,169,0,.18);border-color:rgba(242,169,0,.55);">
+        <div class="pt" style="color:#f2a900;padding:10px 12px;border-bottom:1px solid rgba(242,169,0,.3);"> OUÇA NO APPLE MUSIC</div>
+        <a class="rb-dest__big" href="https://music.apple.com/br/artist/radiobitcoin-org/6782166870" target="_blank" rel="noopener" onclick="try{goatcounter.count({path:'apple-destaque',title:'apple-destaque',event:true})}catch(e){}">🍎 OUVIR NO APPLE MUSIC</a>
+        <div style="padding:11px 13px;background:rgba(242,169,0,.06);">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#c8d0dc;line-height:1.5;margin-bottom:9px;">
+            🍎 <strong style="color:#f2a900;">É no Apple Music que a rádio recebe de verdade.</strong> Toda música que você ouve aqui está lá: siga o artista, salve na biblioteca e deixe tocando. Cada play vira royalty que mantém a Rádio Bitcoin no ar.
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+            <a href="https://music.apple.com/br/artist/radiobitcoin-org/6782166870" target="_blank" rel="noopener" onclick="try{goatcounter.count({path:'apple-artista',title:'apple-artista',event:true})}catch(e){}"
+               style="display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;background:linear-gradient(90deg,#f2a900,#ffce4d);color:#000;font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:.5px;text-decoration:none;border-radius:6px;">▶ ABRIR & SEGUIR</a>
+            <a href="https://music.apple.com/br/album/autor-da-nossa-paz/6816847392?i=6816847394" id="appleUltima" target="_blank" rel="noopener" onclick="try{goatcounter.count({path:'apple-ultima',title:'apple-ultima',event:true})}catch(e){}"
+               style="display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;background:transparent;color:#f2a900;border:1px solid rgba(242,169,0,.6);font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:.5px;text-decoration:none;border-radius:6px;">✨ LANÇAMENTO NOVO</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 
   <!-- ===== TREZOITÃO FC AO VIVO (destaque principal, logo abaixo do player, 22/09/2026) ===== -->
   <style>
@@ -598,11 +665,11 @@
     .hr-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center}
     .hr-play--econ{background:linear-gradient(90deg,#16c784,#3ddc9a);color:#04140d;box-shadow:0 8px 30px -6px rgba(22,199,132,.8)}
     .hr-nowplaying{color:#c8ffd4;font-size:12px;font-weight:600;margin-top:12px;min-height:16px;text-shadow:0 2px 8px rgba(0,0,0,.95)}
-    .hr-np{margin-top:18px;padding:12px 14px;border:1px solid rgba(252,60,80,.35);border-radius:12px;background:linear-gradient(135deg,rgba(252,60,80,.10),rgba(0,0,0,.25))}
+    .hr-np{margin-top:18px;padding:12px 14px;border:1px solid rgba(242,169,0,.45);border-radius:12px;background:linear-gradient(135deg,rgba(242,169,0,.12),rgba(0,0,0,.25))}
     .hr-np__row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     .hr-np__t{color:#fff;font-weight:800;font-size:15px;text-shadow:0 2px 8px rgba(0,0,0,.9)}
     .hr-np__btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.3px;text-decoration:none;transition:.15s}
-    .hr-np__apple{background:linear-gradient(90deg,#fc3c44,#ff7a85);color:#000}
+    .hr-np__apple{background:linear-gradient(90deg,#f2a900,#ffce4d);color:#000;box-shadow:0 0 18px rgba(242,169,0,.35)}
     .hr-np__apple:hover{filter:brightness(1.1)}
     .hr-np__spot{border:1px solid rgba(30,215,96,.6);color:#1DB954}
     .hr-np__hint{color:#c8ffd4;font-size:11px;margin-top:8px;opacity:.9}
@@ -5129,60 +5196,6 @@
         </div>
       </a>
       <!-- ===== FIM BANNER NOVO ÁLBUM ===== -->
-
-      <!-- SHORTS DA RÁDIO (29/09/2026): lê shorts.json (gerado de hora em hora pelo feed do canal) -->
-      <style>
-        #rbShorts .sh-row{display:flex;gap:10px;overflow-x:auto;padding:12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
-        #rbShorts .sh-row::-webkit-scrollbar{height:6px}#rbShorts .sh-row::-webkit-scrollbar-thumb{background:rgba(242,169,0,.5);border-radius:3px}
-        #rbShorts .sh{flex:0 0 150px;scroll-snap-align:start;position:relative;aspect-ratio:9/16;border-radius:10px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.08);cursor:pointer}
-        #rbShorts .sh.clipe{flex-basis:230px;aspect-ratio:16/9}
-        #rbShorts .sh img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
-        #rbShorts .sh:hover img{transform:scale(1.04)}
-        #rbShorts .sh .pl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:34px;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.9);background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.75))}
-        #rbShorts .sh .tt{position:absolute;left:8px;right:8px;bottom:8px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;line-height:1.2;color:#fff;text-shadow:0 1px 4px #000}
-        #rbShorts .sh iframe{width:100%;height:100%;border:0;display:block}
-        #rbShorts .sh-lbl{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:1px;color:#f2a900;padding:8px 12px 0}
-      </style>
-      <div class="panel" id="rbShorts" style="padding:0;overflow:hidden;border-color:rgba(242,169,0,0.45);">
-        <div class="pt" style="justify-content:space-between;color:#f2a900;padding:10px 12px;border-bottom:1px solid rgba(242,169,0,0.25);">
-          <span>🎬 SHORTS DA RÁDIO</span>
-          <a href="https://www.youtube.com/@radiobitcoinorg/shorts" target="_blank" rel="noopener" style="font-size:9px;color:#f2a900;letter-spacing:1px;text-decoration:none">VER TODOS ▸</a>
-        </div>
-        <div class="sh-lbl">SHORTS</div><div class="sh-row" id="shRowS"></div>
-        <div class="sh-lbl">CLIPES OFICIAIS</div><div class="sh-row" id="shRowC"></div>
-      </div>
-      <script>
-      (function(){
-        function card(v){var d=document.createElement('div');d.className='sh '+v.tipo;d.setAttribute('data-id',v.id);
-          d.innerHTML='<img loading="lazy" alt="'+v.t.replace(/"/g,'&quot;')+'" src="https://i.ytimg.com/vi/'+v.id+'/'+(v.tipo==='short'?'oar2.jpg':'mqdefault.jpg')+'" onerror="this.src=\'https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg\'"><div class="pl">▶</div><div class="tt">'+v.t+'</div>';
-          d.addEventListener('click',function(){ try{goatcounter.count({path:'short-play-'+v.id,title:'short:'+v.t,event:true})}catch(e){}
-            d.innerHTML='<iframe src="https://www.youtube.com/embed/'+v.id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="'+v.t.replace(/"/g,'&quot;')+'"></iframe>';
-            var a=document.getElementById('liveAudio'); if(a&&!a.paused){ try{a.pause();}catch(e){} } });
-          return d;}
-        fetch('shorts.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
-          var S=d.videos.filter(function(v){return v.tipo==='short'}).slice(0,24), C=d.videos.filter(function(v){return v.tipo==='clipe'}).slice(0,12);
-          var rs=document.getElementById('shRowS'), rc=document.getElementById('shRowC');
-          S.forEach(function(v){rs.appendChild(card(v))}); C.forEach(function(v){rc.appendChild(card(v))});
-          if(!C.length){ rc.previousElementSibling.hidden=true; rc.hidden=true; }
-        }).catch(function(){ document.getElementById('rbShorts').hidden=true; });
-      })();
-      </script>
-
-      <!-- APPLE MUSIC (funil, 29/09/2026) -->
-      <div class="panel" style="padding:0;overflow:hidden;border-color:rgba(252,60,68,0.45);">
-        <div class="pt" style="color:#fc3c44;padding:10px 12px;border-bottom:1px solid rgba(252,60,68,0.25);"> OUÇA NO APPLE MUSIC</div>
-        <div style="padding:11px 13px;background:rgba(252,60,68,0.05);">
-          <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#c8d0dc;line-height:1.5;margin-bottom:9px;">
-            🍎 <strong style="color:#fc3c44;">É no Apple Music que a rádio recebe de verdade.</strong> Toda música que você ouve aqui está lá: siga o artista, salve na biblioteca e deixe tocando. Cada play vira royalty que mantém a Rádio Bitcoin no ar.
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-            <a href="https://music.apple.com/br/artist/radiobitcoin-org/6782166870" target="_blank" rel="noopener" onclick="try{goatcounter.count({path:'apple-artista',title:'apple-artista',event:true})}catch(e){}"
-               style="display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;background:linear-gradient(90deg,#fc3c44,#ff7a85);color:#000;font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:.5px;text-decoration:none;border-radius:6px;">▶ ABRIR & SEGUIR</a>
-            <a href="https://music.apple.com/br/album/autor-da-nossa-paz/6816847392?i=6816847394" id="appleUltima" target="_blank" rel="noopener" onclick="try{goatcounter.count({path:'apple-ultima',title:'apple-ultima',event:true})}catch(e){}"
-               style="display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;background:transparent;color:#fc3c44;border:1px solid rgba(252,60,68,0.5);font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:.5px;text-decoration:none;border-radius:6px;">✨ LANÇAMENTO NOVO</a>
-          </div>
-        </div>
-      </div>
 
       <!-- SPOTIFY PLAYLIST -->
       <div class="panel" style="padding:0;overflow:hidden;border-color:rgba(30,215,96,0.4);">
