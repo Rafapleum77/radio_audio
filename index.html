@@ -6810,6 +6810,9 @@ setInterval(fetchCommodities, 60000);
 
 // ── UTILITÁRIO: fetch local com timeout ─────────────────────────
 function _localFetch(url, opts, ms) {
+  // 29/09/2026: só tenta a LAN quando a PÁGINA está na LAN. No site público isso fazia o Chrome pedir
+  // 'acessar dispositivos na sua rede local' a cada visita e falhava de qualquer jeito.
+  if (!/^(localhost|127\.0\.0\.1|192\.168\.|10\.|100\.)/.test(location.hostname)) return null;
   ms = ms || 3000;
   const ctrl = new AbortController();
   const tid  = setTimeout(() => ctrl.abort(), ms);

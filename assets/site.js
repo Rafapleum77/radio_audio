@@ -231,7 +231,8 @@
     function check() {
       // Servidor exposto publicamente via cloudflared (l402.radiobitcoin.org).
       // Localhost como fallback pra quando acessado da própria máquina.
-      const urls = ['https://l402.radiobitcoin.org/health', 'http://localhost:8402/health'];
+      const urls = ['https://l402.radiobitcoin.org/health'];
+      if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) urls.push('http://localhost:8402/health'); // 29/09: localhost só quando a página é local
       (function tryUrl(i){
         if(i >= urls.length){
           if(statusEl){ statusEl.textContent = 'OFFLINE'; statusEl.style.color='#ff4444'; }
