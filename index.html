@@ -444,13 +444,16 @@
 
     <!-- TOCANDO AGORA → lojas (funil Apple Music, 29/09/2026) -->
     <div class="hr-np" id="hrNp" style="display:none">
-      <div class="hr-aggs__lbl">🎵 Tocando agora</div>
+      <img id="hrNpArt" class="hr-np__art" alt="" width="96" height="96" hidden>
+      <div class="hr-np__body">
+      <div class="hr-aggs__lbl"><span class="hr-np__dot"></span>No ar agora</div>
       <div class="hr-np__row">
         <span class="hr-np__t" id="hrNpTitulo"></span>
         <a class="hr-np__btn hr-np__apple" id="hrNpApple" href="https://music.apple.com/br/artist/radiobitcoin-org/6782166870" target="_blank" rel="noopener"> Ouvir no Apple Music</a>
         <a class="hr-np__btn hr-np__spot" id="hrNpSpot" href="https://open.spotify.com/artist/51GlYd3jeRqqg1l8ozptbT" target="_blank" rel="noopener">Spotify</a>
       </div>
-      <div class="hr-np__hint">Ouvir nas lojas paga o artista. Na rádio é de graça; lá cada play sustenta a Rádio Bitcoin.</div>
+      <div class="hr-np__hint">Gostou? Continua no Apple Music: é o play de lá que paga o artista e mantém a rádio no ar.</div>
+      </div>
     </div>
 
     <div class="hr-aggs">
@@ -667,7 +670,13 @@
     .hr-play--econ{background:linear-gradient(90deg,#16c784,#3ddc9a);color:#04140d;box-shadow:0 8px 30px -6px rgba(22,199,132,.8)}
     .hr-nowplaying{color:#c8ffd4;font-size:12px;font-weight:600;margin-top:12px;min-height:16px;text-shadow:0 2px 8px rgba(0,0,0,.95)}
     .hr-np{margin-top:18px;padding:12px 14px;border:1px solid rgba(242,169,0,.45);border-radius:12px;background:linear-gradient(135deg,rgba(242,169,0,.12),rgba(0,0,0,.25))}
+    .hr-np{display:flex;gap:14px;align-items:center}
+    .hr-np__art{width:96px;height:96px;border-radius:12px;object-fit:cover;flex:0 0 auto;box-shadow:0 6px 24px rgba(0,0,0,.6),0 0 0 1px rgba(242,169,0,.35)}
+    .hr-np__body{min-width:0;flex:1}
+    .hr-np__dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3ddc84;box-shadow:0 0 8px #3ddc84;margin-right:6px;vertical-align:middle;animation:qpMiniBlink 1.4s steps(2) infinite}
     .hr-np__row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .hr-np__t{font-size:19px}
+    @media(max-width:520px){.hr-np{flex-direction:column;align-items:flex-start}.hr-np__art{width:120px;height:120px}}
     .hr-np__t{color:#fff;font-weight:800;font-size:15px;text-shadow:0 2px 8px rgba(0,0,0,.9)}
     .hr-np__btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.3px;text-decoration:none;transition:.15s}
     .hr-np__apple{background:linear-gradient(90deg,#f2a900,#ffce4d);color:#000;box-shadow:0 0 18px rgba(242,169,0,.35)}
@@ -7482,10 +7491,11 @@ iaRender();
       if(!box) return;
       var f=LOJAS&&LOJAS.faixas&&LOJAS.faixas[canon(t)];
       tt.textContent=t;
-      if(f){ a.href=f.apple||LOJAS.artista.apple; sp.href=f.spotify||LOJAS.artista.spotify; a.textContent=' Ouvir no Apple Music'; sp.style.display='';
+      var im=document.getElementById('hrNpArt'); if(im){ if(f&&f.art){ im.src=f.art; im.alt='Capa: '+t; im.hidden=false; } else { im.hidden=true; } }
+      if(f){ a.href=f.apple||LOJAS.artista.apple; sp.href=f.spotify||LOJAS.artista.spotify; a.textContent='🍎 Continuar no Apple Music'; sp.style.display='';
              a.onclick=function(){try{goatcounter.count({path:'apple-np-'+canon(t).slice(0,40),title:'apple:'+t,event:true})}catch(e){}};
              sp.onclick=function(){try{goatcounter.count({path:'spotify-np-'+canon(t).slice(0,40),title:'spotify:'+t,event:true})}catch(e){}}; }
-      else { a.href=(LOJAS&&LOJAS.artista.apple)||a.href; a.textContent=' Nossas músicas no Apple Music'; sp.style.display='none'; a.onclick=function(){try{goatcounter.count({path:'apple-artista-np',event:true})}catch(e){}}; }
+      else { a.href=(LOJAS&&LOJAS.artista.apple)||a.href; a.textContent='🍎 Nossas músicas no Apple Music'; sp.style.display='none'; a.onclick=function(){try{goatcounter.count({path:'apple-artista-np',event:true})}catch(e){}}; }
       box.style.display='';
       var sub=document.querySelector('#liveRadio .qp-sub'); if(sub) sub.textContent='♪ '+t.toUpperCase().slice(0,34);
     }).catch(function(){});
