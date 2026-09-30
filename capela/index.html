@@ -172,6 +172,36 @@
   .curio-acoes{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
   .contador{font-family:"Share Tech Mono",monospace;font-size:11px;color:var(--dim);letter-spacing:.14em;align-self:center;margin-left:auto}
 
+  /* ---- músicas de fé ---- */
+  .musica{
+    border:1px solid var(--linha);border-radius:14px;background:var(--painel);
+    padding:16px 18px;margin-bottom:10px;display:grid;grid-template-columns:52px 1fr;gap:4px 14px;align-items:center;
+  }
+  .musica.tocando{border-color:rgba(242,169,0,.55);box-shadow:0 0 24px rgba(242,169,0,.10)}
+  .play{
+    grid-row:span 2;width:52px;height:52px;border-radius:50%;border:1px solid rgba(242,169,0,.5);
+    background:radial-gradient(circle at 50% 40%,rgba(242,169,0,.22),rgba(242,169,0,.05));
+    color:var(--ouro);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+  .musica.tocando .play{background:var(--ouro);color:#1a1200}
+  .musica h3{margin:0;font-size:22px;font-weight:600;color:#fff6e3;line-height:1.15}
+  .musica .tema{margin:0;color:var(--dim);font-size:16px;font-style:italic;line-height:1.35}
+  .musica .linha2{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px}
+  .lang{
+    background:transparent;border:1px solid var(--linha);color:var(--dim);border-radius:999px;
+    padding:4px 10px;font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:.12em;cursor:pointer;
+  }
+  .lang.on{border-color:rgba(242,169,0,.6);color:var(--ouro)}
+  .lojas{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .loja{
+    font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:.12em;
+    text-transform:uppercase;text-decoration:none;color:var(--ouro);border:1px solid rgba(242,169,0,.4);
+    border-radius:999px;padding:5px 12px;
+  }
+  .barra{grid-column:1/-1;height:3px;border-radius:3px;background:var(--linha);margin-top:10px;overflow:hidden;display:none}
+  .musica.tocando .barra{display:block}
+  .barra i{display:block;height:100%;width:0;background:var(--ouro)}
+
   /* ---- rodapé ---- */
   footer{margin-top:54px;text-align:center;color:var(--dim);font-size:15px}
   footer .m{font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:10px}
@@ -214,6 +244,14 @@
       </form>
       <p class="nota" id="notaVelas">As velas ficam guardadas só no seu navegador. Elas se apagam sozinhas depois de 7 dias.</p>
     </div>
+  </section>
+
+  <!-- ===== MÚSICAS DE FÉ ===== -->
+  <section id="musicas">
+    <h2>🎵 Músicas de fé</h2>
+    <p class="intro">Canções da Rádio Bitcoin sobre Jesus, perdão e bênção. Toque aqui mesmo, em português, inglês ou espanhol.</p>
+    <div id="listaMusicas"></div>
+    <audio id="player" preload="none"></audio>
   </section>
 
   <!-- ===== ORAÇÕES ===== -->
@@ -452,7 +490,60 @@ Amanhã eu recomeço. Amém.<small>Oração da casa · Rádio Bitcoin</small></d
   }
   document.getElementById("outraCurio").addEventListener("click",function(){pos++;mostrarCurio()});
   mostrarCurio();
+
+  /* ---------- músicas de fé (mp3 do próprio site; Apple Music é quem paga) ---------- */
+  var M="/musicas_novas/", AM="https://music.apple.com/us/album/";
+  var MUSICAS=[
+    {t:"O Autor da Nossa Paz", tema:"Jesus, o Príncipe da Paz · Isaías 9:6", slug:"autor", v:{
+      PT:[M+"O Autor da Nossa Paz.mp3", AM+"autor-da-nossa-paz/6816847392?i=6816847394"],
+      EN:[M+"The Author of Our Peace.mp3"],
+      ES:[M+"El Autor de Nuestra Paz.mp3", AM+"o-autor-de-nuestra-paz/6816847409?i=6816847410"]}},
+    {t:"70 Vezes 7", tema:"O perdão que Jesus ensinou a Pedro · Mateus 18:22", slug:"70x7", yt:"jqGQGs5ZPNU", v:{
+      PT:[M+"70 Vezes 7.mp3", AM+"70-x-7/6812066897?i=6812066899"],
+      EN:[M+"Seventy Times Seven.mp3", AM+"70-times-7/6812072967?i=6812072970"],
+      ES:[M+"Setenta Veces Siete.mp3", AM+"70-veces-7/6812068200?i=6812068203"]}},
+    {t:"A Bênção de Deus", tema:"A bênção dos pais sobre os filhos · Números 6:24", slug:"bencao", yt:"zAnL3pzWxL8", v:{
+      PT:[M+"A Bênção De Deus.mp3", AM+"a-b%C3%AAn%C3%A7%C3%A3o-de-deus/6809283782?i=6809283783"],
+      EN:[M+"The Blessing OF GOD.mp3", AM+"the-blessing-of-god/6809232028?i=6809232029"],
+      ES:[M+"La Bendicion DE DIOS.mp3", AM+"la-bendici%C3%B3n-de-dios/6809246761?i=6809246762"]}},
+    {t:"Oitavo Dia", tema:"Os dias da Criação · Gênesis 1", slug:"oitavo", v:{
+      PT:[M+"Oitavo Dia.mp3"],
+      EN:[M+"The Twelfth Day.mp3"],
+      ES:[M+"El Día de la Luz.mp3", AM+"el-d%C3%ADa-de-la-luz/6805284666?i=6805284668"]}}
+  ];
+  function conta(p){try{window.goatcounter&&goatcounter.count({path:p,title:p,event:true})}catch(e){}}
+  var player=document.getElementById("player"), lista=document.getElementById("listaMusicas"), atual=null;
+  MUSICAS.forEach(function(m,i){m.lang="PT";
+    var d=document.createElement("div"); d.className="musica"; d.id="mus"+i;
+    d.innerHTML='<button class="play" type="button" aria-label="Tocar '+esc(m.t)+'">▶</button>'+
+      '<h3>'+esc(m.t)+'</h3><p class="tema">'+esc(m.tema)+'</p>'+
+      '<div class="linha2">'+["PT","EN","ES"].map(function(l){return '<button class="lang'+(l==="PT"?" on":"")+'" data-l="'+l+'" type="button">'+l+'</button>'}).join("")+
+      '<span class="lojas"></span></div><div class="barra"><i></i></div>';
+    lista.appendChild(d); m.el=d; lojas(m);
+    d.querySelector(".play").addEventListener("click",function(){tocar(m)});
+    d.querySelectorAll(".lang").forEach(function(b){b.addEventListener("click",function(){
+      m.lang=b.dataset.l; d.querySelectorAll(".lang").forEach(function(x){x.classList.toggle("on",x===b)}); lojas(m);
+      if(atual===m){atual=null; tocar(m)}
+    })});
+  });
+  function lojas(m){
+    var v=m.v[m.lang], h="";
+    if(v[1]) h+='<a class="loja" target="_blank" rel="noopener" href="'+v[1]+'" data-g="apple-capela-'+m.slug+'">Apple Music</a>';
+    if(m.yt) h+='<a class="loja" target="_blank" rel="noopener" href="https://youtu.be/'+m.yt+'" data-g="yt-capela-'+m.slug+'">Clipe</a>';
+    var s=m.el.querySelector(".lojas"); s.innerHTML=h;
+    s.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){conta(a.dataset.g)})});
+  }
+  function marcar(m,on){m.el.classList.toggle("tocando",on); m.el.querySelector(".play").textContent=on?"❚❚":"▶"}
+  function tocar(m){
+    if(atual===m){ if(player.paused){player.play();marcar(m,true)} else {player.pause();marcar(m,false)} return }
+    if(atual) marcar(atual,false);
+    atual=m; player.src=encodeURI(m.v[m.lang][0]); player.play().catch(function(){}); marcar(m,true);
+    conta("capela-play-"+m.slug+"-"+m.lang.toLowerCase());
+  }
+  player.addEventListener("timeupdate",function(){ if(atual&&player.duration) atual.el.querySelector(".barra i").style.width=(100*player.currentTime/player.duration)+"%" });
+  player.addEventListener("ended",function(){ var i=MUSICAS.indexOf(atual); marcar(atual,false); atual=null; tocar(MUSICAS[(i+1)%MUSICAS.length]) });
 })();
 </script>
+<script data-goatcounter="https://radiobitcoinorg.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
