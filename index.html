@@ -552,6 +552,37 @@
         <div class="pt" style="color:#f2a900;padding:10px 12px;border-bottom:1px solid rgba(242,169,0,.3);"> OUÇA NO APPLE MUSIC</div>
         <a class="rb-dest__big" href="https://music.apple.com/br/artist/radiobitcoin-org/6782166870" target="_blank" rel="noopener" onclick="try{goatcounter.count({path:'apple-destaque',title:'apple-destaque',event:true})}catch(e){}">🍎 OUVIR NO APPLE MUSIC</a>
         <a href="https://music.apple.com/br/artist/radiobitcoin-org/6782166870" target="_blank" rel="noopener" style="display:block;text-align:center;margin:2px 13px 6px" onclick="try{goatcounter.count({path:'apple-selo',title:'apple-selo',event:true})}catch(e){}"><img src="selo_apple_music.svg" alt="Ouça no Apple Music" width="160" height="46" style="height:46px;width:auto;display:inline-block"></a>
+        <style>
+          #rbCompra{padding:4px 13px 12px;border-top:1px solid rgba(242,169,0,.25);margin-top:6px}
+          #rbCompra .rb-compra__lbl{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:1px;color:#f2a900;padding:10px 0 8px}
+          #rbCompra .rb-compra__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+          @media(max-width:520px){#rbCompra .rb-compra__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+          #rbCompra .it{display:flex;flex-direction:column;gap:5px;min-width:0;text-decoration:none;color:#e8ecf0}
+          #rbCompra .it img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;display:block;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+          #rbCompra .it .t{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+          #rbCompra .it .p{display:inline-block;align-self:flex-start;font-family:'Orbitron',monospace;font-size:10px;font-weight:700;padding:5px 9px;border-radius:999px;background:linear-gradient(90deg,#f2a900,#ffce4d);color:#000}
+          #rbCompra .rb-compra__all{display:block;margin-top:10px;font-family:'Orbitron',monospace;font-size:10px;letter-spacing:.5px;color:#f2a900;text-decoration:none;text-align:center}
+          #rbCompra .rb-compra__hint{font-family:'Rajdhani',sans-serif;font-size:12px;color:#c8d0dc;line-height:1.4;margin-top:8px}
+        </style>
+        <div id="rbCompra">
+          <div class="rb-compra__lbl">💛 QUER AJUDAR DE VERDADE? COMPRE A MÚSICA</div>
+          <div class="rb-compra__grid" id="rbCompraGrid"></div>
+          <div class="rb-compra__hint">Comprar na iTunes Store é o apoio mais forte: a maior parte do valor vai pro artista, e a música fica sua pra sempre.</div>
+          <a class="rb-compra__all" href="https://music.apple.com/br/artist/radiobitcoin-org/6782166870?app=itunes" target="_blank" rel="noopener" onclick="try{goatcounter.count({path:'itunes-todas',event:true})}catch(e){}">TODAS AS MÚSICAS NA ITUNES STORE ▸</a>
+        </div>
+        <script>
+        (function(){
+          fetch('lojas.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(L){
+            var g=document.getElementById('rbCompraGrid'); if(!g||!L.recentes) return;
+            var fmt=function(v,m){ try{ return new Intl.NumberFormat('pt-BR',{style:'currency',currency:m||'BRL'}).format(v); }catch(e){ return 'R$ '+v; } };
+            L.recentes.slice(0,6).forEach(function(k){ var f=L.faixas[k]; if(!f||!f.itunes) return;
+              var a=document.createElement('a'); a.className='it'; a.href=f.itunes; a.target='_blank'; a.rel='noopener';
+              a.innerHTML='<img loading="lazy" src="'+(f.art||'')+'" alt=""><span class="t">'+f.t+'</span><span class="p">'+(f.preco?fmt(f.preco,f.moeda):'COMPRAR')+'</span>';
+              a.addEventListener('click',function(){ try{goatcounter.count({path:'itunes-compra-'+k.slice(0,40),title:'itunes:'+f.t,event:true})}catch(e){} });
+              g.appendChild(a); });
+          }).catch(function(){});
+        })();
+        </script>
         <div style="padding:11px 13px;background:rgba(242,169,0,.06);">
           <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#c8d0dc;line-height:1.5;margin-bottom:9px;">
             🍎 <strong style="color:#f2a900;">É no Apple Music que a rádio recebe de verdade.</strong> Toda música que você ouve aqui está lá: siga o artista, salve na biblioteca e deixe tocando. Cada play vira royalty que mantém a Rádio Bitcoin no ar.
