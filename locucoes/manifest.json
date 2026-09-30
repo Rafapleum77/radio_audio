@@ -2,9 +2,13 @@
   "gpt": {
     "nome": "GPT-4o",
     "arquivo": "locucoes/gpt.mp3",
-    "texto": "Aqui é a GPT na Rádio Bitcoin. O preço do Bitcoin está em cerca de 28 mil dólares. Hoje, o mercado de ações está apresentando alguns movimentos interessantes. A Taiwan Semi aumentou 1,3% e o iShares Gold subiu 1,2%. Já as perdas mais significativas foram da United States Oil, que caiu 4,2%, e da Qualcomm, que perdeu 1,4%. As ações mais negociadas hoje são da Nvidia e da Intel. O mercado está em constante evolução, é importante monitorar os dados e estar preparado para as mudanças. Acesse radiobitcoin.org para mais informações e análises detalhadas do mercado de criptomoedas.",
-    "btc": null,
-    "gerado_em": "2026-09-29T17:05:25.884358-03:00"
+    "texto": "Aqui é a GPT na Rádio Bitcoin. O preço do Bitcoin está em 83.331 dólares, subindo 0,4% nas últimas 24 horas. No mercado de ações, as maiores altas hoje são o iShares Gold com 1,3%, e o iShares Silver com 1%. As maiores baixas estão no United States Oil, caindo 4,4%, e na Qualcomm, que perdeu 1,8%. E se você quer saber mais sobre esses movimentos e como eles afetam o mercado de criptomoedas, acesse radiobitcoin.org.",
+    "btc": {
+      "usd": 83331,
+      "brl": 433811,
+      "chg": 0.4
+    },
+    "gerado_em": "2026-09-30T00:06:36.698686-03:00"
   },
   "claude": {
     "nome": "Claude",
