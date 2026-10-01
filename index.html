@@ -982,7 +982,7 @@
     </div>
     <div class="trz-banner__inner">
       <div class="trz-banner__video">
-        <iframe id="trz-dest-iframe" src="https://www.youtube.com/embed/LYQxgnT-hgw?rel=0&modestbranding=1&color=white" allowfullscreen loading="lazy" title="Anthony Fauci: as anotações que reacenderam a polêmica | Rotina do Trezoitão"></iframe>
+        <iframe id="trz-dest-iframe" src="https://www.youtube.com/embed/videoseries?list=UUC-r6vnXtcwBYq0VxZYhoXg&rel=0&modestbranding=1&color=white" allowfullscreen loading="lazy" title="Rotina do Trezoitão — vídeos mais recentes"></iframe>
       </div>
       <div class="trz-banner__content">
         <div class="trz-banner__tag">&#128293; Trezoitão News</div>
@@ -1011,7 +1011,15 @@
       var v = (j.videos || [])[0];
       if(!v || !v.id) return;
       var f = document.getElementById('trz-dest-iframe');
-      if(f) f.src = 'https://www.youtube.com/embed/' + v.id + '?rel=0&modestbranding=1&color=white';
+      /* 30/09: troca o iframe inteiro. Só mudar o src não bastava: o Chrome já tinha
+         começado a carregar o vídeo do HTML e ficava nele. O HTML agora aponta pra
+         lista de envios do canal (UU...), que também é sempre o mais recente. */
+      if(f){
+        var n = document.createElement('iframe');
+        n.id = f.id; n.allowFullscreen = true; n.title = v.title || 'Rotina do Trezoitão';
+        n.src = 'https://www.youtube.com/embed/' + v.id + '?rel=0&modestbranding=1&color=white';
+        f.parentNode.replaceChild(n, f);
+      }
       var a = document.getElementById('trz-dest-cta');
       if(a) a.href = 'https://www.youtube.com/watch?v=' + v.id;
       var tt = document.getElementById('trz-dest-titulo');
