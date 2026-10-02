@@ -449,10 +449,11 @@
       <div class="hr-aggs__lbl"><span class="hr-np__dot"></span>No ar agora</div>
       <div class="hr-np__row">
         <span class="hr-np__t" id="hrNpTitulo"></span>
-        <a class="hr-np__btn hr-np__apple" id="hrNpApple" href="https://music.apple.com/br/artist/radiobitcoin-org/6782166870" target="_blank" rel="noopener"> Ouvir no Apple Music</a>
-        <a class="hr-np__btn hr-np__spot" id="hrNpSpot" href="https://open.spotify.com/artist/51GlYd3jeRqqg1l8ozptbT" target="_blank" rel="noopener">Spotify</a>
+        <a class="hr-np__btn hr-np__apple" id="hrNpApple" href="https://music.apple.com/br/artist/radiobitcoin-org/6782166870" target="_blank" rel="noopener">🍎 Apoiar a rádio no Apple Music</a>
+        <a class="hr-np__btn hr-np__spot" id="hrNpSpot" href="https://open.spotify.com/artist/51GlYd3jeRqqg1l8ozptbT" target="_blank" rel="noopener">🎧 Ouvir grátis no Spotify</a>
+        <a class="hr-np__btn hr-np__sats" id="hrNpSats" href="https://wavlake.com/radio-bitcoin" target="_blank" rel="noopener" onclick="try{window.goatcounter&&goatcounter.count({path:'sats-wavlake',title:'sats-wavlake',event:true})}catch(e){}">⚡ Apoiar sem KYC, com sats</a>
       </div>
-      <div class="hr-np__hint">Gostou? Continua no Apple Music: é o play de lá que paga o artista e mantém a rádio no ar.</div>
+      <div class="hr-np__hint">Gostou da música? Ouça de graça quando quiser. Se puder ajudar a rádio a continuar no ar: cada play no Apple Music paga o artista, e quem prefere sem cadastro nem KYC pode mandar uns sats ⚡</div>
       </div>
     </div>
 
@@ -714,6 +715,8 @@
     .hr-np__apple{background:linear-gradient(90deg,#f2a900,#ffce4d);color:#000;box-shadow:0 0 18px rgba(242,169,0,.35)}
     .hr-np__apple:hover{filter:brightness(1.1)}
     .hr-np__spot{border:1px solid rgba(30,215,96,.6);color:#1DB954}
+    .hr-np__sats{border:1px solid rgba(247,147,26,.7);color:#f7931a}
+    .hr-np__row{flex-wrap:wrap}
     .hr-np__hint{color:#c8ffd4;font-size:11px;margin-top:8px;opacity:.9}
     .hr-aggs{margin-top:20px}
     .hr-agg__ico{width:18px;height:18px;border-radius:4px;vertical-align:-4px;margin-right:7px;background:#fff;padding:1px;box-sizing:border-box}
@@ -7534,10 +7537,10 @@ iaRender();
       var f=LOJAS&&LOJAS.faixas&&LOJAS.faixas[canon(t)];
       tt.textContent=t;
       var im=document.getElementById('hrNpArt'); if(im){ if(f&&f.art){ im.src=f.art; im.alt='Capa: '+t; im.hidden=false; } else { im.hidden=true; } }
-      if(f){ a.href=f.apple||LOJAS.artista.apple; sp.href=f.spotify||LOJAS.artista.spotify; a.textContent='🍎 Continuar no Apple Music'; sp.style.display='';
+      if(f){ a.href=f.apple||LOJAS.artista.apple; sp.href=f.spotify||LOJAS.artista.spotify; a.textContent='🍎 Apoiar a rádio no Apple Music'; sp.style.display='';
              a.onclick=function(){try{goatcounter.count({path:'apple-np-'+canon(t).slice(0,40),title:'apple:'+t,event:true})}catch(e){}};
              sp.onclick=function(){try{goatcounter.count({path:'spotify-np-'+canon(t).slice(0,40),title:'spotify:'+t,event:true})}catch(e){}}; }
-      else { a.href=(LOJAS&&LOJAS.artista.apple)||a.href; a.textContent='🍎 Nossas músicas no Apple Music'; sp.style.display='none'; a.onclick=function(){try{goatcounter.count({path:'apple-artista-np',event:true})}catch(e){}}; }
+      else { a.href=(LOJAS&&LOJAS.artista.apple)||a.href; a.textContent='🍎 Apoiar a rádio no Apple Music'; sp.href=(LOJAS&&LOJAS.artista.spotify)||sp.href; sp.style.display=''; a.onclick=function(){try{goatcounter.count({path:'apple-artista-np',event:true})}catch(e){}}; }
       box.style.display='';
       var sub=document.querySelector('#liveRadio .qp-sub'); if(sub) sub.textContent='♪ '+t.toUpperCase().slice(0,34);
     }).catch(function(){});
