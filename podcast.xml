@@ -28,7 +28,11 @@
   <itunes:type>episodic</itunes:type>
   <podcast:locked owner="alegriaitacare@gmail.com">no</podcast:locked>
   <podcast:funding url="lightning:texugorecords@walletofsatoshi.com">Apoie a rádio com sats</podcast:funding>
-  <lastBuildDate>Fri, 02 Oct 2026 22:05:05 -0300</lastBuildDate>
+  <podcast:funding url="https://wavlake.com/radio-bitcoin">Músicas da rádio com sats (Wavlake)</podcast:funding>
+  <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
+    <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
+  </podcast:value>
+  <lastBuildDate>Fri, 02 Oct 2026 22:13:22 -0300</lastBuildDate>
   <item>
     <title>Boletim de Notícias Bitcoin — 02/10/2026 22:05</title>
     <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
