@@ -32,7 +32,17 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Sun, 04 Oct 2026 17:05:05 -0300</lastBuildDate>
+  <lastBuildDate>Sun, 04 Oct 2026 18:05:01 -0300</lastBuildDate>
+  <item>
+    <title>Plantão Bitcoin — 04/10/2026 18:05</title>
+    <description>Alerta de preço: o que aconteceu e por quê.</description>
+    <itunes:summary>Alerta de preço: o que aconteceu e por quê.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-04_1805_alerta_preco.mp3" length="634087" type="audio/mpeg"/>
+    <guid isPermaLink="false">a673bad4915ea650fe942cfd4ed28060</guid>
+    <pubDate>Sun, 04 Oct 2026 18:05:01 -0300</pubDate>
+    <itunes:duration>00:00:39</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Plantão Bitcoin — 04/10/2026 17:05</title>
     <description>Alerta de preço: o que aconteceu e por quê.</description>
@@ -3021,16 +3031,6 @@
     <guid isPermaLink="false">e5150958eea3ca85376fd130c5f5f2b6</guid>
     <pubDate>Sat, 12 Sep 2026 22:05:05 -0300</pubDate>
     <itunes:duration>00:00:16</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Clima &amp; Sobrevivência — 12/09/2026 22:05</title>
-    <description>Alerta de clima e preparo, sem alarmismo.</description>
-    <itunes:summary>Alerta de clima e preparo, sem alarmismo.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-12_2205_alerta_sobrevivencia.mp3" length="1266041" type="audio/mpeg"/>
-    <guid isPermaLink="false">1d23d1a58f8760d30b41d05d79d24701</guid>
-    <pubDate>Sat, 12 Sep 2026 22:05:05 -0300</pubDate>
-    <itunes:duration>00:01:19</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
