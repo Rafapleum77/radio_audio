@@ -32,7 +32,27 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Mon, 05 Oct 2026 10:05:04 -0300</lastBuildDate>
+  <lastBuildDate>Mon, 05 Oct 2026 13:05:05 -0300</lastBuildDate>
+  <item>
+    <title>Siga o Dinheiro — 05/10/2026 13:05</title>
+    <description>O fluxo do dinheiro do dia, explicado.</description>
+    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-05_1305_fluxo_dinheiro.mp3" length="1274818" type="audio/mpeg"/>
+    <guid isPermaLink="false">208d380c5c3c841ab5c39c53198a7658</guid>
+    <pubDate>Mon, 05 Oct 2026 13:05:05 -0300</pubDate>
+    <itunes:duration>00:01:19</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Missão Bitcoin — 05/10/2026 13:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-05_1305_missao_bitcoin_cde.mp3" length="403791" type="audio/mpeg"/>
+    <guid isPermaLink="false">25e4ece03e1d1d9faef022d7e1140eb7</guid>
+    <pubDate>Mon, 05 Oct 2026 13:05:05 -0300</pubDate>
+    <itunes:duration>00:00:25</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Boletim de Notícias Bitcoin — 05/10/2026 10:05</title>
     <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
@@ -3011,26 +3031,6 @@
     <guid isPermaLink="false">d96d8318cc57d30d3c84d01baf9efd02</guid>
     <pubDate>Sun, 13 Sep 2026 22:05:05 -0300</pubDate>
     <itunes:duration>00:00:18</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Clima &amp; Sobrevivência — 13/09/2026 22:05</title>
-    <description>Alerta de clima e preparo, sem alarmismo.</description>
-    <itunes:summary>Alerta de clima e preparo, sem alarmismo.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-13_2205_alerta_sobrevivencia.mp3" length="1495501" type="audio/mpeg"/>
-    <guid isPermaLink="false">324f4acca5b3e10f3b97feda8fb359b9</guid>
-    <pubDate>Sun, 13 Sep 2026 22:05:05 -0300</pubDate>
-    <itunes:duration>00:01:33</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Plantão Bitcoin — 13/09/2026 18:05</title>
-    <description>Alerta de preço: o que aconteceu e por quê.</description>
-    <itunes:summary>Alerta de preço: o que aconteceu e por quê.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-13_1805_alerta_preco.mp3" length="678808" type="audio/mpeg"/>
-    <guid isPermaLink="false">f66557bd206bb167e5456e79d337a384</guid>
-    <pubDate>Sun, 13 Sep 2026 18:05:06 -0300</pubDate>
-    <itunes:duration>00:00:42</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
