@@ -75,7 +75,7 @@ a:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
 </main>
 <script>
 // links das playlists do Apple Music: preencher quando o Rafael criar (até lá, vai pra página do artista)
-var PLAYLISTS={pt:"https://music.apple.com/br/playlist/as-melhores-da-r%C3%A1dio-bitcoin-org/pl.u-MDAWklGsWGyJ5vo",en:"",es:"",fe:""};
+var PLAYLISTS={"pt": "https://music.apple.com/br/playlist/as-melhores-da-r%C3%A1dio-bitcoin-org/pl.u-MDAWklGsWGyJ5vo", "en": "https://music.apple.com/br/playlist/the-best-of-r%C3%A1dio-bitcoin-org/pl.u-06oxp9ysWLdjvN0", "es": "https://music.apple.com/br/playlist/lo-mejor-de-r%C3%A1dio-bitcoin-org/pl.u-XkD0vDkhDYVRpx9", "fe": "https://music.apple.com/br/playlist/m%C3%BAsicas-de-f%C3%A9-da-r%C3%A1dio-bitcoin-org/pl.u-r2yBDkXIPkgA6om"};
 document.querySelectorAll('.pl').forEach(function(a){var u=PLAYLISTS[a.dataset.pl]; if(u) a.href=u; else a.textContent='🍎 Ver o artista no Apple Music';});
 document.addEventListener('click',function(ev){var a=ev.target.closest('[data-gc]'); if(a) try{goatcounter.count({path:a.dataset.gc,event:true})}catch(e){}});
 </script>
