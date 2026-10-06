@@ -32,7 +32,37 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Mon, 05 Oct 2026 22:05:05 -0300</lastBuildDate>
+  <lastBuildDate>Tue, 06 Oct 2026 10:05:05 -0300</lastBuildDate>
+  <item>
+    <title>Boletim de Notícias Bitcoin — 06/10/2026 10:05</title>
+    <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
+    <itunes:summary>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-06_1005_boletim_noticias.mp3" length="1308255" type="audio/mpeg"/>
+    <guid isPermaLink="false">95e3e709aede1fb3cd1bee794524dad6</guid>
+    <pubDate>Tue, 06 Oct 2026 10:05:05 -0300</pubDate>
+    <itunes:duration>00:01:21</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Missão Bitcoin — 06/10/2026 10:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-06_1005_missao_bitcoin_cde.mp3" length="373698" type="audio/mpeg"/>
+    <guid isPermaLink="false">0f00c42179ce7cde10aac917bd0880b9</guid>
+    <pubDate>Tue, 06 Oct 2026 10:05:05 -0300</pubDate>
+    <itunes:duration>00:00:23</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Clima &amp; Sobrevivência — 06/10/2026 10:05</title>
+    <description>Alerta de clima e preparo, sem alarmismo.</description>
+    <itunes:summary>Alerta de clima e preparo, sem alarmismo.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-06_1005_alerta_sobrevivencia.mp3" length="1506785" type="audio/mpeg"/>
+    <guid isPermaLink="false">7f684bfc3871653d64ed3c13c9b99de3</guid>
+    <pubDate>Tue, 06 Oct 2026 10:05:05 -0300</pubDate>
+    <itunes:duration>00:01:34</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Boletim de Notícias Bitcoin — 05/10/2026 22:05</title>
     <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
@@ -3001,36 +3031,6 @@
     <guid isPermaLink="false">6413922589f33deee950a0f586787d54</guid>
     <pubDate>Mon, 14 Sep 2026 13:05:06 -0300</pubDate>
     <itunes:duration>00:01:40</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Plantão Bitcoin — 14/09/2026 13:05</title>
-    <description>Alerta de preço: o que aconteceu e por quê.</description>
-    <itunes:summary>Alerta de preço: o que aconteceu e por quê.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-14_1305_alerta_preco.mp3" length="608591" type="audio/mpeg"/>
-    <guid isPermaLink="false">c485dc9a76c833539d973eab334af14b</guid>
-    <pubDate>Mon, 14 Sep 2026 13:05:06 -0300</pubDate>
-    <itunes:duration>00:00:38</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Missão Bitcoin — 14/09/2026 13:05</title>
-    <description>A missão em campo: Bitcoin no mundo real.</description>
-    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-14_1305_missao_bitcoin_cde.mp3" length="284673" type="audio/mpeg"/>
-    <guid isPermaLink="false">6f7fd27994021e8ca36bb89a73285943</guid>
-    <pubDate>Mon, 14 Sep 2026 13:05:06 -0300</pubDate>
-    <itunes:duration>00:00:17</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Boletim de Notícias Bitcoin — 14/09/2026 10:05</title>
-    <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
-    <itunes:summary>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-14_1005_boletim_noticias.mp3" length="1295298" type="audio/mpeg"/>
-    <guid isPermaLink="false">79ff1d94feee31d48698d9f8a3eef1f3</guid>
-    <pubDate>Mon, 14 Sep 2026 10:05:05 -0300</pubDate>
-    <itunes:duration>00:01:20</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
