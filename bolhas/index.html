@@ -841,5 +841,43 @@ body.stream canvas{position:relative;z-index:1;background:transparent!important}
   puxaTitulo(); setInterval(puxaTitulo,30000);
 })();
 </script>
+<!-- ═══ mobileV2 (06/10/2026): legibilidade no celular e no app — menos bolhas, siglas com contorno ═══ -->
+<script>
+(function(){
+  if(document.body.classList.contains('stream')) return;
+  const MINF = 14;
+  function alvo(){ const w=window.innerWidth; return w<480? 36 : w<900? 50 : 70; }
+  const _sync = syncBubbles;
+  syncBubbles = function(){ const sel=document.getElementById('qtySel'); if(!sel || !sel.dataset.user) maxCount = alvo(); _sync();
+    if(!W||!H||!bubbles.length) return; const area=bubbles.reduce((a,b)=>a+Math.PI*b.r*b.r,0); const k=Math.sqrt(0.58*W*H/area);
+    bubbles.forEach(b=>{ b.r=Math.max(22,Math.min(140,b.r*k)); }); };
+  const sel=document.getElementById('qtySel'); if(sel) sel.addEventListener('change',()=>{ sel.dataset.user='1'; });
+  const FONT='-apple-system,"Helvetica Neue",Arial,sans-serif';
+  drawBubble = function(b){
+    const up=b.data.change>=0, col= up?'52,224,120':'255,88,88', mag=Math.min(1,Math.abs(b.data.change)/6), r=b.r;
+    if(b.lastChange!==undefined && b.lastChange!==b.data.change) b.flash=1; b.lastChange=b.data.change; b.flash=Math.max(0,(b.flash||0)-0.015);
+    ctx.save();
+    const h=ctx.createRadialGradient(b.x,b.y,r*0.92,b.x,b.y,r*1.2); h.addColorStop(0,'rgba('+col+','+(0.28+mag*0.3)+')'); h.addColorStop(1,'rgba('+col+',0)');
+    ctx.beginPath(); ctx.arc(b.x,b.y,r*1.2,0,7); ctx.fillStyle=h; ctx.fill();
+    ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.fillStyle='rgba(4,6,12,0.94)'; ctx.fill();
+    const g=ctx.createRadialGradient(b.x,b.y,r*0.3,b.x,b.y,r); g.addColorStop(0,'rgba('+col+',0.02)'); g.addColorStop(0.75,'rgba('+col+','+(0.10+mag*0.15)+')'); g.addColorStop(1,'rgba('+col+','+(0.5+mag*0.4)+')');
+    ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.fillStyle=g; ctx.fill();
+    ctx.lineWidth=Math.max(2,r*0.045); ctx.strokeStyle='rgba('+col+',1)'; ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.stroke();
+    if(b.flash>0){ ctx.lineWidth=2+r*0.06*b.flash; ctx.strokeStyle='rgba(255,255,255,'+(0.85*b.flash)+')'; ctx.beginPath(); ctx.arc(b.x,b.y,r*(1+0.14*(1-b.flash)),0,7); ctx.stroke(); }
+    const img=LOGO_IMG[b.symbol]; const ls=r*0.60, ly=b.y-r*0.47;
+    if(img && r>=34){ ctx.save(); ctx.beginPath(); ctx.arc(b.x,ly,ls*0.5,0,7); ctx.closePath(); ctx.fillStyle='rgba(255,255,255,0.97)'; ctx.fill(); ctx.clip();
+      const ratio=Math.min(ls/img.width, ls/img.height), w=img.width*ratio*0.78, hh=img.height*ratio*0.78; ctx.drawImage(img,b.x-w/2,ly-hh/2,w,hh); ctx.restore(); }
+    ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.lineJoin='round';
+    const sym=b.symbol.replace('USDT',''); let fs=Math.max(MINF, r*0.38); if(sym.length>4) fs*=0.82;
+    ctx.font='900 '+fs+'px '+FONT; ctx.lineWidth=Math.max(3,fs*0.2); ctx.strokeStyle='rgba(0,0,0,0.9)';
+    const sy = (img && r>=34)? b.y+r*0.10 : b.y-r*0.12;
+    ctx.strokeText(sym,b.x,sy); ctx.fillStyle='#fff'; ctx.fillText(sym,b.x,sy);
+    const fs2=Math.max(12, r*0.28), pct=(up?'+':'')+b.data.change.toFixed(1).replace('.',',')+'%';
+    ctx.font='800 '+fs2+'px '+FONT; ctx.lineWidth=Math.max(3,fs2*0.2); ctx.strokeText(pct,b.x,sy+r*0.40);
+    ctx.fillStyle=up?'#8dffba':'#ffb8b8'; ctx.fillText(pct,b.x,sy+r*0.40);
+    ctx.restore(); };
+})();
+</script>
+
 </body>
 </html>
