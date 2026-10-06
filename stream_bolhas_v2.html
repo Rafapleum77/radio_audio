@@ -833,7 +833,7 @@ body.stream #streamBg{background:linear-gradient(rgba(4,7,16,.70),rgba(4,7,16,.8
 body.stream #streamBrand{top:14px;left:24px}
 body.stream #streamBrand b{font-size:28px;letter-spacing:2px}
 body.stream #streamBrand span{font-size:13px;letter-spacing:3px;margin-top:4px}
-body.stream .stats{position:fixed;top:12px;left:420px;right:24px;z-index:98;display:flex;gap:10px;margin:0;padding:0}
+body.stream .stats{position:fixed;top:12px;left:560px;right:24px;z-index:98;display:flex;gap:10px;margin:0;padding:0}
 body.stream .stat{flex:1;min-width:0;background:rgba(6,9,20,.80);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:8px 16px}
 body.stream .stat .k{font-size:13px;letter-spacing:2px;color:#a9bdd2;text-transform:uppercase;font-weight:700}
 body.stream .stat .v{font-size:30px;font-weight:900;color:#fff;line-height:1.05;font-family:ui-monospace,Menlo,monospace}
@@ -844,20 +844,19 @@ body.stream #stNow{font-size:20px} body.stream #stCta{font-size:14px}
 <script>
 (function(){
   if(!document.body.classList.contains('stream')) return;
-  maxCount = 60;                                   // menos bolhas = cada uma maior e legível no YouTube
   const MINF = 17, FILL = 0.56, TOP = 96, BOT = 110;
   let spot = null;                                  // bolha em destaque (maior alta / maior queda, alterna a cada 15 s)
   radiusFor = function(s){ const base=Math.pow(s.mcap,0.62), lo=Math.pow(70,0.62), hi=Math.pow(3500,0.62);
-    const t=Math.max(0,Math.min(1,(base-lo)/(hi-lo))); return 26 + 110*t; };
+    const t=Math.max(0,Math.min(1,(base-lo)/(hi-lo))); return 30 + 110*t; };
   const _sync = syncBubbles;
-  syncBubbles = function(){ _sync(); if(!W||!H||!bubbles.length) return;
+  syncBubbles = function(){ maxCount = 55; _sync(); if(!W||!H||!bubbles.length) return;   // menos bolhas = maiores e legíveis
     const area=bubbles.reduce((a,b)=>a+Math.PI*b.r*b.r,0); const k=Math.sqrt(FILL*W*(H-TOP-BOT)/area);
-    bubbles.forEach(b=>{ b.r=Math.max(24,Math.min(150,b.r*k)); }); };
+    bubbles.forEach(b=>{ b.r=Math.max(30,Math.min(160,b.r*k)); }); };
   const t0=performance.now();
   physics = function(){ const t=(performance.now()-t0)/1000, top=TOP, bot=H-BOT;
     for(const b of bubbles){ if(b.ph===undefined) b.ph=Math.random()*6.28;
       b.x+=b.vx; b.y+=b.vy; b.vx*=.985; b.vy*=.985;
-      b.vx+=(W/2-b.x)*0.00004 + Math.sin(t*0.6+b.ph)*0.016; b.vy+=((top+bot)/2-b.y)*0.00006 + Math.cos(t*0.5+b.ph)*0.016;
+      b.vx+=(W/2-b.x)*0.00002 + Math.sin(t*0.6+b.ph)*0.016; b.vy+=((top+bot)/2-b.y)*0.00006 + Math.cos(t*0.5+b.ph)*0.016;
       if(b.x<b.r){b.x=b.r;b.vx=Math.abs(b.vx)} if(b.x>W-b.r){b.x=W-b.r;b.vx=-Math.abs(b.vx)}
       if(b.y<top+b.r){b.y=top+b.r;b.vy=Math.abs(b.vy)} if(b.y>bot-b.r){b.y=bot-b.r;b.vy=-Math.abs(b.vy)} }
     for(let i=0;i<bubbles.length;i++)for(let j=i+1;j<bubbles.length;j++){ const a=bubbles[i],c=bubbles[j];
