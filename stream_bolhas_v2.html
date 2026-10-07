@@ -898,5 +898,58 @@ body.stream #stNow{font-size:20px} body.stream #stCta{font-size:14px}
 })();
 </script>
 
+<!-- ═══ JANELA DOS LOCUTORES (07/10/2026, pedido do Rafael): androides Claude, Gemini, Manus e Optimus.
+     Lê /nowplaying.json a cada 15 s. Programa ou spot com o nome da IA → androide grande "NO AR";
+     música → fileira dos quatro. Só no modo stream. GPT ainda não tem androide: cai na fileira. ═══ -->
+<style>
+body.stream #locutorBox{position:fixed;right:24px;bottom:118px;z-index:97;width:372px;background:rgba(6,9,20,.82);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:12px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#fff;backdrop-filter:blur(6px)}
+body.stream #locutorBox .k{font-size:12px;letter-spacing:3px;color:#a9bdd2;text-transform:uppercase;font-weight:700;margin:0 0 8px 2px}
+body.stream #lbIdle{display:flex;gap:8px}
+body.stream #lbIdle .th{flex:1;text-align:center}
+body.stream #lbIdle img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;display:block;background:#fff}
+body.stream #lbIdle .n{font-size:12px;letter-spacing:1px;margin-top:5px;color:#dfe7f1;font-weight:700}
+body.stream #lbLive{display:none;position:relative}
+body.stream #lbLive img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;display:block;background:#fff}
+body.stream #lbLive .badge{position:absolute;top:10px;left:10px;background:#e8252f;color:#fff;font-size:12px;letter-spacing:3px;font-weight:900;padding:5px 10px;border-radius:999px;animation:lbPulse 1.6s ease-in-out infinite}
+@keyframes lbPulse{0%,100%{opacity:1}50%{opacity:.55}}
+body.stream #lbLive .nm{font-size:26px;font-weight:900;letter-spacing:1px;margin-top:10px;color:#f2a900}
+body.stream #lbLive .prog{font-size:14px;color:#dfe7f1;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.stream #locutorBox.live #lbIdle{display:none} body.stream #locutorBox.live #lbLive{display:block}
+</style>
+<div id="locutorBox">
+  <div class="k">Locutores de IA</div>
+  <div id="lbIdle"></div>
+  <div id="lbLive"><img alt=""><div class="badge">NO AR</div><div class="nm"></div><div class="prog"></div></div>
+</div>
+<script>
+(function(){
+  if(!document.body.classList.contains('stream')) return;
+  var A={claude:{n:'Claude',img:'img/androides/claude.png'},gemini:{n:'Gemini',img:'img/androides/gemini.png'},
+         manus:{n:'Manus',img:'img/androides/manus.png'},optimus:{n:'Optimus',img:'img/androides/optimus.png'}};
+  var ALIAS={claude:'claude',gemini:'gemini',manus:'manus',optimus:'optimus',grok:'optimus'};
+  var box=document.getElementById('locutorBox'), idle=document.getElementById('lbIdle'), live=document.getElementById('lbLive');
+  Object.keys(A).forEach(function(k){ var d=document.createElement('div'); d.className='th';
+    d.innerHTML='<img src="'+A[k].img+'" alt=""><div class="n">'+A[k].n+'</div>'; idle.appendChild(d); });
+  var atual='';
+  function mostra(key,prog){
+    if(!key){ box.classList.remove('live'); atual=''; return; }
+    if(key!==atual){ live.querySelector('img').src=A[key].img; live.querySelector('.nm').textContent=A[key].n; atual=key; }
+    live.querySelector('.prog').textContent=prog||''; box.classList.add('live');
+  }
+  function puxa(){
+    // mesmo feed do ticker: o título do Icecast muda na hora (o nowplaying.json do site passa pelo Pages e atrasa)
+    fetch('https://stream.radiobitcoin.org/status-json.xsl',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
+      var s=d&&d.icestats&&d.icestats.source; if(!s)return; if(!Array.isArray(s))s=[s];
+      var t=''; s.forEach(function(x){if(x&&x.title)t=x.title;}); t=t.replace(/\s*·\s*Rádio Bitcoin\s*$/i,'');
+      var fala=/Radar|Negociadas|Oportunidades|Fechamento|Salmo|Boletim|Locutor|Plant[ãa]o|Abertura|Mercado|Lutas|UFC|Coin Bureau/i.test(t);
+      var m=t.match(/claude|gemini|manus|optimus|grok/i);
+      var key=m?ALIAS[m[0].toLowerCase()]:null;
+      mostra(fala&&key?key:null, t.replace(/\s*\((Claude|Gemini|Grok|GPT|Manus|Optimus)[^)]*\)\s*/i,'').replace(/^🎙️\s*/,''));
+    }).catch(function(){});
+  }
+  puxa(); setInterval(puxa,15000);
+})();
+</script>
+
 </body>
 </html>
