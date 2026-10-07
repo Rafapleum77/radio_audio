@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rádio Bitcoin · Spotify</title>
+<meta name="robots" content="noindex,nofollow">
+<script>window.goatcounter={no_onload:true}</script>
+<script data-goatcounter="https://radiobitcoinorg.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>body{margin:0;background:#0a0a0b;color:#f2a900;font-family:-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center}a{color:#f2a900}</style>
+<script>
+// Link medido (07/10/2026): conta o clique no GoatCounter (caminho r/spotify/..., referrer = ref) e manda pro destino.
+(function(){
+  var p=new URLSearchParams(location.search), PL={"pt": "https://open.spotify.com/playlist/1QiHU7ys0k4QVYTNyxzCfA", "en": "https://open.spotify.com/playlist/0XJHK6SlSC7YjpRmTIpjdi", "es": "https://open.spotify.com/playlist/2NtHV99HKuPeevN7nC7byA", "fe": "https://open.spotify.com/playlist/11vtd7Ie97vu041tv2AuWu"}, PADRAO="https://open.spotify.com/artist/51GlYd3jeRqqg1l8ozptbT";
+  var ref=(p.get("ref")||"direto").replace(/[^a-z0-9_-]/gi,"").slice(0,24);
+  var tr=p.get("t"), pl=p.get("pl"); var dest = (tr&&/^[A-Za-z0-9]{22}$/.test(tr)) ? "https://open.spotify.com/track/"+tr : (pl&&PL[pl]) ? PL[pl] : PADRAO;
+  var path="r/spotify/"+(tr&&/^[A-Za-z0-9]{22}$/.test(tr) ? "musica-"+tr : (pl&&PL[pl]) ? "playlist-"+pl : "artista");
+  var foi=false; function go(){ if(foi) return; foi=true; location.replace(dest); }
+  function conta(){
+    if(!(window.goatcounter&&goatcounter.url)) return false;
+    try{ var url=goatcounter.url({path:path,title:"Spotify via "+ref,event:true,referrer:ref}); if(!url) return true;
+      var img=new Image(); img.onload=img.onerror=go; img.src=url; }catch(e){ return true; }
+    return true;
+  }
+  var t=0, iv=setInterval(function(){ t+=50; if(conta()||t>=700){ clearInterval(iv); setTimeout(go,900); } },50);
+  document.addEventListener("DOMContentLoaded",function(){ var a=document.getElementById("l"); if(a) a.href=dest; });
+})();
+</script></head><body><div><p>Abrindo o Spotify…</p><p><a id="l" href="https://open.spotify.com/artist/51GlYd3jeRqqg1l8ozptbT">Se não abrir, toque aqui</a></p></div></body></html>

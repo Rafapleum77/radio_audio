@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rádio Bitcoin · Apple Music</title>
+<meta name="robots" content="noindex,nofollow">
+<script>window.goatcounter={no_onload:true}</script>
+<script data-goatcounter="https://radiobitcoinorg.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>body{margin:0;background:#0a0a0b;color:#f2a900;font-family:-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center}a{color:#f2a900}</style>
+<script>
+// Link medido (07/10/2026): conta o clique no GoatCounter (caminho r/apple/..., referrer = ref) e manda pro destino.
+(function(){
+  var p=new URLSearchParams(location.search), PL={"pt": "https://music.apple.com/br/playlist/as-melhores-da-r%C3%A1dio-bitcoin-org/pl.u-MDAWklGsWGyJ5vo", "en": "https://music.apple.com/br/playlist/the-best-of-r%C3%A1dio-bitcoin-org/pl.u-06oxp9ysWLdjvN0", "es": "https://music.apple.com/br/playlist/lo-mejor-de-r%C3%A1dio-bitcoin-org/pl.u-XkD0vDkhDYVRpx9", "fe": "https://music.apple.com/br/playlist/m%C3%BAsicas-de-f%C3%A9-da-r%C3%A1dio-bitcoin-org/pl.u-r2yBDkXIPkgA6om"}, PADRAO="https://music.apple.com/br/artist/radiobitcoin-org/6782166870";
+  var ref=(p.get("ref")||"direto").replace(/[^a-z0-9_-]/gi,"").slice(0,24);
+  var i=p.get("i"), pl=p.get("pl"); var dest = (i&&/^\d{6,12}$/.test(i)) ? "https://music.apple.com/br/song/"+i : (pl&&PL[pl]) ? PL[pl] : PADRAO;
+  var path="r/apple/"+(i&&/^\d{6,12}$/.test(i) ? "musica-"+i : (pl&&PL[pl]) ? "playlist-"+pl : "artista");
+  var foi=false; function go(){ if(foi) return; foi=true; location.replace(dest); }
+  function conta(){
+    if(!(window.goatcounter&&goatcounter.url)) return false;
+    try{ var url=goatcounter.url({path:path,title:"Apple Music via "+ref,event:true,referrer:ref}); if(!url) return true;
+      var img=new Image(); img.onload=img.onerror=go; img.src=url; }catch(e){ return true; }
+    return true;
+  }
+  var t=0, iv=setInterval(function(){ t+=50; if(conta()||t>=700){ clearInterval(iv); setTimeout(go,900); } },50);
+  document.addEventListener("DOMContentLoaded",function(){ var a=document.getElementById("l"); if(a) a.href=dest; });
+})();
+</script></head><body><div><p>Abrindo o Apple Music…</p><p><a id="l" href="https://music.apple.com/br/artist/radiobitcoin-org/6782166870">Se não abrir, toque aqui</a></p></div></body></html>
