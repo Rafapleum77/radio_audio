@@ -3,20 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stock Bubbles — bolhas de ações e cripto ao vivo | Rádio Bitcoin</title>
-<link rel="canonical" href="https://radiobitcoin.org/bolhas/">
-<link rel="manifest" href="/bolhas/manifest.webmanifest">
-<meta name="theme-color" content="#0a0e27">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Stock Bubbles">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Stock Bubbles — ações e cripto em bolhas ao vivo">
-<meta property="og:description" content="76 ações americanas e cripto em bolhas animadas, com preço ao vivo, favoritos e gráfico. Grátis, direto no navegador.">
-<meta property="og:url" content="https://radiobitcoin.org/bolhas/">
-<meta property="og:image" content="https://radiobitcoin.org/icon-512.png">
+<title>Bolhas de Ações · Rádio Bitcoin</title>
 <meta name="description" content="Visualizador animado de 25 ações americanas em tempo real — bolhas com física, glow neon e gráficos. Rádio Bitcoin.">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
 // ── CRIPTO ao vivo via Binance (24hr ticker) ──
@@ -143,11 +130,11 @@ setInterval(fetchCrypto, 15000);
   }
 </style>
 </head>
-<body>
+<body class="stream">
 <div class="wrap">
   <!-- HEADER -->
   <header>
-    <a class="btn" id="backBtn" href="/" target="_top" title="Voltar para a Rádio" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-weight:700">&larr; Rádio</a>
+    <a class="btn" id="backBtn" href="index.html" target="_top" title="Voltar para a Rádio" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-weight:700">&larr; Rádio</a>
     <div class="brand"><span class="dot"></span>BOLHAS DE AÇÕES <small>· Rádio Bitcoin</small></div>
     <div class="spacer"></div>
     <div class="status"><span class="led demo" id="led"></span><span id="statusTxt">iniciando…</span></div>
@@ -189,7 +176,7 @@ setInterval(fetchCrypto, 15000);
     <div class="empty" id="empty">Nenhuma ação neste filtro.<br>Adicione favoritos clicando em ★ dentro de uma ação.</div>
   </div>
 
-  <footer id="footer">Dados podem ter atraso. Não é recomendação de investimento. · radiobitcoin.org · Adicione à tela de início para usar como app</footer>
+  <footer id="footer">Dados podem ter atraso. Não é recomendação de investimento. · radiobitcoin.org</footer>
 </div>
 
 <!-- TOOLTIP -->
@@ -776,8 +763,6 @@ setInterval(()=>{ if(!usingReal) stepDemo(); }, 3000); // anima até dados reais
 body.stream header{display:none!important}
 body.stream #controls{display:none!important}
 body.stream #streamBrand{top:14px;left:22px}
-  /* site: o cabecalho ja tem a marca; a faixa fixa da transmissao sobrepunha o titulo no celular */
-  #streamBrand{display:none!important}
 </style>
 <style>
 #streamBg{position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -841,41 +826,75 @@ body.stream canvas{position:relative;z-index:1;background:transparent!important}
   puxaTitulo(); setInterval(puxaTitulo,30000);
 })();
 </script>
-<!-- ═══ mobileV2 (06/10/2026): legibilidade no celular e no app — menos bolhas, siglas com contorno ═══ -->
+<!-- ═══ V2 (06/10/2026, pedido do Rafael: "mais vivo e legível") — só muda no modo stream ═══ -->
+<style>
+body.stream #streamBg{background:linear-gradient(rgba(4,7,16,.70),rgba(4,7,16,.80)),url('cockpit_nave.webp') center/cover no-repeat;animation:v2drift 120s ease-in-out infinite alternate}
+@keyframes v2drift{from{transform:scale(1.05) translate(-10px,0)}to{transform:scale(1.05) translate(10px,-6px)}}
+body.stream #streamBrand{top:14px;left:24px}
+body.stream #streamBrand b{font-size:28px;letter-spacing:2px}
+body.stream #streamBrand span{font-size:13px;letter-spacing:3px;margin-top:4px}
+body.stream .stats{position:fixed;top:12px;left:560px;right:24px;z-index:98;display:flex;gap:10px;margin:0;padding:0}
+body.stream .stat{flex:1;min-width:0;background:rgba(6,9,20,.80);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:8px 16px}
+body.stream .stat .k{font-size:13px;letter-spacing:2px;color:#a9bdd2;text-transform:uppercase;font-weight:700}
+body.stream .stat .v{font-size:26px;white-space:nowrap;font-weight:900;color:#fff;line-height:1.05;font-family:ui-monospace,Menlo,monospace}
+body.stream .stat .v.up{color:#3ee07a} body.stream .stat .v.down{color:#ff6262}
+body.stream #streamTicker{bottom:22px;padding:12px 26px;border-color:rgba(242,169,0,.55)}
+body.stream #stNow{font-size:20px} body.stream #stCta{font-size:14px}
+</style>
 <script>
 (function(){
-  if(document.body.classList.contains('stream')) return;
-  const MINF = 14;
-  function alvo(){ const w=window.innerWidth; return w<480? 36 : w<900? 50 : 70; }
+  if(!document.body.classList.contains('stream')) return;
+  const MINF = 17, FILL = 0.56, TOP = 96, BOT = 110;
+  let spot = null;                                  // bolha em destaque (maior alta / maior queda, alterna a cada 15 s)
+  radiusFor = function(s){ const base=Math.pow(s.mcap,0.62), lo=Math.pow(70,0.62), hi=Math.pow(3500,0.62);
+    const t=Math.max(0,Math.min(1,(base-lo)/(hi-lo))); return 30 + 110*t; };
   const _sync = syncBubbles;
-  syncBubbles = function(){ const sel=document.getElementById('qtySel'); if(!sel || !sel.dataset.user) maxCount = alvo(); _sync();
-    if(!W||!H||!bubbles.length) return; const area=bubbles.reduce((a,b)=>a+Math.PI*b.r*b.r,0); const k=Math.sqrt(0.58*W*H/area);
-    bubbles.forEach(b=>{ b.r=Math.max(22,Math.min(140,b.r*k)); }); };
-  const sel=document.getElementById('qtySel'); if(sel) sel.addEventListener('change',()=>{ sel.dataset.user='1'; });
+  syncBubbles = function(){ maxCount = 55; _sync(); if(!W||!H||!bubbles.length) return;   // menos bolhas = maiores e legíveis
+    const area=bubbles.reduce((a,b)=>a+Math.PI*b.r*b.r,0); const k=Math.sqrt(FILL*W*(H-TOP-BOT)/area);
+    bubbles.forEach(b=>{ b.r=Math.max(30,Math.min(160,b.r*k)); }); };
+  const t0=performance.now();
+  physics = function(){ const t=(performance.now()-t0)/1000, top=TOP, bot=H-BOT;
+    for(const b of bubbles){ if(b.ph===undefined) b.ph=Math.random()*6.28;
+      b.x+=b.vx; b.y+=b.vy; b.vx*=.985; b.vy*=.985;
+      b.vx+=(W/2-b.x)*0.00002 + Math.sin(t*0.6+b.ph)*0.016; b.vy+=((top+bot)/2-b.y)*0.00006 + Math.cos(t*0.5+b.ph)*0.016;
+      if(b.x<b.r){b.x=b.r;b.vx=Math.abs(b.vx)} if(b.x>W-b.r){b.x=W-b.r;b.vx=-Math.abs(b.vx)}
+      if(b.y<top+b.r){b.y=top+b.r;b.vy=Math.abs(b.vy)} if(b.y>bot-b.r){b.y=bot-b.r;b.vy=-Math.abs(b.vy)} }
+    for(let i=0;i<bubbles.length;i++)for(let j=i+1;j<bubbles.length;j++){ const a=bubbles[i],c=bubbles[j];
+      let dx=c.x-a.x,dy=c.y-a.y; let d=Math.hypot(dx,dy)||.01; const min=a.r+c.r+6;
+      if(d<min){ const f=(min-d)/d*0.5; dx*=f;dy*=f; a.x-=dx;a.y-=dy;c.x+=dx;c.y+=dy; a.vx-=dx*.05;a.vy-=dy*.05;c.vx+=dx*.05;c.vy+=dy*.05; } } };
   const FONT='-apple-system,"Helvetica Neue",Arial,sans-serif';
   drawBubble = function(b){
     const up=b.data.change>=0, col= up?'52,224,120':'255,88,88', mag=Math.min(1,Math.abs(b.data.change)/6), r=b.r;
-    if(b.lastChange!==undefined && b.lastChange!==b.data.change) b.flash=1; b.lastChange=b.data.change; b.flash=Math.max(0,(b.flash||0)-0.015);
+    if(b.lastChange!==undefined && b.lastChange!==b.data.change) b.flash=1;   // piscada quando o preço muda
+    b.lastChange=b.data.change; b.flash=Math.max(0,(b.flash||0)-0.015);
     ctx.save();
-    const h=ctx.createRadialGradient(b.x,b.y,r*0.92,b.x,b.y,r*1.2); h.addColorStop(0,'rgba('+col+','+(0.28+mag*0.3)+')'); h.addColorStop(1,'rgba('+col+',0)');
-    ctx.beginPath(); ctx.arc(b.x,b.y,r*1.2,0,7); ctx.fillStyle=h; ctx.fill();
+    const h=ctx.createRadialGradient(b.x,b.y,r*0.92,b.x,b.y,r*1.22); h.addColorStop(0,'rgba('+col+','+(0.30+mag*0.35)+')'); h.addColorStop(1,'rgba('+col+',0)');
+    ctx.beginPath(); ctx.arc(b.x,b.y,r*1.22,0,7); ctx.fillStyle=h; ctx.fill();
     ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.fillStyle='rgba(4,6,12,0.94)'; ctx.fill();
-    const g=ctx.createRadialGradient(b.x,b.y,r*0.3,b.x,b.y,r); g.addColorStop(0,'rgba('+col+',0.02)'); g.addColorStop(0.75,'rgba('+col+','+(0.10+mag*0.15)+')'); g.addColorStop(1,'rgba('+col+','+(0.5+mag*0.4)+')');
+    const g=ctx.createRadialGradient(b.x,b.y,r*0.3,b.x,b.y,r); g.addColorStop(0,'rgba('+col+',0.02)'); g.addColorStop(0.75,'rgba('+col+','+(0.10+mag*0.15)+')'); g.addColorStop(1,'rgba('+col+','+(0.50+mag*0.40)+')');
     ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.fillStyle=g; ctx.fill();
-    ctx.lineWidth=Math.max(2,r*0.045); ctx.strokeStyle='rgba('+col+',1)'; ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.stroke();
+    ctx.lineWidth=Math.max(2.5,r*0.045); ctx.strokeStyle='rgba('+col+',1)'; ctx.beginPath(); ctx.arc(b.x,b.y,r,0,7); ctx.stroke();
     if(b.flash>0){ ctx.lineWidth=2+r*0.06*b.flash; ctx.strokeStyle='rgba(255,255,255,'+(0.85*b.flash)+')'; ctx.beginPath(); ctx.arc(b.x,b.y,r*(1+0.14*(1-b.flash)),0,7); ctx.stroke(); }
     const img=LOGO_IMG[b.symbol]; const ls=r*0.60, ly=b.y-r*0.47;
-    if(img && r>=34){ ctx.save(); ctx.beginPath(); ctx.arc(b.x,ly,ls*0.5,0,7); ctx.closePath(); ctx.fillStyle='rgba(255,255,255,0.97)'; ctx.fill(); ctx.clip();
+    if(img && r>=36){ ctx.save(); ctx.beginPath(); ctx.arc(b.x,ly,ls*0.5,0,7); ctx.closePath(); ctx.fillStyle='rgba(255,255,255,0.97)'; ctx.fill(); ctx.clip();
       const ratio=Math.min(ls/img.width, ls/img.height), w=img.width*ratio*0.78, hh=img.height*ratio*0.78; ctx.drawImage(img,b.x-w/2,ly-hh/2,w,hh); ctx.restore(); }
     ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.lineJoin='round';
     const sym=b.symbol.replace('USDT',''); let fs=Math.max(MINF, r*0.38); if(sym.length>4) fs*=0.82;
     ctx.font='900 '+fs+'px '+FONT; ctx.lineWidth=Math.max(3,fs*0.2); ctx.strokeStyle='rgba(0,0,0,0.9)';
-    const sy = (img && r>=34)? b.y+r*0.10 : b.y-r*0.12;
-    ctx.strokeText(sym,b.x,sy); ctx.fillStyle='#fff'; ctx.fillText(sym,b.x,sy);
-    const fs2=Math.max(12, r*0.28), pct=(up?'+':'')+b.data.change.toFixed(1).replace('.',',')+'%';
-    ctx.font='800 '+fs2+'px '+FONT; ctx.lineWidth=Math.max(3,fs2*0.2); ctx.strokeText(pct,b.x,sy+r*0.40);
-    ctx.fillStyle=up?'#8dffba':'#ffb8b8'; ctx.fillText(pct,b.x,sy+r*0.40);
+    ctx.strokeText(sym,b.x,b.y+r*0.10); ctx.fillStyle='#fff'; ctx.fillText(sym,b.x,b.y+r*0.10);
+    const fs2=Math.max(14, r*0.28), pct=(up?'+':'')+b.data.change.toFixed(1).replace('.',',')+'%';
+    ctx.font='800 '+fs2+'px '+FONT; ctx.lineWidth=Math.max(3,fs2*0.2); ctx.strokeText(pct,b.x,b.y+r*0.50);
+    ctx.fillStyle=up?'#8dffba':'#ffb8b8'; ctx.fillText(pct,b.x,b.y+r*0.50);
+    if(spot && b.symbol===spot.symbol){ const tag=spot.tag; ctx.font='900 18px '+FONT; const tw=ctx.measureText(tag).width+28, ty=b.y-r*1.22-22;
+      ctx.fillStyle=up?'rgba(28,160,80,.95)':'rgba(190,50,50,.95)'; ctx.beginPath(); ctx.roundRect(b.x-tw/2,ty-16,tw,32,16); ctx.fill();
+      ctx.fillStyle='#fff'; ctx.lineWidth=0; ctx.fillText(tag,b.x,ty+1); }
     ctx.restore(); };
+  let alt=0;
+  setInterval(function(){ if(!bubbles.length) return; const s=[...bubbles].sort((a,b)=>b.data.change-a.data.change);
+    alt=1-alt; const b= alt? s[0] : s[s.length-1]; spot={symbol:b.symbol, tag: alt? '🔥 MAIOR ALTA':'❄️ MAIOR QUEDA'}; }, 15000);
+  const _stats = renderStats;
+  renderStats = function(){ _stats(); try{ const btc=STOCKS['BTCUSDT']; if(btc&&btc.price){ const el=document.getElementById('stats');
+    el.insertAdjacentHTML('beforeend', stat('Bitcoin','$'+Math.round(btc.price).toLocaleString('en-US'), btc.change>=0?'up':'down')); } }catch(e){} };
 })();
 </script>
 
