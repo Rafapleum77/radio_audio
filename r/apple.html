@@ -12,7 +12,7 @@
   var ref=(p.get("ref")||"direto").replace(/[^a-z0-9_-]/gi,"").slice(0,24);
   var i=p.get("i"), pl=p.get("pl"); var dest = (i&&/^\d{6,12}$/.test(i)) ? "https://music.apple.com/br/song/"+i : (pl&&PL[pl]) ? PL[pl] : PADRAO;
   var path="r/apple/"+(i&&/^\d{6,12}$/.test(i) ? "musica-"+i : (pl&&PL[pl]) ? "playlist-"+pl : "artista");
-  var foi=false; function go(){ if(foi) return; foi=true; location.replace(dest); }
+  var foi=false; function go(){ if(foi||p.get("noredir")) return; foi=true; location.replace(dest); }   // noredir=1: só conta, pra testar
   function conta(){
     if(!(window.goatcounter&&goatcounter.url)) return false;
     try{ var url=goatcounter.url({path:path,title:"Apple Music via "+ref,event:true,referrer:ref}); if(!url) return true;

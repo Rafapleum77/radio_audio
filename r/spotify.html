@@ -12,7 +12,7 @@
   var ref=(p.get("ref")||"direto").replace(/[^a-z0-9_-]/gi,"").slice(0,24);
   var tr=p.get("t"), pl=p.get("pl"); var dest = (tr&&/^[A-Za-z0-9]{22}$/.test(tr)) ? "https://open.spotify.com/track/"+tr : (pl&&PL[pl]) ? PL[pl] : PADRAO;
   var path="r/spotify/"+(tr&&/^[A-Za-z0-9]{22}$/.test(tr) ? "musica-"+tr : (pl&&PL[pl]) ? "playlist-"+pl : "artista");
-  var foi=false; function go(){ if(foi) return; foi=true; location.replace(dest); }
+  var foi=false; function go(){ if(foi||p.get("noredir")) return; foi=true; location.replace(dest); }   // noredir=1: só conta, pra testar
   function conta(){
     if(!(window.goatcounter&&goatcounter.url)) return false;
     try{ var url=goatcounter.url({path:path,title:"Spotify via "+ref,event:true,referrer:ref}); if(!url) return true;
