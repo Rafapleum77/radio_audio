@@ -32,7 +32,27 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Fri, 09 Oct 2026 10:05:05 -0300</lastBuildDate>
+  <lastBuildDate>Fri, 09 Oct 2026 13:05:06 -0300</lastBuildDate>
+  <item>
+    <title>Siga o Dinheiro — 09/10/2026 13:05</title>
+    <description>O fluxo do dinheiro do dia, explicado.</description>
+    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-09_1305_fluxo_dinheiro.mp3" length="1513473" type="audio/mpeg"/>
+    <guid isPermaLink="false">6fdc9a0d2c54e554d9da07732adff0f1</guid>
+    <pubDate>Fri, 09 Oct 2026 13:05:06 -0300</pubDate>
+    <itunes:duration>00:01:34</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Missão Bitcoin — 09/10/2026 13:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-09_1305_missao_bitcoin_cde.mp3" length="362831" type="audio/mpeg"/>
+    <guid isPermaLink="false">e3e75977912af0a7fd909360fb2e6e2f</guid>
+    <pubDate>Fri, 09 Oct 2026 13:05:06 -0300</pubDate>
+    <itunes:duration>00:00:22</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Boletim de Notícias Bitcoin — 09/10/2026 10:05</title>
     <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
@@ -3011,26 +3031,6 @@
     <guid isPermaLink="false">652b3c291a64c642c8c0dca0bb31cbab</guid>
     <pubDate>Fri, 18 Sep 2026 10:05:02 -0300</pubDate>
     <itunes:duration>00:01:22</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Radar de Mercado — 18/09/2026 10:05</title>
-    <description>Leitura do mercado cripto: para onde o dinheiro está indo.</description>
-    <itunes:summary>Leitura do mercado cripto: para onde o dinheiro está indo.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-18_1005_radar_coinbureau.mp3" length="1114740" type="audio/mpeg"/>
-    <guid isPermaLink="false">a89ca1d707a575b97eaf663a3e1379ea</guid>
-    <pubDate>Fri, 18 Sep 2026 10:05:02 -0300</pubDate>
-    <itunes:duration>00:01:09</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Siga o Dinheiro — 18/09/2026 10:05</title>
-    <description>O fluxo do dinheiro do dia, explicado.</description>
-    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-18_1005_fluxo_dinheiro.mp3" length="1343363" type="audio/mpeg"/>
-    <guid isPermaLink="false">8dab86848eebd445b12c5d86f8d39b86</guid>
-    <pubDate>Fri, 18 Sep 2026 10:05:02 -0300</pubDate>
-    <itunes:duration>00:01:23</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
