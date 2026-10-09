@@ -773,12 +773,12 @@
     }).catch(function(){});
   }
   function pintarOuvintes(){ var el=$('qpListeners'), ch=$('qpChipLis'), li=$('liveLi');
-    if(lis===null){ return; }
+    if(lis===null||!el||!ch){ return; }
     var txt=lis+' ouvinte'+(lis!==1?'s':'');
     el.textContent=String(lis); el.style.color=lis>0?'var(--cyan)':'var(--qdim)'; ch.textContent=txt+' ao vivo';
     if(li) li.textContent=(mode==='live'&&!connecting)?('● '+txt+' conectado'+(lis!==1?'s':'')):'';
   }
-  lerOuvintes(); setInterval(lerOuvintes,30000); setInterval(pintarOuvintes,4000);
+  if(window.RB_MOSTRAR_OUVINTES!==false){ lerOuvintes(); setInterval(lerOuvintes,30000); setInterval(pintarOuvintes,4000); }
 
   document.addEventListener('keydown',function(e){ var tag=(e.target&&e.target.tagName||'').toLowerCase(); if(tag==='input'||tag==='textarea')return;
     if(e.code==='Space'){e.preventDefault(); mode&&!connecting?(mode==='live'?playLive():playThemed(mode)):playLive();} else if(e.key==='1')playLive(); else if(e.key==='2')playThemed('econ'); else if(e.key==='3')playThemed('surv'); });

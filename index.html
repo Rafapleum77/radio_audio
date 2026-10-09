@@ -190,6 +190,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 
+<!-- Contagem de ouvintes escondida enquanto a audiência é pequena (decisão do Rafael, 08/10/2026).
+     Pra voltar a mostrar o número REAL do Icecast, troque false por true na linha abaixo. -->
+<script>window.RB_MOSTRAR_OUVINTES=false;</script>
+<style>
+  .rb-sem-ouvintes #qpChipLisWrap, .rb-sem-ouvintes #qpListenersCard, .rb-sem-ouvintes #bnListeners, .rb-sem-ouvintes #liveLi { display:none !important; }
+  html:not(.rb-sem-ouvintes) #qpLocutoresCard { display:none !important; }
+</style>
+<script>if(window.RB_MOSTRAR_OUVINTES===false)document.documentElement.classList.add('rb-sem-ouvintes');</script>
 </head>
 <body>
 <!-- ===== NAV FLUTUANTE (reforma #2/#7 review Manus) ===== -->
@@ -326,7 +334,7 @@
         <div class="qp-chip"><span style="color:var(--amber)">&#8383;</span> <span id="qpChipBtc">Carregando&hellip;</span></div>
         <div class="qp-chip"><span style="color:var(--cyan)">&#9632;</span> <span id="qpChipBlk">Bloco &hellip;</span></div>
         <div class="qp-chip" id="qpChipStatus"><span class="cd"></span> <span id="qpChipStatusTxt">Toque ▶ para ouvir</span></div>
-        <div class="qp-chip"><span style="color:var(--cyan)">&#128101;</span> <span id="qpChipLis">&mdash; ouvintes</span></div>
+        <div class="qp-chip" id="qpChipLisWrap"><span style="color:var(--cyan)">&#128101;</span> <span id="qpChipLis">&mdash; ouvintes</span></div>
       </div>
       <div class="qp-col l">
         <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">FREQU&Ecirc;NCIA</div><div class="v sm" style="color:var(--cyan)">STREAM</div><div class="s mono">128 kbps &middot; MP3</div></div>
@@ -336,7 +344,8 @@
       </div>
       <div class="qp-col r">
         <div class="qp-read" id="qpStatusCard"><div class="k mono">STATUS</div><div class="v sm mono" id="qpStatus" style="color:var(--qdim)">PRONTO</div><div class="s mono" id="qpStatusSub">Toque ▶ para iniciar</div></div>
-        <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">OUVINTES</div><div class="v mono" id="qpListeners" style="color:var(--qdim)">&mdash;</div><div class="s mono">Tempo real</div></div>
+        <div class="qp-read" id="qpListenersCard" style="--rc:var(--cyan)"><div class="k mono">OUVINTES</div><div class="v mono" id="qpListeners" style="color:var(--qdim)">&mdash;</div><div class="s mono">Tempo real</div></div>
+        <div class="qp-read" id="qpLocutoresCard" style="--rc:var(--cyan)"><div class="k mono">LOCUTORES</div><div class="v mono" style="color:var(--cyan)">5 IAs</div><div class="s mono">GPT &middot; Claude &middot; Gemini &middot; Grok &middot; Manus</div></div>
         <div class="qp-read" style="--rc:var(--cyan)"><div class="k mono">MODO</div><div class="v sm mono" id="qpMode" style="color:var(--qdim)">24H</div><div class="s mono" id="qpModeSub">Sempre ao vivo</div></div>
         <div class="qp-read" style="--rc:var(--amber)"><div class="k mono">PROGRAMA</div><div class="v sm mono" id="qpProg" style="color:var(--amber)">&mdash;</div><div class="s mono">Grade ao vivo</div></div>
       </div>
@@ -1525,7 +1534,7 @@
         document.getElementById('bnType').textContent=d.pruned?'pruned':'completo';
         document.getElementById('bnState').textContent=ibd?('sincronizando '+prog.toFixed(1)+'%'):'sincronizado ✓';
         var L=document.getElementById('bnListeners');
-        if(L && typeof d.radio_listeners==='number'){ var n=d.radio_listeners; L.textContent='🎧 '+n+' ouvindo agora'; L.style.color=n>0?'#22c55e':'#7a8290'; }
+        if(window.RB_MOSTRAR_OUVINTES!==false && L && typeof d.radio_listeners==='number'){ var n=d.radio_listeners; L.textContent='🎧 '+n+' ouvindo agora'; L.style.color=n>0?'#22c55e':'#7a8290'; }
       }).catch(function(){document.getElementById('bnState').textContent='offline';});
     }
     upd(); setInterval(upd, 60000);
@@ -2199,7 +2208,7 @@
     <div class="nl-bar__icon">📬</div>
     <div>
       <div class="nl-bar__title">Newsletter Bitcoin Semanal — Grátis</div>
-      <div class="nl-bar__sub">Junte-se a <b style="color:#f2a900;">milhares de ouvintes soberanos</b> — resumo do mercado, novidades da rádio e <b>alertas de oportunidade</b> toda semana.</div>
+      <div class="nl-bar__sub">Junte-se aos <b style="color:#f2a900;">ouvintes soberanos</b> — resumo do mercado, novidades da rádio e <b>alertas de oportunidade</b> toda semana.</div>
     </div>
   </div>
   <form class="nl-bar__form" action="https://formspree.io/f/xrevnpde" method="POST" target="_blank">
@@ -2417,30 +2426,9 @@
       <div class="time" id="clock">00:00:00</div>
       <div class="date" id="dateDisp">--/--/----</div>
     </div>
-    <div id="hdr-listeners" style="text-align:center;font-family:ui-monospace,Menlo,monospace;padding:4px 14px;border-left:1px solid rgba(0,255,65,0.2);">
-      <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
-        <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;display:inline-block;animation:pulse-dot 1.8s ease-in-out infinite;"></span>
-        <span id="listener-count" style="font-size:18px;font-weight:900;color:#4ade80;letter-spacing:1px;line-height:1;">--</span>
-      </div>
-      <div style="font-size:8px;color:#9ca3af;letter-spacing:2px;margin-top:3px;">OUVINTES ALCANÇADOS</div>
-      <div id="listener-countries" style="font-size:8px;color:#f2a900;letter-spacing:1px;margin-top:2px;">e crescendo ⚡</div>
-    </div>
+    <!-- contador de alcance removido em 08/10/2026 -->
   </header>
-  <script>
-  (function(){
-    // Alcance total acumulado — estimativa honesta (~6.000 em jul/2026), cresce com o tempo
-    var BASE = 6000, REF = Date.UTC(2026,6,15), POR_DIA = 28;
-    var countEl = document.getElementById('listener-count');
-    if(!countEl) return;
-    function calc(){
-      var dias = Math.max(0,(Date.now()-REF)/86400000);
-      return Math.floor(BASE + dias*POR_DIA);
-    }
-    function tick(){ countEl.textContent = calc().toLocaleString('pt-BR'); }
-    tick();
-    setInterval(tick, 30000);
-  })();
-  </script>
+  
 
   <!-- HEADER NAV -->
   <nav id="hdr-nav" style="display:flex;justify-content:center;gap:0;padding:6px 12px;background:linear-gradient(180deg,#07090d 0%,#0b0e11 100%);border-bottom:1px solid rgba(242,169,0,0.18);flex-wrap:wrap;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;">
@@ -7546,8 +7534,7 @@ iaRender();
       })
       .catch(function(){});
   }
-  fetchListeners();
-  setInterval(fetchListeners, 60000);
+  if(window.RB_MOSTRAR_OUVINTES!==false){ fetchListeners(); setInterval(fetchListeners, 60000); }
 })();
 </script>
 <script>
