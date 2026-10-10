@@ -32,7 +32,37 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Sat, 10 Oct 2026 10:05:04 -0300</lastBuildDate>
+  <lastBuildDate>Sat, 10 Oct 2026 13:05:00 -0300</lastBuildDate>
+  <item>
+    <title>Siga o Dinheiro — 10/10/2026 13:05</title>
+    <description>O fluxo do dinheiro do dia, explicado.</description>
+    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-10_1305_fluxo_dinheiro.mp3" length="964274" type="audio/mpeg"/>
+    <guid isPermaLink="false">0957e2b8382f75a5cf066b3ed2a9a771</guid>
+    <pubDate>Sat, 10 Oct 2026 13:05:00 -0300</pubDate>
+    <itunes:duration>00:01:00</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Plantão Bitcoin — 10/10/2026 13:05</title>
+    <description>Alerta de preço: o que aconteceu e por quê.</description>
+    <itunes:summary>Alerta de preço: o que aconteceu e por quê.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-10_1305_alerta_preco.mp3" length="700542" type="audio/mpeg"/>
+    <guid isPermaLink="false">7c72a1887a8184867d9460df28166b21</guid>
+    <pubDate>Sat, 10 Oct 2026 13:05:00 -0300</pubDate>
+    <itunes:duration>00:00:43</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Missão Bitcoin — 10/10/2026 13:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-10_1305_missao_bitcoin_cde.mp3" length="403791" type="audio/mpeg"/>
+    <guid isPermaLink="false">346dcccc5099645a200c5cacca2017f1</guid>
+    <pubDate>Sat, 10 Oct 2026 13:05:00 -0300</pubDate>
+    <itunes:duration>00:00:25</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Boletim de Notícias Bitcoin — 10/10/2026 10:05</title>
     <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
@@ -3001,36 +3031,6 @@
     <guid isPermaLink="false">b11b779368593665c6e96623d7877a0d</guid>
     <pubDate>Sat, 19 Sep 2026 10:05:03 -0300</pubDate>
     <itunes:duration>00:01:39</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Boletim de Notícias Bitcoin — 18/09/2026 22:05</title>
-    <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
-    <itunes:summary>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-18_2205_boletim_noticias.mp3" length="1189554" type="audio/mpeg"/>
-    <guid isPermaLink="false">e5b042080fd02ce21e4303b756035d73</guid>
-    <pubDate>Fri, 18 Sep 2026 22:05:05 -0300</pubDate>
-    <itunes:duration>00:01:14</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Radar de Mercado — 18/09/2026 22:05</title>
-    <description>Leitura do mercado cripto: para onde o dinheiro está indo.</description>
-    <itunes:summary>Leitura do mercado cripto: para onde o dinheiro está indo.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-18_2205_radar_coinbureau.mp3" length="961349" type="audio/mpeg"/>
-    <guid isPermaLink="false">99715ee3dd3bc9974b1d8487c20f838a</guid>
-    <pubDate>Fri, 18 Sep 2026 22:05:05 -0300</pubDate>
-    <itunes:duration>00:01:00</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Plantão das IAs — 18/09/2026 22:05</title>
-    <description>O que a inteligência artificial aprontou hoje.</description>
-    <itunes:summary>O que a inteligência artificial aprontou hoje.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-18_2205_plantao_ia.mp3" length="1312852" type="audio/mpeg"/>
-    <guid isPermaLink="false">43141dd1786ea26755e82f8648fc53db</guid>
-    <pubDate>Fri, 18 Sep 2026 22:05:05 -0300</pubDate>
-    <itunes:duration>00:01:22</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
