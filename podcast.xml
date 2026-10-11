@@ -32,7 +32,27 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Sun, 11 Oct 2026 13:05:04 -0300</lastBuildDate>
+  <lastBuildDate>Sun, 11 Oct 2026 17:05:04 -0300</lastBuildDate>
+  <item>
+    <title>Plantão Bitcoin — 11/10/2026 17:05</title>
+    <description>Alerta de preço: o que aconteceu e por quê.</description>
+    <itunes:summary>Alerta de preço: o que aconteceu e por quê.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-11_1705_alerta_preco.mp3" length="548405" type="audio/mpeg"/>
+    <guid isPermaLink="false">f9c86038beccc6bc0c9cb5f9e4f006ea</guid>
+    <pubDate>Sun, 11 Oct 2026 17:05:04 -0300</pubDate>
+    <itunes:duration>00:00:34</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Missão Bitcoin — 11/10/2026 17:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-11_1705_missao_bitcoin_cde.mp3" length="329394" type="audio/mpeg"/>
+    <guid isPermaLink="false">76dc32ff573d3c4076b9ef9af489c0e2</guid>
+    <pubDate>Sun, 11 Oct 2026 17:05:04 -0300</pubDate>
+    <itunes:duration>00:00:20</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Siga o Dinheiro — 11/10/2026 13:05</title>
     <description>O fluxo do dinheiro do dia, explicado.</description>
@@ -3011,26 +3031,6 @@
     <guid isPermaLink="false">25c8deaa7cacd729db020fcd7f0c762b</guid>
     <pubDate>Sun, 20 Sep 2026 17:05:02 -0300</pubDate>
     <itunes:duration>00:00:21</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Siga o Dinheiro — 20/09/2026 13:05</title>
-    <description>O fluxo do dinheiro do dia, explicado.</description>
-    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-20_1305_fluxo_dinheiro.mp3" length="1298224" type="audio/mpeg"/>
-    <guid isPermaLink="false">935aeb81cd65c6cb7ce2781baf90cfd0</guid>
-    <pubDate>Sun, 20 Sep 2026 13:05:02 -0300</pubDate>
-    <itunes:duration>00:01:21</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Missão Bitcoin — 20/09/2026 13:05</title>
-    <description>A missão em campo: Bitcoin no mundo real.</description>
-    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-20_1305_missao_bitcoin_cde.mp3" length="288434" type="audio/mpeg"/>
-    <guid isPermaLink="false">7a106b31130b594397ae926081799b52</guid>
-    <pubDate>Sun, 20 Sep 2026 13:05:02 -0300</pubDate>
-    <itunes:duration>00:00:18</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
