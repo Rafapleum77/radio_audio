@@ -32,7 +32,17 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Sun, 11 Oct 2026 22:05:05 -0300</lastBuildDate>
+  <lastBuildDate>Mon, 12 Oct 2026 10:05:00 -0300</lastBuildDate>
+  <item>
+    <title>Missão Bitcoin — 12/10/2026 10:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-10-12_1005_missao_bitcoin_cde.mp3" length="273806" type="audio/mpeg"/>
+    <guid isPermaLink="false">470721be0daa30653716f35d7d3495e5</guid>
+    <pubDate>Mon, 12 Oct 2026 10:05:00 -0300</pubDate>
+    <itunes:duration>00:00:17</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Boletim de Notícias Bitcoin — 11/10/2026 22:05</title>
     <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
@@ -3021,16 +3031,6 @@
     <guid isPermaLink="false">426ca98e19946eed6367a5a6859f2514</guid>
     <pubDate>Sun, 20 Sep 2026 22:05:02 -0300</pubDate>
     <itunes:duration>00:01:14</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Radar de Mercado — 20/09/2026 22:05</title>
-    <description>Leitura do mercado cripto: para onde o dinheiro está indo.</description>
-    <itunes:summary>Leitura do mercado cripto: para onde o dinheiro está indo.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-20_2205_radar_coinbureau.mp3" length="1347543" type="audio/mpeg"/>
-    <guid isPermaLink="false">7f133f84910a45f52135719529b323eb</guid>
-    <pubDate>Sun, 20 Sep 2026 22:05:02 -0300</pubDate>
-    <itunes:duration>00:01:24</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
