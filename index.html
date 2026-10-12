@@ -1096,6 +1096,49 @@
     .catch(function(){ /* mantem o que esta no HTML */ });
 })();
 </script>
+<!-- ===== GALERIAS DE VÍDEO (11/10/2026): Rádio Bitcoin + Rotina do Trezoitão + Renato Ulianov. Lê shorts.json, trezoitao.json e ulianov.json (gerados no servidor). ===== -->
+<style>
+#rbGal{max-width:1100px;margin:16px auto;border-radius:18px;overflow:hidden;background:#0b0d10;border:1px solid rgba(242,169,0,.35)}
+#rbGal .g-h{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid rgba(242,169,0,.25);color:#f2a900;font-family:'Orbitron',monospace;font-size:12px;letter-spacing:1px}
+#rbGal .g-h small{font-size:9px;color:#9ca3af;font-family:ui-sans-serif,system-ui,sans-serif;letter-spacing:0}
+#rbGal .g-lbl{display:flex;justify-content:space-between;align-items:center;font-family:'Orbitron',monospace;font-size:10px;letter-spacing:1px;color:#f2a900;padding:10px 12px 0}
+#rbGal .g-lbl a{font-size:9px;color:#f2a900;text-decoration:none;letter-spacing:1px}
+#rbGal .g-row{display:flex;gap:10px;overflow-x:auto;padding:10px 12px 14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+#rbGal .g-row::-webkit-scrollbar{height:6px}#rbGal .g-row::-webkit-scrollbar-thumb{background:rgba(242,169,0,.5);border-radius:3px}
+#rbGal .g{flex:0 0 280px;scroll-snap-align:start;position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.08);cursor:pointer}
+#rbGal .g img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+#rbGal .g:hover img{transform:scale(1.04)}
+#rbGal .g .pl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:34px;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.9);background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.75))}
+#rbGal .g .tt{position:absolute;left:8px;right:8px;bottom:8px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;line-height:1.2;color:#fff;text-shadow:0 1px 6px #000}
+#rbGal .g .dt{position:absolute;top:6px;left:8px;font-size:9px;color:#f2a900;background:rgba(0,0,0,.6);padding:2px 6px;border-radius:6px}
+#rbGal .g iframe{width:100%;height:100%;border:0;display:block}
+@media(max-width:700px){#rbGal .g{flex-basis:240px}}
+</style>
+<div id="rbGal">
+  <div class="g-h"><span>&#128250; V&Iacute;DEOS</span><small>3 galerias &middot; atualizadas sozinhas</small></div>
+  <div class="g-lbl"><span>&#127908; R&Aacute;DIO BITCOIN</span><a href="https://www.youtube.com/@radiobitcoinorg" target="_blank" rel="noopener">VER CANAL &#9656;</a></div><div class="g-row" id="galRB"></div>
+  <div class="g-lbl"><span>&#128250; ROTINA DO TREZOIT&Atilde;O</span><a href="https://www.youtube.com/@rotinadotrezoitao" target="_blank" rel="noopener">VER CANAL &#9656;</a></div><div class="g-row" id="galTRZ"></div>
+  <div class="g-lbl"><span>&#128200; RENATO ULIANOV &middot; AN&Aacute;LISES</span><a href="https://www.youtube.com/@TradewithRenatoUlianov" target="_blank" rel="noopener">VER CANAL &#9656;</a></div><div class="g-row" id="galRU"></div>
+</div>
+<script>
+(function(){
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+  function card(v,src){var d=document.createElement('div');d.className='g';
+    d.innerHTML='<img loading="lazy" alt="'+esc(v.t)+'" src="https://i.ytimg.com/vi/'+v.id+'/mqdefault.jpg" onerror="this.src=\'https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg\'"><div class="pl">&#9654;</div>'+(v.d?'<div class="dt">'+esc(v.d)+'</div>':'')+'<div class="tt">'+esc(v.t)+'</div>';
+    d.addEventListener('click',function(){ try{goatcounter.count({path:'gal-play-'+src+'-'+v.id,title:'gal:'+v.t,event:true})}catch(e){}
+      d.innerHTML='<iframe src="https://www.youtube.com/embed/'+v.id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="'+esc(v.t)+'"></iframe>';
+      var a=document.getElementById('liveAudio'); if(a&&!a.paused){ try{a.pause();}catch(e){} } });
+    return d;}
+  function norm(v){var d=String(v.d||v.date||'').slice(0,10).split('-'); return {id:v.id, t:v.t||v.title||'', d:(d.length===3? d[2]+'/'+d[1] : '')};}
+  function fill(file,el,src,n){ fetch(file+'?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){
+      var vs=(j.videos||[]).map(norm).filter(function(v){return v.id}).slice(0,n), row=document.getElementById(el);
+      vs.forEach(function(v){row.appendChild(card(v,src))}); if(!vs.length){row.previousElementSibling.hidden=true;row.hidden=true;}
+    }).catch(function(){ var row=document.getElementById(el); row.previousElementSibling.hidden=true; row.hidden=true; }); }
+  fill('shorts.json','galRB','rb',12); fill('trezoitao.json','galTRZ','trz',12); fill('ulianov.json','galRU','ru',12);
+})();
+</script>
+<!-- ===== FIM GALERIAS ===== -->
+
 
 
 <!-- ===== BANNER MISSÃO BITCOIN — CIUDAD DEL ESTE 19-20/SET (movido pro topo) ===== -->
