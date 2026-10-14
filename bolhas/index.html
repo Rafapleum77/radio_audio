@@ -881,5 +881,154 @@ body.stream canvas{position:relative;z-index:1;background:transparent!important}
 })();
 </script>
 
+<!-- ═══ hotV3 (14/10/2026): mais negociadas do dia, gráfico pelo proxy do Mini, onde comprar (estilo Crypto Bubbles) ═══ -->
+<style>
+#hotStrip{display:none;gap:8px;overflow-x:auto;padding:7px 14px;background:rgba(10,14,39,.6);border-bottom:1px solid var(--stroke);align-items:center;scrollbar-width:none;position:relative;z-index:3}
+#hotStrip::-webkit-scrollbar{display:none}
+#hotStrip .ht{font-size:11px;color:#f2a900;font-weight:800;white-space:nowrap;letter-spacing:.6px;margin-right:4px}
+#hotStrip .hc{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:5px 10px 5px 6px;border:1px solid var(--stroke);border-radius:999px;background:var(--card);cursor:pointer;font-size:12px;white-space:nowrap;color:#fff}
+#hotStrip .hc:hover{border-color:#f2a900}
+#hotStrip .hc b{font-weight:800}#hotStrip .hc .v{color:var(--dim)}#hotStrip .hc .up{color:var(--green);font-weight:700}#hotStrip .hc .dn{color:var(--red);font-weight:700}
+#hotStrip .hc .n{width:17px;height:17px;border-radius:50%;background:#f2a900;color:#111;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center}
+#tabHot.active{background:rgba(242,169,0,.18);border-color:#f2a900;color:#f2a900}
+.brokers{display:flex;flex-wrap:wrap;gap:6px}
+.brokers a{display:inline-flex;align-items:center;gap:5px;padding:6px 9px;border:1px solid var(--stroke);border-radius:8px;background:var(--card);color:#e8e2d6;text-decoration:none;font-size:12px;font-weight:700}
+.brokers a:hover{border-color:#f2a900}
+.brokers a.bdr{border-color:rgba(242,169,0,.55);color:#f2a900}
+.brokers .obs{font-size:10px;color:var(--dim);width:100%;line-height:1.4}
+.mvar-lbl.wb{margin-top:12px}
+@media(max-width:640px){#hotStrip{order:0}}
+</style>
+<script>
+(function(){
+  if(document.body.classList.contains('stream')) return;
+  const API='https://api.radiobitcoin.org';
+  const isCrypto=s=>!!(META[s]&&META[s].crypto);
+  const BDR={"AAPL": "AAPL34", "MSFT": "MSFT34", "GOOGL": "GOGL34", "NVDA": "NVDC34", "META": "M1TA34", "IBM": "IBMB34", "INTC": "ITLC34", "AMD": "A1MD34", "JPM": "JPMC34", "V": "VISA34", "MA": "MSCD34", "JNJ": "JNJB34", "UNH": "UNHH34", "AMZN": "AMZO34", "TSLA": "TSLA34", "HD": "HOME34", "MCD": "MCDC34", "WMT": "WALM34", "PG": "PGCO34", "KO": "COCA34", "BA": "BOEI34", "CAT": "CATP34", "XOM": "EXXO34", "CVX": "CHVX34", "DIS": "DISB34", "AVGO": "AVGO34", "ORCL": "ORCL34", "CRM": "SSFO34", "ADBE": "ADBE34", "CSCO": "CSCO34", "QCOM": "QCOM34", "TXN": "TEXA34", "AMAT": "A1MT34", "MU": "MUTC34", "INTU": "INTU34", "NOW": "N1OW34", "PLTR": "P2LT34", "ANET": "A1NE34", "PANW": "P2AN34", "MRVL": "M2RV34", "LRCX": "L1RC34", "KLAC": "K1LA34", "ADI": "A1DI34", "SNPS": "S1NP34", "CDNS": "C1DN34", "DELL": "D1EL34", "MSTR": "M2ST34", "SHOP": "S2HO34", "UBER": "U1BE34", "ABNB": "AIRB34", "NFLX": "NFLX34", "T": "ATTB34", "VZ": "VERZ34", "CMCSA": "CMCS34", "TMUS": "T1MU34", "BAC": "BOAC34", "WFC": "WFCO34", "GS": "GSGI34", "MS": "MSBR34", "C": "CTGP34", "AXP": "AXPB34", "BLK": "BLAK34", "SCHW": "SCHW34", "SPGI": "SPGI34", "LLY": "LILY34", "ABBV": "ABBV34", "MRK": "MRCK34", "PFE": "PFIZ34", "TMO": "TMOS34", "ABT": "ABTT34", "DHR": "DHER34", "BMY": "BMYB34", "AMGN": "AMGN34", "GILD": "GILD34", "MDT": "MDTC34", "CVS": "CVSH34", "NKE": "NIKE34", "SBUX": "SBUB34", "LOW": "LOWC34", "TGT": "TGTB34", "BKNG": "BKNG34", "GM": "GMCO34", "F": "FDMO34", "MAR": "M1TT34", "PEP": "PEPB34", "COST": "COWC34", "MDLZ": "MDLZ34", "MO": "MOOO34", "PM": "PHMO34", "CL": "COLG34", "HON": "HONB34", "GE": "GEOO34", "RTX": "RYTT34", "LMT": "LMTB34", "UNP": "UPAC34", "UPS": "UPSS34", "DE": "DEEC34", "MMM": "MMMC34", "COP": "COPH34", "SLB": "SLBG34", "AMT": "T1OW34", "PLD": "P1LD34"};
+  const US_BROKERS=[['Avenue','https://avenue.us'],['Nomad','https://nomadglobal.com'],['Inter Global','https://inter.co'],['XP Internacional','https://www.xpi.com.br'],['BTG Internacional','https://www.btgpactual.com'],['C6 Global','https://www.c6bank.com.br'],['Interactive Brokers','https://www.interactivebrokers.com']];
+  const CRYPTO_EX=[['Bybit (parceira)','https://partner.bybit.com/b/aff_43677_161474?utm_source=radiobitcoin&utm_medium=bolhas&utm_campaign=partners'],['Binance','https://www.binance.com'],['Mercado Bitcoin','https://www.mercadobitcoin.com.br'],['OKX','https://www.okx.com'],['Coinbase','https://www.coinbase.com']];
+
+  // ---- 1) aba "🔥 Negociadas" + opção de ordenação por volume ----
+  const tabAll=document.getElementById('tabAll'), tabFav=document.getElementById('tabFav');
+  const tabHot=document.createElement('button'); tabHot.className='btn'; tabHot.id='tabHot'; tabHot.textContent='🔥 Negociadas';
+  tabAll.parentNode.insertBefore(tabHot, tabAll);
+  let userTab=false;
+  setTab=function(t){ tab=t; tabHot.classList.toggle('active',t==='hot'); tabAll.classList.toggle('active',t==='all'); tabFav.classList.toggle('active',t==='fav');
+    syncBubbles(); renderStats(); renderHot(); };
+  tabHot.onclick=()=>{userTab=true;setTab('hot');}; tabAll.onclick=()=>{userTab=true;setTab('all');}; tabFav.onclick=()=>{userTab=true;setTab('fav');};
+  const sortSel=document.getElementById('sortSel'); if(sortSel){ const op=document.createElement('option'); op.value='vol_desc'; op.textContent='Volume do dia (US$)'; sortSel.appendChild(op); }
+
+  // ---- 2) lista visível e raio das bolhas no modo "negociadas" (tamanho = US$ movimentado no dia) ----
+  let hotLo=0, hotHi=1;
+  const _vis=visibleList;
+  visibleList=function(){
+    if(tab==='hot'){
+      let list=SYMBOLS.map(s=>STOCKS[s]).filter(s=>s&&s.dollarVol>0&&!isCrypto(s.symbol));
+      if(activeSector!=='ALL') list=list.filter(s=>s.sector===activeSector);
+      list.sort((a,b)=>b.dollarVol-a.dollarVol);
+      if(maxCount<list.length) list=list.slice(0,maxCount);
+      const v=list.map(s=>Math.sqrt(s.dollarVol)); hotLo=Math.min.apply(null,v); hotHi=Math.max.apply(null,v);
+      return list;
+    }
+    const l=_vis();
+    if(activeSort==='vol_desc') l.sort((a,b)=>(b.dollarVol||0)-(a.dollarVol||0));
+    return l;
+  };
+  const _rad=radiusFor;
+  radiusFor=function(s){
+    if(tab!=='hot'||!s.dollarVol) return _rad(s);
+    const t=(Math.sqrt(s.dollarVol)-hotLo)/((hotHi-hotLo)||1);
+    return 18+72*Math.max(0,Math.min(1,t));
+  };
+  const _draw=drawBubble;
+  drawBubble=function(b){ _draw(b);
+    if(tab==='hot'&&b.data.dollarVol&&b.r>=30){ const r=b.r, fs=Math.max(10,r*0.2); ctx.save(); ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.lineJoin='round';
+      ctx.font='800 '+fs+'px -apple-system,"Helvetica Neue",Arial,sans-serif'; ctx.lineWidth=Math.max(2,fs*0.2); ctx.strokeStyle='rgba(0,0,0,.9)';
+      const t='$'+fmtVol(b.data.dollarVol), y=b.y+r*0.72; ctx.strokeText(t,b.x,y); ctx.fillStyle='#f2a900'; ctx.fillText(t,b.x,y); ctx.restore(); } };
+
+  // ---- 3) faixa "mais negociadas hoje" (ações), abaixo do cabeçalho ----
+  const hdr=document.querySelector('header'); const strip=document.createElement('div'); strip.id='hotStrip'; hdr.parentNode.insertBefore(strip, hdr.nextSibling);
+  function renderHot(){
+    const list=SYMBOLS.map(s=>STOCKS[s]).filter(s=>s&&s.dollarVol>0&&!isCrypto(s.symbol)).sort((a,b)=>b.dollarVol-a.dollarVol).slice(0,12);
+    if(list.length<5){ strip.style.display='none'; return; }
+    strip.style.display='flex';
+    strip.innerHTML='<span class="ht">🔥 MAIS NEGOCIADAS HOJE</span>'+list.map((s,i)=>'<span class="hc" data-s="'+s.symbol+'"><span class="n">'+(i+1)+'</span><b>'+s.symbol+'</b><span class="v">$'+fmtVol(s.dollarVol)+'</span><span class="'+(s.change>=0?'up':'dn')+'">'+(s.change>=0?'+':'')+s.change.toFixed(1)+'%</span></span>').join('');
+  }
+  strip.addEventListener('click',e=>{ const c=e.target.closest('.hc'); if(c) openModal(c.dataset.s); });
+
+  // ---- 4) volume do dia pelo proxy (Yahoo via api.radiobitcoin.org), uma ação por vez ----
+  async function yahoo(sym,interval,range){
+    const y=isCrypto(sym)? sym.replace('USDT','-USD') : sym;
+    const ac=new AbortController(); const to=setTimeout(()=>ac.abort(),9000);
+    const q='?interval='+interval+'&range='+range;
+    try{ const r=await fetch(API+'/yahoo/chart/'+encodeURIComponent(y)+q,{signal:ac.signal}); clearTimeout(to);
+      if(r.ok){ const j=await r.json(); return j?.chart?.result?.[0]||null; }
+      if(r.status===404) return null; }catch(e){ clearTimeout(to); }
+    // reserva: a cadeia de proxies CORS da própria página (outros IPs), quando o Yahoo corta o Mini
+    try{ const j=await fetchVia('https://query1.finance.yahoo.com/v8/finance/chart/'+encodeURIComponent(y)+q); return j?.chart?.result?.[0]||null; }catch(e){ return null; }
+  }
+  function aplicaMeta(sym,res){ const s=STOCKS[sym], m=res&&res.meta; if(!s||!m) return false;
+    const vol=m.regularMarketVolume||0, px=m.regularMarketPrice||s.price;
+    s.vol=vol; s.dollarVol=vol*px; s.hi52=m.fiftyTwoWeekHigh; s.lo52=m.fiftyTwoWeekLow; s.dayHi=m.regularMarketDayHigh; s.dayLo=m.regularMarketDayLow; s.exch=m.fullExchangeName||m.exchangeName;
+    return vol>0; }
+  let hotReady=0, autoSwitched=false;
+  async function volumeLoop(){
+    const stocks=SYMBOLS.filter(s=>!isCrypto(s)); let i=0;
+    while(true){
+      const sym=stocks[i%stocks.length];
+      if(STOCKS[sym]){ const res=await yahoo(sym,'1d','1d'); if(res&&aplicaMeta(sym,res)) hotReady++; }
+      i++;
+      if(i%6===0){ renderHot(); if(tab==='hot'){ syncBubbles(); renderStats(); } }
+      if(!autoSwitched&&hotReady>=12&&!userTab){ autoSwitched=true; setTab('hot'); }
+      await new Promise(r=>setTimeout(r, i<stocks.length? 900 : 3000));   // 1ª volta ~90 s; depois ~5 min por volta (cache do proxy: 3 min)
+    }
+  }
+  async function cryptoVol(){ try{ const syms=SYMBOLS.filter(isCrypto); const r=await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols='+encodeURIComponent(JSON.stringify(syms))); if(!r.ok) return; const d=await r.json();
+    d.forEach(x=>{ const s=STOCKS[x.symbol]; if(s){ s.vol=parseFloat(x.volume); s.dollarVol=parseFloat(x.quoteVolume); s.dayHi=parseFloat(x.highPrice); s.dayLo=parseFloat(x.lowPrice); s.exch='Binance (24 h)'; } }); }catch(e){} }
+  setTimeout(volumeLoop, 2500); setTimeout(cryptoVol, 4000); setInterval(cryptoVol, 60000);
+
+  // ---- 5) modal: gráfico pelo proxy primeiro; mais dados; onde comprar ----
+  const _fyr=fetchYahooRange;
+  fetchYahooRange=async function(sym,interval,rng){
+    const res=await yahoo(sym,interval,rng);
+    if(res){ const ts=res.timestamp||[], cl=res?.indicators?.quote?.[0]?.close||[]; const t=[],c=[];
+      for(let i=0;i<ts.length;i++){ if(cl[i]!=null){ t.push(ts[i]); c.push(+cl[i].toFixed(2)); } }
+      if(c.length>1) return {t,c,meta:res.meta||{}}; }
+    return _fyr(sym,interval,rng);
+  };
+  const minfo=document.querySelector('.minfo');
+  const add=(k,id)=>{ const d=document.createElement('div'); d.className='i'; d.innerHTML='<div class="k">'+k+'</div><div class="v" id="'+id+'">—</div>'; minfo.appendChild(d); };
+  add('Vol. relativo','mVolRel'); add('Faixa do dia','mDay'); add('52 semanas','m52'); add('Bolsa','mExch');
+  const foot=document.querySelector('.modal-foot'); const wb=document.createElement('div');
+  wb.innerHTML='<div class="mvar-lbl wb">Onde comprar</div><div class="brokers" id="mBrokers"></div>'; foot.parentNode.insertBefore(wb, foot);
+  const set=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
+  const money=v=>'$'+(+v).toLocaleString('en-US',{maximumFractionDigits: v>=100?0:2});
+  function fillExtra(sym){ const s=STOCKS[sym]||{};
+    set('mDay', s.dayLo&&s.dayHi? money(s.dayLo)+' – '+money(s.dayHi) : '—');
+    set('m52', s.lo52&&s.hi52? money(s.lo52)+' – '+money(s.hi52) : '—');
+    set('mExch', s.exch||'—');
+    if(s.vol){ set('mVol', fmtVol(s.vol)+' · $'+fmtVol(s.dollarVol)); } }
+  async function loadRel(sym){ set('mVolRel','…'); const s=STOCKS[sym]; const e=document.getElementById('mVolRel');
+    if(!s||isCrypto(sym)){ if(e) e.textContent='—'; return; }
+    const res=await yahoo(sym,'1d','3mo'); if(modalSym!==sym||!e) return;
+    const v=(res?.indicators?.quote?.[0]?.volume||[]).filter(x=>x!=null);
+    if(v.length<10||!s.vol){ e.textContent='—'; e.style.color=''; return; }
+    const past=v.slice(0,-1), avg=past.reduce((a,b)=>a+b,0)/past.length, rel=s.vol/avg;
+    e.textContent=rel.toFixed(1)+'× a média de 3 meses'; e.style.color= rel>=1.5?'#f2a900': rel<0.7?'var(--dim)':'#fff'; }
+  function fillBrokers(sym){ const box=document.getElementById('mBrokers'); if(!box) return; let html='';
+    if(isCrypto(sym)){ html=CRYPTO_EX.map(([n,u])=>'<a href="'+u+'" target="_blank" rel="noopener sponsored">🪙 '+n+'</a>').join('')+
+      '<div class="obs">Corretoras de cripto que negociam '+sym.replace('USDT','')+'. A Bybit é parceira da rádio. Não é recomendação de investimento.</div>'; }
+    else { const bdr=BDR[sym]; const exch=(STOCKS[sym]||{}).exch||'bolsa americana';
+      html=(bdr?'<a class="bdr" href="https://www.google.com/finance/quote/'+bdr+':BVMF" target="_blank" rel="noopener">🇧🇷 B3: '+bdr+' (BDR)</a>':'')+
+        US_BROKERS.map(([n,u])=>'<a href="'+u+'" target="_blank" rel="noopener sponsored">🇺🇸 '+n+'</a>').join('')+
+        '<div class="obs">'+(bdr?'O BDR '+bdr+' se compra em qualquer corretora brasileira (XP, Rico, Clear, BTG, Inter, NuInvest…). ':'Sem BDR confirmado na B3. ')+
+        'A ação original é negociada na '+exch+' e se compra pelas contas internacionais acima. Não é recomendação de investimento.</div>'; }
+    box.innerHTML=html; }
+  const _open=openModal;
+  openModal=function(sym){ fillBrokers(sym); fillExtra(sym); const p=_open(sym); loadRel(sym);
+    if(p&&p.then) p.then(()=>{ if(modalSym===sym) fillExtra(sym); }); return p; };
+})();
+</script>
+
 </body>
 </html>
