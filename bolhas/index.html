@@ -1044,7 +1044,8 @@ body.stream canvas{position:relative;z-index:1;background:transparent!important}
     if(modalChart){ modalChart.destroy(); modalChart=null; }
     av.textContent=(md&&(md.intraday||md.daily))? 'Sem dados para este período.' : 'Gráfico indisponível no momento. Tente de novo em instantes.'; av.style.display='flex'; };
   const _open=openModal;
-  openModal=function(sym){ fillBrokers(sym); fillExtra(sym); const p=_open(sym); loadRel(sym);
+  openModal=function(sym){ fillBrokers(sym); const p=_open(sym); loadRel(sym);
+    setTimeout(()=>{ if(modalSym===sym) fillExtra(sym); }, 60);           // depois que o original põe "…" nos campos
     if(p&&p.then) p.then(()=>{ if(modalSym===sym) fillExtra(sym); }); return p; };
 })();
 </script>
