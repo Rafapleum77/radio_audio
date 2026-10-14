@@ -971,12 +971,24 @@ body.stream canvas{position:relative;z-index:1;background:transparent!important}
     const vol=m.regularMarketVolume||0, px=m.regularMarketPrice||s.price;
     s.vol=vol; s.dollarVol=vol*px; s.hi52=m.fiftyTwoWeekHigh; s.lo52=m.fiftyTwoWeekLow; s.dayHi=m.regularMarketDayHigh; s.dayLo=m.regularMarketDayLow; s.exch=m.fullExchangeName||m.exchangeName;
     return vol>0; }
+  // Nasdaq (api.nasdaq.com via proxy): cotação em tempo real com volume, faixa do dia e 52 semanas; cobre NYSE também
+  async function nasdaq(sym){ const ac=new AbortController(); const to=setTimeout(()=>ac.abort(),15000);
+    try{ const r=await fetch(API+'/nasdaq/quote/'+encodeURIComponent(sym),{signal:ac.signal}); clearTimeout(to); if(!r.ok) return null; const j=await r.json(); return (j&&j.data)||null; }catch(e){ clearTimeout(to); return null; } }
+  const num=t=>{ const v=parseFloat(String(t==null?'':t).replace(/[^0-9.\-]/g,'')); return isFinite(v)?v:null; };
+  function aplicaNasdaq(sym,d){ const s=STOCKS[sym], p=d&&d.primaryData, k=(d&&d.keyStats)||{}; if(!s||!p) return false;
+    const vol=num(p.volume), px=num(p.lastSalePrice)||s.price; if(!vol||!px) return false;
+    s.vol=vol; s.dollarVol=vol*px; s.exch=d.exchange||s.exch;
+    const dr=String((k.dayrange||{}).value||'').split('-'), fw=String((k.fiftyTwoWeekHighLow||{}).value||'').split('-');
+    if(dr.length===2){ s.dayLo=num(dr[0]); s.dayHi=num(dr[1]); } if(fw.length===2){ s.lo52=num(fw[0]); s.hi52=num(fw[1]); }
+    return true; }
   let hotReady=0, autoSwitched=false;
   async function volumeLoop(){
     const stocks=SYMBOLS.filter(s=>!isCrypto(s)); let i=0;
     while(true){
       const sym=stocks[i%stocks.length];
-      if(STOCKS[sym]){ const res=await yahoo(sym,'1d','1d'); if(res&&aplicaMeta(sym,res)) hotReady++; }
+      if(STOCKS[sym]){ let ok=false; const d=await nasdaq(sym); if(d) ok=aplicaNasdaq(sym,d);
+        if(!ok){ const res=await yahoo(sym,'1d','1d'); if(res) ok=aplicaMeta(sym,res); }
+        if(ok) hotReady++; }
       i++;
       if(i%6===0){ renderHot(); if(tab==='hot'){ syncBubbles(); renderStats(); } }
       if(!autoSwitched&&hotReady>=12&&!userTab){ autoSwitched=true; setTab('hot'); }
@@ -1024,6 +1036,13 @@ body.stream canvas{position:relative;z-index:1;background:transparent!important}
         '<div class="obs">'+(bdr?'O BDR '+bdr+' se compra em qualquer corretora brasileira (XP, Rico, Clear, BTG, Inter, NuInvest…). ':'Sem BDR confirmado na B3. ')+
         'A ação original é negociada na '+exch+' e se compra pelas contas internacionais acima. Não é recomendação de investimento.</div>'; }
     box.innerHTML=html; }
+  // sem dado real não se desenha gráfico inventado: avisa e deixa o espaço limpo
+  const _dmc=drawModalChart;
+  drawModalChart=function(md,range){ md=md||modalData; const seg=md?sliceRange(md,range):null; const box=document.querySelector('.chart-box');
+    let av=document.getElementById('mSemDados'); if(!av){ av=document.createElement('div'); av.id='mSemDados'; av.style.cssText='position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:var(--dim);font-size:13px;text-align:center;padding:16px'; box.appendChild(av); }
+    if(seg&&seg.c&&seg.c.length>1){ av.style.display='none'; return _dmc(md,range); }
+    if(modalChart){ modalChart.destroy(); modalChart=null; }
+    av.textContent=(md&&(md.intraday||md.daily))? 'Sem dados para este período.' : 'Gráfico indisponível no momento. Tente de novo em instantes.'; av.style.display='flex'; };
   const _open=openModal;
   openModal=function(sym){ fillBrokers(sym); fillExtra(sym); const p=_open(sym); loadRel(sym);
     if(p&&p.then) p.then(()=>{ if(modalSym===sym) fillExtra(sym); }); return p; };
