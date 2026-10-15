@@ -1000,8 +1000,33 @@ body.stream canvas{position:relative;z-index:1;background:transparent!important}
   setTimeout(volumeLoop, 2500); setTimeout(cryptoVol, 4000); setInterval(cryptoVol, 60000);
 
   // ---- 5) modal: gráfico pelo proxy primeiro; mais dados; onde comprar ----
+  // séries reais por fonte aberta: Nasdaq (ações; dia e 1 ano) e Binance (cripto), antes do Yahoo
+  async function jget(u,ms){ const ac=new AbortController(); const to=setTimeout(()=>ac.abort(),ms||15000);
+    try{ const r=await fetch(u,{signal:ac.signal}); clearTimeout(to); return r.ok? await r.json() : null; }catch(e){ clearTimeout(to); return null; } }
+  const dstr=d=>d.toISOString().slice(0,10);
+  const pnum=t=>{ const v=parseFloat(String(t==null?'':t).replace(/[^0-9.\-]/g,'')); return isFinite(v)?v:null; };
+  function metaDe(sym){ const s=STOCKS[sym]||{}; return {regularMarketVolume:s.vol||0, chartPreviousClose:s.prevClose, previousClose:s.prevClose, regularMarketPrice:s.price}; }
+  async function serieNasdaq(sym,interval){
+    if(interval==='1d'){ const to=new Date(), from=new Date(Date.now()-366*86400000);
+      const j=await jget(API+'/nasdaq/historical/'+encodeURIComponent(sym)+'?from='+dstr(from)+'&to='+dstr(to));
+      const rows=j&&j.data&&j.data.tradesTable&&j.data.tradesTable.rows; if(!rows||rows.length<5) return null;
+      const t=[],c=[]; rows.slice().reverse().forEach(r=>{ const m=String(r.date).split('/'); const v=pnum(r.close); if(m.length===3&&v!=null){ t.push(Date.UTC(+m[2],+m[0]-1,+m[1],20,0,0)/1000); c.push(+v.toFixed(2)); } });
+      return c.length>5? {t,c,meta:metaDe(sym)} : null; }
+    const j=await jget(API+'/nasdaq/chart/'+encodeURIComponent(sym)); const ch=j&&j.data&&j.data.chart; if(!ch||ch.length<10) return null;
+    const t=[],c=[]; ch.forEach(p=>{ if(p&&p.x&&p.y!=null){ t.push(Math.round(p.x/1000)); c.push(+(+p.y).toFixed(2)); } });
+    return c.length>10? {t,c,meta:metaDe(sym)} : null; }
+  async function serieBinance(sym,interval){
+    const q=interval==='1d'? 'interval=1d&limit=365' : 'interval=5m&limit=1000';
+    const j=await jget('https://api.binance.com/api/v3/klines?symbol='+encodeURIComponent(sym)+'&'+q); if(!Array.isArray(j)||j.length<10) return null;
+    const t=[],c=[]; j.forEach(k=>{ t.push(Math.round(k[0]/1000)); c.push(+(+k[4]).toFixed(+k[4]<10?4:2)); });
+    return {t,c,meta:metaDe(sym)}; }
+  const _slice=sliceRange;
+  sliceRange=function(md,range){ if(range==='1W'){ const id=md&&md.intraday, dl=md&&md.daily;
+      if(id&&id.t&&id.t.length&&(id.t[id.t.length-1]-id.t[0])<2*86400&&dl&&dl.c.length>=5) return {t:dl.t.slice(-5),c:dl.c.slice(-5)}; }
+    return _slice(md,range); };
   const _fyr=fetchYahooRange;
   fetchYahooRange=async function(sym,interval,rng){
+    try{ const r=isCrypto(sym)? await serieBinance(sym,interval) : await serieNasdaq(sym,interval); if(r) return r; }catch(e){}
     const res=await yahoo(sym,interval,rng);
     if(res){ const ts=res.timestamp||[], cl=res?.indicators?.quote?.[0]?.close||[]; const t=[],c=[];
       for(let i=0;i<ts.length;i++){ if(cl[i]!=null){ t.push(ts[i]); c.push(+cl[i].toFixed(2)); } }
