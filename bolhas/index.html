@@ -1057,6 +1057,7 @@ body.stream canvas{position:relative;z-index:1;background:transparent!important}
     const hoje=s.vol||v[0];
     if(v.length<12||!hoje){ e.textContent='—'; e.style.color=''; return; }
     const past=v.slice(1,64), avg=past.reduce((a,b)=>a+b,0)/past.length, rel=hoje/avg;
+    if(rel<0.1){ e.textContent='—'; e.style.color=''; return; }   // pré-mercado: volume parcial do dia não serve de comparação
     e.textContent=rel.toFixed(1)+'× a média de 3 meses'; e.style.color= rel>=1.5?'#f2a900': rel<0.7?'var(--dim)':'#fff'; }
   function fillBrokers(sym){ const box=document.getElementById('mBrokers'); if(!box) return; let html='';
     if(isCrypto(sym)){ html=CRYPTO_EX.map(([n,u])=>'<a href="'+u+'" target="_blank" rel="noopener sponsored">🪙 '+n+'</a>').join('')+
