@@ -1047,10 +1047,16 @@ body.stream canvas{position:relative;z-index:1;background:transparent!important}
     if(s.vol){ set('mVol', fmtVol(s.vol)+' · $'+fmtVol(s.dollarVol)); } }
   async function loadRel(sym){ set('mVolRel','…'); const s=STOCKS[sym]; const e=document.getElementById('mVolRel');
     if(!s||isCrypto(sym)){ if(e) e.textContent='—'; return; }
-    const res=await yahoo(sym,'1d','3mo'); if(modalSym!==sym||!e) return;
-    const v=(res?.indicators?.quote?.[0]?.volume||[]).filter(x=>x!=null);
-    if(v.length<10||!s.vol){ e.textContent='—'; e.style.color=''; return; }
-    const past=v.slice(0,-1), avg=past.reduce((a,b)=>a+b,0)/past.length, rel=s.vol/avg;
+    // histórico diário da Nasdaq (o mesmo do gráfico de 1 ano, com cache no proxy): média de volume de ~3 meses e faixa do último pregão
+    const to=new Date(), from=new Date(Date.now()-120*86400000);
+    const j=await jget(API+'/nasdaq/historical/'+encodeURIComponent(sym)+'?from='+dstr(from)+'&to='+dstr(to));
+    if(modalSym!==sym||!e) return;
+    const rows=(j&&j.data&&j.data.tradesTable&&j.data.tradesTable.rows)||[];
+    const v=rows.map(r=>pnum(r.volume)).filter(x=>x!=null&&x>0);
+    if(rows.length&&(!s.dayLo||!s.dayHi)){ const lo=pnum(rows[0].low), hi=pnum(rows[0].high); if(lo&&hi){ s.dayLo=lo; s.dayHi=hi; fillExtra(sym); } }
+    const hoje=s.vol||v[0];
+    if(v.length<12||!hoje){ e.textContent='—'; e.style.color=''; return; }
+    const past=v.slice(1,64), avg=past.reduce((a,b)=>a+b,0)/past.length, rel=hoje/avg;
     e.textContent=rel.toFixed(1)+'× a média de 3 meses'; e.style.color= rel>=1.5?'#f2a900': rel<0.7?'var(--dim)':'#fff'; }
   function fillBrokers(sym){ const box=document.getElementById('mBrokers'); if(!box) return; let html='';
     if(isCrypto(sym)){ html=CRYPTO_EX.map(([n,u])=>'<a href="'+u+'" target="_blank" rel="noopener sponsored">🪙 '+n+'</a>').join('')+
