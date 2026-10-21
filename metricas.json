@@ -1,29 +1,62 @@
 {
   "fonte": "GoatCounter (analytics real, privacy-first)",
-  "atualizado_em": "2026-09-28",
-  "visitas_30d": 430,
-  "paises_total": 0,
-  "top_paises": [],
+  "atualizado_em": "2026-10-20",
+  "visitas_30d": 418,
+  "paises_total": 8,
+  "top_paises": [
+    {
+      "pais": "Brazil",
+      "count": 271
+    },
+    {
+      "pais": "United States",
+      "count": 114
+    },
+    {
+      "pais": "Paraguay",
+      "count": 23
+    },
+    {
+      "pais": "Argentina",
+      "count": 3
+    },
+    {
+      "pais": "Indonesia",
+      "count": 3
+    },
+    {
+      "pais": "Italy",
+      "count": 3
+    },
+    {
+      "pais": "Netherlands",
+      "count": 2
+    },
+    {
+      "pais": "Sweden",
+      "count": 2
+    }
+  ],
   "top_paginas": [
     {
       "path": "/",
-      "count": 399
+      "count": 337
     },
     {
-      "path": "/recovery.html",
-      "count": 13
+      "path": "r/spotify/artista",
+      "count": 10
+    },
+    {
+      "path": "/musicas",
+      "count": 8
+    },
+    {
+      "path": "r/apple/artista",
+      "count": 7
     },
     {
       "path": "/ouvinte-fundador.html",
       "count": 7
-    },
-    {
-      "path": "/carteira.html",
-      "count": 6
-    },
-    {
-      "path": "home-es",
-      "count": 1
     }
   ]
 }
