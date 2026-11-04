@@ -32,7 +32,37 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Wed, 04 Nov 2026 10:05:05 -0300</lastBuildDate>
+  <lastBuildDate>Wed, 04 Nov 2026 13:05:05 -0300</lastBuildDate>
+  <item>
+    <title>Siga o Dinheiro — 04/11/2026 13:05</title>
+    <description>O fluxo do dinheiro do dia, explicado.</description>
+    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-04_1305_fluxo_dinheiro.mp3" length="983918" type="audio/mpeg"/>
+    <guid isPermaLink="false">2b97da839dc656cafe81b9e963a31c38</guid>
+    <pubDate>Wed, 04 Nov 2026 13:05:05 -0300</pubDate>
+    <itunes:duration>00:01:01</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Plantão Bitcoin — 04/11/2026 13:05</title>
+    <description>Alerta de preço: o que aconteceu e por quê.</description>
+    <itunes:summary>Alerta de preço: o que aconteceu e por quê.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-04_1305_alerta_preco.mp3" length="639102" type="audio/mpeg"/>
+    <guid isPermaLink="false">95f8037b976024771ad1e0bb3e5a239b</guid>
+    <pubDate>Wed, 04 Nov 2026 13:05:05 -0300</pubDate>
+    <itunes:duration>00:00:39</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Missão Bitcoin — 04/11/2026 13:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-04_1305_missao_bitcoin_cde.mp3" length="336082" type="audio/mpeg"/>
+    <guid isPermaLink="false">bedf47007c77d098f671afa7b6b0b2f1</guid>
+    <pubDate>Wed, 04 Nov 2026 13:05:05 -0300</pubDate>
+    <itunes:duration>00:00:21</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Boletim de Notícias Bitcoin — 04/11/2026 10:05</title>
     <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
@@ -3001,36 +3031,6 @@
     <guid isPermaLink="false">c0c74ad4a5de92bee94b3db723e2c12c</guid>
     <pubDate>Wed, 23 Sep 2026 17:05:05 -0300</pubDate>
     <itunes:duration>00:00:18</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Siga o Dinheiro — 23/09/2026 13:05</title>
-    <description>O fluxo do dinheiro do dia, explicado.</description>
-    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-23_1305_fluxo_dinheiro.mp3" length="1253502" type="audio/mpeg"/>
-    <guid isPermaLink="false">fce8f817f2a9cb6de16f421198c34daa</guid>
-    <pubDate>Wed, 23 Sep 2026 13:05:04 -0300</pubDate>
-    <itunes:duration>00:01:18</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Plantão Bitcoin — 23/09/2026 13:05</title>
-    <description>Alerta de preço: o que aconteceu e por quê.</description>
-    <itunes:summary>Alerta de preço: o que aconteceu e por quê.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-23_1305_alerta_preco.mp3" length="677554" type="audio/mpeg"/>
-    <guid isPermaLink="false">795b8c11f483e7469e2b0539141c46d1</guid>
-    <pubDate>Wed, 23 Sep 2026 13:05:04 -0300</pubDate>
-    <itunes:duration>00:00:42</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Missão Bitcoin — 23/09/2026 13:05</title>
-    <description>A missão em campo: Bitcoin no mundo real.</description>
-    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-23_1305_missao_bitcoin_cde.mp3" length="328141" type="audio/mpeg"/>
-    <guid isPermaLink="false">8b88452a590ff9abd9fbac78b6519925</guid>
-    <pubDate>Wed, 23 Sep 2026 13:05:04 -0300</pubDate>
-    <itunes:duration>00:00:20</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
