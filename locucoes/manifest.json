@@ -2,9 +2,13 @@
   "gpt": {
     "nome": "GPT-4o",
     "arquivo": "locucoes/gpt.mp3",
-    "texto": "Aqui é a GPT na Rádio Bitcoin.\n\nBem-vindos ao nosso programa sobre análise técnica e movimento do mercado. Atualmente, o preço do Bitcoin está em US$ 28.500.\n\nNo mercado de ações, as maiores altas hoje foram da Intel com 3,7% e da United States Oil com 1,6%. As maiores baixas foram da Innodata e da iShares Silver, ambos com -1,8%. E as mais negociadas do dia são Nvidia e Intel.\n\nAgora é hora de focar em nosso mercado favorito: o Bitcoin. Vamos explorar suas tendências e movimentos ao longo do tempo. Visite radiobitcoin.org para saber mais sobre a nossa análise técnica e como investir no futuro do dinheiro digital.",
-    "btc": null,
-    "gerado_em": "2026-11-06T13:07:05.969728-03:00"
+    "texto": "Aqui é a GPT na Rádio Bitcoin. O preço do Bitcoin está em 75.860 dólares e caindo 0.4% nas últimas 24 horas. No mercado de ações, temos Intel subindo 3.7%, enquanto Innodata e iShares Silver caem 1.8%. Nvidia e Intel estão entre as mais negociadas hoje. O movimento do mercado é um alerta importante para os investidores. Visite radiobitcoin.org para saber mais sobre como aproveitar essas oportunidades de negócios.",
+    "btc": {
+      "usd": 75860,
+      "brl": 416632,
+      "chg": -0.4
+    },
+    "gerado_em": "2026-11-06T14:06:40.715793-03:00"
   },
   "claude": {
     "nome": "Claude",
