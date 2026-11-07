@@ -32,7 +32,17 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Sat, 07 Nov 2026 17:05:05 -0300</lastBuildDate>
+  <lastBuildDate>Sat, 07 Nov 2026 18:05:05 -0300</lastBuildDate>
+  <item>
+    <title>Missão Bitcoin — 07/11/2026 18:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-07_1805_missao_bitcoin_cde.mp3" length="288852" type="audio/mpeg"/>
+    <guid isPermaLink="false">8149adcc03d391844f296ba3be6a9946</guid>
+    <pubDate>Sat, 07 Nov 2026 18:05:05 -0300</pubDate>
+    <itunes:duration>00:00:18</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Missão Bitcoin — 07/11/2026 17:05</title>
     <description>A missão em campo: Bitcoin no mundo real.</description>
@@ -3021,16 +3031,6 @@
     <guid isPermaLink="false">b80f9c63df9efcb5ca614bd57128aebe</guid>
     <pubDate>Sun, 27 Sep 2026 10:05:00 -0300</pubDate>
     <itunes:duration>00:01:19</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Boletim de Notícias Bitcoin — 26/09/2026 22:05</title>
-    <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
-    <itunes:summary>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-26_2205_boletim_noticias.mp3" length="1227171" type="audio/mpeg"/>
-    <guid isPermaLink="false">4172300eedea034cee44647a246aeb7d</guid>
-    <pubDate>Sat, 26 Sep 2026 22:05:03 -0300</pubDate>
-    <itunes:duration>00:01:16</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
