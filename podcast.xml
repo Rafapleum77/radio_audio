@@ -32,7 +32,17 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Mon, 09 Nov 2026 17:05:01 -0300</lastBuildDate>
+  <lastBuildDate>Mon, 09 Nov 2026 18:05:05 -0300</lastBuildDate>
+  <item>
+    <title>Missão Bitcoin — 09/11/2026 18:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-09_1805_missao_bitcoin_cde.mp3" length="321035" type="audio/mpeg"/>
+    <guid isPermaLink="false">948c1024603ee4c0718c76e1b071d408</guid>
+    <pubDate>Mon, 09 Nov 2026 18:05:05 -0300</pubDate>
+    <itunes:duration>00:00:20</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Fechamento de Mercado — 09/11/2026 17:05</title>
     <description>Como o dia terminou nas bolsas e no Bitcoin.</description>
@@ -3021,16 +3031,6 @@
     <guid isPermaLink="false">503b9e13d2f535c2603924cc98cb69b3</guid>
     <pubDate>Tue, 29 Sep 2026 17:05:05 -0300</pubDate>
     <itunes:duration>00:00:23</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Siga o Dinheiro — 29/09/2026 13:05</title>
-    <description>O fluxo do dinheiro do dia, explicado.</description>
-    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-29_1305_fluxo_dinheiro.mp3" length="1607514" type="audio/mpeg"/>
-    <guid isPermaLink="false">2eccde08f99de0f1c6e747ba289a3877</guid>
-    <pubDate>Tue, 29 Sep 2026 13:05:00 -0300</pubDate>
-    <itunes:duration>00:01:40</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
