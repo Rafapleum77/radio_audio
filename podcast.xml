@@ -32,7 +32,17 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Tue, 10 Nov 2026 17:05:05 -0300</lastBuildDate>
+  <lastBuildDate>Tue, 10 Nov 2026 18:05:05 -0300</lastBuildDate>
+  <item>
+    <title>Missão Bitcoin — 10/11/2026 18:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-10_1805_missao_bitcoin_cde.mp3" length="259177" type="audio/mpeg"/>
+    <guid isPermaLink="false">11b76d9ac943694397a0504c4123afb2</guid>
+    <pubDate>Tue, 10 Nov 2026 18:05:05 -0300</pubDate>
+    <itunes:duration>00:00:16</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Fechamento de Mercado — 10/11/2026 17:05</title>
     <description>Como o dia terminou nas bolsas e no Bitcoin.</description>
@@ -3021,16 +3031,6 @@
     <guid isPermaLink="false">62205b3a7c821bcdc256020654e471eb</guid>
     <pubDate>Wed, 30 Sep 2026 13:05:01 -0300</pubDate>
     <itunes:duration>00:01:12</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Plantão Bitcoin — 30/09/2026 13:05</title>
-    <description>Alerta de preço: o que aconteceu e por quê.</description>
-    <itunes:summary>Alerta de preço: o que aconteceu e por quê.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-09-30_1305_alerta_preco.mp3" length="516222" type="audio/mpeg"/>
-    <guid isPermaLink="false">91eb455766f799a39424be3737e5e172</guid>
-    <pubDate>Wed, 30 Sep 2026 13:05:01 -0300</pubDate>
-    <itunes:duration>00:00:32</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
