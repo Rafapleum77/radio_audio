@@ -951,5 +951,38 @@ body.stream #locutorBox.live #lbIdle{display:none} body.stream #locutorBox.live 
 })();
 </script>
 
+
+<!-- ═══ TARJA DE PLANTAO (13/11/2026, pedido do Rafael): faixa vermelha no topo enquanto a rádio toca um
+     plantão urgente (título do Icecast começando com 🚨). Some sozinha quando a faixa acaba. Só no modo stream.
+     Teste sem plantão no ar: acrescentar &plantao=Texto na URL. ═══ -->
+<style>
+body.stream #plantaoBar{position:fixed;left:0;right:0;top:0;z-index:99;display:none;align-items:center;gap:22px;height:74px;padding:0 28px;
+  background:linear-gradient(90deg,#b00012,#e0162b 55%,#b00012);border-bottom:3px solid #ffd23a;box-shadow:0 6px 24px rgba(0,0,0,.55);
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#fff}
+body.stream #plantaoBar.on{display:flex}
+body.stream #plantaoBar .tag{flex:none;background:#fff;color:#c00015;font-weight:900;font-size:26px;letter-spacing:3px;padding:6px 16px;border-radius:6px;animation:plPisca 1.2s steps(2,start) infinite}
+body.stream #plantaoBar .txt{flex:1;min-width:0;font-size:32px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 4px rgba(0,0,0,.4)}
+body.stream #plantaoBar .ra{flex:none;font-size:18px;font-weight:700;letter-spacing:2px;opacity:.9;text-transform:uppercase}
+@keyframes plPisca{50%{opacity:.55}}
+</style>
+<div id="plantaoBar"><span class="tag">PLANTÃO</span><span class="txt"></span><span class="ra">Rádio Bitcoin</span></div>
+<script>
+(function(){
+  if(!document.body.classList.contains('stream')) return;
+  var bar=document.getElementById('plantaoBar'), txt=bar.querySelector('.txt');
+  function mostra(t){ if(t){ txt.textContent=t; bar.classList.add('on'); } else bar.classList.remove('on'); }
+  var teste=new URLSearchParams(location.search).get('plantao');
+  if(teste){ mostra(teste); return; }
+  function puxa(){
+    fetch('https://stream.radiobitcoin.org/status-json.xsl',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
+      var s=d&&d.icestats&&d.icestats.source; if(!s)return; if(!Array.isArray(s))s=[s];
+      var t=''; s.forEach(function(x){if(x&&x.title)t=x.title;});
+      var m=t.match(/^\s*🚨\s*(?:Plant[ãa]o\s*·\s*)?(.+?)\s*(?:·\s*Rádio Bitcoin\s*)?$/i);
+      mostra(m?m[1]:'');
+    }).catch(function(){});
+  }
+  puxa(); setInterval(puxa,15000);
+})();
+</script>
 </body>
 </html>
