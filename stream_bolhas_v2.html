@@ -1008,7 +1008,7 @@ body.stream #plantaoBar .ra{flex:none;font-size:18px;font-weight:700;letter-spac
 #cbBox .f{font-size:12px;letter-spacing:.5px;color:#8fa3ba;margin-top:10px}
 @keyframes cbPisca{50%{opacity:.25}}
 </style>
-<div id="cbBox"><div class="k"><i></i>Coin Bureau · agora<span id="cbHora"></span></div><div class="t" id="cbTit"></div><div class="r" id="cbRes"></div><div class="f">Fonte: Coin Bureau · resumo da Rádio Bitcoin · não é recomendação de investimento</div></div>
+<div id="cbBox"><div class="k"><i></i><b id="cbFonte" style="font-weight:800">Coin Bureau · agora</b><span id="cbHora"></span></div><div class="t" id="cbTit"></div><div class="r" id="cbRes"></div><div class="f" id="cbRod">Fonte: Coin Bureau · resumo da Rádio Bitcoin · não é recomendação de investimento</div></div>
 <script>
 (function(){
   var box=document.getElementById('cbBox'),timer=null;
@@ -1017,6 +1017,9 @@ body.stream #plantaoBar .ra{flex:none;font-size:18px;font-weight:700;letter-spac
     document.getElementById('cbTit').textContent=c.titulo;
     document.getElementById('cbRes').textContent=c.resumo||'';
     document.getElementById('cbHora').textContent=c.hora||'';
+    var f=c.fonte||'Coin Bureau', cv=(f==='CV.YH');   /* 14/11: segunda fonte, o perfil @0xCVYH no X */
+    document.getElementById('cbFonte').textContent=(cv?'CV.YH · @0xCVYH':f)+' · agora';
+    document.getElementById('cbRod').textContent='Fonte: '+(cv?'CV.YH (@0xCVYH) no X':f)+' · resumo da Rádio Bitcoin · não é recomendação de investimento';
     box.classList.add('on'); clearTimeout(timer);
     timer=setTimeout(function(){box.classList.remove('on')},75000);
     return true;
