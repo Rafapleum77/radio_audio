@@ -931,11 +931,20 @@ body.stream #locutorBox.live #lbIdle{display:none} body.stream #locutorBox.live 
   Object.keys(A).forEach(function(k){ var d=document.createElement('div'); d.className='th';
     d.innerHTML='<img src="'+A[k].img+'" alt=""><div class="n">'+A[k].n+'</div>'; idle.appendChild(d); });
   var atual='';
+  // 14/11/2026 (pedido do Rafael): sem programa no ar, em vez da fileira dos quatro aparece o
+  // LOCUTOR DA HORA, um por hora cheia, em rodízio. A conta (hora % 4) é a mesma do
+  // coinbureau_fala.py no Mini: é ele quem lê os posts do Coin Bureau naquela hora.
+  var ORDEM=['claude','gemini','manus','optimus'], ult=[null,''];
   function mostra(key,prog){
-    if(!key){ box.classList.remove('live'); atual=''; return; }
+    ult=[key,prog];
+    var noAr=!!key;
+    if(!noAr){ var h=new Date().getHours(); key=ORDEM[h%4]; prog='Das '+h+'h às '+((h+1)%24)+'h · lê os posts do Coin Bureau'; }
     if(key!==atual){ live.querySelector('img').src=A[key].img; live.querySelector('.nm').textContent=A[key].n; atual=key; }
+    live.querySelector('.badge').style.display=noAr?'':'none';
+    box.querySelector('.k').textContent=noAr?'Locutores de IA':'Locutor da hora';
     live.querySelector('.prog').textContent=prog||''; box.classList.add('live');
   }
+  mostra(null); setInterval(function(){ mostra(ult[0],ult[1]); },30000);   // vira a hora mesmo se o Icecast não responder
   function puxa(){
     // mesmo feed do ticker: o título do Icecast muda na hora (o nowplaying.json do site passa pelo Pages e atrasa)
     fetch('https://stream.radiobitcoin.org/status-json.xsl',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
