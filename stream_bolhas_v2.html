@@ -984,5 +984,36 @@ body.stream #plantaoBar .ra{flex:none;font-size:18px;font-weight:700;letter-spac
   puxa(); setInterval(puxa,15000);
 })();
 </script>
+<!-- ═══ CARTÃO COIN BUREAU (14/11/2026, pedido do Rafael): post novo do Coin Bureau aparece UMA vez, por 75 s.
+     Quem manda o cartão é o renderizador da live no Studio (render_bolhas.mjs chama window.rbCoinBureau),
+     que busca em ~/bin/coinbureau_posts.py. Para o público do site esta caixa nunca aparece.
+     Prévia: ?cbteste=1 ═══ -->
+<style>
+#cbBox{position:fixed;left:24px;bottom:118px;z-index:98;width:600px;background:rgba(6,9,20,.9);border:1px solid rgba(247,147,26,.55);border-left:6px solid #f7931a;border-radius:14px;padding:16px 20px 14px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#fff;backdrop-filter:blur(6px);box-shadow:0 10px 40px rgba(0,0,0,.55);transform:translateX(-680px);opacity:0;transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .7s}
+#cbBox.on{transform:none;opacity:1}
+#cbBox .k{display:flex;align-items:center;gap:10px;font-size:14px;letter-spacing:3px;text-transform:uppercase;font-weight:800;color:#f7931a;margin-bottom:8px}
+#cbBox .k i{width:10px;height:10px;border-radius:50%;background:#ff4d4d;animation:cbPisca 1.2s infinite}
+#cbBox .k span{margin-left:auto;color:#a9bdd2;letter-spacing:1px;font-weight:700}
+#cbBox .t{font-size:27px;line-height:1.18;font-weight:800;margin-bottom:8px}
+#cbBox .r{font-size:20px;line-height:1.35;color:#dfe7f1}
+#cbBox .f{font-size:12px;letter-spacing:.5px;color:#8fa3ba;margin-top:10px}
+@keyframes cbPisca{50%{opacity:.25}}
+</style>
+<div id="cbBox"><div class="k"><i></i>Coin Bureau · agora<span id="cbHora"></span></div><div class="t" id="cbTit"></div><div class="r" id="cbRes"></div><div class="f">Fonte: Coin Bureau · resumo da Rádio Bitcoin · não é recomendação de investimento</div></div>
+<script>
+(function(){
+  var box=document.getElementById('cbBox'),timer=null;
+  window.rbCoinBureau=function(c){
+    if(!c||!c.titulo)return false;
+    document.getElementById('cbTit').textContent=c.titulo;
+    document.getElementById('cbRes').textContent=c.resumo||'';
+    document.getElementById('cbHora').textContent=c.hora||'';
+    box.classList.add('on'); clearTimeout(timer);
+    timer=setTimeout(function(){box.classList.remove('on')},75000);
+    return true;
+  };
+  if(/[?&]cbteste=1/.test(location.search))window.rbCoinBureau({titulo:'Teste do cartão do Coin Bureau',resumo:'Este é só um teste de tela. Se você está vendo, o cartão funciona.',hora:'00:00'});
+})();
+</script>
 </body>
 </html>
