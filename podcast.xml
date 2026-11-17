@@ -32,7 +32,37 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Tue, 17 Nov 2026 13:05:05 -0300</lastBuildDate>
+  <lastBuildDate>Tue, 17 Nov 2026 17:05:05 -0300</lastBuildDate>
+  <item>
+    <title>Fechamento de Mercado — 17/11/2026 17:05</title>
+    <description>Como o dia terminou nas bolsas e no Bitcoin.</description>
+    <itunes:summary>Como o dia terminou nas bolsas e no Bitcoin.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-17_1705_mercado_fechamento.mp3" length="1783056" type="audio/mpeg"/>
+    <guid isPermaLink="false">a70203976c31d2ed7d39c0e32a27c750</guid>
+    <pubDate>Tue, 17 Nov 2026 17:05:05 -0300</pubDate>
+    <itunes:duration>00:01:51</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Melhores Oportunidades — 17/11/2026 17:05</title>
+    <description>Onde estão as oportunidades do dia.</description>
+    <itunes:summary>Onde estão as oportunidades do dia.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-17_1705_mercado_oportunidades.mp3" length="1331243" type="audio/mpeg"/>
+    <guid isPermaLink="false">e39b99e556ab64edda8dc35bfc167427</guid>
+    <pubDate>Tue, 17 Nov 2026 17:05:05 -0300</pubDate>
+    <itunes:duration>00:01:23</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Missão Bitcoin — 17/11/2026 17:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-17_1705_missao_bitcoin_cde.mp3" length="358652" type="audio/mpeg"/>
+    <guid isPermaLink="false">4ce2fcd90943d575cf74dc6156153ee2</guid>
+    <pubDate>Tue, 17 Nov 2026 17:05:05 -0300</pubDate>
+    <itunes:duration>00:00:22</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Siga o Dinheiro — 17/11/2026 13:05</title>
     <description>O fluxo do dinheiro do dia, explicado.</description>
@@ -3001,36 +3031,6 @@
     <guid isPermaLink="false">aa2592cb55348d6794071b2787e9456a</guid>
     <pubDate>Wed, 07 Oct 2026 22:05:05 -0300</pubDate>
     <itunes:duration>00:00:22</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Clima &amp; Sobrevivência — 07/10/2026 22:05</title>
-    <description>Alerta de clima e preparo, sem alarmismo.</description>
-    <itunes:summary>Alerta de clima e preparo, sem alarmismo.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-10-07_2205_alerta_sobrevivencia.mp3" length="1544820" type="audio/mpeg"/>
-    <guid isPermaLink="false">9b5bdcec1c57bb09022d0f7e85965d1e</guid>
-    <pubDate>Wed, 07 Oct 2026 22:05:05 -0300</pubDate>
-    <itunes:duration>00:01:36</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Fechamento de Mercado — 07/10/2026 17:05</title>
-    <description>Como o dia terminou nas bolsas e no Bitcoin.</description>
-    <itunes:summary>Como o dia terminou nas bolsas e no Bitcoin.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-10-07_1705_mercado_fechamento.mp3" length="1702390" type="audio/mpeg"/>
-    <guid isPermaLink="false">48282c850793559d22c69f9549afcfd4</guid>
-    <pubDate>Wed, 07 Oct 2026 17:05:00 -0300</pubDate>
-    <itunes:duration>00:01:46</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Melhores Oportunidades — 07/10/2026 17:05</title>
-    <description>Onde estão as oportunidades do dia.</description>
-    <itunes:summary>Onde estão as oportunidades do dia.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-10-07_1705_mercado_oportunidades.mp3" length="1675641" type="audio/mpeg"/>
-    <guid isPermaLink="false">43280d1437d64782b1b42b2090508238</guid>
-    <pubDate>Wed, 07 Oct 2026 17:05:00 -0300</pubDate>
-    <itunes:duration>00:01:44</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
