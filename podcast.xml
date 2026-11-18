@@ -32,7 +32,27 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Wed, 18 Nov 2026 10:05:05 -0300</lastBuildDate>
+  <lastBuildDate>Wed, 18 Nov 2026 13:05:04 -0300</lastBuildDate>
+  <item>
+    <title>Siga o Dinheiro — 18/11/2026 13:05</title>
+    <description>O fluxo do dinheiro do dia, explicado.</description>
+    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-18_1305_fluxo_dinheiro.mp3" length="1975736" type="audio/mpeg"/>
+    <guid isPermaLink="false">2ad4627bc2c9bcb6c720a651413480b5</guid>
+    <pubDate>Wed, 18 Nov 2026 13:05:04 -0300</pubDate>
+    <itunes:duration>00:02:03</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Missão Bitcoin — 18/11/2026 13:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-18_1305_missao_bitcoin_cde.mp3" length="341515" type="audio/mpeg"/>
+    <guid isPermaLink="false">44cd69c5c49530127ad621d765b82a26</guid>
+    <pubDate>Wed, 18 Nov 2026 13:05:04 -0300</pubDate>
+    <itunes:duration>00:00:21</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Boletim de Notícias Bitcoin — 18/11/2026 10:05</title>
     <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
@@ -3011,26 +3031,6 @@
     <guid isPermaLink="false">42cfd32d565c055b32085281676b250c</guid>
     <pubDate>Thu, 08 Oct 2026 17:05:05 -0300</pubDate>
     <itunes:duration>00:00:22</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Siga o Dinheiro — 08/10/2026 13:05</title>
-    <description>O fluxo do dinheiro do dia, explicado.</description>
-    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-10-08_1305_fluxo_dinheiro.mp3" length="1444510" type="audio/mpeg"/>
-    <guid isPermaLink="false">75a5225639f558feac6d52a135fe98ba</guid>
-    <pubDate>Thu, 08 Oct 2026 13:05:04 -0300</pubDate>
-    <itunes:duration>00:01:30</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Plantão Bitcoin — 08/10/2026 13:05</title>
-    <description>Alerta de preço: o que aconteceu e por quê.</description>
-    <itunes:summary>Alerta de preço: o que aconteceu e por quê.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-10-08_1305_alerta_preco.mp3" length="558436" type="audio/mpeg"/>
-    <guid isPermaLink="false">f0b5a94b214746a3dc0bf6d1067a0a49</guid>
-    <pubDate>Thu, 08 Oct 2026 13:05:04 -0300</pubDate>
-    <itunes:duration>00:00:34</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
