@@ -32,7 +32,17 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Sun, 22 Nov 2026 13:05:05 -0300</lastBuildDate>
+  <lastBuildDate>Sun, 22 Nov 2026 17:05:00 -0300</lastBuildDate>
+  <item>
+    <title>Missão Bitcoin — 22/11/2026 17:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-22_1705_missao_bitcoin_cde.mp3" length="384565" type="audio/mpeg"/>
+    <guid isPermaLink="false">997a301f8fac24fa5e8b1a8dd394dc16</guid>
+    <pubDate>Sun, 22 Nov 2026 17:05:00 -0300</pubDate>
+    <itunes:duration>00:00:24</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Siga o Dinheiro — 22/11/2026 13:05</title>
     <description>O fluxo do dinheiro do dia, explicado.</description>
@@ -3021,16 +3031,6 @@
     <guid isPermaLink="false">abeb91192ff6e1a0ab9a47bb42753bb8</guid>
     <pubDate>Mon, 02 Nov 2026 17:05:05 -0300</pubDate>
     <itunes:duration>00:01:42</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Missão Bitcoin — 28/10/2026 22:05</title>
-    <description>A missão em campo: Bitcoin no mundo real.</description>
-    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-10-28_2205_missao_bitcoin_cde.mp3" length="371190" type="audio/mpeg"/>
-    <guid isPermaLink="false">021372ef17b2be4576b84e92199261e1</guid>
-    <pubDate>Wed, 28 Oct 2026 22:05:05 -0300</pubDate>
-    <itunes:duration>00:00:23</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
