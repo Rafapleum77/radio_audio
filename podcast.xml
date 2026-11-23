@@ -32,7 +32,27 @@
   <podcast:value type="lightning" method="lnaddress" suggested="0.00000005000">
     <podcast:valueRecipient name="Rádio Bitcoin.org" type="lnaddress" address="texugorecords@walletofsatoshi.com" split="100"/>
   </podcast:value>
-  <lastBuildDate>Mon, 23 Nov 2026 10:05:05 -0300</lastBuildDate>
+  <lastBuildDate>Mon, 23 Nov 2026 13:05:05 -0300</lastBuildDate>
+  <item>
+    <title>Siga o Dinheiro — 23/11/2026 13:05</title>
+    <description>O fluxo do dinheiro do dia, explicado.</description>
+    <itunes:summary>O fluxo do dinheiro do dia, explicado.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-23_1305_fluxo_dinheiro.mp3" length="1834883" type="audio/mpeg"/>
+    <guid isPermaLink="false">6d7b2bade7daf6e90a4bb1892a67f253</guid>
+    <pubDate>Mon, 23 Nov 2026 13:05:05 -0300</pubDate>
+    <itunes:duration>00:01:54</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
+  <item>
+    <title>Missão Bitcoin — 23/11/2026 13:05</title>
+    <description>A missão em campo: Bitcoin no mundo real.</description>
+    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
+    <enclosure url="https://podcast.radiobitcoin.org/2026-11-23_1305_missao_bitcoin_cde.mp3" length="303063" type="audio/mpeg"/>
+    <guid isPermaLink="false">249c8bcbd12d5bb71d1893492765270e</guid>
+    <pubDate>Mon, 23 Nov 2026 13:05:05 -0300</pubDate>
+    <itunes:duration>00:00:18</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+  </item>
   <item>
     <title>Boletim de Notícias Bitcoin — 23/11/2026 10:05</title>
     <description>O que moveu o Bitcoin nas últimas horas, em poucos minutos.</description>
@@ -3011,26 +3031,6 @@
     <guid isPermaLink="false">731e4cfbc0d45156e0932f2de8b9c8b2</guid>
     <pubDate>Mon, 02 Nov 2026 22:05:05 -0300</pubDate>
     <itunes:duration>00:00:50</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Plantão das IAs — 02/11/2026 22:05</title>
-    <description>O que a inteligência artificial aprontou hoje.</description>
-    <itunes:summary>O que a inteligência artificial aprontou hoje.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-11-02_2205_plantao_ia.mp3" length="1444510" type="audio/mpeg"/>
-    <guid isPermaLink="false">90fb6b0315e576232e943f597e1261ab</guid>
-    <pubDate>Mon, 02 Nov 2026 22:05:05 -0300</pubDate>
-    <itunes:duration>00:01:30</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-  </item>
-  <item>
-    <title>Missão Bitcoin — 02/11/2026 22:05</title>
-    <description>A missão em campo: Bitcoin no mundo real.</description>
-    <itunes:summary>A missão em campo: Bitcoin no mundo real.</itunes:summary>
-    <enclosure url="https://podcast.radiobitcoin.org/2026-11-02_2205_missao_bitcoin_cde.mp3" length="340261" type="audio/mpeg"/>
-    <guid isPermaLink="false">e733cad2cd75a2fa2529c0a60719f84e</guid>
-    <pubDate>Mon, 02 Nov 2026 22:05:05 -0300</pubDate>
-    <itunes:duration>00:00:21</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
   </item>
 </channel>
