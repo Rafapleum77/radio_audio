@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-27T18:10:00.191536+00:00",
+  "updated_at": "2026-11-27T19:10:30.144611+00:00",
   "tickers": [
     {
       "symbol": "MSTR",
@@ -36,10 +36,10 @@
     },
     {
       "symbol": "FBTC",
-      "price": 52.07,
+      "price": 52.0,
       "previous_close": 52.5,
-      "change_abs": -0.43,
-      "change_pct": -0.82,
+      "change_abs": -0.5,
+      "change_pct": -0.95,
       "currency": "USD",
       "market_state": "POST",
       "name": "Fidelity BTC ETF",
@@ -146,10 +146,10 @@
     },
     {
       "symbol": "TSM",
-      "price": 353.67,
+      "price": 353.34,
       "previous_close": 345.58,
-      "change_abs": 8.09,
-      "change_pct": 2.34,
+      "change_abs": 7.76,
+      "change_pct": 2.25,
       "currency": "USD",
       "market_state": "POST",
       "name": "Taiwan Semi",
